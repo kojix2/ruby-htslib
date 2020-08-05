@@ -1,5 +1,9 @@
 # HTSlib
 
+:apple: Feel free to fork it out if you can develop it! 
+
+:bowtie: Just a prototype. 
+
 ## Installation
 
 ```sh
