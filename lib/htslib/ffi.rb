@@ -3,10 +3,19 @@
 module HTSlib
   module Native
     extend FFI::Library
+
     begin
       ffi_lib HTSlib.ffi_lib
     rescue LoadError => e
       raise LoadError, 'Could not find HTSlib.so'
+    end
+
+    def self.attach_function(cname, args, returns, options={})
+      begin
+        super
+      rescue FFI::NotFoundError => e
+         warn e.message
+      end
     end
 
     # kstring
