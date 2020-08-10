@@ -157,16 +157,16 @@ module HTSlib
     # Should this be located at HTSlib Module? not HTSlib::Native?
     class HtsFormat < FFI::Struct
       layout \
-        :category,       HtsFormatCategory,
-        :format,         HtsExactFormat,
+        :category,          HtsFormatCategory,
+        :format,            HtsExactFormat,
         :version,
         struct_layout(
-          :major,     :short,
-          :minor,     :short
+          :major,           :short,
+          :minor,           :short
         ),
-        :compression, HtsCompression,
+        :compression,       HtsCompression,
         :compression_lebel, :short,
-        :specific, :pointer
+        :specific,          :pointer
     end
 
     class HtsIdx < FFI::Struct
@@ -425,7 +425,6 @@ module HTSlib
     attach_function   :kf_betai,                %i[double double double],                              :double
     attach_function   :kt_fisher_exact,         %i[int int int int pointer pointer pointer],           :double
 
-
     # hts
 
     # attach_function :hts_free, [:pointer], :void
@@ -513,7 +512,6 @@ module HTSlib
     # attach_function :tbx_index_load3,    %i[string string int],                          Tbx.by_ref
     attach_function   :tbx_seqnames,       [Tbx, :int],                                    :string
     attach_function   :tbx_destroy,        [Tbx],                                          :void
-
 
     # faidx
 
