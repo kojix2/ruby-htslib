@@ -160,13 +160,13 @@ module HTSlib
         :category,       HtsFormatCategory,
         :format,         HtsExactFormat,
         :version,
-        union_layout(
-          :major,        :short,
-          :minor,        :short
-        ).ptr,
+        struct_layout(
+          :major,     :short,
+          :minor,     :short
+        ),
         :compression, HtsCompression,
         :compression_lebel, :short,
-        :specific,       :pointer
+        :specific, :pointer
     end
 
     class HtsFile < FFI::Struct
