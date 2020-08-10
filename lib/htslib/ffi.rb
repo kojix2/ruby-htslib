@@ -36,30 +36,20 @@ module HTSlib
 
     # hfile
 
-    class HFILE < FFI::Struct
-      layout \
-        :buffer,         :string,
-        :begin,          :string,
-        :end,            :string,
-        :limit,          :string,
-        :backend,        :pointer, # FIXME
-        :offset,         :off_t,
-        :fuga,           :uint, # FIXME
-        :has_errno,      :int
-    end
+    typedef :pointer, :HFILE
 
-    attach_function   :hdopen,                 %i[int string],                  HFILE.by_ref
-    attach_function   :hisremote,              [:string],                       :int
-    # attach_function :haddextension,        [Kstring, :string, :int, :string], :string
-    attach_function   :hclose,                 [HFILE],                         :int
-    attach_function   :hclose_abruptly,        [HFILE],                         :void
-    attach_function   :hseek,                  [HFILE, :off_t, :int],           :off_t
-    attach_function   :hgetdelim,              [:string, :size_t, :int, HFILE], :ssize_t
-    attach_function   :hgets,                  [:string, :int, HFILE],          :string
-    attach_function   :hpeek,                  [HFILE, :pointer, :size_t],      :ssize_t
-    attach_function   :hflush,                 [HFILE],                         :int
-    attach_function   :hfile_mem_get_buffer,   [HFILE, :pointer],               :string
-    attach_function   :hfile_mem_steal_buffer, [HFILE, :pointer],               :string
+    attach_function   :hdopen,                 %i[int string],                    :HFILE
+    attach_function   :hisremote,              [:string],                         :int
+    # attach_function :haddextension,          [Kstring, :string, :int, :string], :string
+    attach_function   :hclose,                 [:HFILE],                          :int
+    attach_function   :hclose_abruptly,        [:HFILE],                          :void
+    attach_function   :hseek,                  %i[HFILE off_t int],               :off_t
+    attach_function   :hgetdelim,              %i[string size_t int HFILE],       :ssize_t
+    attach_function   :hgets,                  %i[string int HFILE],              :string
+    attach_function   :hpeek,                  %i[HFILE pointer size_t],          :ssize_t
+    attach_function   :hflush,                 [:HFILE],                          :int
+    attach_function   :hfile_mem_get_buffer,   %i[HFILE pointer],                 :string
+    attach_function   :hfile_mem_steal_buffer, %i[HFILE pointer],                 :string
 
     # BGZF
 
@@ -75,7 +65,7 @@ module HTSlib
         :uncompressed_block,     :pointer,
         :compressed_block,       :pointer,
         :cache,                  :pointer,
-        :fp,                     HFILE,
+        :fp,                     :HFILE,
         :mt,                     :pointer,
         :idx,                    :pointer,
         :idx_build_otf,          :int,
@@ -83,34 +73,34 @@ module HTSlib
         :seeked,                 :int64
     end
 
-    attach_function   :bgzf_dopen,             %i[int string],                  BGZF.by_ref
-    attach_function   :bgzf_open,              %i[string string],               BGZF.by_ref
-    attach_function   :bgzf_hopen,             [HFILE, :string],                BGZF.by_ref
-    attach_function   :bgzf_close,             [HFILE],                         :int
-    attach_function   :bgzf_read,              [HFILE, :pointer, :size_t],      :size_t
-    attach_function   :bgzf_write,             [BGZF, :pointer, :size_t],       :ssize_t
-    # attach_function :bgzf_peek,            [BGZF],                            :int
-    attach_function   :bgzf_raw_read,          [BGZF, :pointer, :size_t],       :ssize_t
-    attach_function   :bgzf_raw_write,         [BGZF, :pointer, :size_t],       :ssize_t
-    attach_function   :bgzf_flush,             [BGZF],                          :int
-    attach_function   :bgzf_seek,              [BGZF, :int64, :int],            :int64
-    attach_function   :bgzf_check_EOF,         [BGZF],                          :int
-    attach_function   :bgzf_compression,       [BGZF],                          :int
-    attach_function   :bgzf_is_bgzf,           [:string],                       :int
-    attach_function   :bgzf_set_cache_size,    [BGZF, :int],                    :void
-    attach_function   :bgzf_flush_try,         [BGZF, :ssize_t],                :int
-    attach_function   :bgzf_getc,              [BGZF],                          :int
-    attach_function   :bgzf_getline,           [BGZF, :int, Kstring],           :int
-    attach_function   :bgzf_read_block,        [BGZF],                          :int
-    attach_function   :bgzf_mt,                [BGZF, :int, :int],              :int
+    attach_function   :bgzf_dopen,             %i[int string],                         BGZF.by_ref
+    attach_function   :bgzf_open,              %i[string string],                      BGZF.by_ref
+    attach_function   :bgzf_hopen,             %i[HFILE string],                       BGZF.by_ref
+    attach_function   :bgzf_close,             [:HFILE],                               :int
+    attach_function   :bgzf_read,              %i[HFILE pointer size_t],               :size_t
+    attach_function   :bgzf_write,             [BGZF, :pointer, :size_t],              :ssize_t
+    # attach_function :bgzf_peek,              [BGZF],                                 :int
+    attach_function   :bgzf_raw_read,          [BGZF, :pointer, :size_t],              :ssize_t
+    attach_function   :bgzf_raw_write,         [BGZF, :pointer, :size_t],              :ssize_t
+    attach_function   :bgzf_flush,             [BGZF],                                 :int
+    attach_function   :bgzf_seek,              [BGZF, :int64, :int],                   :int64
+    attach_function   :bgzf_check_EOF,         [BGZF],                                 :int
+    attach_function   :bgzf_compression,       [BGZF],                                 :int
+    attach_function   :bgzf_is_bgzf,           [:string],                              :int
+    attach_function   :bgzf_set_cache_size,    [BGZF, :int],                           :void
+    attach_function   :bgzf_flush_try,         [BGZF, :ssize_t],                       :int
+    attach_function   :bgzf_getc,              [BGZF],                                 :int
+    attach_function   :bgzf_getline,           [BGZF, :int, Kstring],                  :int
+    attach_function   :bgzf_read_block,        [BGZF],                                 :int
+    attach_function   :bgzf_mt,                [BGZF, :int, :int],                     :int
     attach_function   :bgzf_compress,          %i[pointer pointer pointer size_t int], :int
-    attach_function   :bgzf_useek,             [BGZF, :off_t, :int],            :int
-    attach_function   :bgzf_utell,             [BGZF],                          :off_t
-    attach_function   :bgzf_index_build_init,  [BGZF],                          :int
-    attach_function   :bgzf_index_load,        [BGZF, :string, :string],        :int
-    attach_function   :bgzf_index_load_hfile,  [BGZF, HFILE, :string],          :int
-    attach_function   :bgzf_index_dump,        [BGZF, :string, :string],        :int
-    attach_function   :bgzf_index_dump_hfile,  [BGZF, HFILE, :string],          :int
+    attach_function   :bgzf_useek,             [BGZF, :off_t, :int],                   :int
+    attach_function   :bgzf_utell,             [BGZF],                                 :off_t
+    attach_function   :bgzf_index_build_init,  [BGZF],                                 :int
+    attach_function   :bgzf_index_load,        [BGZF, :string, :string],               :int
+    attach_function   :bgzf_index_load_hfile,  [BGZF, :HFILE, :string],                :int
+    attach_function   :bgzf_index_dump,        [BGZF, :string, :string],               :int
+    attach_function   :bgzf_index_dump_hfile,  [BGZF, :HFILE, :string],                :int
 
     # hts
 
@@ -272,11 +262,11 @@ module HTSlib
     attach_function   :hts_parse_format,          [HtsFormat, :string],           :int
     attach_function   :hts_parse_opt_list,        [HtsFormat, :string],           :int
     attach_function   :hts_version,               %i[],                           :string
-    attach_function   :hts_detect_format,         [HFILE, HtsFormat],             :int
+    attach_function   :hts_detect_format,         [:HFILE, HtsFormat], :int
     attach_function   :hts_format_description,    [HtsFormat],                    :string
     attach_function   :hts_open,                  %i[string string],              HtsFile.by_ref
     attach_function   :hts_open_format,           [:string, :string, HtsFormat],  HtsFile.by_ref
-    attach_function   :hts_hopen,                 [HFILE, :string, :string],      HtsFile.by_ref
+    attach_function   :hts_hopen,                 %i[HFILE string string], HtsFile.by_ref
     attach_function   :hts_close,                 [HtsFile],                      :int
     attach_function   :hts_get_format,            [HtsFile],                      HtsFormat.by_ref
     attach_function   :hts_format_file_extension, [HtsFormat],                    :string
