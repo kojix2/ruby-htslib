@@ -169,35 +169,6 @@ module HTSlib
         :specific, :pointer
     end
 
-    class HtsFile < FFI::Struct
-      layout \
-        :foo,            :uint32, # FIXME
-        :lineno,         :int64,
-        :line,           Kstring,
-        :fn,             :string,
-        :fn_aux,         :string,
-        :fp,             :pointer,
-        :format,         HtsFormat
-    end
-
-    class HtsThreadPool < FFI::Struct
-      layout \
-        :pool,           :pointer,
-        :qsize,          :int
-    end
-
-    class HtsOpt < FFI::Struct
-      layout \
-        :arg,            :string,
-        :opt,            HtsFmtOption,
-        :val,
-        union_layout(
-          :i,            :int,
-          :s,            :string
-        ),
-        :next,           HtsOpt.ptr
-    end
-
     class HtsIdx < FFI::Struct
       layout \
         :fmt,            :int,
@@ -230,6 +201,60 @@ module HTSlib
         )
     end
 
+    class SamHdr < FFI::Struct # HtsFile
+      layout \
+        :n_targets,      :int32,
+        :ignore_sam_err, :int32,
+        :l_text,         :size_t,
+        :target_len,     :pointer,
+        :cigar_tab,      :pointer,
+        :target_name,    :pointer,
+        :text,           :string,
+        :sdict,          :pointer,
+        :hrecs,          :pointer,
+        :ref_count,      :uint32
+    end
+    BamHdr = SamHdr
+
+    class HtsFile < FFI::Struct
+      layout \
+        :bitfields,      :uint32, # FIXME
+        :lineno,         :int64,
+        :line,           Kstring,
+        :fn,             :string,
+        :fn_aux,         :string,
+        :fp,
+        union_layout(
+          :bgzf,         BGZF.ptr,
+          :cram,         :pointer,
+          :hfile,        :pointer # HFILE
+        ),
+        :state,          :pointer,
+        :format,         HtsFormat,
+        :idx,            HtsIdx.ptr,
+        :fnidx,          :string,
+        :bam_header,     SamHdr.ptr
+    end
+    SamFile = HtsFile
+
+    class HtsThreadPool < FFI::Struct
+      layout \
+        :pool,           :pointer,
+        :qsize,          :int
+    end
+
+    class HtsOpt < FFI::Struct
+      layout \
+        :arg,            :string,
+        :opt,            HtsFmtOption,
+        :val,
+        union_layout(
+          :i,            :int,
+          :s,            :string
+        ),
+        :next,           HtsOpt.ptr
+    end
+
     class HtsItr < FFI::Struct
       layout \
         :foo,            :uint32, # FIXME
@@ -259,108 +284,7 @@ module HTSlib
         )
     end
 
-    # attach_function :hts_free, [:pointer], :void
-    # attach_function :hts_opt_add
-    attach_function   :hts_opt_apply,             [HtsFile, HtsOpt],              :int
-    attach_function   :hts_opt_free,              [HtsOpt],                       :void
-    attach_function   :hts_parse_format,          [HtsFormat, :string],           :int
-    attach_function   :hts_parse_opt_list,        [HtsFormat, :string],           :int
-    attach_function   :hts_version,               %i[],                           :string
-    attach_function   :hts_detect_format,         [:HFILE, HtsFormat], :int
-    attach_function   :hts_format_description,    [HtsFormat],                    :string
-    attach_function   :hts_open,                  %i[string string],              HtsFile.by_ref
-    attach_function   :hts_open_format,           [:string, :string, HtsFormat],  HtsFile.by_ref
-    attach_function   :hts_hopen,                 %i[HFILE string string], HtsFile.by_ref
-    attach_function   :hts_close,                 [HtsFile],                      :int
-    attach_function   :hts_get_format,            [HtsFile],                      HtsFormat.by_ref
-    attach_function   :hts_format_file_extension, [HtsFormat],                    :string
-    # attach_function :hts_set_opt
-    attach_function   :hts_getline,               [HtsFile, :int, Kstring],       :int
-    attach_function   :hts_readlines,             %i[string pointer],             :pointer
-    attach_function   :hts_readlist,              %i[string int pointer],         :pointer
-
-    attach_function   :hts_set_threads,           [HtsFile, :int],                :int
-    attach_function   :hts_set_thread_pool,       [HtsFile, HtsThreadPool],       :int
-    attach_function   :hts_set_cache_size,        [HtsFile, :int],                :void
-    attach_function   :hts_set_fai_filename,      [HtsFile, :string],             :int
-    attach_function   :hts_check_EOF,             [HtsFile],                      :int
-
-    # typedef int64_t hts_pos_t;
-
-    attach_function   :hts_idx_init,              %i[int int uint64 int int],                    :pointer
-    attach_function   :hts_idx_destroy,           [HtsIdx],                                      :void
-    attach_function   :hts_idx_push,              [HtsIdx, :int, :int64, :int64, :uint64, :int], :int
-    attach_function   :hts_idx_finish,            [HtsIdx, :uint64],                             :int
-    # attach_function :hts_idx_fmt,               [HtsIdx],                                      :int
-    # attach_function :hts_idx_tbi_name,          [HtsIdx, :int, :string],                       :int
-    attach_function   :hts_idx_save,              [HtsIdx, :string, :int],                       :int
-    attach_function   :hts_idx_save_as,           [HtsIdx, :string, :string, :int],              :int
-    attach_function   :hts_idx_load,              %i[string int],                                HtsIdx.by_ref
-    attach_function   :hts_idx_load2,             %i[string string],                             HtsIdx.by_ref
-    # attach_function :hts_idx_load3,             %i[string string int int],                     HtsIdx.by_ref
-    attach_function   :hts_idx_get_meta,          [HtsIdx, :pointer],                           :uint8
-    attach_function   :hts_idx_set_meta,          [HtsIdx, :uint32, :pointer, :int],            :int
-    attach_function   :hts_idx_get_stat,          [HtsIdx, :int, :pointer, :pointer],           :int
-    attach_function   :hts_idx_get_n_no_coor,     [HtsIdx], :uint64
-    attach_function   :hts_parse_decimal,         %i[string pointer int],                       :long_long
-    # attach_function :hts_parse_reg64,           %i[string pointer pointer],                   :string
-    attach_function   :hts_parse_reg,             %i[string pointer pointer],                   :string
-    # attach_function :hts_parse_region,          %i[string pointer pointer pointer pointer int]
-    # attach_function :hts_itr_query
-    attach_function   :hts_itr_destroy,           [HtsItr],                                     :void
-    # attach_function :hts_itr_querys
-    attach_function   :hts_itr_next,              [BGZF, HtsItr, :pointer, :pointer],           :int
-
-    # attach_function :sam_hdr_tid2name,          [:pointer, :int],                             :string
-
-    # tbx
-
-    class TbxConf < FFI::Struct
-      layout \
-        :preset,         :int32,
-        :sc,             :int32,
-        :bc,             :int32,
-        :ec,             :int32,
-        :meta_char,      :int32,
-        :line_skip,      :int32
-    end
-
-    class Tbx < FFI::Struct
-      layout \
-        :conf,           TbxConf.ptr,
-        :idx,            HtsIdx.ptr,
-        :dict,           :pointer
-    end
-
-    attach_function   :tbx_name2id,        [Tbx, :string],                                 :int
-    attach_function   :hts_get_bgzfp,      [HtsFile],                                      BGZF.by_ref
-    attach_function   :tbx_readrec,        [BGZF, :pointer, :pointer, :pointer, :pointer], :int
-    attach_function   :tbx_index,          [BGZF, :int, TbxConf],                          :int
-    attach_function   :tbx_index_build,    [:string, :int, TbxConf],                       :int
-    attach_function   :tbx_index_build2,   [:string, :string, :int, TbxConf],              :int
-    attach_function   :tbx_index_build3,   [:string, :string, :int, :int, TbxConf],        :int
-    attach_function   :tbx_index_load,     [:string],                                      Tbx.by_ref
-    attach_function   :tbx_index_load2,    %i[string string],                              Tbx.by_ref
-    # attach_function :tbx_index_load3,    %i[string string int],                          Tbx.by_ref
-    attach_function   :tbx_seqnames,       [Tbx, :int],                                    :string
-    attach_function   :tbx_destroy,        [Tbx],                                          :void
-
     # sam
-
-    class SamHdr < FFI::Struct
-      layout \
-        :n_targets,      :int32,
-        :ignore_sam_err, :int32,
-        :l_text,         :size_t,
-        :target_len,     :pointer,
-        :cigar_tab,      :pointer,
-        :target_name,    :pointer,
-        :text,           :string,
-        :sdict,          :pointer,
-        :hrecs,          :pointer,
-        :ref_count,      :uint32
-    end
-    BamHdr = SamHdr
 
     typedef :int64, :hts_pos_t
 
@@ -384,7 +308,7 @@ module HTSlib
       layout \
         :core,           Bam1Core,
         :id,             :uint64,
-        :data,           :pointer,
+        :data,           :pointer, # uint8_t
         :l_data,         :int,
         :m_data,         :uint32,
         :mempolicy,      :uint32
@@ -500,6 +424,96 @@ module HTSlib
     attach_function   :kf_gammaq,               %i[double double],                                     :double
     attach_function   :kf_betai,                %i[double double double],                              :double
     attach_function   :kt_fisher_exact,         %i[int int int int pointer pointer pointer],           :double
+
+
+    # hts
+
+    # attach_function :hts_free, [:pointer], :void
+    # attach_function :hts_opt_add
+    attach_function   :hts_opt_apply,             [HtsFile, HtsOpt],              :int
+    attach_function   :hts_opt_free,              [HtsOpt],                       :void
+    attach_function   :hts_parse_format,          [HtsFormat, :string],           :int
+    attach_function   :hts_parse_opt_list,        [HtsFormat, :string],           :int
+    attach_function   :hts_version,               %i[],                           :string
+    attach_function   :hts_detect_format,         [:HFILE, HtsFormat], :int
+    attach_function   :hts_format_description,    [HtsFormat],                    :string
+    attach_function   :hts_open,                  %i[string string],              HtsFile.by_ref
+    attach_function   :hts_open_format,           [:string, :string, HtsFormat],  HtsFile.by_ref
+    attach_function   :hts_hopen,                 %i[HFILE string string], HtsFile.by_ref
+    attach_function   :hts_close,                 [HtsFile],                      :int
+    attach_function   :hts_get_format,            [HtsFile],                      HtsFormat.by_ref
+    attach_function   :hts_format_file_extension, [HtsFormat],                    :string
+    # attach_function :hts_set_opt
+    attach_function   :hts_getline,               [HtsFile, :int, Kstring],       :int
+    attach_function   :hts_readlines,             %i[string pointer],             :pointer
+    attach_function   :hts_readlist,              %i[string int pointer],         :pointer
+
+    attach_function   :hts_set_threads,           [HtsFile, :int],                :int
+    attach_function   :hts_set_thread_pool,       [HtsFile, HtsThreadPool],       :int
+    attach_function   :hts_set_cache_size,        [HtsFile, :int],                :void
+    attach_function   :hts_set_fai_filename,      [HtsFile, :string],             :int
+    attach_function   :hts_check_EOF,             [HtsFile],                      :int
+
+    # typedef int64_t hts_pos_t;
+
+    attach_function   :hts_idx_init,              %i[int int uint64 int int],                    :pointer
+    attach_function   :hts_idx_destroy,           [HtsIdx],                                      :void
+    attach_function   :hts_idx_push,              [HtsIdx, :int, :int64, :int64, :uint64, :int], :int
+    attach_function   :hts_idx_finish,            [HtsIdx, :uint64],                             :int
+    # attach_function :hts_idx_fmt,               [HtsIdx],                                      :int
+    # attach_function :hts_idx_tbi_name,          [HtsIdx, :int, :string],                       :int
+    attach_function   :hts_idx_save,              [HtsIdx, :string, :int],                       :int
+    attach_function   :hts_idx_save_as,           [HtsIdx, :string, :string, :int],              :int
+    attach_function   :hts_idx_load,              %i[string int],                                HtsIdx.by_ref
+    attach_function   :hts_idx_load2,             %i[string string],                             HtsIdx.by_ref
+    # attach_function :hts_idx_load3,             %i[string string int int],                     HtsIdx.by_ref
+    attach_function   :hts_idx_get_meta,          [HtsIdx, :pointer],                           :uint8
+    attach_function   :hts_idx_set_meta,          [HtsIdx, :uint32, :pointer, :int],            :int
+    attach_function   :hts_idx_get_stat,          [HtsIdx, :int, :pointer, :pointer],           :int
+    attach_function   :hts_idx_get_n_no_coor,     [HtsIdx], :uint64
+    attach_function   :hts_parse_decimal,         %i[string pointer int],                       :long_long
+    # attach_function :hts_parse_reg64,           %i[string pointer pointer],                   :string
+    attach_function   :hts_parse_reg,             %i[string pointer pointer],                   :string
+    # attach_function :hts_parse_region,          %i[string pointer pointer pointer pointer int]
+    # attach_function :hts_itr_query
+    attach_function   :hts_itr_destroy,           [HtsItr],                                     :void
+    # attach_function :hts_itr_querys
+    attach_function   :hts_itr_next,              [BGZF, HtsItr, :pointer, :pointer],           :int
+
+    # attach_function :sam_hdr_tid2name,          [:pointer, :int],                             :string
+
+    # tbx
+
+    class TbxConf < FFI::Struct
+      layout \
+        :preset,         :int32,
+        :sc,             :int32,
+        :bc,             :int32,
+        :ec,             :int32,
+        :meta_char,      :int32,
+        :line_skip,      :int32
+    end
+
+    class Tbx < FFI::Struct
+      layout \
+        :conf,           TbxConf.ptr,
+        :idx,            HtsIdx.ptr,
+        :dict,           :pointer
+    end
+
+    attach_function   :tbx_name2id,        [Tbx, :string],                                 :int
+    attach_function   :hts_get_bgzfp,      [HtsFile],                                      BGZF.by_ref
+    attach_function   :tbx_readrec,        [BGZF, :pointer, :pointer, :pointer, :pointer], :int
+    attach_function   :tbx_index,          [BGZF, :int, TbxConf],                          :int
+    attach_function   :tbx_index_build,    [:string, :int, TbxConf],                       :int
+    attach_function   :tbx_index_build2,   [:string, :string, :int, TbxConf],              :int
+    attach_function   :tbx_index_build3,   [:string, :string, :int, :int, TbxConf],        :int
+    attach_function   :tbx_index_load,     [:string],                                      Tbx.by_ref
+    attach_function   :tbx_index_load2,    %i[string string],                              Tbx.by_ref
+    # attach_function :tbx_index_load3,    %i[string string int],                          Tbx.by_ref
+    attach_function   :tbx_seqnames,       [Tbx, :int],                                    :string
+    attach_function   :tbx_destroy,        [Tbx],                                          :void
+
 
     # faidx
 
