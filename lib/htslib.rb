@@ -13,3 +13,6 @@ module HTS
   self.ffi_lib = File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", ENV['HTSLIBDIR'])
   autoload :Native, 'hts/ffi'
 end
+
+# alias
+HTSlib = HTS
