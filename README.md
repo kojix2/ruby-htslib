@@ -1,5 +1,7 @@
 # HTSlib
 
+![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg?branch=master)
+
 :apple: Feel free to fork it out if you can develop it! 
 
 :bowtie: Just a prototype. 
