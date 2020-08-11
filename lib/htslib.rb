@@ -2,14 +2,14 @@
 
 require 'ffi'
 
-require 'htslib/version'
+require 'hts/version'
 
-module HTSlib
+module HTS
   class Error < StandardError; end
 
   class << self
     attr_accessor :ffi_lib
   end
   self.ffi_lib = File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", ENV['HTSLIBDIR'])
-  autoload :Native, 'htslib/ffi'
+  autoload :Native, 'hts/ffi'
 end

@@ -13,12 +13,12 @@ module FFI
   end
 end
 
-module HTSlib
+module HTS
   module Native
     extend FFI::Library
 
     begin
-      ffi_lib HTSlib.ffi_lib
+      ffi_lib HTS.ffi_lib
     rescue LoadError => e
       raise LoadError, 'Could not find HTSlib.so'
     end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/htslib/version'
+require_relative 'lib/hts/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'htslib'
-  spec.version       = HTSlib::VERSION
+  spec.version       = HTS::VERSION
   spec.authors       = ['kojix2']
   spec.email         = ['2xijok@gmail.com']
 
