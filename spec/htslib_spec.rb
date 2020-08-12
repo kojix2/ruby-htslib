@@ -6,6 +6,6 @@ RSpec.describe HTS do
   end
 
   it 'does something useful' do
-    expect(HTS::Native.hts_version).not_to be nil
+    expect(HTS::FFI.hts_version).not_to be nil
   end
 end

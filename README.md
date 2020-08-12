@@ -27,8 +27,8 @@ export HTSLIBDIR="/your/path/to/htslib"
 ```ruby
 require 'htslib'
 
-a = HTSlib::Native.hts_open("a.bam", "r")
-b = HTSlib::Native.hts_get_format(a)
+a = HTS::FFI.hts_open("a.bam", "r")
+b = HTS::FFI.hts_get_format(a)
 p b[:category]
 p b[:format]
 ```
