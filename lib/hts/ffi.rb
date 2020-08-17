@@ -165,7 +165,7 @@ module HTS
           :minor,           :short
         ),
         :compression,       HtsCompression,
-        :compression_lebel, :short,
+        :compression_level, :short,
         :specific,          :pointer
     end
 
