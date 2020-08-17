@@ -37,7 +37,7 @@ p b[:format]
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/htslib.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ruby-htslib.
 
 
 ## License
