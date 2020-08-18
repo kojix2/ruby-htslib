@@ -42,18 +42,83 @@ module HTS
 
     typedef :pointer, :HFILE
 
-    attach_function   :hdopen,                 %i[int string],                    :HFILE
-    attach_function   :hisremote,              [:string],                         :int
-    # attach_function :haddextension,          [Kstring, :string, :int, :string], :string
-    attach_function   :hclose,                 [:HFILE],                          :int
-    attach_function   :hclose_abruptly,        [:HFILE],                          :void
-    attach_function   :hseek,                  %i[HFILE off_t int],               :off_t
-    attach_function   :hgetdelim,              %i[string size_t int HFILE],       :ssize_t
-    attach_function   :hgets,                  %i[string int HFILE],              :string
-    attach_function   :hpeek,                  %i[HFILE pointer size_t],          :ssize_t
-    attach_function   :hflush,                 [:HFILE],                          :int
-    attach_function   :hfile_mem_get_buffer,   %i[HFILE pointer],                 :string
-    attach_function   :hfile_mem_steal_buffer, %i[HFILE pointer],                 :string
+    # Open the named file or URL as a stream
+    attach_function \
+      :hopen,
+      %i[string string varargs],
+      :HFILE
+
+    # Associate a stream with an existing open file descriptor
+    attach_function \
+      :hdopen,
+      %i[int string],
+      :HFILE
+
+    # Report whether the file name or URL denotes remote storage
+    attach_function \
+      :hisremote,
+      [:string],
+      :int
+
+    # Append an extension or replace an existing extension
+    attach_function \
+      :haddextension,
+      [Kstring, :string, :int, :string],
+      :string
+
+    # Flush (for output streams) and close the stream
+    attach_function \
+      :hclose,
+      [:HFILE],
+      :int
+
+    # Close the stream, without flushing or propagating errors
+    attach_function \
+      :hclose_abruptly,
+      [:HFILE],
+      :void
+
+    # Reposition the read/write stream offset
+    attach_function \
+      :hseek,
+      %i[HFILE off_t int],
+      :off_t
+
+    # Read from the stream until the delimiter, up to a maximum length
+    attach_function \
+      :hgetdelim,
+      %i[string size_t int HFILE],
+      :ssize_t
+
+    # Read a line from the stream, up to a maximum length
+    attach_function \
+      :hgets,
+      %i[string int HFILE],
+      :string
+
+    # Peek at characters to be read without removing them from buffers
+    attach_function \
+      :hpeek,
+      %i[HFILE pointer size_t],
+      :ssize_t
+
+    # For writing streams, flush buffered output to the underlying stream
+    attach_function \
+      :hflush,
+      [:HFILE],
+      :int
+
+    # For hfile_mem: get the internal buffer and it's size from a hfile
+    attach_function \
+      :hfile_mem_get_buffer,
+      %i[HFILE pointer],
+      :string
+
+    # For hfile_mem: get the internal buffer and it's size from a hfile.
+    attach_function \
+      :hfile_mem_steal_buffer,
+      %i[HFILE pointer],
+      :string
 
     # BGZF
 
@@ -331,8 +396,8 @@ module HTS
     BAM_CDIFF      = 8
     BAM_CBACK      = 9
 
-    BAM_CIGAR_STR   = "MIDNSHP=XB"
-    _BAM_CIGAR_STR_PADDED = "MIDNSHP=XB??????"
+    BAM_CIGAR_STR = 'MIDNSHP=XB'
+    _BAM_CIGAR_STR_PADDED = 'MIDNSHP=XB??????'
     BAM_CIGAR_SHIFT = 4
     BAM_CIGAR_MASK  = 0xf
     BAM_CIGAR_TYPE  = 0x3C1A7
@@ -355,7 +420,7 @@ module HTS
       end
 
       def bam_cigar_type(o)
-        BAM_CIGAR_TYPE >> (o<<1) & 3
+        BAM_CIGAR_TYPE >> (o << 1) & 3
       end
     end
 
@@ -389,7 +454,7 @@ module HTS
       def bam_get_cigar(b)
         b[:data] + b[:core][:l_qname]
       end
-  
+
       def bam_get_seq(b)
         b[:data] + (b[:core][:n_cigar] << 2) + b[:core][:l_qname]
       end
