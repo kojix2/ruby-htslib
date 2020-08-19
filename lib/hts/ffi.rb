@@ -1085,10 +1085,30 @@ module HTS
       [Bam1, :pointer],
       :int
 
-    attach_function   :bam_aux_update_str,      [Bam1, :string, :int, :string],                        :int
-    attach_function   :bam_aux_update_int,      [Bam1, :string, :int64],                               :int
-    attach_function   :bam_aux_update_float,    [Bam1, :string, :float],                               :int
-    attach_function   :bam_aux_update_array,    [Bam1, :string, :uint8, :uint, :pointer],              :int
+    # Update or add a string-type tag
+    attach_function \
+      :bam_aux_update_str,
+      [Bam1, :string, :int, :string],
+      :int
+
+    # Update or add an integer tag
+    attach_function \
+      :bam_aux_update_int,
+      [Bam1, :string, :int64],
+      :int
+
+    # Update or add a floating-point tag
+    attach_function \
+      :bam_aux_update_float,
+      [Bam1, :string, :float],
+      :int
+
+    # Update or add an array tag
+    attach_function \
+      :bam_aux_update_array,
+      [Bam1, :string, :uint8, :uint32, :pointer],
+      :int
+
     # attach_function :bam_plp_init,            [func::bam_plp_auto_f, :pointer ],                     BamPlp
     attach_function   :bam_plp_destroy,         [BamPlp],                                              :void
     # attach_function :bam_plp_push,            [iter::, Bam1 ],                                       :int
