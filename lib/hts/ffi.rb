@@ -992,22 +992,99 @@ module HTS
       %i[string string string],
       :int
 
-    attach_function   :sam_open_mode_opts,      %i[string string string],                              :string
-    attach_function   :sam_hdr_change_HD,       [SamHdr, :string, :string],                            :int
-    attach_function   :sam_parse1,              [Kstring, SamHdr, Bam1],                               :int
-    attach_function   :sam_format1,             [SamHdr, Bam1, Kstring],                               :int
-    attach_function   :sam_read1,               [HtsFile, SamHdr, Bam1],                               :int
-    attach_function   :sam_write1,              [HtsFile, SamHdr, Bam1],                               :int
-    attach_function   :bam_aux_get,             [Bam1, :string],                                       :pointer
-    attach_function   :bam_aux2i,               [:pointer],                                            :int64
-    attach_function   :bam_aux2f,               [:pointer],                                            :double
-    attach_function   :bam_aux2A,               [:pointer],                                            :string
-    attach_function   :bam_aux2Z,               [:pointer],                                            :string
-    attach_function   :bam_auxB_len,            [:pointer],                                            :uint
-    attach_function   :bam_auxB2i,              %i[pointer uint],                                      :int64
-    attach_function   :bam_auxB2f,              %i[pointer uint],                                      :double
-    attach_function   :bam_aux_append,          [Bam1, :string, :string, :int, :pointer],              :int
-    attach_function   :bam_aux_del,             [Bam1, :pointer],                                      :int
+    # A version of sam_open_mode that can handle ,key=value options.
+    attach_function \
+      :sam_open_mode_opts,
+      %i[string string string],
+      :string
+
+    attach_function \
+      :sam_hdr_change_HD,
+      [SamHdr, :string, :string],
+      :int
+
+    attach_function \
+      :sam_parse1,
+      [Kstring, SamHdr, Bam1],
+      :int
+
+    attach_function \
+      :sam_format1,
+      [SamHdr, Bam1, Kstring],
+      :int
+
+    # Read a record from a file
+    attach_function \
+      :sam_read1,
+      [HtsFile, SamHdr, Bam1],
+      :int
+
+    # Write a record to a file
+    attach_function \
+      :sam_write1,
+      [HtsFile, SamHdr, Bam1],
+      :int
+
+    # Return a pointer to an aux record
+    attach_function \
+      :bam_aux_get,
+      [Bam1, :string], # FIXME
+      :pointer
+
+    # Get an integer aux value
+    attach_function \
+      :bam_aux2i,
+      [:pointer],
+      :int64
+
+    # Get an integer aux value
+    attach_function \
+      :bam_aux2f,
+      [:pointer],
+      :double
+
+    # Get a character aux value
+    attach_function \
+      :bam_aux2A,
+      [:pointer],
+      :string
+
+    # Get a string aux value
+    attach_function \
+      :bam_aux2Z,
+      [:pointer],
+      :string
+
+    # Get the length of an array-type ('B') tag
+    attach_function \
+      :bam_auxB_len,
+      [:pointer],
+      :uint
+
+    # Get an integer value from an array-type tag
+    attach_function \
+      :bam_auxB2i,
+      %i[pointer uint],
+      :int64
+
+    # Get a floating-point value from an array-type tag
+    attach_function \
+      :bam_auxB2f,
+      %i[pointer uint],
+      :double
+
+    # Append tag data to a bam record
+    attach_function \
+      :bam_aux_append,
+      [Bam1, :string, :string, :int, :pointer],
+      :int
+
+    # Delete tag data from a bam record
+    attach_function \
+      :bam_aux_del,
+      [Bam1, :pointer],
+      :int
+
     attach_function   :bam_aux_update_str,      [Bam1, :string, :int, :string],                        :int
     attach_function   :bam_aux_update_int,      [Bam1, :string, :int64],                               :int
     attach_function   :bam_aux_update_float,    [Bam1, :string, :float],                               :int
