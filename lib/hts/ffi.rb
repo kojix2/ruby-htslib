@@ -635,62 +635,363 @@ module HTS
       # def bam_set_seqi(s, i, b)
     end
 
-    attach_function   :sam_hdr_init,            [],                                                    SamHdr.by_ref
-    attach_function   :bam_hdr_read,            [BGZF],                                                SamHdr.by_ref
-    attach_function   :bam_hdr_write,           [BGZF, SamHdr],                                        :int
-    attach_function   :sam_hdr_destroy,         [SamHdr],                                              :void
-    attach_function   :sam_hdr_dup,             [SamHdr],                                              SamHdr.by_ref
-    attach_function   :sam_hdr_parse,           %i[size_t string],                                     SamHdr.by_ref
-    attach_function   :sam_hdr_read,            [HtsFile],                                             SamHdr.by_ref
-    attach_function   :sam_hdr_write,           [HtsFile, SamHdr],                                     :int
-    attach_function   :sam_hdr_length,          [SamHdr],                                              :size_t
-    attach_function   :sam_hdr_str,             [SamHdr],                                              :string
-    attach_function   :sam_hdr_nref,            [SamHdr],                                              :int
-    attach_function   :sam_hdr_add_lines,       [SamHdr, :string, :size_t],                            :int
-    attach_function   :sam_hdr_find_line_id,    [SamHdr, :string, :string, :string, Kstring],          :int
-    attach_function   :sam_hdr_find_line_pos,   [SamHdr, :string, :int, Kstring],                      :int
-    attach_function   :sam_hdr_remove_line_id,  [SamHdr, :string, :string, :string],                   :int
-    attach_function   :sam_hdr_remove_line_pos, [SamHdr, :string, :int],                               :int
-    attach_function   :sam_hdr_remove_except,   [SamHdr, :string, :string, :string],                   :int
-    attach_function   :sam_hdr_remove_lines,    [SamHdr, :string, :string, :pointer],                  :int
-    attach_function   :sam_hdr_count_lines,     [SamHdr, :string],                                     :int
-    attach_function   :sam_hdr_line_index,      [SamHdr, :string, :string],                            :int
-    attach_function   :sam_hdr_line_name,       [SamHdr, :string, :int],                               :string
-    attach_function   :sam_hdr_find_tag_id,     [SamHdr, :string, :string, :string, :string, Kstring], :int
-    attach_function   :sam_hdr_find_tag_pos,    [SamHdr, :string, :int, :string, Kstring],             :int
-    attach_function   :sam_hdr_remove_tag_id,   [SamHdr, :string, :string, :string, :string],          :int
-    attach_function   :sam_hdr_name2tid,        [SamHdr, :string],                                     :int
-    attach_function   :sam_hdr_tid2name,        [SamHdr, :int],                                        :string
-    attach_function   :sam_hdr_tid2len,         [SamHdr, :int],                                        :int64
-    attach_function   :sam_hdr_pg_id,           [SamHdr, :string],                                     :string
-    attach_function   :stringify_argv,          %i[int pointer],                                       :string
-    attach_function   :sam_hdr_incr_ref,        [SamHdr],                                              :void
-    attach_function   :bam_init1,               [],                                                    Bam1.by_ref
-    attach_function   :bam_destroy1,            [Bam1],                                                :void
-    attach_function   :bam_read1,               [BGZF, Bam1],                                          :int
-    attach_function   :bam_write1,              [BGZF, Bam1],                                          :int
-    attach_function   :bam_copy1,               [Bam1, Bam1],                                          Bam1.by_ref
-    attach_function   :bam_dup1,                [Bam1],                                                Bam1.by_ref
-    attach_function   :bam_cigar2qlen,          %i[int pointer],                                       :int64
-    attach_function   :bam_cigar2rlen,          %i[int pointer],                                       :int64
-    attach_function   :bam_endpos,              [Bam1],                                                :int64
-    attach_function   :bam_str2flag,            [:string],                                             :int
-    attach_function   :bam_flag2str,            [:int],                                                :string
-    attach_function   :bam_set_qname,           [Bam1, :string],                                       :int
-    attach_function   :sam_idx_init,            [HtsFile, SamHdr, :int, :string],                      :int
-    attach_function   :sam_idx_save,            [HtsFile],                                             :int
-    attach_function   :sam_index_load,          [HtsFile, :string],                                    HtsIdx.by_ref
-    attach_function   :sam_index_load2,         [HtsFile, :string, :string],                           HtsIdx.by_ref
-    attach_function   :sam_index_load3,         [HtsFile, :string, :string, :int],                     HtsIdx.by_ref
-    attach_function   :sam_index_build,         %i[string int],                                        :int
-    attach_function   :sam_index_build2,        %i[string string int],                                 :int
-    attach_function   :sam_index_build3,        %i[string string int int],                             :int
-    attach_function   :sam_itr_queryi,          [HtsIdx, :int, :int64, :int64],                        HtsItr.by_ref
-    attach_function   :sam_itr_querys,          [HtsIdx, SamHdr, :string],                             HtsItr.by_ref
-    attach_function   :sam_itr_regions,         [HtsIdx, SamHdr, :pointer, :uint],                     HtsItr.by_ref
-    attach_function   :sam_itr_regarray,        [HtsIdx, SamHdr, :pointer, :uint],                     HtsItr.by_ref
-    attach_function   :sam_parse_region,        [SamHdr, :string, :pointer, :pointer, :pointer, :int], :string
-    attach_function   :sam_open_mode,           %i[string string string],                              :int
+    # Generates a new unpopulated header structure.
+    attach_function \
+      :sam_hdr_init,
+      [],
+      SamHdr.by_ref
+
+    # Read the header from a BAM compressed file.
+    attach_function \
+      :bam_hdr_read,
+      [BGZF],
+      SamHdr.by_ref
+
+    # Writes the header to a BAM file.
+    attach_function \
+      :bam_hdr_write,
+      [BGZF, SamHdr],
+      :int
+
+    # Frees the resources associated with a header.
+    attach_function \
+      :sam_hdr_destroy,
+      [SamHdr],
+      :void
+
+    # Duplicate a header structure.
+    attach_function \
+      :sam_hdr_dup,
+      [SamHdr],
+      SamHdr.by_ref
+
+    # Create a header from existing text.
+    attach_function \
+      :sam_hdr_parse,
+      %i[size_t string],
+      SamHdr.by_ref
+
+    # Read a header from a SAM, BAM or CRAM file.
+    attach_function \
+      :sam_hdr_read,
+      [SamFile],
+      SamHdr.by_ref
+
+    # Write a header to a SAM, BAM or CRAM file.
+    attach_function \
+      :sam_hdr_write,
+      [SamFile, SamHdr],
+      :int
+
+    # Returns the current length of the header text.
+    attach_function \
+      :sam_hdr_length,
+      [SamHdr],
+      :size_t
+
+    # Returns the text representation of the header.
+    attach_function \
+      :sam_hdr_str,
+      [SamHdr],
+      :string
+
+    # Returns the number of references in the header.
+    attach_function \
+      :sam_hdr_nref,
+      [SamHdr],
+      :int
+
+    # Add formatted lines to an existing header.
+    attach_function \
+      :sam_hdr_add_lines,
+      [SamHdr, :string, :size_t],
+      :int
+
+    # Adds a single line to an existing header.
+    attach_function \
+      :sam_hdr_add_line,
+      [SamHdr, :string, :varargs],
+      :int
+
+    # Returns a complete line of formatted text for a given type and ID.
+    attach_function \
+      :sam_hdr_find_line_id,
+      [SamHdr, :string, :string, :string, Kstring],
+      :int
+
+    # Returns a complete line of formatted text for a given type and index.
+    attach_function \
+      :sam_hdr_find_line_pos,
+      [SamHdr, :string, :int, Kstring],
+      :int
+
+    # Remove a line with given type / id from a header
+    attach_function \
+      :sam_hdr_remove_line_id,
+      [SamHdr, :string, :string, :string],
+      :int
+
+    # Remove nth line of a given type from a header
+    attach_function \
+      :sam_hdr_remove_line_pos,
+      [SamHdr, :string, :int],
+      :int
+
+    # Add or update tag key,value pairs in a header line.
+    attach_function \
+      :sam_hdr_update_line,
+      [SamHdr, :string, :string, :string, :varargs],
+      :int
+
+    # Remove all lines of a given type from a header, except the one matching an ID
+    attach_function \
+      :sam_hdr_remove_except,
+      [SamHdr, :string, :string, :string],
+      :int
+
+    # Remove header lines of a given type, except those in a given ID set
+    attach_function \
+      :sam_hdr_remove_lines,
+      [SamHdr, :string, :string, :pointer],
+      :int
+
+    # Count the number of lines for a given header type
+    attach_function \
+      :sam_hdr_count_lines,
+      [SamHdr, :string],
+      :int
+
+    # Index of the line for the types that have dedicated look-up tables (SQ, RG, PG)
+    attach_function \
+      :sam_hdr_line_index,
+      [SamHdr, :string, :string],
+      :int
+
+    # Id key of the line for the types that have dedicated look-up tables (SQ, RG, PG)
+    attach_function \
+      :sam_hdr_line_name,
+      [SamHdr, :string, :int],
+      :string
+
+    # Return the value associated with a key for a header line identified by ID_key:ID_val
+    attach_function \
+      :sam_hdr_find_tag_id,
+      [SamHdr, :string, :string, :string, :string, Kstring],
+      :int
+
+    # Return the value associated with a key for a header line identified by position
+    attach_function \
+      :sam_hdr_find_tag_pos,
+      [SamHdr, :string, :int, :string, Kstring],
+      :int
+
+    # Remove the key from the line identified by type, ID_key and ID_value.
+    attach_function \
+      :sam_hdr_remove_tag_id,
+      [SamHdr, :string, :string, :string, :string],
+      :int
+
+    # Get the target id for a given reference sequence name
+    attach_function \
+      :sam_hdr_name2tid,
+      [SamHdr, :string],
+      :int
+
+    # Get the reference sequence name from a target index
+    attach_function \
+      :sam_hdr_tid2name,
+      [SamHdr, :int],
+      :string
+
+    # Get the reference sequence length from a target index
+    attach_function \
+      :sam_hdr_tid2len,
+      [SamHdr, :int],
+      :hts_pos_t
+
+    # Generate a unique \@PG ID: value
+    attach_function \
+      :sam_hdr_pg_id,
+      [SamHdr, :string],
+      :string
+
+    # Add an \@PG line.
+    attach_function \
+      :sam_hdr_add_pg,
+      [SamHdr, :string, :varargs],
+      :int
+
+    # A function to help with construction of CL tags in @PG records.
+    attach_function \
+      :stringify_argv,
+      %i[int pointer],
+      :string
+
+    # Increments the reference count on a header
+    attach_function \
+      :sam_hdr_incr_ref,
+      [SamHdr],
+      :void
+
+    # Create a new bam1_t alignment structure
+    attach_function \
+      :bam_init1,
+      [],
+      Bam1.by_ref
+
+    # Destroy a bam1_t structure
+    attach_function \
+      :bam_destroy1,
+      [Bam1],
+      :void
+
+    # Read a BAM format alignment record
+    attach_function \
+      :bam_read1,
+      [BGZF, Bam1],
+      :int
+
+    # Write a BAM format alignment record
+    attach_function \
+      :bam_write1,
+      [BGZF, Bam1],
+      :int
+
+    # Copy alignment record data
+    attach_function \
+      :bam_copy1,
+      [Bam1, Bam1],
+      Bam1.by_ref
+
+    # Create a duplicate alignment record
+    attach_function \
+      :bam_dup1,
+      [Bam1],
+      Bam1.by_ref
+
+    # Calculate query length from CIGAR data
+    attach_function \
+      :bam_cigar2qlen,
+      %i[int pointer],
+      :int64
+
+    # Calculate reference length from CIGAR data
+    attach_function \
+      :bam_cigar2rlen,
+      %i[int pointer],
+      :hts_pos_t
+
+    # Calculate the rightmost base position of an alignment on the reference genome.
+    attach_function \
+      :bam_endpos,
+      [Bam1],
+      :hts_pos_t
+
+    attach_function \
+      :bam_str2flag,
+      [:string],
+      :int
+
+    attach_function \
+      :bam_flag2str,
+      [:int],
+      :string
+
+    # Set the name of the query
+    attach_function \
+      :bam_set_qname,
+      [Bam1, :string],
+      :int
+
+    # Initialise fp->idx for the current format type for SAM, BAM and CRAM types .
+    attach_function \
+      :sam_idx_init,
+      [HtsFile, SamHdr, :int, :string],
+      :int
+
+    # Writes the index initialised with sam_idx_init to disk.
+    attach_function \
+      :sam_idx_save,
+      [HtsFile],
+      :int
+
+    # Load a BAM (.csi or .bai) or CRAM (.crai) index file
+    attach_function \
+      :sam_index_load,
+      [HtsFile, :string],
+      HtsIdx.by_ref
+
+    # Load a specific BAM (.csi or .bai) or CRAM (.crai) index file
+    attach_function \
+      :sam_index_load2,
+      [HtsFile, :string, :string],
+      HtsIdx.by_ref
+
+    # Load or stream a BAM (.csi or .bai) or CRAM (.crai) index file
+    attach_function \
+      :sam_index_load3,
+      [HtsFile, :string, :string, :int],
+      HtsIdx.by_ref
+
+    # Generate and save an index file
+    attach_function \
+      :sam_index_build,
+      %i[string int],
+      :int
+
+    # Generate and save an index to a specific file
+    attach_function \
+      :sam_index_build2,
+      %i[string string int],
+      :int
+
+    # Generate and save an index to a specific file
+    attach_function \
+      :sam_index_build3,
+      %i[string string int int],
+      :int
+
+    # Create a BAM/CRAM iterator
+    attach_function \
+      :sam_itr_queryi,
+      [HtsIdx, :int, :hts_pos_t, :hts_pos_t],
+      HtsItr.by_ref
+
+    # Create a SAM/BAM/CRAM iterator
+    attach_function \
+      :sam_itr_querys,
+      [HtsIdx, SamHdr, :string],
+      HtsItr.by_ref
+
+    # Create a multi-region iterator
+    attach_function \
+      :sam_itr_regions,
+      [HtsIdx, SamHdr, :pointer, :uint],
+      HtsItr.by_ref
+
+    # Create a multi-region iterator
+    attach_function \
+      :sam_itr_regarray,
+      [HtsIdx, SamHdr, :pointer, :uint],
+      HtsItr.by_ref
+
+    attach_function \
+      :sam_parse_region,
+      [SamHdr, :string, :pointer, :pointer, :pointer, :int],
+      :string
+
+    # SAM I/O
+
+    # macros (or alias)
+    # sam_open
+    # sam_open_format
+    # sam_close
+
+    attach_function \
+      :sam_open_mode,
+      %i[string string string],
+      :int
+
     attach_function   :sam_open_mode_opts,      %i[string string string],                              :string
     attach_function   :sam_hdr_change_HD,       [SamHdr, :string, :string],                            :int
     attach_function   :sam_parse1,              [Kstring, SamHdr, Bam1],                               :int
@@ -767,8 +1068,6 @@ module HTS
     attach_function   :hts_set_cache_size,        [HtsFile, :int],                :void
     attach_function   :hts_set_fai_filename,      [HtsFile, :string],             :int
     attach_function   :hts_check_EOF,             [HtsFile],                      :int
-
-    # typedef int64_t hts_pos_t;
 
     attach_function   :hts_idx_init,              %i[int int uint64 int int],                    :pointer
     attach_function   :hts_idx_destroy,           [HtsIdx],                                      :void
