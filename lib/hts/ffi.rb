@@ -361,19 +361,19 @@ module HTS
     HtsFmtOption = enum(
       :CRAM_OPT_DECODE_MD,
       :CRAM_OPT_PREFIX,
-      :CRAM_OPT_VERBOSITY,  # obsolete, use hts_set_log_level() instead
+      :CRAM_OPT_VERBOSITY,   # obsolete, use hts_set_log_level() instead
       :CRAM_OPT_SEQS_PER_SLICE,
       :CRAM_OPT_SLICES_PER_CONTAINER,
       :CRAM_OPT_RANGE,
-      :CRAM_OPT_VERSION,    # rename to :CRAM_version?
+      :CRAM_OPT_VERSION,     # rename to :CRAM_version?
       :CRAM_OPT_EMBED_REF,
       :CRAM_OPT_IGNORE_MD5,
-      :CRAM_OPT_REFERENCE,  # make general
+      :CRAM_OPT_REFERENCE,   # make general
       :CRAM_OPT_MULTI_SEQ_PER_SLICE,
       :CRAM_OPT_NO_REF,
       :CRAM_OPT_USE_BZIP2,
       :CRAM_OPT_SHARED_REF,
-      :CRAM_OPT_NTHREADS,   # deprecated, use HTS_OPT_NTHREADS
+      :CRAM_OPT_NTHREADS,    # deprecated, use HTS_OPT_NTHREADS
       :CRAM_OPT_THREAD_POOL, # make general
       :CRAM_OPT_USE_LZMA,
       :CRAM_OPT_USE_RANS,
@@ -382,6 +382,8 @@ module HTS
       :CRAM_OPT_BASES_PER_SLICE,
       :CRAM_OPT_STORE_MD,
       :CRAM_OPT_STORE_NM,
+      :CRAM_OPT_RANGE_NOSEEK, # CRAM_OPT_RANGE minus the seek
+      
       # General purpose
       :HTS_OPT_COMPRESSION_LEVEL, 100,
       :HTS_OPT_NTHREADS,
