@@ -334,16 +334,28 @@ module HTS
 
     # Should this start with small character? For example, htsFromatCategory
     HtsFormatCategory = enum(
-      :unknown_category, :sequence_data, :variant_data, :index_file, :region_list, :category_maximum
+      :unknown_category,
+      :sequence_data,    # Sequence data -- SAM, BAM, CRAM, etc
+      :variant_data,     # Variant calling data -- VCF, BCF, etc
+      :index_file,       # Index file associated with some data file
+      :region_list,      # Coordinate intervals or regions -- BED, etc
+      :category_maximum, 32_767
     )
 
     HtsExactFormat = enum(
-      :unknown_format, :binary_format, :text_format, :sam, :bam, :bai, :cram, :crai, :vcf, :bcf,
-      :csi, :gzi, :tbi, :bed, :format_maximum
+      :unknown_format,
+      :binary_format, :text_format,
+      :sam, :bam, :bai, :cram, :crai, :vcf, :bcf, :csi, :gzi, :tbi, :bed,
+      :htsget, :json,
+      :empty_format,
+      :fasta_format, :fastq_format, :fai_format, :fqi_format,
+      :hts_crypt4gh_format,
+      :format_maximum, 32_767
     )
 
     HtsCompression = enum(
-      :no_compression, :gzip, :bgzf, :custom, :compression_maximum
+      :no_compression, :gzip, :bgzf, :custom,
+      :compression_maximum, 32_767
     )
 
     HtsFmtOption = enum(
