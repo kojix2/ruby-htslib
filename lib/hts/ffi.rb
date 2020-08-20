@@ -19,7 +19,7 @@ module HTS
 end
 
 require_relative 'ffi/struct'
-require_relative 'ffi/constants'
+require_relative 'ffi_constants'
 
 # alphabetical order
 require_relative 'ffi/bgzf'
