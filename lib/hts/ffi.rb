@@ -1653,7 +1653,7 @@ module HTS
       %i[string string int],
       Tbx.by_ref
 
-    attach_functionb \
+    attach_function \
       :tbx_seqnames,
       [Tbx, :int],
       :pointer
