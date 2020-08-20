@@ -1109,25 +1109,115 @@ module HTS
       [Bam1, :string, :uint8, :uint32, :pointer],
       :int
 
-    # attach_function :bam_plp_init,            [func::bam_plp_auto_f, :pointer ],                     BamPlp
-    attach_function   :bam_plp_destroy,         [BamPlp],                                              :void
-    # attach_function :bam_plp_push,            [iter::, Bam1 ],                                       :int
-    attach_function   :bam_plp_next,            [BamPlp, :pointer, :pointer, :pointer],                :pointer
-    attach_function   :bam_plp_auto,            [BamPlp, :pointer, :pointer, :pointer],                :pointer
-    attach_function   :bam_plp64_next,          [BamPlp, :pointer, :pointer, :pointer],                :pointer
-    attach_function   :bam_plp64_auto,          [BamPlp, :pointer, :pointer, :pointer],                :pointer
-    attach_function   :bam_plp_set_maxcnt,      [BamPlp, :int],                                        :void
-    attach_function   :bam_plp_reset,           [BamPlp],                                              :void
-    attach_function   :bam_plp_insertion,       [:pointer, Kstring, :pointer],                         :int
-    # attach_function :bam_mplp_init,           [:int, func::bam_plp_auto_f, :pointer],                BamMplp.by_ref
-    attach_function   :bam_mplp_init_overlaps,  [BamMplp],                                             :int
-    attach_function   :bam_mplp_destroy,        [BamMplp],                                             :void
-    attach_function   :bam_mplp_set_maxcnt,     [BamMplp, :int],                                       :void
-    attach_function   :bam_mplp_auto,           [BamMplp, :pointer, :pointer, :pointer, :pointer],     :int
-    attach_function   :bam_mplp64_auto,         [BamMplp, :pointer, :pointer, :pointer, :pointer],     :int
-    attach_function   :bam_mplp_reset,          [BamMplp], :void
-    attach_function   :sam_cap_mapq,            [Bam1, :string, :int64, :int],                         :int
-    attach_function   :sam_prob_realn,          [Bam1, :string, :int64, :int],                         :int
+    typedef :pointer, :bam_plp_auto_f
+
+    # sets an iterator over multiple
+    attach_function \
+      :bam_plp_init,
+      %i[bam_plp_auto_f pointer],
+      BamPlp
+
+    attach_function \
+      :bam_plp_destroy,
+      [BamPlp],
+      :void
+
+    attach_function \
+      :bam_plp_push,
+      [BamPlp, Bam1],
+      :int
+
+    attach_function \
+      :bam_plp_next,
+      [BamPlp, :pointer, :pointer, :pointer],
+      :pointer
+
+    attach_function \
+      :bam_plp_auto,
+      [BamPlp, :pointer, :pointer, :pointer],
+      :pointer
+
+    attach_function \
+      :bam_plp64_next,
+      [BamPlp, :pointer, :pointer, :pointer],
+      :pointer
+
+    attach_function \
+      :bam_plp64_auto,
+      [BamPlp, :pointer, :pointer, :pointer],
+      :pointer
+
+    attach_function \
+      :bam_plp_set_maxcnt,
+      [BamPlp, :int],
+      :void
+
+    attach_function \
+      :bam_plp_reset,
+      [BamPlp],
+      :void
+
+    # sets a callback to initialise any per-pileup1_t fields.
+    attach_function \
+      :bam_plp_insertion,
+      [:pointer, Kstring, :pointer],
+      :int
+
+    # sets a callback to initialise any per-pileup1_t fields.
+    # bam_plp_constructor
+
+    # bam_plp_destructor
+
+    # Get pileup padded insertion sequence
+    # bam_plp_insertion
+
+    attach_function \
+      :bam_mplp_init,
+      %i[int bam_plp_auto_f pointer],
+      BamMplp.by_ref
+
+    attach_function \
+      :bam_mplp_init_overlaps,
+      [BamMplp],
+      :int
+
+    attach_function \
+      :bam_mplp_destroy,
+      [BamMplp],
+      :void
+
+    attach_function \
+      :bam_mplp_set_maxcnt,
+      [BamMplp, :int],
+      :void
+
+    attach_function \
+      :bam_mplp_auto,
+      [BamMplp, :pointer, :pointer, :pointer, :pointer],
+      :int
+
+    attach_function \
+      :bam_mplp64_auto,
+      [BamMplp, :pointer, :pointer, :pointer, :pointer],
+      :int
+
+    attach_function \
+      :bam_mplp_reset,
+      [BamMplp],
+      :void
+
+    # bam_mplp_constructor
+    # bam_mplp_destructor
+
+    attach_function \
+      :sam_cap_mapq,
+      [Bam1, :string, :hts_pos_t, :int],
+      :int
+
+    attach_function \
+      :sam_prob_realn,
+      [Bam1, :string, :hts_pos_t, :int],
+      :int
 
     # kfunc
 
