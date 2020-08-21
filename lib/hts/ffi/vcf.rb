@@ -147,8 +147,8 @@ module HTS
 
     attach_function \
       :bcf_hdr_fmt_text,
-      [BcfHdr, :int, :pointer]
-    char
+      [BcfHdr, :int, :pointer],
+      :string
 
     attach_function \
       :bcf_hdr_append,
@@ -163,7 +163,7 @@ module HTS
     attach_function \
       :bcf_hdr_get_version,
       [BcfHdr],
-      char
+      :string
 
     attach_function \
       :bcf_hdr_set_version,
