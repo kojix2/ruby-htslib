@@ -1,6 +1,8 @@
 # HTSlib
 
+[![Gem Version](https://badge.fury.io/rb/htslib.svg)](https://badge.fury.io/rb/htslib)
 ![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg?branch=master)
+[![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
 :apple: Feel free to fork it out if you can develop it! 
 
