@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This should be removed if you get the better way...
 module FFI
   class Struct

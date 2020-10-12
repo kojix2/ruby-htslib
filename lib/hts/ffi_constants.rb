@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HTS
   module FFI
     typedef :pointer, :HFILE
@@ -266,8 +268,8 @@ module HTS
     BAM_CDIFF      = 8
     BAM_CBACK      = 9
 
-    BAM_CIGAR_STR = 'MIDNSHP=XB'.freeze
-    BAM_CIGAR_STR_PADDED = 'MIDNSHP=XB??????'.freeze
+    BAM_CIGAR_STR = 'MIDNSHP=XB'
+    BAM_CIGAR_STR_PADDED = 'MIDNSHP=XB??????'
     BAM_CIGAR_SHIFT = 4
     BAM_CIGAR_MASK  = 0xf
     BAM_CIGAR_TYPE  = 0x3C1A7

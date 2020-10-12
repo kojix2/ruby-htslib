@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HTS
   module FFI
     # Open the named file or URL as a stream

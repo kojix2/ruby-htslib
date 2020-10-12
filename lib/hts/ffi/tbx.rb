@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HTS
   module FFI
     attach_function \

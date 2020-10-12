@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'htslib'
 
 htf = HTS::FFI.hts_open('poo.sort.bam', 'r')

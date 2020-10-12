@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # BGZF
 module HTS
   module FFI

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HTS
   module FFI
     # Build index for a FASTA or FASTQ or bgzip-compressed FASTA or FASTQ file.
