@@ -2,8 +2,10 @@
 
 require 'htslib'
 
-htf = HTS::FFI.hts_open('poo.sort.bam', 'r')
-idx = HTS::FFI.sam_index_load(htf, 'poo.sort.bam')
+bam_path = File.expand_path('../assets/poo.sort.bam', __dir__)
+
+htf = HTS::FFI.hts_open(bam_path, 'r')
+idx = HTS::FFI.sam_index_load(htf, bam_path)
 hdr = HTS::FFI.sam_hdr_read(htf)
 b   = HTS::FFI.bam_init1
 
