@@ -31,7 +31,7 @@ cig = {
     flag: b[:core][:flag],
     pos: b[:core][:pos] + 1,
     mpos: b[:core][:mpos] + 1,
-    qual: b[:core][:qual],
+    mqual: b[:core][:qual],
     seq: HTS::FFI.bam_get_seq(b).read_bytes(b[:core][:l_qseq] / 2).unpack1('B*')
                  .each_char.each_slice(4).map { |i| nuc[i.join.to_i(2)] }.join,
     cigar: HTS::FFI.bam_get_cigar(b).read_array_of_uint32(b[:core][:n_cigar])
