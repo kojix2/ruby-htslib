@@ -41,6 +41,9 @@ p b[:format]
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ruby-htslib.
 
+## Links
+
+* [samtools/hts-spec](https://github.com/samtools/hts-specs)
 
 ## License
 
