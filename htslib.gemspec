@@ -13,8 +13,9 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.4'
 
-  spec.files         = Dir['*.{md,txt}', '{lib,vendor}/**/*']
+  spec.files         = Dir['*.{md,txt}', '{lib}/**/*']
   spec.require_path  = 'lib'
+  
   spec.add_dependency 'ffi'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry'
