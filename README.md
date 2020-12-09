@@ -4,6 +4,8 @@
 ![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg?branch=master)
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
+:dna: [HTSlib](https://github.com/samtools/htslib) - high-throughput sequencing data manipulation - for Ruby
+
 :apple: Feel free to fork it out if you can develop it! 
 
 :bowtie: Just a prototype. 
