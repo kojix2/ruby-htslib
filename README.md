@@ -40,14 +40,28 @@ p b[:format]
 
 ## Development
 
+To get started with development
+
+```sh
+git clone https://github.com/kojix2/ruby-htslib
+cd ruby-htslib
+bundle install
+# TODO
+bundle exec rake test
+```
+
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ruby-htslib.
+* [Report bugs](https://github.com/kojix2/ruby-htslib/issues)
+* Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
+* Write, clarify, or fix documentation
+* Suggest or add new features
 
 ## Links
 
 * [samtools/hts-spec](https://github.com/samtools/hts-specs)
+* [c2ffi](https://github.com/rpav/c2ffi)
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+[MIT License](https://opensource.org/licenses/MIT).
