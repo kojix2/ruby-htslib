@@ -55,7 +55,7 @@ autoconf
 make
 
 bundle install
-bundle exec rake test
+bundle exec rake spec
 ```
 
 ## Contributing
