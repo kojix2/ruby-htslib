@@ -10,7 +10,13 @@ module HTS
   class << self
     attr_accessor :ffi_lib
   end
-  self.ffi_lib = File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", ENV['HTSLIBDIR'])
+
+  htslib_sopath = File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", "../htslib")
+  self.ffi_lib = if File.exist?(htslib_sopath)
+                   path
+                 else
+                   File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", ENV['HTSLIBDIR'])
+                 end
   autoload :FFI, 'hts/ffi'
 end
 
