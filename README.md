@@ -45,8 +45,16 @@ To get started with development
 ```sh
 git clone https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
+
+# Build htslib
+git submodule -i
+cd htslib
+autoheader
+autoconf
+./configure
+make
+
 bundle install
-# TODO
 bundle exec rake test
 ```
 
