@@ -1,0 +1,14 @@
+[
+{ "tag": "enum", "ns": 0, "name": "", "id": 1, "location": "htslib/os/lzma_stub.h:27:9", "fields": [{ "tag": "field", "name": "LZMA_OK", "value": 0 }, { "tag": "field", "name": "LZMA_STREAM_END", "value": 1 }] },
+{ "tag": "typedef", "ns": 0, "name": "lzma_ret", "location": "htslib/os/lzma_stub.h:27:51", "type": { "tag": ":enum", "name": "", "id": 1 } },
+{ "tag": "enum", "ns": 0, "name": "", "id": 2, "location": "htslib/os/lzma_stub.h:28:9", "fields": [{ "tag": "field", "name": "LZMA_RUN", "value": 0 }, { "tag": "field", "name": "LZMA_FINISH", "value": 3 }] },
+{ "tag": "typedef", "ns": 0, "name": "lzma_action", "location": "htslib/os/lzma_stub.h:28:48", "type": { "tag": ":enum", "name": "", "id": 2 } },
+{ "tag": "enum", "ns": 0, "name": "", "id": 3, "location": "htslib/os/lzma_stub.h:29:9", "fields": [{ "tag": "field", "name": "LZMA_CHECK_CRC32", "value": 1 }] },
+{ "tag": "typedef", "ns": 0, "name": "lzma_check", "location": "htslib/os/lzma_stub.h:29:39", "type": { "tag": ":enum", "name": "", "id": 3 } },
+{ "tag": "enum", "ns": 0, "name": "", "id": 4, "location": "htslib/os/lzma_stub.h:30:9", "fields": [{ "tag": "field", "name": "LZMA_RESERVED_ENUM", "value": 0 }] },
+{ "tag": "typedef", "ns": 0, "name": "lzma_reserved_enum", "location": "htslib/os/lzma_stub.h:30:41", "type": { "tag": ":enum", "name": "", "id": 4 } },
+{ "tag": "struct", "ns": 0, "name": "lzma_allocator", "id": 0, "location": "htslib/os/lzma_stub.h:32:8", "bit-size": 0, "bit-alignment": 0, "fields": [] },
+{ "tag": "struct", "ns": 0, "name": "lzma_internal", "id": 0, "location": "htslib/os/lzma_stub.h:33:8", "bit-size": 0, "bit-alignment": 0, "fields": [] },
+{ "tag": "function", "name": "lzma_code", "ns": 0, "location": "htslib/os/lzma_stub.h:77:17", "variadic": false, "inline": false, "storage-class": "extern", "parameters": [{ "tag": "parameter", "name": "strm", "type": { "tag": ":pointer", "type": { "tag": "lzma_stream" } } }, { "tag": "parameter", "name": "action", "type": { "tag": "lzma_action" } }], "return-type": { "tag": "lzma_ret" } },
+{ "tag": "function", "name": "lzma_end", "ns": 0, "location": "htslib/os/lzma_stub.h:79:13", "variadic": false, "inline": false, "storage-class": "extern", "parameters": [{ "tag": "parameter", "name": "strm", "type": { "tag": ":pointer", "type": { "tag": "lzma_stream" } } }], "return-type": { "tag": ":void" } }
+]

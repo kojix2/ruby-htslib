@@ -1,0 +1,3 @@
+[
+{ "tag": "function", "name": "RansEncInit", "ns": 0, "location": "htslib/cram/rANS_byte.h:65:20", "variadic": false, "inline": true, "storage-class": "static", "parameters": [{ "tag": "parameter", "name": "r", "type": { "tag": ":pointer", "type": { "tag": "RansState" } } }], "return-type": { "tag": ":void" } }
+]
