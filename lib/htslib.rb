@@ -13,7 +13,7 @@ module HTS
 
   htslib_sopath = File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", "../htslib")
   self.ffi_lib = if File.exist?(htslib_sopath)
-                   path
+                   htslib_sopath
                  else
                    File.expand_path("libhts.#{FFI::Platform::LIBSUFFIX}", ENV['HTSLIBDIR'])
                  end
