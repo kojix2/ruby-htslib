@@ -47,7 +47,7 @@ git clone https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 
 # Build htslib
-git submodule -i
+git submodule update -i
 cd htslib
 autoheader
 autoconf
