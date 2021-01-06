@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir['*.{md,txt}', '{lib}/**/*']
   spec.require_path  = 'lib'
-  
+
   spec.add_dependency 'ffi'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry'

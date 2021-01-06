@@ -141,7 +141,8 @@ module HTS
         )
     end
 
-    class SamHdr < ::FFI::Struct # HtsFile
+    # HtsFile
+    class SamHdr < ::FFI::Struct
       layout \
         :n_targets,      :int32,
         :ignore_sam_err, :int32,
@@ -225,6 +226,7 @@ module HTS
           :a,            :pointer
         )
     end
+
     class Bam1Core < ::FFI::Struct
       layout \
         :pos,            :hts_pos_t,
