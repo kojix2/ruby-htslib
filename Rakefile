@@ -16,6 +16,7 @@ namespace :htslib do
       system './configure'
       system 'make'
       FileUtils.mkdir_p('../vendor')
+      require 'ffi'
       FileUtils.move(
         "libhts.#{FFI::Platform::LIBSUFFIX}",
         "../vendor/libhts.#{FFI::Platform::LIBSUFFIX}"
