@@ -18,7 +18,18 @@ module HTS
   end
 end
 
-require_relative 'ffi/struct'
+module FFI
+  class Struct
+    def self.union_layout(*args)
+      Class.new(FFI::Union) { layout(*args) }
+    end
+
+    def self.struct_layout(*args)
+      Class.new(FFI::Struct) { layout(*args) }
+    end
+  end
+end
+
 require_relative 'ffi/constants'
 
 # alphabetical order
