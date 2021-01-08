@@ -45,15 +45,8 @@ To get started with development
 ```sh
 git clone --recurse-submodules https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
-
-# Build htslib
-cd htslib
-autoheader
-autoconf
-./configure
-make
-
 bundle install
+bundle exec rake htslib:compile
 bundle exec rake spec
 ```
 
