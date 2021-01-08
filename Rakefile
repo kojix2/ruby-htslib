@@ -7,6 +7,25 @@ RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
 
+namespace :htslib do
+  desc 'Building HTSlib'
+  task :compile do
+    Dir.chdir('htslib') do
+      system 'autoheader'
+      system 'autoconf'
+      system './configure'
+      system 'make'
+    end
+  end
+
+  desc 'make clean'
+  task :clean do
+    Dir.chdir('htslib') do
+      system 'make clean'
+    end
+  end
+end
+
 namespace :c2ffi do
   desc 'Generate metadata files (JSON format) using c2ffi'
   task :generate do
