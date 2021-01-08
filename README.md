@@ -43,18 +43,10 @@ p b[:format]
 To get started with development
 
 ```sh
-git clone https://github.com/kojix2/ruby-htslib
+git clone --recurse-submodules https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
-
-# Build htslib
-git submodule update -i
-cd htslib
-autoheader
-autoconf
-./configure
-make
-
 bundle install
+bundle exec rake htslib:compile
 bundle exec rake spec
 ```
 
