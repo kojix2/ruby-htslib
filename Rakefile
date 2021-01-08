@@ -15,6 +15,11 @@ namespace :htslib do
       system 'autoconf'
       system './configure'
       system 'make'
+      FileUtils.mkdir_p('../vendor')
+      FileUtils.move(
+        "libhts.#{FFI::Platform::LIBSUFFIX}",
+        "../vendor/libhts.#{FFI::Platform::LIBSUFFIX}"
+      )
     end
   end
 

@@ -16,7 +16,7 @@ module HTS
   self.ffi_lib = if ENV['HTSLIBDIR']
                    File.expand_path("libhts.#{suffix}", ENV['HTSLIBDIR'])
                  else
-                   File.expand_path("../htslib/libhts.#{suffix}", __dir__)
+                   File.expand_path("../vendor/libhts.#{suffix}", __dir__)
                  end
   autoload :FFI, 'hts/ffi'
 end

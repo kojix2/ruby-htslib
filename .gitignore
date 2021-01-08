@@ -15,3 +15,7 @@
 
 # rspec failure tracking
 .rspec_status
+
+*.so
+*.dylib
+*.dll
