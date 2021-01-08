@@ -11,8 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
-          - macos-latest
+          - ubuntu
+          - macos
         ruby:
           - 2.7
           - 3.0
