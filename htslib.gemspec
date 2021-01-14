@@ -13,7 +13,11 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.4'
 
-  spec.files         = Dir['*.{md,txt}', '{lib}/**/*']
+  # * If the shared library exists in the vendor directory,
+  #   it will be included in the package.
+  # * Official releases uploaded to the RubyGem server
+  #   will not include the shared library.
+  spec.files         = Dir['*.{md,txt}', '{lib}/**/*', 'vendor/*']
   spec.require_path  = 'lib'
 
   spec.add_dependency 'ffi'
