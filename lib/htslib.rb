@@ -23,3 +23,8 @@ end
 
 # alias
 HTSlib = HTS
+
+require_relative 'hts/bam'
+require_relative 'hts/fai'
+require_relative 'hts/tbx'
+require_relative 'hts/vcf'

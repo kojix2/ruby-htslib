@@ -3,14 +3,16 @@
 # Create a skeleton using hts-python as a reference.
 # https://github.com/quinlan-lab/hts-python
 
-class Fai
-  def initialize; end
+module HTS
+  class Fai
+    def initialize; end
 
-  # def call
+    # def call
 
-  def nseqs; end
+    def nseqs; end
 
-  def include?; end
+    def include?; end
 
-  # __iter__
+    # __iter__
+  end
 end
