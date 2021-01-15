@@ -7,7 +7,7 @@ module HTS
     begin
       ffi_lib HTS.ffi_lib
     rescue LoadError => e
-      raise LoadError, "Could not find #{HTS.ffi_lib}"
+      raise LoadError, "#{e}\nCould not find #{HTS.ffi_lib}"
     end
 
     def self.attach_function(*)

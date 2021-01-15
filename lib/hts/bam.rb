@@ -14,12 +14,14 @@ module HTS
 
     def initialize(fname, mode = 'r', create_index: nil, header: nil, fasta: nil)
       @fname = File.expand_path(fname)
+      File.exist?(@fname) || raise("No such SAM/BAM file - #{@fname}")
+
       @mode = mode
       @htf = HTS::FFI.hts_open(@fname, mode)
 
       if mode[0] == 'r'
         @idx = HTS::FFI.sam_index_load(@htf, @fname)
-        if (@idx.nil? && create_index.nil?) || create_index
+        if (@idx.null? && create_index.nil?) || create_index
           HTS::FFI.bam_index_build(fname, -1)
           @idx = HTS::FFI.sam_index_load(@htf, @fname)
           warn 'NO querying'
