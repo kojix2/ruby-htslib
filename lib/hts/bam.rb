@@ -1,110 +1,13 @@
 # frozen_string_literal: true
 
-# Create a skeleton using hts-python as a reference.
+# Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative 'bam/header'
+require_relative 'bam/cigar'
+require_relative 'bam/alignment'
+
 module HTS
-  class BamHeader
-    attr_reader :h
-
-    def initialize(h)
-      @h = h
-    end
-
-    def seqs
-      Array.new(@h[:n_targets]) do |i|
-        @h[:target_name][i].read_string # FIXME
-      end
-    end
-
-    def text
-      @h[:text]
-    end
-  end
-
-  # A cigar object usually created from `Alignment`.
-  class Cigar
-    OPS = 'MIDNSHP=XB'
-
-    def initialize(cigar, n_cigar)
-      @c = cigar
-      @n_cigar = n_cigar
-    end
-
-    def to_s
-      warn 'WIP'
-      Array.new(@_cigar) do |i|
-        c = @c[i]
-        [HTS::FFI.bam_cigar_oplen(c),
-         HTS::FFI.bam_cigar_opchar(c)]
-      end
-    end
-
-    def each
-    end
-    # def inspect; end
-  end
-
-  class Alignment
-    def initialize(bam1_t, bam_hdr_t)
-      @b = bam1_t
-      @h = bam_hdr_t
-    end
-
-    def initialize_copy
-      super
-    end
-
-    def self.rom_sam_str; end
-
-    def tags; end
-
-    # Read (query) name.
-    def qname
-      HTS::FFI.bam_get_qname(@b).read_string
-    end
-
-    # Set (query) name.
-    def qname=(name); end
-
-    def rnext
-      @b[:core][:mpos]
-    end
-
-    def pnext; end
-
-    def rname; end
-
-    def strand; end
-
-    def base_qualities; end
-
-    def pos; end
-
-    def pos=; end
-
-    def isize; end
-
-    def mapping_quality; end
-
-    def cigar; end
-
-    def qlen; end
-
-    def rlen; end
-
-    def seqs; end
-
-    def flag_str; end
-
-    def flag; end
-
-    # def eql?
-    # def hash
-
-    def to_s; end
-  end
-
   class Bam
     include Enumerable
     attr_reader :fname, :mode, :header, :htf

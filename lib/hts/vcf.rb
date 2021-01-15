@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Create a skeleton using hts-python as a reference.
+# Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
 module HTS
