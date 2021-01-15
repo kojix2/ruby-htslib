@@ -24,7 +24,7 @@ module HTS
           @idx = HTS::FFI.sam_index_load(@htf, @fname)
           warn 'NO querying'
         end
-        @header = BamHeader.new(HTS::FFI.sam_hdr_read(@htf))
+        @header = Bam::Header.new(HTS::FFI.sam_hdr_read(@htf))
         @b = HTS::FFI.bam_init1
 
       else
