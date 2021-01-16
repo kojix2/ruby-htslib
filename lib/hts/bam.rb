@@ -22,7 +22,7 @@ module HTS
       if mode[0] == 'r'
         @idx = HTS::FFI.sam_index_load(@htf, @fname)
         if (@idx.null? && create_index.nil?) || create_index
-          HTS::FFI.bam_index_build(fname, -1)
+          HTS::FFI.sam_index_build(fname, -1)
           @idx = HTS::FFI.sam_index_load(@htf, @fname)
           warn 'NO querying'
         end
@@ -59,9 +59,7 @@ module HTS
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
-      while HTS::FFI.sam_read1(@htf, @header.h, @b) > 0
-        block.call(Alignment.new(@b, @header.h))
-      end
+      block.call(Alignment.new(@b, @header.h)) while HTS::FFI.sam_read1(@htf, @header.h, @b) > 0
     end
 
     # def call
