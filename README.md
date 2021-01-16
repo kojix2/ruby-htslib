@@ -29,6 +29,8 @@ export HTSLIBDIR="/your/path/to/htslib"
 
 ## Usage
 
+HTS::FFI - Low-level API 
+
 ```ruby
 require 'htslib'
 
@@ -37,6 +39,12 @@ b = HTS::FFI.hts_get_format(a)
 p b[:category]
 p b[:format]
 ```
+
+A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) is under development.
+
+## Documentation
+
+* [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
 
 ## Development
 
