@@ -18,4 +18,8 @@ class BamTest < Minitest::Test
   def test_initialize_no_file
     assert_raises(StandardError) { HTS::Bam.new('no_file') }
   end
+
+  def test_close
+    assert 0, @bam.close
+  end
 end
