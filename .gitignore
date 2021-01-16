@@ -11,7 +11,7 @@
 *.bam
 *.sam
 *.bai
-!examples/assets/poo.sort.bam
+!test/assets/*
 
 # rspec failure tracking
 .rspec_status
