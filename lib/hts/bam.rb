@@ -56,7 +56,12 @@ module HTS
     end
 
     def each(&block)
-      block.call(Alignment.new(@b, @header.h)) while HTS::FFI.sam_read1(@htf, @header.h, @b) > 0
+      # Each does not always start at the beginning of the file.
+      # This is the common behavior of IO objects in Ruby.
+      # This may change in the future.
+      while HTS::FFI.sam_read1(@htf, @header.h, @b) > 0
+        block.call(Alignment.new(@b, @header.h))
+      end
     end
 
     # def call
