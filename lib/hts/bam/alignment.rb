@@ -38,7 +38,9 @@ module HTS
       end
 
       def pnext
-        @b[:core][:mpos]
+        pos = @b[:core][:mpos]
+        return if pos == -1
+        pos
       end
 
       def rname
@@ -58,7 +60,9 @@ module HTS
       end
 
       def pos
-        @b[:core][:pos]
+        pos = @b[:core][:pos]
+        return if pos == -1
+        pos
       end
 
       # def pos=(v)
