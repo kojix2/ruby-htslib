@@ -12,8 +12,8 @@ module HTS
         c >> BAM_CIGAR_SHIFT
       end
 
-      def bam_cigar_opchar(c)
-        _BAM_CIGAR_STR_PADDED[bam_cigar_op(c)]
+      def bam_cigar_opchr(c)
+        (BAM_CIGAR_STR + '??????')[bam_cigar_op(c)]
       end
 
       def bam_cigar_gen(l, o)

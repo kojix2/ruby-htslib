@@ -6,6 +6,7 @@
 module HTS
   class Bam
     class Cigar
+      include Enumerable
       OPS = 'MIDNSHP=XB'
 
       def initialize(cigar, n_cigar)
@@ -14,17 +15,16 @@ module HTS
       end
 
       def to_s
-        warn 'WIP'
-        Array.new(@_cigar) do |i|
-          c = @c[i]
-          [FFI.bam_cigar_oplen(c),
-           FFI.bam_cigar_opchar(c)]
-        end
+        to_a.flatten.join
       end
 
       def each
+        @n_cigar.times do |i|
+          c = @c[i].read_uint32
+          yield [FFI.bam_cigar_oplen(c),
+                 FFI.bam_cigar_opchr(c)]
+        end
       end
-      # def inspect; end
     end
   end
 end
