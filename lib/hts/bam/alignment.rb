@@ -40,6 +40,7 @@ module HTS
       def pnext
         pos = @b[:core][:mpos]
         return if pos == -1
+
         pos
       end
 
@@ -62,6 +63,7 @@ module HTS
       def pos
         pos = @b[:core][:pos]
         return if pos == -1
+
         pos
       end
 
@@ -95,16 +97,26 @@ module HTS
         )
       end
 
-      def seqs; end
+      def seq
+        seq_nt16_str = "=ACMGRSVTWYHKDBN"
+        r = FFI.bam_get_seq(@b)
+        Array.new(@b[:core][:l_qseq]) do |i|
+          seq_nt16_str[FFI.bam_seqi(r, i)]
+        end.join
+      end
 
-      def flag_str; end
+      def flag_str
+        FFI.bam_flag2str(flag)
+      end
 
-      def flag; end
+      def flag
+        @b[:core][:flag]
+      end
 
+      # TODO:
       # def eql?
       # def hash
 
-      def to_s; end
     end
   end
 end

@@ -60,7 +60,9 @@ module HTS
         b[:l_data] - (b[:core][:n_cigar] << 2) - b[:core][:l_qname] - b[:core][:l_qseq] - ((b[:core][:l_qseq] + 1) >> 1)
       end
 
-      # def bam_seqi(s, i)
+      def bam_seqi(s, i)
+        s[(i) >> 1].read_uint8 >> ((~i & 1) << 2) & 0xf
+      end
 
       # def bam_set_seqi(s, i, b)
     end

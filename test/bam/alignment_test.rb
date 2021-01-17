@@ -67,4 +67,19 @@ class AlignmentTest < Minitest::Test
     assert_equal 0, @alm1.rlen
     assert_equal 10, @alm2.rlen
   end
+
+  def test_seq
+    assert_equal 'GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC', @alm1.seq
+    assert_equal 'AACCGCGGTT', @alm2.seq
+  end
+
+  def test_flag_str
+    assert_equal 'PAIRED,UNMAP,READ2', @alm1.flag_str
+    assert_equal '', @alm2.flag_str
+  end
+
+  def test_flag
+    assert_equal 133, @alm1.flag
+    assert_equal 0, @alm2.flag
+  end
 end
