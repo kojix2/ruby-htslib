@@ -26,19 +26,34 @@ module HTS
       end
 
       # Set (query) name.
-      def qname=(name); end
+      def qname=(_name)
+        raise 'NotImplemented'
+      end
 
       def rnext
+        tid = @b[:core][:mtid]
+        return if tid == -1
+
+        FFI.sam_hdr_tid2name(@h, tid)
+      end
+
+      def pnext
         @b[:core][:mpos]
       end
 
-      def pnext; end
+      def rname
+        tid = @b[:core][:tid]
+        return if tid == -1
 
-      def rname; end
+        FFI.sam_hdr_tid2name(@h, tid)
+      end
 
-      def strand; end
+      def strand
+        FFI.bam_is_rev(@b) ? '-' : '+' 
+      end
 
-      def base_qualities; end
+      def base_qualities
+      end
 
       def pos; end
 
