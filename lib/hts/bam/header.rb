@@ -15,12 +15,12 @@ module HTS
       # FIXME: better name?
       def seqs
         Array.new(@h[:n_targets]) do |i|
-          HTS::FFI.sam_hdr_tid2name(@h, i)
+          FFI.sam_hdr_tid2name(@h, i)
         end
       end
 
       def text
-        HTS::FFI.sam_hdr_str(@h)
+        FFI.sam_hdr_str(@h)
       end
     end
   end

@@ -12,9 +12,9 @@ module HTS
         @h = bam_hdr_t
       end
 
-      def initialize_copy
-        super
-      end
+      # def initialize_copy
+      #   super
+      # end
 
       def self.rom_sam_str; end
 
@@ -22,7 +22,7 @@ module HTS
 
       # Read (query) name.
       def qname
-        HTS::FFI.bam_get_qname(@b).read_string
+        FFI.bam_get_qname(@b).read_string
       end
 
       # Set (query) name.

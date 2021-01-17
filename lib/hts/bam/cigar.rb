@@ -17,8 +17,8 @@ module HTS
         warn 'WIP'
         Array.new(@_cigar) do |i|
           c = @c[i]
-          [HTS::FFI.bam_cigar_oplen(c),
-           HTS::FFI.bam_cigar_opchar(c)]
+          [FFI.bam_cigar_oplen(c),
+           FFI.bam_cigar_opchar(c)]
         end
       end
 
