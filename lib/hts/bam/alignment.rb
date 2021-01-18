@@ -38,10 +38,10 @@ module HTS
       end
 
       def pnext
-        pos = @b[:core][:mpos]
-        return if pos == -1
+        mpos = @b[:core][:mpos]
+        return if mpos == -1
 
-        pos
+        mpos
       end
 
       def rname
