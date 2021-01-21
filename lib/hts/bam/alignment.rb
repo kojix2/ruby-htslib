@@ -38,6 +38,16 @@ module HTS
         FFI.sam_hdr_tid2name(@h, tid)
       end
 
+      # returns the tid of the mate or -1 if not mapped.
+      def mate_tid
+        @b[:core][:mtid]
+      end
+
+      # returns the tid of the alignment or -1 if not mapped.
+      def tid
+        @b[:core][:tid]
+      end
+
       # mate position
       def mate_pos
         mpos = @b[:core][:mpos]

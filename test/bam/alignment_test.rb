@@ -18,6 +18,16 @@ class AlignmentTest < Minitest::Test
     assert_equal '', @aln2.mate_chrom
   end
 
+  def test_mate_tid
+    assert_equal 0, @aln1.mate_tid
+    assert_equal -1, @aln2.mate_tid
+  end
+
+  def test_tid
+    assert_equal 0, @aln1.tid
+    assert_equal 0, @aln2.tid
+  end
+
   def test_mate_pos
     assert_equal 3289, @aln1.mate_pos
     assert_nil @aln2.mate_pos
