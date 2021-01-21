@@ -10,7 +10,7 @@ bam.each do |aln|
   p name: aln.qname,
     flag: aln.flag,
     pos: aln.pos + 1,
-    mpos: aln.pnext + 1,
+    mpos: aln.mate_pos + 1,
     mqual: aln.mapping_quality,
     seq: aln.sequence,
     cigar: aln.cigar.to_s,

@@ -13,14 +13,14 @@ class AlignmentTest < Minitest::Test
     assert_equal 'chr1', @aln2.qname
   end
 
-  def test_rnext
-    assert_equal 'poo', @aln1.rnext
-    assert_nil @aln2.rnext
+  def test_mate_chrom
+    assert_equal 'poo', @aln1.mate_chrom
+    assert_equal '', @aln2.mate_chrom
   end
 
-  def test_pnext
-    assert_equal 3289, @aln1.pnext
-    assert_nil @aln2.pnext
+  def test_mate_pos
+    assert_equal 3289, @aln1.mate_pos
+    assert_nil @aln2.mate_pos
   end
 
   def test_rname

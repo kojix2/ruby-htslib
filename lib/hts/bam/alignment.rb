@@ -30,14 +30,16 @@ module HTS
       #   raise 'Not Implemented'
       # end
 
-      def rnext
+      # returns the chromosome of the mate or '' if not mapped.
+      def mate_chrom
         tid = @b[:core][:mtid]
-        return if tid == -1
+        return '' if tid == -1
 
         FFI.sam_hdr_tid2name(@h, tid)
       end
 
-      def pnext
+      # mate position
+      def mate_pos
         mpos = @b[:core][:mpos]
         return if mpos == -1
 
