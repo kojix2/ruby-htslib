@@ -55,11 +55,6 @@ module HTS
         FFI.bam_is_rev(@b) ? '-' : '+'
       end
 
-      def base_qualities
-        q_ptr = FFI.bam_get_qual(@b)
-        q_ptr.read_array_of_uint8(@b[:core][:l_qseq])
-      end
-
       def pos
         pos = @b[:core][:pos]
         return if pos == -1
@@ -111,6 +106,18 @@ module HTS
         return '.' if n >= @b[:core][:l_qseq] or n < 0 # eg. base_at(-1000)
         r = FFI.bam_get_seq(@b)
         seq_nt16_str[FFI.bam_seqi(r, n)]
+      end
+
+      def base_qualities
+        q_ptr = FFI.bam_get_qual(@b)
+        q_ptr.read_array_of_uint8(@b[:core][:l_qseq])
+      end
+
+      def base_quality_at(n)
+        n = n + @b[:core][:l_qseq] if n < 0 # eg. base_quality_at(-1000)
+        return 0 if n >= @b[:core][:l_qseq] or n < 0
+        q_ptr = FFI.bam_get_qual(@b)
+        q_ptr.get_uint8(n)
       end
 
       def flag_str

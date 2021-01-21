@@ -33,11 +33,6 @@ class AlignmentTest < Minitest::Test
     assert_equal '+', @aln2.strand
   end
 
-  def test_base_qualities
-    assert_equal ([17] * 70), @aln1.base_qualities
-    assert_equal ([255] * 10), @aln2.base_qualities
-  end
-
   def test_pos
     assert_equal 3289, @aln1.pos
     assert_equal 0, @aln2.pos
@@ -85,6 +80,21 @@ class AlignmentTest < Minitest::Test
     assert_equal 'A', @aln2.base_at(0)
     assert_equal 'T', @aln2.base_at(9)
     assert_equal '.', @aln2.base_at(10)
+  end
+
+  def test_base_qualities
+    assert_equal ([17] * 70), @aln1.base_qualities
+    assert_equal ([255] * 10), @aln2.base_qualities
+  end
+
+  def test_base_quality_at
+    assert_equal (17), @aln1.base_quality_at(0)
+    assert_equal (17), @aln1.base_quality_at(-1)
+    assert_equal (17), @aln1.base_quality_at(69)
+    assert_equal (17), @aln1.base_quality_at(-70)
+    assert_equal (0), @aln1.base_quality_at(70)
+    assert_equal (0), @aln1.base_quality_at(71)
+#    assert_equal ([255] * 10), @aln2.base_qualities
   end
 
   def test_flag_str
