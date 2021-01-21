@@ -22,4 +22,16 @@ class BamTest < Minitest::Test
   def test_close
     assert 0, @bam.close
   end
+
+  def test_each
+    alns = @bam.to_a
+    assert_equal true, alns.all? {|i| i.is_a?(HTS::Bam::Alignment)}
+  end
+
+  def test_query
+    @bam.query(''){|aln|
+      p aln.start
+    }
+    assert_equal 0, 0
+  end
 end

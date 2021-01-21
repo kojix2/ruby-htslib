@@ -62,6 +62,18 @@ module HTS
       block.call(Alignment.new(@b, @header.h)) while FFI.sam_read1(@htf, @header.h, @b) > 0
     end
 
-    # def call
+    # query [WIP]
+    def query(region)
+      qiter = FFI.sam_itr_querys(@idx, @header.h, region)
+      begin
+        slen = FFI.sam_itr_next(@htf, qiter, @b)
+        while slen > 0
+          yield Alignment.new(@b, @header.h)
+          slen = FFI.sam_itr_next(@htf, qiter, @b)
+        end
+      ensure
+        FFI.hts_itr_destroy(qiter)
+      end
+    end
   end
 end

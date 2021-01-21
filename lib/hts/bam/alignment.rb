@@ -75,12 +75,11 @@ module HTS
         FFI.bam_is_rev(@b) ? '-' : '+'
       end
 
-
-
       # def start=(v)
       #   raise 'Not Implemented'
       # end
 
+      # insert size
       def isize
         @b[:core][:isize]
       end
@@ -109,6 +108,7 @@ module HTS
         )
       end
 
+      # return the read sequence
       def sequence
         seq_nt16_str = "=ACMGRSVTWYHKDBN"
         r = FFI.bam_get_seq(@b)
@@ -149,7 +149,6 @@ module HTS
       # TODO:
       # def eql?
       # def hash
-
     end
   end
 end
