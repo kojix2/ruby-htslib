@@ -50,15 +50,23 @@ module HTS
 
       # mate position
       def mate_pos
-        mpos = @b[:core][:mpos]
-        return if mpos == -1
-
-        mpos
+        @b[:core][:mpos]
       end
 
-      def rname
+      # returns 0-based start position.
+      def start
+        @b[:core][:pos]
+      end
+
+      # returns end position of the read.
+      def stop
+        FFI.bam_endpos @b
+      end
+
+      # returns the chromosome or '' if not mapped.
+      def chrom
         tid = @b[:core][:tid]
-        return if tid == -1
+        return '' if tid == -1
 
         FFI.sam_hdr_tid2name(@h, tid)
       end
@@ -67,14 +75,9 @@ module HTS
         FFI.bam_is_rev(@b) ? '-' : '+'
       end
 
-      def pos
-        pos = @b[:core][:pos]
-        return if pos == -1
 
-        pos
-      end
 
-      # def pos=(v)
+      # def start=(v)
       #   raise 'Not Implemented'
       # end
 
@@ -82,10 +85,12 @@ module HTS
         @b[:core][:isize]
       end
 
+      # mapping quality
       def mapping_quality
         @b[:core][:qual]
       end
 
+      # returns a `Cigar` object.
       def cigar
         Cigar.new(FFI.bam_get_cigar(@b), @b[:core][:n_cigar])
       end
@@ -136,6 +141,7 @@ module HTS
         FFI.bam_flag2str(flag)
       end
 
+      # returns a `Flag` object.
       def flag
         @b[:core][:flag]
       end

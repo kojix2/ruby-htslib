@@ -9,7 +9,7 @@ bam = HTS::Bam.new(bam_path)
 bam.each do |aln|
   p name: aln.qname,
     flag: aln.flag,
-    pos: aln.pos + 1,
+    start: aln.start + 1,
     mpos: aln.mate_pos + 1,
     mqual: aln.mapping_quality,
     seq: aln.sequence,

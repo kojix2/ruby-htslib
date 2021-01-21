@@ -33,9 +33,9 @@ class AlignmentTest < Minitest::Test
     assert_equal (-1), @aln2.mate_pos
   end
 
-  def test_rname
-    assert_equal 'poo', @aln1.rname
-    assert_equal 'chr1', @aln2.rname
+  def test_chrom
+    assert_equal 'poo', @aln1.chrom
+    assert_equal 'chr1', @aln2.chrom
   end
 
   def test_strand
@@ -43,9 +43,14 @@ class AlignmentTest < Minitest::Test
     assert_equal '+', @aln2.strand
   end
 
-  def test_pos
-    assert_equal 3289, @aln1.pos
-    assert_equal 0, @aln2.pos
+  def test_start
+    assert_equal 3289, @aln1.start
+    assert_equal 0, @aln2.start
+  end
+
+  def test_stop
+    assert_equal 3290, @aln1.stop # may be strange?
+    assert_equal 10, @aln2.stop
   end
 
   def test_isize
