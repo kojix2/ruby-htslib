@@ -4,13 +4,13 @@ class CigarTest < Minitest::Test
   def poo
     bam = HTS::Bam.new(File.expand_path('../assets/poo.sort.bam', __dir__))
     alm = bam.first
-    cigar = alm.cigar
+    alm.cigar
   end
 
   def colons
     bam = HTS::Bam.new(File.expand_path('../../htslib/test/colons.bam', __dir__))
     alm = bam.first
-    cigar = alm.cigar
+    alm.cigar
   end
 
   %i[poo colons].each do |fname|

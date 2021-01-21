@@ -20,7 +20,7 @@ class AlignmentTest < Minitest::Test
 
   def test_mate_tid
     assert_equal 0, @aln1.mate_tid
-    assert_equal -1, @aln2.mate_tid
+    assert_equal (-1), @aln2.mate_tid
   end
 
   def test_tid
@@ -30,7 +30,7 @@ class AlignmentTest < Minitest::Test
 
   def test_mate_pos
     assert_equal 3289, @aln1.mate_pos
-    assert_nil @aln2.mate_pos
+    assert_equal (-1), @aln2.mate_pos
   end
 
   def test_rname
