@@ -12,7 +12,7 @@ bam.each do |aln|
     pos: aln.pos + 1,
     mpos: aln.pnext + 1,
     mqual: aln.mapping_quality,
-    seq: aln.seq,
+    seq: aln.sequence,
     cigar: aln.cigar.to_s,
     qual: aln.base_qualities.map { |i| (i + 33).chr }.join
 end

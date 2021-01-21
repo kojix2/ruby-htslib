@@ -97,12 +97,20 @@ module HTS
         )
       end
 
-      def seq
+      def sequence
         seq_nt16_str = "=ACMGRSVTWYHKDBN"
         r = FFI.bam_get_seq(@b)
         Array.new(@b[:core][:l_qseq]) do |i|
           seq_nt16_str[FFI.bam_seqi(r, i)]
         end.join
+      end
+
+      def base_at(n)
+        n = n + @b[:core][:l_qseq] if n < 0
+        seq_nt16_str = "=ACMGRSVTWYHKDBN"
+        return '.' if n >= @b[:core][:l_qseq] or n < 0 # eg. base_at(-1000)
+        r = FFI.bam_get_seq(@b)
+        seq_nt16_str[FFI.bam_seqi(r, n)]
       end
 
       def flag_str

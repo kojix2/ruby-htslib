@@ -69,8 +69,22 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_seq
-    assert_equal 'GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC', @aln1.seq
-    assert_equal 'AACCGCGGTT', @aln2.seq
+    assert_equal 'GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC', @aln1.sequence
+    assert_equal 'AACCGCGGTT', @aln2.sequence
+  end
+
+  def test_base_at
+    assert_equal 'G', @aln1.base_at(0)
+    assert_equal 'C', @aln1.base_at(4)
+    assert_equal 'A', @aln1.base_at(5)
+    assert_equal '.', @aln1.base_at(70)
+    assert_equal 'C', @aln1.base_at(-1)
+    assert_equal 'G', @aln1.base_at(-2)
+    assert_equal 'G', @aln1.base_at(-70)
+    assert_equal '.', @aln1.base_at(-71)
+    assert_equal 'A', @aln2.base_at(0)
+    assert_equal 'T', @aln2.base_at(9)
+    assert_equal '.', @aln2.base_at(10)
   end
 
   def test_flag_str
