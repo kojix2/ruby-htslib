@@ -6,6 +6,7 @@ class BamTest < Minitest::Test
   end
 
   def test_initialize_sam
+    skip
     sam = HTS::Bam.new(File.expand_path('assets/poo.sort.sam', __dir__))
     assert_instance_of HTS::Bam, sam
   end
