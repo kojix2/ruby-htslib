@@ -6,7 +6,6 @@ class BamTest < Minitest::Test
   end
 
   def test_initialize_sam
-    skip
     sam = HTS::Bam.new(File.expand_path('assets/poo.sort.sam', __dir__))
     assert_instance_of HTS::Bam, sam
   end
@@ -28,10 +27,12 @@ class BamTest < Minitest::Test
     assert_equal true, alns.all? {|i| i.is_a?(HTS::Bam::Alignment)}
   end
 
-  def test_query
-    @bam.query(''){|aln|
-      p aln.start
-    }
-    assert_equal 0, 0
+  def test_puery
+    # FIXME:
+    arr = []
+    @bam.query('poo:3200-3300') do |aln|
+      arr << aln.start
+    end
+    assert_equal [3289, 3292, 3293, 3298], arr
   end
 end

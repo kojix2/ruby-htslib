@@ -407,6 +407,16 @@ module HTS
       [HtsIdx, SamHdr, :pointer, :uint],
       HtsItr.by_ref
 
+    # Get the next read from a SAM/BAM/CRAM iterator
+    def self.sam_itr_next(htsfp, itr, r)
+      # FIXME: check if htsfp is compressed BGZF
+      if itr.null?
+        hts_log_error("Null iterator")
+      end
+      # FIXME: check multi
+      hts_itr_next(htsfp[:fp][:bgzf], itr, r, htsfp)
+    end
+
     attach_function \
       :sam_parse_region,
       [SamHdr, :string, :pointer, :pointer, :pointer, :int],
