@@ -110,7 +110,7 @@ module HTS
 
       # return the read sequence
       def sequence
-        seq_nt16_str = "=ACMGRSVTWYHKDBN"
+        seq_nt16_str = '=ACMGRSVTWYHKDBN'
         r = FFI.bam_get_seq(@b)
         Array.new(@b[:core][:l_qseq]) do |i|
           seq_nt16_str[FFI.bam_seqi(r, i)]
@@ -118,9 +118,10 @@ module HTS
       end
 
       def base_at(n)
-        n = n + @b[:core][:l_qseq] if n < 0
-        seq_nt16_str = "=ACMGRSVTWYHKDBN"
-        return '.' if n >= @b[:core][:l_qseq] or n < 0 # eg. base_at(-1000)
+        n += @b[:core][:l_qseq] if n < 0
+        seq_nt16_str = '=ACMGRSVTWYHKDBN'
+        return '.' if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_at(-1000)
+
         r = FFI.bam_get_seq(@b)
         seq_nt16_str[FFI.bam_seqi(r, n)]
       end
@@ -131,8 +132,9 @@ module HTS
       end
 
       def base_quality_at(n)
-        n = n + @b[:core][:l_qseq] if n < 0 # eg. base_quality_at(-1000)
-        return 0 if n >= @b[:core][:l_qseq] or n < 0
+        n += @b[:core][:l_qseq] if n < 0 # eg. base_quality_at(-1000)
+        return 0 if (n >= @b[:core][:l_qseq]) || (n < 0)
+
         q_ptr = FFI.bam_get_qual(@b)
         q_ptr.get_uint8(n)
       end

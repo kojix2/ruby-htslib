@@ -24,7 +24,7 @@ class BamTest < Minitest::Test
 
   def test_each
     alns = @bam.to_a
-    assert_equal true, alns.all? {|i| i.is_a?(HTS::Bam::Alignment)}
+    assert_equal true, alns.all? { |i| i.is_a?(HTS::Bam::Alignment) }
   end
 
   def test_puery

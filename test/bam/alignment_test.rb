@@ -20,7 +20,7 @@ class AlignmentTest < Minitest::Test
 
   def test_mate_tid
     assert_equal 0, @aln1.mate_tid
-    assert_equal (-1), @aln2.mate_tid
+    assert_equal(-1, @aln2.mate_tid)
   end
 
   def test_tid
@@ -30,7 +30,7 @@ class AlignmentTest < Minitest::Test
 
   def test_mate_pos
     assert_equal 3289, @aln1.mate_pos
-    assert_equal (-1), @aln2.mate_pos
+    assert_equal(-1, @aln2.mate_pos)
   end
 
   def test_chrom
@@ -103,13 +103,13 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_base_quality_at
-    assert_equal (17), @aln1.base_quality_at(0)
-    assert_equal (17), @aln1.base_quality_at(-1)
-    assert_equal (17), @aln1.base_quality_at(69)
-    assert_equal (17), @aln1.base_quality_at(-70)
-    assert_equal (0), @aln1.base_quality_at(70)
-    assert_equal (0), @aln1.base_quality_at(71)
-#    assert_equal ([255] * 10), @aln2.base_qualities
+    assert_equal 17, @aln1.base_quality_at(0)
+    assert_equal 17, @aln1.base_quality_at(-1)
+    assert_equal 17, @aln1.base_quality_at(69)
+    assert_equal 17, @aln1.base_quality_at(-70)
+    assert_equal 0, @aln1.base_quality_at(70)
+    assert_equal 0, @aln1.base_quality_at(71)
+    #    assert_equal ([255] * 10), @aln2.base_qualities
   end
 
   def test_flag_str
