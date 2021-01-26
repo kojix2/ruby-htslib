@@ -2,7 +2,7 @@
 
 require 'htslib'
 
-bam_path = ARGV[0] || File.expand_path('../test/assets/poo.sort.bam', __dir__)
+bam_path = ARGV[0] || File.expand_path('../test/fixtures/poo.sort.bam', __dir__)
 
 bam = HTS::Bam.new(bam_path)
 

@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class AlignmentTest < Minitest::Test
   def setup
-    bam1 = HTS::Bam.new(File.expand_path('../assets/poo.sort.bam', __dir__))
+    bam1 = HTS::Bam.new(File.expand_path('../fixtures/poo.sort.bam', __dir__))
     @aln1 = bam1.first
     bam2 = HTS::Bam.new(File.expand_path('../../htslib/test/colons.bam', __dir__))
     @aln2 = bam2.first

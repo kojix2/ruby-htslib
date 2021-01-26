@@ -11,7 +11,7 @@
 *.bam
 *.sam
 *.bai
-!test/assets/*
+!test/fixtures/*
 
 # rspec failure tracking
 .rspec_status

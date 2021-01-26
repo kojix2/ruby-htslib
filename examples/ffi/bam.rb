@@ -2,7 +2,7 @@
 
 require 'htslib'
 
-bam_path = File.expand_path('../../test/assets/poo.sort.bam', __dir__)
+bam_path = File.expand_path('../../test/fixtures/poo.sort.bam', __dir__)
 
 htf = HTS::FFI.hts_open(bam_path, 'r')
 idx = HTS::FFI.sam_index_load(htf, bam_path)
