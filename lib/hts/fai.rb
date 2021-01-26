@@ -5,9 +5,29 @@
 
 module HTS
   class Fai
-    def initialize; end
+    def self.open(path)
+      fai = self.new(path)
+      if block_given?
+        yield(fai)
+        fai.close
+      else
+        fai
+      end
+    end
 
-    # def call
+    def initialize(path)
+      @path = File.expand_path(path)
+      @path.delete_suffix!(".fai")
+      if File.exist?(@path + ".fai")
+        FFI.fai_build(@path)
+      end
+      @fai = FFI.fai_load(@path)
+      # at_exit{FFI.fai_destroy(@fai)}
+    end
+
+    def [](region)
+      
+    end
 
     def nseqs; end
 
