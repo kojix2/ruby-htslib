@@ -5,6 +5,7 @@
 
 module HTS
   class Fai
+    # FIXME API
     def self.open(path)
       fai = new(path)
       if block_given?
@@ -18,9 +19,15 @@ module HTS
     def initialize(path)
       @path = File.expand_path(path)
       @path.delete_suffix!('.fai')
-      FFI.fai_build(@path) if File.exist?(@path + '.fai')
+      FFI.fai_build(@path) unless File.exist?(@path + '.fai')
       @fai = FFI.fai_load(@path)
+      raise if @fai.null?
+
       # at_exit{FFI.fai_destroy(@fai)}
+    end
+
+    def close
+      FFI.fai_destroy(@fai)
     end
 
     # the number of sequences in the index.
