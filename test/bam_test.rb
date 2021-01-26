@@ -2,12 +2,12 @@ require_relative 'test_helper'
 
 class BamTest < Minitest::Test
   def setup
-    @bam = HTS::Bam.new(File.expand_path('fixtures/poo.sort.bam', __dir__))
+    @bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
   end
 
   def test_initialize_sam
     skip
-    sam = HTS::Bam.new(File.expand_path('fixtures/poo.sort.sam', __dir__))
+    sam = HTS::Bam.new(Fixtures['poo.sort.sam'])
     assert_instance_of HTS::Bam, sam
   end
 

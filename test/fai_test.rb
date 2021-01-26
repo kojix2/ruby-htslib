@@ -2,7 +2,7 @@ require_relative 'test_helper'
 
 class FaiTest < Minitest::Test
   def setup
-    @fai = HTS::Fai.new(File.expand_path('fixtures/random.fa', __dir__))
+    @fai = HTS::Fai.new(Fixtures['random.fa'])
   end
 
   def test_initialize_fai

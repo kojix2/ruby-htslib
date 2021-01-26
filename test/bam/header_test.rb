@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class HeaderTest < Minitest::Test
   def setup
-    @bam = HTS::Bam.new(File.expand_path('../fixtures/poo.sort.bam', __dir__))
+    @bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
     @bam_header = @bam.header
   end
 

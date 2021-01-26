@@ -2,7 +2,7 @@
 
 require 'htslib'
 
-bam_path = ARGV[0] || File.expand_path('../test/fixtures/poo.sort.bam', __dir__)
+bam_path = ARGV[0] || Fixture['poo.sort.bam'])
 
 bam = HTS::Bam.new(bam_path)
 

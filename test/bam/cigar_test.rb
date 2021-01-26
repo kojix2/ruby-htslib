@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class CigarTest < Minitest::Test
   def poo
-    bam = HTS::Bam.new(File.expand_path('../fixtures/poo.sort.bam', __dir__))
+    bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
     alm = bam.first
     alm.cigar
   end
