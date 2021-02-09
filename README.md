@@ -60,6 +60,8 @@ bundle exec rake spec
 
 ## Contributing
 
+Ruby-htslib is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests.
+
 * [Report bugs](https://github.com/kojix2/ruby-htslib/issues)
 * Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
 * Write, clarify, or fix documentation
