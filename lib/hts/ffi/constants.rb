@@ -8,7 +8,7 @@ module HTS
 
     # kstring
 
-    class Kstring < ::FFI::Struct
+    class KString < ::FFI::Struct
       layout \
         :l,              :size_t,
         :m,              :size_t,
@@ -162,7 +162,7 @@ module HTS
       layout \
         :bitfields,      :uint32, # FIXME
         :lineno,         :int64,
-        :line,           Kstring,
+        :line,           KString,
         :fn,             :string,
         :fn_aux,         :string,
         :fp,
@@ -389,7 +389,7 @@ module HTS
         :transl,         :pointer,
         :nsamples_ori,   :int,
         :keep_samples,   :pointer,
-        :mem,            Kstring,
+        :mem,            KString,
         :m,              [:int, 3]
     end
 
@@ -422,8 +422,8 @@ module HTS
         :qual,           :float,
         :piyo,           :int, # FIXME
         :fuga,           :int, # FIXME
-        :shared,         Kstring,
-        :indiv,          Kstring,
+        :shared,         KString,
+        :indiv,          KString,
         :d,              BcfDec,
         :max_unpack,     :int,
         :unpacked,       :int,

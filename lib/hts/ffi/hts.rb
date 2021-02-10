@@ -110,7 +110,7 @@ module HTS
     # Read a line (and its \n or \r\n terminator) from a file
     attach_function \
       :hts_getline,
-      [HtsFile, :int, Kstring],
+      [HtsFile, :int, KString],
       :int
 
     attach_function \

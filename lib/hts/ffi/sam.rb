@@ -148,13 +148,13 @@ module HTS
     # Returns a complete line of formatted text for a given type and ID.
     attach_function \
       :sam_hdr_find_line_id,
-      [SamHdr, :string, :string, :string, Kstring],
+      [SamHdr, :string, :string, :string, KString],
       :int
 
     # Returns a complete line of formatted text for a given type and index.
     attach_function \
       :sam_hdr_find_line_pos,
-      [SamHdr, :string, :int, Kstring],
+      [SamHdr, :string, :int, KString],
       :int
 
     # Remove a line with given type / id from a header
@@ -208,13 +208,13 @@ module HTS
     # Return the value associated with a key for a header line identified by ID_key:ID_val
     attach_function \
       :sam_hdr_find_tag_id,
-      [SamHdr, :string, :string, :string, :string, Kstring],
+      [SamHdr, :string, :string, :string, :string, KString],
       :int
 
     # Return the value associated with a key for a header line identified by position
     attach_function \
       :sam_hdr_find_tag_pos,
-      [SamHdr, :string, :int, :string, Kstring],
+      [SamHdr, :string, :int, :string, KString],
       :int
 
     # Remove the key from the line identified by type, ID_key and ID_value.
@@ -445,12 +445,12 @@ module HTS
 
     attach_function \
       :sam_parse1,
-      [Kstring, SamHdr, Bam1],
+      [KString, SamHdr, Bam1],
       :int
 
     attach_function \
       :sam_format1,
-      [SamHdr, Bam1, Kstring],
+      [SamHdr, Bam1, KString],
       :int
 
     # Read a record from a file
@@ -598,7 +598,7 @@ module HTS
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
       :bam_plp_insertion,
-      [:pointer, Kstring, :pointer],
+      [:pointer, KString, :pointer],
       :int
 
     # sets a callback to initialise any per-pileup1_t fields.

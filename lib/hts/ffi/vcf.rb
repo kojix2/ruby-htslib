@@ -54,7 +54,7 @@ module HTS
 
     attach_function \
       :vcf_parse,
-      [Kstring, BcfHdr, Bcf1],
+      [KString, BcfHdr, Bcf1],
       :int
 
     attach_function \
@@ -64,7 +64,7 @@ module HTS
 
     attach_function \
       :vcf_format,
-      [BcfHdr, Bcf1, Kstring],
+      [BcfHdr, Bcf1, KString],
       :int
 
     attach_function \
@@ -119,7 +119,7 @@ module HTS
 
     attach_function \
       :vcf_write_line,
-      [HtsFile, Kstring],
+      [HtsFile, KString],
       :int
 
     attach_function \
@@ -144,7 +144,7 @@ module HTS
 
     attach_function \
       :bcf_hdr_format,
-      [BcfHdr, :int, Kstring],
+      [BcfHdr, :int, KString],
       :int
 
     attach_function \
@@ -204,7 +204,7 @@ module HTS
 
     attach_function \
       :bcf_hrec_format,
-      [BcfHrec, Kstring],
+      [BcfHrec, KString],
       :int
 
     attach_function \
@@ -369,27 +369,27 @@ module HTS
 
     attach_function \
       :bcf_fmt_array,
-      [Kstring, :int, :int, :pointer],
+      [KString, :int, :int, :pointer],
       :int
 
     attach_function \
       :bcf_fmt_sized_array,
-      [Kstring, :pointer],
+      [KString, :pointer],
       :uint8_t
 
     attach_function \
       :bcf_enc_vchar,
-      [Kstring, :int, :string],
+      [KString, :int, :string],
       :int
 
     attach_function \
       :bcf_enc_vint,
-      [Kstring, :int, :pointer, :int],
+      [KString, :int, :pointer, :int],
       :int
 
     attach_function \
       :bcf_enc_vfloat,
-      [Kstring, :int, :pointer],
+      [KString, :int, :pointer],
       :int
 
     attach_function \

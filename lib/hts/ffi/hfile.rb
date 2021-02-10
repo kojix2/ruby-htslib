@@ -23,7 +23,7 @@ module HTS
     # Append an extension or replace an existing extension
     attach_function \
       :haddextension,
-      [Kstring, :string, :int, :string],
+      [KString, :string, :int, :string],
       :string
 
     # Flush (for output streams) and close the stream

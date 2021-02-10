@@ -120,7 +120,7 @@ module HTS
     # Read one line from a BGZF file. It is faster than bgzf_getc()
     attach_function \
       :bgzf_getline,
-      [BGZF, :int, Kstring],
+      [BGZF, :int, KString],
       :int
 
     # Read the next BGZF block.
