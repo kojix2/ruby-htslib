@@ -15,6 +15,16 @@ module HTS
         :s,              :string
     end
 
+    class KSeq < ::FFI::Struct
+      layout \
+        :name,           KString,
+        :comment,        KString,
+        :seq,            KString,
+        :qual,           KString,
+        :last_char,      :int,
+        :f,              :pointer #FIXME
+    end
+
     # BGZF
     class BGZF < ::FFI::Struct
       layout \
