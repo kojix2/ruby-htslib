@@ -11,7 +11,7 @@ end
 
 namespace :htslib do
   desc 'Building HTSlib'
-  task :compile do
+  task :build do
     Dir.chdir('htslib') do
       system 'autoheader'
       system 'autoconf'

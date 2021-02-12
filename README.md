@@ -54,7 +54,7 @@ To get started with development
 git clone --recurse-submodules https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 bundle install
-bundle exec rake htslib:compile
+bundle exec rake htslib:build
 bundle exec rake spec
 ```
 
