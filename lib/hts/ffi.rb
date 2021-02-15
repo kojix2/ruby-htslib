@@ -20,12 +20,54 @@ end
 
 module FFI
   class Struct
-    def self.union_layout(*args)
-      Class.new(FFI::Union) { layout(*args) }
-    end
+    class << self
+      def union_layout(*args)
+        Class.new(FFI::Union) { layout(*args) }
+      end
 
-    def self.struct_layout(*args)
-      Class.new(FFI::Struct) { layout(*args) }
+      def struct_layout(*args)
+        Class.new(FFI::Struct) { layout(*args) }
+      end
+    end
+  end
+
+  class BitStruct < Struct
+    class << self
+      module BitFieldsModule
+        def [](name)
+          bit_fields = self.class.bit_fields_map
+          parent, start, width = bit_fields[name]
+          if parent
+            (super(parent) >> start) & ((1 << width) - 1)
+          else
+            super(name)
+          end
+        end
+      end
+      private_constant :BitFieldsModule
+
+      attr_reader :bit_fields_map
+
+      def bitfields(*args)
+        unless instance_variable_defined?(:@bit_fields)
+          @bit_fields_map = {}
+          prepend BitFieldsModule
+        end
+
+        parent = args.shift
+        labels = []
+        widths = []
+        args.each_slice(2) do |l, w|
+          labels << l
+          widths << w
+        end
+        starts = widths.inject([0]) do |result, w|
+          result << (result.last + w)
+        end
+        labels.zip(starts, widths).each do |l, s, w|
+          @bit_fields_map[l] = [parent, s, w]
+        end
+      end
     end
   end
 end
