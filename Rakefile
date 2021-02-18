@@ -37,10 +37,11 @@ end
 namespace :c2ffi do
   desc 'Generate metadata files (JSON format) using c2ffi'
   task :generate do
+    FileUtils.mkdir_p("codegen")
     header_files = FileList['htslib/**/*/*.h']
     header_files.each do |file|
       system "c2ffi #{file}" \
-             " -o codegen/native_functions/#{File.basename(file, '.h')}.json"
+             " -o codegen/#{File.basename(file, '.h')}.json"
     end
   end
 

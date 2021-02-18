@@ -1,6 +1,0 @@
-[
-{ "tag": "extern", "name": "itf8_bytes", "ns": 0, "location": "htslib/cram/cram_io.h:270:18", "type": { "tag": ":array", "type": { "tag": ":int", "bit-size": 32, "bit-alignment": 32 }, "size": 16 } },
-{ "tag": "extern", "name": "ltf8_bytes", "ns": 0, "location": "htslib/cram/cram_io.h:271:18", "type": { "tag": ":array", "type": { "tag": ":int", "bit-size": 32, "bit-alignment": 32 }, "size": 256 } },
-{ "tag": "function", "name": "cram_block_method2str", "ns": 0, "location": "htslib/cram/cram_io.h:472:7", "variadic": false, "inline": false, "storage-class": "none", "parameters": [{ "tag": "parameter", "name": "m", "type": { "tag": ":enum", "name": "cram_block_method", "id": 0 } }], "return-type": { "tag": ":pointer", "type": { "tag": ":char", "bit-size": 8, "bit-alignment": 8 } } },
-{ "tag": "function", "name": "cram_content_type2str", "ns": 0, "location": "htslib/cram/cram_io.h:473:7", "variadic": false, "inline": false, "storage-class": "none", "parameters": [{ "tag": "parameter", "name": "t", "type": { "tag": ":enum", "name": "cram_content_type", "id": 0 } }], "return-type": { "tag": ":pointer", "type": { "tag": ":char", "bit-size": 8, "bit-alignment": 8 } } }
-]
