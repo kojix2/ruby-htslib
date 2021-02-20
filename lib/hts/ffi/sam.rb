@@ -13,7 +13,7 @@ module HTS
       end
 
       def bam_cigar_opchr(c)
-        (BAM_CIGAR_STR + '??????')[bam_cigar_op(c)]
+        ("#{BAM_CIGAR_STR}??????")[bam_cigar_op(c)]
       end
 
       def bam_cigar_gen(l, o)

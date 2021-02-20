@@ -22,7 +22,7 @@ module HTS
         :seq,            KString,
         :qual,           KString,
         :last_char,      :int,
-        :f,              :pointer #FIXME
+        :f,              :pointer # FIXME
     end
 
     # BGZF

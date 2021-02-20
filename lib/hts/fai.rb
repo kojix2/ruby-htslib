@@ -5,7 +5,7 @@
 
 module HTS
   class Fai
-    # FIXME API
+    # FIXME: API
     def self.open(path)
       fai = new(path)
       if block_given?
@@ -19,7 +19,7 @@ module HTS
     def initialize(path)
       @path = File.expand_path(path)
       @path.delete_suffix!('.fai')
-      FFI.fai_build(@path) unless File.exist?(@path + '.fai')
+      FFI.fai_build(@path) unless File.exist?("#{@path}.fai")
       @fai = FFI.fai_load(@path)
       raise if @fai.null?
 
@@ -47,12 +47,10 @@ module HTS
     alias chrom_length chrom_size
 
     # FIXME: naming and syntax
-    def cget()
-    end
+    def cget; end
 
     # FIXME: naming and syntax
-    def get
-    end
+    def get; end
 
     # __iter__
   end
