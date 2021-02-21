@@ -20,7 +20,7 @@ gem install htslib
 Set environment variable HTSLIBDIR. 
 
 ```sh
-export HTSLIBDIR="/your/path/to/htslib"
+export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 ```
 
 ## Requirements
