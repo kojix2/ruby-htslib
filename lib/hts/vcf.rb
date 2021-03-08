@@ -5,9 +5,20 @@
 
 module HTS
   class VCF
-    def initialize; end
+    include Enumerable
+    attr_reader :fname, :mode, :header, :htf
 
-    def inspect; end
+    def initialize(fname, mode = 'r')
+      @fname = File.expand_path(fname)
+      File.exist?(@fname) || raise("No such VCF/BCF file - #{@fname}")
+
+      @mode = mode
+      @htf = FFI.hts_open(@fname, mode)
+
+      @header = FFI.bcf_hdr_read(@htf)
+    end
+
+    # def inspect; end
 
     def each; end
 
