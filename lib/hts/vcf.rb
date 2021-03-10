@@ -3,6 +3,8 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative 'vcf/variant'
+
 module HTS
   class VCF
     include Enumerable
@@ -25,16 +27,6 @@ module HTS
     def seq; end
 
     def n_samples; end
-  end
-
-  class Variant
-    def initialize; end
-
-    def inspect; end
-
-    def formats; end
-
-    def genotypes; end
   end
 
   class Format
