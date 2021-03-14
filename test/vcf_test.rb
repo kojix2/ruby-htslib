@@ -26,4 +26,9 @@ class VCFTest < Minitest::Test
   def test_n_samples
     assert_equal 1, @vcf.n_samples
   end
+
+  def test_each
+    alns = @vcf.to_a
+    assert_equal true, alns.all? { |i| i.is_a?(HTS::VCF::Variant) }
+  end
 end

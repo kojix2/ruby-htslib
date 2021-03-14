@@ -19,11 +19,15 @@ module HTS
       @htf = FFI.hts_open(@file_path, mode)
 
       @header = VCF::Header.new(FFI.bcf_hdr_read(@htf))
+
+      @c = FFI.bcf_init
     end
 
     # def inspect; end
 
-    def each; end
+    def each(&block)
+      block.call(Variant.new(@c, self)) unless FFI.bcf_read(@htf, @header.h, @c) == -1
+    end
 
     def seq(tid); end
 
