@@ -4,7 +4,6 @@
 # https://github.com/quinlan-lab/hts-python
 
 module HTS
-  # A cigar object usually created from `Alignment`.
   class Bam
     class Alignment
       def initialize(bam1_t, bam_hdr_t)
