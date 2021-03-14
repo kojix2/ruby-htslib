@@ -2,6 +2,72 @@
 
 module HTS
   module FFI
+    # constants
+    BCF_HL_FLT    = 0 # header line
+    BCF_HL_INFO   = 1
+    BCF_HL_FMT    = 2
+    BCF_HL_CTG    = 3
+    BCF_HL_STR    = 4 # structured header line TAG=<A=..,B=..>
+    BCF_HL_GEN    = 5 # generic header line
+    BCF_HT_FLAG   = 0 # header type
+
+    BCF_HT_INT    = 1
+    BCF_HT_REAL   = 2
+    BCF_HT_STR    = 3
+    BCF_HT_LONG   = (BCF_HT_INT | 0x100) # BCF_HT_INT, but for int64_t values; VCF only!
+
+    BCF_VL_FIXED  = 0 # variable length
+    BCF_VL_VAR    = 1
+    BCF_VL_A      = 2
+    BCF_VL_G      = 3
+    BCF_VL_R      = 4
+
+    BCF_DT_ID     = 0 # dictionary type
+    BCF_DT_CTG    = 1
+    BCF_DT_SAMPLE = 2
+
+    BCF_BT_NULL   = 0
+    BCF_BT_INT8   = 1
+    BCF_BT_INT16  = 2
+    BCF_BT_INT32  = 3
+    BCF_BT_INT64  = 4 # Unofficial, for internal use only.
+    BCF_BT_FLOAT  = 5
+    BCF_BT_CHAR   = 7
+
+    VCF_REF       = 0
+    VCF_SNP       = 1
+    VCF_MNP       = 2
+    VCF_INDEL     = 4
+    VCF_OTHER     = 8
+    VCF_BND       = 16 # breakend
+    VCF_OVERLAP   = 32 # overlapping deletion, ALT=*
+
+    BCF1_DIRTY_ID  = 1
+    BCF1_DIRTY_ALS = 2
+    BCF1_DIRTY_FLT = 4
+    BCF1_DIRTY_INF = 8
+
+    BCF_ERR_CTG_UNDEF   = 1
+    BCF_ERR_TAG_UNDEF   = 2
+    BCF_ERR_NCOLS       = 4
+    BCF_ERR_LIMITS      = 8
+    BCF_ERR_CHAR        = 16
+    BCF_ERR_CTG_INVALID = 32
+    BCF_ERR_TAG_INVALID = 64
+
+    # macros
+    class << self
+    end
+
+    # constants
+    BCF_UN_STR  = 1 # up to ALT inclusive
+    BCF_UN_FLT  = 2 # up to FILTER
+    BCF_UN_INFO = 4 # up to INFO
+    BCF_UN_SHR  = (BCF_UN_STR | BCF_UN_FLT | BCF_UN_INFO) # all shared information
+    BCF_UN_FMT  = 8 # unpack format and each sample
+    BCF_UN_IND  = BCF_UN_FMT # a synonym of BCF_UN_FMT
+    BCF_UN_ALL  = (BCF_UN_SHR | BCF_UN_FMT) # everything
+
     attach_function \
       :bcf_hdr_init,
       [:string],
