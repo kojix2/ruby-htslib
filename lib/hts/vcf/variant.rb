@@ -8,7 +8,7 @@ module HTS
         @vcf = vcf
       end
 
-      #def inspect; end
+      # def inspect; end
 
       def formats; end
 
@@ -16,6 +16,22 @@ module HTS
 
       def pos
         @c[:pos] + 1
+      end
+
+      def start
+        @c[:pos]
+      end
+
+      def stop
+        @c[:pos] + @c[:rlen]
+      end
+
+      def id
+        @c[:d][:id]
+      end
+
+      def qual
+        @c[:qual]
       end
     end
   end
