@@ -57,6 +57,9 @@ module HTS
 
     # macros
     class << self
+      def bcf_hdr_nsamples(hdr)
+        hdr[:n][BCF_DT_SAMPLE]
+      end
     end
 
     # constants

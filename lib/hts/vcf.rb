@@ -25,9 +25,11 @@ module HTS
 
     def each; end
 
-    def seq; end
+    def seq(tid); end
 
-    def n_samples; end
+    def n_samples
+      FFI.bcf_hdr_nsamples(header.h)
+    end
   end
 
   class Format

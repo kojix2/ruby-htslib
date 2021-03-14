@@ -22,4 +22,8 @@ class VCFTest < Minitest::Test
   def test_header
     assert_instance_of HTS::VCF::Header, @vcf.header
   end
+
+  def test_n_samples
+    assert_equal 1, @vcf.n_samples
+  end
 end
