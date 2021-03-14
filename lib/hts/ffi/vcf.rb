@@ -83,7 +83,7 @@ module HTS
 
     attach_function \
       :bcf_init,
-      [:void],
+      [],
       Bcf1.by_ref
 
     attach_function \

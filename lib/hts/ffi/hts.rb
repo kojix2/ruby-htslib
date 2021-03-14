@@ -8,7 +8,7 @@ module HTS
 
     attach_function \
       :hts_lib_shutdown,
-      [:void],
+      [],
       :void
 
     attach_function \
