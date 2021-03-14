@@ -21,6 +21,14 @@ class BamTest < Minitest::Test
     assert_raises(StandardError) { HTS::Bam.new('no_file') }
   end
 
+  def test_mode
+    assert_equal 'r', @bam.mode
+  end
+
+  def test_header
+    assert_instance_of HTS::Bam::Header, @bam.header
+  end
+
   def test_close
     assert 0, @bam.close
   end

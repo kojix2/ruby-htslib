@@ -3,6 +3,7 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative 'vcf/header'
 require_relative 'vcf/variant'
 
 module HTS
@@ -17,7 +18,7 @@ module HTS
       @mode = mode
       @htf = FFI.hts_open(@file_path, mode)
 
-      @header = FFI.bcf_hdr_read(@htf)
+      @header = VCF::Header.new(FFI.bcf_hdr_read(@htf))
     end
 
     # def inspect; end
