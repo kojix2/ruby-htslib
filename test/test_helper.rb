@@ -8,7 +8,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 
 class Fixtures
-  def self.[](fname)
-    File.expand_path("fixtures/#{fname}", __dir__)
+  def self.[](file_path)
+    File.expand_path("fixtures/#{file_path}", __dir__)
   end
 end

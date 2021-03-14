@@ -8,14 +8,14 @@ require_relative 'vcf/variant'
 module HTS
   class VCF
     include Enumerable
-    attr_reader :fname, :mode, :header, :htf
+    attr_reader :file_path, :mode, :header, :htf
 
-    def initialize(fname, mode = 'r')
-      @fname = File.expand_path(fname)
-      File.exist?(@fname) || raise("No such VCF/BCF file - #{@fname}")
+    def initialize(file_path, mode = 'r')
+      @file_path = File.expand_path(file_path)
+      File.exist?(@file_path) || raise("No such VCF/BCF file - #{@file_path}")
 
       @mode = mode
-      @htf = FFI.hts_open(@fname, mode)
+      @htf = FFI.hts_open(@file_path, mode)
 
       @header = FFI.bcf_hdr_read(@htf)
     end

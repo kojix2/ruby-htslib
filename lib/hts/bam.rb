@@ -10,20 +10,20 @@ require_relative 'bam/alignment'
 module HTS
   class Bam
     include Enumerable
-    attr_reader :fname, :mode, :header, :htf
+    attr_reader :file_path, :mode, :header, :htf
 
-    def initialize(fname, mode = 'r', create_index: nil, header: nil, fasta: nil)
-      @fname = File.expand_path(fname)
-      File.exist?(@fname) || raise("No such SAM/BAM file - #{@fname}")
+    def initialize(file_path, mode = 'r', create_index: nil, header: nil, fasta: nil)
+      @file_path = File.expand_path(file_path)
+      File.exist?(@file_path) || raise("No such SAM/BAM file - #{@file_path}")
 
       @mode = mode
-      @htf = FFI.hts_open(@fname, mode)
+      @htf = FFI.hts_open(@file_path, mode)
 
       if mode[0] == 'r'
-        @idx = FFI.sam_index_load(@htf, @fname)
+        @idx = FFI.sam_index_load(@htf, @file_path)
         if (@idx.null? && create_index.nil?) || create_index
-          FFI.sam_index_build(fname, -1)
-          @idx = FFI.sam_index_load(@htf, @fname)
+          FFI.sam_index_build(file_path, -1)
+          @idx = FFI.sam_index_load(@htf, @file_path)
           warn 'NO querying'
         end
         @header = Bam::Header.new(FFI.sam_hdr_read(@htf))

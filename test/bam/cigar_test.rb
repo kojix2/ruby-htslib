@@ -15,17 +15,17 @@ class CigarTest < Minitest::Test
     alm.cigar
   end
 
-  %i[poo colons].each do |fname|
-    define_method "test_initialize_#{fname}" do
-      assert_instance_of HTS::Bam::Cigar, public_send(fname)
+  %i[poo colons].each do |file_path|
+    define_method "test_initialize_#{file_path}" do
+      assert_instance_of HTS::Bam::Cigar, public_send(file_path)
     end
 
-    define_method "test_to_s_#{fname}" do
-      assert_equal ({ poo: '', colons: '10M' }[fname]), public_send(fname).to_s
+    define_method "test_to_s_#{file_path}" do
+      assert_equal ({ poo: '', colons: '10M' }[file_path]), public_send(file_path).to_s
     end
 
-    define_method "test_to_a_#{fname}" do
-      assert_equal ({ poo: [], colons: [[10, 'M']] }[fname]), public_send(fname).to_a
+    define_method "test_to_a_#{file_path}" do
+      assert_equal ({ poo: [], colons: [[10, 'M']] }[file_path]), public_send(file_path).to_a
     end
   end
 end
