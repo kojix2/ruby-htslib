@@ -51,7 +51,7 @@ A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python
 To get started with development
 
 ```sh
-git clone --recurse-submodules https://github.com/kojix2/ruby-htslib
+git clone --recursive https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 bundle install
 bundle exec rake htslib:build
