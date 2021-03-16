@@ -26,7 +26,7 @@ module HTS
     # def inspect; end
 
     def each(&block)
-      block.call(Variant.new(@c, self)) unless FFI.bcf_read(@htf, @header.h, @c) == -1
+      block.call(Variant.new(@c, self)) while FFI.bcf_read(@htf, @header.h, @c) != -1
     end
 
     def seq(tid); end
