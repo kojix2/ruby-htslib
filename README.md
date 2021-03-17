@@ -9,7 +9,7 @@
 
 :apple: Feel free to fork it out if you can develop it! 
 
-:bowtie: Just a prototype. 
+:bowtie: Just a prototype. Pre-alpha stage.
 
 ## Installation
 
@@ -41,6 +41,23 @@ p b[:format]
 ```
 
 A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) is under development.
+
+```ruby
+require 'htslib'
+
+bam = HTS::Bam.new("a.bam")
+
+bam.each do |aln|
+  p name:  aln.qname,
+    flag:  aln.flag,
+    start: aln.start + 1,
+    mpos:  aln.mate_pos + 1,
+    mqual: aln.mapping_quality,
+    seq:   aln.sequence,
+    cigar: aln.cigar.to_s,
+    qual:  aln.base_qualities.map { |i| (i + 33).chr }.join
+end
+```
 
 ## Documentation
 
