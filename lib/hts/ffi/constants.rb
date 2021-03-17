@@ -366,7 +366,7 @@ module HTS
         :nhrec,          :int,
         :dirty,          :int,
         :ntransl,        :int,
-        :transl,         :pointer,
+        :transl,         [:pointer, 2],
         :nsamples_ori,   :int,
         :keep_samples,   :pointer,
         :mem,            KString,
@@ -381,6 +381,7 @@ module HTS
         :m_als,          :int,
         :m_allele,       :int,
         :m_flt,          :int,
+        :n_flt,          :int,
         :flt,            :pointer,
         :id,             :string,
         :als,            :string,
@@ -394,14 +395,14 @@ module HTS
         :indiv_dirty,    :int
     end
 
-    class Bcf1 < ::FFI::Struct
+    class Bcf1 < ::FFI::BitStruct
       layout \
         :pos,            :hts_pos_t,
         :rlen,           :hts_pos_t,
-        :rid,            :int,
+        :rid,            :int32_t,
         :qual,           :float,
-        :piyo,           :int, # FIXME
-        :fuga,           :int, # FIXME
+        :n_info_allele,  :uint32_t, # FIXME
+        :n_fmt_sample,   :uint32_t, # FIXME
         :shared,         KString,
         :indiv,          KString,
         :d,              BcfDec,
@@ -409,6 +410,14 @@ module HTS
         :unpacked,       :int,
         :unpack_size,    [:int, 3],
         :errcode,        :int
+
+      bitfields :n_info_allele,
+                :n_info,   16,
+                :n_allele, 16
+      
+      bitfields :n_fmt_sample,
+                :n_fmt,    8,
+                :n_sample, 24
     end
   end
 end
