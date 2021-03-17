@@ -4,23 +4,31 @@ require_relative '../test_helper'
 
 class VariantTest < Minitest::Test
   def vcf_path
-    File.expand_path('../../htslib/test/index.vcf', __dir__)
+    File.expand_path('../../htslib/test/tabix/vcf_file.bcf', __dir__)
   end
 
   def setup
     @vcf = HTS::VCF.new(vcf_path)
-    @v1 = @vcf.first
+    @v0, @v1 = @vcf.first(2)
   end
 
   def test_pos
-    assert_equal 9999919, @v1.pos
+    assert_equal 3000151, @v0.pos
   end
 
   def test_start
-    assert_equal 9999918, @v1.start
+    assert_equal 3000150, @v0.start
   end
 
   def test_stop
-    assert_equal 9999919, @v1.stop
+    assert_equal 3000151, @v0.stop
+  end
+
+  # def test_id
+  #   assert_equal nil, @v1.id
+  # end
+
+  def test_qual
+    assert_in_epsilon 59.2, @v1.qual
   end
 end
