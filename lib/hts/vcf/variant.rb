@@ -15,7 +15,7 @@ module HTS
       def genotypes; end
 
       def pos
-        @c[:pos] + 1
+        @c[:pos] + 1 # FIXME
       end
 
       def start

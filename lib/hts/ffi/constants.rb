@@ -414,7 +414,7 @@ module HTS
       bitfields :n_info_allele,
                 :n_info,   16,
                 :n_allele, 16
-      
+
       bitfields :n_fmt_sample,
                 :n_fmt,    8,
                 :n_sample, 24

@@ -13,15 +13,15 @@ class VariantTest < Minitest::Test
   end
 
   def test_pos
-    assert_equal 3000151, @v0.pos
+    assert_equal 3_000_151, @v0.pos
   end
 
   def test_start
-    assert_equal 3000150, @v0.start
+    assert_equal 3_000_150, @v0.start
   end
 
   def test_stop
-    assert_equal 3000151, @v0.stop
+    assert_equal 3_000_151, @v0.stop
   end
 
   # def test_id
