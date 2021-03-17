@@ -35,7 +35,7 @@ module FFI
     class << self
       module BitFieldsModule
         def [](name)
-          bit_fields = self.class.bit_fields_map
+          bit_fields = self.class.bit_fields_hash_table
           parent, start, width = bit_fields[name]
           if parent
             (super(parent) >> start) & ((1 << width) - 1)
@@ -46,11 +46,11 @@ module FFI
       end
       private_constant :BitFieldsModule
 
-      attr_reader :bit_fields_map
+      attr_reader :bit_fields_hash_table
 
       def bitfields(*args)
-        unless instance_variable_defined?(:@bit_fields)
-          @bit_fields_map = {}
+        unless instance_variable_defined?(:@bit_fields_hash_table)
+          @bit_fields_hash_table = {}
           prepend BitFieldsModule
         end
 
@@ -65,7 +65,7 @@ module FFI
           result << (result.last + w)
         end
         labels.zip(starts, widths).each do |l, s, w|
-          @bit_fields_map[l] = [parent, s, w]
+          @bit_fields_hash_table[l] = [parent, s, w]
         end
       end
     end
