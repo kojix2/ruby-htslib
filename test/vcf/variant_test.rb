@@ -31,4 +31,8 @@ class VariantTest < Minitest::Test
   def test_qual
     assert_in_epsilon 59.2, @v1.qual
   end
+
+  def test_ref
+    assert_equal 'C', @v1.ref
+  end
 end

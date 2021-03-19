@@ -384,7 +384,7 @@ module HTS
         :n_flt,          :int,
         :flt,            :pointer,
         :id,             :string,
-        :als,            :string,
+        :als,            :pointer, # (\\0-separated string)
         :allele,         :pointer,
         :info,           BcfInfo.ptr,
         :fmt,            BcfFmt.ptr,

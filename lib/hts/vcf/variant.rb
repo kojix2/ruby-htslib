@@ -5,6 +5,7 @@ module HTS
     class Variant
       def initialize(bcf_t, vcf)
         @c = bcf_t
+        FFI.bcf_unpack(@c, HTS::FFI::BCF_UN_ALL) # FIXME
         @vcf = vcf
       end
 
@@ -32,6 +33,10 @@ module HTS
 
       def qual
         @c[:qual]
+      end
+
+      def ref
+        @c[:d][:allele].get_pointer(0).read_string
       end
     end
   end
