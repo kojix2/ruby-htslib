@@ -5,7 +5,6 @@
 /coverage/
 /doc/
 /pkg/
-/spec/reports/
 /tmp/
 /codegen/
 *.lock
@@ -13,9 +12,6 @@
 *.sam
 *.bai
 !test/fixtures/*
-
-# rspec failure tracking
-.rspec_status
 
 *.so
 *.dylib
