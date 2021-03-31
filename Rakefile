@@ -37,17 +37,23 @@ end
 namespace :c2ffi do
   desc 'Generate metadata files (JSON format) using c2ffi'
   task :generate do
-    FileUtils.mkdir_p('codegen')
-    header_files = FileList['htslib/**/*/*.h']
+    require 'shellwords'
+    FileUtils.mkdir_p('codegen/c2ffilogs')
+    header_files = FileList['htslib/**/*.h']
     header_files.each do |file|
-      system "c2ffi #{file}" \
-             " -o codegen/#{File.basename(file, '.h')}.json"
+      basename = File.basename(file, '.h')
+      cmd = 'c2ffi' \
+            " -o codegen/#{basename}.json" \
+            " -M codegen/#{basename}.c" \
+            " #{file}" \
+            " 2> codegen/c2ffilogs/#{basename}.log"
+      system cmd
     end
   end
 
   desc 'Remove metadata files'
   task :remove do
-    FileList['codegen/native_functions/*.json'].each do |path|
+    FileList['codegen/*.{json,c}', 'codegen/c2ffilogs/*.log'].each do |path|
       File.unlink(path) if File.exist?(path)
     end
   end
