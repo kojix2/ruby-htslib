@@ -4,6 +4,7 @@
 ![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg)
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 [![DOI](https://zenodo.org/badge/247078205.svg)](https://zenodo.org/badge/latestdoi/247078205)
+[![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/htslib)
 
 :dna: [HTSlib](https://github.com/samtools/htslib) - high-throughput sequencing data manipulation - for Ruby
 
@@ -11,21 +12,25 @@
 
 :bowtie: Just a prototype. Pre-alpha stage.
 
+## Requirements
+
+* [htslib](https://github.com/samtools/htslib)
+  * Ubuntu : `apt install libhts-dev`
+  * macOS : `brew install htslib`
+
 ## Installation
 
 ```sh
 gem install htslib
 ```
 
-Set environment variable HTSLIBDIR. 
+If you installed htslib with Ubuntu/apt or Mac/homebrew, pkg-config will automatically detect the location of the shared library.
+
+Or you can set the environment variable `HTSLIBDIR`.
 
 ```sh
 export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 ```
-
-## Requirements
-
-* [htslib](https://github.com/samtools/htslib)
 
 ## Usage
 
