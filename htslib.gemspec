@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.require_path  = 'lib'
 
   spec.add_dependency 'ffi'
+  spec.add_dependency 'pkg-config'
+  
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'rake'
