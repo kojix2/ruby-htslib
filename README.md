@@ -24,7 +24,7 @@
 gem install htslib
 ```
 
-If you installed htslib with Ubuntu/apt or Mac/homebrew, pkg-config will automatically detect the location of the shared library.
+If you installed htslib with Ubuntu/apt or Mac/homebrew, [pkg-config](https://github.com/ruby-gnome/pkg-config) will automatically detect the location of the shared library.
 
 Or you can set the environment variable `HTSLIBDIR`.
 
