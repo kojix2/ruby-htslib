@@ -10,7 +10,7 @@
 
 :apple: Feel free to fork it out if you can develop it! 
 
-:bowtie: Pre-alpha stage.
+:bowtie: alpha stage.
 
 ## Requirements
 
@@ -34,7 +34,9 @@ export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 
 ## Usage
 
-HTS::FFI - Low-level API 
+### Low level API
+
+HTS::FFI 
 
 ```ruby
 require 'htslib'
@@ -45,7 +47,9 @@ p b[:category]
 p b[:format]
 ```
 
-A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) is under development.
+### High level API
+
+A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) or [hts-nim](https://github.com/brentp/hts-nim) is under development. We will change and improve the API to make it better.
 
 ```ruby
 require 'htslib'
@@ -79,6 +83,9 @@ bundle install
 bundle exec rake htslib:build
 bundle exec rake test
 ```
+
+[c2ffi](https://github.com/rpav/c2ffi) : 
+I am trying to find a way to automatically generate a low-level API using c2ffi.
 
 ## Contributing
 
