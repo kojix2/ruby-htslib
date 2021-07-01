@@ -1,4 +1,4 @@
-# HTSlib
+# ruby-htslib
 
 [![Gem Version](https://badge.fury.io/rb/htslib.svg)](https://badge.fury.io/rb/htslib)
 ![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg)
