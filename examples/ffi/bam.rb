@@ -9,8 +9,6 @@ idx = HTS::FFI.sam_index_load(htf, bam_path)
 hdr = HTS::FFI.sam_hdr_read(htf)
 b   = HTS::FFI.bam_init1
 
-p htf[:is_cram]
-exit
 nuc = { 1 => 'A', 2 => 'C', 4 => 'G', 8 => 'T', 15 => 'N' }
 
 cig = {
