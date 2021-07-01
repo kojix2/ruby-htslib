@@ -303,11 +303,8 @@ module HTS
       #           :reserved,  30
     end
 
-    class BamPlp < ::FFI::Struct
-    end
-
-    class BamMplp < ::FFI::Struct
-    end
+    typedef :pointer, :bam_plp
+    typedef :pointer, :bam_mplp
 
     class TbxConf < ::FFI::Struct
       layout \

@@ -584,46 +584,46 @@ module HTS
     attach_function \
       :bam_plp_init,
       %i[bam_plp_auto_f pointer],
-      BamPlp
+      :bam_plp
 
     attach_function \
       :bam_plp_destroy,
-      [BamPlp],
+      [:bam_plp],
       :void
 
     attach_function \
       :bam_plp_push,
-      [BamPlp, Bam1],
+      [:bam_plp, Bam1],
       :int
 
     attach_function \
       :bam_plp_next,
-      [BamPlp, :pointer, :pointer, :pointer],
+      [:bam_plp, :pointer, :pointer, :pointer],
       :pointer
 
     attach_function \
       :bam_plp_auto,
-      [BamPlp, :pointer, :pointer, :pointer],
+      [:bam_plp, :pointer, :pointer, :pointer],
       :pointer
 
     attach_function \
       :bam_plp64_next,
-      [BamPlp, :pointer, :pointer, :pointer],
+      [:bam_plp, :pointer, :pointer, :pointer],
       :pointer
 
     attach_function \
       :bam_plp64_auto,
-      [BamPlp, :pointer, :pointer, :pointer],
+      [:bam_plp, :pointer, :pointer, :pointer],
       :pointer
 
     attach_function \
       :bam_plp_set_maxcnt,
-      [BamPlp, :int],
+      [:bam_plp, :int],
       :void
 
     attach_function \
       :bam_plp_reset,
-      [BamPlp],
+      [:bam_plp],
       :void
 
     # sets a callback to initialise any per-pileup1_t fields.
@@ -643,36 +643,36 @@ module HTS
     attach_function \
       :bam_mplp_init,
       %i[int bam_plp_auto_f pointer],
-      BamMplp.by_ref
+      :bam_mplp
 
     attach_function \
       :bam_mplp_init_overlaps,
-      [BamMplp],
+      [:bam_mplp],
       :int
 
     attach_function \
       :bam_mplp_destroy,
-      [BamMplp],
+      [:bam_mplp],
       :void
 
     attach_function \
       :bam_mplp_set_maxcnt,
-      [BamMplp, :int],
+      [:bam_mplp, :int],
       :void
 
     attach_function \
       :bam_mplp_auto,
-      [BamMplp, :pointer, :pointer, :pointer, :pointer],
+      [:bam_mplp, :pointer, :pointer, :pointer, :pointer],
       :int
 
     attach_function \
       :bam_mplp64_auto,
-      [BamMplp, :pointer, :pointer, :pointer, :pointer],
+      [:bam_mplp, :pointer, :pointer, :pointer, :pointer],
       :int
 
     attach_function \
       :bam_mplp_reset,
-      [BamMplp],
+      [:bam_mplp],
       :void
 
     # bam_mplp_constructor
