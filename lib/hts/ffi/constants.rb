@@ -296,7 +296,11 @@ module HTS
         :data,           :pointer, # uint8_t
         :l_data,         :int,
         :m_data,         :uint32,
-        :mempolicy,      :uint32
+        :_mempolicy,     :uint32 # bitfields
+
+      # bitfields :_mempolicy,
+      #           :mempolicy,  2,
+      #           :reserved,  30
     end
 
     class BamPlp < ::FFI::Struct
@@ -361,7 +365,7 @@ module HTS
         :type,           :int,
         :p,              :pointer, # uint8_t
         :p_len,          :uint32,
-        :_p_off_free, :uint32 # bitfileds
+        :_p_off_free, :uint32 # bitfields
 
       bitfields :_p_off_free,
                 :p_off,  31,
