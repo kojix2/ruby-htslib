@@ -188,9 +188,9 @@ module HTS
 
     BamHdr = SamHdr
 
-    class HtsFile < ::FFI::Struct
+    class HtsFile < ::FFI::BitStruct
       layout \
-        :bitfields,      :uint32, # FIXME
+        :_flags,         :uint32, # bitfields
         :lineno,         :int64,
         :line,           KString,
         :fn,             :string,
@@ -206,6 +206,14 @@ module HTS
         :idx,            HtsIdx.ptr,
         :fnidx,          :string,
         :bam_header,     SamHdr.ptr
+
+      bitfields :_flags,
+                :is_bin,         1,
+                :is_write,       1,
+                :is_be,          1,
+                :is_cram,        1,
+                :is_bgzf,        1,
+                :dummy,          27
     end
 
     SamFile = HtsFile
@@ -228,9 +236,9 @@ module HTS
         :next,           HtsOpt.ptr
     end
 
-    class HtsItr < ::FFI::Struct
+    class HtsItr < ::FFI::BitStruct
       layout \
-        :foo,            :uint32, # FIXME
+        :_flags,         :uint32, # bitfields
         :tid,            :int,
         :n_off,          :int,
         :i,              :int,
@@ -255,6 +263,14 @@ module HTS
           :m,            :int,
           :a,            :pointer
         )
+
+      bitfields :_flags,
+                :read_rest, 1,
+                :finished,  1,
+                :is_cram,   1,
+                :nocoor,    1,
+                :multi,     1,
+                :dummy,     27
     end
 
     class Bam1Core < ::FFI::Struct
@@ -337,7 +353,7 @@ module HTS
         :vals,           :pointer
     end
 
-    class BcfFmt < ::FFI::Struct
+    class BcfFmt < ::FFI::BitStruct
       layout \
         :id,             :int,
         :n,              :int,
@@ -345,10 +361,14 @@ module HTS
         :type,           :int,
         :p,              :pointer, # uint8_t
         :p_len,          :uint32,
-        :piyo,           :uint32 # FIXME
+        :_p_off_free, :uint32 # bitfileds
+
+      bitfields :_p_off_free,
+                :p_off,  31,
+                :p_free, 1
     end
 
-    class BcfInfo < ::FFI::Struct
+    class BcfInfo < ::FFI::BitStruct
       layout \
         :key,            :int,
         :type,           :int,
@@ -359,8 +379,12 @@ module HTS
         ),
         :vptr,           :pointer,
         :vptr_len,       :uint32,
-        :piyo,           :uint32, # FIXME
+        :_vptr_off_free, :uint32, # bitfields
         :len,            :int
+
+      bitfields :_vptr_off_free,
+                :vptr_off, 31,
+                :vptr_free, 1
     end
 
     class BcfIdinfo < ::FFI::Struct
@@ -421,8 +445,8 @@ module HTS
         :rlen,           :hts_pos_t,
         :rid,            :int32_t,
         :qual,           :float,
-        :_n_info_allele,  :uint32_t, # FIXME
-        :_n_fmt_sample,   :uint32_t, # FIXME
+        :_n_info_allele, :uint32_t,
+        :_n_fmt_sample,  :uint32_t,
         :shared,         KString,
         :indiv,          KString,
         :d,              BcfDec,
