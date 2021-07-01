@@ -22,13 +22,13 @@ module HTS
         :seq,            KString,
         :qual,           KString,
         :last_char,      :int,
-        :f,              :pointer # FIXME
+        :f,              :pointer # kstream_t
     end
 
     # BGZF
-    class BGZF < ::FFI::Struct
+    class BGZF < ::FFI::BitStruct
       layout \
-        :piyo1,                  :uint, # FIXME
+        :_flags,                 :uint, # bitfields
         :cache_size,             :int,
         :block_length,           :int,
         :block_clength,          :int,
@@ -44,6 +44,17 @@ module HTS
         :idx_build_otf,          :int,
         :gz_stream,              :pointer,
         :seeked,                 :int64
+
+      bitfields :_flags,
+                :errcode, 16,
+                :reserved,       1,
+                :is_write,       1,
+                :no_eof_block,   1,
+                :is_be,          1,
+                :compress_level, 9,
+                :last_block_eof, 1,
+                :is_compressed,  1,
+                :is_gzip,        1
     end
 
     # hts
