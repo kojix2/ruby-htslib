@@ -599,22 +599,22 @@ module HTS
     attach_function \
       :bam_plp_next,
       [:bam_plp, :pointer, :pointer, :pointer],
-      :pointer
+      BamPileup1.by_ref
 
     attach_function \
       :bam_plp_auto,
       [:bam_plp, :pointer, :pointer, :pointer],
-      :pointer
+      BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_next,
       [:bam_plp, :pointer, :pointer, :pointer],
-      :pointer
+      BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_auto,
       [:bam_plp, :pointer, :pointer, :pointer],
-      :pointer
+      BamPileup1.by_ref
 
     attach_function \
       :bam_plp_set_maxcnt,
@@ -629,7 +629,7 @@ module HTS
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
       :bam_plp_insertion,
-      [:pointer, KString, :pointer],
+      [BamPileup1, KString, :pointer],
       :int
 
     # sets a callback to initialise any per-pileup1_t fields.
@@ -662,12 +662,12 @@ module HTS
 
     attach_function \
       :bam_mplp_auto,
-      [:bam_mplp, :pointer, :pointer, :pointer, :pointer],
+      [:bam_mplp, :pointer, :pointer, :pointer, :pointer], # BamPileup1T
       :int
 
     attach_function \
       :bam_mplp64_auto,
-      [:bam_mplp, :pointer, :pointer, :pointer, :pointer],
+      [:bam_mplp, :pointer, :pointer, :pointer, :pointer], # BamPileup1T
       :int
 
     attach_function \

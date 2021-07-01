@@ -46,8 +46,8 @@ module HTS
         :seeked,                 :int64
 
       bitfields :_flags,
-                :errcode, 16,
-                :reserved,       1,
+                :errcode,        16,
+                :_reserved,      1,
                 :is_write,       1,
                 :no_eof_block,   1,
                 :is_be,          1,
@@ -300,11 +300,37 @@ module HTS
 
       # bitfields :_mempolicy,
       #           :mempolicy,  2,
-      #           :reserved,  30
+      #           :_reserved,  30
     end
 
     typedef :pointer, :bam_plp
     typedef :pointer, :bam_mplp
+
+    class BamPileupCd < ::FFI::Union
+      layout \
+        :p,               :pointer,
+        :i,               :int64_t,
+        :f,               :double
+    end
+
+    class BamPileup1 < ::FFI::BitStruct
+      layout \
+        :b,              Bam1.ptr,
+        :qpos,           :int32_t,
+        :indel,          :int,
+        :level,          :int,
+        :_flags,         :uint32_t, # bitfields
+        :cd,             BamPileupCd,
+        :cigar_ind,      :int
+
+      bitfields  :_flags,
+                 :is_del,     1,
+                 :is_head,    1,
+                 :is_tail,    1,
+                 :is_refskip, 1,
+                 :_reserved,  1,
+                 :aux,        27
+    end
 
     class TbxConf < ::FFI::Struct
       layout \
