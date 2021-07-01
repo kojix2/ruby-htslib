@@ -58,6 +58,15 @@ module HTS
     end
 
     # hts
+    HtsLogLevel = enum(
+      :off,            # All logging disabled.
+      :error,          # Logging of errors only.
+      :warning, 3,     # Logging of errors and warnings.
+      :info,           # Logging of errors, warnings, and normal but significant events.
+      :debug,          # Logging of all except the most detailed debug events.
+      :trace           # All logging enabled.
+    )
+
     HtsFormatCategory = enum(
       :unknown_category,
       :sequence_data,    # Sequence data -- SAM, BAM, CRAM, etc
@@ -412,8 +421,8 @@ module HTS
         :rlen,           :hts_pos_t,
         :rid,            :int32_t,
         :qual,           :float,
-        :n_info_allele,  :uint32_t, # FIXME
-        :n_fmt_sample,   :uint32_t, # FIXME
+        :_n_info_allele,  :uint32_t, # FIXME
+        :_n_fmt_sample,   :uint32_t, # FIXME
         :shared,         KString,
         :indiv,          KString,
         :d,              BcfDec,
@@ -422,11 +431,11 @@ module HTS
         :unpack_size,    [:int, 3],
         :errcode,        :int
 
-      bitfields :n_info_allele,
+      bitfields :_n_info_allele,
                 :n_info,   16,
                 :n_allele, 16
 
-      bitfields :n_fmt_sample,
+      bitfields :_n_fmt_sample,
                 :n_fmt,    8,
                 :n_sample, 24
     end

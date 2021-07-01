@@ -6,6 +6,12 @@ module HTS
     # hts_expand3
     # hts_resize
 
+    # hts_log.h
+    attach_function \
+      :hts_get_log_level,
+      [],
+      HtsLogLevel
+
     attach_function \
       :hts_lib_shutdown,
       [],
