@@ -6,6 +6,8 @@
 module HTS
   class Bam
     class Record
+      SEQ_NT16_STR = '=ACMGRSVTWYHKDBN'
+
       def initialize(bam1_t, bam_hdr_t)
         @b = bam1_t
         @h = bam_hdr_t
@@ -109,32 +111,33 @@ module HTS
 
       # return the read sequence
       def sequence
-        seq_nt16_str = '=ACMGRSVTWYHKDBN'
         r = FFI.bam_get_seq(@b)
         seq = String.new
         (@b[:core][:l_qseq]).times do |i|
-          seq << seq_nt16_str[FFI.bam_seqi(r, i)]
+          seq << SEQ_NT16_STR[FFI.bam_seqi(r, i)]
         end
         seq
       end
 
+      # return only the base of the requested index "i" of the query sequence.
       def base_at(n)
         n += @b[:core][:l_qseq] if n < 0
-        seq_nt16_str = '=ACMGRSVTWYHKDBN'
         return '.' if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_at(-1000)
 
         r = FFI.bam_get_seq(@b)
-        seq_nt16_str[FFI.bam_seqi(r, n)]
+        SEQ_NT16_STR[FFI.bam_seqi(r, n)]
       end
 
+      # return the base qualities
       def base_qualities
         q_ptr = FFI.bam_get_qual(@b)
         q_ptr.read_array_of_uint8(@b[:core][:l_qseq])
       end
 
+      # return only the base quality of the requested index "i" of the query sequence.
       def base_quality_at(n)
-        n += @b[:core][:l_qseq] if n < 0 # eg. base_quality_at(-1000)
-        return 0 if (n >= @b[:core][:l_qseq]) || (n < 0)
+        n += @b[:core][:l_qseq] if n < 0 
+        return 0 if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_quality_at(-1000)
 
         q_ptr = FFI.bam_get_qual(@b)
         q_ptr.get_uint8(n)
