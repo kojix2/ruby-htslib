@@ -31,27 +31,14 @@ module HTS
       #   raise 'Not Implemented'
       # end
 
-      # returns the chromosome of the mate or '' if not mapped.
-      def mate_chrom
-        tid = @b[:core][:mtid]
-        return '' if tid == -1
-
-        FFI.sam_hdr_tid2name(@h, tid)
-      end
-
-      # returns the tid of the mate or -1 if not mapped.
-      def mate_tid
-        @b[:core][:mtid]
-      end
-
       # returns the tid of the record or -1 if not mapped.
       def tid
         @b[:core][:tid]
       end
 
-      # mate position
-      def mate_pos
-        @b[:core][:mpos]
+      # returns the tid of the mate or -1 if not mapped.
+      def mate_tid
+        @b[:core][:mtid]
       end
 
       # returns 0-based start position.
@@ -64,9 +51,23 @@ module HTS
         FFI.bam_endpos @b
       end
 
+      # returns 0-based mate position
+      def mate_start
+        @b[:core][:mpos]
+      end
+      alias_method :mate_pos, :mate_start
+
       # returns the chromosome or '' if not mapped.
       def chrom
         tid = @b[:core][:tid]
+        return '' if tid == -1
+
+        FFI.sam_hdr_tid2name(@h, tid)
+      end
+
+      # returns the chromosome of the mate or '' if not mapped.
+      def mate_chrom
+        tid = @b[:core][:mtid]
         return '' if tid == -1
 
         FFI.sam_hdr_tid2name(@h, tid)
