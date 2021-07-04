@@ -47,6 +47,8 @@ p b[:category]
 p b[:format]
 ```
 
+Note: Managed struct is not used in ruby-htslib. You may need to free the memory by yourself.
+
 ### High level API
 
 A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) or [hts-nim](https://github.com/brentp/hts-nim) is under development. We will change and improve the API to make it better.
