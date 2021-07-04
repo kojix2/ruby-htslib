@@ -48,7 +48,7 @@ module FFI
 
       attr_reader :bit_fields_hash_table
 
-      def bitfields(*args)
+      def bit_fields(*args)
         unless instance_variable_defined?(:@bit_fields_hash_table)
           @bit_fields_hash_table = {}
           prepend BitFieldsModule

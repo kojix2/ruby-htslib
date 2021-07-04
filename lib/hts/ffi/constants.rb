@@ -28,7 +28,7 @@ module HTS
     # BGZF
     class BGZF < ::FFI::BitStruct
       layout \
-        :_flags,                 :uint, # bitfields
+        :_flags,                 :uint, # bit_fields
         :cache_size,             :int,
         :block_length,           :int,
         :block_clength,          :int,
@@ -45,16 +45,16 @@ module HTS
         :gz_stream,              :pointer,
         :seeked,                 :int64
 
-      bitfields :_flags,
-                :errcode,        16,
-                :_reserved,      1,
-                :is_write,       1,
-                :no_eof_block,   1,
-                :is_be,          1,
-                :compress_level, 9,
-                :last_block_eof, 1,
-                :is_compressed,  1,
-                :is_gzip,        1
+      bit_fields :_flags,
+                 :errcode,        16,
+                 :_reserved,      1,
+                 :is_write,       1,
+                 :no_eof_block,   1,
+                 :is_be,          1,
+                 :compress_level, 9,
+                 :last_block_eof, 1,
+                 :is_compressed,  1,
+                 :is_gzip,        1
     end
 
     # hts
@@ -190,7 +190,7 @@ module HTS
 
     class HtsFile < ::FFI::BitStruct
       layout \
-        :_flags,         :uint32, # bitfields
+        :_flags,         :uint32, # bit_fields
         :lineno,         :int64,
         :line,           KString,
         :fn,             :string,
@@ -207,13 +207,13 @@ module HTS
         :fnidx,          :string,
         :bam_header,     SamHdr.ptr
 
-      bitfields :_flags,
-                :is_bin,         1,
-                :is_write,       1,
-                :is_be,          1,
-                :is_cram,        1,
-                :is_bgzf,        1,
-                :dummy,          27
+      bit_fields :_flags,
+                 :is_bin,         1,
+                 :is_write,       1,
+                 :is_be,          1,
+                 :is_cram,        1,
+                 :is_bgzf,        1,
+                 :dummy,          27
     end
 
     SamFile = HtsFile
@@ -238,7 +238,7 @@ module HTS
 
     class HtsItr < ::FFI::BitStruct
       layout \
-        :_flags,         :uint32, # bitfields
+        :_flags,         :uint32, # bit_fields
         :tid,            :int,
         :n_off,          :int,
         :i,              :int,
@@ -264,13 +264,13 @@ module HTS
           :a,            :pointer
         )
 
-      bitfields :_flags,
-                :read_rest, 1,
-                :finished,  1,
-                :is_cram,   1,
-                :nocoor,    1,
-                :multi,     1,
-                :dummy,     27
+      bit_fields :_flags,
+                 :read_rest, 1,
+                 :finished,  1,
+                 :is_cram,   1,
+                 :nocoor,    1,
+                 :multi,     1,
+                 :dummy,     27
     end
 
     class Bam1Core < ::FFI::Struct
@@ -296,11 +296,11 @@ module HTS
         :data,           :pointer, # uint8_t
         :l_data,         :int,
         :m_data,         :uint32,
-        :_mempolicy,     :uint32 # bitfields
+        :_mempolicy,     :uint32 # bit_fields
 
-      # bitfields :_mempolicy,
-      #           :mempolicy,  2,
-      #           :_reserved,  30
+      # bit_fields :_mempolicy,
+      #            :mempolicy,  2,
+      #            :_reserved,  30
     end
 
     typedef :pointer, :bam_plp
@@ -319,11 +319,11 @@ module HTS
         :qpos,           :int32_t,
         :indel,          :int,
         :level,          :int,
-        :_flags,         :uint32_t, # bitfields
+        :_flags,         :uint32_t, # bit_fields
         :cd,             BamPileupCd,
         :cigar_ind,      :int
 
-      bitfields  :_flags,
+      bit_fields :_flags,
                  :is_del,     1,
                  :is_head,    1,
                  :is_tail,    1,
@@ -388,11 +388,11 @@ module HTS
         :type,           :int,
         :p,              :pointer, # uint8_t
         :p_len,          :uint32,
-        :_p_off_free, :uint32 # bitfields
+        :_p_off_free,    :uint32 # bit_fields
 
-      bitfields :_p_off_free,
-                :p_off,  31,
-                :p_free, 1
+      bit_fields :_p_off_free,
+                 :p_off,  31,
+                 :p_free, 1
     end
 
     class BcfInfo < ::FFI::BitStruct
@@ -406,12 +406,12 @@ module HTS
         ),
         :vptr,           :pointer,
         :vptr_len,       :uint32,
-        :_vptr_off_free, :uint32, # bitfields
+        :_vptr_off_free, :uint32, # bit_fields
         :len,            :int
 
-      bitfields :_vptr_off_free,
-                :vptr_off, 31,
-                :vptr_free, 1
+      bit_fields :_vptr_off_free,
+                 :vptr_off, 31,
+                 :vptr_free, 1
     end
 
     class BcfIdinfo < ::FFI::Struct
@@ -482,13 +482,13 @@ module HTS
         :unpack_size,    [:int, 3],
         :errcode,        :int
 
-      bitfields :_n_info_allele,
-                :n_info,   16,
-                :n_allele, 16
+      bit_fields :_n_info_allele,
+                 :n_info,   16,
+                 :n_allele, 16
 
-      bitfields :_n_fmt_sample,
-                :n_fmt,    8,
-                :n_sample, 24
+      bit_fields :_n_fmt_sample,
+                 :n_fmt,    8,
+                 :n_sample, 24
     end
   end
 end
