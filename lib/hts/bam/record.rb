@@ -111,9 +111,11 @@ module HTS
       def sequence
         seq_nt16_str = '=ACMGRSVTWYHKDBN'
         r = FFI.bam_get_seq(@b)
-        Array.new(@b[:core][:l_qseq]) do |i|
-          seq_nt16_str[FFI.bam_seqi(r, i)]
-        end.join
+        seq = String.new
+        (@b[:core][:l_qseq]).times do |i|
+          seq << seq_nt16_str[FFI.bam_seqi(r, i)]
+        end
+        seq
       end
 
       def base_at(n)
