@@ -598,27 +598,27 @@ module HTS
 
     attach_function \
       :bam_plp_next,
-      [:bam_plp, :pointer, :pointer, :pointer],
+      %i[bam_plp pointer pointer pointer],
       BamPileup1.by_ref
 
     attach_function \
       :bam_plp_auto,
-      [:bam_plp, :pointer, :pointer, :pointer],
+      %i[bam_plp pointer pointer pointer],
       BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_next,
-      [:bam_plp, :pointer, :pointer, :pointer],
+      %i[bam_plp pointer pointer pointer],
       BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_auto,
-      [:bam_plp, :pointer, :pointer, :pointer],
+      %i[bam_plp pointer pointer pointer],
       BamPileup1.by_ref
 
     attach_function \
       :bam_plp_set_maxcnt,
-      [:bam_plp, :int],
+      %i[bam_plp int],
       :void
 
     attach_function \
@@ -657,17 +657,17 @@ module HTS
 
     attach_function \
       :bam_mplp_set_maxcnt,
-      [:bam_mplp, :int],
+      %i[bam_mplp int],
       :void
 
     attach_function \
       :bam_mplp_auto,
-      [:bam_mplp, :pointer, :pointer, :pointer, :pointer], # BamPileup1T
+      %i[bam_mplp pointer pointer pointer pointer], # BamPileup1T
       :int
 
     attach_function \
       :bam_mplp64_auto,
-      [:bam_mplp, :pointer, :pointer, :pointer, :pointer], # BamPileup1T
+      %i[bam_mplp pointer pointer pointer pointer], # BamPileup1T
       :int
 
     attach_function \

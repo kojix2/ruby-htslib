@@ -24,7 +24,7 @@ module HTS
         lib_dir = PKGConfig.variable('htslib', 'libdir')
         lib_path = File.expand_path(name, lib_dir)
       rescue PackageConfig::NotFoundError
-        warn "htslib.pc was not found in the pkg-config search path."
+        warn 'htslib.pc was not found in the pkg-config search path.'
       end
       return lib_path if File.exist?(lib_path)
 
