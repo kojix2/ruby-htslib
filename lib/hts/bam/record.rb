@@ -21,7 +21,7 @@ module HTS
 
       def tags; end
 
-      # Read (query) name.
+      # returns the query name.
       def qname
         FFI.bam_get_qname(@b).read_string
       end
@@ -55,7 +55,7 @@ module HTS
       def mate_start
         @b[:core][:mpos]
       end
-      alias_method :mate_pos, :mate_start
+      alias mate_pos mate_start
 
       # returns the chromosome or '' if not mapped.
       def chrom
@@ -137,7 +137,7 @@ module HTS
 
       # return only the base quality of the requested index "i" of the query sequence.
       def base_quality_at(n)
-        n += @b[:core][:l_qseq] if n < 0 
+        n += @b[:core][:l_qseq] if n < 0
         return 0 if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_quality_at(-1000)
 
         q_ptr = FFI.bam_get_qual(@b)

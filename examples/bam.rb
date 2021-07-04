@@ -4,8 +4,8 @@ require 'htslib'
 
 path = ARGV[0]
 if path.nil?
-  warn "bam file not found"
-  warn "e.g.  ruby examples/bam.rb test/fixtures/poo.sort.bam"
+  warn 'bam file not found'
+  warn 'e.g.  ruby examples/bam.rb test/fixtures/poo.sort.bam'
   exit
 end
 
