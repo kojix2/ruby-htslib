@@ -5,7 +5,7 @@
 
 module HTS
   class Bam
-    class Alignment
+    class Record
       def initialize(bam1_t, bam_hdr_t)
         @b = bam1_t
         @h = bam_hdr_t
@@ -42,7 +42,7 @@ module HTS
         @b[:core][:mtid]
       end
 
-      # returns the tid of the alignment or -1 if not mapped.
+      # returns the tid of the record or -1 if not mapped.
       def tid
         @b[:core][:tid]
       end

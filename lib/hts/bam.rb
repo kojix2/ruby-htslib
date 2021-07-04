@@ -5,7 +5,7 @@
 
 require_relative 'bam/header'
 require_relative 'bam/cigar'
-require_relative 'bam/alignment'
+require_relative 'bam/record'
 
 module HTS
   class Bam
@@ -59,7 +59,7 @@ module HTS
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
-      block.call(Alignment.new(@b, @header.h)) while FFI.sam_read1(@htf, @header.h, @b) > 0
+      block.call(Record.new(@b, @header.h)) while FFI.sam_read1(@htf, @header.h, @b) > 0
     end
 
     # query [WIP]
@@ -68,7 +68,7 @@ module HTS
       begin
         slen = FFI.sam_itr_next(@htf, qiter, @b)
         while slen > 0
-          yield Alignment.new(@b, @header.h)
+          yield Record.new(@b, @header.h)
           slen = FFI.sam_itr_next(@htf, qiter, @b)
         end
       ensure
