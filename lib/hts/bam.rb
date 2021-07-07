@@ -5,6 +5,7 @@
 
 require_relative 'bam/header'
 require_relative 'bam/cigar'
+require_relative 'bam/flag'
 require_relative 'bam/record'
 
 module HTS
