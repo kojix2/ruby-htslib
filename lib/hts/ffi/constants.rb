@@ -364,7 +364,7 @@ module HTS
 
     # vcf
 
-    class Variant < ::FFI::Struct
+    class BcfVariant < ::FFI::Struct
       layout \
         :type,           :int,
         :n,              :int
@@ -459,7 +459,7 @@ module HTS
         :allele,         :pointer,
         :info,           BcfInfo.ptr,
         :fmt,            BcfFmt.ptr,
-        :var,            Variant.ptr,
+        :var,            BcfVariant.ptr,
         :n_var,          :int,
         :var_type,       :int,
         :shared_dirty,   :int,
