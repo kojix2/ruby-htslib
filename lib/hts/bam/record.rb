@@ -145,12 +145,12 @@ module HTS
       end
 
       def flag_str
-        FFI.bam_flag2str(flag)
+        FFI.bam_flag2str(@b[:core][:flag])
       end
 
       # returns a `Flag` object.
       def flag
-        @b[:core][:flag]
+        Flag.new(@b[:core][:flag])
       end
 
       # TODO:

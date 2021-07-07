@@ -125,7 +125,8 @@ class RecordTest < Minitest::Test
   end
 
   def test_flag
-    assert_equal 133, @aln1.flag
-    assert_equal 0, @aln2.flag
+    assert_instance_of HTS::Bam::Flag, @aln1.flag
+    assert_equal 133, @aln1.flag.value
+    assert_equal 0, @aln2.flag.value
   end
 end
