@@ -1,3 +1,7 @@
+# https://github.com/brentp/hts-nim/blob/master/src/hts/vcf.nim
+# This is a port from Nim.
+# TODO: Make it more like Ruby.
+
 module HTS
   class VCF
     class Info
