@@ -35,7 +35,7 @@ class FlagTest < Minitest::Test
     dup
     supplementary
   ]
-  
+
   def test_value
     assert_equal 4095, @flag.value
     assert_equal 0, @flag_zero.value
