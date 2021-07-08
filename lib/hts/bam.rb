@@ -11,7 +11,7 @@ require_relative "bam/record"
 module HTS
   class Bam
     include Enumerable
-    attr_reader :file_path, :mode, :header, :htf
+    attr_reader :file_path, :mode, :htf, :header
 
     def initialize(file_path, mode = "r", create_index: nil)
       file_path = File.expand_path(file_path)
@@ -43,13 +43,13 @@ module HTS
 
     def write(alns)
       alns.each do
-        FFI.sam_write1(@htf, @header, alns.b) > 0 || raise
+        FFI.sam_write1(htf, header, alns.b) > 0 || raise
       end
     end
 
     # Close the current file.
     def close
-      FFI.hts_close(@htf)
+      FFI.hts_close(htf)
     end
 
     # Flush the current file.
@@ -62,17 +62,20 @@ module HTS
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
-      block.call(Record.new(@b, @header.h)) while FFI.sam_read1(@htf, @header.h, @b) > 0
+      while FFI.sam_read1(htf, header.h, @b) > 0
+        record = Record.new(@b, header.h)
+        block.call(record)
+      end
     end
 
     # query [WIP]
     def query(region)
-      qiter = FFI.sam_itr_querys(@idx, @header.h, region)
+      qiter = FFI.sam_itr_querys(@idx, header.h, region)
       begin
-        slen = FFI.sam_itr_next(@htf, qiter, @b)
+        slen = FFI.sam_itr_next(htf, qiter, @b)
         while slen > 0
-          yield Record.new(@b, @header.h)
-          slen = FFI.sam_itr_next(@htf, qiter, @b)
+          yield Record.new(@b, header.h)
+          slen = FFI.sam_itr_next(htf, qiter, @b)
         end
       ensure
         FFI.hts_itr_destroy(qiter)
