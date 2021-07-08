@@ -25,10 +25,10 @@ module HTS
       @file_path = file_path
       @mode      = mode
       @htf       = LibHTS.hts_open(file_path, mode)
-      @header = VCF::Header.new(LibHTS.bcf_hdr_read(htf))
+      @header    = VCF::Header.new(LibHTS.bcf_hdr_read(htf))
 
       # FIXME: should be defined here?
-      @bcf1 = LibHTS.bcf_init
+      @bcf1      = LibHTS.bcf_init
     end
 
     # Close the current file.
