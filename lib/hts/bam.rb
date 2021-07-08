@@ -26,7 +26,7 @@ module HTS
       @htf       = LibHTS.hts_open(@file_path, mode)
       @header    = Bam::Header.new(LibHTS.sam_hdr_read(htf))
       # FIXME: should be defined here?
-      @b         = LibHTS.bam_init1
+      @b1         = LibHTS.bam_init1
 
       # read
       if mode[0] == "r"
@@ -65,8 +65,8 @@ module HTS
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
-      while LibHTS.sam_read1(htf, header.h, @b) > 0
-        record = Record.new(@b, header.h)
+      while LibHTS.sam_read1(htf, header.h, @b1) > 0
+        record = Record.new(@b1, header.h)
         block.call(record)
       end
     end
@@ -75,10 +75,10 @@ module HTS
     def query(region)
       qiter = LibHTS.sam_itr_querys(@idx, header.h, region)
       begin
-        slen = LibHTS.sam_itr_next(htf, qiter, @b)
+        slen = LibHTS.sam_itr_next(htf, qiter, @b1)
         while slen > 0
-          yield Record.new(@b, header.h)
-          slen = LibHTS.sam_itr_next(htf, qiter, @b)
+          yield Record.new(@b1, header.h)
+          slen = LibHTS.sam_itr_next(htf, qiter, @b1)
         end
       ensure
         LibHTS.hts_itr_destroy(qiter)
