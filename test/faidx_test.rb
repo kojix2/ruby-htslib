@@ -2,23 +2,24 @@
 
 require_relative "test_helper"
 
-class FaiTest < Minitest::Test
+class FaidxTest < Minitest::Test
   def setup
-    @fai = HTS::Fai.new(Fixtures["random.fa"])
+    @fai = HTS::Faidx.new(Fixtures["random.fa"])
   end
 
   def test_initialize_fai
-    assert_instance_of HTS::Fai, @fai
-    assert_instance_of HTS::Fai, HTS::Fai.new(Fixtures["random.fa.fai"])
+    assert_instance_of HTS::Faidx, @fai
     skip
-    assert_raises { HTS::Fai.new("foo") }
+    assert_raises { HTS::Faidx.new("foo") }
   end
 
   def test_open
     # FIXME: API
-    assert_instance_of HTS::Fai, HTS::Fai.open(Fixtures["random.fa"])
-    HTS::Fai.open(Fixtures["random.fa"]) do |f|
-      assert_instance_of HTS::Fai, f
+    f = HTS::Faidx.open(Fixtures["random.fa"])
+    assert_instance_of HTS::Faidx, f
+    f.close
+    HTS::Faidx.open(Fixtures["random.fa"]) do |f|
+      assert_instance_of HTS::Faidx, f
     end
   end
 

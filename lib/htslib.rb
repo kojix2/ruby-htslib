@@ -40,6 +40,6 @@ module HTS
 end
 
 require_relative "hts/bam"
-require_relative "hts/fai"
+require_relative "hts/faidx"
 require_relative "hts/tbx"
 require_relative "hts/vcf"

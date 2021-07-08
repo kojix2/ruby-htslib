@@ -6,17 +6,14 @@
 require_relative "utils/open_method"
 
 module HTS
-  class Fai
+  class Faidx
     extend Utils::OpenMethod
 
-    def initialize(path)
-      @path = File.expand_path(path)
-      @path.delete_suffix!(".fai")
-      LibHTS.fai_build(@path) unless File.exist?("#{@path}.fai")
-      @fai = LibHTS.fai_load(@path)
-      raise if @fai.null?
+    attr_reader :file_path
 
-      # at_exit{LibHTS.fai_destroy(@fai)}
+    def initialize(file_path)
+      @file_path = File.expand_path(file_path)
+      @fai = LibHTS.fai_load(file_path)
     end
 
     def close
@@ -31,7 +28,10 @@ module HTS
 
     # return the length of the requested chromosome.
     def chrom_size(chrom)
-      raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
+      unless chrom.is_a?(String) || chrom.is_a?(Symbol)
+        # FIXME
+        raise ArgumentError, "Expect chrom to be String or Symbol"
+      end
 
       chrom = chrom.to_s
       result = LibHTS.faidx_seq_len(@fai, chrom)
