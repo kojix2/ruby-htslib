@@ -39,8 +39,4 @@ module HTS
       LibHTS.bcf_hdr_nsamples(header.h)
     end
   end
-
-  class Format
-    def initialize; end
-  end
 end
