@@ -13,7 +13,7 @@ module HTS
     include Enumerable
     attr_reader :file_path, :mode, :header, :htf
 
-    def initialize(file_path, mode = 'r', create_index: nil, header: nil, fasta: nil)
+    def initialize(file_path, mode = 'r', create_index: nil)
       @file_path = File.expand_path(file_path)
       File.exist?(@file_path) || raise("No such SAM/BAM file - #{@file_path}")
 
