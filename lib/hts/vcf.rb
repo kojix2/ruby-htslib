@@ -27,7 +27,10 @@ module HTS
       @c = LibHTS.bcf_init
     end
 
-    # def inspect; end
+    # Close the current file.
+    def close
+      LibHTS.hts_close(htf)
+    end
 
     def each(&block)
       while LibHTS.bcf_read(htf, header.h, @c) != -1

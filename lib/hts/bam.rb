@@ -57,7 +57,6 @@ module HTS
 
     # Flush the current file.
     def flush
-      raise
       # LibHTS.bgzf_flush(@htf.fp.bgzf)
     end
 
