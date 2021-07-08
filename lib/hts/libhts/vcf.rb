@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # constants
     BCF_HL_FLT    = 0 # header line
     BCF_HL_INFO   = 1

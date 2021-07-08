@@ -16,23 +16,23 @@ module HTS
       File.exist?(@file_path) || raise("No such VCF/BCF file - #{@file_path}")
 
       @mode = mode
-      @htf = FFI.hts_open(@file_path, mode)
+      @htf = LibHTS.hts_open(@file_path, mode)
 
-      @header = VCF::Header.new(FFI.bcf_hdr_read(@htf))
+      @header = VCF::Header.new(LibHTS.bcf_hdr_read(@htf))
 
-      @c = FFI.bcf_init
+      @c = LibHTS.bcf_init
     end
 
     # def inspect; end
 
     def each(&block)
-      block.call(Variant.new(@c, self)) while FFI.bcf_read(@htf, @header.h, @c) != -1
+      block.call(Variant.new(@c, self)) while LibHTS.bcf_read(@htf, @header.h, @c) != -1
     end
 
     def seq(tid); end
 
     def n_samples
-      FFI.bcf_hdr_nsamples(header.h)
+      LibHTS.bcf_hdr_nsamples(header.h)
     end
   end
 

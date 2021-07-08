@@ -19,20 +19,20 @@ module HTS
     def initialize(path)
       @path = File.expand_path(path)
       @path.delete_suffix!(".fai")
-      FFI.fai_build(@path) unless File.exist?("#{@path}.fai")
-      @fai = FFI.fai_load(@path)
+      LibHTS.fai_build(@path) unless File.exist?("#{@path}.fai")
+      @fai = LibHTS.fai_load(@path)
       raise if @fai.null?
 
-      # at_exit{FFI.fai_destroy(@fai)}
+      # at_exit{LibHTS.fai_destroy(@fai)}
     end
 
     def close
-      FFI.fai_destroy(@fai)
+      LibHTS.fai_destroy(@fai)
     end
 
     # the number of sequences in the index.
     def size
-      FFI.faidx_nseq(@fai)
+      LibHTS.faidx_nseq(@fai)
     end
     alias length size
 
@@ -41,7 +41,7 @@ module HTS
       raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
 
       chrom = chrom.to_s
-      result = FFI.faidx_seq_len(@fai, chrom)
+      result = LibHTS.faidx_seq_len(@fai, chrom)
       result == -1 ? nil : result
     end
     alias chrom_length chrom_size

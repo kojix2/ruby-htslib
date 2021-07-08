@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # hts_expand
     # hts_expand3
     # hts_resize

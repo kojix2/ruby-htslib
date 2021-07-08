@@ -23,7 +23,7 @@ module HTS
 
       # returns the query name.
       def qname
-        FFI.bam_get_qname(@b).read_string
+        LibHTS.bam_get_qname(@b).read_string
       end
 
       # Set (query) name.
@@ -48,7 +48,7 @@ module HTS
 
       # returns end position of the read.
       def stop
-        FFI.bam_endpos @b
+        LibHTS.bam_endpos @b
       end
 
       # returns 0-based mate position
@@ -62,7 +62,7 @@ module HTS
         tid = @b[:core][:tid]
         return "" if tid == -1
 
-        FFI.sam_hdr_tid2name(@h, tid)
+        LibHTS.sam_hdr_tid2name(@h, tid)
       end
 
       # returns the chromosome of the mate or '' if not mapped.
@@ -70,11 +70,11 @@ module HTS
         tid = @b[:core][:mtid]
         return "" if tid == -1
 
-        FFI.sam_hdr_tid2name(@h, tid)
+        LibHTS.sam_hdr_tid2name(@h, tid)
       end
 
       def strand
-        FFI.bam_is_rev(@b) ? "-" : "+"
+        LibHTS.bam_is_rev(@b) ? "-" : "+"
       end
 
       # def start=(v)
@@ -93,29 +93,29 @@ module HTS
 
       # returns a `Cigar` object.
       def cigar
-        Cigar.new(FFI.bam_get_cigar(@b), @b[:core][:n_cigar])
+        Cigar.new(LibHTS.bam_get_cigar(@b), @b[:core][:n_cigar])
       end
 
       def qlen
-        FFI.bam_cigar2qlen(
+        LibHTS.bam_cigar2qlen(
           @b[:core][:n_cigar],
-          FFI.bam_get_cigar(@b)
+          LibHTS.bam_get_cigar(@b)
         )
       end
 
       def rlen
-        FFI.bam_cigar2rlen(
+        LibHTS.bam_cigar2rlen(
           @b[:core][:n_cigar],
-          FFI.bam_get_cigar(@b)
+          LibHTS.bam_get_cigar(@b)
         )
       end
 
       # return the read sequence
       def sequence
-        r = FFI.bam_get_seq(@b)
+        r = LibHTS.bam_get_seq(@b)
         seq = String.new
         (@b[:core][:l_qseq]).times do |i|
-          seq << SEQ_NT16_STR[FFI.bam_seqi(r, i)]
+          seq << SEQ_NT16_STR[LibHTS.bam_seqi(r, i)]
         end
         seq
       end
@@ -125,13 +125,13 @@ module HTS
         n += @b[:core][:l_qseq] if n < 0
         return "." if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_at(-1000)
 
-        r = FFI.bam_get_seq(@b)
-        SEQ_NT16_STR[FFI.bam_seqi(r, n)]
+        r = LibHTS.bam_get_seq(@b)
+        SEQ_NT16_STR[LibHTS.bam_seqi(r, n)]
       end
 
       # return the base qualities
       def base_qualities
-        q_ptr = FFI.bam_get_qual(@b)
+        q_ptr = LibHTS.bam_get_qual(@b)
         q_ptr.read_array_of_uint8(@b[:core][:l_qseq])
       end
 
@@ -140,12 +140,12 @@ module HTS
         n += @b[:core][:l_qseq] if n < 0
         return 0 if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_quality_at(-1000)
 
-        q_ptr = FFI.bam_get_qual(@b)
+        q_ptr = LibHTS.bam_get_qual(@b)
         q_ptr.get_uint8(n)
       end
 
       def flag_str
-        FFI.bam_flag2str(@b[:core][:flag])
+        LibHTS.bam_flag2str(@b[:core][:flag])
       end
 
       # returns a `Flag` object.

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
-    extend ::FFI::Library
+  module LibHTS
+    extend FFI::Library
 
     begin
       ffi_lib HTS.ffi_lib
@@ -12,7 +12,7 @@ module HTS
 
     def self.attach_function(*)
       super
-    rescue ::FFI::NotFoundError => e
+    rescue FFI::NotFoundError => e
       warn e.message
     end
   end
@@ -22,7 +22,7 @@ module FFI
   class Struct
     class << self
       # @example HtsOpt
-      #   class HtsOpt < ::FFI::Struct
+      #   class HtsOpt < FFI::Struct
       #     layout \
       #       :arg,            :string,
       #       :opt,            HtsFmtOption,
@@ -39,7 +39,7 @@ module FFI
       end
 
       # @example HtsFormat
-      #   class HtsFormat < ::FFI::Struct
+      #   class HtsFormat < FFI::Struct
       #     layout \
       #       :category,          HtsFormatCategory,
       #       :format,            HtsExactFormat,
@@ -79,7 +79,7 @@ module FFI
       attr_reader :bit_fields_hash_table
 
       # @example Bcf1
-      #   class Bcf1 < ::FFI::BitStruct
+      #   class Bcf1 < FFI::BitStruct
       #     layout \
       #       :pos,            :hts_pos_t,
       #       :rlen,           :hts_pos_t,
@@ -128,14 +128,14 @@ module FFI
   end
 end
 
-require_relative "ffi/constants"
+require_relative "libhts/constants"
 
 # alphabetical order
-require_relative "ffi/bgzf"
-require_relative "ffi/faidx"
-require_relative "ffi/hfile"
-require_relative "ffi/hts"
-require_relative "ffi/sam"
-require_relative "ffi/kfunc"
-require_relative "ffi/tbx"
-require_relative "ffi/vcf"
+require_relative "libhts/bgzf"
+require_relative "libhts/faidx"
+require_relative "libhts/hfile"
+require_relative "libhts/hts"
+require_relative "libhts/sam"
+require_relative "libhts/kfunc"
+require_relative "libhts/tbx"
+require_relative "libhts/vcf"

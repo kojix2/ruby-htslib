@@ -2,7 +2,7 @@
 
 # BGZF
 module HTS
-  module FFI
+  module LibHTS
     # Open an existing file descriptor for reading or writing.
     attach_function \
       :bgzf_dopen,

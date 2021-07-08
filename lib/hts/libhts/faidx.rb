@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # Build index for a FASTA or FASTQ or bgzip-compressed FASTA or FASTQ file.
     attach_function \
       :fai_build3,

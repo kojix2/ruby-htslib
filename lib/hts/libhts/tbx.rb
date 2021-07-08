@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     attach_function \
       :tbx_name2id,
       [Tbx, :string],

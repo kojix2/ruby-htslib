@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # Open the named file or URL as a stream
     attach_function \
       :hopen,

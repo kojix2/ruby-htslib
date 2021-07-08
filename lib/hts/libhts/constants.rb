@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     typedef :pointer, :HFILE
     typedef :int64, :hts_pos_t
     typedef :pointer, :bam_plp_auto_f
 
     # kstring
 
-    class KString < ::FFI::Struct
+    class KString < FFI::Struct
       layout \
         :l,              :size_t,
         :m,              :size_t,
         :s,              :string
     end
 
-    class KSeq < ::FFI::Struct
+    class KSeq < FFI::Struct
       layout \
         :name,           KString,
         :comment,        KString,
@@ -26,7 +26,7 @@ module HTS
     end
 
     # BGZF
-    class BGZF < ::FFI::BitStruct
+    class BGZF < FFI::BitStruct
       layout \
         :_flags,                 :uint, # bit_fields
         :cache_size,             :int,
@@ -125,7 +125,7 @@ module HTS
       :HTS_OPT_BLOCK_SIZE
     )
 
-    class HtsFormat < ::FFI::Struct
+    class HtsFormat < FFI::Struct
       layout \
         :category,          HtsFormatCategory,
         :format,            HtsExactFormat,
@@ -139,7 +139,7 @@ module HTS
         :specific,          :pointer
     end
 
-    class HtsIdx < ::FFI::Struct
+    class HtsIdx < FFI::Struct
       layout \
         :fmt,            :int,
         :min_shift,      :int,
@@ -172,7 +172,7 @@ module HTS
     end
 
     # HtsFile
-    class SamHdr < ::FFI::Struct
+    class SamHdr < FFI::Struct
       layout \
         :n_targets,      :int32,
         :ignore_sam_err, :int32,
@@ -188,7 +188,7 @@ module HTS
 
     BamHdr = SamHdr
 
-    class HtsFile < ::FFI::BitStruct
+    class HtsFile < FFI::BitStruct
       layout \
         :_flags,         :uint32, # bit_fields
         :lineno,         :int64,
@@ -218,13 +218,13 @@ module HTS
 
     SamFile = HtsFile
 
-    class HtsThreadPool < ::FFI::Struct
+    class HtsThreadPool < FFI::Struct
       layout \
         :pool,           :pointer,
         :qsize,          :int
     end
 
-    class HtsOpt < ::FFI::Struct
+    class HtsOpt < FFI::Struct
       layout \
         :arg,            :string,
         :opt,            HtsFmtOption,
@@ -236,7 +236,7 @@ module HTS
         :next,           HtsOpt.ptr
     end
 
-    class HtsItr < ::FFI::BitStruct
+    class HtsItr < FFI::BitStruct
       layout \
         :_flags,         :uint32, # bit_fields
         :tid,            :int,
@@ -273,7 +273,7 @@ module HTS
                  :dummy,     27
     end
 
-    class Bam1Core < ::FFI::Struct
+    class Bam1Core < FFI::Struct
       layout \
         :pos,            :hts_pos_t,
         :tid,            :int32,
@@ -289,7 +289,7 @@ module HTS
         :isize,          :hts_pos_t
     end
 
-    class Bam1 < ::FFI::Struct
+    class Bam1 < FFI::Struct
       layout \
         :core,           Bam1Core,
         :id,             :uint64,
@@ -306,14 +306,14 @@ module HTS
     typedef :pointer, :bam_plp
     typedef :pointer, :bam_mplp
 
-    class BamPileupCd < ::FFI::Union
+    class BamPileupCd < FFI::Union
       layout \
         :p,               :pointer,
         :i,               :int64_t,
         :f,               :double
     end
 
-    class BamPileup1 < ::FFI::BitStruct
+    class BamPileup1 < FFI::BitStruct
       layout \
         :b,              Bam1.ptr,
         :qpos,           :int32_t,
@@ -332,7 +332,7 @@ module HTS
                  :aux,        27
     end
 
-    class TbxConf < ::FFI::Struct
+    class TbxConf < FFI::Struct
       layout \
         :preset,         :int32,
         :sc,             :int32,
@@ -342,7 +342,7 @@ module HTS
         :line_skip,      :int32
     end
 
-    class Tbx < ::FFI::Struct
+    class Tbx < FFI::Struct
       layout \
         :conf,           TbxConf.ptr,
         :idx,            HtsIdx.ptr,
@@ -353,7 +353,7 @@ module HTS
 
     FaiFormatOptions = enum(:FAI_NONE, :FAI_FASTA, :FAI_FASTQ)
 
-    class Faidx < ::FFI::Struct
+    class Faidx < FFI::Struct
       layout :bgzf,      BGZF,
              :n,         :int,
              :m,         :int,
@@ -364,13 +364,13 @@ module HTS
 
     # vcf
 
-    class BcfVariant < ::FFI::Struct
+    class BcfVariant < FFI::Struct
       layout \
         :type,           :int,
         :n,              :int
     end
 
-    class BcfHrec < ::FFI::Struct
+    class BcfHrec < FFI::Struct
       layout \
         :type,           :int,
         :key,            :string,
@@ -380,7 +380,7 @@ module HTS
         :vals,           :pointer
     end
 
-    class BcfFmt < ::FFI::BitStruct
+    class BcfFmt < FFI::BitStruct
       layout \
         :id,             :int,
         :n,              :int,
@@ -395,7 +395,7 @@ module HTS
                  :p_free, 1
     end
 
-    class BcfInfo < ::FFI::BitStruct
+    class BcfInfo < FFI::BitStruct
       layout \
         :key,            :int,
         :type,           :int,
@@ -414,20 +414,20 @@ module HTS
                  :vptr_free, 1
     end
 
-    class BcfIdinfo < ::FFI::Struct
+    class BcfIdinfo < FFI::Struct
       layout \
         :info,           [:uint8, 3],
         :hrec,           [BcfHrec.ptr, 3],
         :id,             :int
     end
 
-    class BcfIdpair < ::FFI::Struct
+    class BcfIdpair < FFI::Struct
       layout \
         :key,            :string,
         :val,            BcfIdinfo.ptr
     end
 
-    class BcfHdr < ::FFI::Struct
+    class BcfHdr < FFI::Struct
       layout \
         :n,              [:int, 3],
         :id,             [BcfIdpair.ptr, 3],
@@ -444,7 +444,7 @@ module HTS
         :m,              [:int, 3]
     end
 
-    class BcfDec < ::FFI::Struct
+    class BcfDec < FFI::Struct
       layout \
         :m_fmt,          :int,
         :m_info,         :int,
@@ -466,7 +466,7 @@ module HTS
         :indiv_dirty,    :int
     end
 
-    class Bcf1 < ::FFI::BitStruct
+    class Bcf1 < FFI::BitStruct
       layout \
         :pos,            :hts_pos_t,
         :rlen,           :hts_pos_t,

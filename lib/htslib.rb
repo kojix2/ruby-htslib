@@ -11,7 +11,7 @@ module HTS
     attr_accessor :ffi_lib
 
     def search_htslib(name = nil)
-      name ||= "libhts.#{::FFI::Platform::LIBSUFFIX}"
+      name ||= "libhts.#{FFI::Platform::LIBSUFFIX}"
       lib_path = if ENV["HTSLIBDIR"]
                    File.expand_path(name, ENV["HTSLIBDIR"])
                  else
@@ -35,8 +35,8 @@ module HTS
   self.ffi_lib = search_htslib
 
   # You can change the path of the shared library with `HTS.ffi_lib=`
-  # before calling the FFI module.
-  autoload :FFI, "hts/ffi"
+  # before calling the LibHTS module.
+  autoload :LibHTS, "hts/libhts"
 end
 
 require_relative "hts/bam"

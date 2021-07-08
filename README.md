@@ -36,13 +36,13 @@ export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 
 ### Low level API
 
-HTS::FFI 
+HTS::LibHTS
 
 ```ruby
 require 'htslib'
 
-a = HTS::FFI.hts_open("a.bam", "r")
-b = HTS::FFI.hts_get_format(a)
+a = HTS::LibHTS.hts_open("a.bam", "r")
+b = HTS::LibHTS.hts_get_format(a)
 p b[:category]
 p b[:format]
 ```

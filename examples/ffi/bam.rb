@@ -4,10 +4,10 @@ require "htslib"
 
 bam_path = File.expand_path("../../test/fixtures/poo.sort.bam", __dir__)
 
-htf = HTS::FFI.hts_open(bam_path, "r")
-idx = HTS::FFI.sam_index_load(htf, bam_path)
-hdr = HTS::FFI.sam_hdr_read(htf)
-b   = HTS::FFI.bam_init1
+htf = HTS::LibHTS.hts_open(bam_path, "r")
+idx = HTS::LibHTS.sam_index_load(htf, bam_path)
+hdr = HTS::LibHTS.sam_hdr_read(htf)
+b   = HTS::LibHTS.bam_init1
 
 nuc = { 1 => "A", 2 => "C", 4 => "G", 8 => "T", 15 => "N" }
 
@@ -25,16 +25,16 @@ cig = {
 }
 
 10.times do
-  HTS::FFI.sam_read1(htf, hdr, b)
+  HTS::LibHTS.sam_read1(htf, hdr, b)
   p b[:core].members.zip(b[:core].values)
   p name: b[:data].read_string,
     flag: b[:core][:flag],
     pos: b[:core][:pos] + 1,
     mpos: b[:core][:mpos] + 1,
     mqual: b[:core][:qual],
-    seq: HTS::FFI.bam_get_seq(b).read_bytes(b[:core][:l_qseq] / 2).unpack1("B*")
+    seq: HTS::LibHTS.bam_get_seq(b).read_bytes(b[:core][:l_qseq] / 2).unpack1("B*")
                  .each_char.each_slice(4).map { |i| nuc[i.join.to_i(2)] }.join,
-    cigar: HTS::FFI.bam_get_cigar(b).read_array_of_uint32(b[:core][:n_cigar])
+    cigar: HTS::LibHTS.bam_get_cigar(b).read_array_of_uint32(b[:core][:n_cigar])
                    .map { |i| s = format("%32d", i.to_s(2)); [s[0..27].to_i(2), cig[s[28..-1].to_i(2)]] },
-    qual: HTS::FFI.bam_get_qual(b).read_array_of_uint8(b[:core][:l_qseq]).map { |i| (i + 33).chr }.join
+    qual: HTS::LibHTS.bam_get_qual(b).read_array_of_uint8(b[:core][:l_qseq]).map { |i| (i + 33).chr }.join
 end

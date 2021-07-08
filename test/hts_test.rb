@@ -8,6 +8,6 @@ class HTSTest < Minitest::Test
   end
 
   def test_hts_version
-    refute_nil HTS::FFI.hts_version
+    refute_nil HTS::LibHTS.hts_version
   end
 end

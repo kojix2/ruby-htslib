@@ -5,7 +5,7 @@ module HTS
     class Variant
       def initialize(bcf_t, vcf)
         @c = bcf_t
-        FFI.bcf_unpack(@c, HTS::FFI::BCF_UN_ALL) # FIXME
+        LibHTS.bcf_unpack(@c, LibHTS::BCF_UN_ALL) # FIXME
         @vcf = vcf
       end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # constants
     BAM_CMATCH     = 0
     BAM_CINS       = 1

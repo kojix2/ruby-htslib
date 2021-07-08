@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  module FFI
+  module LibHTS
     # Log gamma function
     attach_function \
       :kf_lgamma,
