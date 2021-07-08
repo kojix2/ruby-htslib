@@ -24,19 +24,19 @@
 gem install htslib
 ```
 
-If you installed htslib with Ubuntu/apt or Mac/homebrew, [pkg-config](https://github.com/ruby-gnome/pkg-config) will automatically detect the location of the shared library.
-
-Or you can set the environment variable `HTSLIBDIR`.
+If you have installed htslib with apt on Ubuntu or homebrew on Mac, [pkg-config](https://github.com/ruby-gnome/pkg-config) 
+will automatically detect the location of the shared library. 
+Alternatively, you can specify the directory of the shared library by setting the environment variable `HTSLIBDIR`.
 
 ```sh
 export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 ```
 
-## Usage
+## Overview
 
 ### Low level API
 
-HTS::LibHTS
+`HTS::LibHTS` provides native functions. 
 
 ```ruby
 require 'htslib'
@@ -51,7 +51,7 @@ Note: Managed struct is not used in ruby-htslib. You may need to free the memory
 
 ### High level API
 
-A high-level API based on [hts-python](https://github.com/quinlan-lab/hts-python) or [hts-nim](https://github.com/brentp/hts-nim) is under development. We will change and improve the API to make it better.
+A high-level API is under development. We will change and improve the API to make it better.
 
 ```ruby
 require 'htslib'
@@ -102,6 +102,7 @@ Ruby-htslib is a library under development, so even small improvements like typo
 
 * [samtools/hts-spec](https://github.com/samtools/hts-specs)
 * [c2ffi](https://github.com/rpav/c2ffi)
+* [bioruby](https://github.com/bioruby/bioruby)
 
 ## License
 
