@@ -41,7 +41,7 @@ module HTS
         if create_index || (@idx.null? && create_index.nil?)
           warn "Create index for #{file_path}"
           LibHTS.sam_index_build(file_path, -1)
-          @idx = LibHTS.sam_index_load(htf_file, @file_path)
+          @idx = LibHTS.sam_index_load(htf_file, file_path)
         end
       else
         # FIXME: implement
