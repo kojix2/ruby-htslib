@@ -12,7 +12,9 @@ module HTS
     include Enumerable
     extend Utils::OpenMethod
 
-    attr_reader :file_path, :mode, :htf_file, :header
+    attr_reader :file_path, :mode, :header
+    # HtfFile is FFI::BitStruct
+    attr_reader :htf_file
 
     def initialize(file_path, mode = "r")
       file_path = File.expand_path(file_path)
