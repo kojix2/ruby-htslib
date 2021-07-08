@@ -39,9 +39,6 @@ module HTS
   autoload :FFI, "hts/ffi"
 end
 
-# alias
-HTSlib = HTS
-
 require_relative "hts/bam"
 require_relative "hts/fai"
 require_relative "hts/tbx"
