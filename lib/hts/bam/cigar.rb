@@ -7,7 +7,6 @@ module HTS
   class Bam
     class Cigar
       include Enumerable
-      OPS = "MIDNSHP=XB"
 
       def initialize(cigar, n_cigar)
         @c = cigar
