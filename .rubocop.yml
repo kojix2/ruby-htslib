@@ -1,2 +1,9 @@
 Style/NumericPredicate:
   Enabled: false
+
+# I'm developing ruby-htslib and htslib.cr at the same time.
+# So I'm a little careful about compatibility with Crystal language.
+# This is the reason why I use double quotation marks.
+
+StringLiterals:
+  EnforcedStyle: double_quotes

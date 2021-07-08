@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class BamTest < Minitest::Test
   def setup
-    @bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
+    @bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
   end
 
   def test_initialize_sam
     skip
-    sam = HTS::Bam.new(Fixtures['poo.sort.sam'])
+    sam = HTS::Bam.new(Fixtures["poo.sort.sam"])
     assert_instance_of HTS::Bam, sam
   end
 
@@ -18,11 +18,11 @@ class BamTest < Minitest::Test
   end
 
   def test_initialize_no_file
-    assert_raises(StandardError) { HTS::Bam.new('no_file') }
+    assert_raises(StandardError) { HTS::Bam.new("no_file") }
   end
 
   def test_mode
-    assert_equal 'r', @bam.mode
+    assert_equal "r", @bam.mode
   end
 
   def test_header
@@ -41,7 +41,7 @@ class BamTest < Minitest::Test
   def test_puery
     # FIXME:
     arr = []
-    @bam.query('poo:3200-3300') do |aln|
+    @bam.query("poo:3200-3300") do |aln|
       arr << aln.start
     end
     assert_equal [3289, 3292, 3293, 3298], arr

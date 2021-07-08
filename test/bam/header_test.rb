@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class HeaderTest < Minitest::Test
   def setup
-    @bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
+    @bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
     @bam_header = @bam.header
   end
 
@@ -13,7 +13,7 @@ class HeaderTest < Minitest::Test
   end
 
   def test_seqs
-    assert_equal ['poo'], @bam_header.seqs
+    assert_equal ["poo"], @bam_header.seqs
   end
 
   def test_text

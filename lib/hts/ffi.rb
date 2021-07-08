@@ -128,14 +128,14 @@ module FFI
   end
 end
 
-require_relative 'ffi/constants'
+require_relative "ffi/constants"
 
 # alphabetical order
-require_relative 'ffi/bgzf'
-require_relative 'ffi/faidx'
-require_relative 'ffi/hfile'
-require_relative 'ffi/hts'
-require_relative 'ffi/sam'
-require_relative 'ffi/kfunc'
-require_relative 'ffi/tbx'
-require_relative 'ffi/vcf'
+require_relative "ffi/bgzf"
+require_relative "ffi/faidx"
+require_relative "ffi/hfile"
+require_relative "ffi/hts"
+require_relative "ffi/sam"
+require_relative "ffi/kfunc"
+require_relative "ffi/tbx"
+require_relative "ffi/vcf"

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CigarTest < Minitest::Test
   def poo
-    bam = HTS::Bam.new(Fixtures['poo.sort.bam'])
+    bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
     alm = bam.first
     alm.cigar
   end
 
   def colons
-    bam = HTS::Bam.new(File.expand_path('../../htslib/test/colons.bam', __dir__))
+    bam = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
     alm = bam.first
     alm.cigar
   end
@@ -21,11 +21,11 @@ class CigarTest < Minitest::Test
     end
 
     define_method "test_to_s_#{file_path}" do
-      assert_equal ({ poo: '', colons: '10M' }[file_path]), public_send(file_path).to_s
+      assert_equal ({ poo: "", colons: "10M" }[file_path]), public_send(file_path).to_s
     end
 
     define_method "test_to_a_#{file_path}" do
-      assert_equal ({ poo: [], colons: [[10, 'M']] }[file_path]), public_send(file_path).to_a
+      assert_equal ({ poo: [], colons: [[10, "M"]] }[file_path]), public_send(file_path).to_a
     end
   end
 end

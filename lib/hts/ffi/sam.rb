@@ -14,8 +14,8 @@ module HTS
     BAM_CDIFF      = 8
     BAM_CBACK      = 9
 
-    BAM_CIGAR_STR = 'MIDNSHP=XB'
-    BAM_CIGAR_STR_PADDED = 'MIDNSHP=XB??????'
+    BAM_CIGAR_STR = "MIDNSHP=XB"
+    BAM_CIGAR_STR_PADDED = "MIDNSHP=XB??????"
     BAM_CIGAR_SHIFT = 4
     BAM_CIGAR_MASK  = 0xf
     BAM_CIGAR_TYPE  = 0x3C1A7
@@ -441,7 +441,7 @@ module HTS
     # Get the next read from a SAM/BAM/CRAM iterator
     def self.sam_itr_next(htsfp, itr, r)
       # FIXME: check if htsfp is compressed BGZF
-      hts_log_error('Null iterator') if itr.null?
+      hts_log_error("Null iterator") if itr.null?
       # FIXME: check multi
       hts_itr_next(htsfp[:fp][:bgzf], itr, r, htsfp)
     end

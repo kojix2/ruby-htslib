@@ -3,15 +3,15 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
-require_relative 'vcf/header'
-require_relative 'vcf/variant'
+require_relative "vcf/header"
+require_relative "vcf/variant"
 
 module HTS
   class VCF
     include Enumerable
     attr_reader :file_path, :mode, :header, :htf
 
-    def initialize(file_path, mode = 'r')
+    def initialize(file_path, mode = "r")
       @file_path = File.expand_path(file_path)
       File.exist?(@file_path) || raise("No such VCF/BCF file - #{@file_path}")
 

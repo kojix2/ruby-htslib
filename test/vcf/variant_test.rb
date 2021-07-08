@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class VariantTest < Minitest::Test
   def vcf_path
-    File.expand_path('../../htslib/test/tabix/vcf_file.bcf', __dir__)
+    File.expand_path("../../htslib/test/tabix/vcf_file.bcf", __dir__)
   end
 
   def setup
@@ -33,6 +33,6 @@ class VariantTest < Minitest::Test
   end
 
   def test_ref
-    assert_equal 'C', @v1.ref
+    assert_equal "C", @v1.ref
   end
 end

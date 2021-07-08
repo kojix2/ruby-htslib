@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class VCFTest < Minitest::Test
   def vcf_path
-    File.expand_path('../htslib/test/index.vcf', __dir__)
+    File.expand_path("../htslib/test/index.vcf", __dir__)
   end
 
   def setup

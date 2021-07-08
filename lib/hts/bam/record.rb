@@ -6,7 +6,7 @@
 module HTS
   class Bam
     class Record
-      SEQ_NT16_STR = '=ACMGRSVTWYHKDBN'
+      SEQ_NT16_STR = "=ACMGRSVTWYHKDBN"
 
       def initialize(bam1_t, bam_hdr_t)
         @b = bam1_t
@@ -60,7 +60,7 @@ module HTS
       # returns the chromosome or '' if not mapped.
       def chrom
         tid = @b[:core][:tid]
-        return '' if tid == -1
+        return "" if tid == -1
 
         FFI.sam_hdr_tid2name(@h, tid)
       end
@@ -68,13 +68,13 @@ module HTS
       # returns the chromosome of the mate or '' if not mapped.
       def mate_chrom
         tid = @b[:core][:mtid]
-        return '' if tid == -1
+        return "" if tid == -1
 
         FFI.sam_hdr_tid2name(@h, tid)
       end
 
       def strand
-        FFI.bam_is_rev(@b) ? '-' : '+'
+        FFI.bam_is_rev(@b) ? "-" : "+"
       end
 
       # def start=(v)
@@ -123,7 +123,7 @@ module HTS
       # return only the base of the requested index "i" of the query sequence.
       def base_at(n)
         n += @b[:core][:l_qseq] if n < 0
-        return '.' if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_at(-1000)
+        return "." if (n >= @b[:core][:l_qseq]) || (n < 0) # eg. base_at(-1000)
 
         r = FFI.bam_get_seq(@b)
         SEQ_NT16_STR[FFI.bam_seqi(r, n)]

@@ -18,7 +18,7 @@ module HTS
 
     def initialize(path)
       @path = File.expand_path(path)
-      @path.delete_suffix!('.fai')
+      @path.delete_suffix!(".fai")
       FFI.fai_build(@path) unless File.exist?("#{@path}.fai")
       @fai = FFI.fai_load(@path)
       raise if @fai.null?
@@ -38,7 +38,7 @@ module HTS
 
     # return the length of the requested chromosome.
     def chrom_size(chrom)
-      raise ArgumentError, 'Expect chrom to be String or Symbol' unless chrom.is_a?(String) || chrom.is_a?(Symbol)
+      raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
 
       chrom = chrom.to_s
       result = FFI.faidx_seq_len(@fai, chrom)

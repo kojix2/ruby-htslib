@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class RecordTest < Minitest::Test
   def setup
-    bam1 = HTS::Bam.new(Fixtures['poo.sort.bam'])
+    bam1 = HTS::Bam.new(Fixtures["poo.sort.bam"])
     @aln1 = bam1.first
-    bam2 = HTS::Bam.new(File.expand_path('../../htslib/test/colons.bam', __dir__))
+    bam2 = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
     @aln2 = bam2.first
   end
 
   def test_qname
-    assert_equal 'poo_3290_3833_2:0:0_2:0:0_119', @aln1.qname
-    assert_equal 'chr1', @aln2.qname
+    assert_equal "poo_3290_3833_2:0:0_2:0:0_119", @aln1.qname
+    assert_equal "chr1", @aln2.qname
   end
 
   def test_mate_chrom
-    assert_equal 'poo', @aln1.mate_chrom
-    assert_equal '', @aln2.mate_chrom
+    assert_equal "poo", @aln1.mate_chrom
+    assert_equal "", @aln2.mate_chrom
   end
 
   def test_mate_tid
@@ -41,13 +41,13 @@ class RecordTest < Minitest::Test
   end
 
   def test_chrom
-    assert_equal 'poo', @aln1.chrom
-    assert_equal 'chr1', @aln2.chrom
+    assert_equal "poo", @aln1.chrom
+    assert_equal "chr1", @aln2.chrom
   end
 
   def test_strand
-    assert_equal '+', @aln1.strand
-    assert_equal '+', @aln2.strand
+    assert_equal "+", @aln1.strand
+    assert_equal "+", @aln2.strand
   end
 
   def test_start
@@ -86,22 +86,22 @@ class RecordTest < Minitest::Test
   end
 
   def test_seq
-    assert_equal 'GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC', @aln1.sequence
-    assert_equal 'AACCGCGGTT', @aln2.sequence
+    assert_equal "GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC", @aln1.sequence
+    assert_equal "AACCGCGGTT", @aln2.sequence
   end
 
   def test_base_at
-    assert_equal 'G', @aln1.base_at(0)
-    assert_equal 'C', @aln1.base_at(4)
-    assert_equal 'A', @aln1.base_at(5)
-    assert_equal '.', @aln1.base_at(70)
-    assert_equal 'C', @aln1.base_at(-1)
-    assert_equal 'G', @aln1.base_at(-2)
-    assert_equal 'G', @aln1.base_at(-70)
-    assert_equal '.', @aln1.base_at(-71)
-    assert_equal 'A', @aln2.base_at(0)
-    assert_equal 'T', @aln2.base_at(9)
-    assert_equal '.', @aln2.base_at(10)
+    assert_equal "G", @aln1.base_at(0)
+    assert_equal "C", @aln1.base_at(4)
+    assert_equal "A", @aln1.base_at(5)
+    assert_equal ".", @aln1.base_at(70)
+    assert_equal "C", @aln1.base_at(-1)
+    assert_equal "G", @aln1.base_at(-2)
+    assert_equal "G", @aln1.base_at(-70)
+    assert_equal ".", @aln1.base_at(-71)
+    assert_equal "A", @aln2.base_at(0)
+    assert_equal "T", @aln2.base_at(9)
+    assert_equal ".", @aln2.base_at(10)
   end
 
   def test_base_qualities
@@ -120,8 +120,8 @@ class RecordTest < Minitest::Test
   end
 
   def test_flag_str
-    assert_equal 'PAIRED,UNMAP,READ2', @aln1.flag_str
-    assert_equal '', @aln2.flag_str
+    assert_equal "PAIRED,UNMAP,READ2", @aln1.flag_str
+    assert_equal "", @aln2.flag_str
   end
 
   def test_flag

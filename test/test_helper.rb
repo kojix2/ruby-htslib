@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+require "simplecov"
 SimpleCov.start
-require 'bundler/setup'
+require "bundler/setup"
 Bundler.require(:default)
-require 'minitest/autorun'
-require 'minitest/pride'
+require "minitest/autorun"
+require "minitest/pride"
 
 class Fixtures
   def self.[](file_path)

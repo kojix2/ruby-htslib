@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class FlagTest < Minitest::Test
   def setup
@@ -34,7 +34,7 @@ class FlagTest < Minitest::Test
     qcfail
     dup
     supplementary
-  ]
+  ].freeze
 
   def test_value
     assert_equal 4095, @flag.value

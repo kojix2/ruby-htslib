@@ -3,36 +3,36 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
-require_relative 'bam/header'
-require_relative 'bam/cigar'
-require_relative 'bam/flag'
-require_relative 'bam/record'
+require_relative "bam/header"
+require_relative "bam/cigar"
+require_relative "bam/flag"
+require_relative "bam/record"
 
 module HTS
   class Bam
     include Enumerable
     attr_reader :file_path, :mode, :header, :htf
 
-    def initialize(file_path, mode = 'r', create_index: nil)
+    def initialize(file_path, mode = "r", create_index: nil)
       @file_path = File.expand_path(file_path)
       File.exist?(@file_path) || raise("No such SAM/BAM file - #{@file_path}")
 
       @mode = mode
       @htf = FFI.hts_open(@file_path, mode)
 
-      if mode[0] == 'r'
+      if mode[0] == "r"
         @idx = FFI.sam_index_load(@htf, @file_path)
         if (@idx.null? && create_index.nil?) || create_index
           FFI.sam_index_build(file_path, -1)
           @idx = FFI.sam_index_load(@htf, @file_path)
-          warn 'NO querying'
+          warn "NO querying"
         end
         @header = Bam::Header.new(FFI.sam_hdr_read(@htf))
         @b = FFI.bam_init1
 
       else
         # FIXME
-        raise 'not implemented yet.'
+        raise "not implemented yet."
 
       end
     end
