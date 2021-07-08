@@ -19,7 +19,10 @@ module HTS
     def initialize(file_path, mode = "r", create_index: nil)
       file_path = File.expand_path(file_path)
 
-      raise("No such SAM/BAM file - #{file_path}") unless File.exist?(file_path)
+      unless File.exist?(file_path)
+        message = "No such SAM/BAM file - #{file_path}"
+        raise message
+      end
 
       @file_path = file_path
       @mode      = mode
