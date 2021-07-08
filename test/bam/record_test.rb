@@ -2,7 +2,7 @@
 
 require_relative "../test_helper"
 
-class RecordTest < Minitest::Test
+class BamRecordTest < Minitest::Test
   def setup
     bam1 = HTS::Bam.new(Fixtures["poo.sort.bam"])
     @aln1 = bam1.first

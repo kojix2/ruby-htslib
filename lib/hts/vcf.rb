@@ -4,7 +4,7 @@
 # https://github.com/quinlan-lab/hts-python
 
 require_relative "vcf/header"
-require_relative "vcf/variant"
+require_relative "vcf/record"
 
 module HTS
   class VCF
@@ -12,21 +12,25 @@ module HTS
     attr_reader :file_path, :mode, :header, :htf
 
     def initialize(file_path, mode = "r")
-      @file_path = File.expand_path(file_path)
-      File.exist?(@file_path) || raise("No such VCF/BCF file - #{@file_path}")
+      file_path = File.expand_path(file_path)
+      raise("No such VCF/BCF file - #{file_path}") unless File.exist?(file_path)
 
-      @mode = mode
-      @htf = LibHTS.hts_open(@file_path, mode)
-
+      @file_path = file_path
+      @mode      = mode
+      @htf       = LibHTS.hts_open(@file_path, mode)
       @header = VCF::Header.new(LibHTS.bcf_hdr_read(@htf))
 
+      # FIXME: should be defined here?
       @c = LibHTS.bcf_init
     end
 
     # def inspect; end
 
     def each(&block)
-      block.call(Variant.new(@c, self)) while LibHTS.bcf_read(@htf, @header.h, @c) != -1
+      while LibHTS.bcf_read(@htf, @header.h, @c) != -1
+        record = Record.new(@c, self)
+        block.call(record)
+      end
     end
 
     def seq(tid); end

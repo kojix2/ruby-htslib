@@ -2,7 +2,7 @@
 
 require_relative "../test_helper"
 
-class VariantTest < Minitest::Test
+class VCFRecordTest < Minitest::Test
   def vcf_path
     File.expand_path("../../htslib/test/tabix/vcf_file.bcf", __dir__)
   end
