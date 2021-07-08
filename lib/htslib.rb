@@ -8,7 +8,7 @@ module HTS
   class Error < StandardError; end
 
   class << self
-    attr_accessor :ffi_lib
+    attr_accessor :lib_path
 
     def search_htslib(name = nil)
       name ||= "libhts.#{FFI::Platform::LIBSUFFIX}"
@@ -32,9 +32,9 @@ module HTS
     end
   end
 
-  self.ffi_lib = search_htslib
+  self.lib_path = search_htslib
 
-  # You can change the path of the shared library with `HTS.ffi_lib=`
+  # You can change the path of the shared library with `HTS.lib_path=`
   # before calling the LibHTS module.
   autoload :LibHTS, "hts/libhts"
 end

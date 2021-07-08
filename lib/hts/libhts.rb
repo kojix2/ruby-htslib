@@ -5,9 +5,9 @@ module HTS
     extend FFI::Library
 
     begin
-      ffi_lib HTS.ffi_lib
+      ffi_lib HTS.lib_path
     rescue LoadError => e
-      raise LoadError, "#{e}\nCould not find #{HTS.ffi_lib}"
+      raise LoadError, "#{e}\nCould not find #{HTS.lib_path}"
     end
 
     def self.attach_function(*)
