@@ -12,7 +12,7 @@ module HTS
     include Enumerable
     extend Utils::OpenMethod
 
-    attr_reader :file_path, :mode, :htf, :header
+    attr_reader :file_path, :mode, :htf_file, :header
 
     def initialize(file_path, mode = "r")
       file_path = File.expand_path(file_path)
@@ -24,8 +24,8 @@ module HTS
 
       @file_path = file_path
       @mode      = mode
-      @htf       = LibHTS.hts_open(file_path, mode)
-      @header    = VCF::Header.new(LibHTS.bcf_hdr_read(htf))
+      @htf_file  = LibHTS.hts_open(file_path, mode)
+      @header    = VCF::Header.new(LibHTS.bcf_hdr_read(htf_file))
 
       # FIXME: should be defined here?
       @bcf1      = LibHTS.bcf_init
@@ -33,11 +33,11 @@ module HTS
 
     # Close the current file.
     def close
-      LibHTS.hts_close(htf)
+      LibHTS.hts_close(htf_file)
     end
 
     def each(&block)
-      while LibHTS.bcf_read(htf, header.h, @bcf1) != -1
+      while LibHTS.bcf_read(htf_file, header.h, @bcf1) != -1
         record = Record.new(@bcf1, self)
         block.call(record)
       end
