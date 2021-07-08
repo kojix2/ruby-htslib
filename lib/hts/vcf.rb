@@ -9,7 +9,7 @@ require_relative "vcf/record"
 module HTS
   class VCF
     include Enumerable
-    attr_reader :file_path, :mode, :header, :htf
+    attr_reader :file_path, :mode, :htf, :header
 
     def initialize(file_path, mode = "r")
       file_path = File.expand_path(file_path)
@@ -17,8 +17,8 @@ module HTS
 
       @file_path = file_path
       @mode      = mode
-      @htf       = LibHTS.hts_open(@file_path, mode)
-      @header = VCF::Header.new(LibHTS.bcf_hdr_read(@htf))
+      @htf       = LibHTS.hts_open(file_path, mode)
+      @header = VCF::Header.new(LibHTS.bcf_hdr_read(htf))
 
       # FIXME: should be defined here?
       @c = LibHTS.bcf_init
@@ -27,7 +27,7 @@ module HTS
     # def inspect; end
 
     def each(&block)
-      while LibHTS.bcf_read(@htf, @header.h, @c) != -1
+      while LibHTS.bcf_read(htf, header.h, @c) != -1
         record = Record.new(@c, self)
         block.call(record)
       end
