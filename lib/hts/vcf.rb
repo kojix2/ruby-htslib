@@ -17,7 +17,7 @@ module HTS
     def initialize(file_path, mode = "r")
       file_path = File.expand_path(file_path)
 
-      unless unless File.exist?(file_path)
+      unless File.exist?(file_path)
         message = "No such VCF/BCF file - #{file_path}"
         raise message
       end
