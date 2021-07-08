@@ -28,7 +28,7 @@ module HTS
       @header = VCF::Header.new(LibHTS.bcf_hdr_read(htf))
 
       # FIXME: should be defined here?
-      @c = LibHTS.bcf_init
+      @bcf1 = LibHTS.bcf_init
     end
 
     # Close the current file.
@@ -37,8 +37,8 @@ module HTS
     end
 
     def each(&block)
-      while LibHTS.bcf_read(htf, header.h, @c) != -1
-        record = Record.new(@c, self)
+      while LibHTS.bcf_read(htf, header.h, @bcf1) != -1
+        record = Record.new(@bcf1, self)
         block.call(record)
       end
     end

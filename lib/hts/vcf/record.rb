@@ -4,8 +4,8 @@ module HTS
   class VCF
     class Record
       def initialize(bcf_t, vcf)
-        @c = bcf_t
-        LibHTS.bcf_unpack(@c, LibHTS::BCF_UN_ALL) # FIXME
+        @bcf1 = bcf_t
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_ALL) # FIXME
         @vcf = vcf
       end
 
@@ -16,27 +16,27 @@ module HTS
       def genotypes; end
 
       def pos
-        @c[:pos] + 1 # FIXME
+        @bcf1[:pos] + 1 # FIXME
       end
 
       def start
-        @c[:pos]
+        @bcf1[:pos]
       end
 
       def stop
-        @c[:pos] + @c[:rlen]
+        @bcf1[:pos] + @bcf1[:rlen]
       end
 
       def id
-        @c[:d][:id]
+        @bcf1[:d][:id]
       end
 
       def qual
-        @c[:qual]
+        @bcf1[:qual]
       end
 
       def ref
-        @c[:d][:allele].get_pointer(0).read_string
+        @bcf1[:d][:allele].get_pointer(0).read_string
       end
     end
   end
