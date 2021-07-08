@@ -10,7 +10,11 @@ module HTS
 
       def initialize(bam1_t, bam_hdr_t)
         @b1 = bam1_t
-        @h = bam_hdr_t
+        @bh = bam_hdr_t
+      end
+
+      def pointer
+        @b1
       end
 
       # def initialize_copy
@@ -62,7 +66,7 @@ module HTS
         tid = @b1[:core][:tid]
         return "" if tid == -1
 
-        LibHTS.sam_hdr_tid2name(@h, tid)
+        LibHTS.sam_hdr_tid2name(@bh, tid)
       end
 
       # returns the chromosome of the mate or '' if not mapped.
@@ -70,7 +74,7 @@ module HTS
         tid = @b1[:core][:mtid]
         return "" if tid == -1
 
-        LibHTS.sam_hdr_tid2name(@h, tid)
+        LibHTS.sam_hdr_tid2name(@bh, tid)
       end
 
       def strand
