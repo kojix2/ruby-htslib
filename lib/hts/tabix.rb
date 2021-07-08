@@ -6,7 +6,7 @@
 require_relative "utils/open_method"
 
 module HTS
-  class Tbx
+  class Tabix
     extend Utils::OpenMethod
 
     def initialize; end
