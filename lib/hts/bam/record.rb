@@ -13,7 +13,7 @@ module HTS
         @bh = bam_hdr_t
       end
 
-      def pointer
+      def struct
         @bam1
       end
 

@@ -3,10 +3,12 @@
 module HTS
   class VCF
     class Header
-      attr_reader :h
-
       def initialize(h)
         @h = h
+      end
+
+      def struct
+        @h
       end
 
       # FIXME: better name?

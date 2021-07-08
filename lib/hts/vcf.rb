@@ -39,14 +39,14 @@ module HTS
     end
 
     def each(&block)
-      while LibHTS.bcf_read(htf_file, header.h, @bcf1) != -1
+      while LibHTS.bcf_read(htf_file, header.struct, @bcf1) != -1
         record = Record.new(@bcf1, self)
         block.call(record)
       end
     end
 
     def n_samples
-      LibHTS.bcf_hdr_nsamples(header.h)
+      LibHTS.bcf_hdr_nsamples(header.struct)
     end
   end
 end

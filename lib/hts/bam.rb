@@ -69,19 +69,19 @@ module HTS
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
-      while LibHTS.sam_read1(htf_file, header.h, @bam1) > 0
-        record = Record.new(@bam1, header.h)
+      while LibHTS.sam_read1(htf_file, header.struct, @bam1) > 0
+        record = Record.new(@bam1, header.struct)
         block.call(record)
       end
     end
 
     # query [WIP]
     def query(region)
-      qiter = LibHTS.sam_itr_querys(@idx, header.h, region)
+      qiter = LibHTS.sam_itr_querys(@idx, header.struct, region)
       begin
         slen = LibHTS.sam_itr_next(htf_file, qiter, @bam1)
         while slen > 0
-          yield Record.new(@bam1, header.h)
+          yield Record.new(@bam1, header.struct)
           slen = LibHTS.sam_itr_next(htf_file, qiter, @bam1)
         end
       ensure
