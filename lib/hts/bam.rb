@@ -14,30 +14,32 @@ module HTS
     attr_reader :file_path, :mode, :header, :htf
 
     def initialize(file_path, mode = "r", create_index: nil)
-      @file_path = File.expand_path(file_path)
-      File.exist?(@file_path) || raise("No such SAM/BAM file - #{@file_path}")
+      file_path = File.expand_path(file_path)
 
-      @mode = mode
-      @htf = FFI.hts_open(@file_path, mode)
+      raise("No such SAM/BAM file - #{file_path}") unless File.exist?(file_path)
 
+      @file_path = file_path
+      @mode      = mode
+      @htf       = FFI.hts_open(@file_path, mode)
+      @header    = Bam::Header.new(FFI.sam_hdr_read(htf))
+      # FIXME: should be defined here?
+      @b         = FFI.bam_init1
+
+      # read
       if mode[0] == "r"
-        @idx = FFI.sam_index_load(@htf, @file_path)
-        if (@idx.null? && create_index.nil?) || create_index
+        # load index
+        @idx = FFI.sam_index_load(htf, file_path)
+        # create index
+        if create_index || (@idx.null? && create_index.nil?)
+          warn "Create index for #{file_path}"
           FFI.sam_index_build(file_path, -1)
           @idx = FFI.sam_index_load(@htf, @file_path)
-          warn "NO querying"
         end
-        @header = Bam::Header.new(FFI.sam_hdr_read(@htf))
-        @b = FFI.bam_init1
-
       else
-        # FIXME
+        # FIXME: implement
         raise "not implemented yet."
-
       end
     end
-
-    def self.header_from_fasta; end
 
     def write(alns)
       alns.each do
