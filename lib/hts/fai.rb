@@ -3,18 +3,11 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative "utils/open_method"
+
 module HTS
   class Fai
-    # FIXME: API
-    def self.open(path)
-      fai = new(path)
-      if block_given?
-        yield(fai)
-        fai.close
-      else
-        fai
-      end
-    end
+    extend Utils::OpenMethod
 
     def initialize(path)
       @path = File.expand_path(path)

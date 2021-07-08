@@ -5,10 +5,13 @@
 
 require_relative "vcf/header"
 require_relative "vcf/record"
+require_relative "utils/open_method"
 
 module HTS
   class VCF
     include Enumerable
+    extend Utils::OpenMethod
+
     attr_reader :file_path, :mode, :htf, :header
 
     def initialize(file_path, mode = "r")

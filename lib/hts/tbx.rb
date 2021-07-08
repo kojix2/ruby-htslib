@@ -3,8 +3,12 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative "utils/open_method"
+
 module HTS
   class Tbx
+    extend Utils::OpenMethod
+
     def initialize; end
 
     def build; end
