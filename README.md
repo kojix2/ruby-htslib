@@ -49,7 +49,9 @@ p b[:format]
 
 Note: Managed struct is not used in ruby-htslib. You may need to free the memory by yourself.
 
-### High level API
+### High level API (Plan)
+
+`Cram` `Bam` `Bcf` `Faidx` `Tabix`
 
 A high-level API is under development. We will change and improve the API to make it better.
 
