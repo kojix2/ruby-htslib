@@ -3,10 +3,10 @@
 module HTS
   class Bcf
     class Record
-      def initialize(bcf_t, vcf)
+      def initialize(bcf_t, bcf)
         @bcf1 = bcf_t
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_ALL) # FIXME
-        @vcf = vcf
+        @bcf = bcf
       end
 
       # def inspect; end

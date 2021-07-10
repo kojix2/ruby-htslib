@@ -362,7 +362,7 @@ module HTS
              :format,    FaiFormatOptions
     end
 
-    # vcf
+    # bcf
 
     class BcfVariant < FFI::Struct
       layout \

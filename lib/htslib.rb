@@ -42,4 +42,4 @@ end
 require_relative "hts/bam"
 require_relative "hts/faidx"
 require_relative "hts/tabix"
-require_relative "hts/vcf"
+require_relative "hts/bcf"

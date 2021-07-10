@@ -3,8 +3,8 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
-require_relative "vcf/header"
-require_relative "vcf/record"
+require_relative "bcf/header"
+require_relative "bcf/record"
 require_relative "utils/open_method"
 
 module HTS
