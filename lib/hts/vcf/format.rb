@@ -5,7 +5,7 @@
 # TODO: Make it more like Ruby.
 
 module HTS
-  class VCF
+  class Bcf
     class Format
       def initialize; end
 

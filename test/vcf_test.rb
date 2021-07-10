@@ -2,17 +2,17 @@
 
 require_relative "test_helper"
 
-class VCFTest < Minitest::Test
+class BcfTest < Minitest::Test
   def vcf_path
     File.expand_path("../htslib/test/index.vcf", __dir__)
   end
 
   def setup
-    @vcf = HTS::VCF.new(vcf_path)
+    @vcf = HTS::Bcf.new(vcf_path)
   end
 
   def test_initialize
-    assert_instance_of HTS::VCF, @vcf
+    assert_instance_of HTS::Bcf, @vcf
   end
 
   def test_file_path
@@ -20,7 +20,7 @@ class VCFTest < Minitest::Test
   end
 
   def test_header
-    assert_instance_of HTS::VCF::Header, @vcf.header
+    assert_instance_of HTS::Bcf::Header, @vcf.header
   end
 
   def test_n_samples
@@ -29,6 +29,6 @@ class VCFTest < Minitest::Test
 
   def test_each
     alns = @vcf.to_a
-    assert_equal true, alns.all? { |i| i.is_a?(HTS::VCF::Record) }
+    assert_equal true, alns.all? { |i| i.is_a?(HTS::Bcf::Record) }
   end
 end

@@ -8,7 +8,7 @@ require_relative "vcf/record"
 require_relative "utils/open_method"
 
 module HTS
-  class VCF
+  class Bcf
     include Enumerable
     extend Utils::OpenMethod
 
@@ -27,7 +27,7 @@ module HTS
       @file_path = file_path
       @mode      = mode
       @htf_file  = LibHTS.hts_open(file_path, mode)
-      @header    = VCF::Header.new(LibHTS.bcf_hdr_read(htf_file))
+      @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(htf_file))
 
       # FIXME: should be defined here?
       @bcf1      = LibHTS.bcf_init

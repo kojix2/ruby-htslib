@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  class VCF
+  class Bcf
     class Header
       def initialize(h)
         @h = h

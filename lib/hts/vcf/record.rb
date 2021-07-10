@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  class VCF
+  class Bcf
     class Record
       def initialize(bcf_t, vcf)
         @bcf1 = bcf_t
