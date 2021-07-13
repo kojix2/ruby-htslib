@@ -13,6 +13,10 @@ module HTS
         @n_cigar = n_cigar
       end
 
+      def to_ptr
+        @pointer
+      end
+
       def to_s
         to_a.flatten.join
       end

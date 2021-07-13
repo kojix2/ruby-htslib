@@ -9,6 +9,14 @@ module HTS
         @bcf = bcf
       end
 
+      def struct
+        @bcf1
+      end
+
+      def to_ptr
+        @bcf.to_ptr
+      end
+
       # def inspect; end
 
       def formats; end

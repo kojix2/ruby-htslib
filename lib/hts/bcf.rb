@@ -33,6 +33,14 @@ module HTS
       @bcf1      = LibHTS.bcf_init
     end
 
+    def struct
+      htf_file
+    end
+
+    def to_ptr
+      htf_file.to_ptr
+    end
+
     # Close the current file.
     def close
       LibHTS.hts_close(htf_file)

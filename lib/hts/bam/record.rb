@@ -17,6 +17,10 @@ module HTS
         @bam1
       end
 
+      def to_ptr
+        @bam1.to_ptr
+      end
+
       # def initialize_copy
       #   super
       # end

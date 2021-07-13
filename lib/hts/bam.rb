@@ -49,6 +49,14 @@ module HTS
       end
     end
 
+    def struct
+      htf_file
+    end
+
+    def to_ptr
+      htf_file.to_ptr
+    end
+
     def write(alns)
       alns.each do
         LibHTS.sam_write1(htf_file, header, alns.b) > 0 || raise

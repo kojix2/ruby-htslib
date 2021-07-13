@@ -7,7 +7,8 @@ module HTS
   class Bam
     class Flag
       def initialize(flag_value)
-        @value = flag_value # tytpe check?
+        raise TypeError unless flag_value.is_a? Integer
+        @value = flag_value
       end
 
       attr_accessor :value
