@@ -6,23 +6,27 @@
 module HTS
   class Bam
     class Header
-      def initialize(h)
-        @h = h
+      def initialize(pointer)
+        @sam_hdr = pointer
       end
 
       def struct
-        @h
+        @sam_hdr
+      end
+
+      def to_ptr
+        @sam_hdr.to_ptr
       end
 
       # FIXME: better name?
       def seqs
-        Array.new(@h[:n_targets]) do |i|
-          LibHTS.sam_hdr_tid2name(@h, i)
+        Array.new(@sam_hdr[:n_targets]) do |i|
+          LibHTS.sam_hdr_tid2name(@sam_hdr, i)
         end
       end
 
       def text
-        LibHTS.sam_hdr_str(@h)
+        LibHTS.sam_hdr_str(@sam_hdr)
       end
     end
   end

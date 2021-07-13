@@ -11,6 +11,10 @@ module HTS
         @h
       end
 
+      def to_ptr
+        @h.to_ptr
+      end
+
       # FIXME: better name?
       def seqs
         Array.new(@h[:n_targets]) do |i|

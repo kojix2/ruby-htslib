@@ -39,7 +39,7 @@ module HTS
     end
 
     def each(&block)
-      while LibHTS.bcf_read(htf_file, header.struct, @bcf1) != -1
+      while LibHTS.bcf_read(htf_file, header, @bcf1) != -1
         record = Record.new(@bcf1, self)
         block.call(record)
       end

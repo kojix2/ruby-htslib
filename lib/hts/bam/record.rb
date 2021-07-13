@@ -8,9 +8,9 @@ module HTS
     class Record
       SEQ_NT16_STR = "=ACMGRSVTWYHKDBN"
 
-      def initialize(bam1_t, bam_hdr_t)
+      def initialize(bam1_t, header)
         @bam1 = bam1_t
-        @bh = bam_hdr_t
+        @header = header
       end
 
       def struct
@@ -66,7 +66,7 @@ module HTS
         tid = @bam1[:core][:tid]
         return "" if tid == -1
 
-        LibHTS.sam_hdr_tid2name(@bh, tid)
+        LibHTS.sam_hdr_tid2name(@header, tid)
       end
 
       # returns the chromosome of the mate or '' if not mapped.
@@ -74,7 +74,7 @@ module HTS
         tid = @bam1[:core][:mtid]
         return "" if tid == -1
 
-        LibHTS.sam_hdr_tid2name(@bh, tid)
+        LibHTS.sam_hdr_tid2name(@header, tid)
       end
 
       def strand

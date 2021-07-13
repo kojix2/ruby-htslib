@@ -8,8 +8,8 @@ module HTS
     class Cigar
       include Enumerable
 
-      def initialize(cigar, n_cigar)
-        @c = cigar
+      def initialize(pointer, n_cigar)
+        @pointer = pointer
         @n_cigar = n_cigar
       end
 
@@ -19,7 +19,7 @@ module HTS
 
       def each
         @n_cigar.times do |i|
-          c = @c[i].read_uint32
+          c = @pointer[i].read_uint32
           yield [LibHTS.bam_cigar_oplen(c),
                  LibHTS.bam_cigar_opchr(c)]
         end
