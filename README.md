@@ -88,8 +88,11 @@ bundle exec rake htslib:build
 bundle exec rake test
 ```
 
-[c2ffi](https://github.com/rpav/c2ffi) : 
-I am trying to find a way to automatically generate a low-level API using c2ffi.
+* [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
+
+#### Automatic generation or automatic validation (Future plan)
+
+[c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
 
 ## Contributing
 
