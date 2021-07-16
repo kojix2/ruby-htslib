@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_path  = "lib"
 
   spec.add_dependency "ffi"
+  spec.add_dependency "ffi-bitfield"
   spec.add_dependency "pkg-config"
 
   spec.add_development_dependency "bundler"
