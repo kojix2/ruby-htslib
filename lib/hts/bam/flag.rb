@@ -85,7 +85,7 @@ module HTS
       end
 
       def has_flag?(o)
-        (@value & o) != 0
+        @value[o] != 0
       end
     end
   end
