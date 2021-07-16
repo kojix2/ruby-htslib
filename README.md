@@ -106,7 +106,6 @@ Ruby-htslib is a library under development, so even small improvements like typo
 ## Links
 
 * [samtools/hts-spec](https://github.com/samtools/hts-specs)
-* [c2ffi](https://github.com/rpav/c2ffi)
 * [bioruby](https://github.com/bioruby/bioruby)
 
 ## License
