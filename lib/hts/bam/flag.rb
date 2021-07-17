@@ -8,6 +8,7 @@ module HTS
     class Flag
       def initialize(flag_value)
         raise TypeError unless flag_value.is_a? Integer
+
         @value = flag_value
       end
 
