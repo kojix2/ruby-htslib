@@ -14,6 +14,7 @@
 
 ## Requirements
 
+* [Ruby](https://github.com/ruby/ruby) >= 2.7
 * [htslib](https://github.com/samtools/htslib)
   * Ubuntu : `apt install libhts-dev`
   * macOS : `brew install htslib`
@@ -88,11 +89,16 @@ bundle exec rake htslib:build
 bundle exec rake test
 ```
 
+We plan to actively use the new features of Ruby. Since the number of users is small, backward compatibility is not important.
+On the other hand, we will consider compatibility with [Crystal](https://github.com/bio-crystal/htslib.cr) to some extent.
+
+#### FFI
+
 * [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
 
 #### Automatic generation or automatic validation (Future plan)
 
-[c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
++ [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
 
 ## Contributing
 
