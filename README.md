@@ -9,7 +9,7 @@
 :dna: [HTSlib](https://github.com/samtools/htslib) - for Ruby
 
 Ruby-htslib is the Ruby bindings to HTSlib, a C library for processing high throughput sequencing (HTS) data. 
-It will provide APIs to read and write file formats such as SAM/BAM/VCF/BCF.
+It will provide APIs to read and write file formats such as SAM, BAM, VCF, and BCF.
 
 :apple: Feel free to fork it out if you can develop it! 
 
@@ -17,9 +17,10 @@ It will provide APIs to read and write file formats such as SAM/BAM/VCF/BCF.
 ## Requirements
 
 * [Ruby](https://github.com/ruby/ruby) 2.7 or above.
-* [htslib](https://github.com/samtools/htslib)
+* [HTSlib](https://github.com/samtools/htslib)
   * Ubuntu : `apt install libhts-dev`
   * macOS : `brew install htslib`
+  * Build from source code (see Development section)
 
 ## Installation
 
@@ -94,7 +95,7 @@ bundle exec rake test
 We plan to actively use the new features of Ruby. Since the number of users is small, backward compatibility is not important.
 On the other hand, we will consider compatibility with [Crystal](https://github.com/bio-crystal/htslib.cr) to some extent.
 
-#### FFI
+#### FFI Extensions
 
 * [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
 
@@ -110,14 +111,14 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
 * Write, clarify, or fix documentation
 * Suggest or add new features
-* financial contributions
+* [financial contributions](https://github.com/sponsors/kojix2)
 
 ## Links
 
 * [samtools/hts-spec](https://github.com/samtools/hts-specs)
 * [bioruby](https://github.com/bioruby/bioruby)
 
-## FUNDING SUPPORT
+## Funding support
 
 This work was supported partially by [Ruby Association Grant 2020](https://www.ruby.or.jp/en/news/20201022).
 ## License
