@@ -35,7 +35,7 @@ class BamTest < Minitest::Test
 
   def test_each
     alns = @bam.to_a
-    assert_equal true, alns.all? { |i| i.is_a?(HTS::Bam::Record) }
+    assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bam::Record) })
   end
 
   def test_puery

@@ -29,6 +29,6 @@ class BcfTest < Minitest::Test
 
   def test_each
     alns = @bcf.to_a
-    assert_equal true, alns.all? { |i| i.is_a?(HTS::Bcf::Record) }
+    assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
   end
 end

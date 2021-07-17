@@ -15,9 +15,9 @@ class FaidxTest < Minitest::Test
 
   def test_open
     # FIXME: API
-    f = HTS::Faidx.open(Fixtures["random.fa"])
-    assert_instance_of HTS::Faidx, f
-    f.close
+    faidx = HTS::Faidx.open(Fixtures["random.fa"])
+    assert_instance_of HTS::Faidx, faidx
+    faidx.close
     HTS::Faidx.open(Fixtures["random.fa"]) do |f|
       assert_instance_of HTS::Faidx, f
     end
