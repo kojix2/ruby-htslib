@@ -12,6 +12,8 @@
 
 :bowtie: alpha stage.
 
+Ruby-htslib is the Ruby bindings to HTSlib, a C library for processing high throughput sequencing (HTS) data. 
+It will provide APIs to read and write file formats such as SAM/BAM and VCF/BCF.
 ## Requirements
 
 * [Ruby](https://github.com/ruby/ruby) >= 2.7
@@ -108,12 +110,16 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
 * Write, clarify, or fix documentation
 * Suggest or add new features
+* financial contributions
 
 ## Links
 
 * [samtools/hts-spec](https://github.com/samtools/hts-specs)
 * [bioruby](https://github.com/bioruby/bioruby)
 
+## FUNDING SUPPORT
+
+This work was supported partially by [Ruby Association Grant 2020](https://www.ruby.or.jp/en/news/20201022).
 ## License
 
 [MIT License](https://opensource.org/licenses/MIT).
