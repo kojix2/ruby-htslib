@@ -6,17 +6,17 @@
 [![DOI](https://zenodo.org/badge/247078205.svg)](https://zenodo.org/badge/latestdoi/247078205)
 [![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/htslib)
 
-:dna: [HTSlib](https://github.com/samtools/htslib) - high-throughput sequencing data manipulation - for Ruby
+:dna: [HTSlib](https://github.com/samtools/htslib) - for Ruby
+
+Ruby-htslib is the Ruby bindings to HTSlib, a C library for processing high throughput sequencing (HTS) data. 
+It will provide APIs to read and write file formats such as SAM/BAM/VCF/BCF.
 
 :apple: Feel free to fork it out if you can develop it! 
 
 :bowtie: alpha stage.
-
-Ruby-htslib is the Ruby bindings to HTSlib, a C library for processing high throughput sequencing (HTS) data. 
-It will provide APIs to read and write file formats such as SAM/BAM and VCF/BCF.
 ## Requirements
 
-* [Ruby](https://github.com/ruby/ruby) >= 2.7
+* [Ruby](https://github.com/ruby/ruby) 2.7 or above.
 * [htslib](https://github.com/samtools/htslib)
   * Ubuntu : `apt install libhts-dev`
   * macOS : `brew install htslib`
