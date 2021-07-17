@@ -1,9 +1,5 @@
-name: CI
-
-on:
-- push
-- pull_request
-
+name: test
+on: [push, pull_request]
 jobs:
   test:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -11,28 +7,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu
-          - macos
-        ruby:
-          - 2.7
-          - 3.0
+        os:   ['ubuntu', 'macos']
+        ruby: ['2.7', '3.0']
     runs-on: ${{ matrix.os }}-latest
     steps:
-        
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-
-      - name: Set up Ruby 2.6
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-    
+          bundler-cache: true
       - name: Build and test with Rake
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
           bundle exec rake htslib:build
           bundle exec rake
-          
