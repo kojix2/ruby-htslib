@@ -13,10 +13,10 @@ namespace :htslib do
   desc "Building HTSlib"
   task :build do
     Dir.chdir("htslib") do
-      system "autoheader"
-      system "autoconf"
-      system "./configure"
-      system "make"
+      sh "autoheader"
+      sh "autoconf"
+      sh "./configure"
+      sh "make"
       FileUtils.mkdir_p("../vendor")
       require "ffi"
       FileUtils.move(
@@ -29,7 +29,7 @@ namespace :htslib do
   desc "make clean"
   task :clean do
     Dir.chdir("htslib") do
-      system "make clean"
+      sh "make clean"
     end
   end
 end
@@ -47,7 +47,7 @@ namespace :c2ffi do
             " -M codegen/#{basename}.c" \
             " #{file}" \
             " 2> codegen/c2ffilogs/#{basename}.log"
-      system cmd
+      sh cmd
     end
   end
 
