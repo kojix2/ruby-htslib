@@ -13,8 +13,7 @@ namespace :htslib do
   desc "Building HTSlib"
   task :build do
     Dir.chdir("htslib") do
-      sh "autoheader"
-      sh "autoconf"
+      sh "autoreconf -i"
       sh "./configure"
       sh "make"
       FileUtils.mkdir_p("../vendor")
