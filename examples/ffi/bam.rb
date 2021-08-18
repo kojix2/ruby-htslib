@@ -46,4 +46,5 @@ cig = {
     qual: HTS::LibHTS.bam_get_qual(b)
                      .read_array_of_uint8(b[:core][:l_qseq])
                      .map { |i| (i + 33).chr }.join
+  # HTS::LibHTS.bam_aux2Z(HTS::LibHTS.bam_aux_get(b, "MC"))
 end
