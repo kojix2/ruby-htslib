@@ -32,13 +32,18 @@ cig = {
     pos: b[:core][:pos] + 1,
     mpos: b[:core][:mpos] + 1,
     mqual: b[:core][:qual],
-    seq: HTS::LibHTS.bam_get_seq(b).read_bytes(b[:core][:l_qseq] / 2).unpack1("B*")
-                    .each_char.each_slice(4).map { |i| nuc[i.join.to_i(2)] }.join,
-    cigar: (HTS::LibHTS.bam_get_cigar(b).read_array_of_uint32(b[:core][:n_cigar])
-                      .map do |i|
-                        s = format("%32d", i.to_s(2))
-                        [s[0..27].to_i(2), cig[s[28..].to_i(2)]]
-                      end),
-    qual: HTS::LibHTS.bam_get_qual(b).read_array_of_uint8(b[:core][:l_qseq])
+    seq: HTS::LibHTS.bam_get_seq(b)
+                    .read_bytes(b[:core][:l_qseq] / 2)
+                    .unpack1("B*")
+                    .each_char.each_slice(4)
+                    .map { |i| nuc[i.join.to_i(2)] }.join,
+    cigar: (HTS::LibHTS.bam_get_cigar(b)
+                       .read_array_of_uint32(b[:core][:n_cigar])
+                       .map do |i|
+                         s = format("%32d", i.to_s(2))
+                         [s[0..27].to_i(2), cig[s[28..].to_i(2)]]
+                       end),
+    qual: HTS::LibHTS.bam_get_qual(b)
+                     .read_array_of_uint8(b[:core][:l_qseq])
                      .map { |i| (i + 33).chr }.join
 end
