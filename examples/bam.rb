@@ -23,3 +23,5 @@ bam.each do |r|
     cigar: r.cigar.to_s,
     qual: r.base_qualities.map { |i| (i + 33).chr }.join
 end
+
+bam.close
