@@ -5,6 +5,7 @@
 
 require_relative "bcf/header"
 require_relative "bcf/record"
+require_relative "bcf/info"
 require_relative "utils/open_method"
 
 module HTS

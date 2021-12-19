@@ -46,6 +46,14 @@ module HTS
       def ref
         @bcf1[:d][:allele].get_pointer(0).read_string
       end
+
+      def alt
+        @bcf1[:d][:allele].get_array_of_pointer(FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1).map { |c| c.read_string }
+      end
+
+      def alleles
+        @bcf1[:d][:allele].get_array_of_pointer(0, @bcf1[:n_allele]).map { |c| c.read_string }
+      end
     end
   end
 end

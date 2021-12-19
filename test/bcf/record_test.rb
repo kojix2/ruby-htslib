@@ -35,4 +35,8 @@ class BcfRecordTest < Minitest::Test
   def test_ref
     assert_equal "C", @v1.ref
   end
+
+  def test_alt
+    assert_equal ["T"], @v1.alt
+  end
 end
