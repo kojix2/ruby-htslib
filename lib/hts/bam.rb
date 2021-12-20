@@ -28,8 +28,9 @@ module HTS
 
       @file_path = file_path
       @mode      = mode
-      @htf_file  = LibHTS.hts_open(@file_path, mode)
+      @htf_file  = LibHTS.hts_open(file_path, mode)
       @header    = Bam::Header.new(LibHTS.sam_hdr_read(htf_file))
+
       # FIXME: should be defined here?
       @bam1      = LibHTS.bam_init1
 

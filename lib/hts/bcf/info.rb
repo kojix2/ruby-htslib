@@ -3,7 +3,7 @@
 module HTS
   class Bcf
     class Info
-      def initialize; end
+      def initialize(record); end
     end
   end
 end
