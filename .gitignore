@@ -7,6 +7,7 @@
 /pkg/
 /tmp/
 /codegen/
+/vendor/
 *.lock
 *.bam
 *.sam
@@ -16,3 +17,6 @@
 *.so
 *.dylib
 *.dll
+
+.DS_Store
+
