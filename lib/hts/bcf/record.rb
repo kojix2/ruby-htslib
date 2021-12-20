@@ -5,7 +5,6 @@ module HTS
     class Record
       def initialize(bcf_t, bcf)
         @bcf1 = bcf_t
-        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_ALL) # FIXME
         @bcf = bcf
       end
 
@@ -53,6 +52,16 @@ module HTS
 
       def alleles
         @bcf1[:d][:allele].get_array_of_pointer(0, @bcf1[:n_allele]).map { |c| c.read_string }
+      end
+
+      def info
+        LibHTS.bcf_unpack(@bcf1, BCF_UN_ALL)
+        Info.new(self)
+      end
+
+      def format
+        LibHTS.bcf_unpack(@bcf1, BCF_UN_ALL)
+        Format.new(self)
       end
     end
   end

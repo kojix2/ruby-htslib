@@ -7,7 +7,9 @@
 module HTS
   class Bcf
     class Format
-      def initialize; end
+      def initialize(record)
+        @record = record
+      end
 
       def delete; end
 

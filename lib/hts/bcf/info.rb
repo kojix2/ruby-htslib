@@ -3,7 +3,9 @@
 module HTS
   class Bcf
     class Info
-      def initialize(record); end
+      def initialize(record)
+        @record = record
+      end
     end
   end
 end
