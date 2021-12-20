@@ -18,6 +18,10 @@ module HTS
     # HtfFile is FFI::BitStruct
     attr_reader :htf_file
 
+    class << self
+      alias open new
+    end
+
     def initialize(file_path, mode = "r", create_index: nil)
       file_path = File.expand_path(file_path)
 
@@ -47,6 +51,15 @@ module HTS
       else
         # FIXME: implement
         raise "not implemented yet."
+      end
+
+      # IO like API
+      if block_given?
+        begin
+          yield self
+        ensure
+          close
+        end
       end
     end
 

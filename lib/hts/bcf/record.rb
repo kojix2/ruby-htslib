@@ -6,7 +6,10 @@ module HTS
       def initialize(bcf_t, bcf)
         @bcf1 = bcf_t
         @bcf = bcf
+        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
+
+      attr_reader :p1, :bcf
 
       def struct
         @bcf1
@@ -43,24 +46,30 @@ module HTS
       end
 
       def ref
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
         @bcf1[:d][:allele].get_pointer(0).read_string
       end
 
       def alt
-        @bcf1[:d][:allele].get_array_of_pointer(FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1).map { |c| c.read_string }
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
+        @bcf1[:d][:allele].get_array_of_pointer(
+          FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1
+        ).map { |c| c.read_string }
       end
 
       def alleles
-        @bcf1[:d][:allele].get_array_of_pointer(0, @bcf1[:n_allele]).map { |c| c.read_string }
+        @bcf1[:d][:allele].get_array_of_pointer(
+          0, @bcf1[:n_allele]
+        ).map { |c| c.read_string }
       end
 
       def info
-        LibHTS.bcf_unpack(@bcf1, BCF_UN_ALL)
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_SHR)
         Info.new(self)
       end
 
       def format
-        LibHTS.bcf_unpack(@bcf1, BCF_UN_ALL)
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FMT)
         Format.new(self)
       end
     end
