@@ -160,6 +160,13 @@ module HTS
       def bcf_get_genotypes(hdr, line, dst, ndst)
         bcf_get_format_values(hdr, line, "GT", dst, ndst, BCF_HT_INT)
       end
+
+      def bcf_hdr_int2id(hdr, type, int_id)
+        LibHTS::BcfIdpair.new(
+          hdr[:id][type].to_ptr +
+          LibHTS::BcfIdpair.size * int_id # offsets
+        )[:key]
+      end
     end
 
     # constants
