@@ -25,6 +25,18 @@ module HTS
 
       def genotypes; end
 
+      def chrom
+        hdr = @bcf.header.struct
+        rid = @bcf1[:rid]
+
+        return nil if hdr.null? || rid < 0 || rid >= hdr[:n][LibHTS::BCF_DT_CTG]
+
+        LibHTS::BcfIdpair.new(
+          hdr[:id][LibHTS::BCF_DT_CTG].to_ptr +
+          LibHTS::BcfIdpair.size * rid # offset
+        )[:key]
+      end
+
       def pos
         @bcf1[:pos] + 1 # FIXME
       end
