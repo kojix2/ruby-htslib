@@ -41,6 +41,24 @@ module HTS
         @bcf1[:d][:id]
       end
 
+      def filter
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FLT)
+        d = @bcf1[:d]
+        n_flt = d[:n_flt]
+
+        case n_flt
+        when 0
+          "PASS"
+        when 1
+          i = d[:flt].read_int
+          LibHTS.bcf_hdr_int2id(@bcf.header.struct, LibHTS::BCF_DT_ID, i)
+        when 2
+          d[:flt].get_array_of_int(0, n_flt).map do |i|
+            LibHTS.bcf_hdr_int2id(@bcf.header.struct, LibHTS::BCF_DT_ID, i)
+          end
+        end
+      end
+
       def qual
         @bcf1[:qual]
       end
