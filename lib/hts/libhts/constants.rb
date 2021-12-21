@@ -430,7 +430,7 @@ module HTS
     class BcfHdr < FFI::Struct
       layout \
         :n,              [:int, 3],
-        :id,             [BcfIdpair.ptr, 3],
+        :id,             [:pointer, 3], # BcfIdpair.ptr
         :dict,           [:pointer, 3],
         :samples,        :pointer,
         :hrec,           :pointer,
