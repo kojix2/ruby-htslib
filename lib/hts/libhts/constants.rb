@@ -416,7 +416,7 @@ module HTS
 
     class BcfIdinfo < FFI::Struct
       layout \
-        :info,           [:uint8, 3],
+        :info,           [:uint64_t, 3],
         :hrec,           [BcfHrec.ptr, 3],
         :id,             :int
     end
