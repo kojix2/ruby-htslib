@@ -50,6 +50,7 @@ module HTS
       end
 
       def id
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_INFO)
         @bcf1[:d][:id]
       end
 

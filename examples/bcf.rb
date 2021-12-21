@@ -14,13 +14,13 @@ bcf_path = File.expand_path(path)
 bcf = HTS::Bcf.new(bcf_path)
 
 bcf.each do |r|
-  p start: r.start,
-    stop: r.stop,
+  p chrom: r.chrom,
     pos: r.pos,
     id: r.id,
     qual: r.qual.round(2),
     ref: r.ref,
-    alt: r.alt
+    alt: r.alt,
+    filter: r.filter
 end
 
 bcf.close
