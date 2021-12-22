@@ -161,6 +161,13 @@ module HTS
         Flag.new(@bam1[:core][:flag])
       end
 
+      def to_s
+        kstr = LibHTS::KString.new
+        raise "Failed to format bam record" if LibHTS.sam_format1(@header.struct, @bam1, kstr) == -1
+
+        kstr[:s]
+      end
+
       # TODO:
       # def eql?
       # def hash

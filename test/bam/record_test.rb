@@ -129,4 +129,11 @@ class BamRecordTest < Minitest::Test
     assert_equal 133, @aln1.flag.value
     assert_equal 0, @aln2.flag.value
   end
+
+  def test_to_s
+    assert_equal "poo_3290_3833_2:0:0_2:0:0_119\t133\tpoo\t3290\t0\t*\t=\t3290\t0\tGGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC\t2222222222222222222222222222222222222222222222222222222222222222222222\tMC:Z:70M\tAS:i:0\tXS:i:0",
+                 @aln1.to_s
+    assert_equal "chr1\t0\tchr1\t1\t0\t10M\t*\t0\t0\tAACCGCGGTT\t*",
+                 @aln2.to_s
+  end
 end
