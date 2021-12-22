@@ -103,6 +103,14 @@ module HTS
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FMT)
         Format.new(self)
       end
+
+      def to_s
+        ksr = LibHTS::KString.new
+        if LibHTS.vcf_format(@bcf.header.struct, @bcf1, ksr) == -1
+          raise "Failed to format record"
+        end
+        ksr[:s]
+      end
     end
   end
 end
