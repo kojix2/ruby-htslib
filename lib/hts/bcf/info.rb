@@ -35,6 +35,25 @@ module HTS
                      .read_pointer.read_string
         end
       end
+
+      def fields
+        n_info = @record.struct[:n_info]
+        Array.new(n_info) do |i|
+          fld = LibHTS::BcfInfo.new(
+            @record.struct[:d][:info] +
+            i * LibHTS::BcfInfo.size
+          )
+          {
+            name: LibHTS.bcf_hdr_int2id(
+              @record.bcf.header.struct, LibHTS::BCF_DT_ID, fld[:key]
+            ),
+            n: LibHTS.bcf_hdr_id2number(
+              @record.bcf.header.struct, LibHTS::BCF_HL_INFO, fld[:key]
+            ),
+            vtype: fld[:type], i: fld[:key]
+          }
+        end
+      end
     end
   end
 end
