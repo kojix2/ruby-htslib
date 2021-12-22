@@ -9,11 +9,37 @@ module HTS
     class Format
       def initialize(record)
         @record = record
+        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      def delete; end
+      def get(key, type = nil)
+        n = FFI::MemoryPointer.new(:int)
+        p1 = @p1
+        h = @record.bcf.header.struct
+        r = @record.struct
 
-      def get; end
+        format_values = proc do |type|
+          ret = LibHTS.bcf_get_format_values(h, r, key, p1, n, type)
+          return nil if ret < 0 # return from method.
+
+          p1.read_pointer
+        end
+
+        case type.to_sym
+        when :int, :int32
+          format_values.call(LibHTS::BCF_HT_INT)
+                       .read_array_of_int32(n.read_int)
+        when :float, :real
+          format_values.call(LibHTS::BCF_HT_REAL)
+                       .read_array_of_float(n.read_int)
+        when :flag
+          format_values.call(LibHTS::BCF_HT_FLAG)
+                       .read_int == 1
+        when :string, :str
+          format_values.call(LibHTS::BCF_HT_STR)
+                       .read_pointer.read_string
+        end
+      end
 
       def set; end
 
