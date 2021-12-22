@@ -7,6 +7,7 @@ module HTS
         @record = record
       end
 
+      # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
         p1 = @record.p1
@@ -20,19 +21,26 @@ module HTS
           p1.read_pointer
         end
 
-        case type.to_sym
+        type ||= info_type_to_string(get_info_type(key))
+
+        case type&.to_sym
         when :int, :int32
           info_values.call(LibHTS::BCF_HT_INT)
                      .read_array_of_int32(n.read_int)
         when :float, :real
           info_values.call(LibHTS::BCF_HT_REAL)
                      .read_array_of_float(n.read_int)
-        when :flag
-          info_values.call(LibHTS::BCF_HT_FLAG)
-                     .read_int == 1
+        when :flag, :bool
+          case ret = LibHTS.bcf_get_info_flag(h, r, key, p1, n)
+          when 1 then true
+          when 0 then false
+          when -1 then nil
+          else
+            raise "Unknown return value from bcf_get_info_flag: #{ret}"
+          end
         when :string, :str
           info_values.call(LibHTS::BCF_HT_STR)
-                     .read_pointer.read_string
+                     .read_string
         end
       end
 
@@ -52,6 +60,32 @@ module HTS
             ),
             vtype: fld[:type], i: fld[:key]
           }
+        end
+      end
+
+      private
+
+      def get_info_type(key)
+        @record.struct[:n_info].times do |i|
+          fld = LibHTS::BcfInfo.new(
+            @record.struct[:d][:info] +
+            i * LibHTS::BcfInfo.size
+          )
+          id = LibHTS.bcf_hdr_int2id(
+            @record.bcf.header.struct, LibHTS::BCF_DT_ID, fld[:key]
+          )
+          return fld[:type] if id == key
+        end
+      end
+
+      def info_type_to_string(t)
+        case t
+        when 0 then :flag
+        when 1, 2, 3, 4 then :int
+        when 5 then :float
+        when 7 then :string
+        else
+          raise "Unknown info type: #{t}"
         end
       end
     end
