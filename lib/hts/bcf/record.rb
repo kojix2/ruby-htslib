@@ -29,12 +29,7 @@ module HTS
         hdr = @bcf.header.struct
         rid = @bcf1[:rid]
 
-        return nil if hdr.null? || rid < 0 || rid >= hdr[:n][LibHTS::BCF_DT_CTG]
-
-        LibHTS::BcfIdpair.new(
-          hdr[:id][LibHTS::BCF_DT_CTG].to_ptr +
-          LibHTS::BcfIdpair.size * rid # offset
-        )[:key]
+        LibHTS.bcf_hdr_id2name(hdr, rid)
       end
 
       def pos
@@ -106,9 +101,8 @@ module HTS
 
       def to_s
         ksr = LibHTS::KString.new
-        if LibHTS.vcf_format(@bcf.header.struct, @bcf1, ksr) == -1
-          raise "Failed to format record"
-        end
+        raise "Failed to format record" if LibHTS.vcf_format(@bcf.header.struct, @bcf1, ksr) == -1
+
         ksr[:s]
       end
     end
