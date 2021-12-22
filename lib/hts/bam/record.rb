@@ -21,6 +21,8 @@ module HTS
         @bam1.to_ptr
       end
 
+      attr_reader :header
+
       # def initialize_copy
       #   super
       # end
@@ -167,16 +169,16 @@ module HTS
 
         t = aux.read_string(1)
         case t
-        when 'i', 'I', 'c', 'C', 's', 'S'
+        when "i", "I", "c", "C", "s", "S"
           LibHTS.bam_aux2i(aux)
-        when 'f', 'd'
+        when "f", "d"
           LibHTS.bam_aux2f(aux)
-        when 'Z', 'H'
+        when "Z", "H"
           LibHTS.bam_aux2Z(aux)
-        when 'A'
+        when "A"
           LibHTS.bam_aux2A(aux)
         end
-      end 
+      end
 
       def to_s
         kstr = LibHTS::KString.new
