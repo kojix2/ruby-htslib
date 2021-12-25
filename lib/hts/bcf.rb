@@ -59,11 +59,13 @@ module HTS
       LibHTS.hts_close(htf_file)
     end
 
-    def each(&block)
+    def each
+      return to_enum(__method__) unless block_given?
       while LibHTS.bcf_read(htf_file, header, @bcf1) != -1
         record = Record.new(@bcf1, self)
-        block.call(record)
+        yield record
       end
+      self
     end
 
     def n_samples

@@ -85,14 +85,16 @@ module HTS
       # LibHTS.bgzf_flush(@htf_file.fp.bgzf)
     end
 
-    def each(&block)
+    def each
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
+      return to_enum(__method__) unless block_given?
       while LibHTS.sam_read1(htf_file, header, @bam1) > 0
         record = Record.new(@bam1, header)
-        block.call(record)
+        yield record
       end
+      self
     end
 
     # query [WIP]
