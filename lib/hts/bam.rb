@@ -7,12 +7,10 @@ require_relative "bam/header"
 require_relative "bam/cigar"
 require_relative "bam/flag"
 require_relative "bam/record"
-require_relative "utils/open_method"
 
 module HTS
   class Bam
     include Enumerable
-    extend Utils::OpenMethod
 
     attr_reader :file_path, :mode, :header
     # HtfFile is FFI::BitStruct

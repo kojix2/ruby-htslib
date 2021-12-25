@@ -4,15 +4,13 @@
 # https://github.com/quinlan-lab/hts-python
 
 require_relative "bcf/header"
-require_relative "bcf/record"
 require_relative "bcf/info"
 require_relative "bcf/format"
-require_relative "utils/open_method"
+require_relative "bcf/record"
 
 module HTS
   class Bcf
     include Enumerable
-    extend Utils::OpenMethod
 
     attr_reader :file_path, :mode, :header
     # HtfFile is FFI::BitStruct

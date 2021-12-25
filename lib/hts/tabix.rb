@@ -3,13 +3,21 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
-require_relative "utils/open_method"
-
 module HTS
   class Tabix
-    extend Utils::OpenMethod
-
-    def initialize; end
+    class << self
+      alias open new
+    end
+    def initialize
+      # IO like API
+      if block_given?
+        begin
+          yield self
+        ensure
+          close
+        end
+      end
+    end
 
     def build; end
 

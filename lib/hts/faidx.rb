@@ -3,17 +3,26 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
-require_relative "utils/open_method"
-
 module HTS
   class Faidx
-    extend Utils::OpenMethod
-
     attr_reader :file_path
+
+    class << self
+      alias open new
+    end
 
     def initialize(file_path)
       @file_path = File.expand_path(file_path)
       @fai = LibHTS.fai_load(file_path)
+
+      # IO like API
+      if block_given?
+        begin
+          yield self
+        ensure
+          close
+        end
+      end
     end
 
     def close
