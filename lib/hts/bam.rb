@@ -34,7 +34,6 @@ module HTS
       @header    = Bam::Header.new(LibHTS.sam_hdr_read(htf_file))
 
       # FIXME: should be defined here?
-      @bam1      = LibHTS.bam_init1
 
       # read
       if mode[0] == "r"
@@ -90,8 +89,9 @@ module HTS
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
       return to_enum(__method__) unless block_given?
-      while LibHTS.sam_read1(htf_file, header, @bam1) > 0
-        record = Record.new(@bam1, header)
+
+      while LibHTS.sam_read1(htf_file, header, bam1 = LibHTS.bam_init1) > 0
+        record = Record.new(bam1, header)
         yield record
       end
       self
@@ -101,10 +101,12 @@ module HTS
     def query(region)
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
       begin
-        slen = LibHTS.sam_itr_next(htf_file, qiter, @bam1)
+        bam1 = LibHTS.bam_init1
+        slen = LibHTS.sam_itr_next(htf_file, qiter, bam1)
         while slen > 0
-          yield Record.new(@bam1, header)
-          slen = LibHTS.sam_itr_next(htf_file, qiter, @bam1)
+          yield Record.new(bam1, header)
+          bam1 = LibHTS.bam_init1
+          slen = LibHTS.sam_itr_next(htf_file, qiter, bam1)
         end
       ensure
         LibHTS.hts_itr_destroy(qiter)
