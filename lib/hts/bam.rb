@@ -33,8 +33,6 @@ module HTS
       @htf_file  = LibHTS.hts_open(file_path, mode)
       @header    = Bam::Header.new(LibHTS.sam_hdr_read(htf_file))
 
-      # FIXME: should be defined here?
-
       # read
       if mode[0] == "r"
         # load index
