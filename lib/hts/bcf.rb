@@ -33,9 +33,6 @@ module HTS
       @htf_file  = LibHTS.hts_open(file_path, mode)
       @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(htf_file))
 
-      # FIXME: should be defined here?
-      @bcf1      = LibHTS.bcf_init
-
       # IO like API
       if block_given?
         begin
@@ -61,8 +58,9 @@ module HTS
 
     def each
       return to_enum(__method__) unless block_given?
-      while LibHTS.bcf_read(htf_file, header, @bcf1) != -1
-        record = Record.new(@bcf1, self)
+
+      while LibHTS.bcf_read(htf_file, header, bcf1 = LibHTS.bcf_init) != -1
+        record = Record.new(bcf1, self)
         yield record
       end
       self

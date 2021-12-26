@@ -470,7 +470,7 @@ module HTS
         :indiv_dirty,    :int
     end
 
-    class Bcf1 < FFI::BitStruct
+    class Bcf1 < FFI::ManagedBitStruct
       layout \
         :pos,            :hts_pos_t,
         :rlen,           :hts_pos_t,
@@ -493,6 +493,10 @@ module HTS
       bit_fields :_n_fmt_sample,
                  :n_fmt,    8,
                  :n_sample, 24
+
+      def self.release(ptr)
+        LibHTS.bcf_destroy1(ptr) if ptr.null?
+      end
     end
   end
 end
