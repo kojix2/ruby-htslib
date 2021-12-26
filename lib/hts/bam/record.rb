@@ -69,7 +69,6 @@ module HTS
 
       # returns the chromosome or '' if not mapped.
       def chrom
-        tid = @bam1[:core][:tid]
         return "" if tid == -1
 
         LibHTS.sam_hdr_tid2name(@header, tid)
@@ -77,10 +76,10 @@ module HTS
 
       # returns the chromosome of the mate or '' if not mapped.
       def mate_chrom
-        tid = @bam1[:core][:mtid]
-        return "" if tid == -1
+        mtid = mate_tid
+        return "" if mtid == -1
 
-        LibHTS.sam_hdr_tid2name(@header, tid)
+        LibHTS.sam_hdr_tid2name(@header, mtid)
       end
 
       def strand
