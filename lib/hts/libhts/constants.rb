@@ -289,7 +289,7 @@ module HTS
         :isize,          :hts_pos_t
     end
 
-    class Bam1 < FFI::Struct
+    class Bam1 < FFI::ManagedStruct
       layout \
         :core,           Bam1Core,
         :id,             :uint64,
@@ -301,6 +301,10 @@ module HTS
       # bit_fields :_mempolicy,
       #            :mempolicy,  2,
       #            :_reserved,  30
+
+      def self.release(ptr)
+        LibHTS.bam_destroy1(ptr) if ptr.null?
+      end
     end
 
     typedef :pointer, :bam_plp
