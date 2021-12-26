@@ -303,7 +303,7 @@ module HTS
       #            :_reserved,  30
 
       def self.release(ptr)
-        LibHTS.bam_destroy1(ptr) if ptr.null?
+        LibHTS.bam_destroy1(ptr) unless ptr.null?
       end
     end
 
@@ -495,7 +495,7 @@ module HTS
                  :n_sample, 24
 
       def self.release(ptr)
-        LibHTS.bcf_destroy1(ptr) if ptr.null?
+        LibHTS.bcf_destroy(ptr) unless ptr.null?
       end
     end
   end
