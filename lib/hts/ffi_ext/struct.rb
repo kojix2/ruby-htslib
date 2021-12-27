@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'ffi/bit_field'
+require "ffi/bit_field"
 
 module FFI
   class Struct
