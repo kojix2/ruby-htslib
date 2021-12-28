@@ -11,8 +11,8 @@ module HTS
     BCF_HL_CTG    = 3
     BCF_HL_STR    = 4 # structured header line TAG=<A=..,B=..>
     BCF_HL_GEN    = 5 # generic header line
-    BCF_HT_FLAG   = 0 # header type
 
+    BCF_HT_FLAG   = 0 # header type
     BCF_HT_INT    = 1
     BCF_HT_REAL   = 2
     BCF_HT_STR    = 3
@@ -59,11 +59,36 @@ module HTS
 
     # macros
     class << self
-      alias bcf_open hts_open
-      alias vcf_open hts_open
-      alias bcf_close hts_close
-      alias vcf_close hts_close
+      alias bcf_init1    bcf_init
+      alias bcf_read1    bcf_read
+      alias vcf_read1    vcf_read
+      alias bcf_write1   bcf_write
+      alias vcf_write1   vcf_write
+      alias bcf_destroy1 bcf_destroy
+      alias bcf_empty1   bcf_empty
+      alias vcf_parse1   vcf_parse
+      alias bcf_clear1   bcf_clear
+      alias vcf_format1  vcf_format
 
+      alias bcf_open     hts_open
+      alias vcf_open     hts_open
+      if respond_to?(:hts_flush)
+        alias bcf_flush hts_flush
+        alias vcf_flush hts_flush
+      end
+      alias bcf_close    hts_close
+      alias vcf_close    hts_close
+    end
+
+    BCF_UN_STR  = 1 # up to ALT inclusive
+    BCF_UN_FLT  = 2 # up to FILTER
+    BCF_UN_INFO = 4 # up to INFO
+    BCF_UN_SHR  = (BCF_UN_STR | BCF_UN_FLT | BCF_UN_INFO) # all shared information
+    BCF_UN_FMT  = 8 # unpack format and each sample
+    BCF_UN_IND  = BCF_UN_FMT # a synonym of BCF_UN_FMT
+    BCF_UN_ALL  = (BCF_UN_SHR | BCF_UN_FMT) # everything
+
+    class << self
       def bcf_hdr_nsamples(hdr)
         hdr[:n][BCF_DT_SAMPLE]
       end
@@ -197,14 +222,5 @@ module HTS
         )[:val][:info][type] >> 12
       end
     end
-
-    # constants
-    BCF_UN_STR  = 1 # up to ALT inclusive
-    BCF_UN_FLT  = 2 # up to FILTER
-    BCF_UN_INFO = 4 # up to INFO
-    BCF_UN_SHR  = (BCF_UN_STR | BCF_UN_FLT | BCF_UN_INFO) # all shared information
-    BCF_UN_FMT  = 8 # unpack format and each sample
-    BCF_UN_IND  = BCF_UN_FMT # a synonym of BCF_UN_FMT
-    BCF_UN_ALL  = (BCF_UN_SHR | BCF_UN_FMT) # everything
   end
 end

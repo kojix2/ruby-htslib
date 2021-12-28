@@ -89,6 +89,12 @@ module HTS
       %i[HFILE string string],
       HtsFile.by_ref
 
+    # For output streams, flush any buffered data
+    attach_function \
+      :hts_flush,
+      [HtsFile],
+      :int
+
     # Close a file handle, flushing buffered data for output streams
     attach_function \
       :hts_close,
