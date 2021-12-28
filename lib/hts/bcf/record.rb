@@ -80,13 +80,13 @@ module HTS
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
         @bcf1[:d][:allele].get_array_of_pointer(
           FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1
-        ).map { |c| c.read_string }
+        ).map(&:read_string)
       end
 
       def alleles
         @bcf1[:d][:allele].get_array_of_pointer(
           0, @bcf1[:n_allele]
-        ).map { |c| c.read_string }
+        ).map(&:read_string)
       end
 
       def info
