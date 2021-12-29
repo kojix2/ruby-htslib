@@ -2,7 +2,7 @@
 
 require_relative "../test_helper"
 
-class HeaderTest < Minitest::Test
+class BamHeaderTest < Minitest::Test
   def setup
     @bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
     @bam_header = @bam.header

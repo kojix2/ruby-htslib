@@ -2,7 +2,7 @@
 
 require_relative "../test_helper"
 
-class FlagTest < Minitest::Test
+class BamFlagTest < Minitest::Test
   def setup
     @flag = HTS::Bam::Flag.new(4095)
     @flag_zero = HTS::Bam::Flag.new(0)
