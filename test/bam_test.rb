@@ -3,17 +3,21 @@
 require_relative "test_helper"
 
 class BamTest < Minitest::Test
+  def test_bam_path
+    Fixtures["poo.sort.bam"]
+  end
+
   def setup
-    @bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
+    @bam = HTS::Bam.new(test_bam_path)
   end
 
   def teardown
-    @bam.close
+    @bam&.close
   end
 
   def test_initialize_sam
     skip
-    sam = HTS::Bam.new(Fixtures["poo.sort.sam"])
+    sam = HTS::Bam.new(test_bam_path)
     assert_instance_of HTS::Bam, sam
   end
 

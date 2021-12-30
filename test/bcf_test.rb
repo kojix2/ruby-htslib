@@ -3,16 +3,16 @@
 require_relative "test_helper"
 
 class BcfTest < Minitest::Test
-  def bcf_path
+  def test_bcf_path
     File.expand_path("../htslib/test/index.vcf", __dir__)
   end
 
   def setup
-    @bcf = HTS::Bcf.new(bcf_path)
+    @bcf = HTS::Bcf.new(test_bcf_path)
   end
 
   def teardown
-    @bcf.close
+    @bcf&.close
   end
 
   def test_initialize
@@ -20,7 +20,7 @@ class BcfTest < Minitest::Test
   end
 
   def test_file_path
-    assert_equal bcf_path, @bcf.file_path
+    assert_equal test_bcf_path, @bcf.file_path
   end
 
   def test_header

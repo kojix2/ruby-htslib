@@ -3,12 +3,12 @@
 require_relative "../test_helper"
 
 class BcfRecordTest < Minitest::Test
-  def bcf_path
+  def test_bcf_path
     File.expand_path("../../htslib/test/tabix/vcf_file.bcf", __dir__)
   end
 
   def setup
-    @bcf = HTS::Bcf.new(bcf_path)
+    @bcf = HTS::Bcf.new(test_bcf_path)
     @v0, @v1 = @bcf.first(2)
   end
 
