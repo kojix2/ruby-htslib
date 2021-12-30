@@ -41,12 +41,18 @@ class BamFlagTest < Minitest::Test
     assert_equal 0, @flag_zero.value
   end
 
-  Flags.each do |flag|
-    define_method "test_#{flag}?" do
-      assert_equal true, @flag.paired?
-      assert_equal false, @flag_zero.paired?
-    end
-  end
+  # "paired"
+  # "proper_pair"
+  # "unmap"
+  # "munmap"
+  # "reverse"
+  # "mreverse"
+  # "read1"
+  # "read2"
+  # "secondary"
+  # "qcfail"
+  # "dup"
+  # "supplementary"
 
   def test_paired?
     assert_equal true, @flag.paired?
