@@ -25,7 +25,7 @@ module HTS
         end
       end
 
-      def text
+      def to_s
         LibHTS.sam_hdr_str(@sam_hdr)
       end
     end
