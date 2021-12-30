@@ -11,6 +11,10 @@ class BcfTest < Minitest::Test
     @bcf = HTS::Bcf.new(bcf_path)
   end
 
+  def teardown
+    @bcf.close
+  end
+
   def test_initialize
     assert_instance_of HTS::Bcf, @bcf
   end

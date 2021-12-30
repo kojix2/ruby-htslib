@@ -7,6 +7,10 @@ class BamTest < Minitest::Test
     @bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
   end
 
+  def teardown
+    @bam.close
+  end
+
   def test_initialize_sam
     skip
     sam = HTS::Bam.new(Fixtures["poo.sort.sam"])
@@ -29,9 +33,9 @@ class BamTest < Minitest::Test
     assert_instance_of HTS::Bam::Header, @bam.header
   end
 
-  def test_close
-    assert 0, @bam.close
-  end
+  # def test_close
+  #   assert 0, @bam.close
+  # end
 
   def test_each
     alns = @bam.to_a
