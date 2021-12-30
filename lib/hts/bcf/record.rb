@@ -16,7 +16,7 @@ module HTS
       end
 
       def to_ptr
-        @bcf.to_ptr
+        @bcf1.to_ptr
       end
 
       # def inspect; end
