@@ -9,11 +9,12 @@
 :dna: [HTSlib](https://github.com/samtools/htslib) - for Ruby
 
 Ruby-htslib is the Ruby bindings to HTSlib, a C library for processing high throughput sequencing (HTS) data. 
-It will provide APIs to read and write file formats such as SAM, BAM, VCF, and BCF.
+It will provide APIs to read and write file formats such as [SAM, BAM, VCF, and BCF](http://samtools.github.io/hts-specs/).
 
 :apple: Feel free to fork it out if you can develop it! 
 
 :bowtie: alpha stage.
+
 ## Requirements
 
 * [Ruby](https://github.com/ruby/ruby) 2.7 or above.
@@ -92,8 +93,8 @@ bundle exec rake htslib:build
 bundle exec rake test
 ```
 
-We plan to actively use the new features of Ruby. Since the number of users is small, backward compatibility is not important.
-On the other hand, we will consider compatibility with [Crystal](https://github.com/bio-crystal/htslib.cr) to some extent.
+* Actively use the advanced features of Ruby.
+* Consider compatibility with [htslib.cr](https://github.com/bio-crystal/htslib.cr) to some extent.
 
 #### FFI Extensions
 
