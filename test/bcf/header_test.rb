@@ -12,6 +12,10 @@ class BcfHeaderTest < Minitest::Test
     @hdr = @bcf.header
   end
 
+  def teardown
+    @bcf&.close
+  end
+
   def test_to_s
     require "digest/md5"
     str = @hdr.to_s

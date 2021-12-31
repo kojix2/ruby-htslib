@@ -13,6 +13,10 @@ class BcfInfoTest < Minitest::Test
     @info = rec2.info
   end
 
+  def teardown
+    @bcf&.close
+  end
+
   def test_get_with_type
     assert_equal [1, 2, 3, 4], @info.get("DP4", :int)
     assert_equal [4], @info.get("AN", :int)

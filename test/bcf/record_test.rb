@@ -12,6 +12,10 @@ class BcfRecordTest < Minitest::Test
     _, @v1, @v2 = @bcf.first(3)
   end
 
+  def teardown
+    @bcf&.close
+  end
+
   def test_chrom
     assert_equal "1", @v1.chrom
     assert_equal "1", @v2.chrom
