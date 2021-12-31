@@ -44,7 +44,7 @@ module HTS
         end
       end
 
-      def fields # FIXME naming? room for improvement.
+      def fields # FIXME: naming? room for improvement.
         n_info = @record.struct[:n_info]
         Array.new(n_info) do |i|
           fld = LibHTS::BcfInfo.new(
