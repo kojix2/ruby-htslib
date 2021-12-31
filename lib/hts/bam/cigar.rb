@@ -22,6 +22,8 @@ module HTS
       end
 
       def each
+        return to_enum(__method__) unless block_given?
+
         @n_cigar.times do |i|
           c = @pointer[i].read_uint32
           yield [LibHTS.bam_cigar_oplen(c),
