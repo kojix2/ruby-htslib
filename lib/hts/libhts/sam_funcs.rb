@@ -422,7 +422,7 @@ module HTS
     attach_function \
       :bam_aux2A,
       [:pointer],
-      :string
+      :char
 
     # Get a string aux value
     attach_function \

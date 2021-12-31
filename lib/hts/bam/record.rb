@@ -167,6 +167,11 @@ module HTS
         return nil if aux.null?
 
         t = aux.read_string(1)
+
+        # A (character), B (general array),
+        # f (real number), H (hexadecimal array),
+        # i (integer), or Z (string).
+
         case t
         when "i", "I", "c", "C", "s", "S"
           LibHTS.bam_aux2i(aux)
@@ -174,8 +179,8 @@ module HTS
           LibHTS.bam_aux2f(aux)
         when "Z", "H"
           LibHTS.bam_aux2Z(aux)
-        when "A"
-          LibHTS.bam_aux2A(aux)
+        when "A" # char
+          LibHTS.bam_aux2A(aux).chr
         end
       end
 
