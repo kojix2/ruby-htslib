@@ -15,9 +15,9 @@ class BamRecordTest < Minitest::Test
     assert_equal "chr1", @aln2.qname
   end
 
-  def test_mate_chrom
-    assert_equal "poo", @aln1.mate_chrom
-    assert_equal "", @aln2.mate_chrom
+  def test_tid
+    assert_equal 0, @aln1.tid
+    assert_equal 0, @aln2.tid
   end
 
   def test_mate_tid
@@ -25,9 +25,24 @@ class BamRecordTest < Minitest::Test
     assert_equal(-1, @aln2.mate_tid)
   end
 
-  def test_tid
-    assert_equal 0, @aln1.tid
-    assert_equal 0, @aln2.tid
+  def test_start
+    assert_equal 3289, @aln1.start
+    assert_equal 0, @aln2.start
+  end
+
+  def test_chrom
+    assert_equal "poo", @aln1.chrom
+    assert_equal "chr1", @aln2.chrom
+  end
+
+  def test_mate_chrom
+    assert_equal "poo", @aln1.mate_chrom
+    assert_equal "", @aln2.mate_chrom
+  end
+
+  def test_stop
+    assert_equal 3290, @aln1.stop # may be strange?
+    assert_equal 10, @aln2.stop
   end
 
   def test_mate_start
@@ -40,24 +55,9 @@ class BamRecordTest < Minitest::Test
     assert_equal(-1, @aln2.mate_pos)
   end
 
-  def test_chrom
-    assert_equal "poo", @aln1.chrom
-    assert_equal "chr1", @aln2.chrom
-  end
-
   def test_strand
     assert_equal "+", @aln1.strand
     assert_equal "+", @aln2.strand
-  end
-
-  def test_start
-    assert_equal 3289, @aln1.start
-    assert_equal 0, @aln2.start
-  end
-
-  def test_stop
-    assert_equal 3290, @aln1.stop # may be strange?
-    assert_equal 10, @aln2.stop
   end
 
   def test_isize
