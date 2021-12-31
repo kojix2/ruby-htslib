@@ -57,5 +57,8 @@ class BcfRecordTest < Minitest::Test
     assert_equal ["G"], @v2.alt
   end
 
+  def test_alleles
+    assert_equal %w[C T], @v1.alleles
+    assert_equal %w[GTTT G], @v2.alleles
   end
 end

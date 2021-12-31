@@ -84,6 +84,7 @@ module HTS
       end
 
       def alleles
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
         @bcf1[:d][:allele].get_array_of_pointer(
           0, @bcf1[:n_allele]
         ).map(&:read_string)
