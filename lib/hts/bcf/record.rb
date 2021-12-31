@@ -64,6 +64,8 @@ module HTS
           d[:flt].get_array_of_int(0, n_flt).map do |i|
             LibHTS.bcf_hdr_int2id(@bcf.header.struct, LibHTS::BCF_DT_ID, i)
           end
+        else
+          raise "Unexpected number of filters. n_flt: #{n_flt}"
         end
       end
 
