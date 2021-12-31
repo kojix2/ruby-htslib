@@ -18,6 +18,10 @@ module HTS
         @sam_hdr.to_ptr
       end
 
+      def target_count
+        @sam_hdr[:n_targets]
+      end
+
       # FIXME: better name?
       def seqs
         Array.new(@sam_hdr[:n_targets]) do |i|

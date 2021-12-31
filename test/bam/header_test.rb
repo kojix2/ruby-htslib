@@ -16,6 +16,10 @@ class BamHeaderTest < Minitest::Test
     assert_equal ["poo"], @bam_header.seqs
   end
 
+  def test_target_count
+    assert_equal 1, @bam_header.target_count
+  end
+
   def test_to_s
     header_text = <<~TEXT
       @HD	VN:1.3	SO:coordinate
