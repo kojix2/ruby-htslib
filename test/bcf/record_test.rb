@@ -61,4 +61,14 @@ class BcfRecordTest < Minitest::Test
     assert_equal %w[C T], @v1.alleles
     assert_equal %w[GTTT G], @v2.alleles
   end
+
+  def test_info
+    assert_instance_of HTS::Bcf::Info, @v1.info
+    assert_instance_of HTS::Bcf::Info, @v2.info
+  end
+
+  def test_format
+    assert_instance_of HTS::Bcf::Format, @v1.format
+    assert_instance_of HTS::Bcf::Format, @v2.format
+  end
 end
