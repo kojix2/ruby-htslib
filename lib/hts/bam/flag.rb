@@ -90,7 +90,7 @@ module HTS
       end
 
       def to_s
-        "#{format('%#x', @value)}\t#{@value}\t#{LibHTS.bam_flag2str(@value)}"
+        "0x#{format('%x', @value)}\t#{@value}\t#{LibHTS.bam_flag2str(@value)}"
       end
     end
   end
