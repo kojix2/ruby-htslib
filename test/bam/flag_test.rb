@@ -47,4 +47,9 @@ class BamFlagTest < Minitest::Test
       assert_equal false, @flag_zero.public_send(flag_name + "?")
     end
   end
+
+  def test_to_s
+    assert_equal "0xfff	4095	PAIRED,PROPER_PAIR,UNMAP,MUNMAP,REVERSE,MREVERSE,READ1,READ2,SECONDARY,QCFAIL,DUP,SUPPLEMENTARY", @flag.to_s
+    assert_equal "0	0	", @flag_zero.to_s
+  end
 end

@@ -89,6 +89,10 @@ module HTS
         n = Math.log2(o).to_i
         @value[n] != 0
       end
+
+      def to_s
+        "#{format('%#x', @value)}\t#{@value}\t#{LibHTS.bam_flag2str(@value)}"
+      end
     end
   end
 end
