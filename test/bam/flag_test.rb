@@ -21,30 +21,30 @@ class BamFlagTest < Minitest::Test
   # BAM_FDUP           = 1024
   # BAM_FSUPPLEMENTARY = 2048
 
-  Flags = %w[
-    paired
-    proper_pair
-    unmapped
-    mate_unmapped
-    reverse
-    mate_reverse
-    read1
-    read2
-    secondary
-    qcfail
-    dup
-    supplementary
-  ].freeze
-
   def test_value
     assert_equal 4095, @flag.value
     assert_equal 0, @flag_zero.value
   end
 
-  Flags.each do |flag_name|
+  flag_methods = %w[
+    paired?
+    proper_pair?
+    unmapped?
+    mate_unmapped?
+    reverse?
+    mate_reverse?
+    read1?
+    read2?
+    secondary?
+    qcfail?
+    dup?
+    supplementary?
+  ]
+
+  flag_methods.each do |flag_name|
     define_method("test_#{flag_name}") do
-      assert_equal true, @flag.public_send(flag_name + "?")
-      assert_equal false, @flag_zero.public_send(flag_name + "?")
+      assert_equal true, @flag.public_send(flag_name)
+      assert_equal false, @flag_zero.public_send(flag_name)
     end
   end
 
