@@ -36,7 +36,7 @@ module HTS
           format_values.call(LibHTS::BCF_HT_FLAG)
                        .read_int == 1
         when :string, :str
-          raise NotImplementedError, 'String type not implemented yet.'
+          raise NotImplementedError, "String type not implemented yet."
           format_values.call(LibHTS::BCF_HT_STR)
                        .read_string
         end

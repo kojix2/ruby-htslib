@@ -24,10 +24,10 @@ class BamFlagTest < Minitest::Test
   Flags = %w[
     paired
     proper_pair
-    unmap
-    munmap
+    unmapped
+    mate_unmapped
     reverse
-    mreverse
+    mate_reverse
     read1
     read2
     secondary
@@ -41,21 +41,10 @@ class BamFlagTest < Minitest::Test
     assert_equal 0, @flag_zero.value
   end
 
-  # "paired"
-  # "proper_pair"
-  # "unmap"
-  # "munmap"
-  # "reverse"
-  # "mreverse"
-  # "read1"
-  # "read2"
-  # "secondary"
-  # "qcfail"
-  # "dup"
-  # "supplementary"
-
-  def test_paired?
-    assert_equal true, @flag.paired?
-    assert_equal false, @flag_zero.paired?
+  Flags.each do |flag_name|
+    define_method("test_#{flag_name}") do
+      assert_equal true, @flag.public_send(flag_name + "?")
+      assert_equal false, @flag_zero.public_send(flag_name + "?")
+    end
   end
 end

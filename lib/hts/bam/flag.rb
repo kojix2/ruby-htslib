@@ -86,7 +86,8 @@ module HTS
       end
 
       def has_flag?(o)
-        @value[o] != 0
+        n = Math.log2(o).to_i
+        @value[n] != 0
       end
     end
   end
