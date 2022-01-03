@@ -52,9 +52,9 @@ p b[:category]
 p b[:format]
 ```
 
-Note: Managed struct is not used in ruby-htslib. You may need to free the memory by yourself.
+Note: In ruby-htslib, there are only a limited number of parts where Managed struct is used. You may need to free the memory by yourself.
 
-### High level API (Plan)
+### High level API
 
 `Cram` `Bam` `Bcf` `Faidx` `Tabix`
 
@@ -75,6 +75,24 @@ bam.each do |r|
     cigar: r.cigar.to_s,
     qual:  r.base_qualities.map { |i| (i + 33).chr }.join
 end
+
+bam.close
+```
+
+```ruby
+bcf = HTS::Bcf.new("b.bcf")
+
+bcf.each do |r|
+  p chrom: r.chrom,
+    pos: r.pos,
+    id: r.id,
+    qual: r.qual.round(2),
+    ref: r.ref,
+    alt: r.alt,
+    filter: r.filter
+end
+
+bcf.close
 ```
 
 ## Documentation
@@ -93,6 +111,8 @@ bundle exec rake htslib:build
 bundle exec rake test
 ```
 
+Many macro functions are used in HTSlib. Since these macro functions cannot be called using FFI, they must be reimplemented in Ruby.
+
 * Actively use the advanced features of Ruby.
 * Consider compatibility with [htslib.cr](https://github.com/bio-crystal/htslib.cr) to some extent.
 
@@ -101,6 +121,7 @@ bundle exec rake test
 * [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
 
 #### Automatic generation or automatic validation (Future plan)
+
 
 + [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
 
@@ -113,6 +134,8 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Write, clarify, or fix documentation
 * Suggest or add new features
 * [financial contributions](https://github.com/sponsors/kojix2)
+
+The nice thing about using the Ruby language in bioinformatics is that there is nothing to stop you from reinventing the wheel. You can learn a lot by not only using the tools, but also by reinventing the wheel yourself.
 
 ## Links
 
