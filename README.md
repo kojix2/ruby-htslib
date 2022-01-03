@@ -83,12 +83,12 @@ bam.close
 bcf = HTS::Bcf.new("b.bcf")
 
 bcf.each do |r|
-  p chrom: r.chrom,
-    pos: r.pos,
-    id: r.id,
-    qual: r.qual.round(2),
-    ref: r.ref,
-    alt: r.alt,
+  p chrom:  r.chrom,
+    pos:    r.pos,
+    id:     r.id,
+    qual:   r.qual.round(2),
+    ref:    r.ref,
+    alt:    r.alt,
     filter: r.filter
 end
 
