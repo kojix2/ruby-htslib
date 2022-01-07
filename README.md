@@ -39,26 +39,12 @@ export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 
 ## Overview
 
-### Low level API
-
-`HTS::LibHTS` provides native functions. 
-
-```ruby
-require 'htslib'
-
-a = HTS::LibHTS.hts_open("a.bam", "r")
-b = HTS::LibHTS.hts_get_format(a)
-p b[:category]
-p b[:format]
-```
-
-Note: In ruby-htslib, there are only a limited number of parts where Managed struct is used. You may need to free the memory by yourself.
-
 ### High level API
 
-`Cram` `Bam` `Bcf` `Faidx` `Tabix`
+A high-level API is under development. 
+Classes such as `Cram` `Bam` `Bcf` `Faidx` `Tabix` are partially implemented.
 
-A high-level API is under development. We will change and improve the API to make it better.
+Read SAM / BAM - Sequence Alignment Map file
 
 ```ruby
 require 'htslib'
@@ -79,6 +65,8 @@ end
 bam.close
 ```
 
+Read VCF / BCF - Variant Call Format
+
 ```ruby
 bcf = HTS::Bcf.new("b.bcf")
 
@@ -94,6 +82,23 @@ end
 
 bcf.close
 ```
+
+The methods for reading are implemented first. Methods for writing will be implemented in the coming days.
+
+### Low level API
+
+`HTS::LibHTS` provides native functions. 
+
+```ruby
+require 'htslib'
+
+a = HTS::LibHTS.hts_open("a.bam", "r")
+b = HTS::LibHTS.hts_get_format(a)
+p b[:category]
+p b[:format]
+```
+
+Note: Only some C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually.
 
 ## Documentation
 
@@ -135,7 +140,9 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Suggest or add new features
 * [financial contributions](https://github.com/sponsors/kojix2)
 
-The nice thing about using the Ruby language in bioinformatics is that there is nothing to stop you from reinventing the wheel. You can learn a lot by not only using the tools, but also by reinventing the wheel yourself.
+#### Why do you implement htslib in a language like Ruby, which is not widely used in the bioinformatics?
+
+One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding to better understand how to use the file formats and tools. And that effort is still going on today...(Translated with DeepL)
 
 ## Links
 
