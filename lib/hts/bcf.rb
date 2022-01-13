@@ -52,6 +52,11 @@ module HTS
     # Close the current file.
     def close
       LibHTS.hts_close(@hts_file)
+      @hts_file = nil
+    end
+
+    def closed?
+      @hts_file.nil?
     end
 
     def each
