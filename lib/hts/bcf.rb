@@ -14,11 +14,20 @@ module HTS
 
     attr_reader :file_path, :mode, :header
 
-    class << self
-      alias open new
+    def self.open(*args)
+      file = new(*args)
+      return file unless block_given?
+
+      begin
+        yield file
+      ensure
+        file.close
+      end
     end
 
     def initialize(file_path, mode = "r")
+      raise "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead" if block_given?
+
       file_path = File.expand_path(file_path)
 
       unless File.exist?(file_path)
@@ -30,15 +39,6 @@ module HTS
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
       @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(@hts_file))
-
-      # IO like API
-      if block_given?
-        begin
-          yield self
-        ensure
-          close
-        end
-      end
     end
 
     def struct

@@ -14,11 +14,20 @@ module HTS
 
     attr_reader :file_path, :mode, :header
 
-    class << self
-      alias open new
+    def self.open(*args)
+      file = new(*args)
+      return file unless block_given?
+
+      begin
+        yield file
+      ensure
+        file.close
+      end
     end
 
     def initialize(file_path, mode = "r", create_index: nil)
+      raise "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead" if block_given?
+
       file_path = File.expand_path(file_path)
 
       unless File.exist?(file_path)
@@ -44,15 +53,6 @@ module HTS
       else
         # FIXME: implement
         raise "not implemented yet."
-      end
-
-      # IO like API
-      if block_given?
-        begin
-          yield self
-        ensure
-          close
-        end
       end
     end
 
