@@ -14,7 +14,7 @@ module HTS
 
     attr_reader :file_path, :mode, :header
     # HtfFile is FFI::BitStruct
-    attr_reader :htf_file
+    attr_reader :hts_file
 
     class << self
       alias open new
@@ -30,8 +30,8 @@ module HTS
 
       @file_path = file_path
       @mode      = mode
-      @htf_file  = LibHTS.hts_open(file_path, mode)
-      @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(htf_file))
+      @hts_file  = LibHTS.hts_open(file_path, mode)
+      @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(hts_file))
 
       # IO like API
       if block_given?
@@ -44,22 +44,22 @@ module HTS
     end
 
     def struct
-      htf_file
+      hts_file
     end
 
     def to_ptr
-      htf_file.to_ptr
+      hts_file.to_ptr
     end
 
     # Close the current file.
     def close
-      LibHTS.hts_close(htf_file)
+      LibHTS.hts_close(hts_file)
     end
 
     def each
       return to_enum(__method__) unless block_given?
 
-      while LibHTS.bcf_read(htf_file, header, bcf1 = LibHTS.bcf_init) != -1
+      while LibHTS.bcf_read(hts_file, header, bcf1 = LibHTS.bcf_init) != -1
         record = Record.new(bcf1, self)
         yield record
       end
