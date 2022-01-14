@@ -23,6 +23,7 @@ module HTS
       ensure
         file.close
       end
+      file
     end
 
     def initialize(file_path, mode = "r")
