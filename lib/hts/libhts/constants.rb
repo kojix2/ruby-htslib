@@ -218,11 +218,13 @@ module HTS
 
     SamFile = HtsFile
 
-    class HtsThreadPool < FFI::Struct
+    class HtsTpool < FFI::Struct
       layout \
         :pool,           :pointer,
         :qsize,          :int
     end
+
+    HtsTpoolProcess = :pointer
 
     class HtsOpt < FFI::Struct
       layout \

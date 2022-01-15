@@ -145,7 +145,7 @@ module HTS
     # Create extra threads to aid compress/decompression for this file
     attach_function \
       :hts_set_thread_pool,
-      [HtsFile, HtsThreadPool],
+      [HtsFile, HtsTpool],
       :int
 
     # Adds a cache of decompressed blocks, potentially speeding up seeks.
