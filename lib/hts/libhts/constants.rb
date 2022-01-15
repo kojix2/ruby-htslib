@@ -224,8 +224,6 @@ module HTS
         :qsize,          :int
     end
 
-    HtsTpoolProcess = :pointer
-
     class HtsOpt < FFI::Struct
       layout \
         :arg,            :string,
