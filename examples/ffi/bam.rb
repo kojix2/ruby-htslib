@@ -2,12 +2,21 @@
 
 require "htslib"
 
+multi_thread = 4
+
 bam_path = File.expand_path("../../test/fixtures/poo.sort.bam", __dir__)
 
 htf = HTS::LibHTS.hts_open(bam_path, "r")
 idx = HTS::LibHTS.sam_index_load(htf, bam_path)
 hdr = HTS::LibHTS.sam_hdr_read(htf)
-b   = HTS::LibHTS.bam_init1
+
+if multi_thread
+  thp =HTS::LibHTS::HtsTpool.new
+  thp[:pool] = (t = HTS::LibHTS.hts_tpool_init(multi_thread))
+  HTS::LibHTS.hts_set_opt(htf, HTS::LibHTS::HtsFmtOption[:HTS_OPT_THREAD_POOL], :pointer, thp)
+end
+
+b = HTS::LibHTS.bam_init1
 
 nuc = { 1 => "A", 2 => "C", 4 => "G", 8 => "T", 15 => "N" }
 
