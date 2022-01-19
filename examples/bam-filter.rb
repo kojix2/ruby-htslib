@@ -6,7 +6,7 @@ require "htslib"
 
 OptionParser.new do |parser|
   parser.banner = "Usage: #{File.basename(__FILE__)} [parserions] <bam_file>"
-  parser.on("-e", "--expression EXPR") { |v| @expr = v }
+  parser.on("-e", "--expression EXPR", "eval code from arg") { |v| @expr = v }
   # parser.on("-t", "--threads NUM") { |v| p v }
   # parser.on("-f", "--fasta PATH") { |v| p v }
   parser.on("-d", "--debug", "print expression") { @debug = true }
