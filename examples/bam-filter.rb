@@ -53,3 +53,5 @@ end
 bam.each do |r|
   puts r if eval(@expr)
 end
+
+bam.close
