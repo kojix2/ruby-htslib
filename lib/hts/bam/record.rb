@@ -91,7 +91,7 @@ module HTS
       # end
 
       # insert size
-      def isize
+      def insert_size
         @bam1[:core][:isize]
       end
 

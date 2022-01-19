@@ -60,9 +60,9 @@ class BamRecordTest < Minitest::Test
     assert_equal "+", @aln2.strand
   end
 
-  def test_isize
-    assert_equal 0, @aln1.isize
-    assert_equal 0, @aln2.isize
+  def test_insert_size
+    assert_equal 0, @aln1.insert_size
+    assert_equal 0, @aln2.insert_size
   end
 
   def test_mapping_quality
