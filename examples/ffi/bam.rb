@@ -11,7 +11,7 @@ idx = HTS::LibHTS.sam_index_load(htf, bam_path)
 hdr = HTS::LibHTS.sam_hdr_read(htf)
 
 if multi_thread
-  thp =HTS::LibHTS::HtsTpool.new
+  thp = HTS::LibHTS::HtsTpool.new
   thp[:pool] = (t = HTS::LibHTS.hts_tpool_init(multi_thread))
   HTS::LibHTS.hts_set_opt(htf, HTS::LibHTS::HtsFmtOption[:HTS_OPT_THREAD_POOL], :pointer, thp)
 end

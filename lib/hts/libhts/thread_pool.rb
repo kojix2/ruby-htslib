@@ -64,12 +64,12 @@ module HTS
     attach_function \
       :hts_tpool_next_result,
       [HtsTpoolProcess],
-      HtsTpoolResult#.by_ref
+      HtsTpoolResult # .by_ref
 
     attach_function \
       :hts_tpool_next_result_wait,
       [HtsTpoolProcess],
-      HtsTpoolResult#.by_ref
+      HtsTpoolResult # .by_ref
 
     attach_function \
       :hts_tpool_delete_result,
@@ -84,7 +84,7 @@ module HTS
     attach_function \
       :hts_tpool_process_init,
       [HtsTpool, :int, :int],
-      HtsTpoolProcess#.by_ref
+      HtsTpoolProcess # .by_ref
 
     attach_function \
       :hts_tpool_process_destroy,
