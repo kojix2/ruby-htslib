@@ -4,13 +4,13 @@
 require "optparse"
 require "htslib"
 
-OptionParser.new do |opt|
-  opt.banner = "Usage: #{File.basename($0)} [options] <bam_file>"
-  opt.on("-e", "--expression EXPR") { |v| @expr = v }
-  # opt.on("-t", "--threads NUM") { |v| p v }
-  # opt.on("-f", "--fasta PATH") { |v| p v }
-  opt.on("-d", "--debug", "print expression") { |_v| @debug = true }
-  opt.parse!(ARGV) # make it outside the scope of eval.
+OptionParser.new do |parser|
+  parser.banner = "Usage: #{File.basename(__FILE__)} [parserions] <bam_file>"
+  parser.on("-e", "--expression EXPR") { |v| @expr = v }
+  # parser.on("-t", "--threads NUM") { |v| p v }
+  # parser.on("-f", "--fasta PATH") { |v| p v }
+  parser.on("-d", "--debug", "print expression") { @debug = true }
+  parser.parse!(ARGV) # make it outside the scope of eval.
 end
 
 exit(1) if ARGV.size != 1
