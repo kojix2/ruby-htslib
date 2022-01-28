@@ -3,8 +3,8 @@
 module HTS
   class Bcf
     class Header
-      def initialize(bcf_hdr)
-        @bcf_hdr = bcf_hdr
+      def initialize(hts_file)
+        @bcf_hdr = LibHTS.bcf_hdr_read(hts_file)
       end
 
       def struct
@@ -20,6 +20,12 @@ module HTS
         raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
 
         kstr[:s]
+      end
+
+      private
+
+      def initialize_copy(other)
+        @bcf_hdr = LibHTS.bcf_hdr_dup(other.struct)
       end
     end
   end

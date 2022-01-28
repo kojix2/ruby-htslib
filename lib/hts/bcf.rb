@@ -39,7 +39,7 @@ module HTS
       @file_path = file_path
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
-      @header    = Bcf::Header.new(LibHTS.bcf_hdr_read(@hts_file))
+      @header    = Bcf::Header.new(@hts_file)
     end
 
     def struct
