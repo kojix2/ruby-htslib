@@ -191,9 +191,11 @@ module HTS
         kstr[:s]
       end
 
-      # TODO:
-      # def eql?
-      # def hash
+      private
+
+      def initialize_copy(other)
+        
+      end
     end
   end
 end

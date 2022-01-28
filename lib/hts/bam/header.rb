@@ -35,8 +35,8 @@ module HTS
 
       private
 
-      def initialize_copy(other)
-        @sam_hdr = LibHTS.sam_hdr_dup(other.struct)
+      def initialize_copy(orig)
+        @sam_hdr = LibHTS.sam_hdr_dup(orig.struct)
       end
     end
   end
