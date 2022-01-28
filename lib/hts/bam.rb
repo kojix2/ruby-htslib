@@ -39,7 +39,7 @@ module HTS
       @file_path = file_path
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
-      @header    = Bam::Header.new(LibHTS.sam_hdr_read(@hts_file))
+      @header    = Bam::Header.new(@hts_file)
 
       # read
       if mode[0] == "r"

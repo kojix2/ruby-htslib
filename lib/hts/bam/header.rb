@@ -6,8 +6,8 @@
 module HTS
   class Bam
     class Header
-      def initialize(pointer)
-        @sam_hdr = pointer
+      def initialize(hts_file)
+        @sam_hdr = LibHTS.sam_hdr_read(hts_file)
       end
 
       def struct
@@ -31,6 +31,12 @@ module HTS
 
       def to_s
         LibHTS.sam_hdr_str(@sam_hdr)
+      end
+
+      private
+
+      def initialize_copy(other)
+        @sam_hdr = LibHTS.sam_hdr_dup(other.struct)
       end
     end
   end
