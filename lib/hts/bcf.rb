@@ -14,8 +14,8 @@ module HTS
 
     attr_reader :file_path, :mode, :header
 
-    def self.open(*args)
-      file = new(*args)
+    def self.open(...)
+      file = new(...)
       return file unless block_given?
 
       begin
@@ -46,7 +46,7 @@ module HTS
 
       return if mode[0] == "w"
 
-      @header    = Bcf::Header.new(@hts_file)
+      @header = Bcf::Header.new(@hts_file)
     end
 
     def struct
