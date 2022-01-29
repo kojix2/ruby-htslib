@@ -20,6 +20,9 @@ OptionParser.new do |parser|
   ) { |v| @expr = v }
   parser.on("-t", "--threads NUM", Integer) { |v| @threads = v }
   # parser.on("-f", "--fasta PATH") { |v| p v }
+  parser.on("-o", "--output PATH") { |v| @output = v }
+  parser.on("-S", "--sam", "Output SAM") { |_v| @output_format = "sam" }
+  parser.on("-b", "--bam", "Output BAM") { |_v| @output_format = "bam" }
   parser.on("-d", "--debug", "print expression") { @debug = true }
   parser.parse!(ARGV) # make it outside the scope of eval.
   if ARGV.size == 0
@@ -33,6 +36,13 @@ end
 
 # FIXME: CRAM
 bam = HTS::Bam.open(ARGV[0], "r", threads: @threads)
+mode = case (@output_format ||= File.extname(@output)[1..-1])
+       when "bam" then "wb"
+       when "sam", "" then "w"
+       else warn "Unknown output format: #{@output_format}"; "w"
+       end
+bam_out = HTS::Bam.open(@output, mode)
+bam_out.write_header(bam.header)
 
 @expr = String.new.tap do |s|
   # make it outside the scope of eval.
@@ -67,7 +77,8 @@ if @debug
 end
 
 bam.each do |r|
-  puts r if eval(@expr)
+  bam_out.write(r) if eval(@expr)
 end
 
 bam.close
+bam_out.close
