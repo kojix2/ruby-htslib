@@ -100,7 +100,7 @@ module HTS
 
     def write_header(header)
       @header = header.dup
-      LibHTS.hts_set_fai_filename(header, @file_path)
+      LibHTS.hts_set_fai_filename(@hts_file, @file_path)
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
@@ -108,7 +108,7 @@ module HTS
       aln_dup = aln.dup
       LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
     end
-    
+
     # Flush the current file.
     def flush
       # LibHTS.bgzf_flush(@@hts_file.fp.bgzf)
