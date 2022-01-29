@@ -26,19 +26,26 @@ module HTS
       file
     end
 
-    def initialize(file_path, mode = "r")
+    def initialize(file_path, mode = "r", threads: nil)
       raise "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead" if block_given?
 
-      file_path = File.expand_path(file_path)
+      @file_path = File.expand_path(file_path)
 
       unless File.exist?(file_path)
         message = "No such VCF/BCF file - #{file_path}"
         raise message
       end
 
-      @file_path = file_path
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
+
+      if threads
+        r = LibHTS.hts_set_threads(@hts_file, threads)
+        raise "Failed to set number of threads: #{threads}" if r < 0
+      end
+
+      return if mode[0] == "w"
+
       @header    = Bcf::Header.new(@hts_file)
     end
 
