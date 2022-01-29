@@ -194,7 +194,7 @@ module HTS
       private
 
       def initialize_copy(other)
-        
+        raise "Not implemented"
       end
     end
   end
