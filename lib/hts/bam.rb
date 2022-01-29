@@ -26,17 +26,16 @@ module HTS
       file
     end
 
-    def initialize(file_path, mode = "r", fai: nil, threads: nil, create_index: nil)
+    def initialize(filename, mode = "r", fai: nil, threads: nil, index: nil)
       raise "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead" if block_given?
 
-      file_path = File.expand_path(file_path)
+      @file_path = File.expand_path(filename)
 
       unless File.exist?(file_path)
         message = "No such SAM/BAM file - #{file_path}"
         raise message
       end
 
-      @file_path = file_path
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
 
@@ -58,13 +57,21 @@ module HTS
       idx = LibHTS.sam_index_load(@hts_file, file_path)
 
       # create index
-      if create_index || (idx.null? && create_index.nil?)
-        warn "Create index for #{file_path}"
-        LibHTS.sam_index_build(file_path, -1)
-        @idx = LibHTS.sam_index_load(@hts_file, file_path)
-      else
-        @idx = idx
+      if index
+        create_index
+      elsif idx.nil?
+        if index.nil?
+          create_index
+        else
+          raise "Failed to load index: #{file_path}"
+        end
       end
+    end
+
+    def create_index
+      warn "Create index for #{file_path}"
+      LibHTS.sam_index_build(file_path, -1)
+      @idx = LibHTS.sam_index_load(@hts_file, file_path)
     end
 
     def struct
