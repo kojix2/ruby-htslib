@@ -22,19 +22,7 @@ elsif @expr.nil?
 end
 
 # FIXME: CRAM
-bam = HTS::Bam.open(ARGV[0])
-
-# multi threads
-if @threads
-  thp = HTS::LibHTS::HtsTpool.new
-  thp[:pool] = (t = HTS::LibHTS.hts_tpool_init(@threads))
-  HTS::LibHTS.hts_set_opt(
-    bam, # to_ptr is difined in Bam
-    HTS::LibHTS::HtsFmtOption[:HTS_OPT_THREAD_POOL],
-    :pointer,
-    thp
-  )
-end
+bam = HTS::Bam.open(ARGV[0], "r", threads: @threads)
 
 @expr = String.new.tap do |s|
   # make it outside the scope of eval.
