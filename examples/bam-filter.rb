@@ -36,10 +36,13 @@ end
 
 # FIXME: CRAM
 bam = HTS::Bam.open(ARGV[0], "r", threads: @threads)
+
+@output ||= "-" # stdout
 mode = case (@output_format ||= File.extname(@output)[1..-1])
        when "bam" then "wb"
        when "sam", "" then "w"
-       else warn "Unknown output format: #{@output_format}"; "w"
+       else warn "Unknown output format: #{@output_format}"
+            "w"
        end
 bam_out = HTS::Bam.open(@output, mode)
 bam_out.write_header(bam.header)
