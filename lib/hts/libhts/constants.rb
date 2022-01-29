@@ -172,7 +172,7 @@ module HTS
     end
 
     # HtsFile
-    class SamHdr < FFI::ManagedStruct
+    class SamHdr < FFI::Struct
       layout \
         :n_targets,      :int32,
         :ignore_sam_err, :int32,
@@ -184,10 +184,6 @@ module HTS
         :sdict,          :pointer,
         :hrecs,          :pointer,
         :ref_count,      :uint32
-
-      def self.release(ptr)
-        LibHTS.sam_hdr_destroy(ptr) unless ptr.null?
-      end
     end
 
     BamHdr = SamHdr
@@ -435,7 +431,7 @@ module HTS
         :val,            BcfIdinfo.ptr
     end
 
-    class BcfHdr < FFI::ManagedStruct
+    class BcfHdr < FFI::Struct
       layout \
         :n,              [:int, 3],
         :id,             [:pointer, 3], # BcfIdpair.ptr
@@ -450,10 +446,6 @@ module HTS
         :keep_samples,   :pointer,
         :mem,            KString,
         :m,              [:int, 3]
-
-      def self.release(ptr)
-        LibHTS.bcf_hdr_destroy(ptr) unless ptr.null?
-      end
     end
 
     class BcfDec < FFI::Struct
