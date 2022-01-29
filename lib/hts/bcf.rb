@@ -57,6 +57,17 @@ module HTS
       @hts_file.to_ptr
     end
 
+    def write_header
+      @header = header.dup
+      LibHTS.hts_set_fai_filename(header, @file_path)
+      LibHTS.bcf_hdr_write(@hts_file, header.struct)
+    end
+
+    def write(var)
+      var_dup = var.dup = var.dup
+      LibHTS.bcf_write(@hts_file, header, var_dup) > 0 || raise
+    end
+
     # Close the current file.
     def close
       LibHTS.hts_close(@hts_file)
