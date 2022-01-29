@@ -5,6 +5,10 @@ require "optparse"
 require "htslib"
 
 OptionParser.new do |parser|
+  nthreads = 0
+  output_format = ".sam"
+  output_file   = "-"
+
   parser.program_name = "bam-filter"
   parser.banner = <<~MSG
 
@@ -18,13 +22,14 @@ OptionParser.new do |parser|
     "flags  [paired proper_pair unmapped mate_unmapped reverse",
     " mate_reverse read1 read2 secondary qcfail dup supplementary]"
   ) { |v| @expr = v }
-  parser.on("-t", "--threads NUM", Integer) { |v| @threads = v }
+  parser.on("-t", "--threads NUM", Integer) { |v| nthreads = v }
   # parser.on("-f", "--fasta PATH") { |v| p v }
-  parser.on("-o", "--output PATH") { |v| @output = v }
-  parser.on("-S", "--sam", "Output SAM") { |_v| @output_format = "sam" }
-  parser.on("-b", "--bam", "Output BAM") { |_v| @output_format = "bam" }
+  parser.on("-o", "--output PATH") { |v| output_file = v }
+  parser.on("-S", "--sam", "Output SAM") { |_v| output_format = ".sam" }
+  parser.on("-b", "--bam", "Output BAM") { |_v| output_format = ".bam" }
   parser.on("-d", "--debug", "print expression") { @debug = true }
   parser.parse!(ARGV) # make it outside the scope of eval.
+
   if ARGV.size == 0
     warn parser.help
     exit(1)
@@ -32,20 +37,20 @@ OptionParser.new do |parser|
     warn "Expression is required"
     exit(1)
   end
+
+  # make it outside the scope of eval.
+  # FIXME: CRAM
+  @bam = HTS::Bam.open(ARGV[0], "r", threads: nthreads)
+
+  mode = case (output_format ||= File.extname(output_file))
+         when ".bam" then "wb"
+         when ".sam", "" then "w"
+         else warn "Unknown output format: #{output_format}"
+              "w"
+         end
+  @bam_out = HTS::Bam.open(output_file, mode)
+  @bam_out.write_header(@bam.header)
 end
-
-# FIXME: CRAM
-bam = HTS::Bam.open(ARGV[0], "r", threads: @threads)
-
-@output ||= "-" # stdout
-mode = case (@output_format ||= File.extname(@output)[1..-1])
-       when "bam" then "wb"
-       when "sam", "" then "w"
-       else warn "Unknown output format: #{@output_format}"
-            "w"
-       end
-bam_out = HTS::Bam.open(@output, mode)
-bam_out.write_header(bam.header)
 
 @expr = String.new.tap do |s|
   # make it outside the scope of eval.
@@ -79,9 +84,9 @@ if @debug
   exit
 end
 
-bam.each do |r|
-  bam_out.write(r) if eval(@expr)
+@bam.each do |r|
+  @bam_out.write(r) if eval(@expr)
 end
 
-bam.close
-bam_out.close
+@bam.close
+@bam_out.close
