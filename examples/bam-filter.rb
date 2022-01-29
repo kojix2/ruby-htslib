@@ -5,20 +5,30 @@ require "optparse"
 require "htslib"
 
 OptionParser.new do |parser|
-  parser.banner = "Usage: #{File.basename(__FILE__)} [parserions] <bam_file>"
-  parser.on("-e", "--expression EXPR", "eval code from arg") { |v| @expr = v }
+  parser.program_name = "bam-filter"
+  parser.banner = <<~MSG
+
+    Usage: #{File.basename(__FILE__)} [options] <bam_file>
+
+  MSG
+  parser.summary_width = 23
+  parser.on(
+    "-e", "--expression EXPR", "eval ruby code. presets variables are:",
+    "fields [maq start pos stop name mpos seq cigar qual isize]",
+    "flags  [paired proper_pair unmapped mate_unmapped reverse",
+    " mate_reverse read1 read2 secondary qcfail dup supplementary]"
+  ) { |v| @expr = v }
   parser.on("-t", "--threads NUM", Integer) { |v| @threads = v }
   # parser.on("-f", "--fasta PATH") { |v| p v }
   parser.on("-d", "--debug", "print expression") { @debug = true }
   parser.parse!(ARGV) # make it outside the scope of eval.
-end
-
-if ARGV.size != 1
-  warn "Please specify a file"
-  exit(1)
-elsif @expr.nil?
-  warn "Expression is required"
-  exit(1)
+  if ARGV.size == 0
+    warn parser.help
+    exit(1)
+  elsif @expr.nil?
+    warn "Expression is required"
+    exit(1)
+  end
 end
 
 # FIXME: CRAM
