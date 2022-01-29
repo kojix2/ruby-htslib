@@ -193,8 +193,9 @@ module HTS
 
       private
 
-      def initialize_copy(other)
-        raise "Not implemented"
+      def initialize_copy(orig)
+        @header = orig.header
+        @bam = LibHTS.bam_dup1(orig.struct)
       end
     end
   end

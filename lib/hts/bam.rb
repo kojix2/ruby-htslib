@@ -31,7 +31,7 @@ module HTS
 
       @file_path = File.expand_path(filename)
 
-      unless File.exist?(file_path)
+      if mode[0] == "r" && !File.exist?(file_path)
         message = "No such SAM/BAM file - #{file_path}"
         raise message
       end
@@ -86,15 +86,15 @@ module HTS
       @hts_file.to_ptr
     end
 
-    def write(alns)
-      alns.each do
-        LibHTS.sam_write1(@hts_file, header, alns.b) > 0 || raise
-      end
-    end
-
     def write_header(header)
+      @header = header.dup
       LibHTS.hts_set_fai_filename(header, @file_path)
       LibHTS.sam_hdr_write(@hts_file, header)
+    end
+  
+    def write(aln)
+      aln_dup = aln.dup
+      LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
     end
 
     # Close the current file.

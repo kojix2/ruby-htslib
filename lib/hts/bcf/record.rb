@@ -108,6 +108,12 @@ module HTS
 
         ksr[:s]
       end
+
+      private
+
+      def initialize_copy
+        raise "Not implemented"
+      end
     end
   end
 end
