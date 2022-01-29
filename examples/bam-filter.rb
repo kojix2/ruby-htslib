@@ -14,9 +14,11 @@ OptionParser.new do |parser|
 end
 
 if ARGV.size != 1
-  warn "Please specify a file"; exit(1)
+  warn "Please specify a file"
+  exit(1)
 elsif @expr.nil?
-  warn "Expression is required"; exit(1)
+  warn "Expression is required"
+  exit(1)
 end
 
 # FIXME: CRAM
