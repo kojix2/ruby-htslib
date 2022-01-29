@@ -40,7 +40,8 @@ module HTS
       @hts_file  = LibHTS.hts_open(file_path, mode)
 
       if fai
-        r = LibHTS.hts_set_fai_filename(@hts_file, fai)
+        fai_path = File.expand_path(fai)
+        r = LibHTS.hts_set_fai_filename(@hts_file, fai_path)
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
@@ -65,6 +66,8 @@ module HTS
         else
           raise "Failed to load index: #{file_path}"
         end
+      else
+        @idx = idx
       end
     end
 
