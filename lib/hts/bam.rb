@@ -60,7 +60,7 @@ module HTS
       # create index
       if index
         create_index
-      elsif idx.nil?
+      elsif idx.null?
         if index.nil?
           create_index
         else
@@ -74,7 +74,8 @@ module HTS
     def create_index
       warn "Create index for #{file_path}"
       LibHTS.sam_index_build(file_path, -1)
-      @idx = LibHTS.sam_index_load(@hts_file, file_path)
+      idx = LibHTS.sam_index_load(@hts_file, file_path)
+      raise "Failed to load index: #{file_path}" if idx.null?
     end
 
     def struct
