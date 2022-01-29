@@ -26,7 +26,7 @@ module HTS
       file
     end
 
-    def initialize(file_path, mode = "r", create_index: nil)
+    def initialize(file_path, mode = "r", fai: nil, threads: nil, create_index: nil)
       raise "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead" if block_given?
 
       file_path = File.expand_path(file_path)
@@ -39,21 +39,31 @@ module HTS
       @file_path = file_path
       @mode      = mode
       @hts_file  = LibHTS.hts_open(file_path, mode)
-      @header    = Bam::Header.new(@hts_file)
 
-      # read
-      if mode[0] == "r"
-        # load index
+      if fai
+        r = LibHTS.hts_set_fai_filename(@hts_file, fai)
+        raise "Failed to load fasta index: #{fai}" if r < 0
+      end
+
+      if threads
+        r = LibHTS.hts_set_threads(@hts_file, threads)
+        raise "Failed to set number of threads: #{threads}" if r < 0
+      end
+
+      return if mode[0] == "w"
+
+      @header = Bam::Header.new(@hts_file)
+
+      # load index
+      idx = LibHTS.sam_index_load(@hts_file, file_path)
+
+      # create index
+      if create_index || (idx.null? && create_index.nil?)
+        warn "Create index for #{file_path}"
+        LibHTS.sam_index_build(file_path, -1)
         @idx = LibHTS.sam_index_load(@hts_file, file_path)
-        # create index
-        if create_index || (@idx.null? && create_index.nil?)
-          warn "Create index for #{file_path}"
-          LibHTS.sam_index_build(file_path, -1)
-          @idx = LibHTS.sam_index_load(@hts_file, file_path)
-        end
       else
-        # FIXME: implement
-        raise "not implemented yet."
+        @idx = idx
       end
     end
 
@@ -69,6 +79,11 @@ module HTS
       alns.each do
         LibHTS.sam_write1(@hts_file, header, alns.b) > 0 || raise
       end
+    end
+
+    def write_header(header)
+      LibHTS.hts_set_fai_filename(header, @file_path)
+      LibHTS.sam_hdr_write(@hts_file, header)
     end
 
     # Close the current file.
