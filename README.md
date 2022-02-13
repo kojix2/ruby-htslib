@@ -140,9 +140,15 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Suggest or add new features
 * [financial contributions](https://github.com/sponsors/kojix2)
 
+```
+Do you need commit rights to my repository?
+Do you want to get admin rights and take over the project?
+If so, please feel free to contact us @kojix2.
+```
+
 #### Why do you implement htslib in a language like Ruby, which is not widely used in the bioinformatics?
 
-One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding to better understand how to use the file formats and tools. And that effort is still going on today...(Translated with DeepL)
+One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding to better understand how to use the file formats and tools. And that effort is still going on today...
 
 ## Links
 
