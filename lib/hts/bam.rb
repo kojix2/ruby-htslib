@@ -114,17 +114,30 @@ module HTS
       # LibHTS.bgzf_flush(@@hts_file.fp.bgzf)
     end
 
+    # Iterate over each record.
+    # Record object is reused.
+    # Faster than each_copy.
     def each
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
       return to_enum(__method__) unless block_given?
 
+      bam1 = LibHTS.bam_init1
+      record = Record.new(bam1, header)
+      yield record while LibHTS.sam_read1(@hts_file, header, bam1) > 0
+    end
+
+    # Iterate over each record.
+    # Generate a new Record object each time.
+    # Slower than each.
+    def each_copy
+      return to_enum(__method__) unless block_given?
+
       while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) > 0
         record = Record.new(bam1, header)
         yield record
       end
-      self
     end
 
     # query [WIP]
