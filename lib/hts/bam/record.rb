@@ -74,6 +74,11 @@ module HTS
         LibHTS.sam_hdr_tid2name(@header, tid)
       end
 
+      # returns the chromosome or '' if not mapped.
+      def contig
+        chrom
+      end
+
       # returns the chromosome of the mate or '' if not mapped.
       def mate_chrom
         mtid = mate_tid
