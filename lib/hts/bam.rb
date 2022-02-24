@@ -54,21 +54,10 @@ module HTS
 
       @header = Bam::Header.new(@hts_file)
 
-      # load index
-      idx = LibHTS.sam_index_load(@hts_file, file_path)
+      create_index if index
 
-      # create index
-      if index
-        create_index
-      elsif idx.null?
-        if index.nil?
-          create_index
-        else
-          raise "Failed to load index: #{file_path}"
-        end
-      else
-        @idx = idx
-      end
+      # load index
+      @idx = LibHTS.sam_index_load(@hts_file, file_path)
     end
 
     def create_index
@@ -142,6 +131,7 @@ module HTS
 
     # query [WIP]
     def query(region)
+      # FIXME: when @idx is nil
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
       begin
         bam1 = LibHTS.bam_init1
