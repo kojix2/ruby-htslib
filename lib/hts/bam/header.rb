@@ -29,7 +29,9 @@ module HTS
       end
 
       def target_lengths
-        @sam_hdr[:target_len].read_array_of_int32(target_count)
+        Array.new(target_count) do |i|
+          LibHTS.sam_hdr_tid2len(@sam_hdr, i)
+        end
       end
 
       def to_s
