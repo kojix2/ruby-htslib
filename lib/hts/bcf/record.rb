@@ -3,13 +3,13 @@
 module HTS
   class Bcf
     class Record
-      def initialize(bcf_t, bcf)
+      def initialize(bcf_t, header)
         @bcf1 = bcf_t
-        @bcf = bcf
+        @header = header
         @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      attr_reader :p1, :bcf
+      attr_reader :p1, :header
 
       def struct
         @bcf1
@@ -26,10 +26,9 @@ module HTS
       def genotypes; end
 
       def chrom
-        hdr = @bcf.header.struct
         rid = @bcf1[:rid]
 
-        LibHTS.bcf_hdr_id2name(hdr, rid)
+        LibHTS.bcf_hdr_id2name(@header.struct, rid)
       end
 
       def pos
@@ -59,10 +58,10 @@ module HTS
           "PASS"
         when 1
           i = d[:flt].read_int
-          LibHTS.bcf_hdr_int2id(@bcf.header.struct, LibHTS::BCF_DT_ID, i)
+          LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
         when 2
           d[:flt].get_array_of_int(0, n_flt).map do |i|
-            LibHTS.bcf_hdr_int2id(@bcf.header.struct, LibHTS::BCF_DT_ID, i)
+            LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
           end
         else
           raise "Unexpected number of filters. n_flt: #{n_flt}"
@@ -104,7 +103,7 @@ module HTS
 
       def to_s
         ksr = LibHTS::KString.new
-        raise "Failed to format record" if LibHTS.vcf_format(@bcf.header.struct, @bcf1, ksr) == -1
+        raise "Failed to format record" if LibHTS.vcf_format(@header.struct, @bcf1, ksr) == -1
 
         ksr[:s]
       end

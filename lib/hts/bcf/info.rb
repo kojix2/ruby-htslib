@@ -11,7 +11,7 @@ module HTS
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
         p1 = @record.p1
-        h = @record.bcf.header.struct
+        h = @record.header.struct
         r = @record.struct
 
         info_values = proc do |type|
@@ -54,10 +54,10 @@ module HTS
           )
           {
             name: LibHTS.bcf_hdr_int2id(
-              @record.bcf.header.struct, LibHTS::BCF_DT_ID, fld[:key]
+              @record.header.struct, LibHTS::BCF_DT_ID, fld[:key]
             ),
             n: LibHTS.bcf_hdr_id2number(
-              @record.bcf.header.struct, LibHTS::BCF_HL_INFO, fld[:key]
+              @record.header.struct, LibHTS::BCF_HL_INFO, fld[:key]
             ),
             vtype: fld[:type], i: fld[:key]
           }
@@ -73,7 +73,7 @@ module HTS
             i * LibHTS::BcfInfo.size
           )
           id = LibHTS.bcf_hdr_int2id(
-            @record.bcf.header.struct, LibHTS::BCF_DT_ID, fld[:key]
+            @record.header.struct, LibHTS::BCF_DT_ID, fld[:key]
           )
           return fld[:type] if id == key
         end

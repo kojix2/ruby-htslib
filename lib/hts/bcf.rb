@@ -82,7 +82,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
-        record = Record.new(bcf1, self)
+        record = Record.new(bcf1, header)
         yield record
       end
       self

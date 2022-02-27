@@ -15,7 +15,7 @@ module HTS
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
         p1 = @p1
-        h = @record.bcf.header.struct
+        h = @record.header.struct
         r = @record.struct
 
         format_values = proc do |type|
