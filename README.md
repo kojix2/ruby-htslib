@@ -100,6 +100,10 @@ p b[:format]
 
 Note: Only some C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually.
 
+### Need more speed?
+
+Try [htslib.cr](https://github.com/bio-crystal/htslib.cr). htslib.cr is implemented in Crystal language and provides an API compatible with ruby-htslib. crsytal language is not as flexible as Ruby language. If you have a clear idea of the manipulation you want to do and need to perform it many times, then by all means try to implement a command line tool using htslib.cr. The Crystal language is very fast and can perform almost as well as the Rust and C languages.
+
 ## Documentation
 
 * [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
