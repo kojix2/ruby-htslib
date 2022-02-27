@@ -5,12 +5,13 @@ module HTS
     class Info
       def initialize(record)
         @record = record
+        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
-        p1 = @record.p1
+        p1 = @p1
         h = @record.header.struct
         r = @record.struct
 

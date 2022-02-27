@@ -6,10 +6,9 @@ module HTS
       def initialize(bcf_t, header)
         @bcf1 = bcf_t
         @header = header
-        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      attr_reader :p1, :header
+      attr_reader :header
 
       def struct
         @bcf1
