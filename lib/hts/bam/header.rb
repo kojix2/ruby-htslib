@@ -28,6 +28,10 @@ module HTS
         end
       end
 
+      def target_lengths
+        @sam_hdr[:target_len].read_array_of_int32(target_count)
+      end
+
       def to_s
         LibHTS.sam_hdr_str(@sam_hdr)
       end
