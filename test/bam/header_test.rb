@@ -12,12 +12,12 @@ class BamHeaderTest < Minitest::Test
     assert_instance_of HTS::Bam::Header, @bam_header
   end
 
-  def test_seqs
-    assert_equal ["poo"], @bam_header.seqs
-  end
-
   def test_target_count
     assert_equal 1, @bam_header.target_count
+  end
+
+  def test_target_names
+    assert_equal ["poo"], @bam_header.target_names
   end
 
   def test_to_s
