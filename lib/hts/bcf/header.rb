@@ -15,6 +15,10 @@ module HTS
         @bcf_hdr.to_ptr
       end
 
+      def get_version
+        LibHTS.bcf_hdr_get_version(@bcf_hdr)
+      end
+
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
