@@ -22,4 +22,10 @@ class BcfFormatTest < Minitest::Test
     assert_equal [35, 35], @fmt.get("DP", :int)
     assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get("GL", :float)
   end
+
+  def test_get_like_crystal
+    assert_equal [409, 409], @fmt.get_int("GQ")
+    assert_equal [35, 35], @fmt.get_int("DP")
+    assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get_float("GL")
+  end
 end
