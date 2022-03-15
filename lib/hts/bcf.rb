@@ -78,7 +78,6 @@ module HTS
       @hts_file.nil?
     end
 
-
     def sample_count
       header.sample_count
     end
