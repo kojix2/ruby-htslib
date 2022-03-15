@@ -24,6 +24,7 @@ module HTS
       end
 
       def samples
+        # bcf_hdr_id2name is macro function
         @bcf_hdr[:samples]
           .read_array_of_pointer(sample_count)
           .map(&:read_string)
