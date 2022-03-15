@@ -53,12 +53,13 @@ module HTS
           format_values.call(LibHTS::BCF_HT_REAL)
                        .read_array_of_float(n.read_int)
         when :flag
-          format_values.call(LibHTS::BCF_HT_FLAG)
-                       .read_int == 1
+          raise NotImplementedError, "Flag type not implemented yet."
+          # format_values.call(LibHTS::BCF_HT_FLAG)
+          #              .read_int == 1
         when :string, :str
           raise NotImplementedError, "String type not implemented yet."
-          format_values.call(LibHTS::BCF_HT_STR)
-                       .read_string
+          # format_values.call(LibHTS::BCF_HT_STR)
+          #              .read_string
         end
       end
 
