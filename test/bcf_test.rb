@@ -31,6 +31,10 @@ class BcfTest < Minitest::Test
     assert_equal 1, @bcf.sample_count
   end
 
+  def test_samples
+    assert_equal ["ERS220911"], @bcf.samples
+  end
+
   def test_each
     alns = @bcf.to_a
     assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })

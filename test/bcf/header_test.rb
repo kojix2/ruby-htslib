@@ -24,6 +24,10 @@ class BcfHeaderTest < Minitest::Test
     assert_equal 2, @hdr.sample_count
   end
 
+  def test_samples
+    assert_equal ["A", "B"], @hdr.samples
+  end
+
   def test_to_s
     require "digest/md5"
     str = @hdr.to_s

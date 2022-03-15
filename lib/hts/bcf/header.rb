@@ -23,6 +23,12 @@ module HTS
         LibHTS.bcf_hdr_nsamples(@bcf_hdr)
       end
 
+      def samples
+        @bcf_hdr[:samples]
+          .read_array_of_pointer(sample_count)
+          .map(&:read_string)
+      end
+
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)

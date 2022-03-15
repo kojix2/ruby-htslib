@@ -78,6 +78,15 @@ module HTS
       @hts_file.nil?
     end
 
+
+    def sample_count
+      header.sample_count
+    end
+
+    def samples
+      header.samples
+    end
+
     def each
       return to_enum(__method__) unless block_given?
 
@@ -86,10 +95,6 @@ module HTS
         yield record
       end
       self
-    end
-
-    def sample_count
-      header.sample_count
     end
   end
 end
