@@ -24,8 +24,8 @@ class BcfHeaderTest < Minitest::Test
     assert_equal 2, @hdr.sample_count
   end
 
-  def test_samples
-    assert_equal ["A", "B"], @hdr.samples
+  def test_sample_names
+    assert_equal ["A", "B"], @hdr.sample_names
   end
 
   def test_to_s

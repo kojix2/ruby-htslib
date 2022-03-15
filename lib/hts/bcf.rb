@@ -83,8 +83,8 @@ module HTS
       header.sample_count
     end
 
-    def samples
-      header.samples
+    def sample_names
+      header.sample_names
     end
 
     def each

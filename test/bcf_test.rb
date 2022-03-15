@@ -31,8 +31,8 @@ class BcfTest < Minitest::Test
     assert_equal 1, @bcf.sample_count
   end
 
-  def test_samples
-    assert_equal ["ERS220911"], @bcf.samples
+  def test_sample_names
+    assert_equal ["ERS220911"], @bcf.sample_names
   end
 
   def test_each
