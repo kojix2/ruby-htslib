@@ -19,6 +19,10 @@ module HTS
         LibHTS.bcf_hdr_get_version(@bcf_hdr)
       end
 
+      def sample_count
+        LibHTS.bcf_hdr_nsamples(@bcf_hdr)
+      end
+
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)

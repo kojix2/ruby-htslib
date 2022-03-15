@@ -89,7 +89,7 @@ module HTS
     end
 
     def sample_count
-      LibHTS.bcf_hdr_nsamples(header.struct)
+      header.sample_count
     end
   end
 end

@@ -20,6 +20,10 @@ class BcfHeaderTest < Minitest::Test
     assert_equal "VCFv4.1", @hdr.get_version
   end
 
+  def test_sample_count
+    assert_equal 2, @hdr.sample_count
+  end
+
   def test_to_s
     require "digest/md5"
     str = @hdr.to_s
