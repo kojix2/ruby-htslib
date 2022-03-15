@@ -8,6 +8,26 @@ module HTS
         @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
+      # For compatibility with htslib.cr.
+      def get_int(key)
+        get(key, :int)
+      end
+
+      # For compatibility with htslib.cr.
+      def get_float(key)
+        get(key, :float)
+      end
+
+      # For compatibility with htslib.cr.
+      def get_string(key)
+        get(key, :string)
+      end
+
+      # For compatibility with htslib.cr.
+      def get_flag(key)
+        get(key, :flag)
+      end
+
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
