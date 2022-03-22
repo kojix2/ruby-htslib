@@ -14,8 +14,8 @@ module HTS
 
     attr_reader :file_path, :mode, :header
 
-    def self.open(...)
-      file = new(...)
+    def self.open(*args, **kw)
+      file = new(*args, **kw) # do not yield
       return file unless block_given?
 
       begin
