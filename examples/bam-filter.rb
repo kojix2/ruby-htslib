@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: true
+
 # https://github.com/brentp/hts-nim-tools/blob/master/src/bam_filter.nim
 
 require "optparse"
@@ -30,7 +32,7 @@ OptionParser.new do |parser|
   parser.on("-d", "--debug", "print expression") { @debug = true }
   parser.parse!(ARGV) # make it outside the scope of eval.
 
-  if ARGV.size == 0
+  if ARGV.empty?
     warn parser.help
     exit(1)
   elsif @expr.nil?
