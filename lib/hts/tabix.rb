@@ -3,6 +3,8 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative "../htslib"
+
 module HTS
   class Tabix
     class << self

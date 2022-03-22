@@ -3,6 +3,8 @@
 # Based on hts-python
 # https://github.com/quinlan-lab/hts-python
 
+require_relative "../htslib"
+
 require_relative "bcf/header"
 require_relative "bcf/info"
 require_relative "bcf/format"
