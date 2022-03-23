@@ -41,15 +41,12 @@ export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 
 ### High level API
 
-A high-level API is under development. 
-Classes such as `Cram` `Bam` `Bcf` `Faidx` `Tabix` are partially implemented.
-
-Read SAM / BAM - Sequence Alignment Map file
+Read SAM / BAM / CRAM - Sequence Alignment Map file
 
 ```ruby
 require 'htslib'
 
-bam = HTS::Bam.new("a.bam")
+bam = HTS::Bam.open("a.bam")
 
 bam.each do |r|
   p name:  r.qname,
@@ -65,10 +62,10 @@ end
 bam.close
 ```
 
-Read VCF / BCF - Variant Call Format
+Read VCF / BCF - Variant Call Format file
 
 ```ruby
-bcf = HTS::Bcf.new("b.bcf")
+bcf = HTS::Bcf.open("b.bcf")
 
 bcf.each do |r|
   p chrom:  r.chrom,
@@ -83,11 +80,9 @@ end
 bcf.close
 ```
 
-The methods for reading are implemented first. Methods for writing will be implemented in the coming days.
-
 ### Low level API
 
-`HTS::LibHTS` provides native functions. 
+`HTS::LibHTS` provides native　C functions. 
 
 ```ruby
 require 'htslib'
@@ -98,11 +93,11 @@ p b[:category]
 p b[:format]
 ```
 
-Note: Only some C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually.
+Note: htslib makes extensive use of macro functions for speed. you cannot use C macro functions in Ruby if they are not reimplemented in ruby-htslib. Only small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually. 
 
 ### Need more speed?
 
-Try [htslib.cr](https://github.com/bio-crystal/htslib.cr). htslib.cr is implemented in Crystal language and provides an API compatible with ruby-htslib. crsytal language is not as flexible as Ruby language. If you have a clear idea of the manipulation you want to do and need to perform it many times, then by all means try to implement a command line tool using htslib.cr. The Crystal language is very fast and can perform almost as well as the Rust and C languages.
+Try Crystal bindings. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use eval methods, and you must always be aware of the types. It is not very suitable for writing one-time scripts or experimenting with different code.　However, If you have already written code in ruby-htslib, have a clear idea of the manipulations you want to do, and need to execute them many times, then by all means try to implement the command line tool using htslib.cr. The Crystal language is very fast and can perform almost as well as the Rust and C languages.
 
 ## Documentation
 
@@ -123,14 +118,14 @@ bundle exec rake test
 Many macro functions are used in HTSlib. Since these macro functions cannot be called using FFI, they must be reimplemented in Ruby.
 
 * Actively use the advanced features of Ruby.
-* Consider compatibility with [htslib.cr](https://github.com/bio-crystal/htslib.cr) to some extent.
+* Remain compatibile with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
+  * The most difficult part is the return value. In the Crystal language, it is convenient for a method to return only one type. In the Ruby language, on the other hand, it is more convenient to return multiple classes. For example, in the Crystal language, it is confusing that a return value can take four types: Int32, Float32, Nil, and String. In Ruby, on the other hand, it is very common and does not cause any problems.
 
 #### FFI Extensions
 
 * [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
 
 #### Automatic generation or automatic validation (Future plan)
-
 
 + [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
 
@@ -152,7 +147,7 @@ If so, please feel free to contact us @kojix2.
 
 #### Why do you implement htslib in a language like Ruby, which is not widely used in the bioinformatics?
 
-One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding to better understand how to use the file formats and tools. And that effort is still going on today...
+One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools. And that effort is still going on today...
 
 ## Links
 
