@@ -57,6 +57,7 @@ bam.each do |r|
     seq:   r.sequence,
     cigar: r.cigar.to_s,
     qual:  r.base_qualities.map { |i| (i + 33).chr }.join
+  # tag:   r.tag("MC")
 end
 
 bam.close
@@ -75,6 +76,8 @@ bcf.each do |r|
     ref:    r.ref,
     alt:    r.alt,
     filter: r.filter
+  # info:   r.info
+  # format: r.format
 end
 
 bcf.close
@@ -97,7 +100,7 @@ Note: htslib makes extensive use of macro functions for speed. you cannot use C 
 
 ### Need more speed?
 
-Try Crystal bindings. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use eval methods, and you must always be aware of the types. It is not very suitable for writing one-time scripts or experimenting with different code.　However, If you have already written code in ruby-htslib, have a clear idea of the manipulations you want to do, and need to execute them many times, then by all means try to implement the command line tool using htslib.cr. The Crystal language is very fast and can perform almost as well as the Rust and C languages.
+Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use eval methods, and you must always be aware of the types. It is not very suitable for writing one-time scripts or experimenting with different code. However, If you have already written code in ruby-htslib, have a clear idea of the manipulations you want to do, and need to execute them many times, then by all means try to implement the command line tool using htslib.cr. The Crystal language is very fast and can perform almost as well as the Rust and C languages.
 
 ## Documentation
 
