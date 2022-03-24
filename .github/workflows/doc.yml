@@ -15,7 +15,7 @@ jobs:
         with:
           ruby-version: 3.1
       - name: Generate document
-        run: gem install yard --no-ri --no-rdoc && yard doc
+        run: gem install -N yard && yard doc
       - name: Publish Documentation on GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
