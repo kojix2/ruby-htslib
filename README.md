@@ -104,6 +104,7 @@ Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemente
 
 ## Documentation
 
+* [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
 * [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
 
 ## Development
