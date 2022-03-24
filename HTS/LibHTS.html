@@ -1,0 +1,3282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: HTS::LibHTS
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "HTS::LibHTS";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (L)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span>
+     &raquo; 
+    <span class="title">LibHTS</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: HTS::LibHTS
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>FFI::Library</dd>
+  </dl>
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/hts/libhts.rb<span class="defines">,<br />
+  lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="LibHTS/BGZF.html" title="HTS::LibHTS::BGZF (class)">BGZF</a></span>, <span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span>, <span class='object_link'><a href="LibHTS/Bam1Core.html" title="HTS::LibHTS::Bam1Core (class)">Bam1Core</a></span>, <span class='object_link'><a href="LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span>, <span class='object_link'><a href="LibHTS/BamPileupCd.html" title="HTS::LibHTS::BamPileupCd (class)">BamPileupCd</a></span>, <span class='object_link'><a href="LibHTS/Bcf1.html" title="HTS::LibHTS::Bcf1 (class)">Bcf1</a></span>, <span class='object_link'><a href="LibHTS/BcfDec.html" title="HTS::LibHTS::BcfDec (class)">BcfDec</a></span>, <span class='object_link'><a href="LibHTS/BcfFmt.html" title="HTS::LibHTS::BcfFmt (class)">BcfFmt</a></span>, <span class='object_link'><a href="LibHTS/BcfHdr.html" title="HTS::LibHTS::BcfHdr (class)">BcfHdr</a></span>, <span class='object_link'><a href="LibHTS/BcfHrec.html" title="HTS::LibHTS::BcfHrec (class)">BcfHrec</a></span>, <span class='object_link'><a href="LibHTS/BcfIdinfo.html" title="HTS::LibHTS::BcfIdinfo (class)">BcfIdinfo</a></span>, <span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span>, <span class='object_link'><a href="LibHTS/BcfInfo.html" title="HTS::LibHTS::BcfInfo (class)">BcfInfo</a></span>, <span class='object_link'><a href="LibHTS/BcfVariant.html" title="HTS::LibHTS::BcfVariant (class)">BcfVariant</a></span>, <span class='object_link'><a href="LibHTS/Faidx.html" title="HTS::LibHTS::Faidx (class)">Faidx</a></span>, <span class='object_link'><a href="LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span>, <span class='object_link'><a href="LibHTS/HtsFormat.html" title="HTS::LibHTS::HtsFormat (class)">HtsFormat</a></span>, <span class='object_link'><a href="LibHTS/HtsIdx.html" title="HTS::LibHTS::HtsIdx (class)">HtsIdx</a></span>, <span class='object_link'><a href="LibHTS/HtsItr.html" title="HTS::LibHTS::HtsItr (class)">HtsItr</a></span>, <span class='object_link'><a href="LibHTS/HtsOpt.html" title="HTS::LibHTS::HtsOpt (class)">HtsOpt</a></span>, <span class='object_link'><a href="LibHTS/HtsTpool.html" title="HTS::LibHTS::HtsTpool (class)">HtsTpool</a></span>, <span class='object_link'><a href="LibHTS/KSeq.html" title="HTS::LibHTS::KSeq (class)">KSeq</a></span>, <span class='object_link'><a href="LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span>, <span class='object_link'><a href="LibHTS/SamHdr.html" title="HTS::LibHTS::SamHdr (class)">SamHdr</a></span>, <span class='object_link'><a href="LibHTS/Tbx.html" title="HTS::LibHTS::Tbx (class)">Tbx</a></span>, <span class='object_link'><a href="LibHTS/TbxConf.html" title="HTS::LibHTS::TbxConf (class)">TbxConf</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="BAM_CMATCH-constant" class="">BAM_CMATCH =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>constants</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BAM_CINS-constant" class="">BAM_CINS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BAM_CDEL-constant" class="">BAM_CDEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BAM_CREF_SKIP-constant" class="">BAM_CREF_SKIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="BAM_CSOFT_CLIP-constant" class="">BAM_CSOFT_CLIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BAM_CHARD_CLIP-constant" class="">BAM_CHARD_CLIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="BAM_CPAD-constant" class="">BAM_CPAD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="BAM_CEQUAL-constant" class="">BAM_CEQUAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="BAM_CDIFF-constant" class="">BAM_CDIFF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="BAM_CBACK-constant" class="">BAM_CBACK =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="BAM_CIGAR_STR-constant" class="">BAM_CIGAR_STR =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MIDNSHP=XB</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+        <dt id="BAM_CIGAR_SHIFT-constant" class="">BAM_CIGAR_SHIFT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BAM_CIGAR_MASK-constant" class="">BAM_CIGAR_MASK =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0xf</span></pre></dd>
+      
+        <dt id="BAM_CIGAR_TYPE-constant" class="">BAM_CIGAR_TYPE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x3C1A7</span></pre></dd>
+      
+        <dt id="BAM_FPAIRED-constant" class="">BAM_FPAIRED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BAM_FPROPER_PAIR-constant" class="">BAM_FPROPER_PAIR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BAM_FUNMAP-constant" class="">BAM_FUNMAP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BAM_FMUNMAP-constant" class="">BAM_FMUNMAP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="BAM_FREVERSE-constant" class="">BAM_FREVERSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="BAM_FMREVERSE-constant" class="">BAM_FMREVERSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="BAM_FREAD1-constant" class="">BAM_FREAD1 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="BAM_FREAD2-constant" class="">BAM_FREAD2 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>128</span></pre></dd>
+      
+        <dt id="BAM_FSECONDARY-constant" class="">BAM_FSECONDARY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>256</span></pre></dd>
+      
+        <dt id="BAM_FQCFAIL-constant" class="">BAM_FQCFAIL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>512</span></pre></dd>
+      
+        <dt id="BAM_FDUP-constant" class="">BAM_FDUP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1024</span></pre></dd>
+      
+        <dt id="BAM_FSUPPLEMENTARY-constant" class="">BAM_FSUPPLEMENTARY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2048</span></pre></dd>
+      
+        <dt id="BCF_HL_FLT-constant" class="">BCF_HL_FLT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>constants</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BCF_HL_INFO-constant" class="">BCF_HL_INFO =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>header line</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_HL_FMT-constant" class="">BCF_HL_FMT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_HL_CTG-constant" class="">BCF_HL_CTG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="BCF_HL_STR-constant" class="">BCF_HL_STR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>structured header line TAG=&lt;A=..,B=..&gt;</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF_HL_GEN-constant" class="">BCF_HL_GEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>generic header line</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="BCF_HT_FLAG-constant" class="">BCF_HT_FLAG =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>header type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BCF_HT_INT-constant" class="">BCF_HT_INT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_HT_REAL-constant" class="">BCF_HT_REAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_HT_STR-constant" class="">BCF_HT_STR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="BCF_HT_LONG-constant" class="">BCF_HT_LONG =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>BCF_HT_INT, but for int64_t values; VCF only!</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span> <span class='op'>|</span> <span class='int'>0x100</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_VL_FIXED-constant" class="">BCF_VL_FIXED =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>variable length</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BCF_VL_VAR-constant" class="">BCF_VL_VAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_VL_A-constant" class="">BCF_VL_A =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_VL_G-constant" class="">BCF_VL_G =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="BCF_VL_R-constant" class="">BCF_VL_R =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF_DT_ID-constant" class="">BCF_DT_ID =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>dictionary type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BCF_DT_CTG-constant" class="">BCF_DT_CTG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_DT_SAMPLE-constant" class="">BCF_DT_SAMPLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_BT_NULL-constant" class="">BCF_BT_NULL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="BCF_BT_INT8-constant" class="">BCF_BT_INT8 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_BT_INT16-constant" class="">BCF_BT_INT16 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_BT_INT32-constant" class="">BCF_BT_INT32 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="BCF_BT_INT64-constant" class="">BCF_BT_INT64 =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Unofficial, for internal use only.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF_BT_FLOAT-constant" class="">BCF_BT_FLOAT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="BCF_BT_CHAR-constant" class="">BCF_BT_CHAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="VCF_REF-constant" class="">VCF_REF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="VCF_SNP-constant" class="">VCF_SNP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="VCF_MNP-constant" class="">VCF_MNP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="VCF_INDEL-constant" class="">VCF_INDEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="VCF_OTHER-constant" class="">VCF_OTHER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="VCF_BND-constant" class="">VCF_BND =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>breakend</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="VCF_OVERLAP-constant" class="">VCF_OVERLAP =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>overlapping deletion, ALT=*</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="BCF1_DIRTY_ID-constant" class="">BCF1_DIRTY_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF1_DIRTY_ALS-constant" class="">BCF1_DIRTY_ALS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF1_DIRTY_FLT-constant" class="">BCF1_DIRTY_FLT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF1_DIRTY_INF-constant" class="">BCF1_DIRTY_INF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="BCF_ERR_CTG_UNDEF-constant" class="">BCF_ERR_CTG_UNDEF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_ERR_TAG_UNDEF-constant" class="">BCF_ERR_TAG_UNDEF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_ERR_NCOLS-constant" class="">BCF_ERR_NCOLS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF_ERR_LIMITS-constant" class="">BCF_ERR_LIMITS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="BCF_ERR_CHAR-constant" class="">BCF_ERR_CHAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="BCF_ERR_CTG_INVALID-constant" class="">BCF_ERR_CTG_INVALID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="BCF_ERR_TAG_INVALID-constant" class="">BCF_ERR_TAG_INVALID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="BCF_UN_STR-constant" class="">BCF_UN_STR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>up to ALT inclusive</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="BCF_UN_FLT-constant" class="">BCF_UN_FLT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>up to FILTER</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="BCF_UN_INFO-constant" class="">BCF_UN_INFO =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>up to INFO</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="BCF_UN_SHR-constant" class="">BCF_UN_SHR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>all shared information</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_UN_STR-constant" title="HTS::LibHTS::BCF_UN_STR (constant)">BCF_UN_STR</a></span></span> <span class='op'>|</span> <span class='const'><span class='object_link'><a href="#BCF_UN_FLT-constant" title="HTS::LibHTS::BCF_UN_FLT (constant)">BCF_UN_FLT</a></span></span> <span class='op'>|</span> <span class='const'><span class='object_link'><a href="#BCF_UN_INFO-constant" title="HTS::LibHTS::BCF_UN_INFO (constant)">BCF_UN_INFO</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_UN_FMT-constant" class="">BCF_UN_FMT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>unpack format and each sample</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="BCF_UN_IND-constant" class="">BCF_UN_IND =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>a synonym of BCF_UN_FMT</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#BCF_UN_FMT-constant" title="HTS::LibHTS::BCF_UN_FMT (constant)">BCF_UN_FMT</a></span></span></pre></dd>
+      
+        <dt id="BCF_UN_ALL-constant" class="">BCF_UN_ALL =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>everything</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_UN_SHR-constant" title="HTS::LibHTS::BCF_UN_SHR (constant)">BCF_UN_SHR</a></span></span> <span class='op'>|</span> <span class='const'><span class='object_link'><a href="#BCF_UN_FMT-constant" title="HTS::LibHTS::BCF_UN_FMT (constant)">BCF_UN_FMT</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsLogLevel-constant" class="">HtsLogLevel =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>hts</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:off</span><span class='comma'>,</span>            <span class='comment'># All logging disabled.
+</span>  <span class='symbol'>:error</span><span class='comma'>,</span>          <span class='comment'># Logging of errors only.
+</span>  <span class='symbol'>:warning</span><span class='comma'>,</span> <span class='int'>3</span><span class='comma'>,</span>     <span class='comment'># Logging of errors and warnings.
+</span>  <span class='symbol'>:info</span><span class='comma'>,</span>           <span class='comment'># Logging of errors, warnings, and normal but significant events.
+</span>  <span class='symbol'>:debug</span><span class='comma'>,</span>          <span class='comment'># Logging of all except the most detailed debug events.
+</span>  <span class='symbol'>:trace</span>           <span class='comment'># All logging enabled.
+</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsFormatCategory-constant" class="">HtsFormatCategory =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:unknown_category</span><span class='comma'>,</span>
+  <span class='symbol'>:sequence_data</span><span class='comma'>,</span>    <span class='comment'># Sequence data -- SAM, BAM, CRAM, etc
+</span>  <span class='symbol'>:variant_data</span><span class='comma'>,</span>     <span class='comment'># Variant calling data -- VCF, BCF, etc
+</span>  <span class='symbol'>:index_file</span><span class='comma'>,</span>       <span class='comment'># Index file associated with some data file
+</span>  <span class='symbol'>:region_list</span><span class='comma'>,</span>      <span class='comment'># Coordinate intervals or regions -- BED, etc
+</span>  <span class='symbol'>:category_maximum</span><span class='comma'>,</span> <span class='int'>32_767</span>
+<span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsExactFormat-constant" class="">HtsExactFormat =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:unknown_format</span><span class='comma'>,</span>
+  <span class='symbol'>:binary_format</span><span class='comma'>,</span> <span class='symbol'>:text_format</span><span class='comma'>,</span>
+  <span class='symbol'>:sam</span><span class='comma'>,</span> <span class='symbol'>:bam</span><span class='comma'>,</span> <span class='symbol'>:bai</span><span class='comma'>,</span> <span class='symbol'>:cram</span><span class='comma'>,</span> <span class='symbol'>:crai</span><span class='comma'>,</span> <span class='symbol'>:vcf</span><span class='comma'>,</span> <span class='symbol'>:bcf</span><span class='comma'>,</span> <span class='symbol'>:csi</span><span class='comma'>,</span> <span class='symbol'>:gzi</span><span class='comma'>,</span> <span class='symbol'>:tbi</span><span class='comma'>,</span> <span class='symbol'>:bed</span><span class='comma'>,</span>
+  <span class='symbol'>:htsget</span><span class='comma'>,</span> <span class='symbol'>:json</span><span class='comma'>,</span>
+  <span class='symbol'>:empty_format</span><span class='comma'>,</span>
+  <span class='symbol'>:fasta_format</span><span class='comma'>,</span> <span class='symbol'>:fastq_format</span><span class='comma'>,</span> <span class='symbol'>:fai_format</span><span class='comma'>,</span> <span class='symbol'>:fqi_format</span><span class='comma'>,</span>
+  <span class='symbol'>:hts_crypt4gh_format</span><span class='comma'>,</span>
+  <span class='symbol'>:format_maximum</span><span class='comma'>,</span> <span class='int'>32_767</span>
+<span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsCompression-constant" class="">HtsCompression =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:no_compression</span><span class='comma'>,</span> <span class='symbol'>:gzip</span><span class='comma'>,</span> <span class='symbol'>:bgzf</span><span class='comma'>,</span> <span class='symbol'>:custom</span><span class='comma'>,</span>
+  <span class='symbol'>:compression_maximum</span><span class='comma'>,</span> <span class='int'>32_767</span>
+<span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsFmtOption-constant" class="">HtsFmtOption =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:CRAM_OPT_DECODE_MD</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_PREFIX</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_VERBOSITY</span><span class='comma'>,</span>   <span class='comment'># obsolete, use hts_set_log_level() instead
+</span>  <span class='symbol'>:CRAM_OPT_SEQS_PER_SLICE</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_SLICES_PER_CONTAINER</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_RANGE</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_VERSION</span><span class='comma'>,</span>     <span class='comment'># rename to :CRAM_version?
+</span>  <span class='symbol'>:CRAM_OPT_EMBED_REF</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_IGNORE_MD5</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_REFERENCE</span><span class='comma'>,</span>   <span class='comment'># make general
+</span>  <span class='symbol'>:CRAM_OPT_MULTI_SEQ_PER_SLICE</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_NO_REF</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_USE_BZIP2</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_SHARED_REF</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_NTHREADS</span><span class='comma'>,</span>    <span class='comment'># deprecated, use HTS_OPT_NTHREADS
+</span>  <span class='symbol'>:CRAM_OPT_THREAD_POOL</span><span class='comma'>,</span> <span class='comment'># make general
+</span>  <span class='symbol'>:CRAM_OPT_USE_LZMA</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_USE_RANS</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_REQUIRED_FIELDS</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_LOSSY_NAMES</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_BASES_PER_SLICE</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_STORE_MD</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_STORE_NM</span><span class='comma'>,</span>
+  <span class='symbol'>:CRAM_OPT_RANGE_NOSEEK</span><span class='comma'>,</span> <span class='comment'># CRAM_OPT_RANGE minus the seek
+</span>  <span class='comment'># General purpose
+</span>  <span class='symbol'>:HTS_OPT_COMPRESSION_LEVEL</span><span class='comma'>,</span> <span class='int'>100</span><span class='comma'>,</span>
+  <span class='symbol'>:HTS_OPT_NTHREADS</span><span class='comma'>,</span>
+  <span class='symbol'>:HTS_OPT_THREAD_POOL</span><span class='comma'>,</span>
+  <span class='symbol'>:HTS_OPT_CACHE_SIZE</span><span class='comma'>,</span>
+  <span class='symbol'>:HTS_OPT_BLOCK_SIZE</span>
+<span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BamHdr-constant" class="">BamHdr =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="LibHTS/SamHdr.html" title="HTS::LibHTS::SamHdr (class)">SamHdr</a></span></span></pre></dd>
+      
+        <dt id="SamFile-constant" class="">SamFile =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span></pre></dd>
+      
+        <dt id="FaiFormatOptions-constant" class="">FaiFormatOptions =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>faidx</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span><span class='symbol'>:FAI_NONE</span><span class='comma'>,</span> <span class='symbol'>:FAI_FASTA</span><span class='comma'>,</span> <span class='symbol'>:FAI_FASTQ</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="HtsTpoolProcess-constant" class="">HtsTpoolProcess =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>FIXME: struct</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:pointer</span></pre></dd>
+      
+        <dt id="HtsTpoolResult-constant" class="">HtsTpoolResult =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:pointer</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#attach_function-class_method" title="attach_function (class method)">.<strong>attach_function</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_cigar_gen-class_method" title="bam_cigar_gen (class method)">.<strong>bam_cigar_gen</strong>(l, o)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_cigar_op-class_method" title="bam_cigar_op (class method)">.<strong>bam_cigar_op</strong>(c)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_cigar_opchr-class_method" title="bam_cigar_opchr (class method)">.<strong>bam_cigar_opchr</strong>(c)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_cigar_oplen-class_method" title="bam_cigar_oplen (class method)">.<strong>bam_cigar_oplen</strong>(c)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_cigar_type-class_method" title="bam_cigar_type (class method)">.<strong>bam_cigar_type</strong>(o)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_aux-class_method" title="bam_get_aux (class method)">.<strong>bam_get_aux</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_cigar-class_method" title="bam_get_cigar (class method)">.<strong>bam_get_cigar</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_l_aux-class_method" title="bam_get_l_aux (class method)">.<strong>bam_get_l_aux</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_qname-class_method" title="bam_get_qname (class method)">.<strong>bam_get_qname</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_qual-class_method" title="bam_get_qual (class method)">.<strong>bam_get_qual</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_get_seq-class_method" title="bam_get_seq (class method)">.<strong>bam_get_seq</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_is_mrev-class_method" title="bam_is_mrev (class method)">.<strong>bam_is_mrev</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_is_rev-class_method" title="bam_is_rev (class method)">.<strong>bam_is_rev</strong>(b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_seqi-class_method" title="bam_seqi (class method)">.<strong>bam_seqi</strong>(s, i)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_alleles2gt-class_method" title="bcf_alleles2gt (class method)">.<strong>bcf_alleles2gt</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_format_char-class_method" title="bcf_get_format_char (class method)">.<strong>bcf_get_format_char</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_format_float-class_method" title="bcf_get_format_float (class method)">.<strong>bcf_get_format_float</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_format_int32-class_method" title="bcf_get_format_int32 (class method)">.<strong>bcf_get_format_int32</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_genotypes-class_method" title="bcf_get_genotypes (class method)">.<strong>bcf_get_genotypes</strong>(hdr, line, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_info_flag-class_method" title="bcf_get_info_flag (class method)">.<strong>bcf_get_info_flag</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_info_float-class_method" title="bcf_get_info_float (class method)">.<strong>bcf_get_info_float</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_info_int32-class_method" title="bcf_get_info_int32 (class method)">.<strong>bcf_get_info_int32</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_get_info_string-class_method" title="bcf_get_info_string (class method)">.<strong>bcf_get_info_string</strong>(hdr, line, tag, dst, ndst)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_allele-class_method" title="bcf_gt_allele (class method)">.<strong>bcf_gt_allele</strong>(val)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_is_missing-class_method" title="bcf_gt_is_missing (class method)">.<strong>bcf_gt_is_missing</strong>(val)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_is_phased-class_method" title="bcf_gt_is_phased (class method)">.<strong>bcf_gt_is_phased</strong>(idx)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_missing-class_method" title="bcf_gt_missing (class method)">.<strong>bcf_gt_missing</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_phased-class_method" title="bcf_gt_phased (class method)">.<strong>bcf_gt_phased</strong>(idx)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_unphased-class_method" title="bcf_gt_unphased (class method)">.<strong>bcf_gt_unphased</strong>(idx)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_id2length-class_method" title="bcf_hdr_id2length (class method)">.<strong>bcf_hdr_id2length</strong>(hdr, type, int_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_id2name-class_method" title="bcf_hdr_id2name (class method)">.<strong>bcf_hdr_id2name</strong>(hdr, rid)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_id2number-class_method" title="bcf_hdr_id2number (class method)">.<strong>bcf_hdr_id2number</strong>(hdr, type, int_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_int2id-class_method" title="bcf_hdr_int2id (class method)">.<strong>bcf_hdr_int2id</strong>(hdr, type, int_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_name2id-class_method" title="bcf_hdr_name2id (class method)">.<strong>bcf_hdr_name2id</strong>(hdr, id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_nsamples-class_method" title="bcf_hdr_nsamples (class method)">.<strong>bcf_hdr_nsamples</strong>(hdr)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_format_char-class_method" title="bcf_update_format_char (class method)">.<strong>bcf_update_format_char</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_format_float-class_method" title="bcf_update_format_float (class method)">.<strong>bcf_update_format_float</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_format_int32-class_method" title="bcf_update_format_int32 (class method)">.<strong>bcf_update_format_int32</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_genotypes-class_method" title="bcf_update_genotypes (class method)">.<strong>bcf_update_genotypes</strong>(hdr, line, gts, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_info_flag-class_method" title="bcf_update_info_flag (class method)">.<strong>bcf_update_info_flag</strong>(hdr, line, key, string, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_info_float-class_method" title="bcf_update_info_float (class method)">.<strong>bcf_update_info_float</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_info_int32-class_method" title="bcf_update_info_int32 (class method)">.<strong>bcf_update_info_int32</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_update_info_string-class_method" title="bcf_update_info_string (class method)">.<strong>bcf_update_info_string</strong>(hdr, line, key, string)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sam_itr_next-class_method" title="sam_itr_next (class method)">.<strong>sam_itr_next</strong>(htsfp, itr, r)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the next read from a SAM/BAM/CRAM iterator.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="attach_function-class_method">
+  
+    .<strong>attach_function</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attach_function'>attach_function</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
+  <span class='kw'>super</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>NotFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_cigar_gen-class_method">
+  
+    .<strong>bam_cigar_gen</strong>(l, o)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_gen'>bam_cigar_gen</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span> <span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_l'>l</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#BAM_CIGAR_SHIFT-constant" title="HTS::LibHTS::BAM_CIGAR_SHIFT (constant)">BAM_CIGAR_SHIFT</a></span></span> <span class='op'>|</span> <span class='id identifier rubyid_o'>o</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_cigar_op-class_method">
+  
+    .<strong>bam_cigar_op</strong>(c)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_op'>bam_cigar_op</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_c'>c</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#BAM_CIGAR_MASK-constant" title="HTS::LibHTS::BAM_CIGAR_MASK (constant)">BAM_CIGAR_MASK</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_cigar_opchr-class_method">
+  
+    .<strong>bam_cigar_opchr</strong>(c)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_opchr'>bam_cigar_opchr</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#BAM_CIGAR_STR-constant" title="HTS::LibHTS::BAM_CIGAR_STR (constant)">BAM_CIGAR_STR</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>??????</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_bam_cigar_op'>bam_cigar_op</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_cigar_oplen-class_method">
+  
+    .<strong>bam_cigar_oplen</strong>(c)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_oplen'>bam_cigar_oplen</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_c'>c</span> <span class='op'>&gt;&gt;</span> <span class='const'><span class='object_link'><a href="#BAM_CIGAR_SHIFT-constant" title="HTS::LibHTS::BAM_CIGAR_SHIFT (constant)">BAM_CIGAR_SHIFT</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_cigar_type-class_method">
+  
+    .<strong>bam_cigar_type</strong>(o)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_type'>bam_cigar_type</span><span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="#BAM_CIGAR_TYPE-constant" title="HTS::LibHTS::BAM_CIGAR_TYPE (constant)">BAM_CIGAR_TYPE</a></span></span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>3</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_aux-class_method">
+  
+    .<strong>bam_get_aux</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_aux'>bam_get_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_cigar-class_method">
+  
+    .<strong>bam_get_cigar</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_cigar'>bam_get_cigar</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_l_aux-class_method">
+  
+    .<strong>bam_get_l_aux</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_l_aux'>bam_get_l_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:l_data</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_qname-class_method">
+  
+    .<strong>bam_get_qname</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_qname'>bam_get_qname</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_qual-class_method">
+  
+    .<strong>bam_get_qual</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_qual'>bam_get_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_get_seq-class_method">
+  
+    .<strong>bam_get_seq</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_get_seq'>bam_get_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_is_mrev-class_method">
+  
+    .<strong>bam_is_mrev</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 67</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_is_mrev'>bam_is_mrev</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#BAM_FMREVERSE-constant" title="HTS::LibHTS::BAM_FMREVERSE (constant)">BAM_FMREVERSE</a></span></span> <span class='op'>!=</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_is_rev-class_method">
+  
+    .<strong>bam_is_rev</strong>(b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_is_rev'>bam_is_rev</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#BAM_FREVERSE-constant" title="HTS::LibHTS::BAM_FREVERSE (constant)">BAM_FREVERSE</a></span></span> <span class='op'>!=</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_seqi-class_method">
+  
+    .<strong>bam_seqi</strong>(s, i)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bam_seqi'>bam_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_alleles2gt-class_method">
+  
+    .<strong>bcf_alleles2gt</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 155</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_alleles2gt'>bcf_alleles2gt</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>+</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_format_char-class_method">
+  
+    .<strong>bcf_get_format_char</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+183
+184
+185</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 183</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_char'>bcf_get_format_char</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_format_float-class_method">
+  
+    .<strong>bcf_get_format_float</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+179
+180
+181</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 179</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_float'>bcf_get_format_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_format_int32-class_method">
+  
+    .<strong>bcf_get_format_int32</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+175
+176
+177</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 175</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_int32'>bcf_get_format_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_genotypes-class_method">
+  
+    .<strong>bcf_get_genotypes</strong>(hdr, line, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+187
+188
+189</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 187</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_genotypes'>bcf_get_genotypes</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_info_flag-class_method">
+  
+    .<strong>bcf_get_info_flag</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+171
+172
+173</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 171</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_flag'>bcf_get_info_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_FLAG-constant" title="HTS::LibHTS::BCF_HT_FLAG (constant)">BCF_HT_FLAG</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_info_float-class_method">
+  
+    .<strong>bcf_get_info_float</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+163
+164
+165</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 163</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_float'>bcf_get_info_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_info_int32-class_method">
+  
+    .<strong>bcf_get_info_int32</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_int32'>bcf_get_info_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_get_info_string-class_method">
+  
+    .<strong>bcf_get_info_string</strong>(hdr, line, tag, dst, ndst)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+167
+168
+169</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 167</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_string'>bcf_get_info_string</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_allele-class_method">
+  
+    .<strong>bcf_gt_allele</strong>(val)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 151</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_allele'>bcf_gt_allele</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_is_missing-class_method">
+  
+    .<strong>bcf_gt_is_missing</strong>(val)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+143
+144
+145</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 143</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_missing'>bcf_gt_is_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_is_phased-class_method">
+  
+    .<strong>bcf_gt_is_phased</strong>(idx)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 147</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_phased'>bcf_gt_is_phased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_missing-class_method">
+  
+    .<strong>bcf_gt_missing</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+139
+140
+141</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 139</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_missing'>bcf_gt_missing</span>
+  <span class='int'>0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_phased-class_method">
+  
+    .<strong>bcf_gt_phased</strong>(idx)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 131</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_phased'>bcf_gt_phased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span> <span class='op'>|</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_unphased-class_method">
+  
+    .<strong>bcf_gt_unphased</strong>(idx)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+135
+136
+137</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 135</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_unphased'>bcf_gt_unphased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_id2length-class_method">
+  
+    .<strong>bcf_hdr_id2length</strong>(hdr, type, int_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211
+212
+213
+214
+215
+216</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 211</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2length'>bcf_hdr_id2length</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
+    <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='comment'># offset
+</span>  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:val</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:info</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='op'>&gt;&gt;</span> <span class='int'>8</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_id2name-class_method">
+  
+    .<strong>bcf_hdr_id2name</strong>(hdr, rid)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206
+207
+208
+209</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 202</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2name'>bcf_hdr_id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='op'>||</span> <span class='id identifier rubyid_rid'>rid</span> <span class='op'>&lt;</span> <span class='int'>0</span> <span class='op'>||</span> <span class='id identifier rubyid_rid'>rid</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:n</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_CTG-constant" title="HTS::LibHTS::BCF_DT_CTG (constant)">BCF_DT_CTG</a></span></span><span class='rbracket'>]</span>
+
+  <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_CTG-constant" title="HTS::LibHTS::BCF_DT_CTG (constant)">BCF_DT_CTG</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
+    <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_rid'>rid</span> <span class='comment'># offset
+</span>  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_id2number-class_method">
+  
+    .<strong>bcf_hdr_id2number</strong>(hdr, type, int_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+218
+219
+220
+221
+222
+223</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 218</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2number'>bcf_hdr_id2number</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
+    <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='comment'># offset
+</span>  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:val</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:info</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='op'>&gt;&gt;</span> <span class='int'>12</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_int2id-class_method">
+  
+    .<strong>bcf_hdr_int2id</strong>(hdr, type, int_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+191
+192
+193
+194
+195
+196</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 191</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_int2id'>bcf_hdr_int2id</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
+    <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='comment'># offsets
+</span>  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_name2id-class_method">
+  
+    .<strong>bcf_hdr_name2id</strong>(hdr, id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+198
+199
+200</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 198</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_name2id'>bcf_hdr_name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_hdr_id2int'>bcf_hdr_id2int</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_DT_CTG-constant" title="HTS::LibHTS::BCF_DT_CTG (constant)">BCF_DT_CTG</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_nsamples-class_method">
+  
+    .<strong>bcf_hdr_nsamples</strong>(hdr)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 92</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_nsamples'>bcf_hdr_nsamples</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:n</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="#BCF_DT_SAMPLE-constant" title="HTS::LibHTS::BCF_DT_SAMPLE (constant)">BCF_DT_SAMPLE</a></span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_format_char-class_method">
+  
+    .<strong>bcf_update_format_char</strong>(hdr, line, key, values, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_format_char'>bcf_update_format_char</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_format'>bcf_update_format</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span>
+                    <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_format_float-class_method">
+  
+    .<strong>bcf_update_format_float</strong>(hdr, line, key, values, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+117
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 117</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_format_float'>bcf_update_format_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_format'>bcf_update_format</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span>
+                    <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_format_int32-class_method">
+  
+    .<strong>bcf_update_format_int32</strong>(hdr, line, key, values, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 112</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_format_int32'>bcf_update_format_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_format'>bcf_update_format</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span>
+                    <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_genotypes-class_method">
+  
+    .<strong>bcf_update_genotypes</strong>(hdr, line, gts, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 127</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_genotypes'>bcf_update_genotypes</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_gts'>gts</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_format'>bcf_update_format</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_gts'>gts</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_info_flag-class_method">
+  
+    .<strong>bcf_update_info_flag</strong>(hdr, line, key, string, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_info_flag'>bcf_update_info_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_string'>string</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_info'>bcf_update_info</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_string'>string</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_FLAG-constant" title="HTS::LibHTS::BCF_HT_FLAG (constant)">BCF_HT_FLAG</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_info_float-class_method">
+  
+    .<strong>bcf_update_info_float</strong>(hdr, line, key, values, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 100</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_info_float'>bcf_update_info_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_info'>bcf_update_info</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_info_int32-class_method">
+  
+    .<strong>bcf_update_info_int32</strong>(hdr, line, key, values, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 96</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_info_int32'>bcf_update_info_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_info'>bcf_update_info</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_update_info_string-class_method">
+  
+    .<strong>bcf_update_info_string</strong>(hdr, line, key, string)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_update_info_string'>bcf_update_info_string</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bcf_update_info'>bcf_update_info</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_string'>string</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sam_itr_next-class_method">
+  
+    .<strong>sam_itr_next</strong>(htsfp, itr, r)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the next read from a SAM/BAM/CRAM iterator</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+346
+347
+348
+349
+350
+351</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 346</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'>sam_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
+  <span class='comment'># FIXME: check if htsfp is compressed BGZF
+</span>  <span class='id identifier rubyid_hts_log_error'>hts_log_error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Null iterator</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='comment'># FIXME: check multi
+</span>  <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='lbracket'>[</span><span class='symbol'>:fp</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bgzf</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_htsfp'>htsfp</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Mar 24 06:17:34 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.1).
+</div>
+
+    </div>
+  </body>
+</html>
