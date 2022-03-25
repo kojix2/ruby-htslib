@@ -25,7 +25,7 @@ class BamCigarTest < Minitest::Test
     end
 
     define_method "test_to_a_#{file_path}" do
-      assert_equal ({ poo: [], colons: [[10, "M"]] }[file_path]), public_send(file_path).to_a
+      assert_equal ({ poo: [], colons: [["M", 10]] }[file_path]), public_send(file_path).to_a
     end
   end
 end

@@ -18,7 +18,7 @@ module HTS
       end
 
       def to_s
-        to_a.flatten.join
+        map { |op, len| "#{len}#{op}" }.join
       end
 
       def each
@@ -26,8 +26,8 @@ module HTS
 
         @n_cigar.times do |i|
           c = @pointer[i].read_uint32
-          yield [LibHTS.bam_cigar_oplen(c),
-                 LibHTS.bam_cigar_opchr(c)]
+          yield [LibHTS.bam_cigar_opchr(c),
+                 LibHTS.bam_cigar_oplen(c)]
         end
       end
     end
