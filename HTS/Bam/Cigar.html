@@ -301,8 +301,8 @@
 
   <span class='ivar'>@n_cigar</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='ivar'>@pointer</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint32'>read_uint32</span>
-    <span class='kw'>yield</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_oplen'><span class='object_link'><a href="../LibHTS.html#bam_cigar_oplen-class_method" title="HTS::LibHTS.bam_cigar_oplen (method)">bam_cigar_oplen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='comma'>,</span>
-           <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_opchr'><span class='object_link'><a href="../LibHTS.html#bam_cigar_opchr-class_method" title="HTS::LibHTS.bam_cigar_opchr (method)">bam_cigar_opchr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='kw'>yield</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_opchr'><span class='object_link'><a href="../LibHTS.html#bam_cigar_opchr-class_method" title="HTS::LibHTS.bam_cigar_opchr (method)">bam_cigar_opchr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='comma'>,</span>
+           <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_oplen'><span class='object_link'><a href="../LibHTS.html#bam_cigar_oplen-class_method" title="HTS::LibHTS.bam_cigar_oplen (method)">bam_cigar_oplen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -363,7 +363,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
+  <span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_op'>op</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_len'>len</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_op'>op</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -375,7 +375,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 24 09:40:56 2022 by
+  Generated on Fri Mar 25 01:48:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
