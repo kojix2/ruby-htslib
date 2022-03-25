@@ -291,7 +291,8 @@
 29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 24</span>
@@ -301,8 +302,9 @@
 
   <span class='ivar'>@n_cigar</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='ivar'>@pointer</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint32'>read_uint32</span>
-    <span class='kw'>yield</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_opchr'><span class='object_link'><a href="../LibHTS.html#bam_cigar_opchr-class_method" title="HTS::LibHTS.bam_cigar_opchr (method)">bam_cigar_opchr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='comma'>,</span>
-           <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_oplen'><span class='object_link'><a href="../LibHTS.html#bam_cigar_oplen-class_method" title="HTS::LibHTS.bam_cigar_oplen (method)">bam_cigar_oplen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_op'>op</span> <span class='op'>=</span>  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_opchr'><span class='object_link'><a href="../LibHTS.html#bam_cigar_opchr-class_method" title="HTS::LibHTS.bam_cigar_opchr (method)">bam_cigar_opchr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_oplen'><span class='object_link'><a href="../LibHTS.html#bam_cigar_oplen-class_method" title="HTS::LibHTS.bam_cigar_oplen (method)">bam_cigar_oplen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span> <span class='lbracket'>[</span><span class='id identifier rubyid_op'>op</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -375,7 +377,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 25 01:48:41 2022 by
+  Generated on Fri Mar 25 02:01:53 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
