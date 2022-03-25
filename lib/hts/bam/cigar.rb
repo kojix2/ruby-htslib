@@ -26,8 +26,9 @@ module HTS
 
         @n_cigar.times do |i|
           c = @pointer[i].read_uint32
-          yield [LibHTS.bam_cigar_opchr(c),
-                 LibHTS.bam_cigar_oplen(c)]
+          op =  LibHTS.bam_cigar_opchr(c)
+          len = LibHTS.bam_cigar_oplen(c)
+          yield [op, len]
         end
       end
     end

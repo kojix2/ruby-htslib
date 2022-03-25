@@ -37,7 +37,7 @@ module HTS
   # You can change the path of the shared library with `HTS.lib_path=`
   # before calling the LibHTS module.
   autoload :LibHTS, "hts/libhts"
-  
+
   autoload :Bam,    "hts/bam"
   autoload :Bcf,    "hts/bcf"
   autoload :Tabix,  "hts/tabix"
