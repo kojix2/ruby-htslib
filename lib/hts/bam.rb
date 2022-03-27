@@ -29,7 +29,10 @@ module HTS
     end
 
     def initialize(filename, mode = "r", fai: nil, threads: nil, index: nil)
-      raise "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead" if block_given?
+      if block_given?
+        message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
+        raise message
+      end
 
       @file_path = filename == "-" ? "-" : File.expand_path(filename)
 

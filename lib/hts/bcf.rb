@@ -28,8 +28,11 @@ module HTS
       file
     end
 
-    def initialize(filename, mode = "r", threads: nil)
-      raise "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead" if block_given?
+    def initialize(filename, mode = "r", threads: nil, index: nil)
+      if block_given?
+        message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
+        raise message
+      end
 
       @file_path = filename == "-" ? "-" : File.expand_path(filename)
 
