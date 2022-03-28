@@ -109,7 +109,7 @@ Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemente
 
 ## Development
 
-To get started with development
+To get started with development:
 
 ```sh
 git clone --recursive https://github.com/kojix2/ruby-htslib
@@ -118,6 +118,8 @@ bundle install
 bundle exec rake htslib:build
 bundle exec rake test
 ```
+
+[GNU Autotools](https://en.wikipedia.org/wiki/GNU_Autotools) is required to compile htslib.
 
 Many macro functions are used in HTSlib. Since these macro functions cannot be called using FFI, they must be reimplemented in Ruby.
 
@@ -144,7 +146,7 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * [financial contributions](https://github.com/sponsors/kojix2)
 
 ```
-Do you need commit rights to my repository?
+Do you need commit rights to ruby-htslib repository?
 Do you want to get admin rights and take over the project?
 If so, please feel free to contact us @kojix2.
 ```
