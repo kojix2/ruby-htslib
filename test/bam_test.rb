@@ -16,8 +16,7 @@ class BamTest < Minitest::Test
   end
 
   def test_initialize_sam
-    skip
-    sam = HTS::Bam.new Fixture["poo.sort.sam"]
+    sam = HTS::Bam.new Fixtures["moo.sam"]
     assert_instance_of HTS::Bam, sam
   end
 
