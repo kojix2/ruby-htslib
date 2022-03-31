@@ -4,7 +4,7 @@
 # https://github.com/brentp/hts-nim/blob/master/src/hts/bam/flag.nim
 
 module HTS
-  class Bam
+  class Bam < Hts
     class Flag
       def initialize(flag_value)
         raise TypeError unless flag_value.is_a? Integer

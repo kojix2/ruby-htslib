@@ -4,7 +4,7 @@
 # https://github.com/quinlan-lab/hts-python
 
 module HTS
-  class Bam
+  class Bam < Hts
     class Header
       def initialize(hts_file)
         @sam_hdr = LibHTS.sam_hdr_read(hts_file)

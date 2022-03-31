@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  class Bcf
+  class Bcf < Hts
     class Info
       def initialize(record)
         @record = record

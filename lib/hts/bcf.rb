@@ -5,13 +5,14 @@
 
 require_relative "../htslib"
 
+require_relative "hts"
 require_relative "bcf/header"
 require_relative "bcf/info"
 require_relative "bcf/format"
 require_relative "bcf/record"
 
 module HTS
-  class Bcf
+  class Bcf < Hts
     include Enumerable
 
     attr_reader :file_path, :index_path, :mode, :header

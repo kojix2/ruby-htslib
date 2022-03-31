@@ -5,6 +5,7 @@
 
 require_relative "../htslib"
 
+require_relative "hts"
 require_relative "bam/header"
 require_relative "bam/cigar"
 require_relative "bam/flag"
@@ -90,21 +91,6 @@ module HTS
 
     def closed?
       @hts_file.nil?
-    end
-
-    def format
-      LibHTS.hts_get_format(@hts_file)[:format].to_s
-    end
-
-    def format_version
-      v = LibHTS.hts_get_format(@hts_file)[:version]
-      major = v[:major]
-      minor = v[:minor]
-      if minor == -1
-        "#{major}"
-      else
-        "#{major}.#{minor}"
-      end
     end
 
     def write_header(header)

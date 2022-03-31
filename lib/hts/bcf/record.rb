@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
-  class Bcf
+  class Bcf < Hts
     class Record
       def initialize(bcf_t, header)
         @bcf1 = bcf_t

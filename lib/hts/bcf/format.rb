@@ -5,7 +5,7 @@
 # TODO: Make it more like Ruby.
 
 module HTS
-  class Bcf
+  class Bcf < Hts
     class Format
       def initialize(record)
         @record = record

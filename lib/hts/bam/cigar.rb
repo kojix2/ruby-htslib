@@ -4,7 +4,7 @@
 # https://github.com/quinlan-lab/hts-python
 
 module HTS
-  class Bam
+  class Bam < Hts
     class Cigar
       include Enumerable
 
