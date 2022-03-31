@@ -73,14 +73,6 @@ module HTS
       raise "Failed to load index: #{file_path}" if idx.null?
     end
 
-    def struct
-      @hts_file
-    end
-
-    def to_ptr
-      @hts_file.to_ptr
-    end
-
     # Close the current file.
     def close
       LibHTS.hts_idx_destroy(@idx) if @idx

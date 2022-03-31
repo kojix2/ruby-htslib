@@ -2,6 +2,14 @@ require_relative "../htslib"
 
 module HTS
   class Hts
+    def struct
+      @hts_file
+    end
+
+    def to_ptr
+      @hts_file.to_ptr
+    end
+    
     def format
       LibHTS.hts_get_format(@hts_file)[:format].to_s
     end

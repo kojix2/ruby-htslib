@@ -55,14 +55,6 @@ module HTS
       @header = Bcf::Header.new(@hts_file)
     end
 
-    def struct
-      @hts_file
-    end
-
-    def to_ptr
-      @hts_file.to_ptr
-    end
-
     def write_header
       @header = header.dup
       LibHTS.hts_set_fai_filename(header, @file_path)

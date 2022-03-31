@@ -1,7 +1,9 @@
 require_relative "../htslib"
 
+require_relative "hts"
+
 module HTS
-  class Tabix
+  class Tabix < Hts
     include Enumerable
 
     attr_reader :file_path
@@ -38,14 +40,6 @@ module HTS
         r = LibHTS.hts_set_threads(@hts_file, threads)
         raise "Failed to set number of threads: #{threads}" if r < 0
       end
-    end
-
-    def struct
-      @hts_file
-    end
-
-    def to_ptr
-      @hts_file.to_ptr
     end
 
     def close
