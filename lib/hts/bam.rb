@@ -14,7 +14,7 @@ module HTS
   class Bam
     include Enumerable
 
-    attr_reader :file_path, :mode, :header
+    attr_reader :file_path, :index_path, :mode, :header
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -28,7 +28,7 @@ module HTS
       file
     end
 
-    def initialize(filename, mode = "r", fai: nil, threads: nil, index: nil)
+    def initialize(filename, mode = "r", fai: nil, threads: nil, index: nil, create_index: false)
       if block_given?
         message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
         raise message
@@ -59,7 +59,7 @@ module HTS
 
       @header = Bam::Header.new(@hts_file)
 
-      create_index if index
+      self.create_index if create_index
 
       # load index
       @idx = LibHTS.sam_index_load(@hts_file, file_path)
