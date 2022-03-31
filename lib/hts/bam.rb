@@ -92,6 +92,21 @@ module HTS
       @hts_file.nil?
     end
 
+    def format
+      LibHTS.hts_get_format(@hts_file)[:format].to_s
+    end
+
+    def format_version
+      v = LibHTS.hts_get_format(@hts_file)[:version]
+      major = v[:major]
+      minor = v[:minor]
+      if minor == -1
+        "#{major}"
+      else
+        "#{major}.#{minor}"
+      end
+    end
+
     def write_header(header)
       @header = header.dup
       LibHTS.hts_set_fai_filename(@hts_file, @file_path)

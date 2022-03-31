@@ -44,6 +44,14 @@ class BamTest < Minitest::Test
   #   assert 0, @bam.close
   # end
 
+  def test_format
+    assert_equal "bam", @bam.format
+  end
+
+  def test_format_version
+    assert_equal "1", @bam.format_version
+  end
+
   def test_each
     alns = @bam.to_a
     assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bam::Record) })
