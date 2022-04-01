@@ -29,13 +29,13 @@ module HTS
       file
     end
 
-    def initialize(filename, mode = "r", threads: nil, index: nil, create_index: false)
+    def initialize(file_name, mode = "r", threads: nil, index: nil, create_index: false)
       if block_given?
         message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
         raise message
       end
 
-      @file_path = filename == "-" ? "-" : File.expand_path(filename)
+      @file_path = file_name == "-" ? "-" : File.expand_path(file_name)
 
       if mode[0] == "r" && !File.exist?(file_path)
         message = "No such VCF/BCF file - #{file_path}"

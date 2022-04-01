@@ -20,13 +20,13 @@ module HTS
       file
     end
 
-    def initialize(filename, threads: nil)
+    def initialize(file_name, threads: nil)
       if block_given?
         message = "HTS::Tabix.new() dose not take block; Please use HTS::Tabix.open() instead"
         raise message
       end
 
-      @file_path = filename == "-" ? "-" : File.expand_path(filename)
+      @file_path = file_name == "-" ? "-" : File.expand_path(file_name)
 
       if mode[0] == "r" && !File.exist?(file_path)
         message = "No such Tabix file - #{file_path}"
