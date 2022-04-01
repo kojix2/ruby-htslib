@@ -29,16 +29,16 @@ module HTS
       file
     end
 
-    def initialize(file_name, mode = "r", threads: nil, index: nil, create_index: false)
+    def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil,
+                   create_index: false)
       if block_given?
         message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
         raise message
       end
 
-      @file_name = file_name
-
       # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
+      @file_name = file_name
       @mode      = mode
       @hts_file  = LibHTS.hts_open(@file_name, mode)
 
@@ -49,7 +49,7 @@ module HTS
         raise "Failed to set number of threads: #{threads}" if r < 0
       end
 
-      return if mode[0] == "w"
+      return if @mode[0] == "w"
 
       @header = Bcf::Header.new(@hts_file)
     end

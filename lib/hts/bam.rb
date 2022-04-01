@@ -29,7 +29,8 @@ module HTS
       file
     end
 
-    def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil, create_index: false)
+    def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil,
+                   create_index: false)
       if block_given?
         message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
         raise message
@@ -54,7 +55,7 @@ module HTS
         raise "Failed to set number of threads: #{threads}" if r < 0
       end
 
-      return if mode[0] == "w"
+      return if @mode[0] == "w"
 
       @header = Bam::Header.new(@hts_file)
 
@@ -87,14 +88,14 @@ module HTS
 
     # Close the current file.
     def close
-      LibHTS.hts_idx_destroy(@idx) if @idx
+      LibHTS.hts_idx_destroy(@idx) if @idx&.null?
       @idx = nil
       LibHTS.hts_close(@hts_file)
       @hts_file = nil
     end
 
     def closed?
-      @hts_file.nil?
+      @hts_file.nil? || @hts_file.null?
     end
 
     def write_header(header)
@@ -108,9 +109,16 @@ module HTS
       LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
     end
 
-    # Flush the current file.
-    def flush
-      # LibHTS.bgzf_flush(@@hts_file.fp.bgzf)
+    # Iterate over each record.
+    # Generate a new Record object each time.
+    # Slower than each.
+    def each_copy
+      return to_enum(__method__) unless block_given?
+
+      while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
+        record = Record.new(bam1, header)
+        yield record
+      end
     end
 
     # Iterate over each record.
@@ -125,18 +133,6 @@ module HTS
       bam1 = LibHTS.bam_init1
       record = Record.new(bam1, header)
       yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
-    end
-
-    # Iterate over each record.
-    # Generate a new Record object each time.
-    # Slower than each.
-    def each_copy
-      return to_enum(__method__) unless block_given?
-
-      while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
-        record = Record.new(bam1, header)
-        yield record
-      end
     end
 
     # query [WIP]
