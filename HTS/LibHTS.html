@@ -3258,7 +3258,7 @@
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'>sam_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
   <span class='comment'># FIXME: check if htsfp is compressed BGZF
-</span>  <span class='id identifier rubyid_hts_log_error'>hts_log_error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Null iterator</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+</span>  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Null iterator</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
   <span class='comment'># FIXME: check multi
 </span>  <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='lbracket'>[</span><span class='symbol'>:fp</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bgzf</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_htsfp'>htsfp</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -3272,7 +3272,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 10:09:40 2022 by
+  Generated on Fri Apr  1 11:12:22 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
