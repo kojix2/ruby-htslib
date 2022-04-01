@@ -28,10 +28,7 @@ module HTS
 
       @file_name = file_name
 
-      if mode[0] == "r" && !File.exist?(@file_name)
-        message = "No such Tabix file - #{@file_name}"
-        raise message
-      end
+      # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
       @mode     = "r"
       @hts_file = LibHTS.hts_open(@file_name, @mode)

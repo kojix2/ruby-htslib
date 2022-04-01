@@ -29,19 +29,15 @@ module HTS
       file
     end
 
-    def initialize(file_name, mode = "r", fai: nil, threads: nil, index: nil, create_index: false)
+    def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil, create_index: false)
       if block_given?
         message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
         raise message
       end
+      
+      # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
       @file_name = file_name
-
-      if mode[0] == "r" && !File.exist?(@file_name)
-        message = "No such SAM/BAM file - #{@file_name}"
-        raise message
-      end
-
       @mode      = mode
       @hts_file  = LibHTS.hts_open(@file_name, mode)
 
