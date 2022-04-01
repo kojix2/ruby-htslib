@@ -14,7 +14,7 @@ module HTS
     end
 
     def initialize(file_name)
-      @file_name = File.expand_path(file_name)
+      @file_name = file_name
       @fai = LibHTS.fai_load(file_name)
 
       # IO like API

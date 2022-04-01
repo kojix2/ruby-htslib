@@ -26,7 +26,7 @@ module HTS
         raise message
       end
 
-      @file_name = file_name == "-" ? "-" : File.expand_path(file_name)
+      @file_name
 
       if mode[0] == "r" && !File.exist?(file_name)
         message = "No such Tabix file - #{file_name}"
