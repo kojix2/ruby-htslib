@@ -34,12 +34,14 @@ module HTS
         message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
         raise message
       end
-      
+
       # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
       @file_name = file_name
       @mode      = mode
       @hts_file  = LibHTS.hts_open(@file_name, mode)
+
+      raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
       if fai
         fai_path = File.expand_path(fai)
@@ -56,17 +58,27 @@ module HTS
 
       @header = Bam::Header.new(@hts_file)
 
-      self.create_index if create_index
+      create_index(index) if create_index
 
-      # load index
-      @idx = LibHTS.sam_index_load(@hts_file, @file_name)
+      @idx = load_index(index)
     end
 
-    def create_index
-      warn "Create index for #{@file_name}"
-      LibHTS.sam_index_build(@file_name, -1)
-      idx = LibHTS.sam_index_load(@hts_file, @file_name)
-      raise "Failed to load index: #{@file_name}" if idx.null?
+    def create_index(index_name = nil)
+      if index
+        warn "Create index for #{@file_name} to #{index_name}"
+        LibHTS.sam_index_build2(@file_name, index_name, -1)
+      else
+        warn "Create index for #{@file_name} to #{index_name}"
+        LibHTS.sam_index_build(@file_name, -1)
+      end
+    end
+
+    def load_index(index_name = nil)
+      if index_name
+        LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
+      else
+        LibHTS.sam_index_load3(@hts_file, @file_name, nil, 2) # should be 3 ? (copy remote file to local?)
+      end
     end
 
     # Close the current file.
