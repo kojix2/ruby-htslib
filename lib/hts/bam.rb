@@ -45,8 +45,7 @@ module HTS
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
       if fai
-        fai_path = File.expand_path(fai)
-        r = LibHTS.hts_set_fai_filename(@hts_file, fai_path)
+        r = LibHTS.hts_set_fai_filename(@hts_file, fai)
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
