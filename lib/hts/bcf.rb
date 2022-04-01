@@ -75,12 +75,12 @@ module HTS
       @hts_file.nil?
     end
 
-    def sample_count
-      header.sample_count
+    def nsamples
+      header.nsamples
     end
 
-    def sample_names
-      header.sample_names
+    def samples
+      header.samples
     end
 
     # Iterate over each record.

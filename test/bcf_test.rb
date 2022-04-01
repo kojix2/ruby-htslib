@@ -27,12 +27,12 @@ class BcfTest < Minitest::Test
     assert_instance_of HTS::Bcf::Header, @bcf.header
   end
 
-  def test_sample_count
-    assert_equal 1, @bcf.sample_count
+  def test_nsamples
+    assert_equal 1, @bcf.nsamples
   end
 
-  def test_sample_names
-    assert_equal ["ERS220911"], @bcf.sample_names
+  def test_samples
+    assert_equal ["ERS220911"], @bcf.samples
   end
 
   def test_each

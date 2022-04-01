@@ -20,12 +20,12 @@ class BcfHeaderTest < Minitest::Test
     assert_equal "VCFv4.1", @hdr.get_version
   end
 
-  def test_sample_count
-    assert_equal 2, @hdr.sample_count
+  def test_nsamples
+    assert_equal 2, @hdr.nsamples
   end
 
-  def test_sample_names
-    assert_equal %w[A B], @hdr.sample_names
+  def test_samples
+    assert_equal %w[A B], @hdr.samples
   end
 
   def test_to_s
