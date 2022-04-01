@@ -81,6 +81,10 @@ module HTS
       end
     end
 
+    def index_loaded?
+      !@idx.null?
+    end
+
     # Close the current file.
     def close
       LibHTS.hts_idx_destroy(@idx) if @idx
@@ -137,7 +141,8 @@ module HTS
 
     # query [WIP]
     def query(region)
-      # FIXME: when @idx is nil
+      raise "Index file is required to call the query method." unless index_loaded?
+
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
       begin
         bam1 = LibHTS.bam_init1
