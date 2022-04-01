@@ -532,10 +532,7 @@
 50
 51
 52
-53
-54
-55
-56</pre>
+53</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 32</span>
@@ -548,11 +545,8 @@
 
   <span class='ivar'>@file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_mode'>mode</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No such VCF/BCF file - </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_message'>message</span>
-  <span class='kw'>end</span>
-
+  <span class='comment'># NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
+</span>
   <span class='ivar'>@mode</span>      <span class='op'>=</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='ivar'>@hts_file</span>  <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'>hts_open</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
 
@@ -832,13 +826,13 @@
       <pre class="lines">
 
 
-70
-71
-72
-73</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_close'>hts_close</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='rparen'>)</span>
@@ -886,12 +880,12 @@
       <pre class="lines">
 
 
-75
-76
-77</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -916,18 +910,18 @@
       <pre class="lines">
 
 
+84
+85
+86
 87
 88
 89
 90
 91
-92
-93
-94
-95</pre>
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -958,12 +952,12 @@
       <pre class="lines">
 
 
-79
-80
-81</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_count'>sample_count</span>
   <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_sample_count'>sample_count</span>
@@ -988,12 +982,12 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_names'>sample_names</span>
   <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_sample_names'>sample_names</span>
@@ -1018,13 +1012,13 @@
       <pre class="lines">
 
 
-64
-65
-66
-67</pre>
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_var'>var</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_var_dup'>var_dup</span> <span class='op'>=</span> <span class='id identifier rubyid_var'>var</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span> <span class='op'>=</span> <span class='id identifier rubyid_var'>var</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1050,14 +1044,14 @@
       <pre class="lines">
 
 
+55
+56
+57
 58
-59
-60
-61
-62</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_header'>write_header</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1074,7 +1068,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 08:05:14 2022 by
+  Generated on Fri Apr  1 08:21:24 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>

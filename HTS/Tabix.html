@@ -317,10 +317,7 @@
 37
 38
 39
-40
-41
-42
-43</pre>
+40</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 23</span>
@@ -333,11 +330,8 @@
 
   <span class='ivar'>@file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_mode'>mode</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No such Tabix file - </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_message'>message</span>
-  <span class='kw'>end</span>
-
+  <span class='comment'># NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
+</span>
   <span class='ivar'>@mode</span>     <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span>
   <span class='ivar'>@hts_file</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'>hts_open</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='ivar'>@mode</span><span class='rparen'>)</span>
 
@@ -473,13 +467,13 @@
       <pre class="lines">
 
 
-45
-46
-47
-48</pre>
+42
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_close'>hts_close</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='rparen'>)</span>
@@ -527,12 +521,12 @@
       <pre class="lines">
 
 
-50
-51
-52</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -547,7 +541,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 08:05:14 2022 by
+  Generated on Fri Apr  1 08:21:24 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
