@@ -345,7 +345,7 @@ module HTS
     # Get the next read from a SAM/BAM/CRAM iterator
     def self.sam_itr_next(htsfp, itr, r)
       # FIXME: check if htsfp is compressed BGZF
-      hts_log_error("Null iterator") if itr.null?
+      raise("Null iterator") if itr.null?
       # FIXME: check multi
       hts_itr_next(htsfp[:fp][:bgzf], itr, r, htsfp)
     end
