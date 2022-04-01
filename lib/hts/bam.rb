@@ -37,13 +37,13 @@ module HTS
 
       @file_name = file_name
 
-      if mode[0] == "r" && !File.exist?(file_name)
-        message = "No such SAM/BAM file - #{file_name}"
+      if mode[0] == "r" && !File.exist?(@file_name)
+        message = "No such SAM/BAM file - #{@file_name}"
         raise message
       end
 
       @mode      = mode
-      @hts_file  = LibHTS.hts_open(file_name, mode)
+      @hts_file  = LibHTS.hts_open(@file_name, mode)
 
       if fai
         fai_path = File.expand_path(fai)
@@ -63,14 +63,14 @@ module HTS
       self.create_index if create_index
 
       # load index
-      @idx = LibHTS.sam_index_load(@hts_file, file_name)
+      @idx = LibHTS.sam_index_load(@hts_file, @file_name)
     end
 
     def create_index
-      warn "Create index for #{file_name}"
-      LibHTS.sam_index_build(file_name, -1)
-      idx = LibHTS.sam_index_load(@hts_file, file_name)
-      raise "Failed to load index: #{file_name}" if idx.null?
+      warn "Create index for #{@file_name}"
+      LibHTS.sam_index_build(@file_name, -1)
+      idx = LibHTS.sam_index_load(@hts_file, @file_name)
+      raise "Failed to load index: #{@file_name}" if idx.null?
     end
 
     # Close the current file.

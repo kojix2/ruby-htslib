@@ -15,7 +15,7 @@ module HTS
 
     def initialize(file_name)
       @file_name = file_name
-      @fai = LibHTS.fai_load(file_name)
+      @fai = LibHTS.fai_load(@file_name)
 
       # IO like API
       if block_given?

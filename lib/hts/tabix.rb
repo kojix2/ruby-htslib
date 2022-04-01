@@ -26,15 +26,15 @@ module HTS
         raise message
       end
 
-      @file_name
+      @file_name = file_name
 
-      if mode[0] == "r" && !File.exist?(file_name)
-        message = "No such Tabix file - #{file_name}"
+      if mode[0] == "r" && !File.exist?(@file_name)
+        message = "No such Tabix file - #{@file_name}"
         raise message
       end
 
       @mode     = "r"
-      @hts_file = LibHTS.hts_open(file_name, @mode)
+      @hts_file = LibHTS.hts_open(@file_name, @mode)
 
       if threads&.> 0
         r = LibHTS.hts_set_threads(@hts_file, threads)
