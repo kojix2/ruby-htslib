@@ -22,10 +22,11 @@ jobs:
         if: ${{ matrix.os == 'macos' }}
         run: |
           brew install automake
-      - run: |
+      - if: ${{ matrix.os == 'ubuntu' }}
+        run: |
+          sudo apt install -yq libdeflate-dev libcurl4-openssl-dev
           bundle exec rake htslib:build
           ldd vendor/libhts*
       - name: Build and test with Rake
         run: |
-          bundle exec rake htslib:build
           bundle exec rake
