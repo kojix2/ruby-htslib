@@ -83,13 +83,28 @@ module HTS
       header.sample_names
     end
 
-    def each
+    # Iterate over each record.
+    # Generate a new Record object each time.
+    # Slower than each.
+    def each_copy
       return to_enum(__method__) unless block_given?
 
       while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
         record = Record.new(bcf1, header)
         yield record
       end
+      self
+    end
+
+    # Iterate over each record.
+    # Record object is reused.
+    # Faster than each_copy.
+    def each
+      return to_enum(__method__) unless block_given?
+
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(bcf1, header)
+      yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
       self
     end
   end

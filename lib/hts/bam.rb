@@ -119,6 +119,7 @@ module HTS
         record = Record.new(bam1, header)
         yield record
       end
+      self
     end
 
     # Iterate over each record.
@@ -133,6 +134,7 @@ module HTS
       bam1 = LibHTS.bam_init1
       record = Record.new(bam1, header)
       yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
+      self
     end
 
     # query [WIP]

@@ -9,7 +9,11 @@ class BcfRecordTest < Minitest::Test
 
   def setup
     @bcf = HTS::Bcf.new(test_bcf_path)
-    _, @v1, @v2 = @bcf.first(3)
+    # each does not work because it reuses bcf1
+    # _, @v1, @v2 = @bcf.first(3)
+    @bcf.first
+    @v1 = @bcf.first.clone
+    @v2 = @bcf.first
   end
 
   def teardown
