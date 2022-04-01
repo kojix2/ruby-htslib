@@ -19,8 +19,8 @@ class BcfTest < Minitest::Test
     assert_instance_of HTS::Bcf, @bcf
   end
 
-  def test_file_path
-    assert_equal test_bcf_path, @bcf.file_path
+  def test_file_name
+    assert_equal test_bcf_path, @bcf.file_name
   end
 
   def test_header

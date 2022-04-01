@@ -15,7 +15,7 @@ module HTS
   class Bam
     include Enumerable
 
-    attr_reader :file_path, :index_path, :mode, :header
+    attr_reader :file_name, :index_path, :mode, :header
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -35,15 +35,15 @@ module HTS
         raise message
       end
 
-      @file_path = file_name == "-" ? "-" : File.expand_path(file_name)
+      @file_name = file_name == "-" ? "-" : File.expand_path(file_name)
 
-      if mode[0] == "r" && !File.exist?(file_path)
-        message = "No such SAM/BAM file - #{file_path}"
+      if mode[0] == "r" && !File.exist?(file_name)
+        message = "No such SAM/BAM file - #{file_name}"
         raise message
       end
 
       @mode      = mode
-      @hts_file  = LibHTS.hts_open(file_path, mode)
+      @hts_file  = LibHTS.hts_open(file_name, mode)
 
       if fai
         fai_path = File.expand_path(fai)
@@ -63,14 +63,14 @@ module HTS
       self.create_index if create_index
 
       # load index
-      @idx = LibHTS.sam_index_load(@hts_file, file_path)
+      @idx = LibHTS.sam_index_load(@hts_file, file_name)
     end
 
     def create_index
-      warn "Create index for #{file_path}"
-      LibHTS.sam_index_build(file_path, -1)
-      idx = LibHTS.sam_index_load(@hts_file, file_path)
-      raise "Failed to load index: #{file_path}" if idx.null?
+      warn "Create index for #{file_name}"
+      LibHTS.sam_index_build(file_name, -1)
+      idx = LibHTS.sam_index_load(@hts_file, file_name)
+      raise "Failed to load index: #{file_name}" if idx.null?
     end
 
     # Close the current file.
@@ -87,7 +87,7 @@ module HTS
 
     def write_header(header)
       @header = header.dup
-      LibHTS.hts_set_fai_filename(@hts_file, @file_path)
+      LibHTS.hts_set_fai_filename(@hts_file, @file_name)
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 

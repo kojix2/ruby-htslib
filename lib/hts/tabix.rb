@@ -6,7 +6,7 @@ module HTS
   class Tabix < Hts
     include Enumerable
 
-    attr_reader :file_path
+    attr_reader :file_name
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -26,15 +26,15 @@ module HTS
         raise message
       end
 
-      @file_path = file_name == "-" ? "-" : File.expand_path(file_name)
+      @file_name = file_name == "-" ? "-" : File.expand_path(file_name)
 
-      if mode[0] == "r" && !File.exist?(file_path)
-        message = "No such Tabix file - #{file_path}"
+      if mode[0] == "r" && !File.exist?(file_name)
+        message = "No such Tabix file - #{file_name}"
         raise message
       end
 
       @mode     = "r"
-      @hts_file = LibHTS.hts_open(file_path, @mode)
+      @hts_file = LibHTS.hts_open(file_name, @mode)
 
       if threads&.> 0
         r = LibHTS.hts_set_threads(@hts_file, threads)

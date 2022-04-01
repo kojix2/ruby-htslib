@@ -15,7 +15,7 @@ module HTS
   class Bcf < Hts
     include Enumerable
 
-    attr_reader :file_path, :index_path, :mode, :header
+    attr_reader :file_name, :index_path, :mode, :header
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -35,15 +35,15 @@ module HTS
         raise message
       end
 
-      @file_path = file_name == "-" ? "-" : File.expand_path(file_name)
+      @file_name = file_name == "-" ? "-" : File.expand_path(file_name)
 
-      if mode[0] == "r" && !File.exist?(file_path)
-        message = "No such VCF/BCF file - #{file_path}"
+      if mode[0] == "r" && !File.exist?(file_name)
+        message = "No such VCF/BCF file - #{file_name}"
         raise message
       end
 
       @mode      = mode
-      @hts_file  = LibHTS.hts_open(file_path, mode)
+      @hts_file  = LibHTS.hts_open(file_name, mode)
 
       if threads&.> 0
         r = LibHTS.hts_set_threads(@hts_file, threads)
@@ -57,7 +57,7 @@ module HTS
 
     def write_header
       @header = header.dup
-      LibHTS.hts_set_fai_filename(header, @file_path)
+      LibHTS.hts_set_fai_filename(header, @file_name)
       LibHTS.bcf_hdr_write(@hts_file, header.struct)
     end
 

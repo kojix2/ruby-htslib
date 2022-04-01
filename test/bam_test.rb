@@ -28,8 +28,8 @@ class BamTest < Minitest::Test
     assert_raises(StandardError) { HTS::Bam.new("no_file") }
   end
 
-  def test_file_path
-    assert_equal test_bam_path, @bam.file_path
+  def test_file_name
+    assert_equal test_bam_path, @bam.file_name
   end
 
   def test_mode

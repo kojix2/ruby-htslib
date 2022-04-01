@@ -7,15 +7,15 @@ require_relative "../htslib"
 
 module HTS
   class Faidx
-    attr_reader :file_path
+    attr_reader :file_name
 
     class << self
       alias open new
     end
 
-    def initialize(file_path)
-      @file_path = File.expand_path(file_path)
-      @fai = LibHTS.fai_load(file_path)
+    def initialize(file_name)
+      @file_name = File.expand_path(file_name)
+      @fai = LibHTS.fai_load(file_name)
 
       # IO like API
       if block_given?
