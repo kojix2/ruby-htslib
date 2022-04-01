@@ -109,7 +109,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#file_path-instance_method" title="#file_path (instance method)">#<strong>file_path</strong>  &#x21d2; Object </a>
+      <a href="#file_name-instance_method" title="#file_name (instance method)">#<strong>file_name</strong>  &#x21d2; Object </a>
     
 
     
@@ -129,7 +129,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute file_path.</p>
+<p>Returns the value of attribute file_name.</p>
 </div></span>
   
 </li>
@@ -247,7 +247,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_path)  &#x21d2; Faidx </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_name)  &#x21d2; Faidx </a>
     
 
     
@@ -305,7 +305,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(file_path)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Faidx (class)">Faidx</a></span></tt> 
+    #<strong>initialize</strong>(file_name)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Faidx (class)">Faidx</a></span></tt> 
   
 
   
@@ -345,9 +345,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 16</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
-  <span class='ivar'>@file_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
-  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load'>fai_load</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span>
+  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load'>fai_load</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='rparen'>)</span>
 
   <span class='comment'># IO like API
 </span>  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -371,9 +371,9 @@
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="file_path-instance_method">
+  <h3 class="signature first" id="file_name-instance_method">
   
-    #<strong>file_path</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>file_name</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -382,7 +382,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute file_path.</p>
+<p>Returns the value of attribute file_name.</p>
 
 
   </div>
@@ -403,8 +403,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 10</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_file_path'>file_path</span>
-  <span class='ivar'>@file_path</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_file_name'>file_name</span>
+  <span class='ivar'>@file_name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -631,7 +631,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 02:51:35 2022 by
+  Generated on Fri Apr  1 07:59:35 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
