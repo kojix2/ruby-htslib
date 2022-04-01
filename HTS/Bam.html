@@ -1076,7 +1076,6 @@
       <pre class="lines">
 
 
-127
 128
 129
 130
@@ -1085,10 +1084,12 @@
 133
 134
 135
-136</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='comment'># Each does not always start at the beginning of the file.
@@ -1099,6 +1100,7 @@
   <span class='id identifier rubyid_bam1'>bam1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_init1'>bam_init1</span>
   <span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Bam/Record.html" title="HTS::Bam::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bam/Record.html#initialize-instance_method" title="HTS::Bam::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam1'>bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
   <span class='kw'>yield</span> <span class='id identifier rubyid_record'>record</span> <span class='kw'>while</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_read1'>sam_read1</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_bam1'>bam1</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1138,7 +1140,8 @@
 119
 120
 121
-122</pre>
+122
+123</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 115</span>
@@ -1150,6 +1153,7 @@
     <span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Bam/Record.html" title="HTS::Bam::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bam/Record.html#initialize-instance_method" title="HTS::Bam::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam1'>bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
     <span class='kw'>yield</span> <span class='id identifier rubyid_record'>record</span>
   <span class='kw'>end</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1272,8 +1276,6 @@
       <pre class="lines">
 
 
-139
-140
 141
 142
 143
@@ -1287,10 +1289,12 @@
 151
 152
 153
-154</pre>
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Index file is required to call the query method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
@@ -1384,7 +1388,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 09:01:38 2022 by
+  Generated on Fri Apr  1 09:17:02 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>

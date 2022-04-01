@@ -348,7 +348,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Iterate over each record.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_copy-instance_method" title="#each_copy (instance method)">#<strong>each_copy</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Iterate over each record.</p>
+</div></span>
   
 </li>
 
@@ -921,26 +947,88 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Iterate over each record. Record object is reused. Faster than each_copy.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-86
-87
-88
+102
+103
+104
+105
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_bcf1'>bcf1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_init'>bcf_init</span>
+  <span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Bcf/Record.html" title="HTS::Bcf::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bcf/Record.html#initialize-instance_method" title="HTS::Bcf::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bcf1'>bcf1</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+  <span class='kw'>yield</span> <span class='id identifier rubyid_record'>record</span> <span class='kw'>while</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_read'>bcf_read</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_bcf1'>bcf1</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_copy-instance_method">
+  
+    #<strong>each_copy</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Iterate over each record. Generate a new Record object each time. Slower than each.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 89
 90
 91
 92
 93
-94</pre>
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 89</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_copy'>each_copy</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='kw'>while</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_read'>bcf_read</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_bcf1'>bcf1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_init'>bcf_init</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1085,7 +1173,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr  1 09:01:38 2022 by
+  Generated on Fri Apr  1 09:17:02 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
