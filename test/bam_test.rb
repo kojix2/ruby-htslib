@@ -70,21 +70,21 @@ class BamTest < Minitest::Test
       define_method "test_each_#{format}_#{type}" do
         c = 0
         result = public_send("#{format}_#{type}").all? do |r|
-           c += 1
-           r.is_a? HTS::Bam::Record
+          c += 1
+          r.is_a? HTS::Bam::Record
         end
         assert_equal true, result
         assert_equal 10, c
       end
 
-      if format != "sam"
-        define_method "test_query_#{format}_#{type}" do
-          arr = []
-          public_send("#{format}_#{type}").query("chr2:350-700") do |aln|
-            arr << aln.start
-          end
-          assert_equal [341, 658], arr
+      next unless format != "sam"
+
+      define_method "test_query_#{format}_#{type}" do
+        arr = []
+        public_send("#{format}_#{type}").query("chr2:350-700") do |aln|
+          arr << aln.start
         end
+        assert_equal [341, 658], arr
       end
     end
   end

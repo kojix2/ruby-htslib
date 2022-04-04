@@ -346,6 +346,7 @@ module HTS
     def self.sam_itr_next(htsfp, itr, r)
       # FIXME: check if htsfp is compressed BGZF
       raise("Null iterator") if itr.null?
+
       # FIXME: check multi
       hts_itr_next(htsfp[:fp][:bgzf], itr, r, htsfp)
     end
