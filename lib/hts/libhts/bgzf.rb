@@ -77,7 +77,7 @@ module HTS
 
     # Return a virtual file pointer to the current location in the file.
     def self.bgzf_tell(fp)
-      (fp[:block_address] << 16) | (fp[:block_address] & 0xFFFF)
+      (fp[:block_address] << 16) | (fp[:block_offset] & 0xFFFF)
     end
 
     # Set the file to read from the location specified by _pos_.
