@@ -24,7 +24,7 @@ module HTS
 
     def tell
       if format == "cram"
-        LibHTS.cram_tell(@hts_file[:fp][:cram])
+        # LibHTS.cram_tell(@hts_file[:fp][:cram])
       else
         LibHTS.bgzf_tell(@hts_file[:fp][:bgzf])
       end

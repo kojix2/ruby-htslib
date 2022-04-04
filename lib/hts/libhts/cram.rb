@@ -1,3 +1,10 @@
+# frozen_string_literal: true
+
+module HTS
+  module LibHTS
+
+=begin
+
 attach_function \
   :cram_fd_get_header,
   [CramFd],
@@ -243,10 +250,13 @@ attach_function \
   [CramFd],
   :int
 
+=end
+
 attach_function \
   :cram_seek,
-  [CramFd, OffT, :int], # what is OffT
-  :int
+  [:pointer, :off_t, :int], :int # FIXME pointer should be CramFd
+
+=begin
 
 attach_function \
   :cram_flush,
@@ -281,3 +291,7 @@ attach_function \
   :cram_get_refs,
   [HtsFile],
   RefsT # what is RefsT
+
+=end
+  end
+end

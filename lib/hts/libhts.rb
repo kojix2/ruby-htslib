@@ -23,12 +23,13 @@ end
 require_relative "libhts/constants"
 
 # This is alphabetical order.
+require_relative "libhts/kfunc"
 require_relative "libhts/bgzf"
-require_relative "libhts/faidx"
 require_relative "libhts/hfile"
 require_relative "libhts/hts"
 require_relative "libhts/sam"
-require_relative "libhts/kfunc"
-require_relative "libhts/tbx"
+require_relative "libhts/cram"
 require_relative "libhts/vcf"
+require_relative "libhts/tbx"
+require_relative "libhts/faidx"
 require_relative "libhts/thread_pool"
