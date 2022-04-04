@@ -30,6 +30,11 @@ module HTS
       end
     end
 
+    def rewind
+      seek(@start_position) if @start_position
+      # raise error unless @start_position
+    end
+
     def format_version
       v = LibHTS.hts_get_format(@hts_file)[:version]
       major = v[:major]
