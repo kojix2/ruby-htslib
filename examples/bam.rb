@@ -2,24 +2,21 @@
 
 require "htslib"
 
-path = ARGV[0]
-if path.nil?
-  warn "bam file not found"
-  warn "e.g.  ruby examples/bam.rb test/fixtures/poo.sort.bam"
-  exit
-end
-
-bam_path = File.expand_path(path)
+bam_path = File.expand_path("../test/fixtures/moo.sam", __dir__)
 
 HTS::Bam.open(bam_path) do |bam|
   bam.each do |r|
-    p name: r.qname,
-      flag: r.flag,
-      pos: r.start + 1,
-      mpos: r.mate_start + 1,
-      mqual: r.mapping_quality,
-      seq: r.sequence,
-      cigar: r.cigar.to_s,
-      qual: r.base_qualities.map { |i| (i + 33).chr }.join
+    pp name: r.qname,
+       flag: r.flag,
+       chr: r.chrom,
+       pos: r.start + 1,
+       mqual: r.mapping_quality,
+       cigar: r.cigar.to_s,
+       mchr: r.mate_chrom,
+       mpos: r.mate_start + 1,
+       isize: r.insert_size,
+       seq: r.sequence,
+       qual: r.base_qualities.map { |i| (i + 33).chr }.join,
+       tag_MC: r.tag("MC")
   end
 end
