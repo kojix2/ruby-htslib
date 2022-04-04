@@ -553,7 +553,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Hts.html" title="HTS::Hts (class)">Hts</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Hts.html#format-instance_method" title="HTS::Hts#format (method)">#format</a></span>, <span class='object_link'><a href="Hts.html#format_version-instance_method" title="HTS::Hts#format_version (method)">#format_version</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Hts.html#format-instance_method" title="HTS::Hts#format (method)">#format</a></span>, <span class='object_link'><a href="Hts.html#format_version-instance_method" title="HTS::Hts#format_version (method)">#format_version</a></span>, <span class='object_link'><a href="Hts.html#rewind-instance_method" title="HTS::Hts#rewind (method)">#rewind</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -628,7 +628,9 @@
 61
 62
 63
-64</pre>
+64
+65
+66</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 32</span>
@@ -665,6 +667,8 @@
   <span class='id identifier rubyid_create_index'>create_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_create_index'>create_index</span>
 
   <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@start_position</span> <span class='op'>=</span> <span class='id identifier rubyid_tell'>tell</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -933,15 +937,15 @@
       <pre class="lines">
 
 
-89
-90
 91
 92
 93
-94</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_idx_destroy'>hts_idx_destroy</span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@idx</span><span class='op'>&amp;.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -991,12 +995,12 @@
       <pre class="lines">
 
 
-96
-97
-98</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1021,18 +1025,18 @@
       <pre class="lines">
 
 
-66
-67
 68
 69
 70
 71
 72
 73
-74</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_index'>create_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span>
@@ -1074,8 +1078,6 @@
       <pre class="lines">
 
 
-127
-128
 129
 130
 131
@@ -1084,10 +1086,12 @@
 134
 135
 136
-137</pre>
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='comment'># Each does not always start at the beginning of the file.
@@ -1131,18 +1135,18 @@
       <pre class="lines">
 
 
-114
-115
 116
 117
 118
 119
 120
 121
-122</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_copy'>each_copy</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1195,12 +1199,12 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
   <span class='op'>!</span><span class='ivar'>@idx</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1225,16 +1229,16 @@
       <pre class="lines">
 
 
-76
-77
 78
 79
 80
 81
-82</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_index_name'>index_name</span>
@@ -1274,8 +1278,6 @@
       <pre class="lines">
 
 
-140
-141
 142
 143
 144
@@ -1289,10 +1291,12 @@
 152
 153
 154
-155</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Index file is required to call the query method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
@@ -1330,13 +1334,13 @@
       <pre class="lines">
 
 
-106
-107
 108
-109</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_aln'>aln</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aln_dup'>aln_dup</span> <span class='op'>=</span> <span class='id identifier rubyid_aln'>aln</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1362,14 +1366,14 @@
       <pre class="lines">
 
 
-100
-101
 102
 103
-104</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_header'>write_header</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1386,7 +1390,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Apr  4 15:32:36 2022 by
+  Generated on Mon Apr  4 16:04:34 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>

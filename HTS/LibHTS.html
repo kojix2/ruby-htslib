@@ -3278,7 +3278,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/bgzf.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_bgzf_tell'>bgzf_tell</span><span class='lparen'>(</span><span class='id identifier rubyid_fp'>fp</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_fp'>fp</span><span class='lbracket'>[</span><span class='symbol'>:block_address</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>16</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_fp'>fp</span><span class='lbracket'>[</span><span class='symbol'>:block_address</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>0xFFFF</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_fp'>fp</span><span class='lbracket'>[</span><span class='symbol'>:block_address</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>16</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_fp'>fp</span><span class='lbracket'>[</span><span class='symbol'>:block_offset</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>0xFFFF</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3339,7 +3339,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Apr  4 15:32:36 2022 by
+  Generated on Mon Apr  4 16:04:34 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.1).
 </div>
