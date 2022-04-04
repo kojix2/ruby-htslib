@@ -48,13 +48,16 @@ bam = HTS::Bam.open("a.bam")
 bam.each do |r|
   p name:  r.qname,
     flag:  r.flag,
+    chr:   r.chrom,
     pos:   r.start + 1,
-    mpos:  r.mate_start + 1,
     mqual: r.mapping_quality,
-    seq:   r.sequence,
     cigar: r.cigar.to_s,
-    qual:  r.base_qualities.map { |i| (i + 33).chr }.join
-  # tag:   r.tag("MC")
+    mchr:  r.mate_chrom,
+    mpos:  r.mate_start + 1,
+    isize: r.insert_size,
+    seq:   r.sequence,
+    qual:  r.base_qualities.map { |i| (i + 33).chr }.join,
+    tagMC: r.tag("MC")
 end
 
 bam.close
