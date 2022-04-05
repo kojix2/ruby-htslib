@@ -6,13 +6,13 @@ module HTS
     attach_function \
       :hopen,
       %i[string string varargs],
-      :HFILE
+      HFILE.by_ref
 
     # Associate a stream with an existing open file descriptor
     attach_function \
       :hdopen,
       %i[int string],
-      :HFILE
+      HFILE.by_ref
 
     # Report whether the file name or URL denotes remote storage
     attach_function \
@@ -29,55 +29,63 @@ module HTS
     # Flush (for output streams) and close the stream
     attach_function \
       :hclose,
-      [:HFILE],
+      [HFILE],
       :int
 
     # Close the stream, without flushing or propagating errors
     attach_function \
       :hclose_abruptly,
-      [:HFILE],
+      [HFILE],
       :void
 
     # Reposition the read/write stream offset
     attach_function \
       :hseek,
-      %i[HFILE off_t int],
+      [HFILE, :off_t, :int],
       :off_t
+
+    # Report the current stream offset
+    def self.htell(fp)
+      # TODO: This is a hack. Is this OK?
+      bg = FFI::Pointer.new(:int, fp.pointer.address + fp.offset_of(:begin)).read_int
+      bf = FFI::Pointer.new(:int, fp.pointer.address + fp.offset_of(:buffer)).read_int
+      fp[:offset] + (bg - bf)
+    end
 
     # Read from the stream until the delimiter, up to a maximum length
     attach_function \
       :hgetdelim,
-      %i[string size_t int HFILE],
+      [:string, :size_t, :int, HFILE],
       :ssize_t
 
     # Read a line from the stream, up to a maximum length
     attach_function \
       :hgets,
-      %i[string int HFILE],
+      [:string, :int, HFILE],
       :string
 
     # Peek at characters to be read without removing them from buffers
     attach_function \
       :hpeek,
-      %i[HFILE pointer size_t],
+      [HFILE, :pointer, :size_t],
       :ssize_t
 
     # For writing streams, flush buffered output to the underlying stream
     attach_function \
       :hflush,
-      [:HFILE],
+      [HFILE],
       :int
 
     # For hfile_mem: get the internal buffer and it's size from a hfile
     attach_function \
       :hfile_mem_get_buffer,
-      %i[HFILE pointer],
+      [HFILE, :pointer],
       :string
 
     # For hfile_mem: get the internal buffer and it's size from a hfile.
     attach_function \
       :hfile_mem_steal_buffer,
-      %i[HFILE pointer],
+      [HFILE, :pointer],
       :string
   end
 end

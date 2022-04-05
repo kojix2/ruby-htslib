@@ -2,7 +2,6 @@
 
 module HTS
   module LibHTS
-    typedef :pointer, :HFILE
     typedef :int64, :hts_pos_t
     typedef :pointer, :bam_plp_auto_f
 
@@ -25,6 +24,25 @@ module HTS
         :f,              :pointer # kstream_t
     end
 
+    # HFILE
+
+    class HFILE < FFI::BitStruct
+      layout \
+        :buffer,        :string,
+        :begin,         :string,
+        :end,           :string,
+        :limit,         :string,
+        :backend,       :pointer,
+        :offset,        :size_t,
+        :_flags,        :uint,
+        :has_errno,     :int
+      
+      bit_fields :_flags,
+                 :at_eof,     1,
+                 :mobile,     1,
+                 :readonly,   1
+    end
+
     # BGZF
     class BGZF < FFI::BitStruct
       layout \
@@ -38,7 +56,7 @@ module HTS
         :uncompressed_block,     :pointer,
         :compressed_block,       :pointer,
         :cache,                  :pointer,
-        :fp,                     :HFILE,
+        :fp,                     HFILE.ptr,
         :mt,                     :pointer,
         :idx,                    :pointer,
         :idx_build_otf,          :int,
@@ -198,8 +216,8 @@ module HTS
         :fp,
         union_layout(
           :bgzf,         BGZF.ptr,
-          :cram,         :pointer,
-          :hfile,        :pointer # HFILE
+          :cram,         :pointer, # cram_fd
+          :hfile,        HFILE.ptr
         ),
         :state,          :pointer,
         :format,         HtsFormat,
