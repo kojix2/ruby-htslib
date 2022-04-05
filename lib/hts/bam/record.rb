@@ -8,6 +8,8 @@ module HTS
     class Record
       SEQ_NT16_STR = "=ACMGRSVTWYHKDBN"
 
+      attr_reader :header
+
       def initialize(bam1_t, header)
         @bam1 = bam1_t
         @header = header
@@ -20,16 +22,6 @@ module HTS
       def to_ptr
         @bam1.to_ptr
       end
-
-      attr_reader :header
-
-      # def initialize_copy
-      #   super
-      # end
-
-      def self.rom_sam_str; end
-
-      def tags; end
 
       # returns the query name.
       def qname
@@ -188,6 +180,8 @@ module HTS
           LibHTS.bam_aux2A(aux).chr
         end
       end
+
+      # def tags; end
 
       def to_s
         kstr = LibHTS::KString.new
