@@ -14,6 +14,17 @@ module HTS
       LibHTS.hts_get_format(@hts_file)[:format].to_s
     end
 
+    def format_version
+      v = LibHTS.hts_get_format(@hts_file)[:version]
+      major = v[:major]
+      minor = v[:minor]
+      if minor == -1
+        major.to_s
+      else
+        "#{major}.#{minor}"
+      end
+    end
+    
     def seek(offset)
       if format == "cram"
         LibHTS.cram_seek(@hts_file[:fp][:cram], offset, IO::SEEK_SET)
@@ -33,17 +44,6 @@ module HTS
     def rewind
       seek(@start_position) if @start_position
       # raise error unless @start_position
-    end
-
-    def format_version
-      v = LibHTS.hts_get_format(@hts_file)[:version]
-      major = v[:major]
-      minor = v[:minor]
-      if minor == -1
-        major.to_s
-      else
-        "#{major}.#{minor}"
-      end
     end
   end
 end
