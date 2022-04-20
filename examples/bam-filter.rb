@@ -65,7 +65,7 @@ end
   s << "pos   = r.start + 1\n"       if @expr.include? "pos"
   s << "stop  = r.stop\n"            if @expr.include? "stop"
   s << "name  = r.qname\n"           if @expr.include? "name"
-  s << "mpos  = r.mpos + 1\n"    if @expr.include? "mpos"
+  s << "mpos  = r.mpos + 1\n"        if @expr.include? "mpos"
   s << "seq   = r.sequence\n"        if @expr.include? "seq"
   s << "cigar = r.cigar.to_a\n"      if @expr.include? "cigar"
   s << "qual  = r.base_qualities\n"  if @expr.include? "qual"

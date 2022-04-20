@@ -56,14 +56,22 @@ module HTS
         @bam1[:core][:pos]
       end
 
-      # returns end position of the read.
-      def stop
-        LibHTS.bam_endpos @bam1
+      def pos=(pos)
+        @bam1[:core][:pos] = pos
       end
 
       # returns 0-based mate position
       def mpos
         @bam1[:core][:mpos]
+      end
+
+      def mpos=(mpos)
+        @bam1[:core][:mpos] = mpos
+      end
+
+      # returns end position of the read.
+      def stop
+        LibHTS.bam_endpos @bam1
       end
 
       # returns the chromosome or '' if not mapped.

@@ -46,6 +46,27 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln2.pos
   end
 
+  def test_pos=
+    assert_equal 3289, @aln1.pos
+    @aln1.pos = 3290
+    assert_equal 3290, @aln1.pos
+    @aln1.pos = 3289
+    assert_equal 3289, @aln1.pos
+  end
+
+  def test_mpos
+    assert_equal 3289, @aln1.mpos
+    assert_equal(-1, @aln2.mpos)
+  end
+
+  def test_mpos=
+    assert_equal 3289, @aln1.mpos
+    @aln1.mpos = 3290
+    assert_equal 3290, @aln1.mpos
+    @aln1.mpos = 3289
+    assert_equal 3289, @aln1.mpos
+  end
+
   def test_chrom
     assert_equal "poo", @aln1.chrom
     assert_equal "chr1", @aln2.chrom
@@ -64,11 +85,6 @@ class BamRecordTest < Minitest::Test
   def test_stop
     assert_equal 3290, @aln1.stop # may be strange?
     assert_equal 10, @aln2.stop
-  end
-
-  def test_mpos
-    assert_equal 3289, @aln1.mpos
-    assert_equal(-1, @aln2.mpos)
   end
 
   def test_strand
