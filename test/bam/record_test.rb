@@ -178,6 +178,15 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln2.flag.value
   end
 
+  def test_flag=
+    assert_equal 133, @aln1.flag.value
+    @aln1.flag = 0
+    assert_equal 0, @aln1.flag.value
+    f = HTS::Bam::Flag.new(133)
+    @aln1.flag = f
+    assert_equal 133, @aln1.flag.value
+  end
+
   def test_tag
     assert_equal "70M", @aln1.tag("MC")
     assert_equal 0, @aln1.tag("AS")

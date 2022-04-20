@@ -178,6 +178,17 @@ module HTS
         Flag.new(@bam1[:core][:flag])
       end
 
+      def flag=(flag)
+        case flag
+        when Fixnum
+          @bam1[:core][:flag] = flag
+        when Flag
+          @bam1[:core][:flag] = flag.value
+        else
+          raise "Invalid flag type: #{flag.class}"
+        end
+      end
+
       def tag(str)
         aux = LibHTS.bam_aux_get(@bam1, str)
         return nil if aux.null?
