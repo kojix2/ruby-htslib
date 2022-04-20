@@ -115,6 +115,14 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln2.mapq
   end
 
+  def test_mapq=
+    assert_equal 0, @aln1.mapq
+    @aln1.mapq = 1
+    assert_equal 1, @aln1.mapq
+    @aln1.mapq = 0
+    assert_equal 0, @aln1.mapq
+  end
+
   def test_cigar
     assert_instance_of HTS::Bam::Cigar, @aln1.cigar
     assert_instance_of HTS::Bam::Cigar, @aln2.cigar
