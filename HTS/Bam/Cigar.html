@@ -244,13 +244,13 @@
       <pre class="lines">
 
 
-11
-12
-13
-14</pre>
+8
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_n_cigar'>n_cigar</span><span class='rparen'>)</span>
   <span class='ivar'>@pointer</span> <span class='op'>=</span> <span class='id identifier rubyid_pointer'>pointer</span>
@@ -283,19 +283,19 @@
       <pre class="lines">
 
 
+21
+22
+23
 24
 25
 26
 27
 28
 29
-30
-31
-32
-33</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -327,12 +327,12 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
   <span class='ivar'>@pointer</span>
@@ -357,12 +357,12 @@
       <pre class="lines">
 
 
-20
-21
-22</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_op'>op</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_len'>len</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_op'>op</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
@@ -377,7 +377,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 20 06:28:36 2022 by
+  Generated on Wed Apr 20 06:39:15 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
