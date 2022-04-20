@@ -16,7 +16,7 @@ HTS::Bam.open(bam_path) do |bam|
        mpos: r.mpos + 1,
        isize: r.insert_size,
        seq: r.seq,
-       qual: r.base_qualities.map { |i| (i + 33).chr }.join,
+       qual: r.qual.map { |i| (i + 33).chr }.join,
        tag_MC: r.tag("MC")
   end
 end

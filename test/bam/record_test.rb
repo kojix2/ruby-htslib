@@ -188,9 +188,9 @@ class BamRecordTest < Minitest::Test
     assert_equal ".", @aln2.base_at(10)
   end
 
-  def test_base_qualities
-    assert_equal ([17] * 70), @aln1.base_qualities
-    assert_equal ([255] * 10), @aln2.base_qualities
+  def test_qual
+    assert_equal ([17] * 70), @aln1.qual
+    assert_equal ([255] * 10), @aln2.qual
   end
 
   def test_base_quality_at
@@ -200,7 +200,7 @@ class BamRecordTest < Minitest::Test
     assert_equal 17, @aln1.base_quality_at(-70)
     assert_equal 0, @aln1.base_quality_at(70)
     assert_equal 0, @aln1.base_quality_at(71)
-    #    assert_equal ([255] * 10), @aln2.base_qualities
+    #    assert_equal ([255] * 10), @aln2.qual
   end
 
   def test_flag

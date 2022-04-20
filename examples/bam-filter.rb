@@ -68,7 +68,7 @@ end
   s << "mpos  = r.mpos + 1\n"        if @expr.include? "mpos"
   s << "seq   = r.seq\n"             if @expr.include? "seq"
   s << "cigar = r.cigar.to_a\n"      if @expr.include? "cigar"
-  s << "qual  = r.base_qualities\n"  if @expr.include? "qual"
+  s << "qual  = r.qual\n"            if @expr.include? "qual"
   s << "isize = r.insert_size\n"     if @expr.include? "isize"
   if use_flag
     s << "flag  = r.flag\n" # HTS::Bam::Flag

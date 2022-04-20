@@ -170,7 +170,7 @@ module HTS
       end
 
       # return the base qualities
-      def base_qualities
+      def qual
         q_ptr = LibHTS.bam_get_qual(@bam1)
         q_ptr.read_array_of_uint8(@bam1[:core][:l_qseq])
       end
