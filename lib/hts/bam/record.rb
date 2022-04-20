@@ -101,13 +101,10 @@ module HTS
         LibHTS.sam_hdr_tid2name(@header, mtid)
       end
 
+      # Get strand information.
       def strand
         LibHTS.bam_is_rev(@bam1) ? "-" : "+"
       end
-
-      # def start=(v)
-      #   raise 'Not Implemented'
-      # end
 
       # insert size
       def insert_size
