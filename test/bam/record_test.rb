@@ -172,11 +172,6 @@ class BamRecordTest < Minitest::Test
     #    assert_equal ([255] * 10), @aln2.base_qualities
   end
 
-  def test_flag_str
-    assert_equal "PAIRED,UNMAP,READ2", @aln1.flag_str
-    assert_equal "", @aln2.flag_str
-  end
-
   def test_flag
     assert_instance_of HTS::Bam::Flag, @aln1.flag
     assert_equal 133, @aln1.flag.value

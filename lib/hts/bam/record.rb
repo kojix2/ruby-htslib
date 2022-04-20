@@ -173,10 +173,6 @@ module HTS
         q_ptr.get_uint8(n)
       end
 
-      def flag_str
-        LibHTS.bam_flag2str(@bam1[:core][:flag])
-      end
-
       # returns a `Flag` object.
       def flag
         Flag.new(@bam1[:core][:flag])
