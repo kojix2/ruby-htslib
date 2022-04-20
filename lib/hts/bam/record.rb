@@ -230,6 +230,8 @@ module HTS
 
       # TODO: add a method to remove the auxillary fields.
 
+      # TODO: add a method to set variable length data (qname, cigar, seq, qual).
+
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to format bam record" if LibHTS.sam_format1(@header.struct, @bam1, kstr) == -1
