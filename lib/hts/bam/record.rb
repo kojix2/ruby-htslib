@@ -200,7 +200,7 @@ module HTS
         end
       end
 
-      def tag(str)
+      def aux(str)
         aux = LibHTS.bam_aux_get(@bam1, str)
         return nil if aux.null?
 
@@ -221,8 +221,6 @@ module HTS
           LibHTS.bam_aux2A(aux).chr
         end
       end
-
-      # def tags; end
 
       def to_s
         kstr = LibHTS::KString.new

@@ -218,11 +218,11 @@ class BamRecordTest < Minitest::Test
     assert_equal 133, @aln1.flag.value
   end
 
-  def test_tag
-    assert_equal "70M", @aln1.tag("MC")
-    assert_equal 0, @aln1.tag("AS")
-    assert_equal 0, @aln1.tag("XS")
-    assert_nil @aln1.tag("Tanuki")
+  def test_aux
+    assert_equal "70M", @aln1.aux("MC")
+    assert_equal 0, @aln1.aux("AS")
+    assert_equal 0, @aln1.aux("XS")
+    assert_nil @aln1.aux("Tanuki")
   end
 
   def test_to_s
