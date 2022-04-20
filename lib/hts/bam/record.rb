@@ -89,10 +89,7 @@ module HTS
         LibHTS.sam_hdr_tid2name(@header, tid)
       end
 
-      # returns the chromosome or '' if not mapped.
-      def contig
-        chrom
-      end
+      alias contig chrom
 
       # returns the chromosome of the mate or '' if not mapped.
       def mate_chrom
@@ -110,11 +107,13 @@ module HTS
       def insert_size
         @bam1[:core][:isize]
       end
+
       alias isize insert_size
 
       def insert_size=(isize)
         @bam1[:core][:isize] = isize
       end
+
       alias isize= insert_size=
 
       # mapping quality
@@ -200,6 +199,7 @@ module HTS
         end
       end
 
+      # retruns the auxillary fields.
       def aux(str)
         aux = LibHTS.bam_aux_get(@bam1, str)
         return nil if aux.null?
@@ -221,6 +221,12 @@ module HTS
           LibHTS.bam_aux2A(aux).chr
         end
       end
+
+      # TODO: add a method to get the auxillary fields as a hash.
+
+      # TODO: add a method to set the auxillary fields.
+
+      # TODO: add a method to remove the auxillary fields.
 
       def to_s
         kstr = LibHTS::KString.new
