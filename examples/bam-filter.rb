@@ -20,7 +20,7 @@ OptionParser.new do |parser|
   parser.summary_width = 23
   parser.on(
     "-e", "--expression EXPR", "eval ruby code. presets variables are:",
-    "fields [maq start pos stop name mpos seq cigar qual isize]",
+    "fields [maq start pos endpos name mpos seq cigar qual isize]",
     "flags  [paired proper_pair unmapped mate_unmapped reverse",
     " mate_reverse read1 read2 secondary qcfail dup supplementary]"
   ) { |v| @expr = v }
@@ -63,7 +63,7 @@ end
   s << "mapq  = r.mapq\n"            if @expr.include? "mapq"
   s << "start = r.start\n"           if @expr.include? "start"
   s << "pos   = r.start + 1\n"       if @expr.include? "pos"
-  s << "stop  = r.stop\n"            if @expr.include? "stop"
+  s << "endpos  = r.endpos\n"        if @expr.include? "endpos"
   s << "name  = r.qname\n"           if @expr.include? "name"
   s << "mpos  = r.mpos + 1\n"        if @expr.include? "mpos"
   s << "seq   = r.seq\n"             if @expr.include? "seq"

@@ -95,9 +95,9 @@ class BamRecordTest < Minitest::Test
     assert_equal "", @aln2.mate_chrom
   end
 
-  def test_stop
-    assert_equal 3290, @aln1.stop # may be strange?
-    assert_equal 10, @aln2.stop
+  def test_endpos
+    assert_equal 3290, @aln1.endpos # may be strange?
+    assert_equal 10, @aln2.endpos
   end
 
   def test_strand
