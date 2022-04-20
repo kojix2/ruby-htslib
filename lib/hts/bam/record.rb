@@ -191,7 +191,7 @@ module HTS
 
       def flag=(flag)
         case flag
-        when Fixnum
+        when Integer
           @bam1[:core][:flag] = flag
         when Flag
           @bam1[:core][:flag] = flag.value
