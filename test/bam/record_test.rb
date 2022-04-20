@@ -169,9 +169,9 @@ class BamRecordTest < Minitest::Test
     assert_equal "AACCGCGGTT", @aln2.sequence
   end
 
-  def test_seq_len
-    assert_equal 70, @aln1.seq_len
-    assert_equal 10, @aln2.seq_len
+  def test_len
+    assert_equal 70, @aln1.len
+    assert_equal 10, @aln2.len
   end
 
   def test_base_at

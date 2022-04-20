@@ -156,7 +156,7 @@ module HTS
       end
       alias sequence seq
 
-      def seq_len
+      def len
         @bam1[:core][:l_qseq]
       end
 
