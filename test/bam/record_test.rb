@@ -115,6 +115,22 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln2.isize
   end
 
+  def test_insert_size=
+    assert_equal 0, @aln1.insert_size
+    @aln1.insert_size = 1
+    assert_equal 1, @aln1.insert_size
+    @aln1.insert_size = 0
+    assert_equal 0, @aln1.insert_size
+  end
+
+  def test_isize=
+    assert_equal 0, @aln1.isize
+    @aln1.isize = 1
+    assert_equal 1, @aln1.isize
+    @aln1.isize = 0
+    assert_equal 0, @aln1.isize
+  end
+
   def test_mapq
     assert_equal 0, @aln1.mapq
     assert_equal 0, @aln2.mapq
