@@ -230,6 +230,12 @@ class BamRecordTest < Minitest::Test
     assert_nil @aln1.aux("Tanuki")
   end
 
+  # TODO: def test_aux_float
+
+  # TODO: def test_aux_flag
+
+  # TODO: def test_aux_char
+
   def test_to_s
     assert_equal "poo_3290_3833_2:0:0_2:0:0_119\t133\tpoo\t3290\t0\t*\t=\t3290\t0\tGGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC\t2222222222222222222222222222222222222222222222222222222222222222222222\tMC:Z:70M\tAS:i:0\tXS:i:0",
                  @aln1.to_s
