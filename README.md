@@ -44,6 +44,7 @@ Read SAM / BAM / CRAM - Sequence Alignment Map file
 require 'htslib'
 
 bam = HTS::Bam.open("test/fixtures/moo.bam")
+
 bam.each do |r|
   pp name: r.qname,
      flag: r.flag,
