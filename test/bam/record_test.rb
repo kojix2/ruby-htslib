@@ -174,18 +174,18 @@ class BamRecordTest < Minitest::Test
     assert_equal 10, @aln2.len
   end
 
-  def test_base_at
-    assert_equal "G", @aln1.base_at(0)
-    assert_equal "C", @aln1.base_at(4)
-    assert_equal "A", @aln1.base_at(5)
-    assert_equal ".", @aln1.base_at(70)
-    assert_equal "C", @aln1.base_at(-1)
-    assert_equal "G", @aln1.base_at(-2)
-    assert_equal "G", @aln1.base_at(-70)
-    assert_equal ".", @aln1.base_at(-71)
-    assert_equal "A", @aln2.base_at(0)
-    assert_equal "T", @aln2.base_at(9)
-    assert_equal ".", @aln2.base_at(10)
+  def test_base
+    assert_equal "G", @aln1.base(0)
+    assert_equal "C", @aln1.base(4)
+    assert_equal "A", @aln1.base(5)
+    assert_equal ".", @aln1.base(70)
+    assert_equal "C", @aln1.base(-1)
+    assert_equal "G", @aln1.base(-2)
+    assert_equal "G", @aln1.base(-70)
+    assert_equal ".", @aln1.base(-71)
+    assert_equal "A", @aln2.base(0)
+    assert_equal "T", @aln2.base(9)
+    assert_equal ".", @aln2.base(10)
   end
 
   def test_qual
