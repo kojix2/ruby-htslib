@@ -160,6 +160,11 @@ class BamRecordTest < Minitest::Test
   end
 
   def test_seq
+    assert_equal "GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC", @aln1.seq
+    assert_equal "AACCGCGGTT", @aln2.seq
+  end
+
+  def test_sequence
     assert_equal "GGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC", @aln1.sequence
     assert_equal "AACCGCGGTT", @aln2.sequence
   end

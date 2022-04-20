@@ -146,7 +146,7 @@ module HTS
       end
 
       # return the read sequence
-      def sequence
+      def seq
         r = LibHTS.bam_get_seq(@bam1)
         seq = String.new
         (@bam1[:core][:l_qseq]).times do |i|
@@ -154,6 +154,7 @@ module HTS
         end
         seq
       end
+      alias sequence seq
 
       # return only the base of the requested index "i" of the query sequence.
       def base_at(n)
