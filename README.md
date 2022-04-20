@@ -58,7 +58,6 @@ bam.each do |r|
      seqs: r.seq,
      qual: r.qual.map { |i| (i + 33).chr }.join,
      MC:   r.aux("MC")
-  end
 end
 
 bam.close
