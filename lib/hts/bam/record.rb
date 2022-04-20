@@ -156,6 +156,10 @@ module HTS
       end
       alias sequence seq
 
+      def seq_len
+        @bam1[:core][:l_qseq]
+      end
+
       # return only the base of the requested index "i" of the query sequence.
       def base_at(n)
         n += @bam1[:core][:l_qseq] if n < 0
