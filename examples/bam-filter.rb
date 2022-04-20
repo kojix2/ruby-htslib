@@ -60,16 +60,15 @@ end
                   reverse mate_reverse read1 read2
                   secondary qcfail dup supplementary]
   use_flag = flag_names.any? { |name| @expr.include?(name) }
-  s << "mapq  = r.mapq\n"            if @expr.include? "mapq"
-  s << "start = r.start\n"           if @expr.include? "start"
-  s << "pos   = r.start + 1\n"       if @expr.include? "pos"
-  s << "endpos  = r.endpos\n"        if @expr.include? "endpos"
-  s << "name  = r.qname\n"           if @expr.include? "name"
-  s << "mpos  = r.mpos + 1\n"        if @expr.include? "mpos"
-  s << "seq   = r.seq\n"             if @expr.include? "seq"
-  s << "cigar = r.cigar.to_a\n"      if @expr.include? "cigar"
-  s << "qual  = r.qual\n"            if @expr.include? "qual"
-  s << "isize = r.insert_size\n"     if @expr.include? "isize"
+  s << "mapq    = r.mapq\n"         if @expr.include? "mapq"
+  s << "pos     = r.pos + 1\n"      if @expr.include? "pos"
+  s << "endpos  = r.endpos\n"       if @expr.include? "endpos"
+  s << "name    = r.qname\n"        if @expr.include? "name"
+  s << "mpos    = r.mpos + 1\n"     if @expr.include? "mpos"
+  s << "seq     = r.seq\n"          if @expr.include? "seq"
+  s << "cigar   = r.cigar.to_a\n"   if @expr.include? "cigar"
+  s << "qual    = r.qual\n"         if @expr.include? "qual"
+  s << "isize   = r.insert_size\n"  if @expr.include? "isize"
   if use_flag
     s << "flag  = r.flag\n" # HTS::Bam::Flag
     flag_names.each do |n|

@@ -43,21 +43,21 @@ Read SAM / BAM / CRAM - Sequence Alignment Map file
 ```ruby
 require 'htslib'
 
-bam = HTS::Bam.open("a.bam")
-
+bam = HTS::Bam.open("test/fixtures/moo.bam")
 bam.each do |r|
-  p name:  r.qname,
-    flag:  r.flag,
-    chr:   r.chrom,
-    pos:   r.start + 1,
-    mqual: r.mapping_quality,
-    cigar: r.cigar.to_s,
-    mchr:  r.mate_chrom,
-    mpos:  r.mate_start + 1,
-    isize: r.insert_size,
-    seq:   r.sequence,
-    qual:  r.base_qualities.map { |i| (i + 33).chr }.join,
-    tagMC: r.tag("MC")
+  pp name: r.qname,
+     flag: r.flag,
+     chrm: r.chrom,
+     strt: r.pos + 1,
+     mapq: r.mapq,
+     cigr: r.cigar.to_s,
+     mchr: r.mate_chrom,
+     mpos: r.mpos + 1,
+     isiz: r.isize,
+     seqs: r.seq,
+     qual: r.qual.map { |i| (i + 33).chr }.join,
+     MC:   r.aux("MC")
+  end
 end
 
 bam.close

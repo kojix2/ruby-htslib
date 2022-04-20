@@ -8,15 +8,15 @@ HTS::Bam.open(bam_path) do |bam|
   bam.each do |r|
     pp name: r.qname,
        flag: r.flag,
-       chr: r.chrom,
-       pos: r.start + 1,
-       mqual: r.mapq,
-       cigar: r.cigar.to_s,
+       chrm: r.chrom,
+       strt: r.pos + 1,
+       mapq: r.mapq,
+       cigr: r.cigar.to_s,
        mchr: r.mate_chrom,
        mpos: r.mpos + 1,
-       isize: r.insert_size,
-       seq: r.seq,
+       isiz: r.isize,
+       seqs: r.seq,
        qual: r.qual.map { |i| (i + 33).chr }.join,
-       aux_MC: r.aux("MC")
+       MC: r.aux("MC")
   end
 end
