@@ -66,9 +66,9 @@ class BamRecordTest < Minitest::Test
     assert_equal 10, @aln2.stop
   end
 
-  def test_mate_pos
-    assert_equal 3289, @aln1.mate_pos
-    assert_equal(-1, @aln2.mate_pos)
+  def test_mpos
+    assert_equal 3289, @aln1.mpos
+    assert_equal(-1, @aln2.mpos)
   end
 
   def test_strand

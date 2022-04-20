@@ -62,7 +62,7 @@ module HTS
       end
 
       # returns 0-based mate position
-      def mate_pos
+      def mpos
         @bam1[:core][:mpos]
       end
 

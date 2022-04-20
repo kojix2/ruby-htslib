@@ -13,7 +13,7 @@ HTS::Bam.open(bam_path) do |bam|
        mqual: r.mapping_quality,
        cigar: r.cigar.to_s,
        mchr: r.mate_chrom,
-       mpos: r.mate_pos + 1,
+       mpos: r.mpos + 1,
        isize: r.insert_size,
        seq: r.sequence,
        qual: r.base_qualities.map { |i| (i + 33).chr }.join,
