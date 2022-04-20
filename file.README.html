@@ -97,26 +97,26 @@
 
 <p>Read SAM / BAM / CRAM - Sequence Alignment Map file</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby">require &#39;htslib&#39;
 
-<span class='id identifier rubyid_bam'>bam</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bam.html#open-class_method" title="HTS::Bam.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>a.bam</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+bam = HTS::Bam.open(&quot;test/fixtures/moo.bam&quot;)
+bam.each do |r|
+  pp name: r.qname,
+     flag: r.flag,
+     chrm: r.chrom,
+     strt: r.pos + 1,
+     mapq: r.mapq,
+     cigr: r.cigar.to_s,
+     mchr: r.mate_chrom,
+     mpos: r.mpos + 1,
+     isiz: r.isize,
+     seqs: r.seq,
+     qual: r.qual.map { |i| (i + 33).chr }.join,
+     MC:   r.aux(&quot;MC&quot;)
+  end
+end
 
-<span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='label'>name:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_qname'>qname</span><span class='comma'>,</span>
-    <span class='label'>flag:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_flag'>flag</span><span class='comma'>,</span>
-    <span class='label'>chr:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_chrom'>chrom</span><span class='comma'>,</span>
-    <span class='label'>pos:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span>
-    <span class='label'>mqual:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_mapping_quality'>mapping_quality</span><span class='comma'>,</span>
-    <span class='label'>cigar:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_cigar'>cigar</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span>
-    <span class='label'>mchr:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_mate_chrom'>mate_chrom</span><span class='comma'>,</span>
-    <span class='label'>mpos:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_mate_start'>mate_start</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span>
-    <span class='label'>isize:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_insert_size'>insert_size</span><span class='comma'>,</span>
-    <span class='label'>seq:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_sequence'>sequence</span><span class='comma'>,</span>
-    <span class='label'>qual:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_base_qualities'>base_qualities</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>33</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='comma'>,</span>
-    <span class='label'>tagMC:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_tag'>tag</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MC</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span>
-
-<span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+bam.close
 </code></pre>
 
 <p>Read VCF / BCF - Variant Call Format file</p>
@@ -236,7 +236,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Wed Apr 20 03:48:47 2022 by
+  Generated on Wed Apr 20 04:09:10 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
