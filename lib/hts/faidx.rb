@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Based on hts-python
-# https://github.com/quinlan-lab/hts-python
-
 require_relative "../htslib"
 
 module HTS
