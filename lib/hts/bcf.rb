@@ -15,7 +15,7 @@ module HTS
   class Bcf < Hts
     include Enumerable
 
-    attr_reader :file_name, :index_path, :mode, :header
+    attr_reader :file_name, :index_name, :mode, :header
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -38,9 +38,10 @@ module HTS
 
       # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
-      @file_name = file_name
-      @mode      = mode
-      @hts_file  = LibHTS.hts_open(@file_name, mode)
+      @file_name  = file_name
+      @index_name = index
+      @mode       = mode
+      @hts_file   = LibHTS.hts_open(@file_name, mode)
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
