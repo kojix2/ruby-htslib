@@ -67,6 +67,19 @@ class BamRecordTest < Minitest::Test
     assert_equal 3289, @aln1.mpos
   end
 
+  def test_bin
+    assert_equal 4681, @aln1.bin
+    assert_equal 4681, @aln2.bin
+  end
+
+  def test_bin=
+    assert_equal 4681, @aln1.bin
+    @aln1.bin = 4682
+    assert_equal 4682, @aln1.bin
+    @aln1.bin = 4681
+    assert_equal 4681, @aln1.bin
+  end
+
   def test_chrom
     assert_equal "poo", @aln1.chrom
     assert_equal "chr1", @aln2.chrom
