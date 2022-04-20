@@ -32,7 +32,7 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln1.mtid
     assert_equal(-1, @aln2.mtid)
   end
-  
+
   def test_mtid=
     assert_equal 0, @aln1.mtid
     @aln1.mtid = 1
@@ -41,10 +41,9 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln1.mtid
   end
 
-
-  def test_start
-    assert_equal 3289, @aln1.start
-    assert_equal 0, @aln2.start
+  def test_pos
+    assert_equal 3289, @aln1.pos
+    assert_equal 0, @aln2.pos
   end
 
   def test_chrom

@@ -24,7 +24,7 @@ module HTS
         "#{major}.#{minor}"
       end
     end
-    
+
     def seek(offset)
       if @hts_file[:is_cram] == 1
         LibHTS.cram_seek(@hts_file[:fp][:cram], offset, IO::SEEK_SET)
@@ -50,7 +50,8 @@ module HTS
     def rewind
       r = seek(@start_position) if @start_position
       raise "Failed to rewind: #{r}" if r < 0
-      r 
+
+      r
     end
   end
 end

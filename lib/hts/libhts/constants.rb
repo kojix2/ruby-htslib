@@ -36,7 +36,7 @@ module HTS
         :offset,        :size_t,
         :_flags,        :uint,
         :has_errno,     :int
-      
+
       bit_fields :_flags,
                  :at_eof,     1,
                  :mobile,     1,
