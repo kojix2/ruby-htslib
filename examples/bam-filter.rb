@@ -60,7 +60,7 @@ end
                   reverse mate_reverse read1 read2
                   secondary qcfail dup supplementary]
   use_flag = flag_names.any? { |name| @expr.include?(name) }
-  s << "mapq  = r.mapping_quality\n" if @expr.include? "mapq"
+  s << "mapq  = r.mapq\n"            if @expr.include? "mapq"
   s << "start = r.start\n"           if @expr.include? "start"
   s << "pos   = r.start + 1\n"       if @expr.include? "pos"
   s << "stop  = r.stop\n"            if @expr.include? "stop"

@@ -10,7 +10,7 @@ HTS::Bam.open(bam_path) do |bam|
        flag: r.flag,
        chr: r.chrom,
        pos: r.start + 1,
-       mqual: r.mapping_quality,
+       mqual: r.mapq,
        cigar: r.cigar.to_s,
        mchr: r.mate_chrom,
        mpos: r.mpos + 1,

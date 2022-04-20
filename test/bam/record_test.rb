@@ -110,9 +110,9 @@ class BamRecordTest < Minitest::Test
     assert_equal 0, @aln2.insert_size
   end
 
-  def test_mapping_quality
-    assert_equal 0, @aln1.mapping_quality
-    assert_equal 0, @aln2.mapping_quality
+  def test_mapq
+    assert_equal 0, @aln1.mapq
+    assert_equal 0, @aln2.mapq
   end
 
   def test_cigar
