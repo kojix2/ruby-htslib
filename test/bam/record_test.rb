@@ -25,12 +25,22 @@ class BamRecordTest < Minitest::Test
     @aln1.tid = 1
     assert_equal 1, @aln1.tid
     @aln1.tid = 0
+    assert_equal 0, @aln1.tid
   end
 
   def test_mtid
     assert_equal 0, @aln1.mtid
     assert_equal(-1, @aln2.mtid)
   end
+  
+  def test_mtid=
+    assert_equal 0, @aln1.mtid
+    @aln1.mtid = 1
+    assert_equal 1, @aln1.mtid
+    @aln1.mtid = 0
+    assert_equal 0, @aln1.mtid
+  end
+
 
   def test_start
     assert_equal 3289, @aln1.start
