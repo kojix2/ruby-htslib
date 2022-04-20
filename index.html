@@ -100,6 +100,7 @@
 <pre class="code ruby"><code class="ruby">require &#39;htslib&#39;
 
 bam = HTS::Bam.open(&quot;test/fixtures/moo.bam&quot;)
+
 bam.each do |r|
   pp name: r.qname,
      flag: r.flag,
@@ -236,7 +237,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Wed Apr 20 04:09:10 2022 by
+  Generated on Wed Apr 20 04:12:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
