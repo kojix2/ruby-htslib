@@ -95,6 +95,11 @@ class BamRecordTest < Minitest::Test
     assert_equal "", @aln2.mate_chrom
   end
 
+  def test_mate_contig
+    assert_equal "poo", @aln1.mate_contig
+    assert_equal "", @aln2.mate_contig
+  end
+
   def test_endpos
     assert_equal 3290, @aln1.endpos # may be strange?
     assert_equal 10, @aln2.endpos

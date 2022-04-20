@@ -98,6 +98,8 @@ module HTS
         LibHTS.sam_hdr_tid2name(@header, mtid)
       end
 
+      alias mate_contig mate_chrom
+
       # Get strand information.
       def strand
         LibHTS.bam_is_rev(@bam1) ? "-" : "+"
