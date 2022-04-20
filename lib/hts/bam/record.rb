@@ -38,6 +38,10 @@ module HTS
         @bam1[:core][:tid]
       end
 
+      def tid=(tid)
+        @bam1[:core][:tid] = tid
+      end
+
       # returns the tid of the mate or -1 if not mapped.
       def mate_tid
         @bam1[:core][:mtid]
