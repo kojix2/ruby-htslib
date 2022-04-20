@@ -82,7 +82,7 @@ class BamTest < Minitest::Test
       define_method "test_query_#{format}_#{type}" do
         arr = []
         public_send("#{format}_#{type}").query("chr2:350-700") do |aln|
-          arr << aln.start
+          arr << aln.pos
         end
         assert_equal [341, 658], arr
       end

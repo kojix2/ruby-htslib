@@ -52,7 +52,7 @@ module HTS
       end
 
       # returns 0-based start position.
-      def start
+      def pos
         @bam1[:core][:pos]
       end
 
@@ -62,10 +62,9 @@ module HTS
       end
 
       # returns 0-based mate position
-      def mate_start
+      def mate_pos
         @bam1[:core][:mpos]
       end
-      alias mate_pos mate_start
 
       # returns the chromosome or '' if not mapped.
       def chrom
