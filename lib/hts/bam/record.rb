@@ -110,6 +110,7 @@ module HTS
       def insert_size
         @bam1[:core][:isize]
       end
+      alias isize insert_size
 
       # mapping quality
       def mapq
