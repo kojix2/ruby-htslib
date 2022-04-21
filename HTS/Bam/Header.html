@@ -187,7 +187,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#target_lengths-instance_method" title="#target_lengths (instance method)">#<strong>target_lengths</strong>  &#x21d2; Object </a>
+      <a href="#target_len-instance_method" title="#target_len (instance method)">#<strong>target_len</strong>  &#x21d2; Object </a>
     
 
     
@@ -387,9 +387,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="target_lengths-instance_method">
+  <h3 class="signature " id="target_len-instance_method">
   
-    #<strong>target_lengths</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>target_len</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -410,7 +410,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 28</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_target_lengths'>target_lengths</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_target_len'>target_len</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'>sam_hdr_tid2len</span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -519,7 +519,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 20 08:41:44 2022 by
+  Generated on Thu Apr 21 09:30:34 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
