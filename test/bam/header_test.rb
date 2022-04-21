@@ -20,8 +20,8 @@ class BamHeaderTest < Minitest::Test
     assert_equal ["poo"], @bam_header.target_names
   end
 
-  def test_target_lengths
-    assert_equal [5000], @bam_header.target_lengths
+  def test_target_len
+    assert_equal [5000], @bam_header.target_len
   end
 
   def test_to_s
