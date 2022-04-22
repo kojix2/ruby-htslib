@@ -12,6 +12,9 @@ module HTS
       raise LoadError, "#{e}\nCould not find #{HTS.lib_path}"
     end
 
+    # @!macro attach_function
+    #   @!method $1(${2--2})
+    #   @return [${-1}] the return value of $0
     def self.attach_function(*)
       super
     rescue FFI::NotFoundError => e
