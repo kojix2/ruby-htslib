@@ -20,6 +20,19 @@ class BcfRecordTest < Minitest::Test
     @bcf&.close
   end
 
+  def test_rid
+    assert_equal 0, @v1.rid
+    assert_equal 0, @v2.rid
+  end
+
+  def test_rid=
+    assert_equal 0, @v1.rid
+    @v1.rid = 1
+    assert_equal 1, @v1.rid
+    @v1.rid = 0
+    assert_equal 0, @v1.rid
+  end
+
   def test_chrom
     assert_equal "1", @v1.chrom
     assert_equal "1", @v2.chrom

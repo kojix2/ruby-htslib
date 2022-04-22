@@ -18,15 +18,17 @@ module HTS
         @bcf1.to_ptr
       end
 
-      # def inspect; end
+      # Get the reference id of the record.
+      def rid
+        @bcf1[:rid]
+      end
 
-      def formats; end
+      def rid=(rid)
+        @bcf1[:rid] = rid
+      end
 
-      def genotypes; end
-
+      # Get the chromosome of variant.
       def chrom
-        rid = @bcf1[:rid]
-
         LibHTS.bcf_hdr_id2name(@header.struct, rid)
       end
 
