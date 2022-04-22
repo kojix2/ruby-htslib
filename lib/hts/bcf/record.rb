@@ -32,12 +32,13 @@ module HTS
         LibHTS.bcf_hdr_id2name(@header.struct, rid)
       end
 
+      # Return 0-based position.
       def pos
-        @bcf1[:pos] + 1 # FIXME
+        @bcf1[:pos]
       end
 
-      def start
-        @bcf1[:pos]
+      def pos=(pos)
+        @bcf1[:pos] = pos
       end
 
       def stop

@@ -39,13 +39,8 @@ class BcfRecordTest < Minitest::Test
   end
 
   def test_pos
-    assert_equal 3_000_151, @v1.pos
-    assert_equal 3_062_915, @v2.pos
-  end
-
-  def test_start
-    assert_equal 3_000_150, @v1.start
-    assert_equal 3_062_914, @v2.start
+    assert_equal 3_000_150, @v1.pos
+    assert_equal 3_062_914, @v2.pos
   end
 
   def test_stop
