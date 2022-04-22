@@ -219,6 +219,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#endpos-instance_method" title="#endpos (instance method)">#<strong>endpos</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#filter-instance_method" title="#filter (instance method)">#<strong>filter</strong>  &#x21d2; Object </a>
     
 
@@ -448,28 +470,6 @@
   <span class="summary_signature">
     
       <a href="#rid=-instance_method" title="#rid= (instance method)">#<strong>rid=</strong>(rid)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#stop-instance_method" title="#stop (instance method)">#<strong>stop</strong>  &#x21d2; Object </a>
     
 
     
@@ -765,6 +765,36 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_id2name'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_id2name-class_method" title="HTS::LibHTS.bcf_hdr_id2name (method)">bcf_hdr_id2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="endpos-instance_method">
+  
+    #<strong>endpos</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_endpos'>endpos</span>
+  <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:rlen</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1134,36 +1164,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="stop-instance_method">
-  
-    #<strong>stop</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-44
-45
-46</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 44</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
-  <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:rlen</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="struct-instance_method">
   
     #<strong>struct</strong>  &#x21d2; <tt>Object</tt> 
@@ -1264,7 +1264,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 22 01:51:10 2022 by
+  Generated on Fri Apr 22 01:57:19 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
