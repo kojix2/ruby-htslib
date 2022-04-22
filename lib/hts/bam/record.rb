@@ -233,7 +233,7 @@ module HTS
       # TODO: add a method to set variable length data (qname, cigar, seq, qual).
 
       # Calling flag is delegated to the Flag object.
-      Flag::TABLE.keys.each do |m|
+      Flag::TABLE.each_key do |m|
         define_method(m) do
           flag.send(m)
         end

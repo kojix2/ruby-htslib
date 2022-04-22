@@ -64,11 +64,10 @@ module HTS
     end
 
     def create_index(index_name = nil)
+      warn "Create index for #{@file_name} to #{index_name}"
       if index
-        warn "Create index for #{@file_name} to #{index_name}"
         LibHTS.sam_index_build2(@file_name, index_name, -1)
       else
-        warn "Create index for #{@file_name} to #{index_name}"
         LibHTS.sam_index_build(@file_name, -1)
       end
     end

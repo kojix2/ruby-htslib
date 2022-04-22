@@ -39,7 +39,7 @@ class BamFlagTest < Minitest::Test
     qcfail?
     duplicate?
     supplementary?
-  ]
+  ].freeze
 
   FLAG_METHODS.each do |flag_name|
     define_method("test_#{flag_name}") do
