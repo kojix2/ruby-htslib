@@ -312,7 +312,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
-  <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_read'>bcf_hdr_read</span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
+  <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_read'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_read-instance_method" title="HTS::LibHTS#bcf_hdr_read (method)">bcf_hdr_read</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -349,7 +349,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_version'>get_version</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_get_version'>bcf_hdr_get_version</span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_get_version'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_get_version-instance_method" title="HTS::LibHTS#bcf_hdr_get_version (method)">bcf_hdr_get_version</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -509,7 +509,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to get header string</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_format'>bcf_hdr_format</span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to get header string</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_format'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_format-instance_method" title="HTS::LibHTS#bcf_hdr_format (method)">bcf_hdr_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_kstr'>kstr</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
@@ -523,7 +523,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 22 04:06:04 2022 by
+  Generated on Fri Apr 22 04:30:03 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>

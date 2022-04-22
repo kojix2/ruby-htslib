@@ -1118,7 +1118,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_aux'>aux</span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'>bam_aux_get</span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-instance_method" title="HTS::LibHTS#bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_aux'>aux</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 
   <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_aux'>aux</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -1129,13 +1129,13 @@
 </span>
   <span class='kw'>case</span> <span class='id identifier rubyid_t'>t</span>
   <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>i</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>C</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>S</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2i'>bam_aux2i</span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2i'><span class='object_link'><a href="../LibHTS.html#bam_aux2i-instance_method" title="HTS::LibHTS#bam_aux2i (method)">bam_aux2i</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>f</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2f'>bam_aux2f</span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2f'><span class='object_link'><a href="../LibHTS.html#bam_aux2f-instance_method" title="HTS::LibHTS#bam_aux2f (method)">bam_aux2f</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>H</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2Z'>bam_aux2Z</span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2Z'><span class='object_link'><a href="../LibHTS.html#bam_aux2Z-instance_method" title="HTS::LibHTS#bam_aux2Z (method)">bam_aux2Z</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># char
-</span>    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2A'>bam_aux2A</span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span>
+</span>    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux2A'><span class='object_link'><a href="../LibHTS.html#bam_aux2A-instance_method" title="HTS::LibHTS#bam_aux2A (method)">bam_aux2A</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_aux'>aux</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1343,7 +1343,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_tid'>tid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'>sam_hdr_tid2name</span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-instance_method" title="HTS::LibHTS#sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1425,7 +1425,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_endpos'>endpos</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_endpos'>bam_endpos</span> <span class='ivar'>@bam1</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_endpos'><span class='object_link'><a href="../LibHTS.html#bam_endpos-instance_method" title="HTS::LibHTS#bam_endpos (method)">bam_endpos</a></span></span> <span class='ivar'>@bam1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1739,7 +1739,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_chrom'>mate_chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'>sam_hdr_tid2name</span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='comma'>,</span> <span class='id identifier rubyid_mtid'>mtid</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-instance_method" title="HTS::LibHTS#sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='comma'>,</span> <span class='id identifier rubyid_mtid'>mtid</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1985,7 +1985,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qlen'>qlen</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2qlen'>bam_cigar2qlen</span><span class='lparen'>(</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2qlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2qlen-instance_method" title="HTS::LibHTS#bam_cigar2qlen (method)">bam_cigar2qlen</a></span></span><span class='lparen'>(</span>
     <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
   <span class='rparen'>)</span>
@@ -2105,7 +2105,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rlen'>rlen</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2rlen'>bam_cigar2rlen</span><span class='lparen'>(</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2rlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2rlen-instance_method" title="HTS::LibHTS#bam_cigar2rlen (method)">bam_cigar2rlen</a></span></span><span class='lparen'>(</span>
     <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
   <span class='rparen'>)</span>
@@ -2369,7 +2369,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to format bam record</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_format1'>sam_format1</span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to format bam record</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_format1'><span class='object_link'><a href="../LibHTS.html#sam_format1-instance_method" title="HTS::LibHTS#sam_format1 (method)">sam_format1</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@bam1</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
   <span class='id identifier rubyid_kstr'>kstr</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
@@ -2383,7 +2383,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 22 04:06:04 2022 by
+  Generated on Fri Apr 22 04:30:03 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
