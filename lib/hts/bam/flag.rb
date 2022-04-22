@@ -77,7 +77,7 @@ module HTS
         has_flag? LibHTS::BAM_FQCFAIL
       end
 
-      def dup?
+      def duplicate?
         has_flag? LibHTS::BAM_FDUP
       end
 
