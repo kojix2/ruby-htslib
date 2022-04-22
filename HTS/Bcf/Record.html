@@ -423,6 +423,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#rid=-instance_method" title="#rid= (instance method)">#<strong>rid=</strong>(rid)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#start-instance_method" title="#start (instance method)">#<strong>start</strong>  &#x21d2; Object </a>
     
 
@@ -649,15 +671,15 @@
       <pre class="lines">
 
 
-84
-85
-86
-87
 88
-89</pre>
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alleles'>alleles</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_STR-constant" title="HTS::LibHTS::BCF_UN_STR (constant)">BCF_UN_STR</a></span></span><span class='rparen'>)</span>
@@ -685,15 +707,15 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
 81
-82</pre>
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alt'>alt</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_STR-constant" title="HTS::LibHTS::BCF_UN_STR (constant)">BCF_UN_STR</a></span></span><span class='rparen'>)</span>
@@ -732,12 +754,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_id2name'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_id2name-class_method" title="HTS::LibHTS.bcf_hdr_id2name (method)">bcf_hdr_id2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
@@ -762,10 +784,6 @@
       <pre class="lines">
 
 
-48
-49
-50
-51
 52
 53
 54
@@ -780,10 +798,14 @@
 63
 64
 65
-66</pre>
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter'>filter</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_FLT-constant" title="HTS::LibHTS::BCF_UN_FLT (constant)">BCF_UN_FLT</a></span></span><span class='rparen'>)</span>
@@ -824,13 +846,13 @@
       <pre class="lines">
 
 
-96
-97
-98
-99</pre>
+100
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_FMT-constant" title="HTS::LibHTS::BCF_UN_FMT (constant)">BCF_UN_FMT</a></span></span><span class='rparen'>)</span>
@@ -856,13 +878,13 @@
       <pre class="lines">
 
 
-43
-44
-45
-46</pre>
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_INFO-constant" title="HTS::LibHTS::BCF_UN_INFO (constant)">BCF_UN_INFO</a></span></span><span class='rparen'>)</span>
@@ -888,13 +910,13 @@
       <pre class="lines">
 
 
-91
-92
-93
-94</pre>
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_SHR-constant" title="HTS::LibHTS::BCF_UN_SHR (constant)">BCF_UN_SHR</a></span></span><span class='rparen'>)</span>
@@ -920,12 +942,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos'>pos</span>
   <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span> <span class='comment'># FIXME
@@ -950,12 +972,12 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span>
   <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span>
@@ -980,13 +1002,13 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ref'>ref</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_unpack'>bcf_unpack</span><span class='lparen'>(</span><span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_UN_STR-constant" title="HTS::LibHTS::BCF_UN_STR (constant)">BCF_UN_STR</a></span></span><span class='rparen'>)</span>
@@ -1039,6 +1061,36 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="rid=-instance_method">
+  
+    #<strong>rid=</strong>(rid)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rid='>rid=</span><span class='lparen'>(</span><span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
+  <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:rid</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_rid'>rid</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="start-instance_method">
   
     #<strong>start</strong>  &#x21d2; <tt>Object</tt> 
@@ -1053,12 +1105,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
   <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span>
@@ -1083,12 +1135,12 @@
       <pre class="lines">
 
 
-39
-40
-41</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
   <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='ivar'>@bcf1</span><span class='lbracket'>[</span><span class='symbol'>:rlen</span><span class='rbracket'>]</span>
@@ -1173,15 +1225,15 @@
       <pre class="lines">
 
 
-101
-102
-103
-104
 105
-106</pre>
+106
+107
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_ksr'>ksr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1199,7 +1251,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 22 01:37:36 2022 by
+  Generated on Fri Apr 22 01:42:19 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
