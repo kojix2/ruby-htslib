@@ -71,7 +71,7 @@ module HTS
         when 1
           i = d[:flt].read_int
           LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
-        when 2
+        when 2..nil
           d[:flt].get_array_of_int(0, n_flt).map do |i|
             LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
           end
