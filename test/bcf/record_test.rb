@@ -79,6 +79,13 @@ class BcfRecordTest < Minitest::Test
     assert_in_epsilon 12.9, @v2.qual
   end
 
+  def test_qual=
+    v = @v1.clone
+    assert_in_epsilon 59.2, v.qual
+    v.qual = 10.0
+    assert_in_epsilon 10.0, v.qual
+  end
+
   def test_ref
     assert_equal "C", @v1.ref
     assert_equal "GTTT", @v2.ref

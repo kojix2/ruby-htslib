@@ -80,8 +80,13 @@ module HTS
         end
       end
 
+      # Get variant quality.
       def qual
         @bcf1[:qual]
+      end
+
+      def qual=(qual)
+        @bcf1[:qual] = qual
       end
 
       def ref
