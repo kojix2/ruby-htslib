@@ -41,13 +41,19 @@ module HTS
         @bcf1[:pos] = pos
       end
 
+      # Return the 0-based, exclusive end position
       def endpos
-        @bcf1[:pos] + @bcf1[:rlen]
+        pos + @bcf1[:rlen]
       end
 
+      # Return the value of the ID column.
       def id
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_INFO)
         @bcf1[:d][:id]
+      end
+
+      def id=(id)
+        LibHTS.bcf_update_id(@header, @bcf1, id)
       end
 
       def filter

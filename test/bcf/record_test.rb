@@ -53,6 +53,14 @@ class BcfRecordTest < Minitest::Test
     assert_equal "id3D", @v2.id
   end
 
+  def test_id=
+    assert_equal ".", @v1.id
+    @v1.id = "kirby"
+    assert_equal "kirby", @v1.id
+    @v1.id = "."
+    assert_equal ".", @v1.id
+  end
+
   def test_filter
     assert_equal "PASS", @v1.filter
     assert_equal "q10", @v2.filter
