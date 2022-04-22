@@ -41,7 +41,7 @@ module HTS
         @bcf1[:pos] = pos
       end
 
-      def stop
+      def endpos
         @bcf1[:pos] + @bcf1[:rlen]
       end
 
