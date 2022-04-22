@@ -236,6 +236,14 @@ class BamRecordTest < Minitest::Test
 
   # TODO: def test_aux_char
 
+  require_relative "flag_test"
+  BamFlagTest::FLAG_METHODS.each do |flg|
+    define_method("test_#{flg}") do
+      assert_equal @aln1.flag.public_send(flg), @aln1.public_send(flg)
+      assert_equal @aln2.flag.public_send(flg), @aln2.public_send(flg)
+    end
+  end
+
   def test_to_s
     assert_equal "poo_3290_3833_2:0:0_2:0:0_119\t133\tpoo\t3290\t0\t*\t=\t3290\t0\tGGGGCAGCTTGTTCGAAGCGTGACCCCCAAGACGTCGTCCTGACGAGCACAAACTCCCATTGAGAGTGGC\t2222222222222222222222222222222222222222222222222222222222222222222222\tMC:Z:70M\tAS:i:0\tXS:i:0",
                  @aln1.to_s

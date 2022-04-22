@@ -26,7 +26,7 @@ class BamFlagTest < Minitest::Test
     assert_equal 0, @flag_zero.value
   end
 
-  flag_methods = %w[
+  FLAG_METHODS = %w[
     paired?
     proper_pair?
     unmapped?
@@ -41,7 +41,7 @@ class BamFlagTest < Minitest::Test
     supplementary?
   ]
 
-  flag_methods.each do |flag_name|
+  FLAG_METHODS.each do |flag_name|
     define_method("test_#{flag_name}") do
       assert_equal true, @flag.public_send(flag_name)
       assert_equal false, @flag_zero.public_send(flag_name)

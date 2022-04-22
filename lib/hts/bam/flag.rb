@@ -27,66 +27,29 @@ module HTS
       # BAM_FDUP           = 1024
       # BAM_FSUPPLEMENTARY = 2048
 
-      # TODO: Enabling bitwise operations
-      # hts-nim
-      # proc `and`*(f: Flag, o: uint16): uint16 {. borrow, inline .}
-      # proc `and`*(f: Flag, o: Flag): uint16 {. borrow, inline .}
-      # proc `or`*(f: Flag, o: uint16): uint16 {. borrow .}
-      # proc `or`*(o: uint16, f: Flag): uint16 {. borrow .}
-      # proc `==`*(f: Flag, o: Flag): bool {. borrow, inline .}
-      # proc `==`*(f: Flag, o: uint16): bool {. borrow, inline .}
-      # proc `==`*(o: uint16, f: Flag): bool {. borrow, inline .}
+      # TODO: Enabling bitwise operations?
 
-      def paired?
-        has_flag? LibHTS::BAM_FPAIRED
+      TABLE = { paired?: LibHTS::BAM_FPAIRED,
+                proper_pair?: LibHTS::BAM_FPROPER_PAIR,
+                unmapped?: LibHTS::BAM_FUNMAP,
+                mate_unmapped?: LibHTS::BAM_FMUNMAP,
+                reverse?: LibHTS::BAM_FREVERSE,
+                mate_reverse?: LibHTS::BAM_FMREVERSE,
+                read1?: LibHTS::BAM_FREAD1,
+                read2?: LibHTS::BAM_FREAD2,
+                secondary?: LibHTS::BAM_FSECONDARY,
+                qcfail?: LibHTS::BAM_FQCFAIL,
+                duplicate?: LibHTS::BAM_FDUP,
+                supplementary?: LibHTS::BAM_FSUPPLEMENTARY }.freeze
+
+      TABLE.each do |name, v|
+        define_method(name) do
+          has_flag?(v)
+        end
       end
 
-      def proper_pair?
-        has_flag? LibHTS::BAM_FPROPER_PAIR
-      end
-
-      def unmapped?
-        has_flag? LibHTS::BAM_FUNMAP
-      end
-
-      def mate_unmapped?
-        has_flag? LibHTS::BAM_FMUNMAP
-      end
-
-      def reverse?
-        has_flag? LibHTS::BAM_FREVERSE
-      end
-
-      def mate_reverse?
-        has_flag? LibHTS::BAM_FMREVERSE
-      end
-
-      def read1?
-        has_flag? LibHTS::BAM_FREAD1
-      end
-
-      def read2?
-        has_flag? LibHTS::BAM_FREAD2
-      end
-
-      def secondary?
-        has_flag? LibHTS::BAM_FSECONDARY
-      end
-
-      def qcfail?
-        has_flag? LibHTS::BAM_FQCFAIL
-      end
-
-      def duplicate?
-        has_flag? LibHTS::BAM_FDUP
-      end
-
-      def supplementary?
-        has_flag? LibHTS::BAM_FSUPPLEMENTARY
-      end
-
-      def has_flag?(m)
-        (@value & m) != 0
+      def has_flag?(f)
+        (@value & f) != 0
       end
 
       def to_s
