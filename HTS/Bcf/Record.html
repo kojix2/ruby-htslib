@@ -939,7 +939,7 @@
   <span class='kw'>when</span> <span class='int'>1</span>
     <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_d'>d</span><span class='lbracket'>[</span><span class='symbol'>:flt</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
     <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_int2id'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_int2id-class_method" title="HTS::LibHTS.bcf_hdr_int2id (method)">bcf_hdr_int2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='int'>2</span>
+  <span class='kw'>when</span> <span class='int'>2</span><span class='op'>..</span><span class='kw'>nil</span>
     <span class='id identifier rubyid_d'>d</span><span class='lbracket'>[</span><span class='symbol'>:flt</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get_array_of_int'>get_array_of_int</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_n_flt'>n_flt</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
       <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_int2id'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_int2id-class_method" title="HTS::LibHTS.bcf_hdr_int2id (method)">bcf_hdr_int2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
@@ -1394,7 +1394,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 22 02:27:41 2022 by
+  Generated on Fri Apr 22 02:47:22 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
