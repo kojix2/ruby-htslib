@@ -27,6 +27,16 @@ module HTS
       end
     end
 
+    def close
+      return if closed?
+      LibHTS.hts_close(@hts_file)
+      @hts_file = nil
+    end
+
+    def closed?
+      @hts_file.nil? || @hts_file.null?
+    end
+
     def seek(offset)
       if @hts_file[:is_cram] == 1
         LibHTS.cram_seek(@hts_file[:fp][:cram], offset, IO::SEEK_SET)

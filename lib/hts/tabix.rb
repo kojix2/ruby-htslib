@@ -42,14 +42,5 @@ module HTS
         raise "Failed to set number of threads: #{threads}" if r < 0
       end
     end
-
-    def close
-      LibHTS.hts_close(@hts_file)
-      @hts_file = nil
-    end
-
-    def closed?
-      @hts_file.nil?
-    end
   end
 end
