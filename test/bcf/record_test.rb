@@ -43,6 +43,14 @@ class BcfRecordTest < Minitest::Test
     assert_equal 3_062_914, @v2.pos
   end
 
+  def test_pos=
+    assert_equal 3_000_150, @v1.pos
+    @v1.pos = 3_000_151
+    assert_equal 3_000_151, @v1.pos
+    @v1.pos = 3_000_150
+    assert_equal 3_000_150, @v1.pos
+  end
+
   def test_endpos
     assert_equal 3_000_151, @v1.endpos
     assert_equal 3_062_918, @v2.endpos
