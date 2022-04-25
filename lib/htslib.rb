@@ -40,6 +40,6 @@ module HTS
 
   autoload :Bam,    "hts/bam"
   autoload :Bcf,    "hts/bcf"
-  autoload :Tabix,  "hts/tabix"
+  autoload :Tbx,    "hts/tbx"
   autoload :Faidx,  "hts/faidx"
 end

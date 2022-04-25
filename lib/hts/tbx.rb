@@ -5,7 +5,7 @@ require_relative "../htslib"
 require_relative "hts"
 
 module HTS
-  class Tabix < Hts
+  class Tbx < Hts
     include Enumerable
 
     attr_reader :file_name
@@ -24,7 +24,7 @@ module HTS
 
     def initialize(file_name, threads: nil)
       if block_given?
-        message = "HTS::Tabix.new() dose not take block; Please use HTS::Tabix.open() instead"
+        message = "HTS::Tbx.new() dose not take block; Please use HTS::Tbx.open() instead"
         raise message
       end
 
