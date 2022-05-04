@@ -35,8 +35,8 @@ module HTS
         h = @record.header.struct
         r = @record.struct
 
-        info_values = proc do |type|
-          ret = LibHTS.bcf_get_info_values(h, r, key, p1, n, type)
+        info_values = proc do |typ|
+          ret = LibHTS.bcf_get_info_values(h, r, key, p1, n, typ)
           return nil if ret < 0 # return from method.
 
           p1.read_pointer
@@ -69,45 +69,49 @@ module HTS
       def fields
         n_info = @record.struct[:n_info]
         Array.new(n_info) do |i|
-          fld = LibHTS::BcfInfo.new(
-            @record.struct[:d][:info] +
-            i * LibHTS::BcfInfo.size
-          )
+          fld  = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
+          name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, fld[:key])
+          num  = LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_INFO, fld[:key])
+          type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, fld[:key])
           {
-            name: LibHTS.bcf_hdr_int2id(
-              @record.header.struct, LibHTS::BCF_DT_ID, fld[:key]
-            ),
-            n: LibHTS.bcf_hdr_id2number(
-              @record.header.struct, LibHTS::BCF_HL_INFO, fld[:key]
-            ),
-            vtype: fld[:type], i: fld[:key]
+            name: name,
+            n: num,
+            type: info_type_to_string(type),
+            i: fld[:key]
           }
         end
+      end
+
+      def to_h
+        ret = {}
+        @record.struct[:n_info].times do |i|
+          fld = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
+          name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, fld[:key])
+          ret[name] = get(name)
+        end
+        ret
       end
 
       private
 
       def get_info_type(key)
         @record.struct[:n_info].times do |i|
-          fld = LibHTS::BcfInfo.new(
-            @record.struct[:d][:info] +
-            i * LibHTS::BcfInfo.size
-          )
-          id = LibHTS.bcf_hdr_int2id(
-            @record.header.struct, LibHTS::BCF_DT_ID, fld[:key]
-          )
-          return fld[:type] if id == key
+          fld = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
+          id = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, fld[:key])
+          if id == key
+            type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, fld[:key])
+            return type
+          end
         end
       end
 
       def info_type_to_string(t)
         case t
-        when 0 then :flag
-        when 1, 2, 3, 4 then :int
-        when 5 then :float
-        when 7 then :string
-        else
-          raise "Unknown info type: #{t}"
+        when LibHTS::BCF_HT_FLAG then :flag
+        when LibHTS::BCF_HT_INT then :int
+        when LibHTS::BCF_HT_REAL then :float
+        when LibHTS::BCF_HT_STR then :string
+        when LibHTS::BCF_HT_LONG then :float
         end
       end
     end

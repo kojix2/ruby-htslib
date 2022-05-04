@@ -54,12 +54,17 @@ class BcfInfoTest < Minitest::Test
   end
 
   def test_fields
-    assert_equal [
-      { name: "DP4", n: 4, vtype: 1, i: 3 },
-      { name: "AN", n: 1, vtype: 1, i: 11 },
-      { name: "AC", n: 1_048_575, vtype: 1, i: 10 },
-      { name: "INDEL", n: 0, vtype: 0, i: 12 },
-      { name: "STR", n: 1, vtype: 7, i: 13 }
-    ], @info.fields
+    assert_equal [{ name: "DP4", n: 4, type: :int, i: 3 },
+                  { name: "AN", n: 1, type: :int, i: 11 },
+                  { name: "AC", n: 1_048_575, type: :int, i: 10 },
+                  { name: "INDEL", n: 0, type: :flag, i: 12 },
+                  { name: "STR", n: 1, type: :string, i: 13 }], @info.fields
+  end
+
+  def test_to_h
+    assert_equal(
+      { "DP4" => [1, 2, 3, 4], "AN" => [4], "AC" => [2], "INDEL" => true, "STR" => "test" },
+      @info.to_h
+    )
   end
 end
