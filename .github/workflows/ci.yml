@@ -25,6 +25,7 @@ jobs:
       - name: Install libdeflate & libcurl4 (ubuntu)
         if: ${{ matrix.os == 'ubuntu' }}
         run: |
+          sudo apt update -y
           sudo apt install -yq libdeflate-dev libcurl4-openssl-dev
           bundle exec rake htslib:build
       - name: Build and test with Rake
