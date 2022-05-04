@@ -21,19 +21,21 @@ class BamTest < Minitest::Test
     end
 
     %w[string uri].each do |type|
-      define_method "#{format}_#{type}" do
-        eval("@#{format}_#{type} ||= HTS::Bam.new(public_send(\"path_#{format}_#{type}\"))")
+      format_type = "#{format}_#{type}"
+
+      define_method "#{format_type}" do
+        eval("@#{format_type} ||= HTS::Bam.new(public_send(\"path_#{format_type}\"))")
       end
 
-      define_method "test_new_#{format}_#{type}" do
-        b = HTS::Bam.new(public_send("path_#{format}_#{type}"))
+      define_method "test_new_#{format_type}" do
+        b = HTS::Bam.new(public_send("path_#{format_type}"))
         assert_instance_of HTS::Bam, b
         b.close
         assert_equal true, b.closed?
       end
 
-      define_method "test_open_#{format}_#{type}" do
-        b = HTS::Bam.open(public_send("path_#{format}_#{type}"))
+      define_method "test_open_#{format_type}" do
+        b = HTS::Bam.open(public_send("path_#{format_type}"))
         assert_instance_of HTS::Bam, b
         assert_equal false, b.closed?
         b.close
@@ -41,37 +43,37 @@ class BamTest < Minitest::Test
         assert_nil b.close
       end
 
-      define_method "test_open_#{format}_#{type}_with_block" do
-        b = HTS::Bam.open(public_send("path_#{format}_#{type}")) do |b|
+      define_method "test_open_#{format_type}_with_block" do
+        b = HTS::Bam.open(public_send("path_#{format_type}")) do |b|
           assert_instance_of HTS::Bam, b
         end
         assert_equal true, b.closed?
       end
 
-      define_method "test_file_name_#{format}_#{type}" do
-        assert_equal public_send("path_#{format}_#{type}"),
-                     public_send("#{format}_#{type}").file_name
+      define_method "test_file_name_#{format_type}" do
+        assert_equal public_send("path_#{format_type}"),
+                     public_send("#{format_type}").file_name
       end
 
-      define_method "test_mode_#{format}_#{type}" do
-        assert_equal "r", public_send("#{format}_#{type}").mode
+      define_method "test_mode_#{format_type}" do
+        assert_equal "r", public_send("#{format_type}").mode
       end
 
-      define_method "test_header_#{format}_#{type}" do
-        assert_instance_of HTS::Bam::Header, public_send("#{format}_#{type}").header
+      define_method "test_header_#{format_type}" do
+        assert_instance_of HTS::Bam::Header, public_send("#{format_type}").header
       end
 
-      define_method "test_format_#{format}_#{type}" do
-        assert_equal format, public_send("#{format}_#{type}").format
+      define_method "test_format_#{format_type}" do
+        assert_equal format, public_send("#{format_type}").format
       end
 
-      define_method "test_format_version_#{format}_#{type}" do
-        assert_includes ["1", "1.6", "3.0"], public_send("#{format}_#{type}").format_version
+      define_method "test_format_version_#{format_type}" do
+        assert_includes ["1", "1.6", "3.0"], public_send("#{format_type}").format_version
       end
 
-      define_method "test_each_#{format}_#{type}" do
+      define_method "test_each_#{format_type}" do
         c = 0
-        result = public_send("#{format}_#{type}").all? do |r|
+        result = public_send("#{format_type}").all? do |r|
           c += 1
           r.is_a? HTS::Bam::Record
         end
@@ -81,9 +83,9 @@ class BamTest < Minitest::Test
 
       next unless format != "sam"
 
-      define_method "test_query_#{format}_#{type}" do
+      define_method "test_query_#{format_type}" do
         arr = []
-        public_send("#{format}_#{type}").query("chr2:350-700") do |aln|
+        public_send("#{format_type}").query("chr2:350-700") do |aln|
           arr << aln.pos
         end
         assert_equal [341, 658], arr
