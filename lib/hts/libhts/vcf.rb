@@ -221,6 +221,20 @@ module HTS
           LibHTS::BcfIdpair.size * int_id # offset
         )[:val][:info][type] >> 12
       end
+
+      def bcf_hdr_id2type(hdr, type, int_id)
+        LibHTS::BcfIdpair.new(
+          hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
+          LibHTS::BcfIdpair.size * int_id # offset
+        )[:val][:info][type] >> 4 & 0xf
+      end
+
+      def bcf_hdr_id2coltype(hdr, type, int_id)
+        LibHTS::BcfIdpair.new(
+          hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
+          LibHTS::BcfIdpair.size * int_id # offset
+        )[:val][:info][type] & 0xf
+      end
     end
   end
 end
