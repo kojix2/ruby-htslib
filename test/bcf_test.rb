@@ -23,8 +23,20 @@ class BcfTest < Minitest::Test
     assert_equal test_bcf_path, @bcf.file_name
   end
 
+  def test_mode
+    assert_equal "r", @bcf.mode
+  end
+
   def test_header
     assert_instance_of HTS::Bcf::Header, @bcf.header
+  end
+
+  def test_format
+    assert_equal "vcf", @bcf.format
+  end
+
+  def test_format_version
+    assert_equal "4.2", @bcf.format_version
   end
 
   def test_nsamples
@@ -39,4 +51,8 @@ class BcfTest < Minitest::Test
     alns = @bcf.to_a
     assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
   end
+
+  # def test_initialize_no_file
+  #   assert_raises(StandardError) { HTS::Bcf.new("/tmp/no_such_file") }
+  # end
 end
