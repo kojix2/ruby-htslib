@@ -51,7 +51,32 @@ module HTS
 
       @header = Bcf::Header.new(@hts_file)
 
+      create_index(index) if create_index
+
+      @idx = load_index(index)
+
       @start_position = tell
+    end
+
+    def create_index(index_name = nil)
+      warn "Create index for #{@file_name} to #{index_name}"
+      if index
+        LibHTS.bcf_index_build2(@hts_file, index_name, -1)
+      else
+        LibHTS.bcf_index_build(@hts_file, -1)
+      end
+    end
+
+    def load_index(index_name = nil)
+      if index_name
+        LibHTS.bcf_index_load2(@file_name, index_name)
+      else
+        LibHTS.bcf_index_load3(@file_name, nil, 2)
+      end
+    end
+
+    def index_loaded?
+      !@idx.null?
     end
 
     def write_header
