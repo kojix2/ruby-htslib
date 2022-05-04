@@ -23,7 +23,7 @@ class BamTest < Minitest::Test
     %w[string uri].each do |type|
       format_type = "#{format}_#{type}"
 
-      define_method "#{format_type}" do
+      define_method format_type.to_s do
         eval("@#{format_type} ||= HTS::Bam.new(public_send(\"path_#{format_type}\"))")
       end
 
@@ -52,28 +52,28 @@ class BamTest < Minitest::Test
 
       define_method "test_file_name_#{format_type}" do
         assert_equal public_send("path_#{format_type}"),
-                     public_send("#{format_type}").file_name
+                     public_send(format_type.to_s).file_name
       end
 
       define_method "test_mode_#{format_type}" do
-        assert_equal "r", public_send("#{format_type}").mode
+        assert_equal "r", public_send(format_type.to_s).mode
       end
 
       define_method "test_header_#{format_type}" do
-        assert_instance_of HTS::Bam::Header, public_send("#{format_type}").header
+        assert_instance_of HTS::Bam::Header, public_send(format_type.to_s).header
       end
 
       define_method "test_format_#{format_type}" do
-        assert_equal format, public_send("#{format_type}").format
+        assert_equal format, public_send(format_type.to_s).format
       end
 
       define_method "test_format_version_#{format_type}" do
-        assert_includes ["1", "1.6", "3.0"], public_send("#{format_type}").format_version
+        assert_includes ["1", "1.6", "3.0"], public_send(format_type.to_s).format_version
       end
 
       define_method "test_each_#{format_type}" do
         c = 0
-        result = public_send("#{format_type}").all? do |r|
+        result = public_send(format_type.to_s).all? do |r|
           c += 1
           r.is_a? HTS::Bam::Record
         end
@@ -85,7 +85,7 @@ class BamTest < Minitest::Test
 
       define_method "test_query_#{format_type}" do
         arr = []
-        public_send("#{format_type}").query("chr2:350-700") do |aln|
+        public_send(format_type.to_s).query("chr2:350-700") do |aln|
           arr << aln.pos
         end
         assert_equal [341, 658], arr
