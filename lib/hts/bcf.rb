@@ -50,6 +50,8 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bcf::Header.new(@hts_file)
+
+      @start_position = tell
     end
 
     def write_header
@@ -64,7 +66,6 @@ module HTS
     end
 
     # Close the current file.
-
 
     def nsamples
       header.nsamples

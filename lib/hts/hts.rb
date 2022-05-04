@@ -29,6 +29,7 @@ module HTS
 
     def close
       return if closed?
+
       LibHTS.hts_close(@hts_file)
       @hts_file = nil
     end
@@ -60,10 +61,14 @@ module HTS
     end
 
     def rewind
-      r = seek(@start_position) if @start_position
-      raise "Failed to rewind: #{r}" if r < 0
+      if @start_position
+        r = seek(@start_position)
+        raise "Failed to rewind: #{r}" if r < 0
 
-      r
+        tell
+      else
+        raise "Cannot rewind: no start position"
+      end
     end
   end
 end
