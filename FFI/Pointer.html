@@ -160,7 +160,6 @@
       <pre class="lines">
 
 
-5
 6
 7
 8
@@ -169,19 +168,20 @@
 11
 12
 13
-14</pre>
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/ffi_ext/pointer.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/ffi_ext/pointer.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read_array_of_struct'>read_array_of_struct</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ary'>ary</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
   <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>=</span> <span class='kw'>self</span>
-  <span class='id identifier rubyid_length'>length</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_j'>j</span><span class='op'>|</span>
+  <span class='id identifier rubyid_length'>length</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_j'>j</span><span class='op'>|</span>
     <span class='id identifier rubyid_ary'>ary</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp'>tmp</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>+=</span> <span class='id identifier rubyid_size'>size</span> <span class='kw'>unless</span> <span class='id identifier rubyid_j'>j</span> <span class='op'>==</span> <span class='id identifier rubyid_length'>length</span><span class='op'>-</span><span class='int'>1</span> <span class='comment'># avoid OOB
-</span>  <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>+=</span> <span class='id identifier rubyid_size'>size</span> <span class='kw'>unless</span> <span class='id identifier rubyid_j'>j</span> <span class='op'>==</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>1</span> <span class='comment'># avoid OOB
+</span>  <span class='kw'>end</span>
   <span class='id identifier rubyid_ary'>ary</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -194,7 +194,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May  5 03:20:15 2022 by
+  Generated on Thu May  5 13:47:29 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>

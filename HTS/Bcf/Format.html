@@ -395,12 +395,6 @@
       <pre class="lines">
 
 
-64
-65
-66
-67
-68
-69
 70
 71
 72
@@ -410,10 +404,16 @@
 76
 77
 78
-79</pre>
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span>
   <span class='id identifier rubyid_n_fmt'>n_fmt</span> <span class='op'>=</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_fmt</span><span class='rbracket'>]</span>
@@ -427,7 +427,7 @@
       <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
       <span class='label'>n:</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span>
       <span class='label'>type:</span> <span class='id identifier rubyid_ht_type_to_sym'>ht_type_to_sym</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='comma'>,</span>
-      <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+      <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span>
     <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -482,7 +482,13 @@
 59
 60
 61
-62</pre>
+62
+63
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 31</span>
@@ -500,7 +506,13 @@
     <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_type'>type</span> <span class='op'>||=</span> <span class='id identifier rubyid_ht_type_to_sym'>ht_type_to_sym</span><span class='lparen'>(</span><span class='id identifier rubyid_get_fmt_type'>get_fmt_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='comment'># The GT FORMAT field is special in that it is marked as a string in the header,
+</span>  <span class='comment'># but it is actually encoded as an integer.
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='symbol'>:int</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_ht_type_to_sym'>ht_type_to_sym</span><span class='lparen'>(</span><span class='id identifier rubyid_get_fmt_type'>get_fmt_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 
   <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>when</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:int32</span>
@@ -703,12 +715,12 @@
       <pre class="lines">
 
 
-81
-82
-83</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_fmt</span><span class='rbracket'>]</span>
@@ -733,19 +745,19 @@
       <pre class="lines">
 
 
-85
-86
-87
-88
-89
-90
 91
 92
 93
-94</pre>
+94
+95
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -767,7 +779,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May  5 03:20:15 2022 by
+  Generated on Thu May  5 13:47:28 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
