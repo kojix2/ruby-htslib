@@ -67,10 +67,7 @@ module HTS
 
       # FIXME: naming? room for improvement.
       def fields
-        n_info = @record.struct[:n_info]
-        Array.new(n_info) do |i|
-          info = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
-          key  = info[:key]
+        keys.map do |key|
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, key)
           num  = LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_INFO, key)
           type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, key)
@@ -89,9 +86,7 @@ module HTS
 
       def to_h
         ret = {}
-        @record.struct[:n_info].times do |i|
-          info = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
-          key  = info[:key]
+        keys.each do |key|
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, key)
           ret[name] = get(name)
         end
@@ -99,6 +94,16 @@ module HTS
       end
 
       private
+
+      def fmt_ptr
+        @record.struct[:d][:info].to_ptr
+      end
+
+      def keys
+        fmt_ptr.read_array_of_struct(LibHTS::BcfInfo, size).map do |info|
+          info[:key]
+        end
+      end
 
       def get_info_type(key)
         @record.struct[:n_info].times do |i|
