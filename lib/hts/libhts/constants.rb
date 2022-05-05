@@ -479,8 +479,8 @@ module HTS
         :id,             :string,
         :als,            :pointer, # (\\0-separated string)
         :allele,         :pointer,
-        :info,           :pointer, # BcfInfo.ptr,
-        :fmt,            BcfFmt.ptr,
+        :info,           :pointer, # array of BcfInfo.ptr,
+        :fmt,            :pointer, # array of BcfFmt.ptr,
         :var,            BcfVariant.ptr,
         :n_var,          :int,
         :var_type,       :int,
