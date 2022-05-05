@@ -108,8 +108,8 @@ module HTS
       def get_info_type(key)
         @record.struct[:n_info].times do |i|
           info = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
-          k  = info[:key]
-          id   = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, k)
+          k = info[:key]
+          id = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, k)
           if id == key
             type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, k)
             return type
