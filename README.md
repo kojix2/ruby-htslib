@@ -76,8 +76,8 @@ bcf.each do |r|
     ref:    r.ref,
     alt:    r.alt,
     filter: r.filter
-  # info:   r.info
-  # format: r.format
+    info:   r.info.to_h
+    format: r.format.to_h
 end
 
 bcf.close
