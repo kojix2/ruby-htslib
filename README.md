@@ -75,8 +75,8 @@ bcf.each do |r|
     qual:   r.qual.round(2),
     ref:    r.ref,
     alt:    r.alt,
-    filter: r.filter
-    info:   r.info.to_h
+    filter: r.filter,
+    info:   r.info.to_h,
     format: r.format.to_h
 end
 
