@@ -121,21 +121,21 @@
 
 <p>Read VCF / BCF - Variant Call Format file</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>b.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby">bcf = HTS::Bcf.open(&quot;b.bcf&quot;)
 
-<span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='label'>chrom:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_chrom'>chrom</span><span class='comma'>,</span>
-    <span class='label'>pos:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span>
-    <span class='label'>id:</span>     <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
-    <span class='label'>qual:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_qual'>qual</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span><span class='comma'>,</span>
-    <span class='label'>ref:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span>
-    <span class='label'>alt:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span><span class='comma'>,</span>
-    <span class='label'>filter:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span>
-  <span class='comment'># info:   r.info
-</span>  <span class='comment'># format: r.format
-</span><span class='kw'>end</span>
+bcf.each do |r|
+  p chrom:  r.chrom,
+    pos:    r.pos,
+    id:     r.id,
+    qual:   r.qual.round(2),
+    ref:    r.ref,
+    alt:    r.alt,
+    filter: r.filter
+    info:   r.info.to_h
+    format: r.format.to_h
+end
 
-<span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+bcf.close
 </code></pre>
 
 <h3 id="label-Low+level+API">Low level API</h3>
@@ -236,7 +236,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Thu May  5 13:47:25 2022 by
+  Generated on Thu May  5 14:16:29 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
