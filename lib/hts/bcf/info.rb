@@ -95,12 +95,12 @@ module HTS
 
       private
 
-      def fmt_ptr
+      def info_ptr
         @record.struct[:d][:info].to_ptr
       end
 
       def keys
-        fmt_ptr.read_array_of_struct(LibHTS::BcfInfo, size).map do |info|
+        info_ptr.read_array_of_struct(LibHTS::BcfInfo, size).map do |info|
           info[:key]
         end
       end
