@@ -41,7 +41,13 @@ module HTS
           p1.read_pointer
         end
 
-        type ||= ht_type_to_sym(get_fmt_type(key))
+        # The GT FORMAT field is special in that it is marked as a string in the header,
+        # but it is actually encoded as an integer.
+        if key == "GT"
+          type = :int
+        elsif type.nil?
+          type = ht_type_to_sym(get_fmt_type(key))
+        end
 
         case type&.to_sym
         when :int, :int32
@@ -73,7 +79,7 @@ module HTS
             name: name,
             n: num,
             type: ht_type_to_sym(type),
-            id: id,
+            id: id
           }
         end
       end
@@ -99,12 +105,10 @@ module HTS
 
       def get_fmt_type(qname)
         @record.struct[:n_fmt].times do |i|
-          fmt  = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
-          id  = fmt[:id]
+          fmt = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
+          id = fmt[:id]
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
-          if name == qname
-            return fmt[:type]
-          end
+          return fmt[:type] if name == qname
         end
       end
 
