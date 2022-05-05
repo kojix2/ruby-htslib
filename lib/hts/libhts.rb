@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "ffi_ext/struct"
+require_relative "ffi_ext/pointer"
 
 module HTS
   module LibHTS
