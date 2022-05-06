@@ -90,7 +90,7 @@ module HTS
     def write(var)
       raise IOError, "closed stream" if closed?
 
-      var_dup = var.dup = var.dup
+      var_dup = var.dup
       LibHTS.bcf_write(@hts_file, header, var_dup) > 0 || raise
     end
 
