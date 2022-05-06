@@ -64,6 +64,8 @@ module HTS
     end
 
     def create_index(index_name = nil)
+      raise IOError, "closed stream" if closed?
+
       warn "Create index for #{@file_name} to #{index_name}"
       if index
         LibHTS.sam_index_build2(@file_name, index_name, -1)
@@ -73,6 +75,8 @@ module HTS
     end
 
     def load_index(index_name = nil)
+      raise IOError, "closed stream" if closed?
+
       if index_name
         LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
       else
@@ -81,6 +85,8 @@ module HTS
     end
 
     def index_loaded?
+      raise IOError, "closed stream" if closed?
+
       !@idx.null?
     end
 

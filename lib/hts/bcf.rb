@@ -59,6 +59,8 @@ module HTS
     end
 
     def create_index(index_name = nil)
+      raise IOError, "closed stream" if closed?
+
       warn "Create index for #{@file_name} to #{index_name}"
       if index_name
         LibHTS.bcf_index_build2(@file_name, index_name, -1)
@@ -68,6 +70,8 @@ module HTS
     end
 
     def load_index(index_name = nil)
+      raise IOError, "closed stream" if closed?
+
       if index_name
         LibHTS.bcf_index_load2(@file_name, index_name)
       else
@@ -76,6 +80,8 @@ module HTS
     end
 
     def index_loaded?
+      raise IOError, "closed stream" if closed?
+
       !@idx.null?
     end
 
@@ -97,10 +103,14 @@ module HTS
     # Close the current file.
 
     def nsamples
+      raise IOError, "closed stream" if closed?
+
       header.nsamples
     end
 
     def samples
+      raise IOError, "closed stream" if closed?
+
       header.samples
     end
 
