@@ -83,8 +83,8 @@ module HTS
       raise IOError, "closed stream" if closed?
 
       @header = header.dup
-      LibHTS.hts_set_fai_filename(header.struct, @file_name)
-      LibHTS.bcf_hdr_write(@hts_file, header.struct)
+      LibHTS.hts_set_fai_filename(header, @file_name)
+      LibHTS.bcf_hdr_write(@hts_file, header)
     end
 
     def write(var)
