@@ -12,7 +12,7 @@ class BcfTest < Minitest::Test
   end
 
   def teardown
-    @bcf&.close
+    @bcf.close
   end
 
   def test_initialize

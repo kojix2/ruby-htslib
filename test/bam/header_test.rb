@@ -8,6 +8,10 @@ class BamHeaderTest < Minitest::Test
     @bam_header = @bam.header
   end
 
+  def teardown
+    @bam.close
+  end
+
   def test_initialize
     assert_instance_of HTS::Bam::Header, @bam_header
   end

@@ -3,29 +3,30 @@
 require_relative "../test_helper"
 
 class BamCigarTest < Minitest::Test
-  def poo
-    bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
-    alm = bam.first
-    alm.cigar
+  def setup
+    @bam1 = HTS::Bam.new(Fixtures["poo.sort.bam"])
+    @cgr1 = @bam1.first.cigar
+    @bam2 = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
+    @cgr2 = @bam2.first.cigar
   end
 
-  def colons
-    bam = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
-    alm = bam.first
-    alm.cigar
+  def teardown
+    @bam1.close
+    @bam2.close
   end
 
-  %i[poo colons].each do |file_path|
-    define_method "test_initialize_#{file_path}" do
-      assert_instance_of HTS::Bam::Cigar, public_send(file_path)
-    end
+  def test_initialize
+    assert_instance_of HTS::Bam::Cigar, @cgr1
+    assert_instance_of HTS::Bam::Cigar, @cgr2
+  end
 
-    define_method "test_to_s_#{file_path}" do
-      assert_equal ({ poo: "", colons: "10M" }[file_path]), public_send(file_path).to_s
-    end
+  def test_to_s
+    assert_equal "", @cgr1.to_s
+    assert_equal "10M", @cgr2.to_s
+  end
 
-    define_method "test_to_a_#{file_path}" do
-      assert_equal ({ poo: [], colons: [["M", 10]] }[file_path]), public_send(file_path).to_a
-    end
+  def test_to_a
+    assert_equal [], @cgr1.to_a
+    assert_equal [["M", 10]], @cgr2.to_a
   end
 end

@@ -4,10 +4,15 @@ require_relative "../test_helper"
 
 class BamRecordTest < Minitest::Test
   def setup
-    bam1 = HTS::Bam.new(Fixtures["poo.sort.bam"])
-    @aln1 = bam1.first
-    bam2 = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
-    @aln2 = bam2.first
+    @bam1 = HTS::Bam.new(Fixtures["poo.sort.bam"])
+    @aln1 = @bam1.first
+    @bam2 = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
+    @aln2 = @bam2.first
+  end
+
+  def teardown
+    @bam1.close
+    @bam2.close
   end
 
   def test_qname

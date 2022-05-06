@@ -14,7 +14,7 @@ class BcfInfoTest < Minitest::Test
   end
 
   def teardown
-    @bcf&.close
+    @bcf.close
   end
 
   def test_get_with_type
