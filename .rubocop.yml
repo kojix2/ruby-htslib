@@ -10,3 +10,8 @@ Style/NumericPredicate:
 
 StringLiterals:
   EnforcedStyle: double_quotes
+
+# Single-character parameters are often used in htslib macro functions.
+
+Naming/MethodParameterName:
+  Enabled: false
