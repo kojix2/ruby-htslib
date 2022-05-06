@@ -45,7 +45,8 @@ class BcfFormatTest < Minitest::Test
 
   def test_to_h
     assert_equal(
-      { "GT" => [2, 4, 2, 4], "GQ" => [409, 409], "DP" => [35, 35], # Fixme: GT
+      # FIXME: Maybe GT should be string?
+      { "GT" => [2, 4, 2, 4], "GQ" => [409, 409], "DP" => [35, 35],
         "GL" => [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0] },
       @fmt.to_h
     )
