@@ -80,8 +80,12 @@ module HTS
         end
       end
 
-      def size
+      def length
         @record.struct[:n_info]
+      end
+
+      def size
+        length
       end
 
       def to_h
@@ -100,7 +104,7 @@ module HTS
       end
 
       def keys
-        info_ptr.read_array_of_struct(LibHTS::BcfInfo, size).map do |info|
+        info_ptr.read_array_of_struct(LibHTS::BcfInfo, length).map do |info|
           info[:key]
         end
       end

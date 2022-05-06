@@ -84,8 +84,12 @@ module HTS
         end
       end
 
-      def size
+      def length
         @record.struct[:n_fmt]
+      end
+
+      def size
+        length
       end
 
       def to_h
