@@ -28,6 +28,10 @@ module HTS
         get(key, :string)
       end
 
+      def [](key)
+        get(key)
+      end
+
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
         p1 = @p1
@@ -124,6 +128,7 @@ module HTS
             return type
           end
         end
+        nil
       end
 
       def ht_type_to_sym(t)

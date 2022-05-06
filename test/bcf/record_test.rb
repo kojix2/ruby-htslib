@@ -114,8 +114,25 @@ class BcfRecordTest < Minitest::Test
     assert_instance_of HTS::Bcf::Info, @v2.info
   end
 
+  def test_info_with_key
+    assert_equal [4], @v1.info("AN")
+    assert_equal [2], @v1.info("AC")
+    assert_nil @v1.info("INDEL")
+    assert_nil @v1.info("DP4")
+    assert_nil @v1.info("STR")
+    assert_nil @v1.info("UNKNOWN")
+  end
+
   def test_format
     assert_instance_of HTS::Bcf::Format, @v1.format
     assert_instance_of HTS::Bcf::Format, @v2.format
+  end
+
+  def test_format_with_key
+    assert_equal [32, 32], @v1.format("DP")
+    assert_equal [245, 245], @v1.format("GQ")
+    assert_nil @v1.format("GL")
+    assert_nil @v1.format("UN")
+    assert_nil @v1.format("UNKNOWN")
   end
 end

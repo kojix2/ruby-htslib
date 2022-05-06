@@ -41,6 +41,14 @@ class BcfInfoTest < Minitest::Test
     assert_equal "test", @info.get("STR")
   end
 
+  def test_get_square_brackets
+    assert_equal [1, 2, 3, 4], @info["DP4"]
+    assert_equal [4], @info["AN"]
+    assert_equal [2], @info["AC"]
+    assert_equal true, @info["INDEL"]
+    assert_equal "test", @info["STR"]
+  end
+
   def test_get_unknown_key
     assert_nil @info.get("UNKNOWN")
     assert_nil @info.get("UNKNOWN", :int)

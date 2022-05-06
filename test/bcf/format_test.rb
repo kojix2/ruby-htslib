@@ -35,6 +35,18 @@ class BcfFormatTest < Minitest::Test
     assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get("GL")
   end
 
+  def test_get_square_brackets
+    assert_equal [409, 409], @fmt["GQ"]
+    assert_equal [35, 35], @fmt["DP"]
+    assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt["GL"]
+  end
+
+  def test_get_unknown_key
+    assert_nil @fmt.get("UN")
+    assert_nil @fmt["UNKNOWN"]
+    assert_nil @fmt["UN"]
+  end
+
   def test_fields
     assert_equal [{ name: "GT", n: 1, type: :string, id: 4 },
                   { name: "GQ", n: 1, type: :int, id: 5 },

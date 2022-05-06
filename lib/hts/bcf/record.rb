@@ -108,14 +108,23 @@ module HTS
         ).map(&:read_string)
       end
 
-      def info
+      def info(key = nil)
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_SHR)
-        Info.new(self)
+        info = Info.new(self)
+        if key
+          info.get(key)
+        else
+          info
+        end
       end
 
-      def format
+      def format(key = nil)
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FMT)
-        Format.new(self)
+        if key
+          Format.new(self).get(key)
+        else
+          Format.new(self)
+        end
       end
 
       def to_s

@@ -28,6 +28,10 @@ module HTS
         get(key, :flag)
       end
 
+      def [](key)
+        get(key)
+      end
+
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
@@ -119,6 +123,7 @@ module HTS
             return type
           end
         end
+        nil
       end
 
       def ht_type_to_sym(t)

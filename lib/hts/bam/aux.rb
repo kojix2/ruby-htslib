@@ -30,6 +30,10 @@ module HTS
           raise NotImplementedError, "type: #{t}"
         end
       end
+
+      def [](key)
+        get(key)
+      end
     end
   end
 end
