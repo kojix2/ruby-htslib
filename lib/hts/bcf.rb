@@ -26,7 +26,7 @@ module HTS
       file
     end
 
-    def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil,
+    def initialize(file_name, mode = "r", index: nil, threads: nil,
                    create_index: false)
       if block_given?
         message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
