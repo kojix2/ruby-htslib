@@ -57,21 +57,20 @@ module HTS
           format_values.call(LibHTS::BCF_HT_REAL)
                        .read_array_of_float(n.read_int)
         when :flag
-          raise NotImplementedError, "Flag type not implemented yet."
+          raise NotImplementedError, "Flag type not implemented yet. " \
+          "Please file an issue on GitHub."
           # format_values.call(LibHTS::BCF_HT_FLAG)
           #              .read_int == 1
         when :string, :str
-          raise NotImplementedError, "String type not implemented yet."
+          raise NotImplementedError, "String type not implemented yet. " \
+          "Please file an issue on GitHub."
           # format_values.call(LibHTS::BCF_HT_STR)
           #              .read_string
         end
       end
 
       def fields
-        n_fmt = @record.struct[:n_fmt]
-        Array.new(n_fmt) do |i|
-          fmt  = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
-          id   = fmt[:id]
+        ids.map do |id|
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
           num  = LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_FMT, id)
           type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_FMT, id)
@@ -94,9 +93,7 @@ module HTS
 
       def to_h
         ret = {}
-        @record.struct[:n_fmt].times do |i|
-          fmt  = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
-          id   = fmt[:id]
+        ids.each do |id|
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
           ret[name] = get(name)
         end
@@ -107,12 +104,25 @@ module HTS
 
       private
 
+      def fmt_ptr
+        @record.struct[:d][:fmt].to_ptr
+      end
+
+      def ids
+        fmt_ptr.read_array_of_struct(LibHTS::BcfFmt, length).map do |fmt|
+          fmt[:id]
+        end
+      end
+
       def get_fmt_type(qname)
         @record.struct[:n_fmt].times do |i|
           fmt = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
           id = fmt[:id]
           name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
-          return fmt[:type] if name == qname
+          if name == qname
+            type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_FMT, id)
+            return type
+          end
         end
       end
 
