@@ -2,7 +2,7 @@
 
 require "htslib"
 
-bcf_path = File.expand_path("../htslib/test/tabix/vcf_file.bcf", __dir__)
+bcf_path = (ARGV[0] || File.expand_path("../htslib/test/tabix/vcf_file.bcf", __dir__))
 
 HTS::Bcf.open(bcf_path) do |bcf|
   bcf.each do |r|
@@ -14,5 +14,6 @@ HTS::Bcf.open(bcf_path) do |bcf|
         alt: r.alt,
         filter: r.filter,
         info: r.info.to_h,
+        format: r.format.to_h
   end
 end
