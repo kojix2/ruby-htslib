@@ -1328,7 +1328,7 @@
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
 
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_set_fai_filename'><span class='object_link'><a href="LibHTS.html#hts_set_fai_filename-instance_method" title="HTS::LibHTS#hts_set_fai_filename (method)">hts_set_fai_filename</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='ivar'>@file_name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_set_fai_filename'><span class='object_link'><a href="LibHTS.html#hts_set_fai_filename-instance_method" title="HTS::LibHTS#hts_set_fai_filename (method)">hts_set_fai_filename</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@file_name</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-instance_method" title="HTS::LibHTS#bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1341,7 +1341,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  6 07:57:37 2022 by
+  Generated on Fri May  6 08:06:25 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
