@@ -3,21 +3,22 @@
 require_relative "../test_helper"
 
 class BamAuxTest < Minitest::Test
-  def poo
-    bam = HTS::Bam.new(Fixtures["poo.sort.bam"])
-    alm = bam.first
-    alm.aux
+  def setup
+    @aux = nil
+    @bam = HTS::Bam.open(Fixtures["poo.sort.bam"]) { |b| @aux = b.first.aux }
   end
 
-  def colons
-    bam = HTS::Bam.new(File.expand_path("../../htslib/test/colons.bam", __dir__))
-    alm = bam.first
-    alm.aux
+  def teardown
+    @bam.close
   end
 
-  %i[poo colons].each do |file_path|
-    define_method "test_initialize_#{file_path}" do
-      assert_instance_of HTS::Bam::Aux, public_send(file_path)
-    end
+  def test_initialize
+    assert_instance_of HTS::Bam::Aux, @aux
+  end
+
+  def test_get
+    assert_equal "70M", @aux.get("MC")
+    assert_equal 0, @aux.get("AS")
+    assert_equal 0, @aux.get("XS")
   end
 end
