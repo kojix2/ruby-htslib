@@ -60,10 +60,10 @@ module HTS
 
     def create_index(index_name = nil)
       warn "Create index for #{@file_name} to #{index_name}"
-      if index
-        LibHTS.bcf_index_build2(@hts_file, index_name, -1)
+      if index_name
+        LibHTS.bcf_index_build2(@file_name, index_name, -1)
       else
-        LibHTS.bcf_index_build(@hts_file, -1)
+        LibHTS.bcf_index_build(@file_name, -1)
       end
     end
 
