@@ -9,6 +9,7 @@ require_relative "bam/flag"
 require_relative "bam/record"
 
 module HTS
+  # 
   class Bam
     include Enumerable
 

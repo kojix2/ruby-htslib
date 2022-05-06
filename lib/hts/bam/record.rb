@@ -2,6 +2,7 @@
 
 require_relative "flag"
 require_relative "cigar"
+require_relative "aux"
 
 module HTS
   class Bam < Hts
@@ -202,25 +203,12 @@ module HTS
       end
 
       # retruns the auxillary fields.
-      def aux(str)
-        aux = LibHTS.bam_aux_get(@bam1, str)
-        return nil if aux.null?
-
-        t = aux.read_string(1)
-
-        # A (character), B (general array),
-        # f (real number), H (hexadecimal array),
-        # i (integer), or Z (string).
-
-        case t
-        when "i", "I", "c", "C", "s", "S"
-          LibHTS.bam_aux2i(aux)
-        when "f", "d"
-          LibHTS.bam_aux2f(aux)
-        when "Z", "H"
-          LibHTS.bam_aux2Z(aux)
-        when "A" # char
-          LibHTS.bam_aux2A(aux).chr
+      def aux(key = nil)
+        aux = Aux.new(self)
+        if key
+          aux.get(key)
+        else
+          aux
         end
       end
 
