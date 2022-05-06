@@ -9,7 +9,6 @@ require_relative "bam/flag"
 require_relative "bam/record"
 
 module HTS
-  # 
   class Bam
     include Enumerable
 
@@ -93,12 +92,16 @@ module HTS
     end
 
     def write_header(header)
+      raise IOError, "closed stream" if closed?
+
       @header = header.dup
       LibHTS.hts_set_fai_filename(@hts_file, @file_name)
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
     def write(aln)
+      raise IOError, "closed stream" if closed?
+
       aln_dup = aln.dup
       LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
     end
@@ -107,6 +110,7 @@ module HTS
     # Generate a new Record object each time.
     # Slower than each.
     def each_copy
+      raise IOError, "closed stream" if closed?
       return to_enum(__method__) unless block_given?
 
       while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
@@ -120,6 +124,7 @@ module HTS
     # Record object is reused.
     # Faster than each_copy.
     def each
+      raise IOError, "closed stream" if closed?
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
       # This may change in the future.
@@ -133,6 +138,7 @@ module HTS
 
     # query [WIP]
     def query(region)
+      raise IOError, "closed stream" if closed?
       raise "Index file is required to call the query method." unless index_loaded?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
