@@ -58,7 +58,8 @@ class BcfInfoTest < Minitest::Test
                   { name: "AN", n: 1, type: :int, key: 11 },
                   { name: "AC", n: 1_048_575, type: :int, key: 10 },
                   { name: "INDEL", n: 0, type: :flag, key: 12 },
-                  { name: "STR", n: 1, type: :string, key: 13 }], @info.fields
+                  { name: "STR", n: 1, type: :string, key: 13 }],
+                 @info.fields
   end
 
   def test_to_h

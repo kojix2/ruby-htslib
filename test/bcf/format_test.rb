@@ -28,4 +28,26 @@ class BcfFormatTest < Minitest::Test
     assert_equal [35, 35], @fmt.get_int("DP")
     assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get_float("GL")
   end
+
+  def test_get_without_type
+    assert_equal [409, 409], @fmt.get("GQ")
+    assert_equal [35, 35], @fmt.get("DP")
+    assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get("GL")
+  end
+
+  def test_fields
+    assert_equal [{ name: "GT", n: 1, type: :string, id: 4 },
+                  { name: "GQ", n: 1, type: :int, id: 5 },
+                  { name: "DP", n: 1, type: :int, id: 6 },
+                  { name: "GL", n: 1_048_575, type: :float, id: 7 }],
+                 @fmt.fields
+  end
+
+  def test_to_h
+    assert_equal(
+      { "GT" => [2, 4, 2, 4], "GQ" => [409, 409], "DP" => [35, 35], # Fixme: GT
+        "GL" => [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0] },
+      @fmt.to_h
+    )
+  end
 end
