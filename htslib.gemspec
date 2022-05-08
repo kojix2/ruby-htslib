@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "HTSlib bindings for Ruby"
   spec.homepage      = "https://github.com/kojix2/ruby-htslib"
   spec.license       = "MIT"
-  spec.required_ruby_version = ">= 2.7"
+  spec.required_ruby_version = ">= 3.1"
 
   # * If the shared library exists in the vendor directory,
   #   it will be included in the package.

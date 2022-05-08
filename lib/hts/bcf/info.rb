@@ -76,10 +76,10 @@ module HTS
           num  = LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_INFO, key)
           type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, key)
           {
-            name: name,
+            name:,
             n: num,
             type: ht_type_to_sym(type),
-            key: key
+            key:
           }
         end
       end
