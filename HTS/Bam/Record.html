@@ -99,7 +99,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A class for working with alignment records.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
   
     <h2>
       Constant Summary
@@ -994,13 +1005,13 @@
       <pre class="lines">
 
 
-14
 15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_bam1_t'>bam1_t</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span> <span class='op'>=</span> <span class='id identifier rubyid_bam1_t'>bam1_t</span>
@@ -1044,12 +1055,12 @@
       <pre class="lines">
 
 
-12
 13
-14</pre>
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_header'>header</span>
   <span class='ivar'>@header</span>
@@ -1092,17 +1103,17 @@
       <pre class="lines">
 
 
-206
 207
 208
 209
 210
 211
 212
-213</pre>
+213
+214</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_aux'>aux</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Aux.html" title="HTS::Bam::Aux (class)">Aux</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Aux.html#initialize-instance_method" title="HTS::Bam::Aux#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -1143,16 +1154,16 @@
       <pre class="lines">
 
 
-166
 167
 168
 169
 170
 171
-172</pre>
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base'>base</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>+=</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&lt;</span> <span class='int'>0</span>
@@ -1192,16 +1203,16 @@
       <pre class="lines">
 
 
-181
 182
 183
 184
 185
 186
-187</pre>
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_qual'>base_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>+=</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&lt;</span> <span class='int'>0</span>
@@ -1230,12 +1241,12 @@
       <pre class="lines">
 
 
-73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin'>bin</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bin</span><span class='rbracket'>]</span>
@@ -1260,12 +1271,12 @@
       <pre class="lines">
 
 
-77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin='>bin=</span><span class='lparen'>(</span><span class='id identifier rubyid_bin'>bin</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bin</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bin'>bin</span>
@@ -1305,14 +1316,14 @@
       <pre class="lines">
 
 
-87
 88
 89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_tid'>tid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1350,12 +1361,12 @@
       <pre class="lines">
 
 
-132
 133
-134</pre>
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cigar'>cigar</span>
   <span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Cigar.html#initialize-instance_method" title="HTS::Bam::Cigar#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1391,12 +1402,12 @@
       <pre class="lines">
 
 
-82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_endpos'>endpos</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_endpos'><span class='object_link'><a href="../LibHTS.html#bam_endpos-instance_method" title="HTS::LibHTS#bam_endpos (method)">bam_endpos</a></span></span> <span class='ivar'>@bam1</span>
@@ -1432,12 +1443,12 @@
       <pre class="lines">
 
 
-190
 191
-192</pre>
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag'>flag</span>
   <span class='const'><span class='object_link'><a href="Flag.html" title="HTS::Bam::Flag (class)">Flag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Flag.html#initialize-instance_method" title="HTS::Bam::Flag#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1462,7 +1473,6 @@
       <pre class="lines">
 
 
-194
 195
 196
 197
@@ -1471,10 +1481,11 @@
 200
 201
 202
-203</pre>
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 194</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag='>flag=</span><span class='lparen'>(</span><span class='id identifier rubyid_flag'>flag</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_flag'>flag</span>
@@ -1521,12 +1532,12 @@
       <pre class="lines">
 
 
-110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size'>insert_size</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:isize</span><span class='rbracket'>]</span>
@@ -1555,12 +1566,12 @@
       <pre class="lines">
 
 
-116
 117
-118</pre>
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size='>insert_size=</span><span class='lparen'>(</span><span class='id identifier rubyid_isize'>isize</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:isize</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_isize'>isize</span>
@@ -1585,12 +1596,12 @@
       <pre class="lines">
 
 
-161
 162
-163</pre>
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 162</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_len'>len</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span>
@@ -1626,12 +1637,12 @@
       <pre class="lines">
 
 
-123
 124
-125</pre>
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq'>mapq</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span>
@@ -1656,12 +1667,12 @@
       <pre class="lines">
 
 
-127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq='>mapq=</span><span class='lparen'>(</span><span class='id identifier rubyid_mapq'>mapq</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mapq'>mapq</span>
@@ -1701,14 +1712,14 @@
       <pre class="lines">
 
 
-96
 97
 98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_chrom'>mate_chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1746,12 +1757,12 @@
       <pre class="lines">
 
 
-65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mpos'>mpos</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mpos</span><span class='rbracket'>]</span>
@@ -1776,12 +1787,12 @@
       <pre class="lines">
 
 
-69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mpos='>mpos=</span><span class='lparen'>(</span><span class='id identifier rubyid_mpos'>mpos</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mpos</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mpos'>mpos</span>
@@ -1817,12 +1828,12 @@
       <pre class="lines">
 
 
-47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid'>mtid</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mtid</span><span class='rbracket'>]</span>
@@ -1847,12 +1858,12 @@
       <pre class="lines">
 
 
-51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid='>mtid=</span><span class='lparen'>(</span><span class='id identifier rubyid_mtid'>mtid</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mtid</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mtid'>mtid</span>
@@ -1888,12 +1899,12 @@
       <pre class="lines">
 
 
-56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos'>pos</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span>
@@ -1918,12 +1929,12 @@
       <pre class="lines">
 
 
-60
 61
-62</pre>
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos='>pos=</span><span class='lparen'>(</span><span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pos</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_pos'>pos</span>
@@ -1948,15 +1959,15 @@
       <pre class="lines">
 
 
-136
 137
 138
 139
 140
-141</pre>
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qlen'>qlen</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2qlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2qlen-instance_method" title="HTS::LibHTS#bam_cigar2qlen (method)">bam_cigar2qlen</a></span></span><span class='lparen'>(</span>
@@ -1995,12 +2006,12 @@
       <pre class="lines">
 
 
-28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qname'>qname</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_qname'><span class='object_link'><a href="../LibHTS.html#bam_get_qname-class_method" title="HTS::LibHTS.bam_get_qname (method)">bam_get_qname</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span>
@@ -2036,13 +2047,13 @@
       <pre class="lines">
 
 
-175
 176
 177
-178</pre>
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span>
   <span class='id identifier rubyid_q_ptr'>q_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_qual'><span class='object_link'><a href="../LibHTS.html#bam_get_qual-class_method" title="HTS::LibHTS.bam_get_qual (method)">bam_get_qual</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
@@ -2068,15 +2079,15 @@
       <pre class="lines">
 
 
-143
 144
 145
 146
 147
-148</pre>
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rlen'>rlen</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2rlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2rlen-instance_method" title="HTS::LibHTS#bam_cigar2rlen (method)">bam_cigar2rlen</a></span></span><span class='lparen'>(</span>
@@ -2119,17 +2130,17 @@
       <pre class="lines">
 
 
-151
 152
 153
 154
 155
 156
 157
-158</pre>
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span>
   <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_seq'><span class='object_link'><a href="../LibHTS.html#bam_get_seq-class_method" title="HTS::LibHTS.bam_get_seq (method)">bam_get_seq</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
@@ -2170,12 +2181,12 @@
       <pre class="lines">
 
 
-105
 106
-107</pre>
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strand'>strand</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_is_rev'><span class='object_link'><a href="../LibHTS.html#bam_is_rev-class_method" title="HTS::LibHTS.bam_is_rev (method)">bam_is_rev</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>+</span><span class='tstring_end'>&quot;</span></span>
@@ -2200,12 +2211,12 @@
       <pre class="lines">
 
 
-19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
   <span class='ivar'>@bam1</span>
@@ -2241,12 +2252,12 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid'>tid</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tid</span><span class='rbracket'>]</span>
@@ -2271,12 +2282,12 @@
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid='>tid=</span><span class='lparen'>(</span><span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tid</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_tid'>tid</span>
@@ -2301,12 +2312,12 @@
       <pre class="lines">
 
 
-23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
   <span class='ivar'>@bam1</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
@@ -2331,15 +2342,15 @@
       <pre class="lines">
 
 
-230
 231
 232
 233
 234
-235</pre>
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2357,7 +2368,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun May  8 02:13:11 2022 by
+  Generated on Sun May  8 03:14:48 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>

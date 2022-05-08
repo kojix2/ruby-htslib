@@ -108,7 +108,18 @@
   
 </div>
 
-<h2>Defined Under Namespace</h2>
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A class for working with VCF, BCF files.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
 <p class="children">
   
     
@@ -572,7 +583,6 @@
       <pre class="lines">
 
 
-29
 30
 31
 32
@@ -601,11 +611,10 @@
 55
 56
 57
-58
-59</pre>
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>threads:</span> <span class='kw'>nil</span><span class='comma'>,</span>
                <span class='label'>create_index:</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -631,13 +640,11 @@
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@mode</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span>
 
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="HTS::Bcf (class)">Bcf</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Bcf/Header.html" title="HTS::Bcf::Header (class)">Header</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bcf/Header.html#initialize-instance_method" title="HTS::Bcf::Header#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='rparen'>)</span>
-
   <span class='id identifier rubyid_create_index'>create_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_create_index'>create_index</span>
-
   <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
-
   <span class='ivar'>@start_position</span> <span class='op'>=</span> <span class='id identifier rubyid_tell'>tell</span>
-<span class='kw'>end</span></pre>
+  <span class='kw'>super</span> <span class='comment'># do nothing
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -676,12 +683,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_name'>file_name</span>
   <span class='ivar'>@file_name</span>
@@ -719,12 +726,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_header'>header</span>
   <span class='ivar'>@header</span>
@@ -762,12 +769,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_name'>index_name</span>
   <span class='ivar'>@index_name</span>
@@ -805,12 +812,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='ivar'>@mode</span>
@@ -842,7 +849,6 @@
       <pre class="lines">
 
 
-17
 18
 19
 20
@@ -852,10 +858,11 @@
 24
 25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span> <span class='comment'># do not yield
@@ -916,6 +923,7 @@
       <pre class="lines">
 
 
+60
 61
 62
 63
@@ -924,11 +932,10 @@
 66
 67
 68
-69
-70</pre>
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_index'>create_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -984,6 +991,7 @@
       <pre class="lines">
 
 
+134
 135
 136
 137
@@ -992,11 +1000,10 @@
 140
 141
 142
-143
-144</pre>
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1052,6 +1059,7 @@
       <pre class="lines">
 
 
+119
 120
 121
 122
@@ -1061,11 +1069,10 @@
 126
 127
 128
-129
-130</pre>
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_copy'>each_copy</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1133,14 +1140,14 @@
       <pre class="lines">
 
 
+81
 82
 83
 84
-85
-86</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1189,6 +1196,7 @@
       <pre class="lines">
 
 
+71
 72
 73
 74
@@ -1196,11 +1204,10 @@
 76
 77
 78
-79
-80</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1255,14 +1262,14 @@
       <pre class="lines">
 
 
+104
 105
 106
 107
-108
-109</pre>
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nsamples'>nsamples</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1311,14 +1318,14 @@
       <pre class="lines">
 
 
+110
 111
 112
 113
-114
-115</pre>
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_samples'>samples</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1367,15 +1374,15 @@
       <pre class="lines">
 
 
+95
 96
 97
 98
 99
-100
-101</pre>
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_var'>var</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1425,16 +1432,16 @@
       <pre class="lines">
 
 
+87
 88
 89
 90
 91
 92
-93
-94</pre>
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_header'>write_header</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>IOError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed stream</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1453,7 +1460,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun May  8 02:13:11 2022 by
+  Generated on Sun May  8 03:14:48 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>

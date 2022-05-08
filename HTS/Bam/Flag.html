@@ -99,7 +99,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>SAM flags</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
   
     <h2>
       Constant Summary
@@ -299,14 +310,14 @@
       <pre class="lines">
 
 
-9
 10
 11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_value'>flag_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span> <span class='kw'>unless</span> <span class='id identifier rubyid_flag_value'>flag_value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Integer</span>
@@ -351,12 +362,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span>
   <span class='ivar'>@value</span>
@@ -410,12 +421,12 @@
       <pre class="lines">
 
 
-51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_flag?'>has_flag?</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='int'>0</span>
@@ -440,13 +451,13 @@
       <pre class="lines">
 
 
-55
 56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_flag2str'><span class='object_link'><a href="../LibHTS.html#bam_flag2str-instance_method" title="HTS::LibHTS#bam_flag2str (method)">bam_flag2str</a></span></span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span>
@@ -462,7 +473,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun May  8 02:13:11 2022 by
+  Generated on Sun May  8 03:14:48 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
