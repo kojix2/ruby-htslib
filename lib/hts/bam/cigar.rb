@@ -7,12 +7,10 @@ module HTS
       include Enumerable
 
       def initialize(pointer, n_cigar)
-        @pointer = pointer
         @n_cigar = n_cigar
-      end
-
-      def to_ptr
-        @pointer
+        # Read the pointer before the memory is changed.
+        # Especially when called from a block of `each` iterator.
+        @c = pointer.read_array_of_uint32(n_cigar)  
       end
 
       def to_s
@@ -22,8 +20,7 @@ module HTS
       def each
         return to_enum(__method__) unless block_given?
 
-        @n_cigar.times do |i|
-          c = @pointer[i].read_uint32
+        @c.each do |c|
           op =  LibHTS.bam_cigar_opchr(c)
           len = LibHTS.bam_cigar_oplen(c)
           yield [op, len]
