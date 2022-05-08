@@ -9,8 +9,11 @@ class FaidxTest < Minitest::Test
 
   def test_initialize_fai
     assert_instance_of HTS::Faidx, @fai
-    skip
+    stderr_old = $stderr.dup
+    $stderr.reopen(File::NULL)
     assert_raises { HTS::Faidx.new("foo") }
+    $stderr.flush
+    $stderr.reopen(stderr_old)
   end
 
   def test_open
