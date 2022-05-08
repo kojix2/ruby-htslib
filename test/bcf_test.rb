@@ -47,10 +47,79 @@ class BcfTest < Minitest::Test
     assert_equal ["ERS220911"], @bcf.samples
   end
 
-  def test_each
-    alns = @bcf.to_a
+  def test_each_with_block
+    alns = []
+    @bcf.each do |aln|
+      alns << aln
+    end
     assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
   end
+
+  def test_each_without_block
+    alns = @bcf.each
+    assert_kind_of Enumerator, alns
+    assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
+  end
+
+  def test_chrom
+    act = @bcf.chrom
+    exp = @bcf.map(&:chrom)
+    assert_equal exp, act
+  end
+
+  def test_pos
+    act = @bcf.pos
+    exp = @bcf.map(&:pos)
+    assert_equal exp, act
+  end
+
+  def test_endpos
+    act = @bcf.endpos
+    exp = @bcf.map(&:endpos)
+    assert_equal exp, act
+  end
+
+  def test_id
+    act = @bcf.id
+    exp = @bcf.map(&:id)
+    assert_equal exp, act
+  end
+
+  def test_ref
+    act = @bcf.ref
+    exp = @bcf.map(&:ref)
+    assert_equal exp, act
+  end
+
+  def test_alt
+    act = @bcf.alt
+    exp = @bcf.map(&:alt)
+    assert_equal exp, act
+  end
+
+  def test_qual
+    act = @bcf.qual
+    exp = @bcf.map(&:qual)
+    assert_equal exp, act
+  end
+
+  def test_filter
+    act = @bcf.filter
+    exp = @bcf.map(&:filter)
+    assert_equal exp, act
+  end
+
+  # def test_info
+  #   act = @bcf.info
+  #   exp = @bcf.map(&:info)
+  #   assert_equal exp, act
+  # end
+
+  # def test_format
+  #   act = @bcf.format
+  #   exp = @bcf.map(&:format)
+  #   assert_equal exp, act
+  # end
 
   # def test_initialize_no_file
   #   assert_raises(StandardError) { HTS::Bcf.new("/tmp/no_such_file") }

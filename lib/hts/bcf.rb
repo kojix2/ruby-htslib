@@ -58,7 +58,7 @@ module HTS
     end
 
     def create_index(index_name = nil)
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       warn "Create index for #{@file_name} to #{index_name}"
       if index_name
@@ -69,7 +69,7 @@ module HTS
     end
 
     def load_index(index_name = nil)
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       if index_name
         LibHTS.bcf_index_load2(@file_name, index_name)
@@ -79,13 +79,13 @@ module HTS
     end
 
     def index_loaded?
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       !@idx.null?
     end
 
     def write_header
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       @header = header.dup
       LibHTS.hts_set_fai_filename(header, @file_name)
@@ -93,7 +93,7 @@ module HTS
     end
 
     def write(var)
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       var_dup = var.dup
       LibHTS.bcf_write(@hts_file, header, var_dup) > 0 || raise
@@ -102,13 +102,13 @@ module HTS
     # Close the current file.
 
     def nsamples
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       header.nsamples
     end
 
     def samples
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       header.samples
     end
@@ -117,7 +117,7 @@ module HTS
     # Generate a new Record object each time.
     # Slower than each.
     def each_copy
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       return to_enum(__method__) unless block_given?
 
@@ -132,7 +132,7 @@ module HTS
     # Record object is reused.
     # Faster than each_copy.
     def each
-      raise IOError, "closed stream" if closed?
+      check_closed
 
       return to_enum(__method__) unless block_given?
 
@@ -140,6 +140,84 @@ module HTS
       record = Record.new(bcf1, header)
       yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
       self
+    end
+
+    def chrom
+      check_closed
+      ary = map(&:chrom)
+      rewind
+      ary
+    end
+
+    def pos
+      check_closed
+      ary = map(&:pos)
+      rewind
+      ary
+    end
+
+    def endpos
+      check_closed
+      ary = map(&:endpos)
+      rewind
+      ary
+    end
+
+    def id
+      check_closed
+      ary = map(&:id)
+      rewind
+      ary
+    end
+
+    def ref
+      check_closed
+      ary = map(&:ref)
+      rewind
+      ary
+    end
+
+    def alt
+      check_closed
+      ary = map(&:alt)
+      rewind
+      ary
+    end
+
+    def qual
+      check_closed
+      ary = map(&:qual)
+      rewind
+      ary
+    end
+
+    def filter
+      check_closed
+      ary = map(&:filter)
+      rewind
+      ary
+    end
+
+    def info
+      warn "experimental"
+      check_closed
+      ary = map(&:info)
+      rewind
+      ary
+    end
+
+    def format
+      warn "experimental"
+      check_closed
+      ary = map(&:format)
+      rewind
+      ary
+    end
+
+    private
+
+    def check_closed
+      raise IOError, "closed stream" if closed?
     end
   end
 end
