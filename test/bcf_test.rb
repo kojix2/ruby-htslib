@@ -31,12 +31,12 @@ class BcfTest < Minitest::Test
     assert_instance_of HTS::Bcf::Header, @bcf.header
   end
 
-  def test_format
-    assert_equal "vcf", @bcf.format
+  def test_file_format
+    assert_equal "vcf", @bcf.file_format
   end
 
-  def test_format_version
-    assert_equal "4.2", @bcf.format_version
+  def test_file_format_version
+    assert_equal "4.2", @bcf.file_format_version
   end
 
   def test_nsamples

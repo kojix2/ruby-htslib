@@ -63,12 +63,12 @@ class BamTest < Minitest::Test
         assert_instance_of HTS::Bam::Header, public_send(format_type.to_s).header
       end
 
-      define_method "test_format_#{format_type}" do
-        assert_equal format, public_send(format_type.to_s).format
+      define_method "test_file_format_#{format_type}" do
+        assert_equal format, public_send(format_type.to_s).file_format
       end
 
-      define_method "test_format_version_#{format_type}" do
-        assert_includes ["1", "1.6", "3.0"], public_send(format_type.to_s).format_version
+      define_method "test_file_format_version_#{format_type}" do
+        assert_includes ["1", "1.6", "3.0"], public_send(format_type.to_s).file_format_version
       end
 
       define_method "test_each_#{format_type}" do
