@@ -178,11 +178,13 @@ bundle exec rake test
 
 <p>Many macro functions are used in HTSlib. Since these macro functions cannot be called using FFI, they must be reimplemented in Ruby.</p>
 <ul><li>
-<p>Actively use the advanced features of Ruby.</p>
+<p>Use the new version of Ruby to take full advantage of Ruby’s potential.</p>
+</li><li>
+<p>This is possible because we have a small number of users. What a deal!</p>
 </li><li>
 <p>Remain compatibile with <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a>.</p>
 </li><li>
-<p>The most difficult part is the return value. In the Crystal language, it is convenient for a method to return only one type. In the Ruby language, on the other hand, it is more convenient to return multiple classes. For example, in the Crystal language, it is confusing that a return value can take four types: Int32, Float32, Nil, and String. In Ruby, on the other hand, it is very common and does not cause any problems.</p>
+<p>The most difficult part is the return value. In the Crystal language, a method is expected to return only one type. In the Ruby language, on the other hand, methods that return multiple classes are very common. For example, in the Crystal language, the compiler is confused if the return value is one of four types: Int32, Float32, Nil, or String. In Ruby, this is very common and does not cause any problems.</p>
 </li></ul>
 
 <h4 id="label-FFI+Extensions">FFI Extensions</h4>
@@ -236,7 +238,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Sun May  8 14:05:09 2022 by
+  Generated on Sun May  8 14:46:26 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
