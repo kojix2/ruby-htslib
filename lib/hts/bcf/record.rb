@@ -61,6 +61,34 @@ module HTS
         LibHTS.bcf_update_id(@header, @bcf1, ".")
       end
 
+      def ref
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
+        @bcf1[:d][:allele].get_pointer(0).read_string
+      end
+
+      def alt
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
+        @bcf1[:d][:allele].get_array_of_pointer(
+          FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1
+        ).map(&:read_string)
+      end
+
+      def alleles
+        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
+        @bcf1[:d][:allele].get_array_of_pointer(
+          0, @bcf1[:n_allele]
+        ).map(&:read_string)
+      end
+
+      # Get variant quality.
+      def qual
+        @bcf1[:qual]
+      end
+
+      def qual=(qual)
+        @bcf1[:qual] = qual
+      end
+
       def filter
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FLT)
         d = @bcf1[:d]
@@ -79,34 +107,6 @@ module HTS
         else
           raise "Unexpected number of filters. n_flt: #{n_flt}"
         end
-      end
-
-      # Get variant quality.
-      def qual
-        @bcf1[:qual]
-      end
-
-      def qual=(qual)
-        @bcf1[:qual] = qual
-      end
-
-      def ref
-        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
-        @bcf1[:d][:allele].get_pointer(0).read_string
-      end
-
-      def alt
-        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
-        @bcf1[:d][:allele].get_array_of_pointer(
-          FFI::TYPE_POINTER.size, @bcf1[:n_allele] - 1
-        ).map(&:read_string)
-      end
-
-      def alleles
-        LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_STR)
-        @bcf1[:d][:allele].get_array_of_pointer(
-          0, @bcf1[:n_allele]
-        ).map(&:read_string)
       end
 
       def info(key = nil)
