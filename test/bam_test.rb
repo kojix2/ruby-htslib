@@ -103,7 +103,11 @@ class BamTest < Minitest::Test
     end
   end
 
-  # def test_initialize_no_file
-  #   assert_raises(StandardError) { HTS::Bam.new("/tmp/no_such_file") }
-  # end
+  def test_initialize_no_file_bam
+    stderr_old = $stderr.dup
+    $stderr.reopen(File::NULL)
+    assert_raises(Errno::ENOENT) { HTS::Bam.new("/tmp/no_such_file") }
+    $stderr.flush
+    $stderr.reopen(stderr_old)
+  end
 end

@@ -121,7 +121,11 @@ class BcfTest < Minitest::Test
   #   assert_equal exp, act
   # end
 
-  # def test_initialize_no_file
-  #   assert_raises(StandardError) { HTS::Bcf.new("/tmp/no_such_file") }
-  # end
+  def test_initialize_no_file_bcf
+    stderr_old = $stderr.dup
+    $stderr.reopen(File::NULL)
+    assert_raises(Errno::ENOENT) { HTS::Bcf.new("/tmp/no_such_file") }
+    $stderr.flush
+    $stderr.reopen(stderr_old)
+  end
 end
