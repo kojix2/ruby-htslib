@@ -4,6 +4,7 @@ require_relative "ffi_ext/struct"
 require_relative "ffi_ext/pointer"
 
 module HTS
+  # A Module for working with native C HTSlib structures and functions.
   module LibHTS
     extend FFI::Library
 

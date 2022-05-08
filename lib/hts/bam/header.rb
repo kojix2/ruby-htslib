@@ -2,6 +2,7 @@
 
 module HTS
   class Bam < Hts
+    # A class for working with alignment header.
     class Header
       def initialize(hts_file)
         @sam_hdr = LibHTS.sam_hdr_read(hts_file)

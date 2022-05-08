@@ -38,8 +38,8 @@ module HTS
         h = @record.header.struct
         r = @record.struct
 
-        format_values = proc do |type|
-          ret = LibHTS.bcf_get_format_values(h, r, key, p1, n, type)
+        format_values = proc do |typ|
+          ret = LibHTS.bcf_get_format_values(h, r, key, p1, n, typ)
           return nil if ret < 0 # return from method.
 
           p1.read_pointer

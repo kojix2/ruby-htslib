@@ -5,6 +5,7 @@
 
 module HTS
   class Bam < Hts
+    # SAM flags
     class Flag
       def initialize(flag_value)
         raise TypeError unless flag_value.is_a? Integer

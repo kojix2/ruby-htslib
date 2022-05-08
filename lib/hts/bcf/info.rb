@@ -2,6 +2,7 @@
 
 module HTS
   class Bcf < Hts
+    # Info field
     class Info
       def initialize(record)
         @record = record

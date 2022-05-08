@@ -9,6 +9,7 @@ require_relative "bcf/format"
 require_relative "bcf/record"
 
 module HTS
+  # A class for working with VCF, BCF files.
   class Bcf < Hts
     include Enumerable
 
@@ -50,12 +51,10 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bcf::Header.new(@hts_file)
-
       create_index(index) if create_index
-
       @idx = load_index(index)
-
       @start_position = tell
+      super # do nothing
     end
 
     def create_index(index_name = nil)

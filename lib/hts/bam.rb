@@ -9,6 +9,7 @@ require_relative "bam/flag"
 require_relative "bam/record"
 
 module HTS
+  # A class for working with SAM, BAM, CRAM files.
   class Bam
     include Enumerable
 
@@ -55,12 +56,10 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bam::Header.new(@hts_file)
-
       create_index(index) if create_index
-
       @idx = load_index(index)
-
       @start_position = tell
+      super # do nothing
     end
 
     def create_index(index_name = nil)

@@ -44,10 +44,10 @@ class BamTest < Minitest::Test
       end
 
       define_method "test_open_#{format_type}_with_block" do
-        b = HTS::Bam.open(public_send("path_#{format_type}")) do |b|
+        f = HTS::Bam.open(public_send("path_#{format_type}")) do |b|
           assert_instance_of HTS::Bam, b
         end
-        assert_equal true, b.closed?
+        assert_equal true, f.closed?
       end
 
       define_method "test_file_name_#{format_type}" do

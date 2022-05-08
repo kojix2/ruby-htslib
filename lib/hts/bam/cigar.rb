@@ -2,6 +2,7 @@
 
 module HTS
   class Bam < Hts
+    # CIGAR string
     class Cigar
       include Enumerable
 

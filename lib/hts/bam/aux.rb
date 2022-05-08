@@ -2,6 +2,7 @@
 
 module HTS
   class Bam < Hts
+    # Auxiliary record data
     class Aux
       def initialize(record)
         @record = record

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module HTS
+  # Module for working with C HTSlib.
   module LibHTS
     typedef :int64, :hts_pos_t
     typedef :pointer, :bam_plp_auto_f

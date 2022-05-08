@@ -7,13 +7,14 @@ multi_thread = 4
 bam_path = File.expand_path("../../test/fixtures/poo.sort.bam", __dir__)
 
 htf = HTS::LibHTS.hts_open(bam_path, "r")
-idx = HTS::LibHTS.sam_index_load(htf, bam_path)
+# idx = HTS::LibHTS.sam_index_load(htf, bam_path)
 hdr = HTS::LibHTS.sam_hdr_read(htf)
 
 if multi_thread
-  thp = HTS::LibHTS::HtsTpool.new
-  thp[:pool] = (t = HTS::LibHTS.hts_tpool_init(multi_thread))
-  HTS::LibHTS.hts_set_opt(htf, HTS::LibHTS::HtsFmtOption[:HTS_OPT_THREAD_POOL], :pointer, thp)
+  # thp = HTS::LibHTS::HtsTpool.new
+  # thp[:pool] = (t = HTS::LibHTS.hts_tpool_init(multi_thread))
+  # HTS::LibHTS.hts_set_opt(htf, HTS::LibHTS::HtsFmtOption[:HTS_OPT_THREAD_POOL], :pointer, thp)
+  HTS::LibHTS.hts_set_threads(htf, multi_thread)
 end
 
 b = HTS::LibHTS.bam_init1

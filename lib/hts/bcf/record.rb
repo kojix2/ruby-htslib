@@ -2,6 +2,7 @@
 
 module HTS
   class Bcf < Hts
+    # A class for working with VCF records.
     class Record
       def initialize(bcf_t, header)
         @bcf1 = bcf_t
@@ -69,8 +70,8 @@ module HTS
         when 0
           "PASS"
         when 1
-          i = d[:flt].read_int
-          LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
+          id = d[:flt].read_int
+          LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, id)
         when 2..nil
           d[:flt].get_array_of_int(0, n_flt).map do |i|
             LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)

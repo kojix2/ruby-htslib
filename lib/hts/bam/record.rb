@@ -6,6 +6,7 @@ require_relative "aux"
 
 module HTS
   class Bam < Hts
+    # A class for working with alignment records.
     class Record
       SEQ_NT16_STR = "=ACMGRSVTWYHKDBN"
 

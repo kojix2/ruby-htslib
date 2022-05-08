@@ -2,6 +2,7 @@
 
 module HTS
   class Bcf < Hts
+    # A class for working with VCF records.
     class Header
       def initialize(hts_file)
         @bcf_hdr = LibHTS.bcf_hdr_read(hts_file)

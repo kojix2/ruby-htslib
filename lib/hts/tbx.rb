@@ -41,6 +41,8 @@ module HTS
         r = LibHTS.hts_set_threads(@hts_file, threads)
         raise "Failed to set number of threads: #{threads}" if r < 0
       end
+
+      super # do nothing
     end
   end
 end

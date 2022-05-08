@@ -3,7 +3,12 @@
 require_relative "../htslib"
 
 module HTS
+  # A base class for hts files.
   class Hts
+    def initialize(*args)
+      # do nothing
+    end
+
     def struct
       @hts_file
     end
