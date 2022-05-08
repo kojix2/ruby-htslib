@@ -159,5 +159,92 @@ module HTS
         LibHTS.hts_itr_destroy(qiter)
       end
     end
+
+    def qname
+      check_closed
+      ary = map(&:qname)
+      rewind
+      ary
+    end
+
+    def flag
+      check_closed
+      ary = map(&:flag)
+      rewind
+      ary
+    end
+
+    def chrom
+      check_closed
+      ary = map(&:chrom)
+      rewind
+      ary
+    end
+
+    def pos
+      check_closed
+      ary = map(&:pos)
+      rewind
+      ary
+    end
+
+    def mapq
+      check_closed
+      ary = map(&:mapq)
+      rewind
+      ary
+    end
+
+    def cigar
+      check_closed
+      ary = map(&:cigar)
+      rewind
+      ary
+    end
+
+    def mate_chrom
+      check_closed
+      ary = map(&:mate_chrom)
+      rewind
+      ary
+    end
+
+    def mpos
+      check_closed
+      ary = map(&:mpos)
+      rewind
+      ary
+    end
+
+    def insert_size
+      check_closed
+      ary = map(&:insert_size)
+      rewind
+      ary
+    end
+
+    alias isize insert_size
+
+    def seq
+      check_closed
+      ary = map(&:seq)
+      rewind
+      ary
+    end
+
+    def qual
+      check_closed
+      ary = map(&:qual)
+      rewind
+      ary
+    end
+
+    def aux(tag)
+      warn "experimental"
+      check_closed
+      ary = map { |r| r.aux(tag) }
+      rewind
+      ary
+    end
   end
 end

@@ -81,14 +81,107 @@ class BamTest < Minitest::Test
         assert_includes ["1", "1.6", "3.0"], bam(ft).file_format_version
       end
 
-      define_method "test_each_#{ft}" do
+      define_method "test_each_#{ft}_with_block" do
         c = 0
-        result = bam(ft).all? do |r|
+        bam(ft).all? do |r|
           c += 1
           r.is_a? HTS::Bam::Record
         end
-        assert_equal true, result
         assert_equal 10, c
+      end
+
+      define_method "test_each_#{ft}_without_block" do
+        e = bam(ft).each
+        c = 0
+        e.all? do |r|
+          c += 1
+          r.is_a? HTS::Bam::Record
+        end
+        assert_equal 10, c
+      end
+
+      define_method "test_qname_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).qname
+        exp = bam(ft).map(&:qname)
+        assert_equal exp, act
+      end
+
+      define_method "test_flag_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).flag.map(&:to_i)
+        exp = bam(ft).map{|r| r.flag.to_i}
+        assert_equal exp, act
+      end
+
+      define_method "test_chrom_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).chrom
+        exp = bam(ft).map(&:chrom)
+        assert_equal exp, act
+      end
+
+      define_method "test_pos_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).pos
+        exp = bam(ft).map(&:pos)
+        assert_equal exp, act
+      end
+
+      define_method "test_mapq_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).mapq
+        exp = bam(ft).map(&:mapq)
+        assert_equal exp, act
+      end
+
+      define_method "test_cigar_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).cigar.map(&:to_s)
+        exp = bam(ft).map{|r| r.cigar.to_s}
+        assert_equal exp, act
+      end
+
+      define_method "test_mate_chrom_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).mate_chrom
+        exp = bam(ft).map(&:mate_chrom)
+        assert_equal exp, act
+      end
+
+      define_method "test_mpos_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).mpos
+        exp = bam(ft).map(&:mpos)
+        assert_equal exp, act
+      end
+
+      define_method "test_isize_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).isize
+        exp = bam(ft).map(&:isize)
+        assert_equal exp, act
+      end
+
+      define_method "test_seq_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).seq
+        exp = bam(ft).map(&:seq)
+        assert_equal exp, act
+      end
+
+      define_method "test_qual_#{ft}" do
+        skip if format == "cram"  
+        act = bam(ft).qual
+        exp = bam(ft).map(&:qual)
+        assert_equal exp, act
+      end
+
+      define_method "test_aux_#{ft}" do
+        skip if format == "cram"
+        act = bam(ft).aux("MC")
+        exp = bam(ft).map{|r| r.aux("MC")}
+        assert_equal exp, act
       end
 
       next unless format != "sam"

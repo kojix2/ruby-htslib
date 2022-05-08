@@ -53,6 +53,10 @@ module HTS
         (@value & f) != 0
       end
 
+      def to_i
+        @value
+      end
+
       def to_s
         LibHTS.bam_flag2str(@value)
         # "0x#{format('%x', @value)}\t#{@value}\t#{LibHTS.bam_flag2str(@value)}"
