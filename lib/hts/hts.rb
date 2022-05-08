@@ -43,6 +43,8 @@ module HTS
       @hts_file.nil? || @hts_file.null?
     end
 
+    private
+
     def seek(offset)
       if @hts_file[:is_cram] == 1
         LibHTS.cram_seek(@hts_file[:fp][:cram], offset, IO::SEEK_SET)
@@ -74,6 +76,10 @@ module HTS
       else
         raise "Cannot rewind: no start position"
       end
+    end
+
+    def check_closed
+      raise IOError, "closed stream" if closed?
     end
   end
 end

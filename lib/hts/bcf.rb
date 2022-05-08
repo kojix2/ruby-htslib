@@ -213,11 +213,5 @@ module HTS
       rewind
       ary
     end
-
-    private
-
-    def check_closed
-      raise IOError, "closed stream" if closed?
-    end
   end
 end
