@@ -85,7 +85,7 @@ bcf.close
 
 ### Low level API
 
-`HTS::LibHTS` provides native　C functions. 
+`HTS::LibHTS` provides native C functions. 
 
 ```ruby
 require 'htslib'
@@ -126,7 +126,7 @@ Many macro functions are used in HTSlib. Since these macro functions cannot be c
 * Use the new version of Ruby to take full advantage of Ruby's potential.
   * This is possible because we have a small number of users. What a deal!
 * Remain compatibile with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
-  * The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this.　But the code gets a little messy.　In Ruby, this is very common and doesn't cause any problems.　
+  * The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems. 
 
 #### FFI Extensions
 
@@ -157,7 +157,7 @@ If so, please feel free to contact us @kojix2.
 
 #### Why do you implement htslib in a language like Ruby, which is not widely used in the bioinformatics?
 
-One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools.　I hope one day we can work on bioinformatics using Ruby and Crystal languages, not to replace other languages such as Python and R, but to add new power and value to this advancing field.
+One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools. I hope one day we can work on bioinformatics using Ruby and Crystal languages, not to replace other languages such as Python and R, but to add new power and value to this advancing field.
 
 ## Links
 
