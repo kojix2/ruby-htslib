@@ -100,7 +100,7 @@ Note: htslib makes extensive use of macro functions for speed. you cannot use C 
 
 ### Need more speed?
 
-Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun.　However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. 
+Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create great tools.
 
 ## Documentation
 
@@ -126,7 +126,7 @@ Many macro functions are used in HTSlib. Since these macro functions cannot be c
 * Use the new version of Ruby to take full advantage of Ruby's potential.
   * This is possible because we have a small number of users. What a deal!
 * Remain compatibile with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
-  * The most difficult part is the return value. In the Crystal language, a method is expected to return only one type. In the Ruby language, on the other hand, methods that return multiple classes are very common. For example, in the Crystal language, the compiler is confused if the return value is one of four types: Int32, Float32, Nil, or String. In Ruby, this is very common and does not cause any problems.
+  * The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this.　But the code gets a little messy.　In Ruby, this is very common and doesn't cause any problems.　
 
 #### FFI Extensions
 
@@ -146,7 +146,10 @@ Ruby-htslib is a library under development, so even small improvements like typo
 * Suggest or add new features
 * [financial contributions](https://github.com/sponsors/kojix2)
 
+
 ```
+# Ownership and Commitment Rights
+
 Do you need commit rights to ruby-htslib repository?
 Do you want to get admin rights and take over the project?
 If so, please feel free to contact us @kojix2.
@@ -154,7 +157,7 @@ If so, please feel free to contact us @kojix2.
 
 #### Why do you implement htslib in a language like Ruby, which is not widely used in the bioinformatics?
 
-One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools. And that effort is still going on today...
+One of the greatest joys of using a minor language like Ruby in bioinformatics is that there is nothing stopping you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance left for beginners to create htslib bindings. Bioinformatics file formats, libraries and tools are very complex and I don't know how to understand them. So I wanted to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools.　I hope one day we can work on bioinformatics using Ruby and Crystal languages, not to replace other languages such as Python and R, but to add new power and value to this advancing field.
 
 ## Links
 
