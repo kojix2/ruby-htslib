@@ -27,7 +27,6 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -yq libdeflate-dev libcurl4-openssl-dev
-          bundle exec rake htslib:build
       - name: Build and test with Rake
         run: |
           bundle exec rake htslib:build
