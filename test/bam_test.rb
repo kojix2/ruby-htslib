@@ -110,7 +110,7 @@ class BamTest < Minitest::Test
       define_method "test_flag_#{ft}" do
         skip if format == "cram"
         act = bam(ft).flag.map(&:to_i)
-        exp = bam(ft).map{|r| r.flag.to_i}
+        exp = bam(ft).map { |r| r.flag.to_i }
         assert_equal exp, act
       end
 
@@ -138,7 +138,7 @@ class BamTest < Minitest::Test
       define_method "test_cigar_#{ft}" do
         skip if format == "cram"
         act = bam(ft).cigar.map(&:to_s)
-        exp = bam(ft).map{|r| r.cigar.to_s}
+        exp = bam(ft).map { |r| r.cigar.to_s }
         assert_equal exp, act
       end
 
@@ -171,7 +171,7 @@ class BamTest < Minitest::Test
       end
 
       define_method "test_qual_#{ft}" do
-        skip if format == "cram"  
+        skip if format == "cram"
         act = bam(ft).qual
         exp = bam(ft).map(&:qual)
         assert_equal exp, act
@@ -180,7 +180,7 @@ class BamTest < Minitest::Test
       define_method "test_aux_#{ft}" do
         skip if format == "cram"
         act = bam(ft).aux("MC")
-        exp = bam(ft).map{|r| r.aux("MC")}
+        exp = bam(ft).map { |r| r.aux("MC") }
         assert_equal exp, act
       end
 
