@@ -2,6 +2,7 @@
 
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "etc" # make -j #{Etc.nprocessors}
 
 task default: :test
 Rake::TestTask.new do |t|
@@ -15,7 +16,7 @@ namespace :htslib do
     Dir.chdir("htslib") do
       sh "autoreconf -i"
       sh "./configure"
-      sh "make"
+      sh "make -j #{Etc.nprocessors}"
       FileUtils.mkdir_p("../vendor")
       require "ffi"
       FileUtils.move(
