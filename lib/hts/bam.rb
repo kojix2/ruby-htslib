@@ -193,8 +193,9 @@ module HTS
     def aux(tag)
       warn "experimental"
       check_closed
+      position = tell
       ary = map { |r| r.aux(tag) }
-      rewind
+      seek(position)
       ary
     end
   end
