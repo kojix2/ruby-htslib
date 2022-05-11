@@ -164,17 +164,6 @@ module HTS
     #   @method $1
     #   Get $1 array
     #   @return [Array] the $1 array
-    def self.define_getter(name)
-      define_method(name) do
-        check_closed
-        position = tell
-        ary = map(&name)
-        seek(position)
-        ary
-      end
-    end
-    private_class_method :define_getter
-
     define_getter :qname
     define_getter :flag
     define_getter :chrom
@@ -203,20 +192,6 @@ module HTS
     # @!macro [attach] define_iterator
     #   @method each_$1
     #   Get $1 iterator
-    def self.define_iterator(name)
-      define_method("each_#{name}") do |&block|
-        check_closed
-        return to_enum(__method__) unless block
-
-        each do |record|
-          block.call(record.public_send(name))
-        end
-
-        self
-      end
-    end
-    private_class_method :define_iterator
-
     define_iterator :qname
     define_iterator :flag
     define_iterator :chrom

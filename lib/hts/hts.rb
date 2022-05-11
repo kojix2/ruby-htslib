@@ -5,6 +5,32 @@ require_relative "../htslib"
 module HTS
   # A base class for hts files.
   class Hts
+    class << self
+      private
+
+      def define_getter(name)
+        define_method(name) do
+          check_closed
+          position = tell
+          ary = map(&name)
+          seek(position)
+          ary
+        end
+      end
+
+      def define_iterator(name)
+        define_method("each_#{name}") do |&block|
+          check_closed
+          return to_enum(__method__) unless block
+
+          each do |record|
+            block.call(record.public_send(name))
+          end
+          self
+        end
+      end
+    end
+
     def initialize(*args)
       # do nothing
     end
