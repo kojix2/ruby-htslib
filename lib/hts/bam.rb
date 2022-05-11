@@ -160,7 +160,7 @@ module HTS
       end
     end
 
-    # @!macro [attach] generate
+    # @!macro [attach] define_getter
     #   @method $1
     #   Get $1 array
     #   @return [Array] the $1 array
@@ -199,7 +199,7 @@ module HTS
       ary
     end
 
-    # @!macro [attach] generate
+    # @!macro [attach] define_iterator
     #   @method each_$1
     #   Get $1 iterator
     def self.define_iterator(name)
