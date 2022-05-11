@@ -63,13 +63,16 @@ module HTS
       end
 
       # returns 0-based mate position
-      def mpos
+      def mate_pos
         @bam1[:core][:mpos]
       end
 
-      def mpos=(mpos)
+      def mate_pos=(mpos)
         @bam1[:core][:mpos] = mpos
       end
+
+      alias mpos mate_pos
+      alias mpos= mate_pos=
 
       def bin
         @bam1[:core][:bin]
@@ -112,12 +115,11 @@ module HTS
         @bam1[:core][:isize]
       end
 
-      alias isize insert_size
-
       def insert_size=(isize)
         @bam1[:core][:isize] = isize
       end
 
+      alias isize insert_size
       alias isize= insert_size=
 
       # mapping quality

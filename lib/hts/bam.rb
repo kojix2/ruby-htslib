@@ -160,84 +160,18 @@ module HTS
       end
     end
 
-    def qname
-      check_closed
-      ary = map(&:qname)
-      rewind
-      ary
-    end
-
-    def flag
-      check_closed
-      ary = map(&:flag)
-      rewind
-      ary
-    end
-
-    def chrom
-      check_closed
-      ary = map(&:chrom)
-      rewind
-      ary
-    end
-
-    def pos
-      check_closed
-      ary = map(&:pos)
-      rewind
-      ary
-    end
-
-    def mapq
-      check_closed
-      ary = map(&:mapq)
-      rewind
-      ary
-    end
-
-    def cigar
-      check_closed
-      ary = map(&:cigar)
-      rewind
-      ary
-    end
-
-    def mate_chrom
-      check_closed
-      ary = map(&:mate_chrom)
-      rewind
-      ary
-    end
-
-    def mpos
-      check_closed
-      ary = map(&:mpos)
-      rewind
-      ary
-    end
-
-    def insert_size
-      check_closed
-      ary = map(&:insert_size)
-      rewind
-      ary
+    %i[qname flag chrom pos mapq cigar mate_chrom mate_pos insert_size seq qual]
+      .each do |method|
+      define_method(method) do
+        check_closed
+        ary = map(&method)
+        rewind
+        ary
+      end
     end
 
     alias isize insert_size
-
-    def seq
-      check_closed
-      ary = map(&:seq)
-      rewind
-      ary
-    end
-
-    def qual
-      check_closed
-      ary = map(&:qual)
-      rewind
-      ary
-    end
+    alias mpos mate_pos
 
     def aux(tag)
       warn "experimental"
