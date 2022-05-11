@@ -198,5 +198,45 @@ module HTS
       seek(position)
       ary
     end
+
+    # @!macro [attach] generate
+    #   @method each_$1
+    #   Get $1 iterator
+    def self.define_iterator(name)
+      define_method("each_#{name}") do
+        check_closed
+        return to_enum(__method__) unless block_given?
+
+        each do |record|
+          yield record.public_send(name)
+        end
+      end
+    end
+
+    define_iterator :qname
+    define_iterator :flag
+    define_iterator :chrom
+    define_iterator :pos
+    define_iterator :mapq
+    define_iterator :cigar
+    define_iterator :mate
+    define_iterator :mate_chrom
+    define_iterator :mate_pos
+    define_iterator :insert_size
+    define_iterator :seq
+    define_iterator :qual
+
+    alias each_isize each_insert_size
+    alias each_mpos each_mate_pos
+
+    def each_aux(tag)
+      warn "experimental"
+      check_closed
+      return to_enum(__method__, tag) unless block_given?
+
+      each do |record|
+        yield record.aux(tag)
+      end
+    end
   end
 end
