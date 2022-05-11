@@ -142,75 +142,30 @@ module HTS
       self
     end
 
-    def chrom
-      check_closed
-      ary = map(&:chrom)
-      rewind
-      ary
-    end
-
-    def pos
-      check_closed
-      ary = map(&:pos)
-      rewind
-      ary
-    end
-
-    def endpos
-      check_closed
-      ary = map(&:endpos)
-      rewind
-      ary
-    end
-
-    def id
-      check_closed
-      ary = map(&:id)
-      rewind
-      ary
-    end
-
-    def ref
-      check_closed
-      ary = map(&:ref)
-      rewind
-      ary
-    end
-
-    def alt
-      check_closed
-      ary = map(&:alt)
-      rewind
-      ary
-    end
-
-    def qual
-      check_closed
-      ary = map(&:qual)
-      rewind
-      ary
-    end
-
-    def filter
-      check_closed
-      ary = map(&:filter)
-      rewind
-      ary
-    end
+    define_getter :chrom
+    define_getter :pos
+    define_getter :endpos
+    define_getter :id
+    define_getter :ref
+    define_getter :alt
+    define_getter :qual
+    define_getter :filter
 
     def info
       warn "experimental"
       check_closed
+      position = tell
       ary = map(&:info)
-      rewind
+      seek(position)
       ary
     end
 
     def format
       warn "experimental"
       check_closed
+      position = tell
       ary = map(&:format)
-      rewind
+      seek(position)
       ary
     end
   end
