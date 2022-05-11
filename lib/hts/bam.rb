@@ -160,15 +160,32 @@ module HTS
       end
     end
 
-    %i[qname flag chrom pos mapq cigar mate_chrom mate_pos insert_size seq qual]
-      .each do |method|
-      define_method(method) do
+    # @!macro [attach] generate
+    #   @method $1
+    #   Get $1 array
+    #   @return [Array] the $1 array
+    def self.define_getter(name)
+      define_method(name) do
         check_closed
-        ary = map(&method)
-        rewind
+        position = tell
+        ary = map(&name)
+        seek(position)
         ary
       end
     end
+
+    define_getter :qname
+    define_getter :flag
+    define_getter :chrom
+    define_getter :pos
+    define_getter :mapq
+    define_getter :cigar
+    define_getter :mate
+    define_getter :mate_chrom
+    define_getter :mate_pos
+    define_getter :insert_size
+    define_getter :seq
+    define_getter :qual
 
     alias isize insert_size
     alias mpos mate_pos
