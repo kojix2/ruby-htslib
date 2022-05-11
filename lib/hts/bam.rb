@@ -203,13 +203,15 @@ module HTS
     #   @method each_$1
     #   Get $1 iterator
     def self.define_iterator(name)
-      define_method("each_#{name}") do
+      define_method("each_#{name}") do |&block|
         check_closed
-        return to_enum(__method__) unless block_given?
+        return to_enum(__method__) unless block
 
         each do |record|
-          yield record.public_send(name)
+          block.call(record.public_send(name))
         end
+
+        self
       end
     end
 
@@ -237,6 +239,8 @@ module HTS
       each do |record|
         yield record.aux(tag)
       end
+
+      self
     end
   end
 end
