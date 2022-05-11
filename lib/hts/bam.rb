@@ -170,7 +170,6 @@ module HTS
     define_getter :pos
     define_getter :mapq
     define_getter :cigar
-    define_getter :mate
     define_getter :mate_chrom
     define_getter :mate_pos
     define_getter :insert_size
@@ -198,7 +197,6 @@ module HTS
     define_iterator :pos
     define_iterator :mapq
     define_iterator :cigar
-    define_iterator :mate
     define_iterator :mate_chrom
     define_iterator :mate_pos
     define_iterator :insert_size
