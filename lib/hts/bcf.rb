@@ -142,6 +142,10 @@ module HTS
       self
     end
 
+    # @!macro [attach] define_getter
+    #   @method $1
+    #   Get $1 array
+    #   @return [Array] the $1 array
     define_getter :chrom
     define_getter :pos
     define_getter :endpos
