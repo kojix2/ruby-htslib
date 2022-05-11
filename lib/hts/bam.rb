@@ -173,6 +173,7 @@ module HTS
         ary
       end
     end
+    private_class_method :define_getter
 
     define_getter :qname
     define_getter :flag
@@ -214,6 +215,7 @@ module HTS
         self
       end
     end
+    private_class_method :define_iterator
 
     define_iterator :qname
     define_iterator :flag
