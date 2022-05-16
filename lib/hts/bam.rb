@@ -108,10 +108,15 @@ module HTS
       LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
     end
 
-    # Iterate over each record.
-    # Generate a new Record object each time.
-    # Slower than each.
-    def each_copy
+    def each(copy: false, &block)
+      if copy
+        each_record_copy(&block)
+      else
+        each_record_reuse(&block)
+      end
+    end
+
+    private def each_record_copy
       check_closed
       return to_enum(__method__) unless block_given?
 
@@ -122,14 +127,10 @@ module HTS
       self
     end
 
-    # Iterate over each record.
-    # Record object is reused.
-    # Faster than each_copy.
-    def each
+    private def each_record_reuse
       check_closed
       # Each does not always start at the beginning of the file.
       # This is the common behavior of IO objects in Ruby.
-      # This may change in the future.
       return to_enum(__method__) unless block_given?
 
       bam1 = LibHTS.bam_init1
