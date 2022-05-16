@@ -109,17 +109,17 @@ class BcfTest < Minitest::Test
     assert_equal exp, act
   end
 
-  # def test_info
-  #   act = @bcf.info
-  #   exp = @bcf.map(&:info)
-  #   assert_equal exp, act
-  # end
+  def test_info
+    act = @bcf.info("AN")
+    exp = @bcf.map{ |r| r.info("AN") }
+    assert_equal exp, act
+  end
 
-  # def test_format
-  #   act = @bcf.format
-  #   exp = @bcf.map(&:format)
-  #   assert_equal exp, act
-  # end
+  def test_format
+    act = @bcf.format("DP")
+    exp = @bcf.map{ |r| r.format("DP") }
+    assert_equal exp, act
+  end
 
   def test_initialize_no_file_bcf
     stderr_old = $stderr.dup

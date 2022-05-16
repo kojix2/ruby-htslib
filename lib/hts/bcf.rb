@@ -155,22 +155,59 @@ module HTS
     define_getter :qual
     define_getter :filter
 
-    def info
-      warn "experimental"
+    def info(key = nil)
       check_closed
       position = tell
-      ary = map(&:info)
+      if key
+        ary = map { |r| r.info(key) }
+      else
+        raise NotImplementedError
+        # ary = each_copy.map { |r| r.info }
+        # ary = map { |r| r.info.clone }
+      end
       seek(position)
       ary
     end
 
-    def format
-      warn "experimental"
+    def format(key = nil)
       check_closed
       position = tell
-      ary = map(&:format)
+      if key
+        ary = map { |r| r.format(key) }
+      else
+        raise NotImplementedError
+        # ary = each_copy.map { |r| r.format }
+        # ary = map { |r| r.format.clone }
+      end
       seek(position)
       ary
+    end
+
+    define_iterator :chrom
+    define_iterator :pos
+    define_iterator :endpos
+    define_iterator :id
+    define_iterator :ref
+    define_iterator :alt
+    define_iterator :qual
+    define_iterator :filter
+
+    def each_info(key)
+      check_closed
+      return to_enum(__method__) unless block
+
+      each do |r|
+        yield r.info(key)
+      end
+    end
+
+    def each_format(key)
+      check_closed
+      return to_enum(__method__) unless block
+
+      each do |r|
+        yield r.format(key)
+      end
     end
   end
 end
