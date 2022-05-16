@@ -48,10 +48,7 @@ module HTS
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
-      if threads&.> 0
-        r = LibHTS.hts_set_threads(@hts_file, threads)
-        raise "Failed to set number of threads: #{threads}" if r < 0
-      end
+      set_threads(threads) if threads
 
       return if @mode[0] == "w"
 
