@@ -111,13 +111,13 @@ class BcfTest < Minitest::Test
 
   def test_info
     act = @bcf.info("AN")
-    exp = @bcf.map{ |r| r.info("AN") }
+    exp = @bcf.map { |r| r.info("AN") }
     assert_equal exp, act
   end
 
   def test_format
     act = @bcf.format("DP")
-    exp = @bcf.map{ |r| r.format("DP") }
+    exp = @bcf.map { |r| r.format("DP") }
     assert_equal exp, act
   end
 
