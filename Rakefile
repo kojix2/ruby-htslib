@@ -14,6 +14,11 @@ namespace :htslib do
   desc "Building HTSlib"
   task :build do
     Dir.chdir("htslib") do
+      unless File.exist? "htscodecs/README.md"
+        puts "Missing git submodules"
+        puts "Use `git submodule update --init --recursive`"
+        exit 1
+      end
       sh "autoreconf -i"
       sh "./configure"
       sh "make -j #{Etc.nprocessors}"
