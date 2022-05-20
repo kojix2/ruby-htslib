@@ -183,6 +183,9 @@ module HTS
       ary
     end
 
+    # @!macro [attach] define_iterator
+    #   @method each_$1
+    #   Get $1 iterator
     define_iterator :chrom
     define_iterator :pos
     define_iterator :endpos
