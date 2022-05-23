@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 
-echo "count try_extern"
+echo "count attach_function"
 cat ../lib/hts/libhts/$1.rb \
   | grep -o "attach_function" \
   | wc -l

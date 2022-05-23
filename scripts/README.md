@@ -8,3 +8,5 @@ it is NOT necessary or even recommended to maintain these tools.
 Future maintainers should use their favorite tools. 
 
 Of course, they can take over some of my scripts.
+
+Note: Use `gnu-sed` and `ggrep` on macOS.
