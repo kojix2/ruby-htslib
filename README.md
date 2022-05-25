@@ -100,7 +100,7 @@ Note: htslib makes extensive use of macro functions for speed. you cannot use C 
 
 ### Need more speed?
 
-Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create great tools.
+Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create tools.
 
 ## Documentation
 
