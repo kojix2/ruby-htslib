@@ -103,3 +103,54 @@ docker run -v $(pwd):/data c2ffi sam.h ¥
             └                                        ┘ 
 
 ```
+
+## Function
+
+```sh
+docker run -v $(pwd):/data c2ffi hts.h | jq '.[] | select(.name=="hts_open")'
+```
+
+```json
+{
+  "tag": "function",
+  "name": "hts_open",
+  "ns": 0,
+  "location": "hts.h:601:10",
+  "variadic": false,
+  "inline": false,
+  "storage-class": "none",
+  "parameters": [
+    {
+      "tag": "parameter",
+      "name": "fn",
+      "type": {
+        "tag": ":pointer",
+        "type": {
+          "tag": ":char",
+          "bit-size": 8,
+          "bit-alignment": 8
+        }
+      }
+    },
+    {
+      "tag": "parameter",
+      "name": "mode",
+      "type": {
+        "tag": ":pointer",
+        "type": {
+          "tag": ":char",
+          "bit-size": 8,
+          "bit-alignment": 8
+        }
+      }
+    }
+  ],
+  "return-type": {
+    "tag": ":pointer",
+    "type": {
+      "tag": "htsFile"
+    }
+  }
+}
+```
+
