@@ -88,16 +88,10 @@
 ## hfile
 
 ```diff
-1,2c1,2
+1c1
 < count attach_function
-< 13
 ---
 > count HTSLIB_EXPORT
-> 16
-15a16,18
-> hfile_list_schemes
-> hfile_list_plugins
-> hfile_has_plugin
 ```
 
 ## hts
