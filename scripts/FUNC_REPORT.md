@@ -158,26 +158,19 @@
 ```diff
 1,2c1,2
 < count attach_function
-< 98
+< 102
 ---
 > count HTSLIB_EXPORT
 > 113
-41a42
-> bam_set1
-47a49,50
-> sam_parse_cigar
-> bam_parse_cigar
-67a71
-> sam_passes_filter
-90a95,96
+94a95,96
 > bam_plp_constructor
 > bam_plp_destructor
-91a98
+95a98
 > bam_plp_insertion_mod
-98a106,107
+102a106,107
 > bam_mplp_constructor
 > bam_mplp_destructor
-100a110,115
+104a110,115
 > hts_base_mod_state_alloc
 > hts_base_mod_state_free
 > bam_parse_basemod
