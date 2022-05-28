@@ -18,19 +18,19 @@ module HTS
     # Open an existing hFILE stream for reading or writing.
     attach_function \
       :bgzf_hopen,
-      [HFILE, :string],
+      [HFile, :string],
       BGZF.by_ref
 
     # Close the BGZF and free all associated resources.
     attach_function \
       :bgzf_close,
-      [HFILE],
+      [HFile],
       :int
 
     # Read up to _length_ bytes from the file storing into _data_.
     attach_function \
       :bgzf_read,
-      [HFILE, :pointer, :size_t],
+      [HFile, :pointer, :size_t],
       :ssize_t
 
     # Write _length_ bytes from _data_ to the file. If no I/O errors occur,
@@ -181,7 +181,7 @@ module HTS
     # Load BGZF index from an hFILE
     attach_function \
       :bgzf_index_load_hfile,
-      [BGZF, HFILE, :string],
+      [BGZF, HFile, :string],
       :int
 
     # Save BGZF index
@@ -193,7 +193,7 @@ module HTS
     # Write a BGZF index to an hFILE
     attach_function \
       :bgzf_index_dump_hfile,
-      [BGZF, HFILE, :string],
+      [BGZF, HFile, :string],
       :int
   end
 end

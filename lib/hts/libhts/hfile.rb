@@ -6,13 +6,13 @@ module HTS
     attach_function \
       :hopen,
       %i[string string varargs],
-      HFILE.by_ref
+      HFile.by_ref
 
     # Associate a stream with an existing open file descriptor
     attach_function \
       :hdopen,
       %i[int string],
-      HFILE.by_ref
+      HFile.by_ref
 
     # Report whether the file name or URL denotes remote storage
     attach_function \
@@ -29,19 +29,19 @@ module HTS
     # Flush (for output streams) and close the stream
     attach_function \
       :hclose,
-      [HFILE],
+      [HFile],
       :int
 
     # Close the stream, without flushing or propagating errors
     attach_function \
       :hclose_abruptly,
-      [HFILE],
+      [HFile],
       :void
 
     # Reposition the read/write stream offset
     attach_function \
       :hseek,
-      [HFILE, :off_t, :int],
+      [HFile, :off_t, :int],
       :off_t
 
     # Report the current stream offset
@@ -55,37 +55,37 @@ module HTS
     # Read from the stream until the delimiter, up to a maximum length
     attach_function \
       :hgetdelim,
-      [:string, :size_t, :int, HFILE],
+      [:string, :size_t, :int, HFile],
       :ssize_t
 
     # Read a line from the stream, up to a maximum length
     attach_function \
       :hgets,
-      [:string, :int, HFILE],
+      [:string, :int, HFile],
       :string
 
     # Peek at characters to be read without removing them from buffers
     attach_function \
       :hpeek,
-      [HFILE, :pointer, :size_t],
+      [HFile, :pointer, :size_t],
       :ssize_t
 
     # For writing streams, flush buffered output to the underlying stream
     attach_function \
       :hflush,
-      [HFILE],
+      [HFile],
       :int
 
     # For hfile_mem: get the internal buffer and it's size from a hfile
     attach_function \
       :hfile_mem_get_buffer,
-      [HFILE, :pointer],
+      [HFile, :pointer],
       :string
 
     # For hfile_mem: get the internal buffer and it's size from a hfile.
     attach_function \
       :hfile_mem_steal_buffer,
-      [HFILE, :pointer],
+      [HFile, :pointer],
       :string
     
     # Fills out sc_list[] with the list of known URL schemes.

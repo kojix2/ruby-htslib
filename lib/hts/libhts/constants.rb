@@ -25,9 +25,9 @@ module HTS
         :f,              :pointer # kstream_t
     end
 
-    # HFILE
+    # HFile
 
-    class HFILE < FFI::BitStruct
+    class HFile < FFI::BitStruct
       layout \
         :buffer,        :string,
         :begin,         :string,
@@ -57,7 +57,7 @@ module HTS
         :uncompressed_block,     :pointer,
         :compressed_block,       :pointer,
         :cache,                  :pointer,
-        :fp,                     HFILE.ptr,
+        :fp,                     HFile.ptr,
         :mt,                     :pointer,
         :idx,                    :pointer,
         :idx_build_otf,          :int,
@@ -218,7 +218,7 @@ module HTS
         union_layout(
           :bgzf,         BGZF.ptr,
           :cram,         :pointer, # cram_fd
-          :hfile,        HFILE.ptr
+          :hfile,        HFile.ptr
         ),
         :state,          :pointer,
         :format,         HtsFormat,

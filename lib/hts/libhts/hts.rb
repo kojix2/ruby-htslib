@@ -61,7 +61,7 @@ module HTS
     # Determine format by peeking at the start of a file
     attach_function \
       :hts_detect_format,
-      [HFILE, HtsFormat],
+      [HFile, HtsFormat],
       :int
 
     # Get a human-readable description of the file format
@@ -86,7 +86,7 @@ module HTS
     # Open an existing stream as a SAM/BAM/CRAM/VCF/BCF/etc file
     attach_function \
       :hts_hopen,
-      [HFILE, :string, :string],
+      [HFile, :string, :string],
       HtsFile.by_ref
 
     # For output streams, flush any buffered data
