@@ -1473,7 +1473,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_ksr'>ksr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'>KString</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_ksr'>ksr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to format record</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_vcf_format'><span class='object_link'><a href="../LibHTS.html#vcf_format-instance_method" title="HTS::LibHTS#vcf_format (method)">vcf_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@bcf1</span><span class='comma'>,</span> <span class='id identifier rubyid_ksr'>ksr</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
   <span class='id identifier rubyid_ksr'>ksr</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span>
@@ -1488,7 +1488,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat May 28 12:49:22 2022 by
+  Generated on Sat May 28 12:57:47 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
