@@ -128,7 +128,7 @@
 ```diff
 1,2c1,2
 < count attach_function
-< 102
+< 108
 ---
 > count HTSLIB_EXPORT
 > 113
@@ -140,13 +140,6 @@
 102a106,107
 > bam_mplp_constructor
 > bam_mplp_destructor
-104a110,115
-> hts_base_mod_state_alloc
-> hts_base_mod_state_free
-> bam_parse_basemod
-> bam_mods_at_next_pos
-> bam_next_basemod
-> bam_mods_at_qpos
 ```
 
 ## tbx

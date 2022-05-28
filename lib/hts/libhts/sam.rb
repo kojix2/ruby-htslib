@@ -631,6 +631,42 @@ module HTS
       :sam_prob_realn,
       [Bam1, :string, :hts_pos_t, :int],
       :int
+
+    # Allocates an hts_base_mode_state.
+    attach_function \
+      :hts_base_mod_state_alloc,
+      [],
+      :pointer # hts_base_mod_state
+
+    # Destroys an  hts_base_mode_state.
+    attach_function \
+      :hts_base_mod_state_free,
+      [:pointer], # hts_base_mod_state
+      :void
+
+    # Parses the Mm and Ml tags out of a bam record.
+    attach_function \
+      :bam_parse_basemod,
+      [Bam1, :pointer],
+      :int
+
+    # Returns modification status for the next base position in the query seq.
+    attach_function \
+      :bam_mods_at_next_pos,
+      [Bam1, :pointer, :pointer, :int],
+      :int
+
+    # Finds the next location containing base modifications and returns them
+    attach_function \
+      :bam_next_basemod,
+      [Bam1, :pointer, :pointer, :int, :pointer],
+      :int
+
+    # Returns modification status for a specific query position.
+    attach_function \
+      :bam_mods_at_qpos,
+      [Bam1, :int, :pointer, :pointer, :int],
+      :int
   end
 end
 
