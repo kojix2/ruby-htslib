@@ -6,7 +6,13 @@ module HTS
     # hts_expand3
     # hts_resize
 
-    # hts_log.h
+    # Sets the selected log level.
+    attach_function \
+      :hts_set_log_level,
+      [HtsLogLevel],
+      :void
+
+    # Gets the selected log level.
     attach_function \
       :hts_get_log_level,
       [],
@@ -293,6 +299,18 @@ module HTS
       [HtsIdx],
       :uint64
 
+    # Return a list of target names from an index
+    attach_function \
+      :hts_idx_seqnames,
+      [HtsIdx, :pointer, :pointer, :pointer],
+      :pointer
+
+    #  Return the number of targets from an index
+    attach_function \
+      :hts_idx_nseq,
+      [HtsIdx],
+      :int
+
     attach_function \
       :hts_parse_decimal,
       %i[string pointer int],
@@ -340,28 +358,49 @@ module HTS
       [BGZF, HtsItr, :pointer, :pointer],
       :int
 
-    # Return a list of target names from an index
     attach_function \
-      :hts_idx_seqnames,
-      [HtsIdx, :pointer, :pointer, :pointer],
-      :pointer
-
-    #  Return the number of targets from an index
-    attach_function \
-      :hts_idx_nseq,
-      [HtsIdx],
+      :hts_itr_multi_bam,
+      [HtsIdx, HtsItr],
       :int
 
-    # hts_itr_multi_bam
-    # hts_itr_multi_cram
+    attach_function \
+      :hts_itr_multi_cram,
+      [HtsIdx, HtsItr],
+      :int
+
     # hts_itr_regions
+
     # hts_itr_multi_next
     # hts_reglist_create
     # hts_reglist_free
-    # errmod_init
-    # errmod_destroy
-    # errmod_call
-    # proabln_glocal
+
+    # Deprecated
+    # Convenience function to determine file type
+    # attach_function \
+    #   :hts_file_type,
+    #   [:string],
+    #   :int
+
+    attach_function \
+      :errmod_init,
+      [:double],
+      :pointer
+
+    attach_function \
+      :errmod_destroy,
+      [:pointer],
+      :void
+
+    attach_function \
+      :errmod_cal,
+      %i[pointer int int pointer pointer],
+      :int
+
+    # Perform probabilistic banded glocal alignment
+    attach_function \
+      :probaln_glocal,
+      %i[pointer int pointer int pointer pointer pointer pointer],
+      :int
 
     # Initialises an MD5 context.
     attach_function \

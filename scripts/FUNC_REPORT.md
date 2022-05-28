@@ -97,32 +97,21 @@
 ## hts
 
 ```diff
-1,3c1,3
+1,4c1,3
 < count attach_function
-< 63
+< 71
+< hts_set_log_level
 < hts_get_log_level
 ---
 > count HTSLIB_EXPORT
 > 74
 > hts_resize_array_
-49a50,51
-> hts_idx_seqnames
-> hts_idx_nseq
-58,59c60,70
-< hts_idx_seqnames
-< hts_idx_nseq
----
-> hts_itr_multi_bam
-> hts_itr_multi_cram
+62a62,66
 > hts_itr_regions
 > hts_itr_multi_next
 > hts_reglist_create
 > hts_reglist_free
 > hts_file_type
-> errmod_init
-> errmod_destroy
-> errmod_cal
-> probaln_glocal
 ```
 
 ## kfunc
