@@ -87,17 +87,17 @@ module HTS
       :hfile_mem_steal_buffer,
       [HFile, :pointer],
       :string
-    
+
     # Fills out sc_list[] with the list of known URL schemes.
     attach_function \
       :hfile_list_schemes,
-      [:string, :pointer, :pointer], # mutable string
+      %i[string pointer pointer], # mutable string
       :int
 
     # Fills out plist[] with the list of known hFILE plugins.
     attach_function \
       :hfile_list_plugins,
-      [:pointer, :pointer], # mutable string
+      %i[pointer pointer], # mutable string
       :int
 
     # Tests for the presence of a specific hFILE plugin.
