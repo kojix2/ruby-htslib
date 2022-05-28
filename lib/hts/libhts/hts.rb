@@ -58,10 +58,33 @@ module HTS
       [],
       :string
 
+    # Introspection on the features enabled in htslib
+    attach_function \
+      :hts_features,
+      [],
+      :uint
+
+    attach_function \
+      :hts_test_feature,
+      [:uint],
+      :string
+
+    # Introspection on the features enabled in htslib, string form
+    attach_function \
+      :hts_feature_string,
+      [],
+      :string
+
     # Determine format by peeking at the start of a file
     attach_function \
       :hts_detect_format,
       [HFile, HtsFormat],
+      :int
+
+    # Determine format primarily by peeking at the start of a file
+    attach_function \
+      :hts_detect_format2,
+      [HFile, :string, HtsFormat],
       :int
 
     # Get a human-readable description of the file format
@@ -157,6 +180,12 @@ module HTS
     # Set .fai filename for a file opened for reading
     attach_function \
       :hts_set_fai_filename,
+      [HtsFile, :string],
+      :int
+
+    # Sets a filter expression
+    attach_function \
+      :hts_set_filter_expression,
       [HtsFile, :string],
       :int
 
@@ -311,10 +340,17 @@ module HTS
       [BGZF, HtsItr, :pointer, :pointer],
       :int
 
+    # Return a list of target names from an index
     attach_function \
       :hts_idx_seqnames,
       [HtsIdx, :pointer, :pointer, :pointer],
       :pointer
+
+    #  Return the number of targets from an index
+    attach_function \
+      :hts_idx_nseq,
+      [HtsIdx],
+      :int
 
     # hts_itr_multi_bam
     # hts_itr_multi_cram

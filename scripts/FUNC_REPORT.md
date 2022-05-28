@@ -99,25 +99,18 @@
 ```diff
 1,3c1,3
 < count attach_function
-< 57
+< 63
 < hts_get_log_level
 ---
 > count HTSLIB_EXPORT
 > 74
 > hts_resize_array_
-11a12,14
-> hts_features
-> hts_test_feature
-> hts_feature_string
-12a16
-> hts_detect_format2
-28a33
-> hts_set_filter_expression
-44a50,51
+49a50,51
 > hts_idx_seqnames
 > hts_idx_nseq
-53c60,70
+58,59c60,70
 < hts_idx_seqnames
+< hts_idx_nseq
 ---
 > hts_itr_multi_bam
 > hts_itr_multi_cram
