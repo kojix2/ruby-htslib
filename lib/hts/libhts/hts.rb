@@ -326,13 +326,41 @@ module HTS
     # errmod_destroy
     # errmod_call
     # proabln_glocal
-    # hts_md5_context
-    # hts_md5_update
-    # hts_md5_final
-    # hts_md5_reset
-    # hts_md5_hex
-    # hts_md5_destroy
 
-    # attach_function :sam_hdr_tid2name,          [:pointer, :int],                             :string
+    # Initialises an MD5 context.
+    attach_function \
+      :hts_md5_init,
+      [],
+      :pointer # hts_md5_context
+
+    # Updates the context with the MD5 of the data.
+    attach_function \
+      :hts_md5_update,
+      %i[pointer pointer ulong],
+      :void
+
+    # Computes the final 128-bit MD5 hash from the given context
+    attach_function \
+      :hts_md5_final,
+      %i[pointer pointer], # unsinged char
+      :void
+
+    #  Resets an md5_context to the initial state, as returned by hts_md5_init().
+    attach_function \
+      :hts_md5_reset,
+      [:pointer],
+      :void
+
+    # Converts a 128-bit MD5 hash into a 33-byte nul-termninated by string.
+    attach_function \
+      :hts_md5_hex,
+      %i[string pointer],
+      :void
+
+    #  Deallocates any memory allocated by hts_md5_init.
+    attach_function \
+      :hts_md5_destroy,
+      [:pointer],
+      :void
   end
 end

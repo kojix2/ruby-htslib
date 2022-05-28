@@ -99,7 +99,7 @@
 ```diff
 1,3c1,3
 < count attach_function
-< 52
+< 57
 < hts_get_log_level
 ---
 > count HTSLIB_EXPORT
@@ -116,7 +116,7 @@
 44a50,51
 > hts_idx_seqnames
 > hts_idx_nseq
-53c60,76
+53c60,70
 < hts_idx_seqnames
 ---
 > hts_itr_multi_bam
@@ -130,12 +130,6 @@
 > errmod_destroy
 > errmod_cal
 > probaln_glocal
-> hts_md5_init
-> hts_md5_update
-> hts_md5_final
-> hts_md5_reset
-> hts_md5_hex
-> hts_md5_destroy
 ```
 
 ## kfunc
@@ -185,12 +179,10 @@
 ## vcf
 
 ```diff
-1,2c1,2
+1c1
 < count attach_function
-< 85
 ---
 > count HTSLIB_EXPORT
-> 86
 27a28
 > bcf_hdr_combine
 ```
