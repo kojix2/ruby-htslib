@@ -190,6 +190,16 @@ module HTS
         )
     end
 
+    class HtsReglist < FFI::Struct
+      layout \
+        :reg,            :string,
+        :intervals,      :pointer, # hts_pair_pos_t
+        :tid,            :int,
+        :count,          :uint32_t,
+        :min_beg,        :hts_pos_t,
+        :max_end,        :hts_pos_t,
+    end
+
     # HtsFile
     class SamHdr < FFI::Struct
       layout \
@@ -264,7 +274,7 @@ module HTS
         :n_reg,          :int,
         :beg,            :int64,
         :end,            :int64,
-        :reg_list,       :pointer,
+        :reg_list,       :pointer, # HtsReglist.ptr,
         :curr_tid,       :int,
         :curr_reg,       :int,
         :curr_intv,      :int,

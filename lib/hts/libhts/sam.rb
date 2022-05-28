@@ -366,7 +366,7 @@ module HTS
     # Create a multi-region iterator
     attach_function \
       :sam_itr_regions,
-      [HtsIdx, SamHdr, :pointer, :uint],
+      [HtsIdx, SamHdr, HtsReglist, :uint],
       HtsItr.by_ref
 
     # Create a multi-region iterator
@@ -632,12 +632,12 @@ module HTS
 
     attach_function \
       :bam_mplp_constructor,
-      [:bam_mplp, :bam_plp_callback_funcion],
+      %i[bam_mplp bam_plp_callback_funcion],
       :void
 
     attach_function \
       :bam_mplp_destructor,
-      [:bam_mplp, :bam_plp_callback_funcion],
+      %i[bam_mplp bam_plp_callback_funcion],
       :void
 
     attach_function \

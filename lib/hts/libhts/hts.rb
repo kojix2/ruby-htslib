@@ -311,10 +311,13 @@ module HTS
       [HtsIdx],
       :int
 
+    # Parse a numeric string
     attach_function \
       :hts_parse_decimal,
       %i[string pointer int],
       :long_long
+
+    callback :hts_name2id_f, [:pointer, :string], :int
 
     # Parse a "CHR:START-END"-style region string
     attach_function \
@@ -331,7 +334,7 @@ module HTS
     # Parse a "CHR:START-END"-style region string
     attach_function \
       :hts_parse_region,
-      %i[string pointer pointer pointer pointer pointer int],
+      %i[string pointer pointer pointer hts_name2id_f pointer int],
       :string
 
     # Create a single-region iterator
@@ -349,7 +352,7 @@ module HTS
     # Create a single-region iterator from a text region specification
     attach_function \
       :hts_itr_querys,
-      [HtsIdx, :string, :pointer, :pointer, :pointer, :pointer],
+      [HtsIdx, :string, :hts_name2id_f, :pointer, :pointer, :pointer],
       HtsItr.by_ref
 
     # Return the next record from an iterator
@@ -371,8 +374,18 @@ module HTS
     # hts_itr_regions
 
     # hts_itr_multi_next
-    # hts_reglist_create
-    # hts_reglist_free
+
+    # Create a region list from a char array
+    attach_function \
+      :hts_reglist_create,
+      %i[pointer int pointer pointer hts_name2id_f],
+      HtsReglist.by_ref
+
+    # Free a region list
+    attach_function \
+      :hts_reglist_free,
+      [HtsReglist, :int],
+      :void
 
     # Deprecated
     # Convenience function to determine file type
