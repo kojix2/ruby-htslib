@@ -6695,6 +6695,78 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#hts_detect_format2-instance_method" title="#hts_detect_format2 (instance method)">#<strong>hts_detect_format2</strong>(string)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Determine format primarily by peeking at the start of a file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_feature_string-instance_method" title="#hts_feature_string (instance method)">#<strong>hts_feature_string</strong>([])  &#x21d2; string </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Introspection on the features enabled in htslib, string form.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_features-instance_method" title="#hts_features (instance method)">#<strong>hts_features</strong>([])  &#x21d2; uint </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Introspection on the features enabled in htslib.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#hts_flush-instance_method" title="#hts_flush (instance method)">#<strong>hts_flush</strong>([HtsFile])  &#x21d2; int </a>
     
 
@@ -7153,6 +7225,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#hts_idx_nseq-instance_method" title="#hts_idx_nseq (instance method)">#<strong>hts_idx_nseq</strong>([HtsIdx])  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return the number of targets from an index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#hts_idx_push-instance_method" title="#hts_idx_push (instance method)">#<strong>hts_idx_push</strong>(int)  &#x21d2; int </a>
     
 
@@ -7240,7 +7336,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The return value of attach_function.</p>
+<p>Return a list of target names from an index.</p>
 </div></span>
   
 </li>
@@ -7921,6 +8017,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#hts_set_filter_expression-instance_method" title="#hts_set_filter_expression (instance method)">#<strong>hts_set_filter_expression</strong>(string)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sets a filter expression.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#hts_set_opt-instance_method" title="#hts_set_opt (instance method)">#<strong>hts_set_opt</strong>(varargs)  &#x21d2; int </a>
     
 
@@ -7985,6 +8105,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Create extra threads to aid compress/decompression for this file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_test_feature-instance_method" title="#hts_test_feature (instance method)">#<strong>hts_test_feature</strong>(uint)  &#x21d2; string </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The return value of attach_function.</p>
 </div></span>
   
 </li>
@@ -24087,13 +24231,13 @@ CramFd
       <pre class="lines">
 
 
-164
-165
-166
-167</pre>
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 193</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_check_EOF</span><span class='comma'>,</span>
@@ -24148,13 +24292,13 @@ CramFd
       <pre class="lines">
 
 
-99
-100
-101
-102</pre>
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 122</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_close</span><span class='comma'>,</span>
@@ -24209,6 +24353,189 @@ CramFd
       <pre class="lines">
 
 
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 79</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_detect_format</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HFile.html" title="HTS::LibHTS::HFile (class)">HFile</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/HtsFormat.html" title="HTS::LibHTS::HtsFormat (class)">HtsFormat</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_detect_format2-instance_method">
+  
+    #<strong>hts_detect_format2</strong>(string)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Determine format primarily by peeking at the start of a file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 85</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_detect_format2</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HFile.html" title="HTS::LibHTS::HFile (class)">HFile</a></span></span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/HtsFormat.html" title="HTS::LibHTS::HtsFormat (class)">HtsFormat</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_feature_string-instance_method">
+  
+    #<strong>hts_feature_string</strong>([])  &#x21d2; <tt>string</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Introspection on the features enabled in htslib, string form</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 73</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_feature_string</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:string</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_features-instance_method">
+  
+    #<strong>hts_features</strong>([])  &#x21d2; <tt>uint</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Introspection on the features enabled in htslib</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>uint</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 62
 63
 64
@@ -24218,9 +24545,9 @@ CramFd
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 62</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
-<span class='symbol'>:hts_detect_format</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HFile.html" title="HTS::LibHTS::HFile (class)">HFile</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/HtsFormat.html" title="HTS::LibHTS::HtsFormat (class)">HtsFormat</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span>
-<span class='symbol'>:int</span></pre>
+<span class='symbol'>:hts_features</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:uint</span></pre>
     </td>
   </tr>
 </table>
@@ -24274,13 +24601,13 @@ CramFd
       <pre class="lines">
 
 
-93
-94
-95
-96</pre>
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 116</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_flush</span><span class='comma'>,</span>
@@ -24335,13 +24662,13 @@ CramFd
       <pre class="lines">
 
 
-68
-69
-70
-71</pre>
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 91</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_format_description</span><span class='comma'>,</span>
@@ -24396,13 +24723,13 @@ CramFd
       <pre class="lines">
 
 
-111
-112
-113
-114</pre>
+134
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 134</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_format_file_extension</span><span class='comma'>,</span>
@@ -24561,13 +24888,13 @@ CramFd
       <pre class="lines">
 
 
-105
-106
-107
-108</pre>
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 128</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_get_format</span><span class='comma'>,</span>
@@ -24683,13 +25010,13 @@ CramFd
       <pre class="lines">
 
 
-123
-124
-125
-126</pre>
+146
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 146</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_getline</span><span class='comma'>,</span>
@@ -24744,13 +25071,13 @@ CramFd
       <pre class="lines">
 
 
-87
-88
-89
-90</pre>
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 110</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_hopen</span><span class='comma'>,</span>
@@ -24787,13 +25114,13 @@ CramFd
       <pre class="lines">
 
 
-184
-185
-186
-187</pre>
+213
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 213</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_destroy</span><span class='comma'>,</span>
@@ -24848,13 +25175,13 @@ CramFd
       <pre class="lines">
 
 
-196
-197
-198
-199</pre>
+225
+226
+227
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 225</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_finish</span><span class='comma'>,</span>
@@ -24909,13 +25236,13 @@ CramFd
       <pre class="lines">
 
 
-202
-203
-204
-205</pre>
+231
+232
+233
+234</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 231</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_fmt</span><span class='comma'>,</span>
@@ -24970,13 +25297,13 @@ CramFd
       <pre class="lines">
 
 
-244
-245
-246
-247</pre>
+273
+274
+275
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 273</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_get_meta</span><span class='comma'>,</span>
@@ -25031,13 +25358,13 @@ CramFd
       <pre class="lines">
 
 
-262
-263
-264
-265</pre>
+291
+292
+293
+294</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 262</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 291</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_get_n_no_coor</span><span class='comma'>,</span>
@@ -25092,13 +25419,13 @@ CramFd
       <pre class="lines">
 
 
-256
-257
-258
-259</pre>
+285
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 256</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 285</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_get_stat</span><span class='comma'>,</span>
@@ -25153,13 +25480,13 @@ CramFd
       <pre class="lines">
 
 
-178
-179
-180
-181</pre>
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 178</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 207</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_init</span><span class='comma'>,</span>
@@ -25214,13 +25541,13 @@ CramFd
       <pre class="lines">
 
 
-226
-227
-228
-229</pre>
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 255</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_load</span><span class='comma'>,</span>
@@ -25275,13 +25602,13 @@ CramFd
       <pre class="lines">
 
 
-232
-233
-234
-235</pre>
+261
+262
+263
+264</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 261</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_load2</span><span class='comma'>,</span>
@@ -25336,18 +25663,79 @@ CramFd
       <pre class="lines">
 
 
-238
-239
-240
-241</pre>
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 267</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_load3</span><span class='comma'>,</span>
 <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>string</span><span class='words_sep'> </span><span class='tstring_content'>string</span><span class='words_sep'> </span><span class='tstring_content'>int</span><span class='words_sep'> </span><span class='tstring_content'>int</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
 <span class='const'><span class='object_link'><a href="LibHTS/HtsIdx.html" title="HTS::LibHTS::HtsIdx (class)">HtsIdx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_idx_nseq-instance_method">
+  
+    #<strong>hts_idx_nseq</strong>([HtsIdx])  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the number of targets from an index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+350
+351
+352
+353</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 350</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_idx_nseq</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HtsIdx.html" title="HTS::LibHTS::HtsIdx (class)">HtsIdx</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
     </td>
   </tr>
 </table>
@@ -25397,13 +25785,13 @@ CramFd
       <pre class="lines">
 
 
-190
-191
-192
-193</pre>
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 219</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_push</span><span class='comma'>,</span>
@@ -25458,13 +25846,13 @@ CramFd
       <pre class="lines">
 
 
-214
-215
-216
-217</pre>
+243
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 243</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_save</span><span class='comma'>,</span>
@@ -25519,13 +25907,13 @@ CramFd
       <pre class="lines">
 
 
-220
-221
-222
-223</pre>
+249
+250
+251
+252</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 249</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_save_as</span><span class='comma'>,</span>
@@ -25548,7 +25936,7 @@ CramFd
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the return value of attach_function.</p>
+<p>Return a list of target names from an index</p>
 
 
   </div>
@@ -25580,13 +25968,13 @@ CramFd
       <pre class="lines">
 
 
-314
-315
-316
-317</pre>
+344
+345
+346
+347</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 314</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 344</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_seqnames</span><span class='comma'>,</span>
@@ -25641,13 +26029,13 @@ CramFd
       <pre class="lines">
 
 
-250
-251
-252
-253</pre>
+279
+280
+281
+282</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 279</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_set_meta</span><span class='comma'>,</span>
@@ -25702,13 +26090,13 @@ CramFd
       <pre class="lines">
 
 
-208
-209
-210
-211</pre>
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 237</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_idx_tbi_name</span><span class='comma'>,</span>
@@ -25745,13 +26133,13 @@ CramFd
       <pre class="lines">
 
 
-297
-298
-299
-300</pre>
+326
+327
+328
+329</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 297</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 326</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_itr_destroy</span><span class='comma'>,</span>
@@ -25806,13 +26194,13 @@ CramFd
       <pre class="lines">
 
 
-309
-310
-311
-312</pre>
+338
+339
+340
+341</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 309</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 338</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_itr_next</span><span class='comma'>,</span>
@@ -25867,13 +26255,13 @@ CramFd
       <pre class="lines">
 
 
-291
-292
-293
-294</pre>
+320
+321
+322
+323</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 291</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 320</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_itr_query</span><span class='comma'>,</span>
@@ -25928,13 +26316,13 @@ CramFd
       <pre class="lines">
 
 
-303
-304
-305
-306</pre>
+332
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 303</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 332</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_itr_querys</span><span class='comma'>,</span>
@@ -26014,13 +26402,13 @@ CramFd
       <pre class="lines">
 
 
-361
-362
-363
-364</pre>
+397
+398
+399
+400</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 361</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 397</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_destroy</span><span class='comma'>,</span>
@@ -26057,13 +26445,13 @@ CramFd
       <pre class="lines">
 
 
-343
-344
-345
-346</pre>
+379
+380
+381
+382</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 343</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 379</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_final</span><span class='comma'>,</span>
@@ -26100,13 +26488,13 @@ CramFd
       <pre class="lines">
 
 
-355
-356
-357
-358</pre>
+391
+392
+393
+394</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 355</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 391</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_hex</span><span class='comma'>,</span>
@@ -26161,13 +26549,13 @@ CramFd
       <pre class="lines">
 
 
-331
-332
-333
-334</pre>
+367
+368
+369
+370</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 331</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 367</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_init</span><span class='comma'>,</span>
@@ -26204,13 +26592,13 @@ CramFd
       <pre class="lines">
 
 
-349
-350
-351
-352</pre>
+385
+386
+387
+388</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 349</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 385</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_reset</span><span class='comma'>,</span>
@@ -26247,13 +26635,13 @@ CramFd
       <pre class="lines">
 
 
-337
-338
-339
-340</pre>
+373
+374
+375
+376</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 337</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 373</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_update</span><span class='comma'>,</span>
@@ -26308,13 +26696,13 @@ CramFd
       <pre class="lines">
 
 
-75
-76
-77
-78</pre>
+98
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 98</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_open</span><span class='comma'>,</span>
@@ -26369,13 +26757,13 @@ CramFd
       <pre class="lines">
 
 
-81
-82
-83
-84</pre>
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 104</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_open_format</span><span class='comma'>,</span>
@@ -26595,13 +26983,13 @@ CramFd
       <pre class="lines">
 
 
-267
-268
-269
-270</pre>
+296
+297
+298
+299</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 296</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_parse_decimal</span><span class='comma'>,</span>
@@ -26778,13 +27166,13 @@ CramFd
       <pre class="lines">
 
 
-279
-280
-281
-282</pre>
+308
+309
+310
+311</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 279</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 308</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_parse_reg</span><span class='comma'>,</span>
@@ -26839,13 +27227,13 @@ CramFd
       <pre class="lines">
 
 
-273
-274
-275
-276</pre>
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 273</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 302</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_parse_reg64</span><span class='comma'>,</span>
@@ -26900,13 +27288,13 @@ CramFd
       <pre class="lines">
 
 
-285
-286
-287
-288</pre>
+314
+315
+316
+317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 314</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_parse_region</span><span class='comma'>,</span>
@@ -26961,13 +27349,13 @@ CramFd
       <pre class="lines">
 
 
-128
-129
-130
-131</pre>
+151
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 151</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_readlines</span><span class='comma'>,</span>
@@ -27022,13 +27410,13 @@ CramFd
       <pre class="lines">
 
 
-134
-135
-136
-137</pre>
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 157</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_readlist</span><span class='comma'>,</span>
@@ -27065,13 +27453,13 @@ CramFd
       <pre class="lines">
 
 
-152
-153
-154
-155</pre>
+175
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 175</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_set_cache_size</span><span class='comma'>,</span>
@@ -27126,16 +27514,77 @@ CramFd
       <pre class="lines">
 
 
-158
-159
-160
-161</pre>
+181
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 181</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_set_fai_filename</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_set_filter_expression-instance_method">
+  
+    #<strong>hts_set_filter_expression</strong>(string)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sets a filter expression</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+187
+188
+189
+190</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 187</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_set_filter_expression</span><span class='comma'>,</span>
 <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:int</span></pre>
     </td>
@@ -27187,13 +27636,13 @@ CramFd
       <pre class="lines">
 
 
-117
-118
-119
-120</pre>
+140
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 140</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_set_opt</span><span class='comma'>,</span>
@@ -27248,13 +27697,13 @@ CramFd
       <pre class="lines">
 
 
-146
-147
-148
-149</pre>
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 169</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_set_thread_pool</span><span class='comma'>,</span>
@@ -27309,18 +27758,79 @@ CramFd
       <pre class="lines">
 
 
-140
-141
-142
-143</pre>
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 163</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_set_threads</span><span class='comma'>,</span>
 <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_test_feature-instance_method">
+  
+    #<strong>hts_test_feature</strong>(uint)  &#x21d2; <tt>string</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the return value of attach_function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 67</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_test_feature</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:uint</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:string</span></pre>
     </td>
   </tr>
 </table>
@@ -33624,7 +34134,7 @@ CramFd
 </div>
 
       <div id="footer">
-  Generated on Sat May 28 09:23:12 2022 by
+  Generated on Sat May 28 10:20:00 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
