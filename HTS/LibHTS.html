@@ -3902,7 +3902,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The return value of attach_function.</p>
+<p>DEPRECATED.</p>
 </div></span>
   
 </li>
@@ -7409,6 +7409,150 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>The return value of attach_function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_destroy-instance_method" title="#hts_md5_destroy (instance method)">#<strong>hts_md5_destroy</strong>(pointer)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deallocates any memory allocated by hts_md5_init.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_final-instance_method" title="#hts_md5_final (instance method)">#<strong>hts_md5_final</strong>(pointer)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the final 128-bit MD5 hash from the given context.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_hex-instance_method" title="#hts_md5_hex (instance method)">#<strong>hts_md5_hex</strong>(string)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Converts a 128-bit MD5 hash into a 33-byte nul-termninated by string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_init-instance_method" title="#hts_md5_init (instance method)">#<strong>hts_md5_init</strong>([])  &#x21d2; pointer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initialises an MD5 context.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_reset-instance_method" title="#hts_md5_reset (instance method)">#<strong>hts_md5_reset</strong>(pointer)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Resets an md5_context to the initial state, as returned by hts_md5_init().</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_md5_update-instance_method" title="#hts_md5_update (instance method)">#<strong>hts_md5_update</strong>(pointer)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Updates the context with the MD5 of the data.</p>
 </div></span>
   
 </li>
@@ -14812,13 +14956,13 @@
       <pre class="lines">
 
 
-280
-281
-282
-283</pre>
+287
+288
+289
+290</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 280</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 287</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_add_filter</span><span class='comma'>,</span>
@@ -14873,13 +15017,13 @@
       <pre class="lines">
 
 
-310
-311
-312
-313</pre>
+317
+318
+319
+320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 317</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_add_id</span><span class='comma'>,</span>
@@ -15185,13 +15329,13 @@
       <pre class="lines">
 
 
-380
-381
-382
-383</pre>
+387
+388
+389
+390</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 380</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 387</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_enc_vchar</span><span class='comma'>,</span>
@@ -15246,13 +15390,13 @@
       <pre class="lines">
 
 
-390
-391
-392
-393</pre>
+397
+398
+399
+400</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 390</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 397</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_enc_vfloat</span><span class='comma'>,</span>
@@ -15307,13 +15451,13 @@
       <pre class="lines">
 
 
-385
-386
-387
-388</pre>
+392
+393
+394
+395</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 385</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 392</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_enc_vint</span><span class='comma'>,</span>
@@ -15368,13 +15512,13 @@
       <pre class="lines">
 
 
-370
-371
-372
-373</pre>
+377
+378
+379
+380</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 370</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 377</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_fmt_array</span><span class='comma'>,</span>
@@ -15429,13 +15573,13 @@
       <pre class="lines">
 
 
-375
-376
-377
-378</pre>
+382
+383
+384
+385</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 375</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 382</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_fmt_sized_array</span><span class='comma'>,</span>
@@ -15490,13 +15634,13 @@
       <pre class="lines">
 
 
-330
-331
-332
-333</pre>
+337
+338
+339
+340</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 330</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 337</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_fmt</span><span class='comma'>,</span>
@@ -15551,13 +15695,13 @@
       <pre class="lines">
 
 
-340
-341
-342
-343</pre>
+347
+348
+349
+350</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 340</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 347</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_fmt_id</span><span class='comma'>,</span>
@@ -15612,13 +15756,13 @@
       <pre class="lines">
 
 
-355
-356
-357
-358</pre>
+362
+363
+364
+365</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 355</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 362</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_format_string</span><span class='comma'>,</span>
@@ -15673,13 +15817,13 @@
       <pre class="lines">
 
 
-360
-361
-362
-363</pre>
+367
+368
+369
+370</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 360</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 367</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_format_values</span><span class='comma'>,</span>
@@ -15734,13 +15878,13 @@
       <pre class="lines">
 
 
-335
-336
-337
-338</pre>
+342
+343
+344
+345</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 335</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 342</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_info</span><span class='comma'>,</span>
@@ -15795,13 +15939,13 @@
       <pre class="lines">
 
 
-345
-346
-347
-348</pre>
+352
+353
+354
+355</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 345</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 352</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_info_id</span><span class='comma'>,</span>
@@ -15856,13 +16000,13 @@
       <pre class="lines">
 
 
-350
-351
-352
-353</pre>
+357
+358
+359
+360</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 350</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 357</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_info_values</span><span class='comma'>,</span>
@@ -15917,13 +16061,13 @@
       <pre class="lines">
 
 
-265
-266
-267
-268</pre>
+272
+273
+274
+275</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 265</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 272</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_variant_type</span><span class='comma'>,</span>
@@ -15978,13 +16122,13 @@
       <pre class="lines">
 
 
-260
-261
-262
-263</pre>
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 260</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 267</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_get_variant_types</span><span class='comma'>,</span>
@@ -16039,13 +16183,13 @@
       <pre class="lines">
 
 
-290
-291
-292
-293</pre>
+297
+298
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 290</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 297</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_has_filter</span><span class='comma'>,</span>
@@ -16100,13 +16244,13 @@
       <pre class="lines">
 
 
-210
-211
-212
-213</pre>
+217
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 217</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_add_hrec</span><span class='comma'>,</span>
@@ -16161,13 +16305,13 @@
       <pre class="lines">
 
 
-135
-136
-137
-138</pre>
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 142</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_add_sample</span><span class='comma'>,</span>
@@ -16222,13 +16366,13 @@
       <pre class="lines">
 
 
-155
-156
-157
-158</pre>
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 162</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_append</span><span class='comma'>,</span>
@@ -16387,13 +16531,13 @@
       <pre class="lines">
 
 
-150
-151
-152
-153</pre>
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 157</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_fmt_text</span><span class='comma'>,</span>
@@ -16448,13 +16592,13 @@
       <pre class="lines">
 
 
-145
-146
-147
-148</pre>
+152
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 145</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 152</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_format</span><span class='comma'>,</span>
@@ -16509,13 +16653,13 @@
       <pre class="lines">
 
 
-215
-216
-217
-218</pre>
+222
+223
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 222</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_get_hrec</span><span class='comma'>,</span>
@@ -16570,13 +16714,13 @@
       <pre class="lines">
 
 
-165
-166
-167
-168</pre>
+172
+173
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 172</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_get_version</span><span class='comma'>,</span>
@@ -16631,13 +16775,13 @@
       <pre class="lines">
 
 
-365
-366
-367
-368</pre>
+372
+373
+374
+375</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 365</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 372</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_id2int</span><span class='comma'>,</span>
@@ -16721,7 +16865,14 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the return value of attach_function.</p>
+<p>DEPRECATED</p>
+
+<p>attach_function \</p>
+
+<pre class="code ruby"><code class="ruby">:bcf_hdr_combine,
+[BcfHdr, BcfHdr],
+:int
+</code></pre>
 
 
   </div>
@@ -16753,13 +16904,13 @@
       <pre class="lines">
 
 
-130
-131
-132
-133</pre>
+137
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 137</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_merge</span><span class='comma'>,</span>
@@ -16814,13 +16965,13 @@
       <pre class="lines">
 
 
-190
-191
-192
-193</pre>
+197
+198
+199
+200</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 197</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_parse</span><span class='comma'>,</span>
@@ -16875,13 +17026,13 @@
       <pre class="lines">
 
 
-200
-201
-202
-203</pre>
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 200</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 207</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_parse_line</span><span class='comma'>,</span>
@@ -16936,13 +17087,13 @@
       <pre class="lines">
 
 
-160
-161
-162
-163</pre>
+167
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 167</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_printf</span><span class='comma'>,</span>
@@ -17040,13 +17191,13 @@
       <pre class="lines">
 
 
-175
-176
-177
-178</pre>
+182
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 182</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_remove</span><span class='comma'>,</span>
@@ -17101,13 +17252,13 @@
       <pre class="lines">
 
 
-185
-186
-187
-188</pre>
+192
+193
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 192</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_seqnames</span><span class='comma'>,</span>
@@ -17162,13 +17313,13 @@
       <pre class="lines">
 
 
-140
-141
-142
-143</pre>
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 147</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_set</span><span class='comma'>,</span>
@@ -17284,13 +17435,13 @@
       <pre class="lines">
 
 
-170
-171
-172
-173</pre>
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 177</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_set_version</span><span class='comma'>,</span>
@@ -17345,13 +17496,13 @@
       <pre class="lines">
 
 
-180
-181
-182
-183</pre>
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 187</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_subset</span><span class='comma'>,</span>
@@ -17406,13 +17557,13 @@
       <pre class="lines">
 
 
-195
-196
-197
-198</pre>
+202
+203
+204
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 202</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hdr_sync</span><span class='comma'>,</span>
@@ -17528,13 +17679,13 @@
       <pre class="lines">
 
 
-225
-226
-227
-228</pre>
+232
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 232</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_add_key</span><span class='comma'>,</span>
@@ -17571,13 +17722,13 @@
       <pre class="lines">
 
 
-245
-246
-247
-248</pre>
+252
+253
+254
+255</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 245</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 252</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_destroy</span><span class='comma'>,</span>
@@ -17632,13 +17783,13 @@
       <pre class="lines">
 
 
-220
-221
-222
-223</pre>
+227
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 227</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_dup</span><span class='comma'>,</span>
@@ -17693,13 +17844,13 @@
       <pre class="lines">
 
 
-235
-236
-237
-238</pre>
+242
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 242</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_find_key</span><span class='comma'>,</span>
@@ -17754,13 +17905,13 @@
       <pre class="lines">
 
 
-205
-206
-207
-208</pre>
+212
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 205</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 212</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_format</span><span class='comma'>,</span>
@@ -17815,13 +17966,13 @@
       <pre class="lines">
 
 
-230
-231
-232
-233</pre>
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 237</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_hrec_set_val</span><span class='comma'>,</span>
@@ -17876,13 +18027,13 @@
       <pre class="lines">
 
 
-420
-421
-422
-423</pre>
+427
+428
+429
+430</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 420</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 427</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_idx_init</span><span class='comma'>,</span>
@@ -17937,13 +18088,13 @@
       <pre class="lines">
 
 
-425
-426
-427
-428</pre>
+432
+433
+434
+435</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 425</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 432</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_idx_save</span><span class='comma'>,</span>
@@ -17998,13 +18149,13 @@
       <pre class="lines">
 
 
-405
-406
-407
-408</pre>
+412
+413
+414
+415</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 405</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 412</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_index_build</span><span class='comma'>,</span>
@@ -18059,13 +18210,13 @@
       <pre class="lines">
 
 
-410
-411
-412
-413</pre>
+417
+418
+419
+420</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 410</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 417</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_index_build2</span><span class='comma'>,</span>
@@ -18120,13 +18271,13 @@
       <pre class="lines">
 
 
-415
-416
-417
-418</pre>
+422
+423
+424
+425</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 415</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 422</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_index_build3</span><span class='comma'>,</span>
@@ -18181,13 +18332,13 @@
       <pre class="lines">
 
 
-395
-396
-397
-398</pre>
+402
+403
+404
+405</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 395</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 402</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_index_load2</span><span class='comma'>,</span>
@@ -18242,13 +18393,13 @@
       <pre class="lines">
 
 
-400
-401
-402
-403</pre>
+407
+408
+409
+410</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 400</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 407</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_index_load3</span><span class='comma'>,</span>
@@ -18364,13 +18515,13 @@
       <pre class="lines">
 
 
-270
-271
-272
-273</pre>
+277
+278
+279
+280</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 270</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 277</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_is_snp</span><span class='comma'>,</span>
@@ -18547,13 +18698,13 @@
       <pre class="lines">
 
 
-285
-286
-287
-288</pre>
+292
+293
+294
+295</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 292</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_remove_filter</span><span class='comma'>,</span>
@@ -18608,13 +18759,13 @@
       <pre class="lines">
 
 
-250
-251
-252
-253</pre>
+257
+258
+259
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 257</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_subset</span><span class='comma'>,</span>
@@ -18730,13 +18881,13 @@
       <pre class="lines">
 
 
-255
-256
-257
-258</pre>
+262
+263
+264
+265</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 262</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_translate</span><span class='comma'>,</span>
@@ -18852,13 +19003,13 @@
       <pre class="lines">
 
 
-295
-296
-297
-298</pre>
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 295</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 302</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_alleles</span><span class='comma'>,</span>
@@ -18913,13 +19064,13 @@
       <pre class="lines">
 
 
-300
-301
-302
-303</pre>
+307
+308
+309
+310</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 300</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 307</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_alleles_str</span><span class='comma'>,</span>
@@ -18974,13 +19125,13 @@
       <pre class="lines">
 
 
-275
-276
-277
-278</pre>
+282
+283
+284
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 275</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 282</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_filter</span><span class='comma'>,</span>
@@ -19035,13 +19186,13 @@
       <pre class="lines">
 
 
-325
-326
-327
-328</pre>
+332
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 325</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 332</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_format</span><span class='comma'>,</span>
@@ -19096,13 +19247,13 @@
       <pre class="lines">
 
 
-320
-321
-322
-323</pre>
+327
+328
+329
+330</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 320</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 327</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_format_string</span><span class='comma'>,</span>
@@ -19157,13 +19308,13 @@
       <pre class="lines">
 
 
-305
-306
-307
-308</pre>
+312
+313
+314
+315</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 312</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_id</span><span class='comma'>,</span>
@@ -19218,13 +19369,13 @@
       <pre class="lines">
 
 
-315
-316
-317
-318</pre>
+322
+323
+324
+325</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 315</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 322</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bcf_update_info</span><span class='comma'>,</span>
@@ -23214,7 +23365,7 @@ CramFd
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hfile_list_plugins</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># mutable string
+<span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='comment'># mutable string
 </span><span class='symbol'>:int</span></pre>
     </td>
   </tr>
@@ -23275,7 +23426,7 @@ CramFd
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hfile_list_schemes</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='symbol'>:string</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># mutable string
+<span class='qsymbols_beg'>%i[</span><span class='tstring_content'>string</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='comment'># mutable string
 </span><span class='symbol'>:int</span></pre>
     </td>
   </tr>
@@ -23814,13 +23965,13 @@ CramFd
       <pre class="lines">
 
 
-240
-241
-242
-243</pre>
+247
+248
+249
+250</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf.rb', line 247</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hrec_add_idx</span><span class='comma'>,</span>
@@ -25831,6 +25982,282 @@ CramFd
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_lib_shutdown</span><span class='comma'>,</span>
 <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_destroy-instance_method">
+  
+    #<strong>hts_md5_destroy</strong>(pointer)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Deallocates any memory allocated by hts_md5_init.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+361
+362
+363
+364</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 361</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_destroy</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_final-instance_method">
+  
+    #<strong>hts_md5_final</strong>(pointer)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Computes the final 128-bit MD5 hash from the given context</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+343
+344
+345
+346</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 343</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_final</span><span class='comma'>,</span>
+<span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='comment'># unsinged char
+</span><span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_hex-instance_method">
+  
+    #<strong>hts_md5_hex</strong>(string)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Converts a 128-bit MD5 hash into a 33-byte nul-termninated by string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+355
+356
+357
+358</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 355</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_hex</span><span class='comma'>,</span>
+<span class='qsymbols_beg'>%i[</span><span class='tstring_content'>string</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
+<span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_init-instance_method">
+  
+    #<strong>hts_md5_init</strong>([])  &#x21d2; <tt>pointer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initialises an MD5 context.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>pointer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+331
+332
+333
+334</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 331</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_init</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:pointer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_reset-instance_method">
+  
+    #<strong>hts_md5_reset</strong>(pointer)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Resets an md5_context to the initial state, as returned by hts_md5_init().</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+349
+350
+351
+352</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 349</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_reset</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_md5_update-instance_method">
+  
+    #<strong>hts_md5_update</strong>(pointer)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Updates the context with the MD5 of the data.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+337
+338
+339
+340</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 337</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_md5_update</span><span class='comma'>,</span>
+<span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>ulong</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
 <span class='symbol'>:void</span></pre>
     </td>
   </tr>
@@ -33197,7 +33624,7 @@ CramFd
 </div>
 
       <div id="footer">
-  Generated on Sat May 28 08:52:53 2022 by
+  Generated on Sat May 28 09:23:12 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
