@@ -197,7 +197,7 @@ module HTS
         :tid,            :int,
         :count,          :uint32_t,
         :min_beg,        :hts_pos_t,
-        :max_end,        :hts_pos_t,
+        :max_end,        :hts_pos_t
     end
 
     # HtsFile
