@@ -127,6 +127,13 @@ module HTS
       [BcfHdr],
       BcfHdr.by_ref
 
+    # DEPRECATED
+    #
+    # attach_function \
+    #   :bcf_hdr_combine,
+    #   [BcfHdr, BcfHdr],
+    #   :int
+
     attach_function \
       :bcf_hdr_merge,
       [BcfHdr, BcfHdr],
