@@ -126,20 +126,10 @@
 ## sam
 
 ```diff
-1,2c1,2
+1c1
 < count attach_function
-< 108
 ---
 > count HTSLIB_EXPORT
-> 113
-94a95,96
-> bam_plp_constructor
-> bam_plp_destructor
-95a98
-> bam_plp_insertion_mod
-102a106,107
-> bam_mplp_constructor
-> bam_mplp_destructor
 ```
 
 ## tbx

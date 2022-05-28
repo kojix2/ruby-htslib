@@ -570,19 +570,30 @@ module HTS
       [:bam_plp],
       :void
 
+    callback :bam_plp_callback_funcion, [:pointer, Bam1, BamPileupCd], :int
+
     # sets a callback to initialise any per-pileup1_t fields.
+    attach_function \
+      :bam_plp_constructor,
+      %i[bam_plp bam_plp_callback_funcion],
+      :void
+
+    attach_function \
+      :bam_plp_destructor,
+      %i[bam_plp bam_plp_callback_funcion],
+      :void
+
+    # Get pileup padded insertion sequence
     attach_function \
       :bam_plp_insertion,
       [BamPileup1, KString, :pointer],
       :int
 
-    # sets a callback to initialise any per-pileup1_t fields.
-    # bam_plp_constructor
-
-    # bam_plp_destructor
-
-    # Get pileup padded insertion sequence
-    # bam_plp_insertion
+    # Get pileup padded insertion sequence, including base modifications
+    attach_function \
+      :bam_plp_insertion_mod,
+      [BamPileup1, :pointer, KString, :pointer],
+      :int
 
     attach_function \
       :bam_mplp_init,
@@ -619,8 +630,15 @@ module HTS
       [:bam_mplp],
       :void
 
-    # bam_mplp_constructor
-    # bam_mplp_destructor
+    attach_function \
+      :bam_mplp_constructor,
+      [:bam_mplp, :bam_plp_callback_funcion],
+      :void
+
+    attach_function \
+      :bam_mplp_destructor,
+      [:bam_mplp, :bam_plp_callback_funcion],
+      :void
 
     attach_function \
       :sam_cap_mapq,
