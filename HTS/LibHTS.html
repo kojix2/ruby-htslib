@@ -2543,6 +2543,54 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bam_mods_at_next_pos-instance_method" title="#bam_mods_at_next_pos (instance method)">#<strong>bam_mods_at_next_pos</strong>(pointer)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns modification status for the next base position in the query seq.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_mods_at_qpos-instance_method" title="#bam_mods_at_qpos (instance method)">#<strong>bam_mods_at_qpos</strong>(int)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns modification status for a specific query position.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bam_mplp64_auto-instance_method" title="#bam_mplp64_auto (instance method)">#<strong>bam_mplp64_auto</strong>(bam_mplp)  &#x21d2; int </a>
     
 
@@ -2703,6 +2751,54 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>The return value of attach_function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_next_basemod-instance_method" title="#bam_next_basemod (instance method)">#<strong>bam_next_basemod</strong>(pointer)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Finds the next location containing base modifications and returns them.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bam_parse_basemod-instance_method" title="#bam_parse_basemod (instance method)">#<strong>bam_parse_basemod</strong>(pointer)  &#x21d2; int </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Parses the Mm and Ml tags out of a bam record.</p>
 </div></span>
   
 </li>
@@ -6687,6 +6783,54 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Reposition the read/write stream offset.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_base_mod_state_alloc-instance_method" title="#hts_base_mod_state_alloc (instance method)">#<strong>hts_base_mod_state_alloc</strong>([])  &#x21d2; pointer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Allocates an hts_base_mode_state.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hts_base_mod_state_free-instance_method" title="#hts_base_mod_state_free (instance method)">#<strong>hts_base_mod_state_free</strong>(pointer)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Destroys an  hts_base_mode_state.</p>
 </div></span>
   
 </li>
@@ -13900,6 +14044,128 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="bam_mods_at_next_pos-instance_method">
+  
+    #<strong>bam_mods_at_next_pos</strong>(pointer)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns modification status for the next base position in the query seq.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+654
+655
+656
+657</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 654</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:bam_mods_at_next_pos</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_mods_at_qpos-instance_method">
+  
+    #<strong>bam_mods_at_qpos</strong>(int)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns modification status for a specific query position.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+666
+667
+668
+669</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 666</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:bam_mods_at_qpos</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="bam_mplp64_auto-instance_method">
   
     #<strong>bam_mplp64_auto</strong>(bam_mplp)  &#x21d2; <tt>int</tt> 
@@ -14267,6 +14533,128 @@
 <span class='symbol'>:bam_mplp_set_maxcnt</span><span class='comma'>,</span>
 <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>bam_mplp</span><span class='words_sep'> </span><span class='tstring_content'>int</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
 <span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_next_basemod-instance_method">
+  
+    #<strong>bam_next_basemod</strong>(pointer)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Finds the next location containing base modifications and returns them</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+660
+661
+662
+663</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 660</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:bam_next_basemod</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bam_parse_basemod-instance_method">
+  
+    #<strong>bam_parse_basemod</strong>(pointer)  &#x21d2; <tt>int</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Parses the Mm and Ml tags out of a bam record.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+648
+649
+650
+651</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 648</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:bam_parse_basemod</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int</span></pre>
     </td>
   </tr>
 </table>
@@ -24526,6 +24914,110 @@ CramFd
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="hts_base_mod_state_alloc-instance_method">
+  
+    #<strong>hts_base_mod_state_alloc</strong>([])  &#x21d2; <tt>pointer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Allocates an hts_base_mode_state.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>pointer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+636
+637
+638
+639</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 636</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_base_mod_state_alloc</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:pointer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hts_base_mod_state_free-instance_method">
+  
+    #<strong>hts_base_mod_state_free</strong>(pointer)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Destroys an  hts_base_mode_state.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+642
+643
+644
+645</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 642</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_base_mod_state_free</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># hts_base_mod_state
+</span><span class='symbol'>:void</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="hts_check_EOF-instance_method">
   
     #<strong>hts_check_EOF</strong>([HtsFile])  &#x21d2; <tt>int</tt> 
@@ -34698,7 +35190,7 @@ CramFd
 </div>
 
       <div id="footer">
-  Generated on Sat May 28 10:45:18 2022 by
+  Generated on Sat May 28 11:26:06 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
