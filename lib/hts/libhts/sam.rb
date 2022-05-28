@@ -236,6 +236,27 @@ module HTS
       [Bam1],
       Bam1.by_ref
 
+    # Set all components of an alignment structure
+    attach_function \
+      :bam_set1,
+      [Bam1,
+       :size_t,
+       :string,
+       :uint16_t,
+       :int32_t,
+       :hts_pos_t,
+       :uint8_t,
+       :size_t,
+       :string,
+       :int32_t,
+       :hts_pos_t,
+       :hts_pos_t,
+       :size_t,
+       :string,
+       :string,
+       :size_t],
+      :int
+
     # Calculate query length from CIGAR data
     attach_function \
       :bam_cigar2qlen,
@@ -269,6 +290,18 @@ module HTS
       :bam_set_qname,
       [Bam1, :string],
       :int
+
+    # Parse a CIGAR string into a uint32_t array
+    attach_function \
+      :sam_parse_cigar,
+      %i[string pointer pointer pointer],
+      :ssize_t
+
+    # Parse a CIGAR string into a bam1_t struct
+    attach_function \
+      :bam_parse_cigar,
+      [:string, :pointer, Bam1],
+      :ssize_t
 
     # Initialise fp->idx for the current format type for SAM, BAM and CRAM types .
     attach_function \
@@ -399,6 +432,12 @@ module HTS
     attach_function \
       :sam_write1,
       [HtsFile, SamHdr, Bam1],
+      :int
+
+    # Checks whether a record passes an hts_filter.
+    attach_function \
+      :sam_passes_filter,
+      [SamHdr, Bam1, :pointer], # hts_filter_t
       :int
 
     # Return a pointer to an aux record
