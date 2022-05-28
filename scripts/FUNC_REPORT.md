@@ -97,19 +97,18 @@
 ## hts
 
 ```diff
-1,4c1,3
+1c1
 < count attach_function
-< 73
+---
+> count HTSLIB_EXPORT
+3,4c3
 < hts_set_log_level
 < hts_get_log_level
 ---
-> count HTSLIB_EXPORT
-> 74
 > hts_resize_array_
-62a62,63
+62a62
 > hts_itr_regions
-> hts_itr_multi_next
-64a66
+65a66
 > hts_file_type
 ```
 

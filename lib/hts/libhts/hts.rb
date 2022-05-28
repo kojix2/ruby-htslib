@@ -317,7 +317,7 @@ module HTS
       %i[string pointer int],
       :long_long
 
-    callback :hts_name2id_f, [:pointer, :string], :int
+    callback :hts_name2id_f, %i[pointer string], :int
 
     # Parse a "CHR:START-END"-style region string
     attach_function \
@@ -373,7 +373,11 @@ module HTS
 
     # hts_itr_regions
 
-    # hts_itr_multi_next
+    # Return the next record from an iterator
+    attach_function \
+      :hts_itr_multi_next,
+      [HtsFile, HtsItr, :pointer],
+      :int
 
     # Create a region list from a char array
     attach_function \
