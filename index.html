@@ -70,7 +70,7 @@
 
 <h2 id="label-Requirements">Requirements</h2>
 <ul><li>
-<p><a href="https://github.com/ruby/ruby">Ruby</a> 2.7 or above.</p>
+<p><a href="https://github.com/ruby/ruby">Ruby</a> 3.1 or above.</p>
 </li><li>
 <p><a href="https://github.com/samtools/htslib">HTSlib</a></p>
 </li><li>
@@ -86,7 +86,7 @@
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_htslib'>htslib</span>
 </code></pre>
 
-<p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a> will automatically detect the location of the shared library. Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
+<p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a> will automatically detect the location of the shared library. If pkg-config does not work well, set <code>PKG_CONFIG_PATH</code>. Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_export'>export</span> <span class='const'>HTSLIBDIR</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/your/path/to/htslib</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># libhts.so
 </span></code></pre>
@@ -187,6 +187,8 @@ bundle exec rake test
 <p>The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
 </li></ul>
 
+<p>In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.</p>
+
 <h4 id="label-FFI+Extensions">FFI Extensions</h4>
 <ul><li>
 <p><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> : Extension of Ruby-FFI to support bitfields.</p>
@@ -240,7 +242,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Sun May 29 08:45:22 2022 by
+  Generated on Sun May 29 13:24:13 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
