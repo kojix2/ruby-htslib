@@ -2,82 +2,81 @@
 
 module HTS
   module LibHTS
-    #
+    typedef :pointer, :cram_fd
+
+    attach_function \
+      :cram_fd_get_header,
+      [:cram_fd],
+      SamHdr.by_ref
+    attach_function \
+      :cram_fd_set_header,
+      [:cram_fd, SamHdr.by_ref],
+      :void
+    attach_function \
+      :cram_fd_get_version,
+      [:cram_fd],
+      :int
+
+    attach_function \
+      :cram_fd_set_version,
+      %i[cram_fd int],
+      :void
+
+    attach_function \
+      :cram_major_vers,
+      [:cram_fd],
+      :int
+
+    attach_function \
+      :cram_minor_vers,
+      [:cram_fd],
+      :int
+
+    attach_function \
+      :cram_fd_get_fp,
+      [:cram_fd],
+      HFile.by_ref
+
+    attach_function \
+      :cram_fd_set_fp,
+      [:cram_fd, HFile],
+      :void
+
     # attach_function \
-    #   :cram_fd_get_header,
-    #   [CramFd],
-    #   SamHdr.by_ref
-    #
-    # attach_function \
-    #   :cram_fd_set_header,
-    #   [CramFd, SamHdr.by_ref],
-    #   :void
-    #
-    # attach_function \
-    #   :cram_fd_get_version,
-    #   [CramFd],
-    #   :int
-    #
-    # attach_function \
-    #   :cram_fd_set_version,
-    #   [CramFd, :int],
-    #   :void
-    #
-    # attach_function \
-    #   :cram_major_vers,
-    #   [CramFd],
-    #   :int
-    #
-    # attach_function \
-    #   :cram_minor_vers,
-    #   [CramFd],
-    #   :int
-    #
-    # attach_function \
-    #   :cram_fd_get_fp,
-    #   [CramFd],
-    #   HFile.by_ref
-    #
-    # attach_function \
-    #   :cram_fd_set_fp,
-    #   [CramFd, HFile],
-    #   :void
-    #
-    # attach_function \
-    #   :cram_container_get_length,
-    #   [CramContainer],
-    #   :int32
-    #
+    #  :cram_container_get_length,
+    #  [CramContainer],
+    #  :int32
+
     # attach_function \
     #   :cram_container_set_length,
     #   [CramContainer, :int32],
     #   :void
-    #
+
     # attach_function \
     #   :cram_container_get_num_blocks,
     #   [CramContainer],
     #   :int32
-    #
+
     # attach_function \
     #   :cram_container_set_num_blocks,
     #   [CramContainer, :int32],
     #   :void
-    #
+
     # attach_function \
     #   :cram_container_get_landmarks,
     #   [CramContainer, :int32],
     #   :pointer
-    #
+
     # attach_function \
     #   :cram_container_set_landmarks,
     #   [CramContainer, :Int32, :pointer],
     #   :void
-    #
-    # attach_function \
-    #   :cram_container_is_empty,
-    #   [CramFd],
-    #   :int
-    #
+
+    attach_function \
+      :cram_container_is_empty,
+      [:cram_fd],
+      :int
+
     # attach_function \
     #   :cram_block_get_content_id,
     #   [CramBlock],
@@ -160,12 +159,12 @@ module HTS
     #
     # attach_function \
     #   :cram_transcode_rg,
-    #   [CramFd, CramFd, CramContainer, :int, :pointer, :pointer],
+    #   [:cram_fd, :cram_fd, CramContainer, :int, :pointer, :pointer],
     #   :int
     #
     # attach_function \
     #   :cram_copy_slice,
-    #   [CramFd, CramFd, :int32],
+    #   [:cram_fd, :cram_fd, :int32],
     #   :int
     #
     # attach_function \
@@ -175,12 +174,12 @@ module HTS
     #
     # attach_function \
     #   :cram_read_block,
-    #   [CramFd],
+    #   [:cram_fd],
     #   CramBlock
     #
     # attach_function \
     #   :cram_write_block,
-    #   [CramFd, CramBlock],
+    #   [:cram_fd, CramBlock],
     #   :int
     #
     # attach_function \
@@ -195,12 +194,12 @@ module HTS
     #
     # attach_function \
     #   :cram_compress_block,
-    #   [CramFd, CramBlock, CramMetrics, :int, :int],
+    #   [:cram_fd, CramBlock, CramMetrics, :int, :int],
     #   :int
     #
     # attach_function \
     #   :cram_compress_block2,
-    #   [CramFd, CramSlice, CramBlock, CramMetrics, :int, :int],
+    #   [:cram_fd, CramSlice, CramBlock, CramMetrics, :int, :int],
     #   :int
     #
     # attach_function \
@@ -215,17 +214,17 @@ module HTS
     #
     # attach_function \
     #   :cram_read_container,
-    #   [CramFd],
+    #   [:cram_fd],
     #   CramContainer
     #
     # attach_function \
     #   :cram_write_container,
-    #   [CramFd, CramContainer],
+    #   [:cram_fd, CramContainer],
     #   :int
     #
     # attach_function \
     #   :cram_store_container,
-    #   [CramFd, CramContainer, :string, :pointer],
+    #   [:cram_fd, CramContainer, :string, :pointer],
     #   :int
     #
     # attach_function \
@@ -233,55 +232,54 @@ module HTS
     #   [CramContainer],
     #   :int
     #
-    # attach_function \
-    #   :cram_open,
-    #   [:string, :string],
-    #   CramFd
-    #
-    # attach_function \
-    #   :cram_dopen,
-    #   [:pointer, :string, :string],
-    #   CramFd
-    #
-    # attach_function \
-    #   :cram_close,
-    #   [CramFd],
-    #   :int
-    #
+    attach_function \
+      :cram_open,
+      %i[string string],
+      :cram_fd
+
+    attach_function \
+      :cram_dopen,
+      %i[pointer string string],
+      :cram_fd
+
+    attach_function \
+      :cram_close,
+      [:cram_fd],
+      :int
 
     attach_function \
       :cram_seek,
-      %i[pointer off_t int], :int # FIXME: pointer should be CramFd
+      %i[pointer off_t int],
+      :int # FIXME: pointer should be :cram_fd
 
-    #
-    # attach_function \
-    #   :cram_flush,
-    #   [CramFd],
-    #   :int
-    #
-    # attach_function \
-    #   :cram_eof,
-    #   [CramFd],
-    #   :int
-    #
+    attach_function \
+      :cram_flush,
+      [:cram_fd],
+      :int
+
+    attach_function \
+      :cram_eof,
+      [:cram_fd],
+      :int
+
     # attach_function \
     #   :cram_set_option,
-    #   [CramFd, HtsFmtOption, ...], # vararg!
+    #   [:cram_fd, HtsFmtOption, ...], # vararg!
     #   :int
     #
     # attach_function \
     #   :cram_set_voption,
-    #   [CramFd, HtsFmtOption, VaList],
+    #   [:cram_fd, HtsFmtOption, VaList],
     #   :int
     #
-    # attach_function \
-    #   :cram_set_header,
-    #   [CramFd, SamHdr.by_ref],
-    #   :int
-    #
+    attach_function \
+      :cram_set_header,
+      [:cram_fd, SamHdr.by_ref],
+      :int
+
     # attach_function \
     #   :cram_check_eof = :cram_check_EOF,
-    #   [CramFd], :int
+    #   [:cram_fd], :int
     #
     # attach_function \
     #   :cram_get_refs,

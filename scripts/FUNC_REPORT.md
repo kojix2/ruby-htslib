@@ -16,22 +16,14 @@
 < count attach_function
 ---
 > count HTSLIB_EXPORT
-2a3,50
-> cram_fd_get_header
-> cram_fd_set_header
-> cram_fd_get_version
-> cram_fd_set_version
-> cram_major_vers
-> cram_minor_vers
-> cram_fd_get_fp
-> cram_fd_set_fp
+10a11,16
 > cram_container_get_length
 > cram_container_set_length
 > cram_container_get_num_blocks
 > cram_container_set_num_blocks
 > cram_container_get_landmarks
 > cram_container_set_landmarks
-> cram_container_is_empty
+11a18,47
 > cram_block_get_content_id
 > cram_block_get_comp_size
 > cram_block_get_uncomp_size
@@ -62,15 +54,10 @@
 > cram_write_container
 > cram_store_container
 > cram_container_size
-> cram_open
-> cram_dopen
-> cram_close
-3a52,59
-> cram_flush
-> cram_eof
+17a54,55
 > cram_set_option
 > cram_set_voption
-> cram_set_header
+18a57,59
 > cram_check_EOF
 > int32_put_blk
 > cram_get_refs
