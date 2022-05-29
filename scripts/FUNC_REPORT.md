@@ -12,18 +12,12 @@
 ## cram
 
 ```diff
-1c1
+1,2c1,2
 < count attach_function
+< 58
 ---
 > count HTSLIB_EXPORT
-40a41
-> cram_compress_block
-52a54,55
-> cram_set_option
-> cram_set_voption
-54a58,59
-> int32_put_blk
-> cram_get_refs
+> 57
 ```
 
 ## faidx

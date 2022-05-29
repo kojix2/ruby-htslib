@@ -5,6 +5,7 @@ module HTS
     typedef :pointer, :cram_fd
     typedef :pointer, :cram_container
     typedef :pointer, :cram_block
+    typedef :pointer, :cram_metrics
 
     attach_function \
       :cram_fd_get_header,
@@ -196,14 +197,14 @@ module HTS
       [:cram_block],
       :int
 
-    # attach_function \
-    #   :cram_compress_block,
-    #   [:cram_fd, :cram_block, CramMetrics, :int, :int],
-    #   :int
-    #
+    attach_function \
+      :cram_compress_block,
+      %i[cram_fd cram_block cram_metrics int int],
+      :int
+
     # attach_function \
     #   :cram_compress_block2,
-    #   [:cram_fd, CramSlice, :cram_block, CramMetrics, :int, :int],
+    #   %i[cram_fd cram_slice cram_block cram_metrics int int],
     #   :int
 
     attach_function \
@@ -266,16 +267,16 @@ module HTS
       [:cram_fd],
       :int
 
-    # attach_function \
-    #   :cram_set_option,
-    #   [:cram_fd, HtsFmtOption, ...], # vararg!
-    #   :int
-    #
-    # attach_function \
-    #   :cram_set_voption,
-    #   [:cram_fd, HtsFmtOption, VaList],
-    #   :int
-    #
+    attach_function \
+      :cram_set_option,
+      [:cram_fd, HtsFmtOption, :varargs],
+      :int
+
+    attach_function \
+      :cram_set_voption,
+      [:cram_fd, HtsFmtOption, :pointer], # va_list
+      :int
+
     attach_function \
       :cram_set_header,
       [:cram_fd, SamHdr.by_ref],
@@ -286,10 +287,14 @@ module HTS
       [:cram_fd],
       :int
 
-    # attach_function \
-    #   :cram_get_refs,
-    #   [HtsFile],
-    #   RefsT # what is RefsT
-    #
+    attach_function \
+      :int32_put_blk,
+      %i[cram_block int32_t],
+      :int
+
+    attach_function \
+      :cram_get_refs,
+      [HtsFile.by_ref],
+      :pointer # refs_t
   end
 end
