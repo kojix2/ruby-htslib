@@ -9230,6 +9230,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#hts_itr_regions-instance_method" title="#hts_itr_regions (instance method)">#<strong>hts_itr_regions</strong>(pointer)  &#x21d2; by_ref </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create a multi-region iterator from a region list.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#hts_lib_shutdown-instance_method" title="#hts_lib_shutdown (instance method)">#<strong>hts_lib_shutdown</strong>([])  &#x21d2; void </a>
     
 
@@ -26936,13 +26960,13 @@
       <pre class="lines">
 
 
-411
-412
-413
-414</pre>
+424
+425
+426
+427</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 411</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 424</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:errmod_cal</span><span class='comma'>,</span>
@@ -26979,13 +27003,13 @@
       <pre class="lines">
 
 
-406
-407
-408
-409</pre>
+419
+420
+421
+422</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 406</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 419</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:errmod_destroy</span><span class='comma'>,</span>
@@ -27045,13 +27069,13 @@
       <pre class="lines">
 
 
-401
-402
-403
-404</pre>
+414
+415
+416
+417</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 401</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 414</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:errmod_init</span><span class='comma'>,</span>
@@ -31679,13 +31703,13 @@
       <pre class="lines">
 
 
-377
-378
-379
-380</pre>
+390
+391
+392
+393</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 377</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 390</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_itr_multi_next</span><span class='comma'>,</span>
@@ -31880,6 +31904,85 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="hts_itr_regions-instance_method">
+  
+    #<strong>hts_itr_regions</strong>(pointer)  &#x21d2; <tt>by_ref</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create a multi-region iterator from a region list</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>by_ref</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 375</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:hts_itr_regions</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/HtsIdx.html" title="HTS::LibHTS::HtsIdx (class)">HtsIdx</a></span></span><span class='comma'>,</span>
+ <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='comment'># hts_reglist_t *
+</span> <span class='symbol'>:int</span><span class='comma'>,</span>
+ <span class='symbol'>:hts_name2id_f</span><span class='comma'>,</span>
+ <span class='symbol'>:pointer</span><span class='comma'>,</span>
+ <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='comment'># hts_itr_multi_query_func
+</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='comment'># hts_readrec_func
+</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='comment'># hts_seek_func
+</span> <span class='symbol'>:pointer</span>  <span class='comment'># hts_tell_func
+</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='const'><span class='object_link'><a href="LibHTS/HtsItr.html" title="HTS::LibHTS::HtsItr (class)">HtsItr</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="hts_lib_shutdown-instance_method">
   
     #<strong>hts_lib_shutdown</strong>([])  &#x21d2; <tt>void</tt> 
@@ -31948,13 +32051,13 @@
       <pre class="lines">
 
 
-453
-454
-455
-456</pre>
+466
+467
+468
+469</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 453</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 466</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_destroy</span><span class='comma'>,</span>
@@ -31991,13 +32094,13 @@
       <pre class="lines">
 
 
-435
-436
-437
-438</pre>
+448
+449
+450
+451</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 435</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 448</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_final</span><span class='comma'>,</span>
@@ -32034,13 +32137,13 @@
       <pre class="lines">
 
 
-447
-448
-449
-450</pre>
+460
+461
+462
+463</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 447</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 460</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_hex</span><span class='comma'>,</span>
@@ -32095,13 +32198,13 @@
       <pre class="lines">
 
 
-423
-424
-425
-426</pre>
+436
+437
+438
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 423</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 436</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_init</span><span class='comma'>,</span>
@@ -32138,13 +32241,13 @@
       <pre class="lines">
 
 
-441
-442
-443
-444</pre>
+454
+455
+456
+457</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 441</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 454</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_reset</span><span class='comma'>,</span>
@@ -32181,13 +32284,13 @@
       <pre class="lines">
 
 
-429
-430
-431
-432</pre>
+442
+443
+444
+445</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 429</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 442</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_md5_update</span><span class='comma'>,</span>
@@ -33017,13 +33120,13 @@
       <pre class="lines">
 
 
-383
-384
-385
-386</pre>
+396
+397
+398
+399</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 383</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 396</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_reglist_create</span><span class='comma'>,</span>
@@ -33060,13 +33163,13 @@
       <pre class="lines">
 
 
-389
-390
-391
-392</pre>
+402
+403
+404
+405</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 389</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 402</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:hts_reglist_free</span><span class='comma'>,</span>
@@ -35467,13 +35570,13 @@
       <pre class="lines">
 
 
-417
-418
-419
-420</pre>
+430
+431
+432
+433</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 417</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/hts.rb', line 430</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:probaln_glocal</span><span class='comma'>,</span>
@@ -39949,7 +40052,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun May 29 07:41:35 2022 by
+  Generated on Sun May 29 08:45:24 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.1.2).
 </div>
