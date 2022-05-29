@@ -16,17 +16,12 @@
 < count attach_function
 ---
 > count HTSLIB_EXPORT
-22a23
-> cram_block_get_content_type
-34a36
-> cram_new_block
-38a41
+40a41
 > cram_compress_block
-50a54,55
+52a54,55
 > cram_set_option
 > cram_set_voption
-51a57,59
-> cram_check_EOF
+54a58,59
 > int32_put_blk
 > cram_get_refs
 ```

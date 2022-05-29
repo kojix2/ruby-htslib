@@ -527,5 +527,15 @@ module HTS
         LibHTS.bcf_destroy(ptr) unless ptr.null?
       end
     end
+
+    CramContentType = enum(
+      :ct_error,           -1,
+      :file_header,        0,
+      :compression_header, 1,
+      :mapped_slice,       2,
+      :unmapped_slice,     3, # cram v1.0 only
+      :external,           4,
+      :core,               5
+    )
   end
 end
