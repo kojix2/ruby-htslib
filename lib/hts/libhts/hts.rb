@@ -371,7 +371,20 @@ module HTS
       [HtsIdx, HtsItr],
       :int
 
-    # hts_itr_regions
+    # Create a multi-region iterator from a region list
+    attach_function \
+      :hts_itr_regions,
+      [HtsIdx,
+       :pointer, # hts_reglist_t *
+       :int,
+       :hts_name2id_f,
+       :pointer,
+       :pointer, # hts_itr_multi_query_func
+       :pointer, # hts_readrec_func
+       :pointer, # hts_seek_func
+       :pointer  # hts_tell_func
+      ],
+      HtsItr.by_ref
 
     # Return the next record from an iterator
     attach_function \
