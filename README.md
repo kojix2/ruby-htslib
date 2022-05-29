@@ -14,7 +14,7 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
 
 ## Requirements
 
-* [Ruby](https://github.com/ruby/ruby) 2.7 or above.
+* [Ruby](https://github.com/ruby/ruby) 3.1 or above.
 * [HTSlib](https://github.com/samtools/htslib)
   * Ubuntu : `apt install libhts-dev`
   * macOS : `brew install htslib`
@@ -27,7 +27,7 @@ gem install htslib
 ```
 
 If you have installed htslib with apt on Ubuntu or homebrew on Mac, [pkg-config](https://github.com/ruby-gnome/pkg-config) 
-will automatically detect the location of the shared library. 
+will automatically detect the location of the shared library. If pkg-config does not work well, set `PKG_CONFIG_PATH`.
 Alternatively, you can specify the directory of the shared library by setting the environment variable `HTSLIBDIR`.
 
 ```sh
@@ -127,6 +127,8 @@ Many macro functions are used in HTSlib. Since these macro functions cannot be c
   * This is possible because we have a small number of users. What a deal!
 * Remain compatibile with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
   * The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems. 
+
+In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.
 
 #### FFI Extensions
 
