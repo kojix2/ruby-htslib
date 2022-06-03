@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -62,11 +62,11 @@
 
 <p><a href="https://badge.fury.io/rb/htslib"><img src="https://badge.fury.io/rb/htslib.svg"></a> <img src="https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg"> <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a> <a href="https://zenodo.org/badge/latestdoi/247078205"><img src="https://zenodo.org/badge/247078205.svg"></a> <a href="https://rubydoc.info/gems/htslib"><img src="https://img.shields.io/badge/docs-stable-blue.svg"></a></p>
 
-<p>Ruby-htslib is the <a href="https://www.ruby-lang.org">Ruby</a> bindings to <a href="https://github.com/samtools/htslib">HTSlib</a>, a C library for high-throughput sequencing data formats. It allows you to read and write file formats commonly used in genomics, such as <a href="http://samtools.github.io/hts-specs/">SAM, BAM, VCF, and BCF</a> in the Ruby language.</p>
+<p>Ruby-htslib is the <a href="https://www.ruby-lang.org">Ruby</a> bindings to <a href="https://github.com/samtools/htslib">HTSlib</a>, a C library for high-throughput sequencing data formats. It allows you to read and write file formats commonly used in genomics, such as <a href="http://samtools.github.io/hts-specs/">SAM, BAM, VCF, and BCF</a>, in the Ruby language.</p>
 
 <p>:apple: Feel free to fork it out if you can develop it!</p>
 
-<p>:bowtie: alpha stage.</p>
+<p>:bowtie: Alpha stage.</p>
 
 <h2 id="label-Requirements">Requirements</h2>
 <ul><li>
@@ -150,11 +150,11 @@
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
 </code></pre>
 
-<p>Note: htslib makes extensive use of macro functions for speed. you cannot use C macro functions in Ruby if they are not reimplemented in ruby-htslib. Only small number of C structs are implemented with FFI’s ManagedStruct, which frees memory when Ruby’s garbage collection fires. Other structs will need to be freed manually.</p>
+<p>Note: htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in ruby-htslib. Only small number of C structs are implemented with FFI’s ManagedStruct, which frees memory when Ruby’s garbage collection fires. Other structs will need to be freed manually.</p>
 
 <h3 id="label-Need+more+speed-3F">Need more speed?</h3>
 
-<p>Try Crystal. <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a> is implemented in Crystal language and provides an API compatible with ruby-htslib. Crsytal language is not as flexible as Ruby language. You can not use <code>eval</code> methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal. The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create tools.</p>
+<p>Try Crystal. <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a> is implemented in Crystal language and provides an API compatible with ruby-htslib. Crystal language is not as flexible as Ruby language. You can not use <code>eval</code> methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal. The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create tools.</p>
 
 <h2 id="label-Documentation">Documentation</h2>
 <ul><li>
@@ -182,9 +182,9 @@ bundle exec rake test
 </li><li>
 <p>This is possible because we have a small number of users. What a deal!</p>
 </li><li>
-<p>Remain compatibile with <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a>.</p>
+<p>Remain compatible with <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a>.</p>
 </li><li>
-<p>The most difficult part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
+<p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
 </li></ul>
 
 <p>In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.</p>
@@ -242,9 +242,9 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Sun May 29 13:24:13 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.1.2).
+  Generated on Fri Jun  3 11:57:37 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
 </div>
 
     </div>
