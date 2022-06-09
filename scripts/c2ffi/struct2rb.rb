@@ -7,12 +7,10 @@ json = JSON.parse(str)
 
 json.each do |item|
   name = item["name"]
-  next if name != "cram_container"
   next if item["fields"].nil?
 
-  p item
-  #  next if item["tag"] != "struct"
-  #  next if item["bit-size"] == 0
+  next if item["tag"] != "struct"
+  next if item["bit-size"] == 0
 
   str = item["fields"].map do |f|
     n = f["name"]
@@ -24,5 +22,6 @@ json.each do |item|
       layout \\
     #{str}
     end
+
   EOS
 end
