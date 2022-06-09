@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Class: HTS::LibHTS::Bcf1
+  Class: HTS::Bcf::HeaderRecord
   
     &mdash; Documentation by YARD 0.9.28
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
 <script type="text/javascript">
-  pathId = "HTS::LibHTS::Bcf1";
+  pathId = "HTS::Bcf::HeaderRecord";
   relpath = '../../';
 </script>
 
@@ -36,10 +36,10 @@
       <div id="header">
         <div id="menu">
   
-    <a href="../../_index.html">Index (B)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span>
+    <a href="../../_index.html">Index (H)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span>
      &raquo; 
-    <span class="title">Bcf1</span>
+    <span class="title">HeaderRecord</span>
   
 </div>
 
@@ -59,7 +59,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Class: HTS::LibHTS::Bcf1
+      <div id="content"><h1>Class: HTS::Bcf::HeaderRecord
   
   
   
@@ -69,14 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">FFI::ManagedBitStruct</span>
+      <span class="inheritName">Object</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">FFI::ManagedBitStruct</li>
-          
-            <li class="next">HTS::LibHTS::Bcf1</li>
+            <li class="next">HTS::Bcf::HeaderRecord</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -96,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/libhts/constants.rb</dd>
+    <dd>lib/hts/bcf/header_record.rb</dd>
   </dl>
   
 </div>
@@ -110,7 +108,7 @@
 
   
     <h2>
-      Class Method Summary
+      Instance Method Summary
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
@@ -119,13 +117,15 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#release-class_method" title="release (class method)">.<strong>release</strong>(ptr)  &#x21d2; Object </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; HeaderRecord </a>
     
 
     
   </span>
   
   
+    <span class="note title constructor">constructor</span>
+  
   
   
   
@@ -133,7 +133,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of HeaderRecord.</p>
+</div></span>
   
 </li>
 
@@ -141,44 +143,52 @@
     </ul>
   
 
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bcf::HeaderRecord (class)">HeaderRecord</a></span></tt> 
+  
 
   
 
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-      <div class="method_details first">
-  <h3 class="signature first" id="release-class_method">
-  
-    .<strong>release</strong>(ptr)  &#x21d2; <tt>Object</tt> 
+<p>Returns a new instance of HeaderRecord.</p>
+
+
+  </div>
+</div>
+<div class="tags">
   
 
-  
-
-  
-</h3><table class="source_code">
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-527
-528
-529</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/constants.rb', line 527</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header_record.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_destroy'><span class='object_link'><a href="../LibHTS.html#bcf_destroy-instance_method" title="HTS::LibHTS#bcf_destroy (method)">bcf_destroy</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='ivar'>@bcf_hrec</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
-    
-  </div>
+  
+</div>
+
 
 </div>
 
