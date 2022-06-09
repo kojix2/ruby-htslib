@@ -233,6 +233,12 @@ module HTS
           LibHTS::BcfIdpair.size * int_id # offset
         )[:val][:info][type] & 0xf
       end
+
+      # def bcf_hdr_idinfo_exists
+
+      # def bcf_hdr_id2hrec
+
+      alias bcf_itr_destroy hts_itr_destroy
     end
   end
 end

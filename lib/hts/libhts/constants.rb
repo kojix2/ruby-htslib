@@ -403,6 +403,7 @@ module HTS
         :n,              :int
     end
 
+    # Complete textual representation of a header line
     class BcfHrec < FFI::Struct
       layout \
         :type,           :int,
@@ -411,21 +412,6 @@ module HTS
         :nkeys,          :int,
         :keys,           :pointer,
         :vals,           :pointer
-    end
-
-    class BcfFmt < FFI::BitStruct
-      layout \
-        :id,             :int,
-        :n,              :int,
-        :size,           :int,
-        :type,           :int,
-        :p,              :pointer, # uint8_t
-        :p_len,          :uint32,
-        :_p_off_free,    :uint32 # bit_fields
-
-      bit_fields :_p_off_free,
-                 :p_off,  31,
-                 :p_free, 1
     end
 
     class BcfInfo < FFI::BitStruct
@@ -475,6 +461,21 @@ module HTS
         :keep_samples,   :pointer,
         :mem,            KString,
         :m,              [:int, 3]
+    end
+
+    class BcfFmt < FFI::BitStruct
+      layout \
+        :id,             :int,
+        :n,              :int,
+        :size,           :int,
+        :type,           :int,
+        :p,              :pointer, # uint8_t
+        :p_len,          :uint32,
+        :_p_off_free,    :uint32 # bit_fields
+
+      bit_fields :_p_off_free,
+                 :p_off,  31,
+                 :p_free, 1
     end
 
     class BcfDec < FFI::Struct
