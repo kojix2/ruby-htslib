@@ -239,6 +239,22 @@ module HTS
       # def bcf_hdr_id2hrec
 
       alias bcf_itr_destroy hts_itr_destroy
+
+      def bcf_itr_queryi(idx, tid, beg, _end)
+        hts_itr_query(idx, tid, beg, _end, @@bcf_readrec)
+      end
+
+      def bcf_itr_querys(idx, hdr, s)
+        hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @@hts_itr_query, @@bcf_readrec)
+      end
+
+      def bcf_index_load(fn)
+        hts_idx_load(fn, HTS_FMT_CSI)
+      end
+
+      def bcf_index_seqnames(idx, hdr, nptr)
+        hts_idx_seqnames(idx, nptr, @@bcf_hdr_id2name, @@hdr)
+      end
     end
   end
 end
