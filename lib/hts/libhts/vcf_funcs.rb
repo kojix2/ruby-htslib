@@ -253,7 +253,7 @@ module HTS
       end
 
       def bcf_index_seqnames(idx, hdr, nptr)
-        hts_idx_seqnames(idx, nptr, @@bcf_hdr_id2name, @@hdr)
+        hts_idx_seqnames(idx, nptr, @@bcf_hdr_id2name, hdr)
       end
     end
   end
