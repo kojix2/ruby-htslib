@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "json"
 require "awesome_print"
 require "active_support/core_ext/string/inflections"
@@ -14,7 +16,7 @@ json.each do |item|
 
   str = item["fields"].map do |f|
     n = f["name"]
-    "    :#{n}, " + " " * (20 - n.size) + "#{f['type']['tag']}"
+    "    :#{n}, " + " " * (20 - n.size) + (f["type"]["tag"]).to_s
   end.join("\n")
 
   puts <<~EOS
