@@ -94,7 +94,46 @@ module HTS
         s[(i) >> 1].read_uint8 >> ((~i & 1) << 2) & 0xf
       end
 
-      # def bam_set_seqi(s, i, b)
+      def bam_set_seqi(s, i, b)
+        s[(i) >> 1] = ((s)[(i) >> 1] & (0xf0 >> ((~i & 1) << 2))) | ((b) << ((~i & 1) << 2))
+      end
+
+      def sam_hdr_find_hd(h, ks)
+        sam_hdr_find_line_id(h, "HD", nil, nil, ks)
+      end
+
+      def sam_hdr_find_tag_hd(h, key, ks)
+        sam_hdr_find_tag_id(h, "HD", nil, nil, key, ks)
+      end
+
+      def sam_hdr_update_hd(h, *args)
+        sam_hdr_update_line(h, "HD", nil, nil, *args, nil)
+      end
+
+      def sam_hdr_remove_tag_hd(h, key)
+        sam_hdr_remove_tag_id(h, "HD", nil, nil, key)
+      end
+
+      BAM_USER_OWNS_STRUCT = 1
+      BAM_USER_OWNS_DATA   = 2
+
+      alias bam_itr_destroy hts_itr_destroy
+      alias bam_itr_queryi sam_itr_queryi
+      alias bam_itr_querys sam_itr_querys
+      alias bam_itr_next sam_itr_next
+      
+      def bam_index_load(fn)
+        hts_idx_load(fn, HTS_FMT_BAI)
+      end
+
+      alias bam_index_build sam_index_build
+      
+      alias sam_itr_destroy hts_itr_destroy
+
+      alias sam_open hts_open
+      alias sam_open_format hts_open_format
+      alias sam_flush hts_flush
+      alias sam_close hts_close
     end
   end
 end
