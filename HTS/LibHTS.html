@@ -1723,6 +1723,94 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bcf_index_load-class_method" title="bcf_index_load (class method)">.<strong>bcf_index_load</strong>(fn)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_index_seqnames-class_method" title="bcf_index_seqnames (class method)">.<strong>bcf_index_seqnames</strong>(idx, hdr, nptr)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_itr_queryi-class_method" title="bcf_itr_queryi (class method)">.<strong>bcf_itr_queryi</strong>(idx, tid, beg, _end)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_itr_querys-class_method" title="bcf_itr_querys (class method)">.<strong>bcf_itr_querys</strong>(idx, hdr, s)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bcf_update_format_char-class_method" title="bcf_update_format_char (class method)">.<strong>bcf_update_format_char</strong>(hdr, line, key, values, n)  &#x21d2; Object </a>
     
 
@@ -13775,6 +13863,126 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_nsamples'>bcf_hdr_nsamples</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:n</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="#BCF_DT_SAMPLE-constant" title="HTS::LibHTS::BCF_DT_SAMPLE (constant)">BCF_DT_SAMPLE</a></span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_index_load-class_method">
+  
+    .<strong>bcf_index_load</strong>(fn)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+251
+252
+253</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 251</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_load'>bcf_index_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_idx_load'>hts_idx_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span> <span class='const'>HTS_FMT_CSI</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_index_seqnames-class_method">
+  
+    .<strong>bcf_index_seqnames</strong>(idx, hdr, nptr)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+255
+256
+257</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 255</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_seqnames'>bcf_index_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_idx_seqnames'>hts_idx_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_id2name</span><span class='comma'>,</span> <span class='cvar'>@@hdr</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_itr_queryi-class_method">
+  
+    .<strong>bcf_itr_queryi</strong>(idx, tid, beg, _end)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+243
+244
+245</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 243</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_itr_queryi'>bcf_itr_queryi</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid__end'>_end</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_query'>hts_itr_query</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid__end'>_end</span><span class='comma'>,</span> <span class='cvar'>@@bcf_readrec</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_itr_querys-class_method">
+  
+    .<strong>bcf_itr_querys</strong>(idx, hdr, s)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+247
+248
+249</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 247</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_itr_querys'>bcf_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_querys'>hts_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_name2id</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='cvar'>@@hts_itr_query</span><span class='comma'>,</span> <span class='cvar'>@@bcf_readrec</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -40052,7 +40260,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun  9 02:55:35 2022 by
+  Generated on Thu Jun  9 04:41:34 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
