@@ -121,13 +121,13 @@ module HTS
       alias bam_itr_queryi sam_itr_queryi
       alias bam_itr_querys sam_itr_querys
       alias bam_itr_next sam_itr_next
-      
+
       def bam_index_load(fn)
         hts_idx_load(fn, HTS_FMT_BAI)
       end
 
       alias bam_index_build sam_index_build
-      
+
       alias sam_itr_destroy hts_itr_destroy
 
       alias sam_open hts_open
