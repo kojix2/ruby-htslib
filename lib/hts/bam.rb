@@ -139,23 +139,49 @@ module HTS
       self
     end
 
-    # query [WIP]
-    def query(region)
+    def query(region, copy: false, &block)
+      if copy
+        query_copy(region, &block)
+      else
+        query_reuse(region, &block)
+      end
+    end
+
+    private def query_copy(region)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__) unless block_given?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
+
+      slen = 1
       begin
-        bam1 = LibHTS.bam_init1
-        slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
         while slen > 0
-          yield Record.new(bam1, header)
           bam1 = LibHTS.bam_init1
           slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+          yield Record.new(bam1, header)
         end
       ensure
         LibHTS.hts_itr_destroy(qiter)
       end
+      self
+    end
+
+    private def query_reuse(region)
+      check_closed
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__) unless block_given?
+
+      qiter = LibHTS.sam_itr_querys(@idx, header, region)
+
+      bam1 = LibHTS.bam_init1
+      record = Record.new(bam1, header)
+      begin
+        yield record while 0 < LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+      self
     end
 
     # @!macro [attach] define_getter
