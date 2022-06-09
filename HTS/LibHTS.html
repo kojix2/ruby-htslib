@@ -13922,7 +13922,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_seqnames'>bcf_index_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_hts_idx_seqnames'>hts_idx_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_id2name</span><span class='comma'>,</span> <span class='cvar'>@@hdr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_idx_seqnames'>hts_idx_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_id2name</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -40260,7 +40260,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun  9 04:41:34 2022 by
+  Generated on Thu Jun  9 04:45:34 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
