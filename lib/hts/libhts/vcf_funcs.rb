@@ -244,6 +244,10 @@ module HTS
         hts_itr_query(idx, tid, beg, _end, @@bcf_readrec)
       end
 
+      @@bcf_hdr_name2id = proc do |hdr, id|
+        LibHTS.bcf_hdr_name2id(hdr, id)
+      end
+
       def bcf_itr_querys(idx, hdr, s)
         hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @@hts_itr_query, @@bcf_readrec)
       end

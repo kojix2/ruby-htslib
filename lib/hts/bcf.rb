@@ -142,6 +142,26 @@ module HTS
       self
     end
 
+    def query(str)
+      check_closed
+      return to_enum(__method__) unless block_given?
+
+      qitr = LibHTS.bcf_itr_querys(@idx, header, str)
+
+      begin
+        loop do
+          bcf1 = LibHTS.bcf_init
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          break if slen == -1
+          raise if slen < -1
+          yield Record.new(bcf1, header)
+        end
+      ensure
+        LibHTS.bcf_itr_destroy(qitr)
+      end
+      self
+    end
+
     # @!macro [attach] define_getter
     #   @method $1
     #   Get $1 array
