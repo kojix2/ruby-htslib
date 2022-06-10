@@ -877,6 +877,13 @@
         </dt>
         <dd><pre class="code"><span class='symbol'>:pointer</span></pre></dd>
       
+        <dt id="bcf_hdr_name2id-classvariable" class="">@@bcf_hdr_name2id =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
+  <span class='const'>LibHTS</span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_name2id'><span class='object_link'><a href="#bcf_hdr_name2id-class_method" title="HTS::LibHTS.bcf_hdr_name2id (method)">bcf_hdr_name2id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre></dd>
+      
     </dl>
   
 
@@ -14088,12 +14095,12 @@
       <pre class="lines">
 
 
-251
-252
-253</pre>
+255
+256
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_load'>bcf_index_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_idx_load'>hts_idx_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span> <span class='const'>HTS_FMT_CSI</span><span class='rparen'>)</span>
@@ -14118,12 +14125,12 @@
       <pre class="lines">
 
 
-255
-256
-257</pre>
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 259</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_seqnames'>bcf_index_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_idx_seqnames'>hts_idx_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_id2name</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
@@ -14178,12 +14185,12 @@
       <pre class="lines">
 
 
-247
-248
-249</pre>
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 247</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 251</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_itr_querys'>bcf_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_querys'>hts_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_name2id</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='cvar'>@@hts_itr_query</span><span class='comma'>,</span> <span class='cvar'>@@bcf_readrec</span><span class='rparen'>)</span>
@@ -40588,7 +40595,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun  9 06:32:36 2022 by
+  Generated on Fri Jun 10 12:24:02 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
