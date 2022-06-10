@@ -154,11 +154,12 @@ module HTS
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
 
-      slen = 1
       begin
-        while slen > 0
+        loop do
           bam1 = LibHTS.bam_init1
           slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+          break if slen == -1
+          raise if slen < -1
           yield Record.new(bam1, header)
         end
       ensure
