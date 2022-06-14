@@ -132,8 +132,7 @@ module HTS
 
     private def each_record_reuse
       check_closed
-      # Each does not always start at the beginning of the file.
-      # This is the common behavior of IO objects in Ruby.
+
       return to_enum(__method__) unless block_given?
 
       bcf1 = LibHTS.bcf_init
@@ -144,6 +143,7 @@ module HTS
 
     def query(str)
       check_closed
+
       return to_enum(__method__) unless block_given?
 
       qitr = LibHTS.bcf_itr_querys(@idx, header, str)
@@ -154,6 +154,7 @@ module HTS
           slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
           break if slen == -1
           raise if slen < -1
+
           yield Record.new(bcf1, header)
         end
       ensure

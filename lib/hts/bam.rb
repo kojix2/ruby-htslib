@@ -160,6 +160,7 @@ module HTS
           slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
           break if slen == -1
           raise if slen < -1
+
           yield Record.new(bam1, header)
         end
       ensure
