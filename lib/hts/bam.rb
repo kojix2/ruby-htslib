@@ -150,7 +150,7 @@ module HTS
     private def query_copy(region)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__) unless block_given?
+      return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
 
@@ -172,7 +172,7 @@ module HTS
     private def query_reuse(region)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__) unless block_given?
+      return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
 

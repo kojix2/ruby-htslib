@@ -220,7 +220,7 @@ module HTS
 
     def each_info(key)
       check_closed
-      return to_enum(__method__) unless block
+      return to_enum(__method__, key) unless block
 
       each do |r|
         yield r.info(key)
@@ -229,7 +229,7 @@ module HTS
 
     def each_format(key)
       check_closed
-      return to_enum(__method__) unless block
+      return to_enum(__method__, key) unless block
 
       each do |r|
         yield r.format(key)
