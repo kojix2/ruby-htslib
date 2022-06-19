@@ -141,7 +141,28 @@ module HTS
       self
     end
 
-    def query(region)
+    def query(...)
+      querys(...) # Fixme
+    end
+
+    # def queryi
+    # end
+
+    def querys(region, copy: false, &block)
+      if copy
+        querys_copy(region, &block)
+      else
+        querys_reuse(region, &block)
+      end
+    end
+
+    # private def queryi_copy
+    # end
+
+    # private def queryi_reuse
+    # end
+
+    private def querys_copy(region)
       check_closed
 
       raise "query is only available for BCF files" unless file_format == "bcf"
@@ -158,6 +179,31 @@ module HTS
           raise if slen < -1
 
           yield Record.new(bcf1, header)
+        end
+      ensure
+        LibHTS.bcf_itr_destroy(qitr)
+      end
+      self
+    end
+
+    private def querys_reuse(region)
+      check_closed
+
+      raise "query is only available for BCF files" unless file_format == "bcf"
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
+
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(bcf1, header)
+      begin
+        loop do
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          break if slen == -1
+          raise if slen < -1
+
+          yield record
         end
       ensure
         LibHTS.bcf_itr_destroy(qitr)
