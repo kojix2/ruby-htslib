@@ -141,14 +141,14 @@ module HTS
       self
     end
 
-    def query(str)
+    def query(region)
       check_closed
 
       raise "query is only available for BCF files" unless file_format == "bcf"
       raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, str) unless block_given?
+      return to_enum(__method__, region) unless block_given?
 
-      qitr = LibHTS.bcf_itr_querys(@idx, header, str)
+      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
 
       begin
         loop do
