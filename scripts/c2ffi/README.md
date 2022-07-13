@@ -154,3 +154,116 @@ docker run -v $(pwd):/data c2ffi hts.h | jq '.[] | select(.name=="hts_open")'
 }
 ```
 
+## Struct
+
+```sh
+docker run -v $(pwd):/data c2ffi hts.h | jq '.[] | select(.name=="bam1_t")'
+```
+
+```json
+{
+  "tag": "struct",
+  "ns": 0,
+  "name": "bam1_t",
+  "id": 0,
+  "location": "sam.h:252:16",
+  "bit-size": 640,
+  "bit-alignment": 64,
+  "fields": [
+    {
+      "tag": "field",
+      "name": "core",
+      "bit-offset": 0,
+      "bit-size": 384,
+      "bit-alignment": 64,
+      "type": {
+        "tag": "bam1_core_t"
+      }
+    },
+    {
+      "tag": "field",
+      "name": "id",
+      "bit-offset": 384,
+      "bit-size": 64,
+      "bit-alignment": 64,
+      "type": {
+        "tag": "uint64_t"
+      }
+    },
+    {
+      "tag": "field",
+      "name": "data",
+      "bit-offset": 448,
+      "bit-size": 64,
+      "bit-alignment": 64,
+      "type": {
+        "tag": ":pointer",
+        "type": {
+          "tag": "uint8_t"
+        }
+      }
+    },
+    {
+      "tag": "field",
+      "name": "l_data",
+      "bit-offset": 512,
+      "bit-size": 32,
+      "bit-alignment": 32,
+      "type": {
+        "tag": ":int",
+        "bit-size": 32,
+        "bit-alignment": 32
+      }
+    },
+    {
+      "tag": "field",
+      "name": "m_data",
+      "bit-offset": 544,
+      "bit-size": 32,
+      "bit-alignment": 32,
+      "type": {
+        "tag": "uint32_t"
+      }
+    },
+    {
+      "tag": "field",
+      "name": "mempolicy",
+      "bit-offset": 576,
+      "bit-size": 32,
+      "bit-alignment": 32,
+      "type": {
+        "tag": ":bitfield",
+        "width": 2,
+        "type": {
+          "tag": "uint32_t"
+        }
+      }
+    },
+    {
+      "tag": "field",
+      "name": "",
+      "bit-offset": 578,
+      "bit-size": 32,
+      "bit-alignment": 32,
+      "type": {
+        "tag": ":bitfield",
+        "width": 30,
+        "type": {
+          "tag": "uint32_t"
+        }
+      }
+    }
+  ]
+}
+{
+  "tag": "typedef",
+  "ns": 0,
+  "name": "bam1_t",
+  "location": "sam.h:259:3",
+  "type": {
+    "tag": ":struct",
+    "name": "bam1_t",
+    "id": 69
+  }
+}
+```
