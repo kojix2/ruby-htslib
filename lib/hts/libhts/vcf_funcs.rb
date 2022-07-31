@@ -139,15 +139,15 @@ module HTS
       end
 
       def bcf_gt_is_missing(val)
-        ((val) >> 1 ? 0 : 1)
+        (val >> 1 ? 0 : 1)
       end
 
       def bcf_gt_is_phased(idx)
-        ((idx) & 1)
+        (idx & 1)
       end
 
       def bcf_gt_allele(val)
-        (((val) >> 1) - 1)
+        ((val >> 1) - 1)
       end
 
       def bcf_alleles2gt(a, b)

@@ -30,7 +30,7 @@ module HTS
       end
 
       def bam_cigar_opchr(c)
-        ("#{BAM_CIGAR_STR}??????")[bam_cigar_op(c)]
+        "#{BAM_CIGAR_STR}??????"[bam_cigar_op(c)]
       end
 
       def bam_cigar_gen(l, o)
@@ -91,11 +91,11 @@ module HTS
       end
 
       def bam_seqi(s, i)
-        s[(i) >> 1].read_uint8 >> ((~i & 1) << 2) & 0xf
+        s[i >> 1].read_uint8 >> ((~i & 1) << 2) & 0xf
       end
 
       def bam_set_seqi(s, i, b)
-        s[(i) >> 1] = ((s)[(i) >> 1] & (0xf0 >> ((~i & 1) << 2))) | ((b) << ((~i & 1) << 2))
+        s[i >> 1] = (s[i >> 1] & (0xf0 >> ((~i & 1) << 2))) | ((b) << ((~i & 1) << 2))
       end
 
       def sam_hdr_find_hd(h, ks)
