@@ -25,6 +25,10 @@ class FaidxTest < Minitest::Test
       assert_instance_of HTS::Faidx, f
     end
   end
+  
+  def test_struct
+    assert_equal false, @fai.struct.null?
+  end
 
   def test_close
     assert_nil @fai.close
@@ -50,5 +54,16 @@ class FaidxTest < Minitest::Test
     assert_equal 500, @fai.chrom_length(:chr1)
     assert_raises(ArgumentError) { @fai.chrom_length(nil) }
     assert_nil @fai.chrom_length("chr")
+  end
+
+  def test_chrom_names
+    assert_equal ["chr1", "chr2", "chr3", "chr4", "chr5"], @fai.chrom_names
+  end
+
+  def test_fetch
+    assert_equal "TTGTGGAGAC", @fai.fetch("chr1:1-10")
+    assert_equal "TTGTGGAGAC", @fai.fetch(:chr1, 0, 9)
+    assert_equal "ACTTAGTTGA", @fai.fetch("chr2:11-20")
+    assert_equal "ACTTAGTTGA", @fai.fetch(:chr2, 10, 19)
   end
 end

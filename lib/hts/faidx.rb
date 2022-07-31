@@ -46,10 +46,7 @@ module HTS
 
     # return the length of the requested chromosome.
     def chrom_size(chrom)
-      unless chrom.is_a?(String) || chrom.is_a?(Symbol)
-        # FIXME
-        raise ArgumentError, "Expect chrom to be String or Symbol"
-      end
+      raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
 
       chrom = chrom.to_s
       result = LibHTS.faidx_seq_len(@fai, chrom)
@@ -57,12 +54,43 @@ module HTS
     end
     alias chrom_length chrom_size
 
-    # FIXME: naming and syntax
-    # def cget; end
+    # return the length of the requested chromosome.
+    def chrom_names
+      Array.new(length) { |i| LibHTS.faidx_iseq(@fai, i) }
+    end
 
-    # FIXME: naming and syntax
-    # def get; end
+    # @overload fetch(name)
+    #   Fetch the sequence as a String.
+    #   @param name [String] chr1:0-10
+    # @overload fetch(name, start, stop)
+    #   Fetch the sequence as a String.
+    #   @param name [String] the name of the chromosome
+    #   @param start [Integer] the start position of the sequence (0-based)
+    #   @param stop [Integer] the end position of the sequence (0-based)
+    #   @return [String] the sequence
 
-    # __iter__
+    def fetch(name, start = nil, stop = nil)
+      name = name.to_s
+      rlen = FFI::MemoryPointer.new(:int)
+
+      if start.nil? && stop.nil?
+        result = LibHTS.fai_fetch(@fai, name, rlen)
+      else
+        start < 0    && raise(ArgumentError, "Expect start to be >= 0")
+        stop  < 0    && raise(ArgumentError, "Expect stop to be >= 0")
+        start > stop && raise(ArgumentError, "Expect start to be <= stop")
+
+        result = LibHTS.faidx_fetch_seq(@fai, name, start, stop, rlen)
+      end
+
+      case rlen.read_int
+      when -2
+        raise "Invalid chromosome name: #{name}"
+      when -1
+        raise "Error fetching sequence"
+      end
+
+      result
+    end
   end
 end
