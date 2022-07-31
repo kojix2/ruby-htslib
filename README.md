@@ -83,6 +83,19 @@ end
 bcf.close
 ```
 
+<details>
+<summary><b>Faidx</b></summary>
+
+```ruby
+fa = HTS::Faidx.open("c.fa")
+
+fa.fetch("chr1:1-10")
+
+fa.close
+```
+
+</details>
+
 ### Low level API
 
 `HTS::LibHTS` provides native C functions. 
