@@ -60,6 +60,10 @@ class BamTest < Minitest::Test
         assert_equal true, f.closed?
       end
 
+      define_method "test_struct_#{ft}" do
+        assert_equal false, bam(ft).struct.null?
+      end
+
       define_method "test_file_name_#{ft}" do
         assert_equal bam_path(ft),
                      bam(ft).file_name

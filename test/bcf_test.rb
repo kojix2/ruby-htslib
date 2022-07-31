@@ -19,6 +19,10 @@ class BcfTest < Minitest::Test
     assert_instance_of HTS::Bcf, @bcf
   end
 
+  def test_struct
+    assert_equal false, @bcf.struct.null?
+  end
+
   def test_file_name
     assert_equal test_bcf_path, @bcf.file_name
   end
