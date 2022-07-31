@@ -38,6 +38,11 @@ module HTS
       LibHTS.fai_destroy(@fai)
     end
 
+    # FIXME: This doesn't seem to work as expected
+    # def closed?
+    #   @fai.null?
+    # end
+
     # the number of sequences in the index.
     def length
       LibHTS.faidx_nseq(@fai)
@@ -69,7 +74,7 @@ module HTS
     #   @param stop [Integer] the end position of the sequence (0-based)
     #   @return [String] the sequence
 
-    def fetch(name, start = nil, stop = nil)
+    def seq(name, start = nil, stop = nil)
       name = name.to_s
       rlen = FFI::MemoryPointer.new(:int)
 
@@ -84,10 +89,8 @@ module HTS
       end
 
       case rlen.read_int
-      when -2
-        raise "Invalid chromosome name: #{name}"
-      when -1
-        raise "Error fetching sequence"
+      when -2 then raise "Invalid chromosome name: #{name}"
+      when -1 then raise "Error fetching sequence: #{name}:#{start}-#{stop}"
       end
 
       result

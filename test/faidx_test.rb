@@ -25,13 +25,20 @@ class FaidxTest < Minitest::Test
       assert_instance_of HTS::Faidx, f
     end
   end
-  
+
   def test_struct
     assert_equal false, @fai.struct.null?
   end
 
   def test_close
     assert_nil @fai.close
+  end
+
+  def test_closed?
+    skip
+    assert_equal false, @fai.closed?
+    @fai.close
+    assert_equal true, @fai.closed?
   end
 
   def test_size
@@ -57,13 +64,13 @@ class FaidxTest < Minitest::Test
   end
 
   def test_chrom_names
-    assert_equal ["chr1", "chr2", "chr3", "chr4", "chr5"], @fai.chrom_names
+    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.chrom_names
   end
 
-  def test_fetch
-    assert_equal "TTGTGGAGAC", @fai.fetch("chr1:1-10")
-    assert_equal "TTGTGGAGAC", @fai.fetch(:chr1, 0, 9)
-    assert_equal "ACTTAGTTGA", @fai.fetch("chr2:11-20")
-    assert_equal "ACTTAGTTGA", @fai.fetch(:chr2, 10, 19)
+  def test_seq
+    assert_equal "TTGTGGAGAC", @fai.seq("chr1:1-10")
+    assert_equal "TTGTGGAGAC", @fai.seq(:chr1, 0, 9)
+    assert_equal "ACTTAGTTGA", @fai.seq("chr2:11-20")
+    assert_equal "ACTTAGTTGA", @fai.seq(:chr2, 10, 19)
   end
 end
