@@ -12953,7 +12953,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_opchr'>bam_cigar_opchr</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#BAM_CIGAR_STR-constant" title="HTS::LibHTS::BAM_CIGAR_STR (constant)">BAM_CIGAR_STR</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>??????</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_bam_cigar_op'>bam_cigar_op</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#BAM_CIGAR_STR-constant" title="HTS::LibHTS::BAM_CIGAR_STR (constant)">BAM_CIGAR_STR</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>??????</span><span class='tstring_end'>&quot;</span></span><span class='lbracket'>[</span><span class='id identifier rubyid_bam_cigar_op'>bam_cigar_op</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13313,7 +13313,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_seqi'>bam_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
+  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13343,7 +13343,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_set_seqi'>bam_set_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='int'>0xf0</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='int'>0xf0</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13643,7 +13643,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_allele'>bcf_gt_allele</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13673,7 +13673,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_missing'>bcf_gt_is_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='int'>1</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13703,7 +13703,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_phased'>bcf_gt_is_phased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -40595,7 +40595,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jul 19 10:16:03 2022 by
+  Generated on Sun Jul 31 08:34:18 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
