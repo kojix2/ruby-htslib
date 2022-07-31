@@ -1,0 +1,16 @@
+.yardoc/
+Gemfile.lock
+codegen/
+coverage/
+doc/
+htslib/
+moo.cram.crai
+pkg/
+vendor/
+*.sam
+*.bam
+*.cram
+*.vcf
+*.bcf
+*.fa
+*.fai
