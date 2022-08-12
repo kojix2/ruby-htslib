@@ -28,7 +28,7 @@ module HTS
     end
 
     def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil,
-                   create_index: false)
+                   build_index: false)
       if block_given?
         message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
         raise message
@@ -54,13 +54,13 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bam::Header.new(@hts_file)
-      create_index(index) if create_index
+      build_index(index) if build_index
       @idx = load_index(index)
       @start_position = tell
       super # do nothing
     end
 
-    def create_index(index_name = nil, min_shift: 0)
+    def build_index(index_name = nil, min_shift: 0)
       check_closed
 
       if index_name

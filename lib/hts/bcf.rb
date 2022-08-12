@@ -28,7 +28,7 @@ module HTS
     end
 
     def initialize(file_name, mode = "r", index: nil, threads: nil,
-                   create_index: false)
+                   build_index: false)
       if block_given?
         message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
         raise message
@@ -49,13 +49,13 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bcf::Header.new(@hts_file)
-      create_index(index) if create_index
+      build_index(index) if build_index
       @idx = load_index(index)
       @start_position = tell
       super # do nothing
     end
 
-    def create_index(index_name = nil)
+    def build_index(index_name = nil)
       check_closed
 
       warn "Create index for #{@file_name} to #{index_name}"
