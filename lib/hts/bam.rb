@@ -68,7 +68,10 @@ module HTS
       else
         warn "Create index for #{@file_name}"
       end
-      LibHTS.sam_index_build3(@file_name, index_name, min_shift, @nthreads)
+      r = LibHTS.sam_index_build3(@file_name, index_name, min_shift, @nthreads)
+      raise "Failed to build index for #{@file_name}" if r < 0
+
+      self
     end
 
     def load_index(index_name = nil)
