@@ -60,15 +60,15 @@ module HTS
       super # do nothing
     end
 
-    def create_index(index_name = nil)
+    def create_index(index_name = nil, min_shift: 0)
       check_closed
 
-      warn "Create index for #{@file_name} to #{index_name}"
       if index_name
-        LibHTS.sam_index_build2(@file_name, index_name, -1)
+        warn "Create index for #{@file_name} to #{index_name}"
       else
-        LibHTS.sam_index_build(@file_name, -1)
+        warn "Create index for #{@file_name}"
       end
+      LibHTS.sam_index_build3(@file_name, index_name, min_shift, @nthreads)
     end
 
     def load_index(index_name = nil)
