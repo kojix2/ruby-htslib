@@ -49,7 +49,7 @@ module HTS
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
-      set_threads(threads)
+      set_threads(threads) if threads
 
       return if @mode[0] == "w"
 

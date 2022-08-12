@@ -44,7 +44,7 @@ module HTS
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
-      set_threads(threads)
+      set_threads(threads) if threads
 
       return if @mode[0] == "w"
 
