@@ -69,13 +69,18 @@ module HTS
       @hts_file.nil? || @hts_file.null?
     end
 
-    def set_threads(n)
-      raise TypeError unless n.is_a?(Integer)
-
-      if n > 0
-        r = LibHTS.hts_set_threads(@hts_file, n)
-        raise "Failed to set number of threads: #{threads}" if r < 0
+    def set_threads(n = nil)
+      if n.nil?
+        require "etc"
+        n = [Etc.nprocessors - 1, 1].max
       end
+      raise TypeError unless n.is_a?(Integer)
+      raise ArgumentError, "Number of threads must be positive" if n < 1
+
+      r = LibHTS.hts_set_threads(@hts_file, n)
+      raise "Failed to set number of threads: #{threads}" if r < 0
+
+      @nthreads = n
       self
     end
 

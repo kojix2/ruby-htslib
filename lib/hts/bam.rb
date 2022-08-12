@@ -13,7 +13,7 @@ module HTS
   class Bam
     include Enumerable
 
-    attr_reader :file_name, :index_name, :mode, :header
+    attr_reader :file_name, :index_name, :mode, :header, :nthreads
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -39,6 +39,7 @@ module HTS
       @file_name  = file_name
       @index_name = index
       @mode       = mode
+      @nthreads   = threads
       @hts_file   = LibHTS.hts_open(@file_name, mode)
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
@@ -48,7 +49,7 @@ module HTS
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
-      set_threads(threads) if threads
+      set_threads(threads)
 
       return if @mode[0] == "w"
 
