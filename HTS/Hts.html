@@ -728,7 +728,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/hts.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_threads'>set_threads</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span> <span class='kw'>unless</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_is_a'>is_a</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span> <span class='kw'>unless</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&gt;</span> <span class='int'>0</span>
     <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_set_threads'><span class='object_link'><a href="LibHTS.html#hts_set_threads-instance_method" title="HTS::LibHTS#hts_set_threads (method)">hts_set_threads</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
@@ -852,7 +852,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 12 11:16:03 2022 by
+  Generated on Fri Aug 12 11:21:14 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
