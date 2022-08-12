@@ -70,7 +70,7 @@ module HTS
     end
 
     def set_threads(n)
-      raise TypeError unless n.is_a(Integer)
+      raise TypeError unless n.is_a?(Integer)
 
       if n > 0
         r = LibHTS.hts_set_threads(@hts_file, n)
