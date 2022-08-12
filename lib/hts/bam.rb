@@ -63,7 +63,7 @@ module HTS
       check_closed
 
       warn "Create index for #{@file_name} to #{index_name}"
-      if index
+      if index_name
         LibHTS.sam_index_build2(@file_name, index_name, -1)
       else
         LibHTS.sam_index_build(@file_name, -1)
