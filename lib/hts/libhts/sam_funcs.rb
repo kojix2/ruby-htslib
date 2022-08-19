@@ -34,11 +34,11 @@ module HTS
       end
 
       def bam_cigar_gen(l, o)
-        l << BAM_CIGAR_SHIFT | o
+        (l << BAM_CIGAR_SHIFT) | o
       end
 
       def bam_cigar_type(o)
-        BAM_CIGAR_TYPE >> (o << 1) & 3
+        (BAM_CIGAR_TYPE >> (o << 1)) & 3
       end
     end
 
@@ -91,7 +91,7 @@ module HTS
       end
 
       def bam_seqi(s, i)
-        s[i >> 1].read_uint8 >> ((~i & 1) << 2) & 0xf
+        (s[i >> 1].read_uint8 >> ((~i & 1) << 2)) & 0xf
       end
 
       def bam_set_seqi(s, i, b)

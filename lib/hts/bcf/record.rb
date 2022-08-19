@@ -137,7 +137,7 @@ module HTS
 
       private
 
-      def initialize_copy(orig)\
+      def initialize_copy(orig)
         @header = orig.header
         @bcf1 = LibHTS.bcf_dup(orig.struct)
       end
