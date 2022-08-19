@@ -259,6 +259,25 @@ module HTS
       def bcf_index_seqnames(idx, hdr, nptr)
         hts_idx_seqnames(idx, nptr, @@bcf_hdr_id2name, hdr)
       end
+
+      # Typed value I/O
+      def bcf_int8_vector_end  = -127                       # INT8_MIN  + 1
+      def bcf_int16_vector_end = -32_767                    # INT16_MIN + 1
+      def bcf_int32_vector_end = -2_147_483_647             # INT32_MIN + 1
+      def bcf_int64_vector_end = -9_223_372_036_854_775_807 # INT64_MIN + 1
+      def bcf_str_vector_end   = 0
+      def bcf_int8_missing     = -128                             # INT8_MIN
+      def bcf_int16_missing    = (-32_767 - 1)                    # INT16_MIN
+      def bcf_int32_missing    = (-2_147_483_647 - 1)             # INT32_MIN
+      def bcf_int64_missing    = (-9_223_372_036_854_775_807 - 1) # INT64_MIN
+      def bcf_str_missing      = 0x07
+
+      BCF_MAX_BT_INT8  = 0x7f           # INT8_MAX  */
+      BCF_MAX_BT_INT16 = 0x7fff         # INT16_MAX */
+      BCF_MAX_BT_INT32 = 0x7fffffff     # INT32_MAX */
+      BCF_MIN_BT_INT8  = -120           # INT8_MIN  + 8 */
+      BCF_MIN_BT_INT16 = -32_760        # INT16_MIN + 8 */
+      BCF_MIN_BT_INT32 = -2_147_483_640 # INT32_MIN + 8 */
     end
   end
 end

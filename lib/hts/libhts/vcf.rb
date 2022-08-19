@@ -154,10 +154,12 @@ module HTS
       [BcfHdr, :int, KString],
       :int
 
-    attach_function \
-      :bcf_hdr_fmt_text,
-      [BcfHdr, :int, :pointer],
-      :string
+    # DEPRECATED
+    #
+    # attach_function \
+    #   :bcf_hdr_fmt_text,
+    #   [BcfHdr, :int, :pointer],
+    #   :string
 
     attach_function \
       :bcf_hdr_append,
@@ -271,6 +273,21 @@ module HTS
 
     attach_function \
       :bcf_get_variant_type,
+      [Bcf1, :int],
+      :int
+
+    attach_function \
+      :bcf_has_variant_types,
+      [Bcf1, :uint32, :int],
+      :int
+
+    attach_function \
+      :bcf_has_variant_type,
+      [Bcf1, :int, :uint32],
+      :int
+
+    attach_function \
+      :bcf_variant_length,
       [Bcf1, :int],
       :int
 
@@ -433,6 +450,16 @@ module HTS
       :bcf_idx_save,
       [HtsFile],
       :int
+
+    attach_function \
+      :bcf_float_vector_end,
+      [],
+      :uint32
+
+    attach_function \
+      :bcf_float_missing,
+      [],
+      :uint32
   end
 end
 

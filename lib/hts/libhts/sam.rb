@@ -685,6 +685,18 @@ module HTS
       :bam_mods_at_qpos,
       [Bam1, :int, :pointer, :pointer, :int],
       :int
+
+    # Returns data about a specific modification type for the alignment record.
+    attach_function \
+      :bam_mods_query_type,
+      %i[pointer int pointer pointer string],
+      :int
+
+    # Returns the list of base modification codes provided for this
+    attach_function \
+      :bam_mods_recorded,
+      %i[pointer pointer],
+      :int
   end
 end
 
