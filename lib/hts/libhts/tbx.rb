@@ -59,7 +59,7 @@ module HTS
 
     attach_function \
       :tbx_seqnames,
-      [Tbx, :int],
+      [Tbx, :pointer],
       :pointer
 
     attach_function \
