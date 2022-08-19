@@ -84,7 +84,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/hts/libhts.rb<span class="defines">,<br />
-  lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
+  lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/tbx_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
 </dd>
   </dl>
   
@@ -2537,6 +2537,116 @@
     <span class="summary_desc"><div class='inline'>
 <p>Get the next read from a SAM/BAM/CRAM iterator.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tbx_bgzf_itr_next-class_method" title="tbx_bgzf_itr_next (class method)">.<strong>tbx_bgzf_itr_next</strong>(bgzfp, tbx, itr, r)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tbx_itr_destroy-class_method" title="tbx_itr_destroy (class method)">.<strong>tbx_itr_destroy</strong>(iter)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tbx_itr_next-class_method" title="tbx_itr_next (class method)">.<strong>tbx_itr_next</strong>(htsfp, tbx, itr, r)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tbx_itr_queryi-class_method" title="tbx_itr_queryi (class method)">.<strong>tbx_itr_queryi</strong>(tbx, tid, beg, end_)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tbx_itr_querys-class_method" title="tbx_itr_querys (class method)">.<strong>tbx_itr_querys</strong>(tbx, s)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -15658,6 +15768,156 @@
 
   <span class='comment'># FIXME: check multi
 </span>  <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='lbracket'>[</span><span class='symbol'>:fp</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bgzf</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_htsfp'>htsfp</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tbx_bgzf_itr_next-class_method">
+  
+    .<strong>tbx_bgzf_itr_next</strong>(bgzfp, tbx, itr, r)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tbx_bgzf_itr_next'>tbx_bgzf_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_bgzfp'>bgzfp</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_bgzfp'>bgzfp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tbx_itr_destroy-class_method">
+  
+    .<strong>tbx_itr_destroy</strong>(iter)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 4</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_destroy'>tbx_itr_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_iter'>iter</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_destroy'>hts_itr_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_iter'>iter</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tbx_itr_next-class_method">
+  
+    .<strong>tbx_itr_next</strong>(htsfp, tbx, itr, r)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_next'>tbx_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_hts_get_bgzfp'>hts_get_bgzfp</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tbx_itr_queryi-class_method">
+  
+    .<strong>tbx_itr_queryi</strong>(tbx, tid, beg, end_)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 8</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_queryi'>tbx_itr_queryi</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_query'>hts_itr_query</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='lbracket'>[</span><span class='symbol'>:idx</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx_readrec'>tbx_readrec</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tbx_itr_querys-class_method">
+  
+    .<strong>tbx_itr_querys</strong>(tbx, s)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_querys'>tbx_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hts_itr_querys'>hts_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='lbracket'>[</span><span class='symbol'>:idx</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='cvar'>@@tbx_name2id</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='cvar'>@@hts_itr_query</span><span class='comma'>,</span> <span class='cvar'>@@tbx_readrec</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -42194,7 +42454,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 19 01:51:30 2022 by
+  Generated on Fri Aug 19 03:04:00 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
