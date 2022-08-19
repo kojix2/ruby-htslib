@@ -173,6 +173,31 @@ module HTS
       :int
 
     attach_function \
+      :cram_slice_hdr_get_num_blocks,
+      [:pointer],
+      :int32
+
+    attach_function \
+      :cram_slice_hdr_get_embed_ref_id,
+      [:pointer],
+      :int
+
+    attach_function \
+      :cram_slice_hdr_get_coords,
+      %i[pointer pointer pointer pointer],
+      :void
+
+    attach_function \
+      :cram_decode_slice_header,
+      %i[pointer pointer],
+      :pointer
+
+    attach_function \
+      :cram_free_slice_header,
+      [:pointer],
+      :void
+
+    attach_function \
       :cram_new_block,
       [CramContentType, :int],
       :cram_block
