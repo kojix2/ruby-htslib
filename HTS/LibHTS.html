@@ -13601,7 +13601,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_gen'>bam_cigar_gen</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span> <span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_l'>l</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#BAM_CIGAR_SHIFT-constant" title="HTS::LibHTS::BAM_CIGAR_SHIFT (constant)">BAM_CIGAR_SHIFT</a></span></span> <span class='op'>|</span> <span class='id identifier rubyid_o'>o</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#BAM_CIGAR_SHIFT-constant" title="HTS::LibHTS::BAM_CIGAR_SHIFT (constant)">BAM_CIGAR_SHIFT</a></span></span><span class='rparen'>)</span> <span class='op'>|</span> <span class='id identifier rubyid_o'>o</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -13721,7 +13721,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_cigar_type'>bam_cigar_type</span><span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="#BAM_CIGAR_TYPE-constant" title="HTS::LibHTS::BAM_CIGAR_TYPE (constant)">BAM_CIGAR_TYPE</a></span></span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>3</span>
+  <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BAM_CIGAR_TYPE-constant" title="HTS::LibHTS::BAM_CIGAR_TYPE (constant)">BAM_CIGAR_TYPE</a></span></span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>3</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -14021,7 +14021,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_seqi'>bam_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -42454,7 +42454,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 19 03:04:00 2022 by
+  Generated on Fri Aug 19 03:06:53 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
