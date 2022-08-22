@@ -1650,7 +1650,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get auxiliary data.</p>
+</div></span>
   
 </li>
 
@@ -1672,7 +1674,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get the CIGAR array.</p>
+</div></span>
   
 </li>
 
@@ -1694,7 +1698,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get length of auxiliary data.</p>
+</div></span>
   
 </li>
 
@@ -1716,7 +1722,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get the name of the query.</p>
+</div></span>
   
 </li>
 
@@ -1738,7 +1746,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get query quality.</p>
+</div></span>
   
 </li>
 
@@ -1760,7 +1770,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get query sequence.</p>
+</div></span>
   
 </li>
 
@@ -1830,7 +1842,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Load/build .csi or .bai BAM index file.</p>
+</div></span>
   
 </li>
 
@@ -1876,7 +1890,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get whether the query’s mate is on the reverse strand.</p>
+</div></span>
   
 </li>
 
@@ -1898,7 +1914,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get whether the query is on the reverse strand.</p>
+</div></span>
   
 </li>
 
@@ -2640,7 +2658,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get a base on read.</p>
+</div></span>
   
 </li>
 
@@ -2710,7 +2730,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Modifies a single base in the bam structure.</p>
+</div></span>
   
 </li>
 
@@ -11778,7 +11800,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the SAM formatted text of the @HD header line.</p>
+</div></span>
   
 </li>
 
@@ -11848,7 +11872,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value associated with a given @HD line tag.</p>
+</div></span>
   
 </li>
 
@@ -12254,7 +12280,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Removes the @HD line tag with the given key.</p>
+</div></span>
   
 </li>
 
@@ -12372,7 +12400,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Adds or updates tags on the header @HD line.</p>
+</div></span>
   
 </li>
 
@@ -15025,18 +15055,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get auxiliary data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-85
-86
-87</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_aux'>bam_get_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span>
@@ -15055,18 +15096,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the CIGAR array</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-73
-74
-75</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_cigar'>bam_get_cigar</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span>
@@ -15085,18 +15137,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get length of auxiliary data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-89
-90
-91</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_l_aux'>bam_get_l_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:l_data</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span>
@@ -15115,18 +15178,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the name of the query</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-69
-70
-71</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_qname'>bam_get_qname</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span>
@@ -15145,18 +15219,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get query quality</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-81
-82
-83</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_qual'>bam_get_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span>
@@ -15175,18 +15260,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get query sequence</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-77
-78
-79</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_get_seq'>bam_get_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qname</span><span class='rbracket'>]</span>
@@ -15327,18 +15423,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Load/build .csi or .bai BAM index file.  Does not work with CRAM. It is recommended to use the sam_index_* functions below instead.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-125
-126
-127</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_index_load'>bam_index_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_idx_load'>hts_idx_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span> <span class='const'>HTS_FMT_BAI</span><span class='rparen'>)</span>
@@ -15418,18 +15525,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get whether the query’s mate is on the reverse strand</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-65
-66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_is_mrev'>bam_is_mrev</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#BAM_FMREVERSE-constant" title="HTS::LibHTS::BAM_FMREVERSE (constant)">BAM_FMREVERSE</a></span></span> <span class='op'>!=</span> <span class='int'>0</span>
@@ -15448,18 +15566,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get whether the query is on the reverse strand</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-61
 62
-63</pre>
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_is_rev'>bam_is_rev</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#BAM_FREVERSE-constant" title="HTS::LibHTS::BAM_FREVERSE (constant)">BAM_FREVERSE</a></span></span> <span class='op'>!=</span> <span class='int'>0</span>
@@ -17128,18 +17257,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get a base on read</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-93
-94
-95</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_seqi'>bam_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_uint8'>read_uint8</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
@@ -17310,18 +17450,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Modifies a single base in the bam structure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-97
-98
-99</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bam_set_seqi'>bam_set_seqi</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='int'>0xf0</span> <span class='op'>&gt;&gt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -38260,18 +38411,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the SAM formatted text of the @HD header line</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-101
-102
-103</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sam_hdr_find_hd'>sam_hdr_find_hd</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sam_hdr_find_line_id'>sam_hdr_find_line_id</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
@@ -38412,18 +38574,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value associated with a given @HD line tag</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-105
-106
-107</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sam_hdr_find_tag_hd'>sam_hdr_find_tag_hd</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sam_hdr_find_tag_id'>sam_hdr_find_tag_id</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
@@ -39400,18 +39573,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Removes the @HD line tag with the given key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-113
-114
-115</pre>
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sam_hdr_remove_tag_hd'>sam_hdr_remove_tag_hd</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sam_hdr_remove_tag_id'>sam_hdr_remove_tag_id</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -39674,18 +39858,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds or updates tags on the header @HD line</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-109
-110
-111</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam_funcs.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sam_hdr_update_hd'>sam_hdr_update_hd</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sam_hdr_update_line'>sam_hdr_update_line</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
@@ -42536,7 +42731,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 05:24:44 2022 by
+  Generated on Mon Aug 22 05:39:53 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
