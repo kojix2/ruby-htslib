@@ -87,105 +87,130 @@ module HTS
     BCF_UN_ALL  = (BCF_UN_SHR | BCF_UN_FMT) # everything
 
     class << self
+      # Get number of samples
       def bcf_hdr_nsamples(hdr)
         hdr[:n][BCF_DT_SAMPLE]
       end
 
+      # Function for updating INFO fields
       def bcf_update_info_int32(hdr, line, key, values, n)
         bcf_update_info(hdr, line, key, values, n, BCF_HT_INT)
       end
 
+      # Function for updating INFO fields
       def bcf_update_info_float(hdr, line, key, values, n)
         bcf_update_info(hdr, line, key, values, n, BCF_HT_REAL)
       end
 
+      # Function for updating INFO fields
       def bcf_update_info_flag(hdr, line, key, string, n)
         bcf_update_info(hdr, line, key, string, n, BCF_HT_FLAG)
       end
 
+      # Function for updating INFO fields
       def bcf_update_info_string(hdr, line, key, string)
         bcf_update_info(hdr, line, key, string, 1, BCF_HT_STR)
       end
 
+      # Function for updating FORMAT fields
       def bcf_update_format_int32(hdr, line, key, values, n)
         bcf_update_format(hdr, line, key, values, n,
                           BCF_HT_INT)
       end
 
+      # Function for updating FORMAT fields
       def bcf_update_format_float(hdr, line, key, values, n)
         bcf_update_format(hdr, line, key, values, n,
                           BCF_HT_REAL)
       end
 
+      # Function for updating FORMAT fields
       def bcf_update_format_char(hdr, line, key, values, n)
         bcf_update_format(hdr, line, key, values, n,
                           BCF_HT_STR)
       end
 
+      # Function for updating FORMAT fields
       def bcf_update_genotypes(hdr, line, gts, n)
         bcf_update_format(hdr, line, "GT", gts, n, BCF_HT_INT)
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_phased(idx)
         ((idx + 1) << 1 | 1)
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_unphased(idx)
         ((idx + 1) << 1)
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_missing
         0
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_is_missing(val)
         (val >> 1 ? 0 : 1)
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_is_phased(idx)
         (idx & 1)
       end
 
+      # Macro for setting genotypes correctly
       def bcf_gt_allele(val)
         ((val >> 1) - 1)
       end
 
+      # Conversion between alleles indexes to Number=G genotype index (assuming diploid, all 0-based)
       def bcf_alleles2gt(a, b)
         ((a) > (b) ? (a * (a + 1) / 2 + b) : (b * (b + 1) / 2 + a))
       end
 
+      # Get INFO values
       def bcf_get_info_int32(hdr, line, tag, dst, ndst)
         bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_INT)
       end
 
+      # Get INFO values
       def bcf_get_info_float(hdr, line, tag, dst, ndst)
         bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_REAL)
       end
 
+      # Get INFO values
       def bcf_get_info_string(hdr, line, tag, dst, ndst)
         bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_STR)
       end
 
+      # Get INFO values
       def bcf_get_info_flag(hdr, line, tag, dst, ndst)
         bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_FLAG)
       end
 
+      # Get FORMAT values
       def bcf_get_format_int32(hdr, line, tag, dst, ndst)
         bcf_get_format_values(hdr, line, tag, dst, ndst, BCF_HT_INT)
       end
 
+      # Get FORMAT values
       def bcf_get_format_float(hdr, line, tag, dst, ndst)
         bcf_get_format_values(hdr, line, tag, dst, ndst, BCF_HT_REAL)
       end
 
+      # Get FORMAT values
       def bcf_get_format_char(hdr, line, tag, dst, ndst)
         bcf_get_format_values(hdr, line, tag, dst, ndst, BCF_HT_STR)
       end
 
+      # Get FORMAT values
       def bcf_get_genotypes(hdr, line, dst, ndst)
         bcf_get_format_values(hdr, line, "GT", dst, ndst, BCF_HT_INT)
       end
 
+      # Translates numeric ID into string
       def bcf_hdr_int2id(hdr, type, int_id)
         LibHTS::BcfIdpair.new(
           hdr[:id][type].to_ptr +
@@ -193,10 +218,12 @@ module HTS
         )[:key]
       end
 
+      # Translates sequence names (chromosomes) into numeric ID
       def bcf_hdr_name2id(hdr, id)
         bcf_hdr_id2int(hdr, BCF_DT_CTG, id)
       end
 
+      # Translates numeric ID to sequence name
       def bcf_hdr_id2name(hdr, rid)
         return nil if hdr.null? || rid < 0 || rid >= hdr[:n][LibHTS::BCF_DT_CTG]
 
@@ -206,6 +233,7 @@ module HTS
         )[:key]
       end
 
+      # Macro for accessing bcf_idinfo_t
       def bcf_hdr_id2length(hdr, type, int_id)
         LibHTS::BcfIdpair.new(
           hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
@@ -213,6 +241,7 @@ module HTS
         )[:val][:info][type] >> 8 & 0xf
       end
 
+      # Macro for accessing bcf_idinfo_t
       def bcf_hdr_id2number(hdr, type, int_id)
         LibHTS::BcfIdpair.new(
           hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
@@ -220,6 +249,7 @@ module HTS
         )[:val][:info][type] >> 12
       end
 
+      # Macro for accessing bcf_idinfo_t
       def bcf_hdr_id2type(hdr, type, int_id)
         LibHTS::BcfIdpair.new(
           hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
@@ -227,6 +257,7 @@ module HTS
         )[:val][:info][type] >> 4 & 0xf
       end
 
+      # Macro for accessing bcf_idinfo_t
       def bcf_hdr_id2coltype(hdr, type, int_id)
         LibHTS::BcfIdpair.new(
           hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
@@ -252,10 +283,12 @@ module HTS
         hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @@hts_itr_query, @@bcf_readrec)
       end
 
+      # Load a BCF index
       def bcf_index_load(fn)
         hts_idx_load(fn, HTS_FMT_CSI)
       end
 
+      # Load a BCF index
       def bcf_index_seqnames(idx, hdr, nptr)
         hts_idx_seqnames(idx, nptr, @@bcf_hdr_id2name, hdr)
       end
