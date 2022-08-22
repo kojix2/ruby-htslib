@@ -58,58 +58,72 @@ module HTS
     # macros
     # function-like macros
     class << self
+      # Get whether the query is on the reverse strand
       def bam_is_rev(b)
         b[:core][:flag] & BAM_FREVERSE != 0
       end
 
+      # Get whether the query's mate is on the reverse strand
       def bam_is_mrev(b)
         b[:core][:flag] & BAM_FMREVERSE != 0
       end
 
+      # Get the name of the query
       def bam_get_qname(b)
         b[:data]
       end
 
+      # Get the CIGAR array
       def bam_get_cigar(b)
         b[:data] + b[:core][:l_qname]
       end
 
+      # Get query sequence
       def bam_get_seq(b)
         b[:data] + (b[:core][:n_cigar] << 2) + b[:core][:l_qname]
       end
 
+      # Get query quality
       def bam_get_qual(b)
         b[:data] + (b[:core][:n_cigar] << 2) + b[:core][:l_qname] + ((b[:core][:l_qseq] + 1) >> 1)
       end
 
+      # Get auxiliary data
       def bam_get_aux(b)
         b[:data] + (b[:core][:n_cigar] << 2) + b[:core][:l_qname] + ((b[:core][:l_qseq] + 1) >> 1) + b[:core][:l_qseq]
       end
 
+      # Get length of auxiliary data
       def bam_get_l_aux(b)
         b[:l_data] - (b[:core][:n_cigar] << 2) - b[:core][:l_qname] - b[:core][:l_qseq] - ((b[:core][:l_qseq] + 1) >> 1)
       end
 
+      # Get a base on read
       def bam_seqi(s, i)
         (s[i >> 1].read_uint8 >> ((~i & 1) << 2)) & 0xf
       end
 
+      # Modifies a single base in the bam structure.
       def bam_set_seqi(s, i, b)
         s[i >> 1] = (s[i >> 1] & (0xf0 >> ((~i & 1) << 2))) | ((b) << ((~i & 1) << 2))
       end
 
+      # Returns the SAM formatted text of the \@HD header line
       def sam_hdr_find_hd(h, ks)
         sam_hdr_find_line_id(h, "HD", nil, nil, ks)
       end
 
+      # Returns the value associated with a given \@HD line tag
       def sam_hdr_find_tag_hd(h, key, ks)
         sam_hdr_find_tag_id(h, "HD", nil, nil, key, ks)
       end
 
+      # Adds or updates tags on the header \@HD line
       def sam_hdr_update_hd(h, *args)
         sam_hdr_update_line(h, "HD", nil, nil, *args, nil)
       end
 
+      # Removes the \@HD line tag with the given key
       def sam_hdr_remove_tag_hd(h, key)
         sam_hdr_remove_tag_id(h, "HD", nil, nil, key)
       end
@@ -122,6 +136,8 @@ module HTS
       alias bam_itr_querys sam_itr_querys
       alias bam_itr_next sam_itr_next
 
+      # Load/build .csi or .bai BAM index file.  Does not work with CRAM.
+      # It is recommended to use the sam_index_* functions below instead.
       def bam_index_load(fn)
         hts_idx_load(fn, HTS_FMT_BAI)
       end
