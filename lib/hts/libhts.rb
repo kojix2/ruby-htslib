@@ -15,6 +15,7 @@ module HTS
     end
 
     # @!macro attach_function
+    #   @!scope class
     #   @!method $1(${2--2})
     #   @return [${-1}] the return value of $0
     def self.attach_function(*)
