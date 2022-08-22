@@ -323,7 +323,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
-  <span class='ivar'>@sam_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_read'><span class='object_link'><a href="../LibHTS.html#sam_hdr_read-instance_method" title="HTS::LibHTS#sam_hdr_read (method)">sam_hdr_read</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
+  <span class='ivar'>@sam_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_read'><span class='object_link'><a href="../LibHTS.html#sam_hdr_read-class_method" title="HTS::LibHTS.sam_hdr_read (method)">sam_hdr_read</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_file'>hts_file</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -423,7 +423,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_len'>target_len</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2len-instance_method" title="HTS::LibHTS#sam_hdr_tid2len (method)">sam_hdr_tid2len</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2len-class_method" title="HTS::LibHTS.sam_hdr_tid2len (method)">sam_hdr_tid2len</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -457,7 +457,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_names'>target_names</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-instance_method" title="HTS::LibHTS#sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-class_method" title="HTS::LibHTS.sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -518,7 +518,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_str'><span class='object_link'><a href="../LibHTS.html#sam_hdr_str-instance_method" title="HTS::LibHTS#sam_hdr_str (method)">sam_hdr_str</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_str'><span class='object_link'><a href="../LibHTS.html#sam_hdr_str-class_method" title="HTS::LibHTS.sam_hdr_str (method)">sam_hdr_str</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -530,7 +530,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 05:01:44 2022 by
+  Generated on Mon Aug 22 05:24:44 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>

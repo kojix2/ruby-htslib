@@ -1148,7 +1148,7 @@
   <span class='ivar'>@index_name</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span>
   <span class='ivar'>@mode</span>       <span class='op'>=</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='ivar'>@nthreads</span>   <span class='op'>=</span> <span class='id identifier rubyid_threads'>threads</span>
-  <span class='ivar'>@hts_file</span>   <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'><span class='object_link'><a href="LibHTS.html#hts_open-instance_method" title="HTS::LibHTS#hts_open (method)">hts_open</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
+  <span class='ivar'>@hts_file</span>   <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'><span class='object_link'><a href="LibHTS.html#hts_open-class_method" title="HTS::LibHTS.hts_open (method)">hts_open</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOENT</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to open </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 
@@ -1541,7 +1541,7 @@
   <span class='kw'>else</span>
     <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Create index for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_build3'><span class='object_link'><a href="LibHTS.html#bcf_index_build3-instance_method" title="HTS::LibHTS#bcf_index_build3 (method)">bcf_index_build3</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_index_name'>index_name</span><span class='comma'>,</span> <span class='id identifier rubyid_min_shift'>min_shift</span><span class='comma'>,</span> <span class='ivar'>@nthreads</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_build3'><span class='object_link'><a href="LibHTS.html#bcf_index_build3-class_method" title="HTS::LibHTS.bcf_index_build3 (method)">bcf_index_build3</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_index_name'>index_name</span><span class='comma'>,</span> <span class='id identifier rubyid_min_shift'>min_shift</span><span class='comma'>,</span> <span class='ivar'>@nthreads</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to build index for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&lt;</span> <span class='int'>0</span>
 
   <span class='kw'>self</span>
@@ -2373,9 +2373,9 @@
   <span class='id identifier rubyid_check_closed'>check_closed</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_index_name'>index_name</span>
-    <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_load2'><span class='object_link'><a href="LibHTS.html#bcf_index_load2-instance_method" title="HTS::LibHTS#bcf_index_load2 (method)">bcf_index_load2</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_load2'><span class='object_link'><a href="LibHTS.html#bcf_index_load2-class_method" title="HTS::LibHTS.bcf_index_load2 (method)">bcf_index_load2</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_load3'><span class='object_link'><a href="LibHTS.html#bcf_index_load3-instance_method" title="HTS::LibHTS#bcf_index_load3 (method)">bcf_index_load3</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_index_load3'><span class='object_link'><a href="LibHTS.html#bcf_index_load3-class_method" title="HTS::LibHTS.bcf_index_load3 (method)">bcf_index_load3</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2735,7 +2735,7 @@
   <span class='id identifier rubyid_check_closed'>check_closed</span>
 
   <span class='id identifier rubyid_var_dup'>var_dup</span> <span class='op'>=</span> <span class='id identifier rubyid_var'>var</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_write'><span class='object_link'><a href="LibHTS.html#bcf_write-instance_method" title="HTS::LibHTS#bcf_write (method)">bcf_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_var_dup'>var_dup</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>||</span> <span class='id identifier rubyid_raise'>raise</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_write'><span class='object_link'><a href="LibHTS.html#bcf_write-class_method" title="HTS::LibHTS.bcf_write (method)">bcf_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_var_dup'>var_dup</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>||</span> <span class='id identifier rubyid_raise'>raise</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2772,8 +2772,8 @@
   <span class='id identifier rubyid_check_closed'>check_closed</span>
 
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_set_fai_filename'><span class='object_link'><a href="LibHTS.html#hts_set_fai_filename-instance_method" title="HTS::LibHTS#hts_set_fai_filename (method)">hts_set_fai_filename</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='ivar'>@file_name</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-instance_method" title="HTS::LibHTS#bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_set_fai_filename'><span class='object_link'><a href="LibHTS.html#hts_set_fai_filename-class_method" title="HTS::LibHTS.hts_set_fai_filename (method)">hts_set_fai_filename</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='ivar'>@file_name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-class_method" title="HTS::LibHTS.bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2785,7 +2785,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 05:01:44 2022 by
+  Generated on Mon Aug 22 05:24:44 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
