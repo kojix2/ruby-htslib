@@ -13692,7 +13692,7 @@
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attach_function'>attach_function</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
   <span class='kw'>super</span>
 <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>NotFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-  <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='kw'>if</span> <span class='gvar'>$VERBOSE</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -43146,7 +43146,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep  3 12:48:53 2022 by
+  Generated on Sat Sep  3 13:38:25 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
