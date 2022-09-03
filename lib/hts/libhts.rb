@@ -21,7 +21,7 @@ module HTS
     def self.attach_function(*)
       super
     rescue FFI::NotFoundError => e
-      warn e.message
+      warn e.message if $VERBOSE
     end
   end
 end
