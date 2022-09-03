@@ -2,7 +2,7 @@
 
 require_relative "flag"
 require_relative "cigar"
-require_relative "aux"
+require_relative "auxi"
 
 module HTS
   class Bam < Hts
