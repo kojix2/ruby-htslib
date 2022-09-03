@@ -29,4 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "simplecov"
+
+  spec.metadata["msys2_mingw_dependencies"] = "htslib"
 end

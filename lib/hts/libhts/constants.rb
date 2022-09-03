@@ -195,7 +195,7 @@ module HTS
         :reg,            :string,
         :intervals,      :pointer, # hts_pair_pos_t
         :tid,            :int,
-        :count,          :uint32_t,
+        :count,          :uint32,
         :min_beg,        :hts_pos_t,
         :max_end,        :hts_pos_t
     end
@@ -352,7 +352,7 @@ module HTS
         :qpos,           :int32_t,
         :indel,          :int,
         :level,          :int,
-        :_flags,         :uint32_t, # bit_fields
+        :_flags,         :uint32, # bit_fields
         :cd,             BamPileupCd,
         :cigar_ind,      :int
 
@@ -506,8 +506,8 @@ module HTS
         :rlen,           :hts_pos_t,
         :rid,            :int32_t,
         :qual,           :float,
-        :_n_info_allele, :uint32_t,
-        :_n_fmt_sample,  :uint32_t,
+        :_n_info_allele, :uint32,
+        :_n_fmt_sample,  :uint32,
         :shared,         KString,
         :indiv,          KString,
         :d,              BcfDec,
