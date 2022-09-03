@@ -6,11 +6,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:   ['ubuntu', 'macos']
+        os:   ['ubuntu', 'macos', 'windows']
         ruby: ['3.1']
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - uses: ruby/setup-ruby@v1
@@ -21,12 +21,13 @@ jobs:
         if: ${{ matrix.os == 'macos' }}
         run: |
           brew install automake libdeflate
+          bundle exec rake htslib:build
       - name: Install libdeflate & libcurl4 (ubuntu)
         if: ${{ matrix.os == 'ubuntu' }}
         run: |
           sudo apt update -y
           sudo apt install -yq libdeflate-dev libcurl4-openssl-dev
+          bundle exec rake htslib:build
       - name: Build and test with Rake
         run: |
-          bundle exec rake htslib:build
           bundle exec rake
