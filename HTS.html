@@ -78,8 +78,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/flag.rb<span class="defines">,<br />
-  lib/htslib.rb,<br /> lib/hts/bam.rb,<br /> lib/hts/bcf.rb,<br /> lib/hts/hts.rb,<br /> lib/hts/tbx.rb,<br /> lib/hts/faidx.rb,<br /> lib/hts/libhts.rb,<br /> lib/hts/bam/aux.rb,<br /> lib/hts/version.rb,<br /> lib/hts/bcf/info.rb,<br /> lib/hts/bam/cigar.rb,<br /> lib/hts/bam/header.rb,<br /> lib/hts/bam/record.rb,<br /> lib/hts/bcf/format.rb,<br /> lib/hts/bcf/header.rb,<br /> lib/hts/bcf/record.rb,<br /> lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/tbx_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/bcf/header_record.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
+    <dd>lib/hts/bam/auxi.rb<span class="defines">,<br />
+  lib/htslib.rb,<br /> lib/hts/bam.rb,<br /> lib/hts/bcf.rb,<br /> lib/hts/hts.rb,<br /> lib/hts/tbx.rb,<br /> lib/hts/faidx.rb,<br /> lib/hts/libhts.rb,<br /> lib/hts/version.rb,<br /> lib/hts/bam/flag.rb,<br /> lib/hts/bcf/info.rb,<br /> lib/hts/bam/cigar.rb,<br /> lib/hts/bam/header.rb,<br /> lib/hts/bam/record.rb,<br /> lib/hts/bcf/format.rb,<br /> lib/hts/bcf/header.rb,<br /> lib/hts/bcf/record.rb,<br /> lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/tbx_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/bcf/header_record.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
 </dd>
   </dl>
   
@@ -175,6 +175,28 @@
   <span class="summary_signature">
     
       <a href="#search_htslib-class_method" title="search_htslib (class method)">.<strong>search_htslib</strong>(name = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#search_htslib_windows-class_method" title="search_htslib_windows (class method)">.<strong>search_htslib_windows</strong>  &#x21d2; Object </a>
     
 
     
@@ -314,12 +336,54 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="search_htslib_windows-class_method">
+  
+    .<strong>search_htslib_windows</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htslib.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_search_htslib_windows'>search_htslib_windows</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span>
+    <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_msys2_installation'>msys2_installation</span><span class='period'>.</span><span class='id identifier rubyid_msys_path'>msys_path</span><span class='comma'>,</span>
+    <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_msys2_installation'>msys2_installation</span><span class='period'>.</span><span class='id identifier rubyid_mingwarch'>mingwarch</span>
+  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>File</span><span class='op'>::</span><span class='const'>ALT_SEPARATOR</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/hts-3.dll</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_add_dll_directory'>add_dll_directory</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 08:02:35 2022 by
+  Generated on Sat Sep  3 09:46:41 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>

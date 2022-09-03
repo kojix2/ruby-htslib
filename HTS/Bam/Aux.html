@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/aux.rb</dd>
+    <dd>lib/hts/bam/auxi.rb</dd>
   </dl>
   
 </div>
@@ -227,12 +227,12 @@
       <pre class="lines">
 
 
-7
-8
-9</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/aux.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='rparen'>)</span>
   <span class='ivar'>@record</span> <span class='op'>=</span> <span class='id identifier rubyid_record'>record</span>
@@ -264,12 +264,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/aux.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -294,12 +294,6 @@
       <pre class="lines">
 
 
-11
-12
-13
-14
-15
-16
 17
 18
 19
@@ -316,10 +310,16 @@
 30
 31
 32
-33</pre>
+33
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/aux.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-class_method" title="HTS::LibHTS.bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -354,7 +354,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 08:02:38 2022 by
+  Generated on Sat Sep  3 09:46:44 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
