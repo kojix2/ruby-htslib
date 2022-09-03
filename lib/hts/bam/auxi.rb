@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+# Q. Why is the file name auxi.rb and not aux.rb?
+#
+# A. This is for compatibility with Windows.
+# In Windows, aux is a reserved word
+# You cannot create a file named aux.
+
 module HTS
   class Bam < Hts
     # Auxiliary record data

@@ -30,9 +30,23 @@ module HTS
 
       warn "htslib shared library '#{name}' not found."
     end
+
+    def search_htslib_windows
+      ENV["HTSLIBDIR"] ||= [
+        RubyInstaller::Runtime.msys2_installation.msys_path,
+        RubyInstaller::Runtime.msys2_installation.mingwarch
+      ].join(File::ALT_SEPARATOR)
+      path = File.expand_path("bin/hts-3.dll", ENV["HTSLIBDIR"])
+      RubyInstaller::Runtime.add_dll_directory(File.dirname(path))
+      path
+    end
   end
 
-  self.lib_path = search_htslib
+  self.lib_path = if Object.const_defined?(:RubyInstaller)
+                    search_htslib_windows
+                  else
+                    search_htslib
+                  end
 
   # You can change the path of the shared library with `HTS.lib_path=`
   # before calling the LibHTS module.
