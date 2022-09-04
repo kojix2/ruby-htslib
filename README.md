@@ -10,14 +10,13 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
 
 :apple: Feel free to fork it out if you can develop it! 
 
-:bowtie: Alpha stage.
-
 ## Requirements
 
 * [Ruby](https://github.com/ruby/ruby) 3.1 or above.
 * [HTSlib](https://github.com/samtools/htslib)
   * Ubuntu : `apt install libhts-dev`
   * macOS : `brew install htslib`
+  * Windows : [mingw-w64-htslib](https://packages.msys2.org/base/mingw-w64-htslib) is automatically fetched when installing the gem ([RubyInstaller](https://rubyinstaller.org) only).
   * Build from source code (see Development section)
 
 ## Installation
@@ -34,11 +33,13 @@ Alternatively, you can specify the directory of the shared library by setting th
 export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 ```
 
+ruby-htslib also works on Windows; if you are using RubyInstaller, htslib will be prepared automatically.
+
 ## Overview
 
 ### High level API
 
-Read SAM / BAM / CRAM - Sequence Alignment Map file
+HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 ```ruby
 require 'htslib'
@@ -63,7 +64,7 @@ end
 bam.close
 ```
 
-Read VCF / BCF - Variant Call Format file
+HTS::Bcf - VCF / BCF - Variant Call Format file
 
 ```ruby
 bcf = HTS::Bcf.open("b.bcf")
@@ -96,6 +97,15 @@ fa.close
 
 </details>
 
+<details>
+<summary><b>Tbx</b></summary>
+
+```ruby
+
+```
+
+</details>
+
 ### Low level API
 
 `HTS::LibHTS` provides native C functions. 
@@ -109,7 +119,13 @@ p b[:category]
 p b[:format]
 ```
 
-Note: htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in ruby-htslib. Only small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually. 
+Macro functions
+
+htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in Ruby. 
+
+Structs
+
+Only small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually. 
 
 ### Need more speed?
 
