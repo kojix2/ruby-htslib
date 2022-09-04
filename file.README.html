@@ -66,8 +66,6 @@
 
 <p>:apple: Feel free to fork it out if you can develop it!</p>
 
-<p>:bowtie: Alpha stage.</p>
-
 <h2 id="label-Requirements">Requirements</h2>
 <ul><li>
 <p><a href="https://github.com/ruby/ruby">Ruby</a> 3.1 or above.</p>
@@ -77,6 +75,8 @@
 <p>Ubuntu : <code>apt install libhts-dev</code></p>
 </li><li>
 <p>macOS : <code>brew install htslib</code></p>
+</li><li>
+<p>Windows : <a href="https://packages.msys2.org/base/mingw-w64-htslib">mingw-w64-htslib</a> is automatically fetched when installing the gem (<a href="https://rubyinstaller.org">RubyInstaller</a> only).</p>
 </li><li>
 <p>Build from source code (see Development section)</p>
 </li></ul>
@@ -91,11 +91,13 @@
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_export'>export</span> <span class='const'>HTSLIBDIR</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/your/path/to/htslib</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># libhts.so
 </span></code></pre>
 
+<p>ruby-htslib also works on Windows; if you are using RubyInstaller, htslib will be prepared automatically.</p>
+
 <h2 id="label-Overview">Overview</h2>
 
 <h3 id="label-High+level+API">High level API</h3>
 
-<p>Read SAM / BAM / CRAM - Sequence Alignment Map file</p>
+<p>HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
 
@@ -119,7 +121,7 @@
 <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
-<p>Read VCF / BCF - Variant Call Format file</p>
+<p>HTS::Bcf - VCF / BCF - Variant Call Format file</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>b.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
@@ -149,6 +151,13 @@
 
 <p>&lt;/details&gt;</p>
 
+<p>&lt;details&gt; &lt;summary&gt;<strong>Tbx</strong>&lt;/summary&gt;</p>
+
+<pre class="code ruby"><code class="ruby">
+</code></pre>
+
+<p>&lt;/details&gt;</p>
+
 <h3 id="label-Low+level+API">Low level API</h3>
 
 <p><code>HTS::LibHTS</code> provides native C functions.</p>
@@ -161,7 +170,13 @@
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
 </code></pre>
 
-<p>Note: htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in ruby-htslib. Only small number of C structs are implemented with FFI’s ManagedStruct, which frees memory when Ruby’s garbage collection fires. Other structs will need to be freed manually.</p>
+<p>Macro functions</p>
+
+<p>htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in Ruby.</p>
+
+<p>Structs</p>
+
+<p>Only small number of C structs are implemented with FFI’s ManagedStruct, which frees memory when Ruby’s garbage collection fires. Other structs will need to be freed manually.</p>
 
 <h3 id="label-Need+more+speed-3F">Need more speed?</h3>
 
@@ -253,7 +268,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Sat Sep  3 13:44:25 2022 by
+  Generated on Sun Sep  4 07:31:22 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
