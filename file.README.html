@@ -206,12 +206,14 @@ bundle exec rake test
 <ul><li>
 <p>Use the new version of Ruby to take full advantage of Ruby’s potential.</p>
 </li><li>
-<p>This is possible because we have a small number of users. What a deal!</p>
+<p>This is possible because we have a small number of users.</p>
 </li><li>
 <p>Remain compatible with <a href="https://github.com/bio-crystal/htslib.cr">htslib.cr</a>.</p>
 </li><li>
 <p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
 </li></ul>
+
+<p>Method naming generally follows the Rust-htslib API. The reason is that Rust-htslib has many users and I think the naming has been rethought as it is later than c htslib.</p>
 
 <p>In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.</p>
 
@@ -268,7 +270,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Sun Sep  4 07:31:22 2022 by
+  Generated on Thu Sep 15 11:05:59 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
