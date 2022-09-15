@@ -8,7 +8,7 @@
 
 Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https://github.com/samtools/htslib), a C library for high-throughput sequencing data formats. It allows you to read and write file formats commonly used in genomics, such as [SAM, BAM, VCF, and BCF](http://samtools.github.io/hts-specs/), in the Ruby language.
 
-:apple: Feel free to fork it out if you can develop it! 
+:apple: Feel free to fork it! 
 
 ## Requirements
 
@@ -121,7 +121,7 @@ p b[:format]
 
 Macro functions
 
-htslib makes extensive use of macro functions for speed. You cannot use C macro functions in Ruby if they are not reimplemented in Ruby. 
+htslib makes heavy use of macro functions for speed. Note that C macro functions cannot be used in Ruby without being reimplemented in Ruby.
 
 Structs
 
@@ -129,7 +129,7 @@ Only small number of C structs are implemented with FFI's ManagedStruct, which f
 
 ### Need more speed?
 
-Try Crystal. [htslib.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crystal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal or playing with REPL may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create tools.
+Try Crystal. [HTS.cr](https://github.com/bio-crystal/htslib.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crystal language is not as flexible as Ruby language. You can not use `eval` methods, and you must always be careful with the data types. Writing one-time scripts in Crystal may not be as much fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal.  The Crystal language is fast, as fast as the Rust and C languages. It will give you great power to create tools.
 
 ## Documentation
 
