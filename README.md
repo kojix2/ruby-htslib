@@ -153,9 +153,11 @@ bundle exec rake test
 Many macro functions are used in HTSlib. Since these macro functions cannot be called using FFI, they must be reimplemented in Ruby.
 
 * Use the new version of Ruby to take full advantage of Ruby's potential.
-  * This is possible because we have a small number of users. What a deal!
+  * This is possible because we have a small number of users.
 * Remain compatible with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
   * The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems. 
+
+Method naming generally follows the Rust-htslib API. The reason is that Rust-htslib has many users and I think the naming has been rethought as it is later than c htslib.
 
 In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.
 
