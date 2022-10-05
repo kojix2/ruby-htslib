@@ -52,7 +52,6 @@ module HTS
       build_index(index) if build_index
       @idx = load_index(index)
       @start_position = tell
-      super # do nothing
     end
 
     def build_index(index_name = nil, min_shift: 14)

@@ -45,8 +45,6 @@ module HTS
 
       # build_index(index) if build_index
       @idx = load_index(index)
-
-      super # do nothing
     end
 
     def build_index

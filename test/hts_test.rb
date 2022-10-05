@@ -10,4 +10,10 @@ class HTSTest < Minitest::Test
   def test_hts_version
     refute_nil HTS::LibHTS.hts_version
   end
+
+  def test_hts_new
+    assert_raises(TypeError) do
+      HTS::Hts.new
+    end
+  end
 end
