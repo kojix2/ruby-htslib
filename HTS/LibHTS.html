@@ -4947,7 +4947,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>INT8_MIN  + 1.</p>
+<p>INT16_MIN + 1.</p>
 </div></span>
   
 </li>
@@ -4995,7 +4995,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>INT16_MIN + 1.</p>
+<p>INT32_MIN + 1.</p>
 </div></span>
   
 </li>
@@ -5043,7 +5043,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>INT32_MIN + 1.</p>
+<p>INT64_MIN + 1.</p>
 </div></span>
   
 </li>
@@ -5091,7 +5091,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Typed value I/O.</p>
+<p>Typed value I/O INT8_MIN  + 1.</p>
 </div></span>
   
 </li>
@@ -5278,9 +5278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>INT64_MIN + 1.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -22512,12 +22510,14 @@
       <pre class="lines">
 
 
-303</pre>
+309
+310</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 303</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 309</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_missing'>bcf_int16_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>32_767</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>                    <span class='comment'># INT16_MIN</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_missing'>bcf_int16_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>32_767</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='comment'># INT32_MIN</span></pre>
     </td>
   </tr>
 </table>
@@ -22535,7 +22535,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>INT8_MIN  + 1</p>
+<p>INT16_MIN + 1</p>
 
 
   </div>
@@ -22549,12 +22549,14 @@
       <pre class="lines">
 
 
-298</pre>
+300
+301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 298</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 300</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_vector_end'>bcf_int16_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>32_767</span>                    <span class='comment'># INT16_MIN + 1</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_vector_end'>bcf_int16_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>32_767</span>
+<span class='comment'># INT32_MIN + 1</span></pre>
     </td>
   </tr>
 </table>
@@ -22586,12 +22588,14 @@
       <pre class="lines">
 
 
-304</pre>
+311
+312</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 304</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 311</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_missing'>bcf_int32_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>2_147_483_647</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>             <span class='comment'># INT32_MIN</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_missing'>bcf_int32_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>2_147_483_647</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='comment'># INT64_MIN</span></pre>
     </td>
   </tr>
 </table>
@@ -22609,7 +22613,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>INT16_MIN + 1</p>
+<p>INT32_MIN + 1</p>
 
 
   </div>
@@ -22623,12 +22627,14 @@
       <pre class="lines">
 
 
-299</pre>
+302
+303</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 299</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 302</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_vector_end'>bcf_int32_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>2_147_483_647</span>             <span class='comment'># INT32_MIN + 1</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_vector_end'>bcf_int32_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>2_147_483_647</span>
+<span class='comment'># INT64_MIN + 1</span></pre>
     </td>
   </tr>
 </table>
@@ -22660,12 +22666,12 @@
       <pre class="lines">
 
 
-305</pre>
+313</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 313</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_missing'>bcf_int64_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># INT64_MIN</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_missing'>bcf_int64_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -22683,7 +22689,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>INT32_MIN + 1</p>
+<p>INT64_MIN + 1</p>
 
 
   </div>
@@ -22697,12 +22703,12 @@
       <pre class="lines">
 
 
-300</pre>
+304</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 300</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 304</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_vector_end'>bcf_int64_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span> <span class='comment'># INT64_MIN + 1</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_vector_end'>bcf_int64_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span></pre>
     </td>
   </tr>
 </table>
@@ -22734,12 +22740,14 @@
       <pre class="lines">
 
 
-302</pre>
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 302</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 307</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_missing'>bcf_int8_missing</span>     <span class='op'>=</span> <span class='op'>-</span><span class='int'>128</span>                             <span class='comment'># INT8_MIN</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_missing'>bcf_int8_missing</span>     <span class='op'>=</span> <span class='op'>-</span><span class='int'>128</span>
+<span class='comment'># INT16_MIN</span></pre>
     </td>
   </tr>
 </table>
@@ -22757,7 +22765,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Typed value I/O</p>
+<p>Typed value I/O INT8_MIN  + 1</p>
 
 
   </div>
@@ -22771,12 +22779,14 @@
       <pre class="lines">
 
 
-297</pre>
+298
+299</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 297</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 298</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_vector_end'>bcf_int8_vector_end</span>  <span class='op'>=</span> <span class='op'>-</span><span class='int'>127</span>                       <span class='comment'># INT8_MIN  + 1</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_vector_end'>bcf_int8_vector_end</span>  <span class='op'>=</span> <span class='op'>-</span><span class='int'>127</span>
+<span class='comment'># INT16_MIN + 1</span></pre>
     </td>
   </tr>
 </table>
@@ -23105,10 +23115,10 @@
       <pre class="lines">
 
 
-306</pre>
+314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 306</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 314</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_str_missing'>bcf_str_missing</span>      <span class='op'>=</span> <span class='int'>0x07</span></pre>
     </td>
@@ -23125,29 +23135,20 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>INT64_MIN + 1</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-301</pre>
+305
+306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 305</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bcf_str_vector_end'>bcf_str_vector_end</span>   <span class='op'>=</span> <span class='int'>0</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_str_vector_end'>bcf_str_vector_end</span>   <span class='op'>=</span> <span class='int'>0</span>
+<span class='comment'># INT8_MIN</span></pre>
     </td>
   </tr>
 </table>
@@ -41849,12 +41850,12 @@
       <pre class="lines">
 
 
-20
-21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tbx_bgzf_itr_next'>tbx_bgzf_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_bgzfp'>bgzfp</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_bgzfp'>bgzfp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='rparen'>)</span>
@@ -42349,12 +42350,12 @@
       <pre class="lines">
 
 
-4
-5
-6</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_destroy'>tbx_itr_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_iter'>iter</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_destroy'>hts_itr_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_iter'>iter</span><span class='rparen'>)</span>
@@ -42379,12 +42380,12 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_next'>tbx_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_next'>hts_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_hts_get_bgzfp'>hts_get_bgzfp</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='rparen'>)</span>
@@ -42409,12 +42410,12 @@
       <pre class="lines">
 
 
-8
-9
-10</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_queryi'>tbx_itr_queryi</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_query'>hts_itr_query</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='lbracket'>[</span><span class='symbol'>:idx</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx_readrec'>tbx_readrec</span><span class='rparen'>)</span>
@@ -42439,12 +42440,12 @@
       <pre class="lines">
 
 
-12
-13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/tbx_funcs.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tbx_itr_querys'>tbx_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_querys'>hts_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_tbx'>tbx</span><span class='lbracket'>[</span><span class='symbol'>:idx</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='cvar'>@@tbx_name2id</span><span class='comma'>,</span> <span class='id identifier rubyid_tbx'>tbx</span><span class='comma'>,</span> <span class='cvar'>@@hts_itr_query</span><span class='comma'>,</span> <span class='cvar'>@@tbx_readrec</span><span class='rparen'>)</span>
@@ -43146,7 +43147,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct  5 02:44:10 2022 by
+  Generated on Wed Oct  5 02:47:03 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
