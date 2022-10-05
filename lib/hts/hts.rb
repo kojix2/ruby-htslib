@@ -32,7 +32,7 @@ module HTS
     end
 
     def initialize(*args)
-      # do nothing
+      raise TypeError, "Can't make instance of HTS abstract class"
     end
 
     def struct

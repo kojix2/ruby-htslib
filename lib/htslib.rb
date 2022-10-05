@@ -52,6 +52,7 @@ module HTS
   # before calling the LibHTS module.
   autoload :LibHTS, "hts/libhts"
 
+  autoload :Hts,    "hts/hts"
   autoload :Bam,    "hts/bam"
   autoload :Bcf,    "hts/bcf"
   autoload :Tbx,    "hts/tbx"
