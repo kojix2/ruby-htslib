@@ -467,9 +467,7 @@
 45
 46
 47
-48
-49
-50</pre>
+48</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 25</span>
@@ -497,9 +495,7 @@
 
   <span class='comment'># build_index(index) if build_index
 </span>  <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
-
-  <span class='kw'>super</span> <span class='comment'># do nothing
-</span><span class='kw'>end</span></pre>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -756,12 +752,12 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build_index'>build_index</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Not implemented yet</span><span class='tstring_end'>&quot;</span></span>
@@ -786,16 +782,16 @@
       <pre class="lines">
 
 
+54
+55
 56
 57
 58
 59
-60
-61
-62</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_index_name'>index_name</span>
@@ -824,17 +820,17 @@
       <pre class="lines">
 
 
+66
+67
 68
 69
 70
 71
 72
-73
-74
-75</pre>
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seqnames'>seqnames</span>
   <span class='id identifier rubyid_nseq'>nseq</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
@@ -864,12 +860,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tbx.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid'>tid</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_name2id'><span class='object_link'><a href="LibHTS.html#tbx_name2id-class_method" title="HTS::LibHTS.tbx_name2id (method)">tbx_name2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -884,7 +880,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct  5 02:31:54 2022 by
+  Generated on Wed Oct  5 02:44:11 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
