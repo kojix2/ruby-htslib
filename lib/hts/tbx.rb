@@ -66,9 +66,7 @@ module HTS
     def seqnames
       nseq = FFI::MemoryPointer.new(:int)
       LibHTS.tbx_seqnames(@idx, nseq).then do |pts|
-        pts.read_array_of_pointer(nseq.read_int).map do |pt|
-          pt.read_string
-        end
+        pts.read_array_of_pointer(nseq.read_int).map(&:read_string)
       end
     end
   end

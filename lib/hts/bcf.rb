@@ -121,29 +121,6 @@ module HTS
       end
     end
 
-    private def each_record_copy
-      check_closed
-
-      return to_enum(__method__) unless block_given?
-
-      while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
-        record = Record.new(bcf1, header)
-        yield record
-      end
-      self
-    end
-
-    private def each_record_reuse
-      check_closed
-
-      return to_enum(__method__) unless block_given?
-
-      bcf1 = LibHTS.bcf_init
-      record = Record.new(bcf1, header)
-      yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
-      self
-    end
-
     def query(...)
       querys(...) # Fixme
     end
@@ -164,55 +141,6 @@ module HTS
 
     # private def queryi_reuse
     # end
-
-    private def querys_copy(region)
-      check_closed
-
-      raise "query is only available for BCF files" unless file_format == "bcf"
-      raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
-
-      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
-
-      begin
-        loop do
-          bcf1 = LibHTS.bcf_init
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
-          break if slen == -1
-          raise if slen < -1
-
-          yield Record.new(bcf1, header)
-        end
-      ensure
-        LibHTS.bcf_itr_destroy(qitr)
-      end
-      self
-    end
-
-    private def querys_reuse(region)
-      check_closed
-
-      raise "query is only available for BCF files" unless file_format == "bcf"
-      raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
-
-      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
-
-      bcf1 = LibHTS.bcf_init
-      record = Record.new(bcf1, header)
-      begin
-        loop do
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
-          break if slen == -1
-          raise if slen < -1
-
-          yield record
-        end
-      ensure
-        LibHTS.bcf_itr_destroy(qitr)
-      end
-      self
-    end
 
     # @!macro [attach] define_getter
     #   @method $1
@@ -283,6 +211,80 @@ module HTS
       each do |r|
         yield r.format(key)
       end
+    end
+
+    private
+
+    def querys_reuse(region)
+      check_closed
+
+      raise "query is only available for BCF files" unless file_format == "bcf"
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
+
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(bcf1, header)
+      begin
+        loop do
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          break if slen == -1
+          raise if slen < -1
+
+          yield record
+        end
+      ensure
+        LibHTS.bcf_itr_destroy(qitr)
+      end
+      self
+    end
+
+    def querys_copy(region)
+      check_closed
+
+      raise "query is only available for BCF files" unless file_format == "bcf"
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
+
+      begin
+        loop do
+          bcf1 = LibHTS.bcf_init
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          break if slen == -1
+          raise if slen < -1
+
+          yield Record.new(bcf1, header)
+        end
+      ensure
+        LibHTS.bcf_itr_destroy(qitr)
+      end
+      self
+    end
+
+    def each_record_reuse
+      check_closed
+
+      return to_enum(__method__) unless block_given?
+
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(bcf1, header)
+      yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
+      self
+    end
+
+    def each_record_copy
+      check_closed
+
+      return to_enum(__method__) unless block_given?
+
+      while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
+        record = Record.new(bcf1, header)
+        yield record
+      end
+      self
     end
   end
 end

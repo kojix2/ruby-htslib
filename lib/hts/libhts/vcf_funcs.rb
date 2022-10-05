@@ -294,15 +294,23 @@ module HTS
       end
 
       # Typed value I/O
-      def bcf_int8_vector_end  = -127                       # INT8_MIN  + 1
-      def bcf_int16_vector_end = -32_767                    # INT16_MIN + 1
-      def bcf_int32_vector_end = -2_147_483_647             # INT32_MIN + 1
-      def bcf_int64_vector_end = -9_223_372_036_854_775_807 # INT64_MIN + 1
+      # INT8_MIN  + 1
+      def bcf_int8_vector_end  = -127
+      # INT16_MIN + 1
+      def bcf_int16_vector_end = -32_767
+      # INT32_MIN + 1
+      def bcf_int32_vector_end = -2_147_483_647
+      # INT64_MIN + 1
+      def bcf_int64_vector_end = -9_223_372_036_854_775_807
       def bcf_str_vector_end   = 0
-      def bcf_int8_missing     = -128                             # INT8_MIN
-      def bcf_int16_missing    = (-32_767 - 1)                    # INT16_MIN
-      def bcf_int32_missing    = (-2_147_483_647 - 1)             # INT32_MIN
-      def bcf_int64_missing    = (-9_223_372_036_854_775_807 - 1) # INT64_MIN
+      # INT8_MIN
+      def bcf_int8_missing     = -128
+      # INT16_MIN
+      def bcf_int16_missing    = (-32_767 - 1)
+      # INT32_MIN
+      def bcf_int32_missing    = (-2_147_483_647 - 1)
+      # INT64_MIN
+      def bcf_int64_missing    = (-9_223_372_036_854_775_807 - 1)
       def bcf_str_missing      = 0x07
 
       BCF_MAX_BT_INT8  = 0x7f           # INT8_MAX  */

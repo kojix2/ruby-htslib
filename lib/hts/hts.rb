@@ -31,7 +31,7 @@ module HTS
       end
     end
 
-    def initialize(*args)
+    def initialize(*_args)
       raise TypeError, "Can't make instance of HTS abstract class"
     end
 

@@ -119,74 +119,12 @@ module HTS
       end
     end
 
-    private def each_record_copy
-      check_closed
-      return to_enum(__method__) unless block_given?
-
-      while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
-        record = Record.new(bam1, header)
-        yield record
-      end
-      self
-    end
-
-    private def each_record_reuse
-      check_closed
-      # Each does not always start at the beginning of the file.
-      # This is the common behavior of IO objects in Ruby.
-      return to_enum(__method__) unless block_given?
-
-      bam1 = LibHTS.bam_init1
-      record = Record.new(bam1, header)
-      yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
-      self
-    end
-
     def query(region, copy: false, &block)
       if copy
         query_copy(region, &block)
       else
         query_reuse(region, &block)
       end
-    end
-
-    private def query_copy(region)
-      check_closed
-      raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
-
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-
-      begin
-        loop do
-          bam1 = LibHTS.bam_init1
-          slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
-          break if slen == -1
-          raise if slen < -1
-
-          yield Record.new(bam1, header)
-        end
-      ensure
-        LibHTS.hts_itr_destroy(qiter)
-      end
-      self
-    end
-
-    private def query_reuse(region)
-      check_closed
-      raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
-
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-
-      bam1 = LibHTS.bam_init1
-      record = Record.new(bam1, header)
-      begin
-        yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
-      ensure
-        LibHTS.hts_itr_destroy(qiter)
-      end
-      self
     end
 
     # @!macro [attach] define_getter
@@ -244,6 +182,70 @@ module HTS
         yield record.aux(tag)
       end
 
+      self
+    end
+
+    private
+
+    def query_reuse(region)
+      check_closed
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qiter = LibHTS.sam_itr_querys(@idx, header, region)
+
+      bam1 = LibHTS.bam_init1
+      record = Record.new(bam1, header)
+      begin
+        yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+      self
+    end
+
+    def query_copy(region)
+      check_closed
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qiter = LibHTS.sam_itr_querys(@idx, header, region)
+
+      begin
+        loop do
+          bam1 = LibHTS.bam_init1
+          slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+          break if slen == -1
+          raise if slen < -1
+
+          yield Record.new(bam1, header)
+        end
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+      self
+    end
+
+    def each_record_reuse
+      check_closed
+      # Each does not always start at the beginning of the file.
+      # This is the common behavior of IO objects in Ruby.
+      return to_enum(__method__) unless block_given?
+
+      bam1 = LibHTS.bam_init1
+      record = Record.new(bam1, header)
+      yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
+      self
+    end
+
+    def each_record_copy
+      check_closed
+      return to_enum(__method__) unless block_given?
+
+      while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
+        record = Record.new(bam1, header)
+        yield record
+      end
       self
     end
   end
