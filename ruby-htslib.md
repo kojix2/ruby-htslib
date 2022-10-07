@@ -1,5 +1,5 @@
 ---
-title: 'ruby-htslib'
+title: 'ruby-htslib and HTS.cr'
 author:
   - 'kojix2'
   - 'Naohisa Goto'
@@ -11,9 +11,10 @@ header-includes:
 
 # Summary
 
-ruby-htslib
+We present ruby-htslib and HTS.cr.
 
-Code : [https://github.com/kojix2/ruby-htslib](https://github.com/kojix2/ruby-htslib)
+* Code of ruby-htslib : [https://github.com/kojix2/ruby-htslib](https://github.com/kojix2/ruby-htslib)
+* Code of HTS.cr : [https://github.com/bio-cr/hts.cr](https://github.com/bio-cr/hts.cr)
 
 # Statement of need
 
