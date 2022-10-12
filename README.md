@@ -37,7 +37,7 @@ ruby-htslib also works on Windows; if you are using RubyInstaller, htslib will b
 
 ## Overview
 
-### High level API
+### High-level API
 
 HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
@@ -106,9 +106,9 @@ fa.close
 
 </details>
 
-### Low level API
+### Low-level API
 
-`HTS::LibHTS` provides native C functions. 
+`HTS::LibHTS` provides native C functions.
 
 ```ruby
 require 'htslib'
@@ -125,7 +125,7 @@ htslib makes heavy use of macro functions for speed. Note that C macro functions
 
 Structs
 
-Only small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually. 
+Only a small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually.
 
 ### Need more speed?
 
@@ -155,11 +155,11 @@ Many macro functions are used in HTSlib. Since these macro functions cannot be c
 * Use the new version of Ruby to take full advantage of Ruby's potential.
   * This is possible because we have a small number of users.
 * Remain compatible with [htslib.cr](https://github.com/bio-crystal/htslib.cr).
-  * The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal can do this. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems. 
+  * The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
 
 Method naming generally follows the Rust-htslib API. The reason is that Rust-htslib has many users and I think the naming has been rethought as it is later than c htslib.
 
-In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into independent repository in the future.
+In the script directory, there are several tools to help implement ruby-htslib. These tools may be forked into the repository in the future.
 
 #### FFI Extensions
 
@@ -167,7 +167,7 @@ In the script directory, there are several tools to help implement ruby-htslib. 
 
 #### Automatic generation or automatic validation (Future plan)
 
-+ [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
+* [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. It is planned to use c2ffi to automatically generate bindings or tests.
 
 ## Contributing
 
@@ -200,6 +200,7 @@ One of the greatest joys of using a minor language like Ruby in bioinformatics i
 ## Funding support
 
 This work was supported partially by [Ruby Association Grant 2020](https://www.ruby.or.jp/en/news/20201022).
+
 ## License
 
 [MIT License](https://opensource.org/licenses/MIT).
