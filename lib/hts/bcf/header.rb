@@ -99,7 +99,7 @@ module HTS
           LibHTS::BCF_HL_FMT
         when "CONTIG", "CTG"
           LibHTS::BCF_HL_CTG
-        when "STRUCT", "STR", "STRUCTURE"
+        when "STRUCTURED", "STR"
           LibHTS::BCF_HL_STR
         when "GENOTYPE", "GEN"
           LibHTS::BCF_HL_GEN
