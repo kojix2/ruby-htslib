@@ -8,22 +8,22 @@ module HTS
         @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      # For compatibility with htslib.cr.
+      # For compatibility with HTS.cr.
       def get_int(key)
         get(key, :int)
       end
 
-      # For compatibility with htslib.cr.
+      # For compatibility with HTS.cr.
       def get_float(key)
         get(key, :float)
       end
 
-      # For compatibility with htslib.cr.
+      # For compatibility with HTS.cr.
       def get_flag(key)
         get(key, :flag)
       end
 
-      # For compatibility with htslib.cr.
+      # For compatibility with HTS.cr.
       def get_string(key)
         get(key, :string)
       end
