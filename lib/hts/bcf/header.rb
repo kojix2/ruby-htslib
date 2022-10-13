@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "header/record"
+
 module HTS
   class Bcf < Hts
     # A class for working with VCF records.

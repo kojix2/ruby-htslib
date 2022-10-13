@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "header/record"
+
 module HTS
   class Bam < Hts
     # A class for working with alignment header.
