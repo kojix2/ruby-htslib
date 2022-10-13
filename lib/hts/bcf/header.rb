@@ -48,7 +48,7 @@ module HTS
 
       def add_sample(sample, sync: true)
         LibHTS.bcf_hdr_add_sample(@bcf_hdr, sample)
-        sync() if sync
+        self.sync if sync
       end
 
       def sync
