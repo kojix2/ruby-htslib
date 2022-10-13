@@ -6,8 +6,17 @@ module HTS
   class Bam < Hts
     # A class for working with alignment header.
     class Header
-      def initialize(hts_file)
-        @sam_hdr = LibHTS.sam_hdr_read(hts_file)
+      def initialize(arg = nil)
+        case arg
+        when LibHTS::HtsFile
+          @sam_hdr = LibHTS.sam_hdr_read(arg)
+        when LibHTS::SamHdr
+          @sam_hdr = arg
+        when nil
+          @sam_hdr = LibHTS.sam_hdr_init
+        else
+          raise TypeError, "Invalid argument"
+        end
       end
 
       def struct

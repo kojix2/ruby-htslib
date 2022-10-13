@@ -6,8 +6,17 @@ module HTS
   class Bcf < Hts
     # A class for working with VCF records.
     class Header
-      def initialize(hts_file)
-        @bcf_hdr = LibHTS.bcf_hdr_read(hts_file)
+      def initialize(arg = nil)
+        case arg
+        when LibHTS::HtsFile
+          @bcf_hdr = LibHTS.bcf_hdr_read(arg)
+        when LibHTS::BcfHdr
+          @bcf_hdr = arg
+        when nil
+          @bcf_hdr = LibHTS.bcf_hdr_init("w")
+        else
+          raise TypeError, "Invalid argument"
+        end
       end
 
       def struct
