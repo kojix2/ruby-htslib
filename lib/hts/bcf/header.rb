@@ -33,6 +33,15 @@ module HTS
           .map(&:read_string)
       end
 
+      def add_sample(sample, sync: true)
+        LibHTS.bcf_hdr_add_sample(@bcf_hdr, sample)
+        sync() if sync
+      end
+
+      def sync
+        LibHTS.bcf_hdr_sync(@bcf_hdr)
+      end
+
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
