@@ -51,8 +51,31 @@ module HTS
         self.sync if sync
       end
 
+      def merge(hdr)
+        LibHTS.bcf_hdr_merge(@bcf_hdr, hdr.struct)
+      end
+
       def sync
         LibHTS.bcf_hdr_sync(@bcf_hdr)
+      end
+
+      def read_bcf(fname)
+        LibHTS.bcf_hdr_set(@bcf_hdr, fname)
+      end
+
+      def append(line)
+        LibHTS.bcf_hdr_append(@bcf_hdr, line)
+      end
+
+      def delete(bcf_hl_type, key) # FIXME
+        type = bcf_hl_type_to_int(bcf_hl_type)
+        LibHTS.bcf_hdr_remove(@bcf_hdr, type, key)
+      end
+
+      def get_hrec(bcf_hl_type, key, value, str_class = nil)
+        type = bcf_hl_type_to_int(bcf_hl_type)
+        hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
+        Header::Record.new(hrec)
       end
 
       def to_s
@@ -63,6 +86,27 @@ module HTS
       end
 
       private
+
+      def bcf_hl_type_to_int(bcf_hl_type)
+        return bcf_hl_type if bcf_hl_type.is_a?(Integer)
+
+        case bcf_hl_type.to_s.upcase
+        when "FILTER", "FIL"
+          LibHTS::BCF_HL_FLT
+        when "INFO"
+          LibHTS::BCF_HL_INFO
+        when "FORMAT", "FMT"
+          LibHTS::BCF_HL_FMT
+        when "CONTIG", "CTG"
+          LibHTS::BCF_HL_CTG
+        when "STRUCT", "STR", "STRUCTURE"
+          LibHTS::BCF_HL_STR
+        when "GENOTYPE", "GEN"
+          LibHTS::BCF_HL_GEN
+        else
+          raise TypeError, "Invalid argument"
+        end
+      end
 
       def initialize_copy(orig)
         @bcf_hdr = LibHTS.bcf_hdr_dup(orig.struct)

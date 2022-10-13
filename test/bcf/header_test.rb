@@ -53,6 +53,12 @@ class BcfHeaderTest < Minitest::Test
     assert_equal %w[A B kojix2 kojix3], hdr2.samples
   end
 
+  def test_append_delete
+    h = HTS::Bcf::Header.new
+    h.append('##FILTER=<ID=Nessie,Description="Nessie is a creature in Scottish folklore that is said to inhabit Loch Ness in the Scottish Highlands.">')
+    h.delete("FILTER", "Nessie")
+  end
+
   def test_to_s
     require "digest/md5"
     str = @hdr.to_s
