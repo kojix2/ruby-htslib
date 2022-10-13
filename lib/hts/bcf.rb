@@ -84,6 +84,12 @@ module HTS
       !@idx.null?
     end
 
+    def close
+      LibHTS.hts_idx_destroy(@idx) unless @idx&.null?
+      @idx = nil
+      super
+    end
+
     def write_header
       check_closed
 
