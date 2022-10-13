@@ -31,6 +31,10 @@ module HTS
         LibHTS.bcf_hdr_get_version(@bcf_hdr)
       end
 
+      def set_version(version)
+        LibHTS.bcf_hdr_set_version(@bcf_hdr, version)
+      end
+
       def nsamples
         LibHTS.bcf_hdr_nsamples(@bcf_hdr)
       end
