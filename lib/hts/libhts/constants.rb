@@ -188,6 +188,10 @@ module HTS
           :n_mapped,     :uint64,
           :n_unmapped,   :uint64
         )
+
+      def self.release(ptr)
+        LibHTS.hts_idx_destroy(ptr) unless ptr.null?
+      end
     end
 
     class HtsReglist < FFI::Struct
@@ -213,6 +217,10 @@ module HTS
         :sdict,          :pointer,
         :hrecs,          :pointer,
         :ref_count,      :uint32
+
+      def self.release(ptr)
+        LibHTS.sam_hdr_destroy(ptr) unless ptr.null?
+      end
     end
 
     BamHdr = SamHdr
@@ -251,6 +259,10 @@ module HTS
       layout \
         :pool,           :pointer,
         :qsize,          :int
+
+      def self.release(ptr)
+        LibHTS.hts_tpool_destroy(ptr) unless ptr.null?
+      end
     end
 
     class HtsOpt < FFI::Struct
@@ -300,6 +312,10 @@ module HTS
                  :nocoor,    1,
                  :multi,     1,
                  :dummy,     27
+
+      def self.release(ptr)
+        LibHTS.hts_itr_destroy(ptr) unless ptr.null?
+      end
     end
 
     class Bam1Core < FFI::Struct
@@ -380,6 +396,10 @@ module HTS
         :conf,           TbxConf.ptr,
         :idx,            HtsIdx.ptr,
         :dict,           :pointer
+
+      def self.release(ptr)
+        LibHTS.tbx_destroy(ptr) unless ptr.null?
+      end
     end
 
     # faidx
@@ -393,6 +413,10 @@ module HTS
              :name,      :pointer,
              :hash,      :pointer,
              :format,    FaiFormatOptions
+
+      def self.release(ptr)
+        LibHTS.fai_destroy(ptr) unless ptr.null?
+      end
     end
 
     # bcf
@@ -412,6 +436,10 @@ module HTS
         :nkeys,          :int,
         :keys,           :pointer,
         :vals,           :pointer
+
+      def self.release(ptr)
+        LibHTS.bcf_hrec_destroy(ptr) unless ptr.null?
+      end
     end
 
     class BcfInfo < FFI::BitStruct
@@ -461,6 +489,10 @@ module HTS
         :keep_samples,   :pointer,
         :mem,            KString,
         :m,              [:int, 3]
+
+      def self.release(ptr)
+        LibHTS.bcf_hdr_destroy(ptr) unless ptr.null?
+      end
     end
 
     class BcfFmt < FFI::BitStruct
