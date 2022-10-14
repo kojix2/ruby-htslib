@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This example does not use the Ruby API, but calls the C htslib function
+
 require "htslib"
 
 multi_thread = 4

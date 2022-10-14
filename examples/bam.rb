@@ -16,7 +16,7 @@ HTS::Bam.open(bam_path) do |bam|
        mpos: r.mpos + 1,
        isiz: r.isize,
        seqs: r.seq,
-       qual: r.qual.map { |i| (i + 33).chr }.join,
+       qual: r.qual_string,
        MC: r.aux("MC")
   end
 end
