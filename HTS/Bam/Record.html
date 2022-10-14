@@ -178,7 +178,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#aux-instance_method" title="#aux (instance method)">#<strong>aux</strong>(key = nil)  &#x21d2; Object </a>
+      <a href="#aux-instance_method" title="#aux (instance method)">#<strong>aux</strong>(key = nil)  &#x21d2; String </a>
     
 
     
@@ -193,7 +193,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>retruns the auxillary fields.</p>
+<p>Get the auxiliary data.</p>
 </div></span>
   
 </li>
@@ -202,7 +202,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#base-instance_method" title="#base (instance method)">#<strong>base</strong>(n)  &#x21d2; Object </a>
+      <a href="#base-instance_method" title="#base (instance method)">#<strong>base</strong>(n)  &#x21d2; String </a>
     
 
     
@@ -217,7 +217,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>return only the base of the requested index “i” of the query sequence.</p>
+<p>Get the base of the requested index “i” of the query sequence.</p>
 </div></span>
   
 </li>
@@ -226,7 +226,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#base_qual-instance_method" title="#base_qual (instance method)">#<strong>base_qual</strong>(n)  &#x21d2; Object </a>
+      <a href="#base_qual-instance_method" title="#base_qual (instance method)">#<strong>base_qual</strong>(n)  &#x21d2; Integer </a>
     
 
     
@@ -241,7 +241,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>return only the base quality of the requested index “i” of the query sequence.</p>
+<p>Get the base quality of the requested index “i” of the query sequence.</p>
 </div></span>
   
 </li>
@@ -250,7 +250,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bin-instance_method" title="#bin (instance method)">#<strong>bin</strong>  &#x21d2; Object </a>
+      <a href="#bin-instance_method" title="#bin (instance method)">#<strong>bin</strong>  &#x21d2; Integer </a>
     
 
     
@@ -264,7 +264,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get the bin calculated by bam_reg2bin().</p>
+</div></span>
   
 </li>
 
@@ -294,7 +296,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#chrom-instance_method" title="#chrom (instance method)">#<strong>chrom</strong>  &#x21d2; Object </a>
+      <a href="#chrom-instance_method" title="#chrom (instance method)">#<strong>chrom</strong>  &#x21d2; String </a>
     
 
     
@@ -311,7 +313,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns the chromosome or ” if not mapped.</p>
+<p>Get the reference sequence name of the alignment.</p>
 </div></span>
   
 </li>
@@ -320,7 +322,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cigar-instance_method" title="#cigar (instance method)">#<strong>cigar</strong>  &#x21d2; Object </a>
+      <a href="#cigar-instance_method" title="#cigar (instance method)">#<strong>cigar</strong>  &#x21d2; Bam::Cigar </a>
     
 
     
@@ -335,7 +337,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns a ‘Cigar` object.</p>
+<p>Get the Bam::Cigar object.</p>
 </div></span>
   
 </li>
@@ -344,7 +346,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#endpos-instance_method" title="#endpos (instance method)">#<strong>endpos</strong>  &#x21d2; Object </a>
+      <a href="#endpos-instance_method" title="#endpos (instance method)">#<strong>endpos</strong>  &#x21d2; Integer </a>
     
 
     
@@ -359,7 +361,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns end position of the read.</p>
+<p>Get the rightmost base position of the alignment on the reference genome.</p>
 </div></span>
   
 </li>
@@ -368,7 +370,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#flag-instance_method" title="#flag (instance method)">#<strong>flag</strong>  &#x21d2; Object </a>
+      <a href="#flag-instance_method" title="#flag (instance method)">#<strong>flag</strong>  &#x21d2; Bam::Flag </a>
     
 
     
@@ -383,7 +385,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns a ‘Flag` object.</p>
+<p>Get Bam::Flag object of the alignment.</p>
 </div></span>
   
 </li>
@@ -440,7 +442,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#insert_size-instance_method" title="#insert_size (instance method)">#<strong>insert_size</strong>  &#x21d2; Object </a>
+      <a href="#insert_size-instance_method" title="#insert_size (instance method)">#<strong>insert_size</strong>  &#x21d2; Integer </a>
     
 
     
@@ -457,7 +459,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>insert size.</p>
+<p>Get the observed template length.</p>
 </div></span>
   
 </li>
@@ -490,29 +492,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#len-instance_method" title="#len (instance method)">#<strong>len</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#mapq-instance_method" title="#mapq (instance method)">#<strong>mapq</strong>  &#x21d2; Object </a>
+      <a href="#len-instance_method" title="#len (instance method)">#<strong>len</strong>  &#x21d2; Integer </a>
     
 
     
@@ -527,7 +507,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>mapping quality.</p>
+<p>Get the length of the query sequence.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mapq-instance_method" title="#mapq (instance method)">#<strong>mapq</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the mapping quality of the alignment.</p>
 </div></span>
   
 </li>
@@ -558,7 +562,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mate_chrom-instance_method" title="#mate_chrom (instance method)">#<strong>mate_chrom</strong>  &#x21d2; Object </a>
+      <a href="#mate_chrom-instance_method" title="#mate_chrom (instance method)">#<strong>mate_chrom</strong>  &#x21d2; String </a>
     
 
     
@@ -575,7 +579,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns the chromosome of the mate or ” if not mapped.</p>
+<p>Get the reference sequence name of the mate.</p>
 </div></span>
   
 </li>
@@ -584,7 +588,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mate_pos-instance_method" title="#mate_pos (instance method)">#<strong>mate_pos</strong>  &#x21d2; Object </a>
+      <a href="#mate_pos-instance_method" title="#mate_pos (instance method)">#<strong>mate_pos</strong>  &#x21d2; Integer </a>
     
 
     
@@ -601,7 +605,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns 0-based mate position.</p>
+<p>Get the 0-based leftmost coordinate of the mate.</p>
 </div></span>
   
 </li>
@@ -634,7 +638,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mtid-instance_method" title="#mtid (instance method)">#<strong>mtid</strong>  &#x21d2; Object </a>
+      <a href="#mate_strand-instance_method" title="#mate_strand (instance method)">#<strong>mate_strand</strong>  &#x21d2; String </a>
     
 
     
@@ -649,7 +653,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns the tid of the mate or -1 if not mapped.</p>
+<p>Get whether the query’s mate is on the reverse strand.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mtid-instance_method" title="#mtid (instance method)">#<strong>mtid</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the chromosome ID of the mate.</p>
 </div></span>
   
 </li>
@@ -680,7 +708,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pos-instance_method" title="#pos (instance method)">#<strong>pos</strong>  &#x21d2; Object </a>
+      <a href="#pos-instance_method" title="#pos (instance method)">#<strong>pos</strong>  &#x21d2; Integer </a>
     
 
     
@@ -695,7 +723,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns 0-based start position.</p>
+<p>Get the 0-based leftmost coordinate of the alignment.</p>
 </div></span>
   
 </li>
@@ -726,29 +754,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#qlen-instance_method" title="#qlen (instance method)">#<strong>qlen</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#qname-instance_method" title="#qname (instance method)">#<strong>qname</strong>  &#x21d2; Object </a>
+      <a href="#qlen-instance_method" title="#qlen (instance method)">#<strong>qlen</strong>  &#x21d2; Integer </a>
     
 
     
@@ -763,7 +769,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns the query name.</p>
+<p>Calculate query length from CIGAR.</p>
 </div></span>
   
 </li>
@@ -772,7 +778,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#qual-instance_method" title="#qual (instance method)">#<strong>qual</strong>  &#x21d2; Object </a>
+      <a href="#qname-instance_method" title="#qname (instance method)">#<strong>qname</strong>  &#x21d2; String </a>
     
 
     
@@ -787,7 +793,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>return the base qualities.</p>
+<p>Get the read name.</p>
 </div></span>
   
 </li>
@@ -796,7 +802,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rlen-instance_method" title="#rlen (instance method)">#<strong>rlen</strong>  &#x21d2; Object </a>
+      <a href="#qual-instance_method" title="#qual (instance method)">#<strong>qual</strong>  &#x21d2; Array </a>
     
 
     
@@ -810,7 +816,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Get the base qualities.</p>
+</div></span>
   
 </li>
 
@@ -818,7 +826,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>  &#x21d2; Object </a>
+      <a href="#qual_string-instance_method" title="#qual_string (instance method)">#<strong>qual_string</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the base qualities as a string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rlen-instance_method" title="#rlen (instance method)">#<strong>rlen</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Calculate reference length from CIGAR.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>  &#x21d2; String </a>
     
 
     
@@ -835,7 +891,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>return the read sequence.</p>
+<p>Get the sequence.</p>
 </div></span>
   
 </li>
@@ -844,7 +900,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#strand-instance_method" title="#strand (instance method)">#<strong>strand</strong>  &#x21d2; Object </a>
+      <a href="#strand-instance_method" title="#strand (instance method)">#<strong>strand</strong>  &#x21d2; String </a>
     
 
     
@@ -859,7 +915,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Get strand information.</p>
+<p>Get whether the query is on the reverse strand.</p>
 </div></span>
   
 </li>
@@ -882,7 +938,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return the FFI::Struct object.</p>
+</div></span>
   
 </li>
 
@@ -890,7 +948,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#tid-instance_method" title="#tid (instance method)">#<strong>tid</strong>  &#x21d2; Object </a>
+      <a href="#tid-instance_method" title="#tid (instance method)">#<strong>tid</strong>  &#x21d2; Integer </a>
     
 
     
@@ -905,7 +963,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns the tid of the record or -1 if not mapped.</p>
+<p>Get the chromosome ID of the alignment.</p>
 </div></span>
   
 </li>
@@ -958,7 +1016,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; Object </a>
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; String </a>
     
 
     
@@ -972,7 +1030,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>A string representation of the alignment.</p>
+</div></span>
   
 </li>
 
@@ -1084,7 +1144,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="aux-instance_method">
   
-    #<strong>aux</strong>(key = nil)  &#x21d2; <tt>Object</tt> 
+    #<strong>aux</strong>(key = nil)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1093,13 +1153,53 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>retruns the auxillary fields.</p>
+<p>Get the auxiliary data.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>tag name</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1107,17 +1207,17 @@
       <pre class="lines">
 
 
-209
-210
-211
-212
-213
-214
-215
-216</pre>
+249
+250
+251
+252
+253
+254
+255
+256</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 249</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_aux'>aux</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Aux.html" title="HTS::Bam::Aux (class)">Aux</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Aux.html#initialize-instance_method" title="HTS::Bam::Aux#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -1135,7 +1235,7 @@
       <div class="method_details ">
   <h3 class="signature " id="base-instance_method">
   
-    #<strong>base</strong>(n)  &#x21d2; <tt>Object</tt> 
+    #<strong>base</strong>(n)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1144,13 +1244,51 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>return only the base of the requested index “i” of the query sequence.</p>
+<p>Get the base of the requested index “i” of the query sequence.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>i</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1158,16 +1296,16 @@
       <pre class="lines">
 
 
-169
-170
-171
-172
-173
-174
-175</pre>
+196
+197
+198
+199
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base'>base</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>+=</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&lt;</span> <span class='int'>0</span>
@@ -1184,7 +1322,7 @@
       <div class="method_details ">
   <h3 class="signature " id="base_qual-instance_method">
   
-    #<strong>base_qual</strong>(n)  &#x21d2; <tt>Object</tt> 
+    #<strong>base_qual</strong>(n)  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1193,13 +1331,51 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>return only the base quality of the requested index “i” of the query sequence.</p>
+<p>Get the base quality of the requested index “i” of the query sequence.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>i</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base quality</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1207,16 +1383,16 @@
       <pre class="lines">
 
 
-184
-185
-186
-187
-188
-189
-190</pre>
+221
+222
+223
+224
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 221</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_qual'>base_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>+=</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&lt;</span> <span class='int'>0</span>
@@ -1233,24 +1409,53 @@
       <div class="method_details ">
   <h3 class="signature " id="bin-instance_method">
   
-    #<strong>bin</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>bin</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the bin calculated by bam_reg2bin().</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>bin</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-77
-78
-79</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin'>bin</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bin</span><span class='rbracket'>]</span>
@@ -1275,12 +1480,12 @@
       <pre class="lines">
 
 
-81
-82
-83</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin='>bin=</span><span class='lparen'>(</span><span class='id identifier rubyid_bin'>bin</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:bin</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bin'>bin</span>
@@ -1293,7 +1498,7 @@
       <div class="method_details ">
   <h3 class="signature " id="chrom-instance_method">
   
-    #<strong>chrom</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>chrom</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1306,13 +1511,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns the chromosome or ” if not mapped.</p>
+<p>Get the reference sequence name of the alignment. (a.k.a RNAME) ” if not mapped.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>reference sequence name</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1320,14 +1543,14 @@
       <pre class="lines">
 
 
-91
-92
-93
-94
-95</pre>
+97
+98
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_tid'>tid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1342,7 +1565,7 @@
       <div class="method_details ">
   <h3 class="signature " id="cigar-instance_method">
   
-    #<strong>cigar</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>cigar</strong>  &#x21d2; <tt><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Bam::Cigar</a></span></tt> 
   
 
   
@@ -1351,13 +1574,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns a ‘Cigar` object.</p>
+<p>Get the Bam::Cigar object.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Bam::Cigar</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>cigar</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1365,12 +1606,12 @@
       <pre class="lines">
 
 
-135
-136
-137</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cigar'>cigar</span>
   <span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Cigar.html#initialize-instance_method" title="HTS::Bam::Cigar#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1383,7 +1624,7 @@
       <div class="method_details ">
   <h3 class="signature " id="endpos-instance_method">
   
-    #<strong>endpos</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>endpos</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1392,13 +1633,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns end position of the read.</p>
+<p>Get the rightmost base position of the alignment on the reference genome.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>0-based rightmost coordinate</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1406,12 +1665,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_endpos'>endpos</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_endpos'><span class='object_link'><a href="../LibHTS.html#bam_endpos-class_method" title="HTS::LibHTS.bam_endpos (method)">bam_endpos</a></span></span> <span class='ivar'>@bam1</span>
@@ -1424,7 +1683,7 @@
       <div class="method_details ">
   <h3 class="signature " id="flag-instance_method">
   
-    #<strong>flag</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>flag</strong>  &#x21d2; <tt><span class='object_link'><a href="Flag.html" title="HTS::Bam::Flag (class)">Bam::Flag</a></span></tt> 
   
 
   
@@ -1433,13 +1692,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns a ‘Flag` object.</p>
+<p>Get Bam::Flag object of the alignment.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Flag.html" title="HTS::Bam::Flag (class)">Bam::Flag</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>flag</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1447,12 +1724,12 @@
       <pre class="lines">
 
 
-193
-194
-195</pre>
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag'>flag</span>
   <span class='const'><span class='object_link'><a href="Flag.html" title="HTS::Bam::Flag (class)">Flag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Flag.html#initialize-instance_method" title="HTS::Bam::Flag#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1477,19 +1754,19 @@
       <pre class="lines">
 
 
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206</pre>
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag='>flag=</span><span class='lparen'>(</span><span class='id identifier rubyid_flag'>flag</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_flag'>flag</span>
@@ -1509,7 +1786,7 @@
       <div class="method_details ">
   <h3 class="signature " id="insert_size-instance_method">
   
-    #<strong>insert_size</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>insert_size</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1522,13 +1799,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>insert size</p>
+<p>Get the observed template length. (a.k.a TLEN)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>isize</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1536,12 +1831,12 @@
       <pre class="lines">
 
 
-114
-115
-116</pre>
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size'>insert_size</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:isize</span><span class='rbracket'>]</span>
@@ -1570,12 +1865,12 @@
       <pre class="lines">
 
 
-118
-119
-120</pre>
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size='>insert_size=</span><span class='lparen'>(</span><span class='id identifier rubyid_isize'>isize</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:isize</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_isize'>isize</span>
@@ -1588,24 +1883,53 @@
       <div class="method_details ">
   <h3 class="signature " id="len-instance_method">
   
-    #<strong>len</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>len</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the length of the query sequence.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>query length</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-164
-165
-166</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_len'>len</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:l_qseq</span><span class='rbracket'>]</span>
@@ -1618,7 +1942,7 @@
       <div class="method_details ">
   <h3 class="signature " id="mapq-instance_method">
   
-    #<strong>mapq</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>mapq</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1627,13 +1951,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>mapping quality</p>
+<p>Get the mapping quality of the alignment. (a.k.a MAPQ)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mapping quality</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1641,12 +1983,12 @@
       <pre class="lines">
 
 
-126
-127
-128</pre>
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq'>mapq</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span>
@@ -1671,12 +2013,12 @@
       <pre class="lines">
 
 
-130
-131
-132</pre>
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq='>mapq=</span><span class='lparen'>(</span><span class='id identifier rubyid_mapq'>mapq</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mapq'>mapq</span>
@@ -1689,7 +2031,7 @@
       <div class="method_details ">
   <h3 class="signature " id="mate_chrom-instance_method">
   
-    #<strong>mate_chrom</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>mate_chrom</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1702,13 +2044,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns the chromosome of the mate or ” if not mapped.</p>
+<p>Get the reference sequence name of the mate. ” if not mapped.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>reference sequence name</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1716,14 +2076,14 @@
       <pre class="lines">
 
 
-100
-101
-102
-103
-104</pre>
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_chrom'>mate_chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1738,7 +2098,7 @@
       <div class="method_details ">
   <h3 class="signature " id="mate_pos-instance_method">
   
-    #<strong>mate_pos</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>mate_pos</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1751,13 +2111,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns 0-based mate position</p>
+<p>Get the 0-based leftmost coordinate of the mate.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>0-based leftmost coordinate</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1765,12 +2143,12 @@
       <pre class="lines">
 
 
-66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_pos'>mate_pos</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mpos</span><span class='rbracket'>]</span>
@@ -1799,12 +2177,12 @@
       <pre class="lines">
 
 
-70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_pos='>mate_pos=</span><span class='lparen'>(</span><span class='id identifier rubyid_mpos'>mpos</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mpos</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mpos'>mpos</span>
@@ -1815,9 +2193,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="mtid-instance_method">
+  <h3 class="signature " id="mate_strand-instance_method">
   
-    #<strong>mtid</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>mate_strand</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1826,13 +2204,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns the tid of the mate or -1 if not mapped.</p>
+<p>Get whether the query’s mate is on the reverse strand.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>strand “+” or “-”</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1840,12 +2236,71 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 124</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mate_strand'>mate_strand</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_is_mrev'><span class='object_link'><a href="../LibHTS.html#bam_is_mrev-class_method" title="HTS::LibHTS.bam_is_mrev (method)">bam_is_mrev</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>+</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mtid-instance_method">
+  
+    #<strong>mtid</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the chromosome ID of the mate. -1 if not mapped.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>chromosome ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid'>mtid</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mtid</span><span class='rbracket'>]</span>
@@ -1870,12 +2325,12 @@
       <pre class="lines">
 
 
+51
 52
-53
-54</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid='>mtid=</span><span class='lparen'>(</span><span class='id identifier rubyid_mtid'>mtid</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:mtid</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_mtid'>mtid</span>
@@ -1888,7 +2343,7 @@
       <div class="method_details ">
   <h3 class="signature " id="pos-instance_method">
   
-    #<strong>pos</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>pos</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1897,13 +2352,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns 0-based start position.</p>
+<p>Get the 0-based leftmost coordinate of the alignment.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>0-based leftmost coordinate</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1959,27 +2432,56 @@
       <div class="method_details ">
   <h3 class="signature " id="qlen-instance_method">
   
-    #<strong>qlen</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>qlen</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Calculate query length from CIGAR.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>query length</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-139
-140
-141
-142
-143
-144</pre>
+159
+160
+161
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qlen'>qlen</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2qlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2qlen-class_method" title="HTS::LibHTS.bam_cigar2qlen (method)">bam_cigar2qlen</a></span></span><span class='lparen'>(</span>
@@ -1995,7 +2497,7 @@
       <div class="method_details ">
   <h3 class="signature " id="qname-instance_method">
   
-    #<strong>qname</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>qname</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -2004,13 +2506,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns the query name.</p>
+<p>Get the read name. (a.k.a QNAME)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>query template name</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -2018,12 +2538,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qname'>qname</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_qname'><span class='object_link'><a href="../LibHTS.html#bam_get_qname-class_method" title="HTS::LibHTS.bam_get_qname (method)">bam_get_qname</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span>
@@ -2036,7 +2556,7 @@
       <div class="method_details ">
   <h3 class="signature " id="qual-instance_method">
   
-    #<strong>qual</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>qual</strong>  &#x21d2; <tt>Array</tt> 
   
 
   
@@ -2045,13 +2565,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>return the base qualities</p>
+<p>Get the base qualities.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base qualities</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -2059,13 +2597,13 @@
       <pre class="lines">
 
 
-178
-179
-180
-181</pre>
+206
+207
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 178</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span>
   <span class='id identifier rubyid_q_ptr'>q_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_qual'><span class='object_link'><a href="../LibHTS.html#bam_get_qual-class_method" title="HTS::LibHTS.bam_get_qual (method)">bam_get_qual</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
@@ -2077,29 +2615,117 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="rlen-instance_method">
+  <h3 class="signature " id="qual_string-instance_method">
   
-    #<strong>rlen</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>qual_string</strong>  &#x21d2; <tt>String</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the base qualities as a string. (a.k.a QUAL) ASCII of base quality + 33.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base qualities</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150
-151</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 214</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_qual_string'>qual_string</span>
+  <span class='id identifier rubyid_qual'>qual</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_q'>q</span><span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_q'>q</span> <span class='op'>+</span> <span class='int'>33</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rlen-instance_method">
+  
+    #<strong>rlen</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Calculate reference length from CIGAR.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>reference length</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+168
+169
+170
+171
+172
+173</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rlen'>rlen</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar2rlen'><span class='object_link'><a href="../LibHTS.html#bam_cigar2rlen-class_method" title="HTS::LibHTS.bam_cigar2rlen (method)">bam_cigar2rlen</a></span></span><span class='lparen'>(</span>
@@ -2115,7 +2741,7 @@
       <div class="method_details ">
   <h3 class="signature " id="seq-instance_method">
   
-    #<strong>seq</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>seq</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -2128,13 +2754,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>return the read sequence</p>
+<p>Get the sequence. (a.k.a SEQ)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sequence</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -2142,17 +2786,17 @@
       <pre class="lines">
 
 
-154
-155
-156
-157
-158
-159
-160
-161</pre>
+177
+178
+179
+180
+181
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span>
   <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_seq'><span class='object_link'><a href="../LibHTS.html#bam_get_seq-class_method" title="HTS::LibHTS.bam_get_seq (method)">bam_get_seq</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
@@ -2170,7 +2814,7 @@
       <div class="method_details ">
   <h3 class="signature " id="strand-instance_method">
   
-    #<strong>strand</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>strand</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -2179,13 +2823,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Get strand information.</p>
+<p>Get whether the query is on the reverse strand.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>strand “+” or “-”</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -2193,12 +2855,12 @@
       <pre class="lines">
 
 
-109
-110
-111</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strand'>strand</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_is_rev'><span class='object_link'><a href="../LibHTS.html#bam_is_rev-class_method" title="HTS::LibHTS.bam_is_rev (method)">bam_is_rev</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>+</span><span class='tstring_end'>&quot;</span></span>
@@ -2217,40 +2879,10 @@
   
 
   
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-20
-21
-22</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 20</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
-  <span class='ivar'>@bam1</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="tid-instance_method">
-  
-    #<strong>tid</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns the tid of the record or -1 if not mapped.</p>
+<p>Return the FFI::Struct object.</p>
 
 
   </div>
@@ -2264,12 +2896,71 @@
       <pre class="lines">
 
 
-39
-40
-41</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
+  <span class='ivar'>@bam1</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tid-instance_method">
+  
+    #<strong>tid</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the chromosome ID of the alignment. -1 if not mapped.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>chromosome ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid'>tid</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tid</span><span class='rbracket'>]</span>
@@ -2294,12 +2985,12 @@
       <pre class="lines">
 
 
-43
-44
-45</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid='>tid=</span><span class='lparen'>(</span><span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
   <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tid</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_tid'>tid</span>
@@ -2324,12 +3015,12 @@
       <pre class="lines">
 
 
-24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
   <span class='ivar'>@bam1</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
@@ -2342,27 +3033,56 @@
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
   
-    #<strong>to_s</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>to_s</strong>  &#x21d2; <tt>String</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a string representation of the alignment.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a string representation of the alignment.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-233
-234
-235
-236
-237
-238</pre>
+274
+275
+276
+277
+278
+279</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 233</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2380,7 +3100,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Oct 14 01:34:51 2022 by
+  Generated on Fri Oct 14 05:50:12 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
