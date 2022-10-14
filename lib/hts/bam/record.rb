@@ -17,6 +17,7 @@ module HTS
         @header = header
       end
 
+      # Return the FFI::Struct object.
       def struct
         @bam1
       end
@@ -25,17 +26,14 @@ module HTS
         @bam1.to_ptr
       end
 
-      # returns the query name.
+      # Get the read name. (a.k.a QNAME)
+      # @return [String] query template name
       def qname
         LibHTS.bam_get_qname(@bam1).read_string
       end
 
-      # Set (query) name.
-      # def qname=(name)
-      #   raise 'Not Implemented'
-      # end
-
-      # returns the tid of the record or -1 if not mapped.
+      # Get the chromosome ID of the alignment. -1 if not mapped.
+      # @return [Integer] chromosome ID
       def tid
         @bam1[:core][:tid]
       end
@@ -44,7 +42,8 @@ module HTS
         @bam1[:core][:tid] = tid
       end
 
-      # returns the tid of the mate or -1 if not mapped.
+      # Get the chromosome ID of the mate. -1 if not mapped.
+      # @return [Integer] chromosome ID
       def mtid
         @bam1[:core][:mtid]
       end
@@ -53,7 +52,8 @@ module HTS
         @bam1[:core][:mtid] = mtid
       end
 
-      # returns 0-based start position.
+      # Get the 0-based leftmost coordinate of the alignment.
+      # @return [Integer] 0-based leftmost coordinate
       def pos
         @bam1[:core][:pos]
       end
@@ -62,7 +62,8 @@ module HTS
         @bam1[:core][:pos] = pos
       end
 
-      # returns 0-based mate position
+      # Get the 0-based leftmost coordinate of the mate.
+      # @return [Integer] 0-based leftmost coordinate
       def mate_pos
         @bam1[:core][:mpos]
       end
@@ -74,6 +75,8 @@ module HTS
       alias mpos mate_pos
       alias mpos= mate_pos=
 
+      # Get the bin calculated by bam_reg2bin().
+      # @return [Integer] bin
       def bin
         @bam1[:core][:bin]
       end
@@ -82,12 +85,15 @@ module HTS
         @bam1[:core][:bin] = bin
       end
 
-      # returns end position of the read.
+      # Get the rightmost base position of the alignment on the reference genome.
+      # @return [Integer] 0-based rightmost coordinate
       def endpos
         LibHTS.bam_endpos @bam1
       end
 
-      # returns the chromosome or '' if not mapped.
+      # Get the reference sequence name of the alignment. (a.k.a RNAME)
+      # '' if not mapped.
+      # @return [String] reference sequence name
       def chrom
         return "" if tid == -1
 
@@ -96,7 +102,9 @@ module HTS
 
       alias contig chrom
 
-      # returns the chromosome of the mate or '' if not mapped.
+      # Get the reference sequence name of the mate.
+      # '' if not mapped.
+      # @return [String] reference sequence name
       def mate_chrom
         return "" if mtid == -1
 
@@ -105,12 +113,20 @@ module HTS
 
       alias mate_contig mate_chrom
 
-      # Get strand information.
+      # Get whether the query is on the reverse strand.
+      # @return [String] strand "+" or "-"
       def strand
         LibHTS.bam_is_rev(@bam1) ? "-" : "+"
       end
 
-      # insert size
+      # Get whether the query's mate is on the reverse strand.
+      # @return [String] strand "+" or "-"
+      def mate_strand
+        LibHTS.bam_is_mrev(@bam1) ? "-" : "+"
+      end
+
+      # Get the observed template length. (a.k.a TLEN)
+      # @return [Integer] isize
       def insert_size
         @bam1[:core][:isize]
       end
@@ -122,7 +138,8 @@ module HTS
       alias isize insert_size
       alias isize= insert_size=
 
-      # mapping quality
+      # Get the mapping quality of the alignment. (a.k.a MAPQ)
+      # @return [Integer] mapping quality
       def mapq
         @bam1[:core][:qual]
       end
@@ -131,11 +148,14 @@ module HTS
         @bam1[:core][:qual] = mapq
       end
 
-      # returns a `Cigar` object.
+      # Get the Bam::Cigar object.
+      # @return [Bam::Cigar] cigar
       def cigar
         Cigar.new(LibHTS.bam_get_cigar(@bam1), @bam1[:core][:n_cigar])
       end
 
+      # Calculate query length from CIGAR.
+      # @return [Integer] query length
       def qlen
         LibHTS.bam_cigar2qlen(
           @bam1[:core][:n_cigar],
@@ -143,6 +163,8 @@ module HTS
         )
       end
 
+      # Calculate reference length from CIGAR.
+      # @return [Integer] reference length
       def rlen
         LibHTS.bam_cigar2rlen(
           @bam1[:core][:n_cigar],
@@ -150,7 +172,8 @@ module HTS
         )
       end
 
-      # return the read sequence
+      # Get the sequence. (a.k.a SEQ)
+      # @return [String] sequence
       def seq
         r = LibHTS.bam_get_seq(@bam1)
         seq = String.new
@@ -161,11 +184,15 @@ module HTS
       end
       alias sequence seq
 
+      # Get the length of the query sequence.
+      # @return [Integer] query length
       def len
         @bam1[:core][:l_qseq]
       end
 
-      # return only the base of the requested index "i" of the query sequence.
+      # Get the base of the requested index "i" of the query sequence.
+      # @param [Integer] i index
+      # @return [String] base
       def base(n)
         n += @bam1[:core][:l_qseq] if n < 0
         return "." if (n >= @bam1[:core][:l_qseq]) || (n < 0) # eg. base(-1000)
@@ -174,13 +201,23 @@ module HTS
         SEQ_NT16_STR[LibHTS.bam_seqi(r, n)]
       end
 
-      # return the base qualities
+      # Get the base qualities.
+      # @return [Array] base qualities
       def qual
         q_ptr = LibHTS.bam_get_qual(@bam1)
         q_ptr.read_array_of_uint8(@bam1[:core][:l_qseq])
       end
 
-      # return only the base quality of the requested index "i" of the query sequence.
+      # Get the base qualities as a string. (a.k.a QUAL)
+      # ASCII of base quality + 33.
+      # @return [String] base qualities
+      def qual_string
+        qual.map { |q| (q + 33).chr }.join
+      end
+
+      # Get the base quality of the requested index "i" of the query sequence.
+      # @param [Integer] i index
+      # @return [Integer] base quality
       def base_qual(n)
         n += @bam1[:core][:l_qseq] if n < 0
         return 0 if (n >= @bam1[:core][:l_qseq]) || (n < 0) # eg. base_qual(-1000)
@@ -189,7 +226,8 @@ module HTS
         q_ptr.get_uint8(n)
       end
 
-      # returns a `Flag` object.
+      # Get Bam::Flag object of the alignment.
+      # @return [Bam::Flag] flag
       def flag
         Flag.new(@bam1[:core][:flag])
       end
@@ -205,7 +243,9 @@ module HTS
         end
       end
 
-      # retruns the auxillary fields.
+      # Get the auxiliary data.
+      # @param [String] key tag name
+      # @return [String] value
       def aux(key = nil)
         aux = Aux.new(self)
         if key
@@ -230,6 +270,7 @@ module HTS
         end
       end
 
+      # @return [String] a string representation of the alignment.
       def to_s
         kstr = LibHTS::KString.new
         raise "Failed to format bam record" if LibHTS.sam_format1(@header.struct, @bam1, kstr) == -1
