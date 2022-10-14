@@ -94,9 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bcf/header.rb<span class="defines">,<br />
-  lib/hts/bcf/header/record.rb</span>
-</dd>
+    <dd>lib/hts/bcf/header.rb</dd>
   </dl>
   
 </div>
@@ -112,17 +110,7 @@
 <div class="tags">
   
 
-</div><h2>Defined Under Namespace</h2>
-<p class="children">
-  
-    
-  
-    
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Header/Record.html" title="HTS::Bcf::Header::Record (class)">Record</a></span>
-    
-  
-</p>
-
+</div>
 
 
 
@@ -677,7 +665,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_get_hrec'>get_hrec</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_str_class'>str_class</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_bcf_hl_type_to_int'>bcf_hl_type_to_int</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hrec'>hrec</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_get_hrec'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_get_hrec-class_method" title="HTS::LibHTS.bcf_hdr_get_hrec (method)">bcf_hdr_get_hrec</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_str_class'>str_class</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="" title="HTS::Bcf::Header (class)">Header</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Header/Record.html" title="HTS::Bcf::Header::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Header/Record.html#initialize-instance_method" title="HTS::Bcf::Header::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hrec'>hrec</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="HeaderRecord.html" title="HTS::Bcf::HeaderRecord (class)">HeaderRecord</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HeaderRecord.html#initialize-instance_method" title="HTS::Bcf::HeaderRecord#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hrec'>hrec</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1001,7 +989,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 13 10:19:09 2022 by
+  Generated on Fri Oct 14 01:34:51 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
