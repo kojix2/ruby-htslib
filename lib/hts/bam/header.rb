@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "header/record"
+require_relative "header_record"
 
 module HTS
   class Bam < Hts

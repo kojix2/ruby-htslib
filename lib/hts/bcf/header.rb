@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "header/record"
+require_relative "header_record"
 
 module HTS
   class Bcf < Hts
@@ -75,7 +75,7 @@ module HTS
       def get_hrec(bcf_hl_type, key, value, str_class = nil)
         type = bcf_hl_type_to_int(bcf_hl_type)
         hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
-        Header::Record.new(hrec)
+        HeaderRecord.new(hrec)
       end
 
       def to_s
