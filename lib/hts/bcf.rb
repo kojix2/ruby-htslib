@@ -228,20 +228,20 @@ module HTS
       raise "Index file is required to call the query method." unless index_loaded?
       return to_enum(__method__, region) unless block_given?
 
-      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
+      qiter = LibHTS.bcf_itr_querys(@idx, header, region)
 
       bcf1 = LibHTS.bcf_init
       record = Record.new(bcf1, header)
       begin
         loop do
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
           break if slen == -1
           raise if slen < -1
 
           yield record
         end
       ensure
-        LibHTS.bcf_itr_destroy(qitr)
+        LibHTS.bcf_itr_destroy(qiter)
       end
       self
     end
@@ -253,19 +253,19 @@ module HTS
       raise "Index file is required to call the query method." unless index_loaded?
       return to_enum(__method__, region) unless block_given?
 
-      qitr = LibHTS.bcf_itr_querys(@idx, header, region)
+      qiter = LibHTS.bcf_itr_querys(@idx, header, region)
 
       begin
         loop do
           bcf1 = LibHTS.bcf_init
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qitr, bcf1, ::FFI::Pointer::NULL)
+          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
           break if slen == -1
           raise if slen < -1
 
           yield Record.new(bcf1, header)
         end
       ensure
-        LibHTS.bcf_itr_destroy(qitr)
+        LibHTS.bcf_itr_destroy(qiter)
       end
       self
     end
