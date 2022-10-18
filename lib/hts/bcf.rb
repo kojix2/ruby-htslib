@@ -229,6 +229,7 @@ module HTS
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.bcf_itr_querys(@idx, header, region)
+      raise "Failed to query region #{region}" if qiter.null?
 
       bcf1 = LibHTS.bcf_init
       record = Record.new(bcf1, header)
@@ -254,6 +255,7 @@ module HTS
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.bcf_itr_querys(@idx, header, region)
+      raise "Failed to query region #{region}" if qiter.null?
 
       begin
         loop do

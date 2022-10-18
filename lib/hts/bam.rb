@@ -192,6 +192,7 @@ module HTS
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
+      raise "Failed to query region: #{region}" if qiter.null?
 
       bam1 = LibHTS.bam_init1
       record = Record.new(bam1, header)
@@ -209,6 +210,7 @@ module HTS
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
+      raise "Failed to query region: #{region}" if qiter.null?
 
       begin
         loop do
