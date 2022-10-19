@@ -65,7 +65,6 @@ module HTS
         LibHTS.bcf_hdr_set(@bcf_hdr, fname)
       end
 
-
       def append(line)
         LibHTS.bcf_hdr_append(@bcf_hdr, line)
       end
@@ -81,7 +80,7 @@ module HTS
         HeaderRecord.new(hrec)
       end
 
-      def seqnames()
+      def seqnames
         n = FFI::MemoryPointer.new(:int)
         names = LibHTS.bcf_hdr_seqnames(@bcf_hdr, n)
         names.read_array_of_pointer(n.read_int)
