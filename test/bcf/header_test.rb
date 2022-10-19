@@ -59,6 +59,10 @@ class BcfHeaderTest < Minitest::Test
     h.delete("FILTER", "Nessie")
   end
 
+  def test_seqnames
+    assert_equal %w[1 2 3 4], @hdr.seqnames
+  end
+
   def test_to_s
     require "digest/md5"
     str = @hdr.to_s

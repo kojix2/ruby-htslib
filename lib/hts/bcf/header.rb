@@ -5,6 +5,8 @@ require_relative "header_record"
 module HTS
   class Bcf < Hts
     # A class for working with VCF records.
+    # NOTE: This class has a lot of methods that are not stable.
+    # The method names and the number of arguments may change in the future.
     class Header
       def initialize(arg = nil)
         case arg
@@ -63,6 +65,7 @@ module HTS
         LibHTS.bcf_hdr_set(@bcf_hdr, fname)
       end
 
+
       def append(line)
         LibHTS.bcf_hdr_append(@bcf_hdr, line)
       end
@@ -76,6 +79,13 @@ module HTS
         type = bcf_hl_type_to_int(bcf_hl_type)
         hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
         HeaderRecord.new(hrec)
+      end
+
+      def seqnames()
+        n = FFI::MemoryPointer.new(:int)
+        names = LibHTS.bcf_hdr_seqnames(@bcf_hdr, n)
+        names.read_array_of_pointer(n.read_int)
+             .map(&:read_string)
       end
 
       def to_s
