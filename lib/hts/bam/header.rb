@@ -6,6 +6,10 @@ module HTS
   class Bam < Hts
     # A class for working with alignment header.
     class Header
+      def self.parse(str)
+        new(LibHTS.sam_hdr_parse(str.size, str))
+      end
+
       def initialize(arg = nil)
         case arg
         when LibHTS::HtsFile
@@ -28,6 +32,7 @@ module HTS
       end
 
       def target_count
+        # FIXME: sam_hdr_nref
         @sam_hdr[:n_targets]
       end
 
@@ -41,6 +46,41 @@ module HTS
         Array.new(target_count) do |i|
           LibHTS.sam_hdr_tid2len(@sam_hdr, i)
         end
+      end
+
+      # experimental
+      def add_lines(str)
+        LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
+      end
+
+      # experimental
+      def add_line(type, *args)
+        args = args.flat_map { |arg| [:string, arg] }
+        LibHTS.sam_hdr_add_line(@sam_hdr, type, *args, :pointer, FFI::Pointer::NULL)
+      end
+
+      # experimental
+      def find_line(type, key, value)
+        ks = LibHTS::KString.new
+        r = LibHTS.sam_hdr_find_line_id(@sam_hdr, type, key, value, ks)
+        r == 0 ? ks[:s] : nil
+      end
+
+      # experimental
+      def find_line_at(type, pos)
+        ks = LibHTS::KString.new
+        r = LibHTS.sam_hdr_find_line_pos(@sam_hdr, type, pos, ks)
+        r == 0 ? ks[:s] : nil
+      end
+
+      # experimental
+      def remove_line(type, key, value)
+        LibHTS.sam_hdr_remove_line_id(@sam_hdr, type, key, value)
+      end
+
+      # experimental
+      def remove_line_at(type, pos)
+        LibHTS.sam_hdr_remove_line_pos(@sam_hdr, type, pos)
       end
 
       def to_s
