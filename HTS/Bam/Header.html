@@ -119,11 +119,138 @@
 
   
     <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse-class_method" title="parse (class method)">.<strong>parse</strong>(str)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       Instance Method Summary
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_line-instance_method" title="#add_line (instance method)">#<strong>add_line</strong>(type, *args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_lines-instance_method" title="#add_lines (instance method)">#<strong>add_lines</strong>(str)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_line-instance_method" title="#find_line (instance method)">#<strong>find_line</strong>(type, key, value)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_line_at-instance_method" title="#find_line_at (instance method)">#<strong>find_line_at</strong>(type, pos)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -146,6 +273,54 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>A new instance of Header.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_line-instance_method" title="#remove_line (instance method)">#<strong>remove_line</strong>(type, key, value)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_line_at-instance_method" title="#remove_line_at (instance method)">#<strong>remove_line_at</strong>(type, pos)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>experimental.</p>
 </div></span>
   
 </li>
@@ -315,10 +490,6 @@
       <pre class="lines">
 
 
-9
-10
-11
-12
 13
 14
 15
@@ -326,10 +497,14 @@
 17
 18
 19
-20</pre>
+20
+21
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_arg'>arg</span>
@@ -351,12 +526,304 @@
 </div>
 
 
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="parse-class_method">
+  
+    .<strong>parse</strong>(str)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_parse'><span class='object_link'><a href="../LibHTS.html#sam_hdr_parse-class_method" title="HTS::LibHTS.sam_hdr_parse (method)">sam_hdr_parse</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="struct-instance_method">
+  <h3 class="signature first" id="add_line-instance_method">
+  
+    #<strong>add_line</strong>(type, *args)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_line'>add_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_flat_map'>flat_map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='symbol'>:string</span><span class='comma'>,</span> <span class='id identifier rubyid_arg'>arg</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_add_line'><span class='object_link'><a href="../LibHTS.html#sam_hdr_add_line-class_method" title="HTS::LibHTS.sam_hdr_add_line (method)">sam_hdr_add_line</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add_lines-instance_method">
+  
+    #<strong>add_lines</strong>(str)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 52</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_lines'>add_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_add_lines'><span class='object_link'><a href="../LibHTS.html#sam_hdr_add_lines-class_method" title="HTS::LibHTS.sam_hdr_add_lines (method)">sam_hdr_add_lines</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_str'>str</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_line-instance_method">
+  
+    #<strong>find_line</strong>(type, key, value)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_line'>find_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_find_line_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_find_line_id-class_method" title="HTS::LibHTS.sam_hdr_find_line_id (method)">sam_hdr_find_line_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_ks'>ks</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_line_at-instance_method">
+  
+    #<strong>find_line_at</strong>(type, pos)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 70</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_line_at'>find_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_find_line_pos'><span class='object_link'><a href="../LibHTS.html#sam_hdr_find_line_pos-class_method" title="HTS::LibHTS.sam_hdr_find_line_pos (method)">sam_hdr_find_line_pos</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_ks'>ks</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_line-instance_method">
+  
+    #<strong>remove_line</strong>(type, key, value)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_line'>remove_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_line_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_line_id-class_method" title="HTS::LibHTS.sam_hdr_remove_line_id (method)">sam_hdr_remove_line_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_line_at-instance_method">
+  
+    #<strong>remove_line_at</strong>(type, pos)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>experimental</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_line_at'>remove_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_line_pos'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_line_pos-class_method" title="HTS::LibHTS.sam_hdr_remove_line_pos (method)">sam_hdr_remove_line_pos</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="struct-instance_method">
   
     #<strong>struct</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -370,12 +837,12 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
   <span class='ivar'>@sam_hdr</span>
@@ -400,15 +867,17 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+34
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_count'>target_count</span>
-  <span class='ivar'>@sam_hdr</span><span class='lbracket'>[</span><span class='symbol'>:n_targets</span><span class='rbracket'>]</span>
+  <span class='comment'># FIXME: sam_hdr_nref
+</span>  <span class='ivar'>@sam_hdr</span><span class='lbracket'>[</span><span class='symbol'>:n_targets</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -430,14 +899,14 @@
       <pre class="lines">
 
 
-40
-41
-42
-43
-44</pre>
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_len'>target_len</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -464,14 +933,14 @@
       <pre class="lines">
 
 
-34
-35
-36
-37
-38</pre>
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_names'>target_names</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -498,12 +967,12 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
   <span class='ivar'>@sam_hdr</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
@@ -528,12 +997,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_str'><span class='object_link'><a href="../LibHTS.html#sam_hdr_str-class_method" title="HTS::LibHTS.sam_hdr_str (method)">sam_hdr_str</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='rparen'>)</span>
@@ -548,7 +1017,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 19 07:50:03 2022 by
+  Generated on Mon Oct 24 14:45:22 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
