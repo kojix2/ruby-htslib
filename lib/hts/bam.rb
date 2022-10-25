@@ -95,11 +95,15 @@ module HTS
       super
     end
 
+    def fai=(fai)
+      check_closed
+      LibHTS.hts_set_fai_filename(@hts_file, fai) > 0 || raise
+    end
+
     def write_header(header)
       check_closed
 
       @header = header.dup
-      LibHTS.hts_set_fai_filename(@hts_file, @file_name)
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
