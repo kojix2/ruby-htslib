@@ -28,8 +28,6 @@ module HTS
       # BAM_FDUP           = 1024
       # BAM_FSUPPLEMENTARY = 2048
 
-      # TODO: Enabling bitwise operations?
-
       TABLE = { paired?: LibHTS::BAM_FPAIRED,
                 proper_pair?: LibHTS::BAM_FPROPER_PAIR,
                 unmapped?: LibHTS::BAM_FUNMAP,
@@ -68,6 +66,30 @@ module HTS
 
       def has_flag?(f)
         (@value & f) != 0
+      end
+
+      def &(f)
+        Flag.new(@value & f.to_i)
+      end
+
+      def |(f)
+        Flag.new(@value | f.to_i)
+      end
+
+      def ^(f)
+        Flag.new(@value ^ f.to_i)
+      end
+
+      def ~
+        Flag.new(~@value)
+      end
+
+      def <<(f)
+        Flag.new(@value << f.to_i)
+      end
+
+      def >>(f)
+        Flag.new(@value >> f.to_i)
       end
 
       def to_i
