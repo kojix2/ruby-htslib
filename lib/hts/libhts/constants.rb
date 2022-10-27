@@ -158,7 +158,7 @@ module HTS
         :specific,          :pointer
     end
 
-    class HtsIdx < FFI::Struct
+    class HtsIdx < FFI::Struct # FIXME ManagedStruct
       layout \
         :fmt,            :int,
         :min_shift,      :int,
@@ -205,7 +205,7 @@ module HTS
     end
 
     # HtsFile
-    class SamHdr < FFI::Struct
+    class SamHdr < FFI::ManagedStruct
       layout \
         :n_targets,      :int32,
         :ignore_sam_err, :int32,
@@ -255,7 +255,7 @@ module HTS
 
     SamFile = HtsFile
 
-    class HtsTpool < FFI::Struct
+    class HtsTpool < FFI::ManagedStruct
       layout \
         :pool,           :pointer,
         :qsize,          :int
@@ -277,7 +277,7 @@ module HTS
         :next,           HtsOpt.ptr
     end
 
-    class HtsItr < FFI::BitStruct
+    class HtsItr < FFI::BitStruct # FIXME ManagedBitStruct
       layout \
         :_flags,         :uint32, # bit_fields
         :tid,            :int,
@@ -391,7 +391,7 @@ module HTS
         :line_skip,      :int32
     end
 
-    class Tbx < FFI::Struct
+    class Tbx < FFI::ManagedStruct
       layout \
         :conf,           TbxConf.ptr,
         :idx,            HtsIdx.ptr,
@@ -406,7 +406,7 @@ module HTS
 
     FaiFormatOptions = enum(:FAI_NONE, :FAI_FASTA, :FAI_FASTQ)
 
-    class Faidx < FFI::Struct
+    class Faidx < FFI::Struct # FIXME ManagedStruct
       layout :bgzf,      BGZF,
              :n,         :int,
              :m,         :int,
@@ -428,7 +428,7 @@ module HTS
     end
 
     # Complete textual representation of a header line
-    class BcfHrec < FFI::Struct
+    class BcfHrec < FFI::ManagedStruct
       layout \
         :type,           :int,
         :key,            :string,
@@ -474,7 +474,7 @@ module HTS
         :val,            BcfIdinfo.ptr
     end
 
-    class BcfHdr < FFI::Struct
+    class BcfHdr < FFI::ManagedStruct
       layout \
         :n,              [:int, 3],
         :id,             [:pointer, 3], # BcfIdpair.ptr
