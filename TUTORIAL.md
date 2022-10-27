@@ -5,9 +5,10 @@
 classDiagram
 Bam~Hts~ o-- `Bam::Header`
 Bam o-- `Bam::Record`
-`Bam::Header` --o `Bam::Record`
+`Bam::Record` o-- `Bam::Header` 
 Bcf~Hts~ o-- `Bcf::Header`
 Bcf o-- `Bcf::Record`
+`Bcf::Record` o--`Bcf::Header` 
 `Bam::Header` o-- `Bam::HeaderRecord`
 `Bcf::Header` o-- `Bcf::HeaderRecord`
 `Bam::Record` o-- Flag
@@ -40,6 +41,7 @@ class Tbx~Hts~{
 }
 class `Bam::Header`{
   +@sam_hdr : FFI::Struct
+  +to_s()
 }
 class `Bam::Record` {
   +@bam1 : FFI::Struct
@@ -58,19 +60,36 @@ class `Bam::Record` {
   +flag()
   +chorm()
   +mapq()
+  +cigar()
+  +mate_chrom()
+  +isize()
   +seq()
   +qual()
   +qual_string()
+  +aux()
   +to_s()
 }
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
+  +to_s()
 }
 class `Bcf::Record`{
   +@bcf1 : FFI::Struct
+  +@header : Bcf::Header
+  +chrom()
+  +pos()
+  +id()
+  +qual()
+  +ref()
+  +alt()
+  +filter()
+  +info()
+  +format()
+  +to_s()
 }
 class Flag {
   +@value : Integer
+  +to_i()
   +to_s()
 }
 class Cigar {
