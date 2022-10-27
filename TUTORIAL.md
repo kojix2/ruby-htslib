@@ -1,5 +1,65 @@
 # Tutorial
 
+```mermaid
+classDiagram
+Bam~Hts~ o-- `Bam::Header`
+Bam o-- `Bam::Record`
+Bcf~Hts~ o-- `Bcf::Header`
+Bcf o-- `Bcf::Record`
+`Bam::Header` o-- `Bam::HeaderRecord`
+`Bcf::Header` o-- `Bcf::HeaderRecord`
+`Bam::Record` o-- Flag
+`Bam::Record` o-- Cigar
+`Bam::Record` o-- Aux
+`Bcf::Record` o-- Info
+`Bcf::Record` o-- Format
+class Bam{
+  +@hts_file : FFI::Struct
+  each()
+}
+class Bcf{
+  +@hts_file : FFI::Struct
+  each()
+}
+class Tbx~Hts~{
+  +@hts_file : FFI::Struct
+}
+class `Bam::Header`{
+  +@sam_hdr : FFI::Struct
+}
+class `Bam::Record` {
+  +@bam1 : FFI::Struct
+  +tid()
+  +tid=()
+  +mtid()
+  +mtid=()
+  +pos()
+  +pos=()
+  +mpos()
+  +mpos=()
+  +bin()
+  +bin=()
+  +endpos
+}
+class `Bcf::Header`{
+  +@bcf_hdr : FFI::Struct
+}
+class `Bcf::Record`{
+  +@bcf1 : FFI::Struct
+}
+class Flag {
+  +@value : Integer
+  +to_s()
+}
+class Cigar {
+  +each()
+}
+class Faidx{
+  +@fai
+}
+
+```
+
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 Reading fields
