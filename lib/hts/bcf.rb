@@ -102,7 +102,8 @@ module HTS
       check_closed
 
       var_dup = var.dup
-      LibHTS.bcf_write(@hts_file, header, var_dup) > 0 || raise
+      r = LibHTS.bcf_write(@hts_file, header, var_dup)
+      raise "Failed to write record" if r < 0
     end
 
     # Close the current file.

@@ -111,7 +111,8 @@ module HTS
       check_closed
 
       aln_dup = aln.dup
-      LibHTS.sam_write1(@hts_file, header, aln_dup) > 0 || raise
+      r = LibHTS.sam_write1(@hts_file, header, aln_dup)
+      raise "Failed to write record" if r < 0
     end
 
     def each(copy: false, &block)
