@@ -101,11 +101,18 @@ class Flag {
   +qcfail?()
   +duplicate?()
   +supplementary?()
+  +&()
+  +|()
+  +^()
+  +~()
+  +<<()
+  +>>()
   +to_i()
   +to_s()
 }
 class Cigar {
   +each()
+  +to_s
 }
 class Faidx{
   +@fai
