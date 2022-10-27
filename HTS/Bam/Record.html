@@ -1614,7 +1614,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cigar'>cigar</span>
-  <span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Cigar.html#initialize-instance_method" title="HTS::Bam::Cigar#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Cigar.html#initialize-instance_method" title="HTS::Bam::Cigar#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3100,7 +3100,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 27 12:31:12 2022 by
+  Generated on Thu Oct 27 14:56:38 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>

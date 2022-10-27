@@ -155,7 +155,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(pointer, n_cigar)  &#x21d2; Cigar </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(record)  &#x21d2; Cigar </a>
     
 
     
@@ -210,7 +210,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(pointer, n_cigar)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bam::Cigar (class)">Cigar</a></span></tt> 
+    #<strong>initialize</strong>(record)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bam::Cigar (class)">Cigar</a></span></tt> 
   
 
   
@@ -243,11 +243,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/cigar.rb', line 9</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_n_cigar'>n_cigar</span><span class='rparen'>)</span>
-  <span class='ivar'>@n_cigar</span> <span class='op'>=</span> <span class='id identifier rubyid_n_cigar'>n_cigar</span>
-  <span class='comment'># Read the pointer before the memory is changed.
-</span>  <span class='comment'># Especially when called from a block of `each` iterator.
-</span>  <span class='ivar'>@c</span> <span class='op'>=</span> <span class='id identifier rubyid_pointer'>pointer</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_uint32'>read_array_of_uint32</span><span class='lparen'>(</span><span class='id identifier rubyid_n_cigar'>n_cigar</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='rparen'>)</span>
+  <span class='comment'># The record is used at initialization and is not retained after that.
+</span>  <span class='id identifier rubyid_bam1'>bam1</span> <span class='op'>=</span> <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
+  <span class='id identifier rubyid_n_cigar'>n_cigar</span> <span class='op'>=</span> <span class='id identifier rubyid_bam1'>bam1</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar</span><span class='rbracket'>]</span>
+  <span class='ivar'>@c</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_cigar'><span class='object_link'><a href="../LibHTS.html#bam_get_cigar-class_method" title="HTS::LibHTS.bam_get_cigar (method)">bam_get_cigar</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam1'>bam1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_uint32'>read_array_of_uint32</span><span class='lparen'>(</span><span class='id identifier rubyid_n_cigar'>n_cigar</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -338,7 +338,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 27 12:31:12 2022 by
+  Generated on Thu Oct 27 14:56:38 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
