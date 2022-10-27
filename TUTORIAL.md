@@ -69,6 +69,10 @@ class `Bam::Record` {
   +aux()
   +to_s()
 }
+class `Aux` {
+  -@record : Bam::Record
+  +[]()
+}
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
   +to_s()
@@ -110,9 +114,21 @@ class Flag {
   +to_i()
   +to_s()
 }
+class Info {
+  -@record : Bcf::Record
+  +[]()
+  +length() +size()
+  +to_h()
+}
+class Format {
+  -@record : Bcf::Record
+  +[]()
+  +length() +size()
+  +to_h()
+}
 class Cigar {
   +each()
-  +to_s
+  +to_s()
 }
 class Faidx{
   +@fai
@@ -171,6 +187,7 @@ end
 in.close
 out.close
 ```
+
 ## HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields
