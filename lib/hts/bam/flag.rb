@@ -43,11 +43,28 @@ module HTS
                 duplicate?: LibHTS::BAM_FDUP,
                 supplementary?: LibHTS::BAM_FSUPPLEMENTARY }.freeze
 
-      TABLE.each do |name, v|
+      # @!macro [attach] generate_flag_methods
+      #   @!method $1
+      #   @return [Boolean]
+      def self.generate(name)
         define_method(name) do
-          has_flag?(v)
+          (@value & TABLE[name]) != 0
         end
       end
+      private_class_method :generate
+
+      generate :paired?
+      generate :proper_pair?
+      generate :unmapped?
+      generate :mate_unmapped?
+      generate :reverse?
+      generate :mate_reverse?
+      generate :read1?
+      generate :read2?
+      generate :secondary?
+      generate :qcfail?
+      generate :duplicate?
+      generate :supplementary?
 
       def has_flag?(f)
         (@value & f) != 0
