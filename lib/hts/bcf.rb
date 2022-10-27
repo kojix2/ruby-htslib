@@ -95,20 +95,26 @@ module HTS
       super
     end
 
-    def write_header(header)
+    alias get_header header
+
+    def header=(header)
       check_closed
 
       @header = header.dup
       LibHTS.bcf_hdr_write(@hts_file, header)
     end
 
-    def write(var)
+    alias set_header header=
+
+    def push(var)
       check_closed
 
       var_dup = var.dup
       r = LibHTS.bcf_write(@hts_file, header, var_dup)
       raise "Failed to write record" if r < 0
     end
+
+    alias << push
 
     # Close the current file.
 

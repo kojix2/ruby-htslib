@@ -74,7 +74,7 @@ module HTS
       when -3 then raise "format not indexable"
       when -4 then raise "failed to create and/or save the index"
       else raise "unknown error"
-      end        
+      end
       self # for method chaining
     end
 
@@ -100,25 +100,26 @@ module HTS
       super
     end
 
-    def fai=(fai)
-      check_closed
-      LibHTS.hts_set_fai_filename(@hts_file, fai) > 0 || raise
-    end
+    alias get_header header
 
-    def write_header(header)
+    def header=(header)
       check_closed
 
       @header = header.dup
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
-    def write(aln)
+    alias set_header header=
+
+    def push(aln)
       check_closed
 
       aln_dup = aln.dup
       r = LibHTS.sam_write1(@hts_file, header, aln_dup)
       raise "Failed to write record" if r < 0
     end
+
+    alias << push
 
     def each(copy: false, &block)
       if copy

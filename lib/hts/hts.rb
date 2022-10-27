@@ -69,6 +69,11 @@ module HTS
       @hts_file.nil? || @hts_file.null?
     end
 
+    def fai=(fai)
+      check_closed
+      LibHTS.hts_set_fai_filename(@hts_file, fai) > 0 || raise
+    end
+
     def set_threads(n = nil)
       if n.nil?
         require "etc"
