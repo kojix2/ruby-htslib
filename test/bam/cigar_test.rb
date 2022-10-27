@@ -20,6 +20,11 @@ class BamCigarTest < Minitest::Test
     assert_instance_of HTS::Bam::Cigar, @cgr2
   end
 
+  def test_parse
+    c_str = "MIDNSHP=X".chars.shuffle.map { |op| "#{rand(1..20)}#{op}" }.join
+    assert_equal c_str, HTS::Bam::Cigar.parse(c_str).to_s
+  end
+
   def test_to_s
     assert_equal "", @cgr1.to_s
     assert_equal "10M", @cgr2.to_s
