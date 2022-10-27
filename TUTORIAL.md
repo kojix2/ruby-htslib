@@ -89,6 +89,18 @@ class `Bcf::Record`{
 }
 class Flag {
   +@value : Integer
+  +paired?()
+  +proper_pair?()
+  +unmapped?()
+  +mate_unmapped?()
+  +reverse?()
+  +mate_reverse?()
+  +read1?()
+  +read2?()
+  +secondary?()
+  +qcfail?()
+  +duplicate?()
+  +supplementary?()
   +to_i()
   +to_s()
 }
