@@ -1,9 +1,11 @@
 # Tutorial
 
 ```mermaid
+%%{init:{'theme':'base'}}%%
 classDiagram
 Bam~Hts~ o-- `Bam::Header`
 Bam o-- `Bam::Record`
+`Bam::Header` --o `Bam::Record`
 Bcf~Hts~ o-- `Bcf::Header`
 Bcf o-- `Bcf::Record`
 `Bam::Header` o-- `Bam::HeaderRecord`
@@ -15,11 +17,23 @@ Bcf o-- `Bcf::Record`
 `Bcf::Record` o-- Format
 class Bam{
   +@hts_file : FFI::Struct
-  each()
+  +@header : Bam::Header
+  +@file_name
+  +@index_name
+  +@mode
+  +build_index()
+  +each()
+  +query()
 }
 class Bcf{
   +@hts_file : FFI::Struct
-  each()
+  +@header : Bcf::Header
+  +@file_name
+  +@index_name
+  +@mode
+  +build_index()
+  +each()
+  +query()
 }
 class Tbx~Hts~{
   +@hts_file : FFI::Struct
@@ -29,6 +43,7 @@ class `Bam::Header`{
 }
 class `Bam::Record` {
   +@bam1 : FFI::Struct
+  +@header : Bam::Header
   +tid()
   +tid=()
   +mtid()
@@ -39,7 +54,14 @@ class `Bam::Record` {
   +mpos=()
   +bin()
   +bin=()
-  +endpos
+  +qname()
+  +flag()
+  +chorm()
+  +mapq()
+  +seq()
+  +qual()
+  +qual_string()
+  +to_s()
 }
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
