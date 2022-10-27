@@ -158,7 +158,7 @@ module HTS
         :specific,          :pointer
     end
 
-    class HtsIdx < FFI::Struct # FIXME ManagedStruct
+    class HtsIdx < FFI::Struct # FIXME: ManagedStruct
       layout \
         :fmt,            :int,
         :min_shift,      :int,
@@ -277,7 +277,7 @@ module HTS
         :next,           HtsOpt.ptr
     end
 
-    class HtsItr < FFI::BitStruct # FIXME ManagedBitStruct
+    class HtsItr < FFI::BitStruct # FIXME: ManagedBitStruct
       layout \
         :_flags,         :uint32, # bit_fields
         :tid,            :int,
@@ -406,7 +406,7 @@ module HTS
 
     FaiFormatOptions = enum(:FAI_NONE, :FAI_FASTA, :FAI_FASTQ)
 
-    class Faidx < FFI::Struct # FIXME ManagedStruct
+    class Faidx < FFI::Struct # FIXME: ManagedStruct
       layout :bgzf,      BGZF,
              :n,         :int,
              :m,         :int,
