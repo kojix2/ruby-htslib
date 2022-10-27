@@ -6,11 +6,11 @@ module HTS
     class Cigar
       include Enumerable
 
-      def initialize(pointer, n_cigar)
-        @n_cigar = n_cigar
-        # Read the pointer before the memory is changed.
-        # Especially when called from a block of `each` iterator.
-        @c = pointer.read_array_of_uint32(n_cigar)
+      def initialize(record)
+        # The record is used at initialization and is not retained after that.
+        bam1 = record.struct
+        n_cigar = bam1[:core][:n_cigar]
+        @c = LibHTS.bam_get_cigar(bam1).read_array_of_uint32(n_cigar)
       end
 
       def to_s

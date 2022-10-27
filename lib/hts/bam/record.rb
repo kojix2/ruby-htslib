@@ -151,7 +151,7 @@ module HTS
       # Get the Bam::Cigar object.
       # @return [Bam::Cigar] cigar
       def cigar
-        Cigar.new(LibHTS.bam_get_cigar(@bam1), @bam1[:core][:n_cigar])
+        Cigar.new(self)
       end
 
       # Calculate query length from CIGAR.
