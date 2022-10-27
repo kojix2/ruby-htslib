@@ -90,11 +90,10 @@ module HTS
       super
     end
 
-    def write_header
+    def write_header(header)
       check_closed
 
       @header = header.dup
-      LibHTS.hts_set_fai_filename(header, @file_name)
       LibHTS.bcf_hdr_write(@hts_file, header)
     end
 
