@@ -39,7 +39,9 @@ ruby-htslib also works on Windows; if you use RubyInstaller, htslib will be prep
 
 ### High-level API
 
-HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
+#### HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
+
+Reading fields
 
 ```ruby
 require 'htslib'
@@ -64,7 +66,34 @@ end
 bam.close
 ```
 
-HTS::Bcf - VCF / BCF - Variant Call Format file
+Open with block
+
+```ruby
+HTS::Bam.open("test/fixtures/moo.bam") do |b|
+  b.each do |r|
+    # ...
+  end
+end
+```
+
+Writing
+
+```ruby
+in = HTS::Bam.open("foo.bam")
+out = HTS::Bam.open("bar.bam", "wb")
+
+out.header = in.header
+in.each do |r|
+  out << r
+end
+
+in.close
+out.close
+```
+
+#### HTS::Bcf - VCF / BCF - Variant Call Format file
+
+Reading fields
 
 ```ruby
 bcf = HTS::Bcf.open("b.bcf")
@@ -82,6 +111,31 @@ bcf.each do |r|
 end
 
 bcf.close
+```
+
+Open with block
+
+```ruby
+HTS::Bcf.open("b.bcf") do |b|
+  b.each do |r|
+    # ...
+  end
+end
+```
+
+Writing
+
+```ruby
+in = HTS::Bcf.open("foo.bcf")
+out = HTS::Bcf.open("bar.bcf", "wb")
+
+out.header = in.header
+in.each do |r|
+  out << r
+end
+
+in.close
+out.close
 ```
 
 <details>
