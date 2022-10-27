@@ -66,31 +66,6 @@ end
 bam.close
 ```
 
-Open with block
-
-```ruby
-HTS::Bam.open("test/fixtures/moo.bam") do |b|
-  b.each do |r|
-    # ...
-  end
-end
-```
-
-Writing
-
-```ruby
-in = HTS::Bam.open("foo.bam")
-out = HTS::Bam.open("bar.bam", "wb")
-
-out.header = in.header
-in.each do |r|
-  out << r
-end
-
-in.close
-out.close
-```
-
 #### HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields
@@ -111,31 +86,6 @@ bcf.each do |r|
 end
 
 bcf.close
-```
-
-Open with block
-
-```ruby
-HTS::Bcf.open("b.bcf") do |b|
-  b.each do |r|
-    # ...
-  end
-end
-```
-
-Writing
-
-```ruby
-in = HTS::Bcf.open("foo.bcf")
-out = HTS::Bcf.open("bar.bcf", "wb")
-
-out.header = in.header
-in.each do |r|
-  out << r
-end
-
-in.close
-out.close
 ```
 
 <details>
@@ -222,7 +172,7 @@ Method naming generally follows the Rust-htslib API.
 
 In the `script` directory, there are several tools to help implement ruby-htslib. Scripts using c2ffi can check the coverage of htslib functions in Ruby-htslib. They are useful when new versions of htslib are released.
 
-* [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files. 
+* [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files.
 
 ## Contributing
 
@@ -235,7 +185,7 @@ Ruby-htslib is a library under development, so even minor improvements like typo
 * [financial contributions](https://github.com/sponsors/kojix2)
 
 
-```
+```md
 # Ownership and Commitment Rights
 
 Do you need commit rights to the ruby-htslib repository?
