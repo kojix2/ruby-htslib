@@ -127,6 +127,7 @@ class Format {
   +to_h()
 }
 class Cigar {
+  -@c : Array
   +each()
   +to_s()
 }
