@@ -1,5 +1,142 @@
 # Tutorial
 
+```mermaid
+%%{init:{'theme':'base'}}%%
+classDiagram
+Bam~Hts~ o-- `Bam::Header`
+Bam o-- `Bam::Record`
+`Bam::Record` o-- `Bam::Header` 
+Bcf~Hts~ o-- `Bcf::Header`
+Bcf o-- `Bcf::Record`
+`Bcf::Record` o--`Bcf::Header` 
+`Bam::Header` o-- `Bam::HeaderRecord`
+`Bcf::Header` o-- `Bcf::HeaderRecord`
+`Bam::Record` o-- Flag
+`Bam::Record` o-- Cigar
+`Bam::Record` o-- Aux
+`Bcf::Record` o-- Info
+`Bcf::Record` o-- Format
+class Bam{
+  +@hts_file : FFI::Struct
+  +@header : Bam::Header
+  +@file_name
+  +@index_name
+  +@mode
+  +build_index()
+  +each()
+  +query()
+}
+class Bcf{
+  +@hts_file : FFI::Struct
+  +@header : Bcf::Header
+  +@file_name
+  +@index_name
+  +@mode
+  +build_index()
+  +each()
+  +query()
+}
+class Tbx~Hts~{
+  +@hts_file : FFI::Struct
+}
+class `Bam::Header`{
+  +@sam_hdr : FFI::Struct
+  +to_s()
+}
+class `Bam::Record` {
+  +@bam1 : FFI::Struct
+  +@header : Bam::Header
+  +tid()
+  +tid=()
+  +mtid()
+  +mtid=()
+  +pos()
+  +pos=()
+  +mpos()
+  +mpos=()
+  +bin()
+  +bin=()
+  +qname()
+  +flag()
+  +chorm()
+  +mapq()
+  +cigar()
+  +mate_chrom()
+  +isize()
+  +seq()
+  +qual()
+  +qual_string()
+  +aux()
+  +to_s()
+}
+class `Aux` {
+  -@record : Bam::Record
+  +[]()
+}
+class `Bcf::Header`{
+  +@bcf_hdr : FFI::Struct
+  +to_s()
+}
+class `Bcf::Record`{
+  +@bcf1 : FFI::Struct
+  +@header : Bcf::Header
+  +chrom()
+  +pos()
+  +id()
+  +qual()
+  +ref()
+  +alt()
+  +filter()
+  +info()
+  +format()
+  +to_s()
+}
+class Flag {
+  +@value : Integer
+  +paired?()
+  +proper_pair?()
+  +unmapped?()
+  +mate_unmapped?()
+  +reverse?()
+  +mate_reverse?()
+  +read1?()
+  +read2?()
+  +secondary?()
+  +qcfail?()
+  +duplicate?()
+  +supplementary?()
+  +&()
+  +|()
+  +^()
+  +~()
+  +<<()
+  +>>()
+  +to_i()
+  +to_s()
+}
+class Info {
+  -@record : Bcf::Record
+  +[]()
+  +length() +size()
+  +to_h()
+}
+class Format {
+  -@record : Bcf::Record
+  +[]()
+  +length() +size()
+  +to_h()
+}
+class Cigar {
+  -@c : Array
+  +each()
+  +to_s()
+}
+class Faidx{
+  +@fai
+}
+
+```
+
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 Reading fields
@@ -51,6 +188,7 @@ end
 in.close
 out.close
 ```
+
 ## HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields
