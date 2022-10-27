@@ -54,7 +54,7 @@ module HTS
       @start_position = tell
     end
 
-    def build_index(index_name = nil, min_shift: 14)
+    def build_index(index_name = nil, min_shift: 14, threads: 2)
       check_closed
 
       if index_name
@@ -62,9 +62,15 @@ module HTS
       else
         warn "Create index for #{@file_name}"
       end
-      r = LibHTS.bcf_index_build3(@file_name, index_name, min_shift, @nthreads)
-      raise "Failed to build index for #{@file_name}" if r < 0
-
+      r = LibHTS.bcf_index_build3(@file_name, index_name, min_shift, (@nthreads || threads))
+      case r
+      when 0
+      when -1 then raise "indexing failed"
+      when -2 then raise "opening #{@file_name} failed"
+      when -3 then raise "format not indexable"
+      when -4 then raise "failed to create and/or save the index"
+      else raise "unknown error"
+      end
       self
     end
 
