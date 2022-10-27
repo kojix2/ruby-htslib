@@ -137,6 +137,7 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 ## Documentation
 
+* [TUTORIAL.md](TUTORIAL.md)
 * [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
 * [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
 
