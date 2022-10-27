@@ -172,12 +172,12 @@
     
 
     
+      (also: #get_header)
+    
   </span>
   
   
   
-    
-      <span class="note title readonly">readonly</span>
     
     
   
@@ -912,6 +912,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#push-instance_method" title="#push (instance method)">#<strong>push</strong>(var)  &#x21d2; Object </a>
+    
+
+    
+      (also: #&lt;&lt;)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#qual-instance_method" title="#qual (instance method)">#<strong>qual</strong>  &#x21d2; Array </a>
     
 
@@ -1025,50 +1049,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#write-instance_method" title="#write (instance method)">#<strong>write</strong>(var)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#write_header-instance_method" title="#write_header (instance method)">#<strong>write_header</strong>(header)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -1083,7 +1063,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Hts.html" title="HTS::Hts (class)">Hts</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Hts.html#closed%3F-instance_method" title="HTS::Hts#closed? (method)">#closed?</a></span>, <span class='object_link'><a href="Hts.html#file_format-instance_method" title="HTS::Hts#file_format (method)">#file_format</a></span>, <span class='object_link'><a href="Hts.html#file_format_version-instance_method" title="HTS::Hts#file_format_version (method)">#file_format_version</a></span>, <span class='object_link'><a href="Hts.html#rewind-instance_method" title="HTS::Hts#rewind (method)">#rewind</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#set_threads-instance_method" title="HTS::Hts#set_threads (method)">#set_threads</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Hts.html#closed%3F-instance_method" title="HTS::Hts#closed? (method)">#closed?</a></span>, <span class='object_link'><a href="Hts.html#fai=-instance_method" title="HTS::Hts#fai= (method)">#fai=</a></span>, <span class='object_link'><a href="Hts.html#file_format-instance_method" title="HTS::Hts#file_format (method)">#file_format</a></span>, <span class='object_link'><a href="Hts.html#file_format_version-instance_method" title="HTS::Hts#file_format_version (method)">#file_format_version</a></span>, <span class='object_link'><a href="Hts.html#rewind-instance_method" title="HTS::Hts#rewind (method)">#rewind</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#set_threads-instance_method" title="HTS::Hts#set_threads (method)">#set_threads</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -1236,13 +1216,17 @@
 </div>
     
       
-      <span id=""></span>
+      <span id="header=-instance_method"></span>
       <div class="method_details ">
   <h3 class="signature " id="header-instance_method">
   
-    #<strong>header</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>header</strong>  &#x21d2; <tt>Object</tt> 
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='get_header-instance_method'>get_header</span></span>
+    </span>
   
 
   
@@ -1510,10 +1494,10 @@
       <pre class="lines">
 
 
-165</pre>
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 171</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:alt</span></pre>
     </td>
@@ -1625,10 +1609,10 @@
       <pre class="lines">
 
 
-160</pre>
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 166</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:chrom</span></pre>
     </td>
@@ -1685,16 +1669,16 @@
       <pre class="lines">
 
 
-127
-128
-129
-130
-131
-132
-133</pre>
+133
+134
+135
+136
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='label'>copy:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_copy'>copy</span>
@@ -1734,10 +1718,10 @@
       <pre class="lines">
 
 
-205</pre>
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 205</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 211</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:alt</span></pre>
     </td>
@@ -1771,10 +1755,10 @@
       <pre class="lines">
 
 
-200</pre>
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 200</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 206</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:chrom</span></pre>
     </td>
@@ -1808,10 +1792,10 @@
       <pre class="lines">
 
 
-202</pre>
+208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 208</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:endpos</span></pre>
     </td>
@@ -1845,10 +1829,10 @@
       <pre class="lines">
 
 
-207</pre>
+213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 213</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:filter</span></pre>
     </td>
@@ -1871,17 +1855,17 @@
       <pre class="lines">
 
 
-218
-219
-220
-221
-222
-223
 224
-225</pre>
+225
+226
+227
+228
+229
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_format'>each_format</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1922,10 +1906,10 @@
       <pre class="lines">
 
 
-203</pre>
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 209</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:id</span></pre>
     </td>
@@ -1948,17 +1932,17 @@
       <pre class="lines">
 
 
-209
-210
-211
-212
-213
-214
 215
-216</pre>
+216
+217
+218
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_info'>each_info</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1999,10 +1983,10 @@
       <pre class="lines">
 
 
-201</pre>
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 207</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:pos</span></pre>
     </td>
@@ -2036,10 +2020,10 @@
       <pre class="lines">
 
 
-206</pre>
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 212</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:qual</span></pre>
     </td>
@@ -2073,10 +2057,10 @@
       <pre class="lines">
 
 
-204</pre>
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 210</span>
 
 <span class='id identifier rubyid_define_iterator'>define_iterator</span> <span class='symbol'>:ref</span></pre>
     </td>
@@ -2128,10 +2112,10 @@
       <pre class="lines">
 
 
-162</pre>
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 168</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:endpos</span></pre>
     </td>
@@ -2183,10 +2167,10 @@
       <pre class="lines">
 
 
-167</pre>
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 173</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:filter</span></pre>
     </td>
@@ -2209,22 +2193,22 @@
       <pre class="lines">
 
 
-183
-184
-185
-186
-187
-188
 189
 190
 191
 192
 193
 194
-195</pre>
+195
+196
+197
+198
+199
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -2288,10 +2272,10 @@
       <pre class="lines">
 
 
-163</pre>
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 169</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:id</span></pre>
     </td>
@@ -2370,22 +2354,22 @@
       <pre class="lines">
 
 
-169
-170
-171
-172
-173
-174
 175
 176
 177
 178
 179
 180
-181</pre>
+181
+182
+183
+184
+185
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -2473,14 +2457,14 @@
       <pre class="lines">
 
 
-115
-116
-117
-118
-119</pre>
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nsamples'>nsamples</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -2536,12 +2520,54 @@
       <pre class="lines">
 
 
-161</pre>
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 167</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:pos</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="push-instance_method">
+  
+    #<strong>push</strong>(var)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='<<-instance_method'>&lt;&lt;</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+109
+110
+111
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 109</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_var'>var</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
+
+  <span class='id identifier rubyid_var_dup'>var_dup</span> <span class='op'>=</span> <span class='id identifier rubyid_var'>var</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_write'><span class='object_link'><a href="LibHTS.html#bcf_write-class_method" title="HTS::LibHTS.bcf_write (method)">bcf_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_var_dup'>var_dup</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to write record</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2591,10 +2617,10 @@
       <pre class="lines">
 
 
-166</pre>
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 172</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:qual</span></pre>
     </td>
@@ -2617,12 +2643,12 @@
       <pre class="lines">
 
 
-135
-136
-137</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_querys'>querys</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span> <span class='comment'># Fixme
@@ -2658,16 +2684,16 @@
       <pre class="lines">
 
 
-142
-143
-144
-145
-146
-147
-148</pre>
+148
+149
+150
+151
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_querys'>querys</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='label'>copy:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_copy'>copy</span>
@@ -2725,10 +2751,10 @@
       <pre class="lines">
 
 
-164</pre>
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 170</span>
 
 <span class='id identifier rubyid_define_getter'>define_getter</span> <span class='symbol'>:ref</span></pre>
     </td>
@@ -2751,14 +2777,14 @@
       <pre class="lines">
 
 
-121
-122
-123
-124
-125</pre>
+127
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_samples'>samples</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -2770,86 +2796,12 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="write-instance_method">
-  
-    #<strong>write</strong>(var)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-105
-106
-107
-108
-109
-110
-111</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 105</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_var'>var</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-
-  <span class='id identifier rubyid_var_dup'>var_dup</span> <span class='op'>=</span> <span class='id identifier rubyid_var'>var</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_write'><span class='object_link'><a href="LibHTS.html#bcf_write-class_method" title="HTS::LibHTS.bcf_write (method)">bcf_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_var_dup'>var_dup</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to write record</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&lt;</span> <span class='int'>0</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="write_header-instance_method">
-  
-    #<strong>write_header</strong>(header)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-98
-99
-100
-101
-102
-103</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf.rb', line 98</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_write_header'>write_header</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-
-  <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-class_method" title="HTS::LibHTS.bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 27 06:55:02 2022 by
+  Generated on Thu Oct 27 07:38:14 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
