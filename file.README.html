@@ -97,7 +97,9 @@
 
 <h3 id="label-High-level+API">High-level API</h3>
 
-<p>HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</p>
+<h4 id="label-HTS-3A-3ABam+-+SAM+-2F+BAM+-2F+CRAM+-+Sequence+Alignment+Map+file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h4>
+
+<p>Reading fields</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
 
@@ -121,7 +123,32 @@
 <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
-<p>HTS::Bcf - VCF / BCF - Variant Call Format file</p>
+<p>Open with block</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bam.html#open-class_method" title="HTS::Bam.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/moo.bam</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
+  <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
+    <span class='comment'># ...
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Writing</p>
+
+<pre class="code ruby"><code class="ruby">in = HTS::Bam.open(&quot;foo.bam&quot;)
+out = HTS::Bam.open(&quot;bar.bam&quot;, &quot;wb&quot;)
+
+out.header = in.header
+in.each do |r|
+  out &lt;&lt; r
+end
+
+in.close
+out.close
+</code></pre>
+
+<h4 id="label-HTS-3A-3ABcf+-+VCF+-2F+BCF+-+Variant+Call+Format+file">HTS::Bcf - VCF / BCF - Variant Call Format file</h4>
+
+<p>Reading fields</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>b.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
@@ -138,6 +165,29 @@
 <span class='kw'>end</span>
 
 <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+</code></pre>
+
+<p>Open with block</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>b.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
+  <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
+    <span class='comment'># ...
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Writing</p>
+
+<pre class="code ruby"><code class="ruby">in = HTS::Bcf.open(&quot;foo.bcf&quot;)
+out = HTS::Bcf.open(&quot;bar.bcf&quot;, &quot;wb&quot;)
+
+out.header = in.header
+in.each do |r|
+  out &lt;&lt; r
+end
+
+in.close
+out.close
 </code></pre>
 
 <p>&lt;details&gt; &lt;summary&gt;<strong>Faidx</strong>&lt;/summary&gt;</p>
@@ -272,7 +322,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Thu Oct 27 07:38:11 2022 by
+  Generated on Thu Oct 27 07:47:32 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
