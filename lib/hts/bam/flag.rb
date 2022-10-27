@@ -68,16 +68,16 @@ module HTS
         (@value & f) != 0
       end
 
-      def &(f)
-        Flag.new(@value & f.to_i)
+      def &(other)
+        Flag.new(@value & other.to_i)
       end
 
-      def |(f)
-        Flag.new(@value | f.to_i)
+      def |(other)
+        Flag.new(@value | other.to_i)
       end
 
-      def ^(f)
-        Flag.new(@value ^ f.to_i)
+      def ^(other)
+        Flag.new(@value ^ other.to_i)
       end
 
       def ~
@@ -88,8 +88,8 @@ module HTS
         Flag.new(@value << f.to_i)
       end
 
-      def >>(f)
-        Flag.new(@value >> f.to_i)
+      def >>(other)
+        Flag.new(@value >> other.to_i)
       end
 
       def to_i

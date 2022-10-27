@@ -64,8 +64,8 @@ class BamFlagTest < Minitest::Test
   end
 
   def test_bitwise_not
-    assert_equal -4096, (~@flag).value
-    assert_equal -1, (~@flag_zero).value
+    assert_equal(-4096, (~@flag).value)
+    assert_equal(-1, (~@flag_zero).value)
   end
 
   def test_bitwise_shift_left
