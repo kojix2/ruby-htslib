@@ -9,30 +9,6 @@ module HTS
         @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      # For compatibility with HTS.cr.
-      def get_int(key)
-        get(key, :int)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_float(key)
-        get(key, :float)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_string(key)
-        get(key, :string)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_flag(key)
-        get(key, :flag)
-      end
-
-      def [](key)
-        get(key)
-      end
-
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
       # @note: Why is this method named "get" instead of "fetch"?
       # This is for compatibility with the Crystal language
@@ -72,6 +48,30 @@ module HTS
           info_values.call(LibHTS::BCF_HT_STR)
                      .read_string
         end
+      end
+
+      # For compatibility with HTS.cr.
+      def get_int(key)
+        get(key, :int)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_float(key)
+        get(key, :float)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_string(key)
+        get(key, :string)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_flag(key)
+        get(key, :flag)
+      end
+
+      def [](key)
+        get(key)
       end
 
       # FIXME: naming? room for improvement.

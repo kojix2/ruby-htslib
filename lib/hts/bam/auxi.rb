@@ -9,8 +9,8 @@
 module HTS
   class Bam < Hts
     # Auxiliary record data
-    # 
-    # @noge Aux is a View object. 
+    #
+    # @noge Aux is a View object.
     # The result of the alignment is assigned to the bam1 structure.
     # Ruby's Aux class references a part of it. There is no one-to-one
     # correspondence between C structures and Ruby's Aux class.
