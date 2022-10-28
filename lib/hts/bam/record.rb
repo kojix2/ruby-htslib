@@ -157,6 +157,7 @@ module HTS
       # Calculate query length from CIGAR.
       # @return [Integer] query length
       def qlen
+        # cigar.qlen will be slower because it converts to a Ruby array.
         LibHTS.bam_cigar2qlen(
           @bam1[:core][:n_cigar],
           LibHTS.bam_get_cigar(@bam1)

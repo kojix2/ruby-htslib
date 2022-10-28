@@ -6,13 +6,19 @@ module HTS
     class Cigar
       include Enumerable
 
+      # a uint32_t array (with 32 bits for every CIGAR op: length<<4|operation)
+      attr_accessor :array
+
+      # Create a new Cigar object from a string.
+      # @param [String] cigar_str
+      # The CIGAR string is converted to a uint32_t array in htslib.
       def self.parse(str)
         c = FFI::MemoryPointer.new(:pointer)
         m = FFI::MemoryPointer.new(:size_t)
         LibHTS.sam_parse_cigar(str, FFI::Pointer::NULL, c, m)
-        a_cigar = c.read_pointer.read_array_of_uint32(m.read(:size_t))
+        cigar_array = c.read_pointer.read_array_of_uint32(m.read(:size_t))
         obj = new
-        obj.instance_variable_set(:@c, a_cigar)
+        obj.array = cigar_array
         obj
       end
 
@@ -21,9 +27,9 @@ module HTS
           # The record is used at initialization and is not retained after that.
           bam1 = record.struct
           n_cigar = bam1[:core][:n_cigar]
-          @c = LibHTS.bam_get_cigar(bam1).read_array_of_uint32(n_cigar)
+          @array = LibHTS.bam_get_cigar(bam1).read_array_of_uint32(n_cigar)
         else
-          @c = []
+          @array = []
         end
       end
 
@@ -34,11 +40,31 @@ module HTS
       def each
         return to_enum(__method__) unless block_given?
 
-        @c.each do |c|
+        @array.each do |c|
           op =  LibHTS.bam_cigar_opchr(c)
           len = LibHTS.bam_cigar_oplen(c)
           yield [op, len]
         end
+      end
+
+      def qlen
+        a = FFI::MemoryPointer.new(:uint32, @array.size)
+        a.write_array_of_uint32(@array)
+        LibHTS.bam_cigar2qlen(@array.size, a)
+      end
+
+      def rlen
+        a = FFI::MemoryPointer.new(:uint32, @array.size)
+        a.write_array_of_uint32(@array)
+        LibHTS.bam_cigar2rlen(@array.size, a)
+      end
+
+      def ==(other)
+        other.is_a?(Cigar) && (@array == other.array)
+      end
+
+      def eql?(other)
+        other.is_a?(Cigar) && @array.eql?(other.array)
       end
     end
   end
