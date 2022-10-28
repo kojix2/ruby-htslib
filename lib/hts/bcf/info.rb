@@ -34,6 +34,10 @@ module HTS
       end
 
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
+      # @note: Why is this method named "get" instead of "fetch"?
+      # This is for compatibility with the Crystal language
+      # which provides methods like `get_int`, `get_float`, etc.
+      # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
         p1 = @p1

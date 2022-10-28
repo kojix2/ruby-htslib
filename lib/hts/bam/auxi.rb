@@ -4,7 +4,7 @@
 #
 # A. This is for compatibility with Windows.
 # In Windows, aux is a reserved word
-# You cannot create a file named aux.
+# You cannot create a file named aux. Eww!
 
 module HTS
   class Bam < Hts
@@ -14,6 +14,10 @@ module HTS
         @record = record
       end
 
+      # @note Why is this method named "get" instead of "fetch"?
+      # This is for compatibility with the Crystal language
+      # which provides methods like `get_int`, `get_float`, etc.
+      # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
         aux = LibHTS.bam_aux_get(@record.struct, key)
         return nil if aux.null?
