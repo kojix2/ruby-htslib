@@ -164,7 +164,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>This is for compatibility with the Crystal language which provides methods like ‘get_int`, `get_float`, etc.</p>
+</div></span>
   
 </li>
 
@@ -264,12 +266,12 @@
       <pre class="lines">
 
 
-41
-42
-43</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -288,16 +290,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>Why is this method named “get” instead of “fetch”?</p>
+</div>
+  </div>
+
+
+<p>This is for compatibility with the Crystal language which provides methods like ‘get_int`, `get_float`, etc. I think they are better than `fetch_int“ and `fetch_float`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-17
-18
-19
-20
 21
 22
 23
@@ -316,10 +333,14 @@
 36
 37
 38
-39</pre>
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux'>aux</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-class_method" title="HTS::LibHTS.bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -354,7 +375,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Oct 28 02:36:25 2022 by
+  Generated on Fri Oct 28 02:56:53 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>

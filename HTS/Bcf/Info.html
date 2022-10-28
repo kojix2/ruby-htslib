@@ -188,7 +188,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>@note: Why is this method named “get” instead of “fetch”? This is for compatibility with the Crystal language which provides methods like ‘get_int`, `get_float`, etc.</p>
+</div></span>
   
 </li>
 
@@ -493,10 +495,6 @@
       <pre class="lines">
 
 
-74
-75
-76
-77
 78
 79
 80
@@ -505,10 +503,14 @@
 83
 84
 85
-86</pre>
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span>
   <span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -548,6 +550,8 @@
   </div>
 
 
+<p>@note: Why is this method named “get” instead of “fetch”? This is for compatibility with the Crystal language which provides methods like ‘get_int`, `get_float`, etc. I think they are better than `fetch_int“ and `fetch_float`.</p>
+
 
   </div>
 </div>
@@ -560,10 +564,6 @@
       <pre class="lines">
 
 
-37
-38
-39
-40
 41
 42
 43
@@ -594,10 +594,14 @@
 68
 69
 70
-71</pre>
+71
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
@@ -818,12 +822,12 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_info</span><span class='rbracket'>]</span>
@@ -848,12 +852,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='id identifier rubyid_length'>length</span>
@@ -878,17 +882,17 @@
       <pre class="lines">
 
 
-96
-97
-98
-99
 100
 101
 102
-103</pre>
+103
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -908,7 +912,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Oct 28 02:36:25 2022 by
+  Generated on Fri Oct 28 02:56:53 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
