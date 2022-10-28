@@ -22,6 +22,7 @@ class Bam{
   +@file_name
   +@index_name
   +@mode
+  +struct()
   +build_index()
   +each() Enumerable
   +query()
@@ -32,6 +33,7 @@ class Bcf{
   +@file_name
   +@index_name
   +@mode
+  +struct()
   +build_index()
   +each() Enumerable
   +query()
@@ -41,11 +43,15 @@ class Tbx~Hts~{
 }
 class `Bam::Header`{
   +@sam_hdr : FFI::Struct
+  +struct()
+  +target_count()
+  +target_names()
   +to_s()
 }
 class `Bam::Record` {
   +@bam1 : FFI::Struct
   +@header : Bam::Header
+  +struct()
   +tid()
   +tid=()
   +mtid()
@@ -78,11 +84,13 @@ class `Aux` {
 }
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
+  +struct()
   +to_s()
 }
 class `Bcf::Record`{
   +@bcf1 : FFI::Struct
   +@header : Bcf::Header
+  +struct()
   +chrom()
   +pos()
   +id()
@@ -127,6 +135,7 @@ class Info {
   +fields()
   +length() +size()
   +to_h()
+  -info_ptr()
 }
 class Format {
   -@record : Bcf::Record
@@ -138,6 +147,7 @@ class Format {
   +fields()
   +length() +size()
   +to_h()
+  -format_ptr()
 }
 class Cigar {
   -@array : Array
