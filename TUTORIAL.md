@@ -72,6 +72,9 @@ class `Bam::Record` {
 class `Aux` {
   -@record : Bam::Record
   +[]()
+  +get_int()
+  +get_float()
+  +get_string()
 }
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
