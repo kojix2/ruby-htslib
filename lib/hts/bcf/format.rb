@@ -8,30 +8,6 @@ module HTS
         @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
-      # For compatibility with HTS.cr.
-      def get_int(key)
-        get(key, :int)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_float(key)
-        get(key, :float)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_flag(key)
-        get(key, :flag)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_string(key)
-        get(key, :string)
-      end
-
-      def [](key)
-        get(key)
-      end
-
       # @note: Why is this method named "get" instead of "fetch"?
       # This is for compatibility with the Crystal language
       # which provides methods like `get_int`, `get_float`, etc.
@@ -75,6 +51,30 @@ module HTS
           # format_values.call(LibHTS::BCF_HT_STR)
           #              .read_string
         end
+      end
+
+      # For compatibility with HTS.cr.
+      def get_int(key)
+        get(key, :int)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_float(key)
+        get(key, :float)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_flag(key)
+        get(key, :flag)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_string(key)
+        get(key, :string)
+      end
+
+      def [](key)
+        get(key)
       end
 
       def fields

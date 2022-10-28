@@ -9,6 +9,11 @@
 module HTS
   class Bam < Hts
     # Auxiliary record data
+    # 
+    # @noge Aux is a View object. 
+    # The result of the alignment is assigned to the bam1 structure.
+    # Ruby's Aux class references a part of it. There is no one-to-one
+    # correspondence between C structures and Ruby's Aux class.
     class Aux
       def initialize(record)
         @record = record
@@ -22,7 +27,7 @@ module HTS
         aux = LibHTS.bam_aux_get(@record.struct, key)
         return nil if aux.null?
 
-        type ||= aux.read_string(1)
+        type = type ? type.to_s : aux.read_string(1)
 
         # A (character), B (general array),
         # f (real number), H (hexadecimal array),
@@ -40,6 +45,21 @@ module HTS
         else
           raise NotImplementedError, "type: #{t}"
         end
+      end
+
+      # For compatibility with HTS.cr.
+      def get_int(key)
+        get(key, "i")
+      end
+
+      # For compatibility with HTS.cr.
+      def get_float(key)
+        get(key, "f")
+      end
+
+      # For compatibility with HTS.cr.
+      def get_string(key)
+        get(key, "Z")
       end
 
       def [](key)
