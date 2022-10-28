@@ -15,6 +15,8 @@ module HTS
     # Ruby's Aux class references a part of it. There is no one-to-one
     # correspondence between C structures and Ruby's Aux class.
     class Aux
+      attr_reader :record
+
       def initialize(record)
         @record = record
       end

@@ -16,10 +16,27 @@ class BamAuxTest < Minitest::Test
     assert_instance_of HTS::Bam::Aux, @aux
   end
 
+  def test_record
+    assert_instance_of HTS::Bam::Record, @aux.record
+  end
+
   def test_get
     assert_equal "70M", @aux.get("MC")
     assert_equal 0, @aux.get("AS")
     assert_equal 0, @aux.get("XS")
+  end
+
+  def test_get_int
+    assert_equal 0, @aux.get_int("AS")
+  end
+
+  def test_get_float
+    # FIXME: AS is an integer, not a float
+    assert_equal 0.0, @aux.get_float("AS")
+  end
+
+  def test_get_string
+    assert_equal "70M", @aux.get_string("MC")
   end
 
   def test_get_square_brackets
