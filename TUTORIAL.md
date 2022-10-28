@@ -120,12 +120,22 @@ class Flag {
 class Info {
   -@record : Bcf::Record
   +[]()
+  +get_int()
+  +get_float()
+  +get_string()
+  +get_flag()
+  +fields()
   +length() +size()
   +to_h()
 }
 class Format {
   -@record : Bcf::Record
-  +[]()
+  +[]()\
+  +get_int()
+  +get_float()
+  +get_string()
+  +get_flag()
+  +fields()
   +length() +size()
   +to_h()
 }
