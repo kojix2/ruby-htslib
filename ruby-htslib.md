@@ -36,4 +36,10 @@ Ruby-htslib is a binding for htslib. It provides access to comprehensive HTS fil
 
 # Examples
 
+## API
+
+## htsgrid
+
+## bam-filter
+
 # Reference
