@@ -186,7 +186,7 @@ Ruby-htslib is a library under development, so even minor improvements like typo
 * [financial contributions](https://github.com/sponsors/kojix2)
 
 
-```md
+```markdown
 # Ownership and Commitment Rights
 
 Do you need commit rights to the ruby-htslib repository?
