@@ -22,8 +22,9 @@ class Bam{
   +@file_name
   +@index_name
   +@mode
+  +struct()
   +build_index()
-  +each()
+  +each() Enumerable
   +query()
 }
 class Bcf{
@@ -32,8 +33,9 @@ class Bcf{
   +@file_name
   +@index_name
   +@mode
+  +struct()
   +build_index()
-  +each()
+  +each() Enumerable
   +query()
 }
 class Tbx~Hts~{
@@ -41,11 +43,15 @@ class Tbx~Hts~{
 }
 class `Bam::Header`{
   +@sam_hdr : FFI::Struct
+  +struct()
+  +target_count()
+  +target_names()
   +to_s()
 }
 class `Bam::Record` {
   +@bam1 : FFI::Struct
   +@header : Bam::Header
+  +struct()
   +tid()
   +tid=()
   +mtid()
@@ -72,14 +78,19 @@ class `Bam::Record` {
 class `Aux` {
   -@record : Bam::Record
   +[]()
+  +get_int()
+  +get_float()
+  +get_string()
 }
 class `Bcf::Header`{
   +@bcf_hdr : FFI::Struct
+  +struct()
   +to_s()
 }
 class `Bcf::Record`{
   +@bcf1 : FFI::Struct
   +@header : Bcf::Header
+  +struct()
   +chrom()
   +pos()
   +id()
@@ -117,19 +128,35 @@ class Flag {
 class Info {
   -@record : Bcf::Record
   +[]()
+  +get_int()
+  +get_float()
+  +get_string()
+  +get_flag()
+  +fields()
   +length() +size()
   +to_h()
+  -info_ptr()
 }
 class Format {
   -@record : Bcf::Record
-  +[]()
+  +[]()\
+  +get_int()
+  +get_float()
+  +get_string()
+  +get_flag()
+  +fields()
   +length() +size()
   +to_h()
+  -format_ptr()
 }
 class Cigar {
-  -@c : Array
-  +each()
+  -@array : Array
+  +each() Enumerable
+  +qlen()
+  +rlen()
   +to_s()
+  +==()
+  +eql?()
 }
 class Faidx{
   +@fai
@@ -168,7 +195,8 @@ Open with block
 
 ```ruby
 HTS::Bam.open("test/fixtures/moo.bam") do |b|
-  b.each do |r|
+  b.
+  do |r|
     # ...
   end
 end
