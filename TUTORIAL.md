@@ -23,7 +23,7 @@ class Bam{
   +@index_name
   +@mode
   +build_index()
-  +each()
+  +each() Enumerable
   +query()
 }
 class Bcf{
@@ -33,7 +33,7 @@ class Bcf{
   +@index_name
   +@mode
   +build_index()
-  +each()
+  +each() Enumerable
   +query()
 }
 class Tbx~Hts~{
@@ -127,9 +127,13 @@ class Format {
   +to_h()
 }
 class Cigar {
-  -@c : Array
-  +each()
+  -@array : Array
+  +each() Enumerable
+  +qlen()
+  +rlen()
   +to_s()
+  +==()
+  +eql?()
 }
 class Faidx{
   +@fai
@@ -168,7 +172,8 @@ Open with block
 
 ```ruby
 HTS::Bam.open("test/fixtures/moo.bam") do |b|
-  b.each do |r|
+  b.
+  do |r|
     # ...
   end
 end
