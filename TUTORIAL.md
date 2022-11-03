@@ -5,10 +5,10 @@
 classDiagram
 Bam~Hts~ o-- `Bam::Header`
 Bam o-- `Bam::Record`
-`Bam::Record` o-- `Bam::Header` 
+`Bam::Record` o-- `Bam::Header`
 Bcf~Hts~ o-- `Bcf::Header`
 Bcf o-- `Bcf::Record`
-`Bcf::Record` o--`Bcf::Header` 
+`Bcf::Record` o--`Bcf::Header`
 `Bam::Header` o-- `Bam::HeaderRecord`
 `Bcf::Header` o-- `Bcf::HeaderRecord`
 `Bam::Record` o-- Flag

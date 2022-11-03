@@ -8,16 +8,16 @@
 
 Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https://github.com/samtools/htslib), a C library for high-throughput sequencing data formats. It allows you to read and write file formats commonly used in genomics, such as [SAM, BAM, VCF, and BCF](http://samtools.github.io/hts-specs/), in the Ruby language.
 
-:apple: Feel free to fork it! 
+:apple: Feel free to fork it!
 
 ## Requirements
 
-* [Ruby](https://github.com/ruby/ruby) 3.1 or above.
-* [HTSlib](https://github.com/samtools/htslib)
-  * Ubuntu : `apt install libhts-dev`
-  * macOS : `brew install htslib`
-  * Windows : [mingw-w64-htslib](https://packages.msys2.org/base/mingw-w64-htslib) is automatically fetched when installing the gem ([RubyInstaller](https://rubyinstaller.org) only).
-  * Build from source code (see Development section)
+- [Ruby](https://github.com/ruby/ruby) 3.1 or above.
+- [HTSlib](https://github.com/samtools/htslib)
+  - Ubuntu : `apt install libhts-dev`
+  - macOS : `brew install htslib`
+  - Windows : [mingw-w64-htslib](https://packages.msys2.org/base/mingw-w64-htslib) is automatically fetched when installing the gem ([RubyInstaller](https://rubyinstaller.org) only).
+  - Build from source code (see Development section)
 
 ## Installation
 
@@ -25,7 +25,7 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
 gem install htslib
 ```
 
-If you have installed htslib with apt on Ubuntu or homebrew on Mac, [pkg-config](https://github.com/ruby-gnome/pkg-config) 
+If you have installed htslib with apt on Ubuntu or homebrew on Mac, [pkg-config](https://github.com/ruby-gnome/pkg-config)
 will automatically detect the location of the shared library. If pkg-config does not work well, set `PKG_CONFIG_PATH`.
 Alternatively, you can specify the directory of the shared library by setting the environment variable `HTSLIBDIR`.
 
@@ -137,9 +137,9 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 ## Documentation
 
-* [TUTORIAL.md](TUTORIAL.md)
-* [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
-* [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
+- [TUTORIAL.md](TUTORIAL.md)
+- [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
+- [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
 
 ## Development
 
@@ -157,34 +157,33 @@ bundle exec rake test
 
 HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.
 
-* Use the new version of Ruby to take full advantage of Ruby's potential.
-  * This is possible because we have a small number of users.
-* Remain compatible with [HTS.cr](https://github.com/bio-cr/hts.cr).
-  * The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
-  * Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
+- Use the new version of Ruby to take full advantage of Ruby's potential.
+  - This is possible because we have a small number of users.
+- Remain compatible with [HTS.cr](https://github.com/bio-cr/hts.cr).
+  - The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
+  - Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
 
-Method naming generally follows the Rust-htslib API. 
+Method naming generally follows the Rust-htslib API.
 
 #### FFI Extensions
 
-* [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
+- [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
 
 #### Automatic validation
 
 In the `script` directory, there are several tools to help implement ruby-htslib. Scripts using c2ffi can check the coverage of htslib functions in Ruby-htslib. They are useful when new versions of htslib are released.
 
-* [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files.
+- [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files.
 
 ## Contributing
 
 Ruby-htslib is a library under development, so even minor improvements like typo fixes are welcome! Please feel free to send us your pull requests.
 
-* [Report bugs](https://github.com/kojix2/ruby-htslib/issues)
-* Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
-* Write, clarify, or fix documentation
-* Suggest or add new features
-* [financial contributions](https://github.com/sponsors/kojix2)
-
+- [Report bugs](https://github.com/kojix2/ruby-htslib/issues)
+- Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-htslib/pulls)
+- Write, clarify, or fix documentation
+- Suggest or add new features
+- [financial contributions](https://github.com/sponsors/kojix2)
 
 ```markdown
 # Ownership and Commitment Rights
@@ -200,8 +199,8 @@ One of the greatest joys of using a minor language like Ruby in bioinformatics i
 
 ## Links
 
-* [samtools/hts-spec](https://github.com/samtools/hts-specs)
-* [bioruby](https://github.com/bioruby/bioruby)
+- [samtools/hts-spec](https://github.com/samtools/hts-specs)
+- [bioruby](https://github.com/bioruby/bioruby)
 
 ## Funding support
 
