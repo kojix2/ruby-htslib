@@ -680,22 +680,18 @@
 118
 119
 120
-121
-122
-123</pre>
+121</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/hts.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rewind'>rewind</span>
-  <span class='kw'>if</span> <span class='ivar'>@start_position</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_seek'>seek</span><span class='lparen'>(</span><span class='ivar'>@start_position</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to rewind: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_r'>r</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot rewind: no start position</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@start_position</span>
 
-    <span class='id identifier rubyid_tell'>tell</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot rewind: no start position</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_seek'>seek</span><span class='lparen'>(</span><span class='ivar'>@start_position</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to rewind: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_r'>r</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+
+  <span class='id identifier rubyid_tell'>tell</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -929,7 +925,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Nov  3 12:34:59 2022 by
+  Generated on Thu Nov  3 12:38:19 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>
