@@ -175,13 +175,13 @@ module HTS
     def info(key = nil)
       check_closed
       position = tell
-      if key
-        ary = map { |r| r.info(key) }
-      else
-        raise NotImplementedError
-        # ary = each_copy.map { |r| r.info }
-        # ary = map { |r| r.info.clone }
-      end
+      raise NotImplementedError unless key
+
+      ary = map { |r| r.info(key) }
+
+      # ary = each_copy.map { |r| r.info }
+      # ary = map { |r| r.info.clone }
+
       seek(position)
       ary
     end
@@ -189,13 +189,13 @@ module HTS
     def format(key = nil)
       check_closed
       position = tell
-      if key
-        ary = map { |r| r.format(key) }
-      else
-        raise NotImplementedError
-        # ary = each_copy.map { |r| r.format }
-        # ary = map { |r| r.format.clone }
-      end
+      raise NotImplementedError unless key
+
+      ary = map { |r| r.format(key) }
+
+      # ary = each_copy.map { |r| r.format }
+      # ary = map { |r| r.format.clone }
+
       seek(position)
       ary
     end

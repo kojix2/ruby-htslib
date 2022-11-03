@@ -112,14 +112,12 @@ module HTS
     end
 
     def rewind
-      if @start_position
-        r = seek(@start_position)
-        raise "Failed to rewind: #{r}" if r < 0
+      raise "Cannot rewind: no start position" unless @start_position
 
-        tell
-      else
-        raise "Cannot rewind: no start position"
-      end
+      r = seek(@start_position)
+      raise "Failed to rewind: #{r}" if r < 0
+
+      tell
     end
 
     private
