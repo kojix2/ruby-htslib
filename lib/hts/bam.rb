@@ -100,26 +100,28 @@ module HTS
       super
     end
 
-    alias get_header header
-
-    def header=(header)
+    def write_header(header)
       check_closed
 
       @header = header.dup
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
-    alias set_header header=
+    def header=(header)
+      write_header(header)
+    end
 
-    def push(aln)
+    def write(record)
       check_closed
 
-      aln_dup = aln.dup
-      r = LibHTS.sam_write1(@hts_file, header, aln_dup)
+      # record = record.dup
+      r = LibHTS.sam_write1(@hts_file, header, record)
       raise "Failed to write record" if r < 0
     end
 
-    alias << push
+    def <<(aln)
+      write(aln)
+    end
 
     def each(copy: false, &block)
       if copy

@@ -209,8 +209,11 @@ in = HTS::Bam.open("foo.bam")
 out = HTS::Bam.open("bar.bam", "wb")
 
 out.header = in.header
+# out.write_header(in.header)
+
 in.each do |r|
   out << r
+  # out.write(r)
 end
 
 in.close
@@ -256,8 +259,10 @@ in = HTS::Bcf.open("foo.bcf")
 out = HTS::Bcf.open("bar.bcf", "wb")
 
 out.header = in.header
+# out.write_header(in.header)
 in.each do |r|
   out << r
+  # out.write(r)
 end
 
 in.close
