@@ -469,7 +469,7 @@ module HTS
     attach_function \
       :bcf_fmt_sized_array,
       [KString, :pointer],
-      :uint8_t
+      :uint8
 
     # Encode a variable-length char array in BCF format
     attach_function \

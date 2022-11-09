@@ -352,7 +352,7 @@ module HTS
     # As int32_decoded/encode, but from/to blocks instead of cram_fd
     attach_function \
       :int32_put_blk,
-      %i[cram_block int32_t],
+      %i[cram_block int32],
       :int
 
     # Returns the refs_t structure used by a cram file handle.

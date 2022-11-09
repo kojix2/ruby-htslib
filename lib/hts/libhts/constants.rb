@@ -358,14 +358,14 @@ module HTS
     class BamPileupCd < FFI::Union
       layout \
         :p,               :pointer,
-        :i,               :int64_t,
+        :i,               :int64,
         :f,               :double
     end
 
     class BamPileup1 < FFI::BitStruct
       layout \
         :b,              Bam1.ptr,
-        :qpos,           :int32_t,
+        :qpos,           :int32,
         :indel,          :int,
         :level,          :int,
         :_flags,         :uint32, # bit_fields
@@ -463,7 +463,7 @@ module HTS
 
     class BcfIdinfo < FFI::Struct
       layout \
-        :info,           [:uint64_t, 3],
+        :info,           [:uint64, 3],
         :hrec,           [BcfHrec.ptr, 3],
         :id,             :int
     end
@@ -536,7 +536,7 @@ module HTS
       layout \
         :pos,            :hts_pos_t,
         :rlen,           :hts_pos_t,
-        :rid,            :int32_t,
+        :rid,            :int32,
         :qual,           :float,
         :_n_info_allele, :uint32,
         :_n_fmt_sample,  :uint32,
