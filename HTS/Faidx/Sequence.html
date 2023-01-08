@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/faidx.rb</dd>
+    <dd>lib/hts/faidx/sequence.rb</dd>
   </dl>
   
 </div>
@@ -281,15 +281,19 @@
       <pre class="lines">
 
 
+8
+9
 10
 11
 12
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_faidx'>faidx</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='kw'>unless</span> <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_names'>names</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+
   <span class='ivar'>@faidx</span> <span class='op'>=</span> <span class='id identifier rubyid_faidx'>faidx</span>
   <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
@@ -331,12 +335,12 @@
       <pre class="lines">
 
 
-8
-9
-10</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_faidx'>faidx</span>
   <span class='ivar'>@faidx</span>
@@ -374,12 +378,12 @@
       <pre class="lines">
 
 
-8
-9
-10</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -420,7 +424,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -450,7 +454,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
@@ -465,7 +469,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Jan  8 12:42:04 2023 by
+  Generated on Sun Jan  8 14:21:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
