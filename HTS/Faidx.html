@@ -238,6 +238,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#fetch-instance_method" title="#fetch (instance method)">#<strong>fetch</strong>(name, start = nil, stop = nil)  &#x21d2; Object </a>
+    
+
+    
+      (also: #seq)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_name)  &#x21d2; Faidx </a>
     
 
@@ -309,28 +333,6 @@
     <span class="summary_desc"><div class='inline'>
 <p>return the length of the requested chromosome.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>(name, start = nil, stop = nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -627,97 +629,7 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="length-instance_method">
-  
-    #<strong>length</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='size-instance_method'>size</span></span>
-    </span>
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>the number of sequences in the index.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-43
-44
-45</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 43</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_nseq'><span class='object_link'><a href="LibHTS.html#faidx_nseq-class_method" title="HTS::LibHTS.faidx_nseq (method)">faidx_nseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="names-instance_method">
-  
-    #<strong>names</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='keys-instance_method'>keys</span></span>
-    </span>
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>return the length of the requested chromosome.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-49
-50
-51</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 49</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_names'>names</span>
-  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_iseq'><span class='object_link'><a href="LibHTS.html#faidx_iseq-class_method" title="HTS::LibHTS.faidx_iseq (method)">faidx_iseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="seq-instance_method">
+  <h3 class="signature " id="fetch-instance_method">
   
     
       <span class="overload">#<strong>fetch</strong>(name)  &#x21d2; <tt>Object</tt> </span>
@@ -726,6 +638,10 @@
     
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='seq-instance_method'>seq</span></span>
+    </span>
   
 
   
@@ -898,7 +814,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 79</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
 
@@ -918,6 +834,96 @@
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="length-instance_method">
+  
+    #<strong>length</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='size-instance_method'>size</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>the number of sequences in the index.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 43</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_nseq'><span class='object_link'><a href="LibHTS.html#faidx_nseq-class_method" title="HTS::LibHTS.faidx_nseq (method)">faidx_nseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="names-instance_method">
+  
+    #<strong>names</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='keys-instance_method'>keys</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>return the length of the requested chromosome.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_names'>names</span>
+  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_iseq'><span class='object_link'><a href="LibHTS.html#faidx_iseq-class_method" title="HTS::LibHTS.faidx_iseq (method)">faidx_iseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1021,7 +1027,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Jan  8 14:21:57 2023 by
+  Generated on Sun Jan  8 14:38:18 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
