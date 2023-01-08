@@ -15,6 +15,7 @@ module HTS
       def length
         faidx.seq_len(name)
       end
+      alias size length
 
       def seq(start = nil, stop = nil)
         faidx.seq(name, start, stop)
@@ -23,29 +24,37 @@ module HTS
       def [](arg)
         case arg
         when Integer
-          faidx.seq(name, arg, arg)
+          if arg >= 0
+            start = arg
+            stop = arg
+          else
+            start = length + arg
+            stop = length + arg
+          end
         when Range
+          arg = Range.new(arg.begin, arg.end + length, arg.exclude_end?) if arg.end&.<(0)
+          arg = Range.new(arg.begin + length, arg.end, arg.exclude_end?) if arg.begin&.<(0)
           if arg.begin.nil?
             if arg.end.nil?
               start = nil
               stop = nil
             else
               start = 0
-              stop = arg.max
+              stop = arg.exclude_end? ? arg.end - 1 : arg.end
             end
           elsif arg.end.nil?
-            start = arg.min
-            stop = length
+            # always include the first base
+            start = arg.begin
+            stop = length - 1
           else
-            start, stop = arg.minmax
+            start = arg.begin
+            stop = arg.exclude_end? ? arg.end - 1 : arg.end
           end
         else
           raise ArgumentError
         end
         seq(start, stop)
       end
-
-      alias size length
     end
   end
 end

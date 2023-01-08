@@ -97,6 +97,7 @@ module HTS
         start < 0    && raise(ArgumentError, "Expect start to be >= 0")
         stop  < 0    && raise(ArgumentError, "Expect stop to be >= 0")
         start > stop && raise(ArgumentError, "Expect start to be <= stop")
+        stop >= seq_len(name) && raise(ArgumentError, "Expect stop to be < seq_len")
 
         result = LibHTS.faidx_fetch_seq(@fai, name, start, stop, rlen)
       end
