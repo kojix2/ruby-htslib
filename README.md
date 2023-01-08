@@ -94,7 +94,7 @@ bcf.close
 ```ruby
 fa = HTS::Faidx.open("c.fa")
 
-fa.fetch("chr1:1-10")
+fa.seq("chr1:1-10")
 
 fa.close
 ```

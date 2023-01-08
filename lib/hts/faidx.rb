@@ -76,7 +76,7 @@ module HTS
     #   @param stop [Integer] the end position of the sequence (0-based)
     #   @return [String] the sequence
 
-    def seq(name, start = nil, stop = nil)
+    def fetch(name, start = nil, stop = nil)
       name = name.to_s
       rlen = FFI::MemoryPointer.new(:int)
 
@@ -97,5 +97,7 @@ module HTS
 
       result
     end
+
+    alias seq fetch
   end
 end

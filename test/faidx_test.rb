@@ -70,4 +70,11 @@ class FaidxTest < Minitest::Test
     assert_equal "ACTTAGTTGA", @fai.seq("chr2:11-20")
     assert_equal "ACTTAGTTGA", @fai.seq(:chr2, 10, 19)
   end
+
+  def test_fetch
+    assert_equal "TTGTGGAGAC", @fai.fetch("chr1:1-10")
+    assert_equal "TTGTGGAGAC", @fai.fetch(:chr1, 0, 9)
+    assert_equal "ACTTAGTTGA", @fai.fetch("chr2:11-20")
+    assert_equal "ACTTAGTTGA", @fai.fetch(:chr2, 10, 19)
+  end
 end
