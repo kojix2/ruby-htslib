@@ -49,22 +49,19 @@ class FaidxTest < Minitest::Test
     assert_equal 5, @fai.length
   end
 
-  def test_chrom_size
-    assert_equal 500, @fai.chrom_size("chr1")
-    assert_equal 500, @fai.chrom_size(:chr1)
-    assert_raises(ArgumentError) { @fai.chrom_size(nil) }
-    assert_nil @fai.chrom_size("chr")
+  def test_seq_len
+    assert_equal 500, @fai.seq_len("chr1")
+    assert_equal 500, @fai.seq_len(:chr1)
+    assert_raises(ArgumentError) { @fai.seq_len(nil) }
+    assert_nil @fai.seq_len("chr")
   end
 
-  def test_chrom_length
-    assert_equal 500, @fai.chrom_length("chr1")
-    assert_equal 500, @fai.chrom_length(:chr1)
-    assert_raises(ArgumentError) { @fai.chrom_length(nil) }
-    assert_nil @fai.chrom_length("chr")
+  def test_names
+    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.names
   end
 
-  def test_chrom_names
-    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.chrom_names
+  def test_keys
+    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.keys
   end
 
   def test_seq
