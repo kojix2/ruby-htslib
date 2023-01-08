@@ -1,28 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "../htslib"
+require_relative "faidx/sequence"
 
 module HTS
   class Faidx
-    class Sequence
-      attr_reader :name, :faidx
-
-      def initialize(faidx, name)
-        @faidx = faidx
-        @name = name
-      end
-
-      def length
-        faidx.seq_len(name)
-      end
-
-      def seq(start = nil, stop = nil)
-        faidx.seq(name, start, stop)
-      end
-
-      alias size length
-    end
-
     attr_reader :file_name
 
     def self.open(*args, **kw)
@@ -57,25 +39,11 @@ module HTS
       LibHTS.fai_destroy(@fai)
     end
 
-    # FIXME: This doesn't seem to work as expected
-    # def closed?
-    #   @fai.null?
-    # end
-
     # the number of sequences in the index.
     def length
       LibHTS.faidx_nseq(@fai)
     end
     alias size length
-
-    # return the length of the requested chromosome.
-    def seq_len(chrom)
-      raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
-
-      chrom = chrom.to_s
-      result = LibHTS.faidx_seq_len(@fai, chrom)
-      result == -1 ? nil : result
-    end
 
     # return the length of the requested chromosome.
     def names
@@ -85,7 +53,17 @@ module HTS
     alias keys names
 
     def [](name)
+      name = names[name] if name.is_a?(Integer)
       Sequence.new(self, name)
+    end
+
+    # return the length of the requested chromosome.
+    def seq_len(chrom)
+      raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
+
+      chrom = chrom.to_s
+      result = LibHTS.faidx_seq_len(@fai, chrom)
+      result == -1 ? nil : result
     end
 
     # @overload fetch(name)
