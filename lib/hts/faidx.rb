@@ -52,8 +52,19 @@ module HTS
 
     alias keys names
 
+    def has_key?(key)
+      raise ArgumentError, "Expect chrom to be String or Symbol" unless key.is_a?(String) || key.is_a?(Symbol)
+
+      key = key.to_s
+      case LibHTS.faidx_has_seq(@fai, key)
+      when 1 then true
+      when 0 then false
+      else raise
+      end
+    end
+
     def [](name)
-      name = names[name] if name.is_a?(Integer)
+      name = LibHTS.faidx_iseq(@fai, name) if name.is_a?(Integer)
       Sequence.new(self, name)
     end
 

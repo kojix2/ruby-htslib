@@ -64,6 +64,11 @@ class FaidxTest < Minitest::Test
     assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.keys
   end
 
+  def test_at
+    assert_instance_of HTS::Faidx::Sequence, @fai["chr1"]
+    assert_equal "chr1", @fai[0].name
+  end
+
   def test_seq
     assert_equal "TTGTGGAGAC", @fai.seq("chr1:1-10")
     assert_equal "TTGTGGAGAC", @fai.seq(:chr1, 0, 9)
