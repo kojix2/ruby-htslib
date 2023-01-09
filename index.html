@@ -93,11 +93,9 @@
 
 <p>ruby-htslib also works on Windows; if you use RubyInstaller, htslib will be prepared automatically.</p>
 
-<h2 id="label-Overview">Overview</h2>
+<h2 id="label-Usage">Usage</h2>
 
-<h3 id="label-High-level+API">High-level API</h3>
-
-<h4 id="label-HTS-3A-3ABam+-+SAM+-2F+BAM+-2F+CRAM+-+Sequence+Alignment+Map+file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h4>
+<h3 id="label-HTS-3A-3ABam+-+SAM+-2F+BAM+-2F+CRAM+-+Sequence+Alignment+Map+file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h3>
 
 <p>Reading fields</p>
 
@@ -123,7 +121,7 @@
 <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
-<h4 id="label-HTS-3A-3ABcf+-+VCF+-2F+BCF+-+Variant+Call+Format+file">HTS::Bcf - VCF / BCF - Variant Call Format file</h4>
+<h3 id="label-HTS-3A-3ABcf+-+VCF+-2F+BCF+-+Variant+Call+Format+file">HTS::Bcf - VCF / BCF - Variant Call Format file</h3>
 
 <p>Reading fields</p>
 
@@ -144,14 +142,14 @@
 <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
-<h4 id="label-HTS-3A-3AFaidx+-+FASTA+-2F+FASTQ+-+Nucleic+acid+sequence">HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence</h4>
+<h3 id="label-HTS-3A-3AFaidx+-+FASTA+-2F+FASTQ+-+Nucleic+acid+sequence">HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence</h3>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_fa'>fa</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Faidx.html" title="HTS::Faidx (class)">Faidx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Faidx.html#open-class_method" title="HTS::Faidx.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-10</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
-<h4 id="label-HTS-3A-3ATbx+-+Tabix+-+gff-2C+bed-2C+sam-2C+vcf">HTS::Tbx - Tabix - gff, bed, sam, vcf</h4>
+<h3 id="label-HTS-3A-3ATbx+-+Tabix+-+gff-2C+bed-2C+sam-2C+vcf">HTS::Tbx - Tabix - gff, bed, sam, vcf</h3>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Tbx.html" title="HTS::Tbx (class)">Tbx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Tbx.html#open-class_method" title="HTS::Tbx.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test.vcf.gz</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>10000</span><span class='comma'>,</span> <span class='int'>20000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
@@ -275,7 +273,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jan  9 09:37:31 2023 by
+  Generated on Mon Jan  9 09:46:52 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
