@@ -112,7 +112,7 @@ module HTS
 
       r = LibHTS::KString.new
       begin
-        yield r[:s] while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+        yield r[:s].split("\t") while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
       ensure
         LibHTS.hts_itr_destroy(qiter)
       end
