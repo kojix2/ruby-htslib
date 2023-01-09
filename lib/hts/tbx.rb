@@ -79,7 +79,7 @@ module HTS
       raise "Index file is required to call the query method." unless index_loaded?
 
       if start && end_
-        queryi(region, start, end_, &block)
+        queryi(tid(region), start, end_, &block)
       else
         querys(region, &block)
       end
@@ -87,12 +87,12 @@ module HTS
 
     private
 
-    def queryi(name, start, end_)
-      return to_enum(__method__, name, start, end_) unless block_given?
+    def queryi(id, start, end_)
+      return to_enum(__method__, id, start, end_) unless block_given?
 
-      qiter = LibHTS.tbx_itr_queryi(@idx, tid(name), start, end_)
+      qiter = LibHTS.tbx_itr_queryi(@idx, id, start, end_)
 
-      raise "Failed to query region: #{name}:#{start}-#{end_}" if qiter.null?
+      raise "Failed to query region: #{id}:#{start}-#{end_}" if qiter.null?
 
       r = LibHTS::KString.new
       begin
