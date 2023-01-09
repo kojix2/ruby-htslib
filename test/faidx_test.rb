@@ -41,6 +41,10 @@ class FaidxTest < Minitest::Test
     assert_equal true, @fai.closed?
   end
 
+  def test_file_format
+    assert_equal :FAI_NONE, @fai.file_format
+  end
+
   def test_size
     assert_equal 5, @fai.size
   end

@@ -39,6 +39,10 @@ module HTS
       LibHTS.fai_destroy(@fai)
     end
 
+    def file_format
+      @fai[:format]
+    end
+
     # the number of sequences in the index.
     def length
       LibHTS.faidx_nseq(@fai)
