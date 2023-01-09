@@ -88,27 +88,22 @@ end
 bcf.close
 ```
 
-<details>
-<summary><b>Faidx</b></summary>
+#### HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence
 
 ```ruby
 fa = HTS::Faidx.open("c.fa")
-
 fa.seq("chr1:1-10")
-
 fa.close
 ```
 
-</details>
-
-<details>
-<summary><b>Tbx</b></summary>
+#### HTS::Tbx - Tabix - gff, bed, sam, vcf
 
 ```ruby
-
+tb = HTS::Tbx.open("test.vcf.gz")
+tb.query("chr1", 10000, 20000) do |line|
+  p line
+end
 ```
-
-</details>
 
 ### Low-level API
 
