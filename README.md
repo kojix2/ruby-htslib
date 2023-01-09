@@ -35,11 +35,9 @@ export HTSLIBDIR="/your/path/to/htslib" # libhts.so
 
 ruby-htslib also works on Windows; if you use RubyInstaller, htslib will be prepared automatically.
 
-## Overview
+## Usage
 
-### High-level API
-
-#### HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
+### HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 Reading fields
 
@@ -66,7 +64,7 @@ end
 bam.close
 ```
 
-#### HTS::Bcf - VCF / BCF - Variant Call Format file
+### HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields
 
@@ -88,7 +86,7 @@ end
 bcf.close
 ```
 
-#### HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence
+### HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence
 
 ```ruby
 fa = HTS::Faidx.open("c.fa")
@@ -96,7 +94,7 @@ fa.seq("chr1:1-10")
 fa.close
 ```
 
-#### HTS::Tbx - Tabix - gff, bed, sam, vcf
+### HTS::Tbx - Tabix - gff, bed, sam, vcf
 
 ```ruby
 tb = HTS::Tbx.open("test.vcf.gz")
