@@ -281,6 +281,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#name2tid-instance_method" title="#name2tid (instance method)">#<strong>name2tid</strong>(name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#remove_line-instance_method" title="#remove_line (instance method)">#<strong>remove_line</strong>(type, key, value)  &#x21d2; Object </a>
     
 
@@ -396,6 +418,28 @@
   <span class="summary_signature">
     
       <a href="#target_names-instance_method" title="#target_names (instance method)">#<strong>target_names</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tid2name-instance_method" title="#tid2name (instance method)">#<strong>tid2name</strong>(tid)  &#x21d2; Object </a>
     
 
     
@@ -741,6 +785,36 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="name2tid-instance_method">
+  
+    #<strong>name2tid</strong>(name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 90</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name2tid'>name2tid</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_name2tid'><span class='object_link'><a href="../LibHTS.html#sam_hdr_name2tid-class_method" title="HTS::LibHTS.sam_hdr_name2tid (method)">sam_hdr_name2tid</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="remove_line-instance_method">
   
     #<strong>remove_line</strong>(type, key, value)  &#x21d2; <tt>Object</tt> 
@@ -953,6 +1027,36 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="tid2name-instance_method">
+  
+    #<strong>tid2name</strong>(tid)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tid2name'>tid2name</span><span class='lparen'>(</span><span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-class_method" title="HTS::LibHTS.sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="to_ptr-instance_method">
   
     #<strong>to_ptr</strong>  &#x21d2; <tt>Object</tt> 
@@ -1017,7 +1121,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jan  9 12:01:14 2023 by
+  Generated on Mon Jan  9 14:02:42 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>

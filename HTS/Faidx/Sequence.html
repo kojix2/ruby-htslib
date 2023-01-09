@@ -325,15 +325,15 @@
       <pre class="lines">
 
 
+6
+7
 8
 9
 10
-11
-12
-13</pre>
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_faidx'>faidx</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='kw'>unless</span> <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -379,12 +379,12 @@
       <pre class="lines">
 
 
-6
-7
-8</pre>
+4
+5
+6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_faidx'>faidx</span>
   <span class='ivar'>@faidx</span>
@@ -422,12 +422,12 @@
       <pre class="lines">
 
 
-6
-7
-8</pre>
+4
+5
+6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -459,6 +459,8 @@
       <pre class="lines">
 
 
+26
+27
 28
 29
 30
@@ -490,12 +492,10 @@
 56
 57
 58
-59
-60
-61</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_arg'>arg</span>
@@ -555,12 +555,12 @@
       <pre class="lines">
 
 
-15
-16
-17</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -585,12 +585,12 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_qual'>qual</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
@@ -615,12 +615,12 @@
       <pre class="lines">
 
 
-20
-21
-22</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx/sequence.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_faidx'>faidx</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
@@ -635,7 +635,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jan  9 12:01:15 2023 by
+  Generated on Mon Jan  9 14:02:43 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
