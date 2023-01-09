@@ -195,23 +195,31 @@ module HTS
 
       if beg && end_
         tid = header.name2tid(region)
-        if copy
-          queryi_copy(tid, beg, end_, &block)
-        else
-          queryi_reuse(tid, beg, end_, &block)
-        end
+        queryi(tid, beg, end_, copy:, &block)
       elsif beg.nil? && end_.nil?
-        if copy
-          querys_copy(region, &block)
-        else
-          querys_reuse(region, &block)
-        end
+        querys(region, copy:, &block)
       else
-        raise ArgumentError
+        raise ArgumentError, "beg and end_ must be specified together"
       end
     end
 
     private
+
+    def queryi(tid, beg, end_, copy: false, &block)
+      if copy
+        queryi_copy(tid, beg, end_, &block)
+      else
+        queryi_reuse(tid, beg, end_, &block)
+      end
+    end
+
+    def querys(region, copy: false, &block)
+      if copy
+        querys_copy(region, &block)
+      else
+        querys_reuse(region, &block)
+      end
+    end
 
     def each_record_reuse
       check_closed
@@ -242,7 +250,7 @@ module HTS
       qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
       raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?
 
-      query_reuse(qiter, &block)
+      query_reuse_yield(qiter, &block)
       self
     end
 
@@ -262,7 +270,7 @@ module HTS
       qiter = LibHTS.sam_itr_querys(@idx, header, region)
       raise "Failed to query region: #{region}" if qiter.null?
 
-      query_reuse(qiter, &block)
+      query_reuse_yield(qiter, &block)
       self
     end
 
@@ -276,7 +284,7 @@ module HTS
       self
     end
 
-    def query_reuse(qiter)
+    def query_reuse_yield(qiter)
       bam1 = LibHTS.bam_init1
       record = Record.new(bam1, header)
       begin

@@ -94,6 +94,14 @@ module HTS
         kstr[:s]
       end
 
+      def name2id(name)
+        LibHTS.bcf_hdr_name2id(@bcf_hdr, name)
+      end
+
+      def id2name(id)
+        LibHTS.bcf_hdr_id2name(@bcf_hdr, id)
+      end
+
       private
 
       def bcf_hl_type_to_int(bcf_hl_type)

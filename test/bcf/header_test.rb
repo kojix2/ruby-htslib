@@ -69,4 +69,20 @@ class BcfHeaderTest < Minitest::Test
     md5sum = Digest::MD5.hexdigest(str)
     assert_equal "b99a81dee4a8db317146e6341a8ae42a", md5sum
   end
+
+  def test_name2id
+    assert_equal 0, @hdr.name2id("1")
+    assert_equal 1, @hdr.name2id("2")
+    assert_equal 2, @hdr.name2id("3")
+    assert_equal 3, @hdr.name2id("4")
+    assert_equal(-1, @hdr.name2id("5")) # FIXME?
+  end
+
+  def test_id2name
+    assert_equal "1", @hdr.id2name(0)
+    assert_equal "2", @hdr.id2name(1)
+    assert_equal "3", @hdr.id2name(2)
+    assert_equal "4", @hdr.id2name(3)
+    assert_nil @hdr.id2name(4)
+  end
 end

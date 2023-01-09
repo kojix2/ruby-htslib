@@ -130,35 +130,6 @@ module HTS
       header.samples
     end
 
-    def each(copy: false, &block)
-      if copy
-        each_record_copy(&block)
-      else
-        each_record_reuse(&block)
-      end
-    end
-
-    def query(...)
-      querys(...) # Fixme
-    end
-
-    # def queryi
-    # end
-
-    def querys(region, copy: false, &block)
-      if copy
-        querys_copy(region, &block)
-      else
-        querys_reuse(region, &block)
-      end
-    end
-
-    # private def queryi_copy
-    # end
-
-    # private def queryi_reuse
-    # end
-
     # @!macro [attach] define_getter
     #   @method $1
     #   Get $1 array
@@ -230,18 +201,69 @@ module HTS
       end
     end
 
-    private
+    def each(copy: false, &block)
+      if copy
+        each_record_copy(&block)
+      else
+        each_record_reuse(&block)
+      end
+    end
 
-    def querys_reuse(region)
+    def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
 
       raise "query is only available for BCF files" unless file_format == "bcf"
       raise "Index file is required to call the query method." unless index_loaded?
+
+      if beg && end_
+        tid = header.name2id(region)
+        queryi(tid, beg, end_, copy:, &block)
+      elsif beg.nil? && end_.nil?
+        querys(region, copy:, &block)
+      else
+        raise ArgumentError, "beg and end must be specified together"
+      end
+    end
+
+    private
+
+    def queryi(tid, beg, end_, copy: false, &block)
+      if copy
+        queryi_copy(tid, beg, end_, &block)
+      else
+        queryi_reuse(tid, beg, end_, &block)
+      end
+    end
+
+    def querys(region, copy: false, &block)
+      if copy
+        querys_copy(region, &block)
+      else
+        querys_reuse(region, &block)
+      end
+    end
+
+    def queryi_reuse(tid, beg, end_, &block)
+      return to_enum(__method__, tid, beg, end_) unless block_given?
+
+      qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
+      raise "Failed to query region #{tid} #{beg} #{end_}" if qiter.null?
+
+      query_reuse_yield(qiter, &block)
+      self
+    end
+
+    def querys_reuse(region, &block)
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.bcf_itr_querys(@idx, header, region)
       raise "Failed to query region #{region}" if qiter.null?
 
+      query_reuse_yield(qiter, &block)
+      self
+    end
+
+    def query_reuse_yield(qiter)
       bcf1 = LibHTS.bcf_init
       record = Record.new(bcf1, header)
       begin
@@ -255,32 +277,39 @@ module HTS
       ensure
         LibHTS.bcf_itr_destroy(qiter)
       end
+    end
+
+    def queryi_copy(tid, beg, end_, &block)
+      return to_enum(__method__, tid, beg, end_) unless block_given?
+
+      qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
+      raise "Failed to query region #{tid} #{beg} #{end_}" if qiter.null?
+
+      query_copy_yield(qiter, &block)
       self
     end
 
-    def querys_copy(region)
-      check_closed
-
-      raise "query is only available for BCF files" unless file_format == "bcf"
-      raise "Index file is required to call the query method." unless index_loaded?
+    def querys_copy(region, &block)
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.bcf_itr_querys(@idx, header, region)
       raise "Failed to query region #{region}" if qiter.null?
 
-      begin
-        loop do
-          bcf1 = LibHTS.bcf_init
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
-          break if slen == -1
-          raise if slen < -1
-
-          yield Record.new(bcf1, header)
-        end
-      ensure
-        LibHTS.bcf_itr_destroy(qiter)
-      end
+      query_copy_yield(qiter, &block)
       self
+    end
+
+    def query_copy_yield(qiter)
+      loop do
+        bcf1 = LibHTS.bcf_init
+        slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
+        break if slen == -1
+        raise if slen < -1
+
+        yield Record.new(bcf1, header)
+      end
+    ensure
+      LibHTS.bcf_itr_destroy(qiter)
     end
 
     def each_record_reuse

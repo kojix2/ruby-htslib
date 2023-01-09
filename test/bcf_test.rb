@@ -132,4 +132,41 @@ class BcfTest < Minitest::Test
     $stderr.flush
     $stderr.reopen(stderr_old)
   end
+
+  def test_query
+    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
+    assert_equal 4021, bcf.query("poo", 4000, 4100).first.pos + 1
+    assert_equal 4021, bcf.query("poo:4000-4100").first.pos + 1
+    assert_equal 4021, bcf.query("poo", 4000, 4100, copy: true).first.pos + 1
+    assert_equal 4021, bcf.query("poo:4000-4100", copy: true).first.pos + 1
+    assert_raises(ArgumentError) { bcf.query("poo", 4000) }
+    bcf.query("poo", 4000, 4100) do |aln|
+      assert_equal 4021, aln.pos + 1
+    end
+    bcf.query("poo:4000-4100") do |aln|
+      assert_equal 4021, aln.pos + 1
+    end
+    bcf.query("poo", 4000, 4100, copy: true) do |aln|
+      assert_equal 4021, aln.pos + 1
+    end
+    bcf.query("poo:4000-4100", copy: true) do |aln|
+      assert_equal 4021, aln.pos + 1
+    end
+    r = bcf.query("poo", 4000, 4500).map do |aln|
+      aln.pos + 1
+    end
+    assert_equal [4021, 4310, 4337], r
+    r = bcf.query("poo:4000-4500").map do |aln|
+      aln.pos + 1
+    end
+    assert_equal [4021, 4310, 4337], r
+    r = bcf.query("poo", 4000, 4500, copy: true).map do |aln|
+      aln.pos + 1
+    end
+    assert_equal [4021, 4310, 4337], r
+    r = bcf.query("poo:4000-4500", copy: true).map do |aln|
+      aln.pos + 1
+    end
+    assert_equal [4021, 4310, 4337], r
+  end
 end
