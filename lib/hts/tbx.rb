@@ -74,9 +74,36 @@ module HTS
       end
     end
 
-    def query(region)
+    def query(region, start = nil, end_ = nil, &block)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
+
+      if start && end_
+        queryi(region, start, end_, &block)
+      else
+        querys(region, &block)
+      end
+    end
+
+    private
+
+    def queryi(name, start, end_)
+      return to_enum(__method__, name, start, end_) unless block_given?
+
+      qiter = LibHTS.tbx_itr_queryi(@idx, tid(name), start, end_)
+
+      raise "Failed to query region: #{name}:#{start}-#{end_}" if qiter.null?
+
+      r = LibHTS::KString.new
+      begin
+        yield r[:s] while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+      self
+    end
+
+    def querys(region)
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.tbx_itr_querys(@idx, region)
