@@ -407,7 +407,7 @@ module HTS
     FaiFormatOptions = enum(:FAI_NONE, :FAI_FASTA, :FAI_FASTQ)
 
     class Faidx < FFI::Struct # FIXME: ManagedStruct
-      layout :bgzf,      BGZF,
+      layout :bgzf,      BGZF.ptr,
              :n,         :int,
              :m,         :int,
              :name,      :pointer,
