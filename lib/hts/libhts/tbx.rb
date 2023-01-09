@@ -68,3 +68,5 @@ module HTS
       :void
   end
 end
+
+require_relative "tbx_funcs"

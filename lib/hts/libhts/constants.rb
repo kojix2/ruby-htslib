@@ -393,7 +393,7 @@ module HTS
 
     class Tbx < FFI::ManagedStruct
       layout \
-        :conf,           TbxConf.ptr,
+        :conf,           TbxConf,
         :idx,            HtsIdx.ptr,
         :dict,           :pointer
 

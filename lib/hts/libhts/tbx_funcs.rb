@@ -8,7 +8,7 @@ module HTS
       end
 
       def tbx_itr_queryi(tbx, tid, beg, end_)
-        hts_itr_query(tbx[:idx], tid, beg, end_, tbx_readrec)
+        hts_itr_query(tbx[:idx], tid, beg, end_, @@tbx_readrec)
       end
 
       def tbx_itr_querys(tbx, s)

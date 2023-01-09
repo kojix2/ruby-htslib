@@ -59,6 +59,10 @@ module HTS
       end
     end
 
+    def index_loaded?
+      !@idx.null?
+    end
+
     def tid(name)
       LibHTS.tbx_name2id(@idx, name)
     end
@@ -68,6 +72,24 @@ module HTS
       LibHTS.tbx_seqnames(@idx, nseq).then do |pts|
         pts.read_array_of_pointer(nseq.read_int).map(&:read_string)
       end
+    end
+
+    def query(region)
+      check_closed
+      raise "Index file is required to call the query method." unless index_loaded?
+      return to_enum(__method__, region) unless block_given?
+
+      qiter = LibHTS.tbx_itr_querys(@idx, region)
+
+      raise "Failed to query region: #{region}" if qiter.null?
+
+      r = LibHTS::KString.new
+      begin
+        yield r[:s] while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+      self
     end
   end
 end
