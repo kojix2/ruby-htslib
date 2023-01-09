@@ -85,10 +85,10 @@ module HTS
       result == -1 ? nil : result
     end
 
-    # @overload fetch(name)
+    # @overload seq(name)
     #   Fetch the sequence as a String.
     #   @param name [String] chr1:0-10
-    # @overload fetch(name, start, stop)
+    # @overload seq(name, start, stop)
     #   Fetch the sequence as a String.
     #   @param name [String] the name of the chromosome
     #   @param start [Integer] the start position of the sequence (0-based)
