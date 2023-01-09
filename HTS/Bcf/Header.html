@@ -240,6 +240,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#id2name-instance_method" title="#id2name (instance method)">#<strong>id2name</strong>(id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(arg = nil)  &#x21d2; Header </a>
     
 
@@ -267,6 +289,28 @@
   <span class="summary_signature">
     
       <a href="#merge-instance_method" title="#merge (instance method)">#<strong>merge</strong>(hdr)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name2id-instance_method" title="#name2id (instance method)">#<strong>name2id</strong>(name)  &#x21d2; Object </a>
     
 
     
@@ -725,6 +769,36 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="id2name-instance_method">
+  
+    #<strong>id2name</strong>(id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_id2name'>id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_id2name'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_id2name-class_method" title="HTS::LibHTS.bcf_hdr_id2name (method)">bcf_hdr_id2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="merge-instance_method">
   
     #<strong>merge</strong>(hdr)  &#x21d2; <tt>Object</tt> 
@@ -748,6 +822,36 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_merge'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_merge-class_method" title="HTS::LibHTS.bcf_hdr_merge (method)">bcf_hdr_merge</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name2id-instance_method">
+  
+    #<strong>name2id</strong>(name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_name2id'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_name2id-class_method" title="HTS::LibHTS.bcf_hdr_name2id (method)">bcf_hdr_name2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1047,7 +1151,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jan  9 14:02:43 2023 by
+  Generated on Mon Jan  9 15:53:02 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
