@@ -91,7 +91,6 @@ bcf.close
 ```ruby
 fa = HTS::Faidx.open("c.fa")
 fa.seq("chr1:1-10")
-fa.close
 ```
 
 ### HTS::Tbx - Tabix - gff, bed, sam, vcf
@@ -102,6 +101,8 @@ tb.query("chr1", 10000, 20000) do |line|
   p line
 end
 ```
+
+Note: Faidx or Tbx should not be explicitly closed. See [#27](https://github.com/kojix2/ruby-htslib/issues/27)
 
 ### Low-level API
 
