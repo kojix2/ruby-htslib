@@ -123,22 +123,6 @@ module HTS
       write(aln)
     end
 
-    def each(copy: false, &block)
-      if copy
-        each_record_copy(&block)
-      else
-        each_record_reuse(&block)
-      end
-    end
-
-    def query(region, copy: false, &block)
-      if copy
-        query_copy(region, &block)
-      else
-        query_reuse(region, &block)
-      end
-    end
-
     # @!macro [attach] define_getter
     #   @method $1
     #   Get $1 array
@@ -197,48 +181,37 @@ module HTS
       self
     end
 
-    private
-
-    def query_reuse(region)
-      check_closed
-      raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
-
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-      raise "Failed to query region: #{region}" if qiter.null?
-
-      bam1 = LibHTS.bam_init1
-      record = Record.new(bam1, header)
-      begin
-        yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
-      ensure
-        LibHTS.hts_itr_destroy(qiter)
+    def each(copy: false, &block)
+      if copy
+        each_record_copy(&block)
+      else
+        each_record_reuse(&block)
       end
-      self
     end
 
-    def query_copy(region)
+    def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
-      return to_enum(__method__, region) unless block_given?
 
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-      raise "Failed to query region: #{region}" if qiter.null?
-
-      begin
-        loop do
-          bam1 = LibHTS.bam_init1
-          slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
-          break if slen == -1
-          raise if slen < -1
-
-          yield Record.new(bam1, header)
+      if beg && end_
+        tid = header.name2tid(region)
+        if copy
+          queryi_copy(tid, beg, end_, &block)
+        else
+          queryi_reuse(tid, beg, end_, &block)
         end
-      ensure
-        LibHTS.hts_itr_destroy(qiter)
+      elsif beg.nil? && end_.nil?
+        if copy
+          querys_copy(region, &block)
+        else
+          querys_reuse(region, &block)
+        end
+      else
+        raise ArgumentError
       end
-      self
     end
+
+    private
 
     def each_record_reuse
       check_closed
@@ -261,6 +234,69 @@ module HTS
         yield record
       end
       self
+    end
+
+    def queryi_reuse(tid, beg, end_, &block)
+      return to_enum(__method__, region, beg, end_) unless block_given?
+
+      qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
+      raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?
+
+      query_reuse(qiter, &block)
+      self
+    end
+
+    def queryi_copy(tid, beg, end_, &block)
+      return to_enum(__method__, tid, beg, end_) unless block_given?
+
+      qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
+      raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?
+
+      query_copy(qiter, &block)
+      self
+    end
+
+    def querys_reuse(region, &block)
+      return to_enum(__method__, region) unless block_given?
+
+      qiter = LibHTS.sam_itr_querys(@idx, header, region)
+      raise "Failed to query region: #{region}" if qiter.null?
+
+      query_reuse(qiter, &block)
+      self
+    end
+
+    def querys_copy(region, &block)
+      return to_enum(__method__, region) unless block_given?
+
+      qiter = LibHTS.sam_itr_querys(@idx, header, region)
+      raise "Failed to query region: #{region}" if qiter.null?
+
+      query_copy(qiter, &block)
+      self
+    end
+
+    def query_reuse(qiter)
+      bam1 = LibHTS.bam_init1
+      record = Record.new(bam1, header)
+      begin
+        yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
+      ensure
+        LibHTS.hts_itr_destroy(qiter)
+      end
+    end
+
+    def query_copy(qiter)
+      loop do
+        bam1 = LibHTS.bam_init1
+        slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+        break if slen == -1
+        raise if slen < -1
+
+        yield Record.new(bam1, header)
+      end
+    ensure
+      LibHTS.hts_itr_destroy(qiter)
     end
   end
 end

@@ -1,5 +1,3 @@
-require_relative "../faidx"
-
 module HTS
   class Faidx
     class Sequence

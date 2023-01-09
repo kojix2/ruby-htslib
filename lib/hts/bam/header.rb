@@ -87,6 +87,14 @@ module HTS
         LibHTS.sam_hdr_str(@sam_hdr)
       end
 
+      def name2tid(name)
+        LibHTS.sam_hdr_name2tid(@sam_hdr, name)
+      end
+
+      def tid2name(tid)
+        LibHTS.sam_hdr_tid2name(@sam_hdr, tid)
+      end
+
       private
 
       def initialize_copy(orig)

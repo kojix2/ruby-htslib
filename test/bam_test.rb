@@ -197,6 +197,14 @@ class BamTest < Minitest::Test
         end
         assert_equal [341, 658], arr
       end
+
+      define_method "test_query3_#{ft}" do
+        arr = []
+        bam(ft).query("chr2", 350, 700) do |aln|
+          arr << aln.pos
+        end
+        assert_equal [341, 658], arr
+      end
     end
   end
 
