@@ -80,10 +80,9 @@ class FaidxTest < Minitest::Test
     assert_equal "ACTTAGTTGA", @fai.seq(:chr2, 10, 19)
   end
 
-  def test_fetch
-    assert_equal "TTGTGGAGAC", @fai.fetch("chr1:1-10")
-    assert_equal "TTGTGGAGAC", @fai.fetch(:chr1, 0, 9)
-    assert_equal "ACTTAGTTGA", @fai.fetch("chr2:11-20")
-    assert_equal "ACTTAGTTGA", @fai.fetch(:chr2, 10, 19)
+  def test_qual
+    # assert_equal nil, @fai.qual(:chr1, 0, 9)
+    fq = HTS::Faidx.new(Fixtures["moo.fastq"])
+    assert_equal "2222222222222222222222222222222222222222", fq.qual(fq.names.first)
   end
 end

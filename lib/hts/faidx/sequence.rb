@@ -21,6 +21,10 @@ module HTS
         faidx.seq(name, start, stop)
       end
 
+      def qual(start = nil, stop = nil)
+        faidx.qual(name, start, stop)
+      end
+
       def [](arg)
         case arg
         when Integer

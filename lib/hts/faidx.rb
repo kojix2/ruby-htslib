@@ -26,7 +26,11 @@ module HTS
       end
 
       @file_name = file_name
-      @fai = LibHTS.fai_load(@file_name)
+      @fai = if [".fq", ".fastq"].include? File.extname(@file_name)
+               LibHTS.fai_load_format(@file_name, 2)
+             else
+               LibHTS.fai_load(@file_name)
+             end
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @fai.null?
     end
@@ -91,7 +95,7 @@ module HTS
     #   @param stop [Integer] the end position of the sequence (0-based)
     #   @return [String] the sequence
 
-    def fetch(name, start = nil, stop = nil)
+    def fetch_seq(name, start = nil, stop = nil)
       name = name.to_s
       rlen = FFI::MemoryPointer.new(:int)
 
@@ -114,6 +118,31 @@ module HTS
       result
     end
 
-    alias seq fetch
+    alias seq fetch_seq
+
+    def fetch_qual(name, start = nil, stop = nil)
+      name = name.to_s
+      rlen = FFI::MemoryPointer.new(:int)
+
+      if start.nil? && stop.nil?
+        result = LibHTS.fai_fetchqual(@fai, name, rlen)
+      else
+        start < 0    && raise(ArgumentError, "Expect start to be >= 0")
+        stop  < 0    && raise(ArgumentError, "Expect stop to be >= 0")
+        start > stop && raise(ArgumentError, "Expect start to be <= stop")
+        stop >= seq_len(name) && raise(ArgumentError, "Expect stop to be < seq_len")
+
+        result = LibHTS.faidx_fetch_qual(@fai, name, start, stop, rlen)
+      end
+
+      case rlen.read_int
+      when -2 then raise "Invalid chromosome name: #{name}"
+      when -1 then raise "Error fetching sequence: #{name}:#{start}-#{stop}"
+      end
+
+      result
+    end
+
+    alias qual fetch_qual
   end
 end

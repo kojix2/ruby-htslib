@@ -33,7 +33,6 @@ class FaidxSequenceTest < Minitest::Test
   end
 
   def test_seq
-
     assert_equal nucleotide, @seq.seq
     assert_equal "TTG", @seq.seq(0, 2)
     assert_raises { @seq.seq(-1, 3) }
@@ -74,10 +73,15 @@ class FaidxSequenceTest < Minitest::Test
     assert_raises { @seq[-501..-1] }
     assert_raises { @seq[-501...-1] }
     assert_raises { @seq[-501..] }
-    assert_raises { @seq[-501...] } 
+    assert_raises { @seq[-501...] }
     assert_raises { @seq[-502..-501] }
     assert_raises { @seq[-502...-500] }
     assert_raises { @seq[-501..500] }
     assert_raises { @seq[-501...501] }
+  end
+
+  def test_qual
+    s = HTS::Faidx.new(Fixtures["moo.fastq"])[0]
+    assert_equal "2222222222222222222222222222222222222222", s.qual
   end
 end
