@@ -2,13 +2,13 @@
 
 require_relative "test_helper"
 
-class TbxTest < Minitest::Test
+class TabixTest < Minitest::Test
   def setup
-    @bcf = HTS::Tbx.new(Fixtures["test.vcf.gz"])
+    @bcf = HTS::Tabix.new(Fixtures["test.vcf.gz"])
   end
 
   def test_initialize
-    assert_instance_of HTS::Tbx, @bcf
+    assert_instance_of HTS::Tabix, @bcf
   end
 
   def test_struct

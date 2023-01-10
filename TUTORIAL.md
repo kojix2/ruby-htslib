@@ -38,7 +38,7 @@ class Bcf{
   +each() Enumerable
   +query()
 }
-class Tbx~Hts~{
+class Tabix~Hts~{
   +@hts_file : FFI::Struct
 }
 class `Bam::Header`{
