@@ -142,8 +142,8 @@ module HTS
     alias isize insert_size
     alias mpos mate_pos
 
+    # FXIME: experimental
     def aux(tag)
-      warn "experimental"
       check_closed
       position = tell
       ary = map { |r| r.aux(tag) }
@@ -169,8 +169,8 @@ module HTS
     alias each_isize each_insert_size
     alias each_mpos each_mate_pos
 
+    # FIXME: experimental
     def each_aux(tag)
-      warn "experimental"
       check_closed
       return to_enum(__method__, tag) unless block_given?
 
