@@ -159,7 +159,7 @@ Use the latest Ruby to take full advantage of its potential. This is possible be
 
 Compatibility with Crystal language is important for Ruby-htslib development. The Crystal language is extremely fast and provides the performance required for real-world genome analysis.
 
-- [HTS.cr](https://github.com/bio-cr/hts.cr) - HTSlib bindings for Crystal 
+- [HTS.cr](https://github.com/bio-cr/hts.cr) - HTSlib bindings for Crystal
 
 The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
 
