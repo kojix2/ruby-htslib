@@ -148,7 +148,7 @@
 <span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-10</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
-<h3 id="label-HTS-3A-3ATabix+-+Tabix+-+gff-2C+bed-2C+sam-2C+vcf">HTS::Tabix - Tabix - gff, bed, sam, vcf</h3>
+<h3 id="label-HTS-3A-3ATabix+-+GFF+-2F+BED+-+TAB-delimited+genome+position+file">HTS::Tabix - GFF / BED - TAB-delimited genome position file</h3>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Tabix.html" title="HTS::Tabix (class)">Tabix</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Tabix.html#open-class_method" title="HTS::Tabix.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test.vcf.gz</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>10000</span><span class='comma'>,</span> <span class='int'>20000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
@@ -274,7 +274,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Tue Jan 10 08:34:03 2023 by
+  Generated on Tue Jan 10 08:35:52 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
