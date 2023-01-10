@@ -127,7 +127,7 @@ A small number of commonly used structs, such as Bam1 and Bcf1, are implemented 
 
 ### Need more speed?
 
-Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. Crystal language is not as flexible as Ruby language. You can not use `eval` methods and must always be careful with the types. Writing one-time scripts in Crystal may be less fun. However, if you have a clear idea of what you want to do in your mind, have already written code in Ruby, and need to run them over and over, try creating a command line tool in Crystal. The Crystal language is as fast as the Rust and C languages. It will give you incredible power to make tools.
+Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crystal language and provides an API compatible with ruby-htslib. 
 
 ## Documentation
 
