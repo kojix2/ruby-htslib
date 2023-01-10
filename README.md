@@ -93,7 +93,7 @@ fa = HTS::Faidx.open("c.fa")
 fa.seq("chr1:1-10")
 ```
 
-### HTS::Tabix - Tabix - gff, bed, sam, vcf
+### HTS::Tabix - GFF / BED - TAB-delimited genome position file
 
 ```ruby
 tb = HTS::Tabix.open("test.vcf.gz")
