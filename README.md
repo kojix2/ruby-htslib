@@ -133,7 +133,7 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 - [TUTORIAL.md](TUTORIAL.md)
 - [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
-- [RubyDoc.info - HTSlib](https://rdoc.info/gems/htslib)
+- [API Documentation (released gem)](https://rubydoc.info/gems/htslib)
 
 ## Development
 
@@ -151,17 +151,29 @@ bundle exec rake test
 
 HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.
 
-- Use the new version of Ruby to take full advantage of Ruby's potential.
-  - This is possible because we have a small number of users.
-- Remain compatible with [HTS.cr](https://github.com/bio-cr/hts.cr).
-  - The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
-  - Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
+#### Ruby 3
 
-Method naming generally follows the Rust-htslib API.
+Use the latest Ruby to take full advantage of its potential. This is possible because we have a small number of users.
+
+#### Crystal compatibility
+
+Compatibility with Crystal language is important for Ruby-htslib development. The Crystal language is extremely fast and provides the performance required for real-world genome analysis.
+
+- [HTS.cr](https://github.com/bio-cr/hts.cr) - HTSlib bindings for Crystal 
+
+The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
+
+Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
+
+#### Naming convention
+
+If you have trouble naming a method, follow the Rust-htslib API. Then, if you find a more appropriate name in Ruby, replace it with it.
 
 #### FFI Extensions
 
-- [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) : Extension of Ruby-FFI to support bitfields.
+Since Ruby-FFI does not support structure bit fields, the following extensions are used
+
+- [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) - Extension of Ruby-FFI to support bitfields.
 
 #### Automatic validation
 
