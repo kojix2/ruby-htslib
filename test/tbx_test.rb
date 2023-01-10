@@ -23,8 +23,8 @@ class TbxTest < Minitest::Test
     assert_equal "vcf", @bcf.file_format
   end
 
-  def test_tid
-    assert_equal 0, @bcf.tid("poo")
+  def test_name2id
+    assert_equal 0, @bcf.name2id("poo")
   end
 
   def test_seqnames

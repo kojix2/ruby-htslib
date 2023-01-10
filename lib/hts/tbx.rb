@@ -60,7 +60,7 @@ module HTS
       !@idx.null?
     end
 
-    def tid(name)
+    def name2id(name)
       LibHTS.tbx_name2id(@idx, name)
     end
 
@@ -76,7 +76,7 @@ module HTS
       raise "Index file is required to call the query method." unless index_loaded?
 
       if start && end_
-        queryi(tid(region), start, end_, &block)
+        queryi(name2id(region), start, end_, &block)
       else
         querys(region, &block)
       end
