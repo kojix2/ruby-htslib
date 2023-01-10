@@ -22,7 +22,7 @@ module HTS
       file
     end
 
-    def initialize(file_name, mode = "r", index: nil, threads: nil, build_index: false)
+    def initialize(file_name, index: nil, threads: nil, build_index: false)
       if block_given?
         message = "HTS::Tbx.new() dose not take block; Please use HTS::Tbx.open() instead"
         raise message
@@ -32,16 +32,13 @@ module HTS
 
       @file_name  = file_name
       @index_name = index
-      @mode       = mode
+      @mode       = "r"
       @nthreads   = threads
-      @hts_file = LibHTS.hts_open(@file_name, @mode)
+      @hts_file   = LibHTS.hts_open(@file_name, @mode)
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
       set_threads(threads) if threads
-
-      # return if @mode[0] == "w"
-      raise "Not implemented" if @mode[0] == "w"
 
       # build_index(index) if build_index
       @idx = load_index(index)
