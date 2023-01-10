@@ -84,36 +84,33 @@ module HTS
 
     private
 
-    def queryi(id, start, end_)
+    def queryi(id, start, end_, &block)
       return to_enum(__method__, id, start, end_) unless block_given?
 
       qiter = LibHTS.tbx_itr_queryi(@idx, id, start, end_)
-
       raise "Failed to query region: #{id}:#{start}-#{end_}" if qiter.null?
 
-      r = LibHTS::KString.new
-      begin
-        yield r[:s] while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
-      ensure
-        LibHTS.hts_itr_destroy(qiter)
-      end
+      query_yield(qiter, &block)
       self
     end
 
-    def querys(region)
+    def querys(region, &block)
       return to_enum(__method__, region) unless block_given?
 
       qiter = LibHTS.tbx_itr_querys(@idx, region)
-
       raise "Failed to query region: #{region}" if qiter.null?
 
+      query_yield(qiter, &block)
+      self
+    end
+
+    def query_yield(qiter)
       r = LibHTS::KString.new
       begin
         yield r[:s].split("\t") while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
       ensure
         LibHTS.hts_itr_destroy(qiter)
       end
-      self
     end
   end
 end
