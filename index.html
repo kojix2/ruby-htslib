@@ -88,10 +88,10 @@
 
 <p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a> will automatically detect the location of the shared library. If pkg-config does not work well, set <code>PKG_CONFIG_PATH</code>. Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_export'>export</span> <span class='const'>HTSLIBDIR</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/your/path/to/htslib</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># libhts.so
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_export'>export</span> <span class='const'>HTSLIBDIR</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/your/path/to/htslib</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># Directory where libhts.so is located
 </span></code></pre>
 
-<p>ruby-htslib also works on Windows; if you use RubyInstaller, htslib will be prepared automatically.</p>
+<p>ruby-htslib also works on Windows. if you use RubyInstaller, htslib will be prepared automatically.</p>
 
 <h2 id="label-Usage">Usage</h2>
 
@@ -170,13 +170,13 @@
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
 </code></pre>
 
-<p>Macro functions</p>
+<h4 id="label-Macro+functions">Macro functions</h4>
 
-<p>htslib has a lot of macro functions for speed. Ruby-FFI cannot call C macro functions. However, essential functions are reimplemented in Ruby, and you can call them.</p>
+<p>HTSlib is designed to improve performance with many macro functions. However, it is not possible to call C macro functions directly from Ruby-FFI. To overcome this, important macro functions have been re-implemented in Ruby, allowing them to be called in the same way as native functions.</p>
 
-<p>Structs</p>
+<h4 id="label-Garbage+Collection+and+Memory+Freeing">Garbage Collection and Memory Freeing</h4>
 
-<p>Only a small number of C structs are implemented with FFI’s ManagedStruct, which frees memory when Ruby’s garbage collection fires. Other structs will need to be freed manually.</p>
+<p>A small number of commonly used structs, such as Bam1 and Bcf1, are implemented using FFI’s ManagedStruct. This allows for automatic memory release when Ruby’s garbage collection is triggered. On the other hand, other structs are implemented using FFI::Struct, and they will require manual memory release.</p>
 
 <h3 id="label-Need+more+speed-3F">Need more speed?</h3>
 
@@ -188,12 +188,14 @@
 </li><li>
 <p><a href="https://kojix2.github.io/ruby-htslib/">API Documentation (develop branch)</a></p>
 </li><li>
-<p><a href="https://rdoc.info/gems/htslib">RubyDoc.info - HTSlib</a></p>
+<p><a href="https://rubydoc.info/gems/htslib">API Documentation (released gem)</a></p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
 
-<p>To get started with development:</p>
+<h4 id="label-Compile+from+source+code">Compile from source code</h4>
+
+<p><a href="https://en.wikipedia.org/wiki/GNU_Autotools">GNU Autotools</a> is required to compile htslib. To get started with development:</p>
 
 <pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
@@ -202,26 +204,38 @@ bundle exec rake htslib:build
 bundle exec rake test
 </code></pre>
 
-<p><a href="https://en.wikipedia.org/wiki/GNU_Autotools">GNU Autotools</a> is required to compile htslib.</p>
+<h4 id="label-Macro+functions+are+reimplemented">Macro functions are reimplemented</h4>
 
 <p>HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.</p>
+
+<h4 id="label-Use+the+latest+Ruby">Use the latest Ruby</h4>
+
+<p>Use Ruby 3 or newer to take advantage of new features. This is possible because we have a small number of users.</p>
+
+<h4 id="label-Keep+compatibility+with+Crystal+Languages">Keep compatibility with Crystal Languages</h4>
+
+<p>Compatibility with Crystal language is important for Ruby-htslib development.</p>
 <ul><li>
-<p>Use the new version of Ruby to take full advantage of Ruby’s potential.</p>
-</li><li>
-<p>This is possible because we have a small number of users.</p>
-</li><li>
-<p>Remain compatible with <a href="https://github.com/bio-cr/hts.cr">HTS.cr</a>.</p>
-</li><li>
-<p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
-</li><li>
-<p>Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a <code>self.release</code> method in <code>FFI::Struct</code>. This method is called when GC. So you don’t have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.</p>
+<p><a href="https://github.com/bio-cr/hts.cr">HTS.cr</a> - HTSlib bindings for Crystal</p>
 </li></ul>
 
-<p>Method naming generally follows the Rust-htslib API.</p>
+<p>Return value</p>
+
+<p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
+
+<p>Memory management</p>
+
+<p>Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a <code>self.release</code> method in <code>FFI::Struct</code>. This method is called when GC. So you don’t have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.</p>
+
+<h4 id="label-Naming+convention">Naming convention</h4>
+
+<p>If you are not sure about the naming of a method, follow the Rust-htslib API. This is a very weak rule. if a more appropriate name is found later in Ruby, it will replace it.</p>
 
 <h4 id="label-FFI+Extensions">FFI Extensions</h4>
+
+<p>Since Ruby-FFI does not support structure bit fields, the following extensions are used</p>
 <ul><li>
-<p><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> : Extension of Ruby-FFI to support bitfields.</p>
+<p><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> - Extension of Ruby-FFI to support bitfields.</p>
 </li></ul>
 
 <h4 id="label-Automatic+validation">Automatic validation</h4>
@@ -274,7 +288,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Tue Jan 10 09:28:10 2023 by
+  Generated on Tue Jan 10 10:52:33 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
