@@ -84,7 +84,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/hts/libhts.rb<span class="defines">,<br />
-  lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/faidx.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/tbx_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
+  lib/hts/libhts/fai.rb,<br /> lib/hts/libhts/hts.rb,<br /> lib/hts/libhts/sam.rb,<br /> lib/hts/libhts/tbx.rb,<br /> lib/hts/libhts/vcf.rb,<br /> lib/hts/libhts/bgzf.rb,<br /> lib/hts/libhts/cram.rb,<br /> lib/hts/libhts/hfile.rb,<br /> lib/hts/libhts/kfunc.rb,<br /> lib/hts/libhts/constants.rb,<br /> lib/hts/libhts/sam_funcs.rb,<br /> lib/hts/libhts/tbx_funcs.rb,<br /> lib/hts/libhts/vcf_funcs.rb,<br /> lib/hts/libhts/thread_pool.rb</span>
 </dd>
   </dl>
   
@@ -29773,7 +29773,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 12</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_build</span><span class='comma'>,</span>
@@ -29834,7 +29834,7 @@
 9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 6</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_build3</span><span class='comma'>,</span>
@@ -29877,7 +29877,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 18</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_destroy</span><span class='comma'>,</span>
@@ -29938,7 +29938,7 @@
 51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 48</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_fetch</span><span class='comma'>,</span>
@@ -29999,7 +29999,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 54</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_fetch64</span><span class='comma'>,</span>
@@ -30060,7 +30060,7 @@
 63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 60</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_fetchqual</span><span class='comma'>,</span>
@@ -30121,7 +30121,7 @@
 68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 65</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_fetchqual64</span><span class='comma'>,</span>
@@ -30182,7 +30182,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 30</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_load</span><span class='comma'>,</span>
@@ -30243,7 +30243,7 @@
 27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 24</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_load3</span><span class='comma'>,</span>
@@ -30304,7 +30304,7 @@
 39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 36</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_load3_format</span><span class='comma'>,</span>
@@ -30365,7 +30365,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 42</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_load_format</span><span class='comma'>,</span>
@@ -30425,7 +30425,7 @@
 127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 125</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_parse_region</span><span class='comma'>,</span>
@@ -30485,7 +30485,7 @@
 139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 136</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_path</span><span class='comma'>,</span>
@@ -30528,7 +30528,7 @@
 133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 130</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:fai_set_cache_size</span><span class='comma'>,</span>
@@ -30589,7 +30589,7 @@
 74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 71</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_fetch_nseq</span><span class='comma'>,</span>
@@ -30650,7 +30650,7 @@
 92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 89</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_fetch_qual</span><span class='comma'>,</span>
@@ -30711,7 +30711,7 @@
 98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 95</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_fetch_qual64</span><span class='comma'>,</span>
@@ -30772,7 +30772,7 @@
 80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 77</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_fetch_seq</span><span class='comma'>,</span>
@@ -30833,7 +30833,7 @@
 86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 83</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_fetch_seq64</span><span class='comma'>,</span>
@@ -30894,7 +30894,7 @@
 104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 101</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_has_seq</span><span class='comma'>,</span>
@@ -30955,7 +30955,7 @@
 116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 113</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_iseq</span><span class='comma'>,</span>
@@ -31016,7 +31016,7 @@
 110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 107</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_nseq</span><span class='comma'>,</span>
@@ -31077,7 +31077,7 @@
 122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/faidx.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/fai.rb', line 119</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:faidx_seq_len</span><span class='comma'>,</span>
@@ -43147,7 +43147,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jan 10 08:35:54 2023 by
+  Generated on Tue Jan 10 09:03:32 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.0).
 </div>
