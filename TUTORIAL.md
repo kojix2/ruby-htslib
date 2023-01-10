@@ -164,6 +164,20 @@ class Faidx{
 
 ```
 
+## Installation
+
+```
+gem install htslib
+```
+
+You can check which shared libraries are used by ruby-htslib as follows
+
+```ruby
+require "htslib"
+puts HTS.lib_path
+# => "/home/kojix2/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/htslib-0.2.6/vendor/libhts.so"
+```
+
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 Reading fields
