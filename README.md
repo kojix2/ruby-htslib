@@ -176,9 +176,9 @@ Ruby and Crystal are languages that use garbage collection. However, the memory 
 
 If you are not sure about the naming of a method, follow the Rust-htslib API. This is a very weak rule. if a more appropriate name is found later in Ruby, it will replace it.
 
-#### FFI Extensions
+#### Support for bitfields of structures
 
-Since Ruby-FFI does not support structure bit fields, the following extensions are used
+Since Ruby-FFI does not support structure bit fields, the following extensions are used.
 
 - [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) - Extension of Ruby-FFI to support bitfields.
 
