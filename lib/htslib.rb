@@ -55,6 +55,6 @@ module HTS
   autoload :Hts,    "hts/hts"
   autoload :Bam,    "hts/bam"
   autoload :Bcf,    "hts/bcf"
-  autoload :Tabix,    "hts/tbx"
   autoload :Faidx,  "hts/faidx"
+  autoload :Tabix,  "hts/tabix"
 end
