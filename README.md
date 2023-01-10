@@ -30,10 +30,10 @@ will automatically detect the location of the shared library. If pkg-config does
 Alternatively, you can specify the directory of the shared library by setting the environment variable `HTSLIBDIR`.
 
 ```sh
-export HTSLIBDIR="/your/path/to/htslib" # libhts.so
+export HTSLIBDIR="/your/path/to/htslib" # Directory where libhts.so is located
 ```
 
-ruby-htslib also works on Windows; if you use RubyInstaller, htslib will be prepared automatically.
+ruby-htslib also works on Windows. if you use RubyInstaller, htslib will be prepared automatically.
 
 ## Usage
 
@@ -117,13 +117,13 @@ p b[:category]
 p b[:format]
 ```
 
-Macro functions
+#### Macro functions
 
-htslib has a lot of macro functions for speed. Ruby-FFI cannot call C macro functions. However, essential functions are reimplemented in Ruby, and you can call them.
+HTSlib is designed to improve performance with many macro functions. However, it is not possible to call C macro functions directly from Ruby-FFI. To overcome this, important macro functions have been re-implemented in Ruby, allowing them to be called in the same way as native functions.
 
-Structs
+#### Garbage Collection and Memory Freeing
 
-Only a small number of C structs are implemented with FFI's ManagedStruct, which frees memory when Ruby's garbage collection fires. Other structs will need to be freed manually.
+A small number of commonly used structs, such as Bam1 and Bcf1, are implemented using FFI's ManagedStruct. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using FFI::Struct, and they will require manual memory release.
 
 ### Need more speed?
 
