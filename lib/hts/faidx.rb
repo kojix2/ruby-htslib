@@ -100,14 +100,14 @@ module HTS
       rlen = FFI::MemoryPointer.new(:int)
 
       if start.nil? && stop.nil?
-        result = LibHTS.fai_fetch(@fai, name, rlen)
+        result = LibHTS.fai_fetch64(@fai, name, rlen)
       else
         start < 0    && raise(ArgumentError, "Expect start to be >= 0")
         stop  < 0    && raise(ArgumentError, "Expect stop to be >= 0")
         start > stop && raise(ArgumentError, "Expect start to be <= stop")
         stop >= seq_len(name) && raise(ArgumentError, "Expect stop to be < seq_len")
 
-        result = LibHTS.faidx_fetch_seq(@fai, name, start, stop, rlen)
+        result = LibHTS.faidx_fetch_seq64(@fai, name, start, stop, rlen)
       end
 
       case rlen.read_int
@@ -125,14 +125,14 @@ module HTS
       rlen = FFI::MemoryPointer.new(:int)
 
       if start.nil? && stop.nil?
-        result = LibHTS.fai_fetchqual(@fai, name, rlen)
+        result = LibHTS.fai_fetchqual64(@fai, name, rlen)
       else
         start < 0    && raise(ArgumentError, "Expect start to be >= 0")
         stop  < 0    && raise(ArgumentError, "Expect stop to be >= 0")
         start > stop && raise(ArgumentError, "Expect start to be <= stop")
         stop >= seq_len(name) && raise(ArgumentError, "Expect stop to be < seq_len")
 
-        result = LibHTS.faidx_fetch_qual(@fai, name, start, stop, rlen)
+        result = LibHTS.faidx_fetch_qual64(@fai, name, start, stop, rlen)
       end
 
       case rlen.read_int
