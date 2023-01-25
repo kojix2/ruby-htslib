@@ -570,17 +570,17 @@ module HTS
       [:bam_plp],
       :void
 
-    callback :bam_plp_callback_funcion, [:pointer, Bam1, BamPileupCd], :int
+    callback :bam_plp_callback_function, [:pointer, Bam1, BamPileupCd], :int
 
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
       :bam_plp_constructor,
-      %i[bam_plp bam_plp_callback_funcion],
+      %i[bam_plp bam_plp_callback_function],
       :void
 
     attach_function \
       :bam_plp_destructor,
-      %i[bam_plp bam_plp_callback_funcion],
+      %i[bam_plp bam_plp_callback_function],
       :void
 
     # Get pileup padded insertion sequence
@@ -632,12 +632,12 @@ module HTS
 
     attach_function \
       :bam_mplp_constructor,
-      %i[bam_mplp bam_plp_callback_funcion],
+      %i[bam_mplp bam_plp_callback_function],
       :void
 
     attach_function \
       :bam_mplp_destructor,
-      %i[bam_mplp bam_plp_callback_funcion],
+      %i[bam_mplp bam_plp_callback_function],
       :void
 
     attach_function \

@@ -41,7 +41,7 @@ module HTS
       :ssize_t
 
     # Write _length_ bytes from _data_ to the file, the index will be used to
-    # decide the amount of uncompressed data to be writen to each bgzip block.
+    # decide the amount of uncompressed data to be written to each bgzip block.
     attach_function \
       :bgzf_block_write,
       [BGZF, :pointer, :size_t],

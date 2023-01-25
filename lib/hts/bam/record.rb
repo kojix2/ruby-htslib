@@ -256,11 +256,11 @@ module HTS
         end
       end
 
-      # TODO: add a method to get the auxillary fields as a hash.
+      # TODO: add a method to get the auxiliary fields as a hash.
 
-      # TODO: add a method to set the auxillary fields.
+      # TODO: add a method to set the auxiliary fields.
 
-      # TODO: add a method to remove the auxillary fields.
+      # TODO: add a method to remove the auxiliary fields.
 
       # TODO: add a method to set variable length data (qname, cigar, seq, qual).
 
