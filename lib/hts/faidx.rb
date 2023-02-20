@@ -26,7 +26,8 @@ module HTS
       end
 
       @file_name = file_name
-      @fai = if [".fq", ".fastq"].include? File.extname(@file_name)
+      @fai = case File.extname(@file_name)
+             when ".fq", ".fastq"
                LibHTS.fai_load_format(@file_name, 2)
              else
                LibHTS.fai_load(@file_name)
