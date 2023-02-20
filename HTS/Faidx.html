@@ -510,7 +510,8 @@
 33
 34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 22</span>
@@ -522,7 +523,8 @@
   <span class='kw'>end</span>
 
   <span class='ivar'>@file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span>
-  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fq</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fastq</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
+         <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fq</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fastq</span><span class='tstring_end'>&quot;</span></span>
            <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load_format'><span class='object_link'><a href="LibHTS.html#fai_load_format-class_method" title="HTS::LibHTS.fai_load_format (method)">fai_load_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
          <span class='kw'>else</span>
            <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load'><span class='object_link'><a href="LibHTS.html#fai_load-class_method" title="HTS::LibHTS.fai_load (method)">fai_load</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
@@ -657,13 +659,13 @@
       <pre class="lines">
 
 
-74
 75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_iseq'><span class='object_link'><a href="LibHTS.html#faidx_iseq-class_method" title="HTS::LibHTS.faidx_iseq (method)">faidx_iseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span>
@@ -689,12 +691,12 @@
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_destroy'><span class='object_link'><a href="LibHTS.html#fai_destroy-class_method" title="HTS::LibHTS.fai_destroy (method)">fai_destroy</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
@@ -723,7 +725,6 @@
       <pre class="lines">
 
 
-123
 124
 125
 126
@@ -744,10 +745,11 @@
 141
 142
 143
-144</pre>
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_qual'>fetch_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -937,7 +939,6 @@
       <pre class="lines">
 
 
-98
 99
 100
 101
@@ -958,10 +959,11 @@
 116
 117
 118
-119</pre>
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_seq'>fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -1005,12 +1007,12 @@
       <pre class="lines">
 
 
-46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_format'>file_format</span>
   <span class='ivar'>@fai</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
@@ -1070,7 +1072,6 @@
       <pre class="lines">
 
 
-63
 64
 65
 66
@@ -1079,10 +1080,11 @@
 69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expect chrom to be String or Symbol</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -1129,12 +1131,12 @@
       <pre class="lines">
 
 
-51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_nseq'><span class='object_link'><a href="LibHTS.html#faidx_nseq-class_method" title="HTS::LibHTS.faidx_nseq (method)">faidx_nseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
@@ -1174,12 +1176,12 @@
       <pre class="lines">
 
 
-57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_names'>names</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_iseq'><span class='object_link'><a href="LibHTS.html#faidx_iseq-class_method" title="HTS::LibHTS.faidx_iseq (method)">faidx_iseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1228,16 +1230,16 @@
       <pre class="lines">
 
 
-80
 81
 82
 83
 84
 85
-86</pre>
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_chrom'>chrom</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expect chrom to be String or Symbol</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -1266,12 +1268,12 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
   <span class='ivar'>@fai</span>
@@ -1286,9 +1288,9 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jan 25 00:41:36 2023 by
+  Generated on Mon Feb 20 07:51:37 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.2.0).
+  0.9.28 (ruby-3.2.1).
 </div>
 
     </div>
