@@ -15,6 +15,7 @@ module HTS
     # Ruby's Aux class references a part of it. There is no one-to-one
     # correspondence between C structures and Ruby's Aux class.
     class Aux
+      include Enumerable
       attr_reader :record
 
       def initialize(record)
@@ -29,24 +30,7 @@ module HTS
         aux = LibHTS.bam_aux_get(@record.struct, key)
         return nil if aux.null?
 
-        type = type ? type.to_s : aux.read_string(1)
-
-        # A (character), B (general array),
-        # f (real number), H (hexadecimal array),
-        # i (integer), or Z (string).
-
-        case type
-        when "i", "I", "c", "C", "s", "S"
-          LibHTS.bam_aux2i(aux)
-        when "f", "d"
-          LibHTS.bam_aux2f(aux)
-        when "Z", "H"
-          LibHTS.bam_aux2Z(aux)
-        when "A" # char
-          LibHTS.bam_aux2A(aux).chr
-        else
-          raise NotImplementedError, "type: #{t}"
-        end
+        get_ruby_aux(aux, type)
       end
 
       # For compatibility with HTS.cr.
@@ -66,6 +50,63 @@ module HTS
 
       def [](key)
         get(key)
+      end
+
+      def first
+        aux = LibHTS.bam_aux_first(@record.struct)
+        return nil if aux.null?
+
+        get_ruby_aux(aux)
+      end
+
+      def each
+        return enum_for(__method__) unless block_given?
+
+        aux = LibHTS.bam_aux_first(@record.struct)
+        return nil if aux.null?
+
+        loop do
+          yield get_ruby_aux(aux)
+          aux = LibHTS.bam_aux_next(@record.struct, aux)
+          break if aux.null?
+        end
+      end
+
+      def to_h
+        h = {}
+        aux = LibHTS.bam_aux_first(@record.struct)
+        return h if aux.null?
+
+        loop do
+          key = FFI::Pointer.new(aux.address - 2).read_string(2)
+          h[key] = get_ruby_aux(aux)
+          aux = LibHTS.bam_aux_next(@record.struct, aux)
+          break if aux.null?
+        end
+        h
+      end
+
+      private
+
+      def get_ruby_aux(aux, type = nil)
+        type = type ? type.to_s : aux.read_string(1)
+
+        # A (character), B (general array),
+        # f (real number), H (hexadecimal array),
+        # i (integer), or Z (string).
+
+        case type
+        when "i", "I", "c", "C", "s", "S"
+          LibHTS.bam_aux2i(aux)
+        when "f", "d"
+          LibHTS.bam_aux2f(aux)
+        when "Z", "H"
+          LibHTS.bam_aux2Z(aux)
+        when "A" # char
+          LibHTS.bam_aux2A(aux).chr
+        else
+          raise NotImplementedError, "type: #{t}"
+        end
       end
     end
   end

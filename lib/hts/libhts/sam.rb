@@ -440,10 +440,22 @@ module HTS
       [SamHdr, Bam1, :pointer], # hts_filter_t
       :int
 
+    # Return a pointer to a BAM record's first aux field
+    attach_function \
+      :bam_aux_first,
+      [Bam1],
+      :pointer
+
+    # Return a pointer to a BAM record's next aux field
+    attach_function \
+      :bam_aux_next,
+      [Bam1, :pointer],
+      :pointer
+
     # Return a pointer to an aux record
     attach_function \
       :bam_aux_get,
-      [Bam1, :string], # FIXME
+      [Bam1, :string], # const char tag[2]
       :pointer
 
     # Get an integer aux value

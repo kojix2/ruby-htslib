@@ -20,6 +20,19 @@ class BamAuxTest < Minitest::Test
     assert_instance_of HTS::Bam::Record, @aux.record
   end
 
+  def test_first
+    assert_equal "70M", @aux.first
+    assert_equal "70M", @aux.first
+  end
+
+  def test_to_a
+    assert_equal ["70M", 0, 0], @aux.to_a
+  end
+
+  def test_to_h
+    assert_equal({ "MC" => "70M", "AS" => 0, "XS" => 0 }, @aux.to_h)
+  end
+
   def test_get
     assert_equal "70M", @aux.get("MC")
     assert_equal 0, @aux.get("AS")
