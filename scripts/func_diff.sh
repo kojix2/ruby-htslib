@@ -8,4 +8,4 @@ if [ "$1" == "" ]; then
   exit 1
 fi
 
-delta <(./func_ffi.sh $1) <(./func_h.sh $1)
+delta <(./func_ffi.rb $1) <(./func_h.rb $1)
