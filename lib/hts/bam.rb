@@ -81,10 +81,10 @@ module HTS
     def load_index(index_name = nil)
       check_closed
 
-      if index_name
-        LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
-      else
+      if index_name.nil?
         LibHTS.sam_index_load3(@hts_file, @file_name, nil, 2) # should be 3 ? (copy remote file to local?)
+      else
+        LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
       end
     end
 
@@ -114,13 +114,12 @@ module HTS
     def write(record)
       check_closed
 
-      # record = record.dup
       r = LibHTS.sam_write1(@hts_file, header, record)
       raise "Failed to write record" if r < 0
     end
 
-    def <<(aln)
-      write(aln)
+    def <<(record)
+      write(record)
     end
 
     # @!macro [attach] define_getter
@@ -145,6 +144,7 @@ module HTS
     # FXIME: experimental
     def aux(tag)
       check_closed
+
       position = tell
       ary = map { |r| r.aux(tag) }
       seek(position)
