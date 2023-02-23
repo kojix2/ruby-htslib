@@ -81,10 +81,10 @@ module HTS
     def load_index(index_name = nil)
       check_closed
 
-      if index_name.nil?
-        LibHTS.sam_index_load3(@hts_file, @file_name, nil, 2) # should be 3 ? (copy remote file to local?)
-      else
+      if index_name
         LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
+      else
+        LibHTS.sam_index_load3(@hts_file, @file_name, nil, 2) # should be 3 ? (copy remote file to local?)
       end
     end
 
@@ -103,7 +103,7 @@ module HTS
     def write_header(header)
       check_closed
 
-      @header = header.dup
+      # @header = header.dup
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 

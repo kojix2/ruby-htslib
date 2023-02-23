@@ -98,7 +98,7 @@ module HTS
     def write_header(header)
       check_closed
 
-      @header = header.dup
+      # @header = header.dup
       LibHTS.bcf_hdr_write(@hts_file, header)
     end
 
