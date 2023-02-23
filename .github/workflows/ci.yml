@@ -28,6 +28,11 @@ jobs:
           sudo apt update -y
           sudo apt install -yq libdeflate-dev libcurl4-openssl-dev
           bundle exec rake htslib:build
+      - name: Install htslib (windows)
+        if: ${{ matrix.os == 'windows' }}
+        run: |
+          ridk exec pacman -Syu
+          ridk exec pacman -S htslib
       - name: Build and test with Rake
         run: |
           bundle exec rake
