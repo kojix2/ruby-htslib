@@ -31,7 +31,7 @@ jobs:
       - name: Update package databases (windows)
         if: ${{ matrix.os == 'windows' }}
         run: |
-          ridk exec pacman -Syu
+          ridk exec pacman -Syu --noconfirm
       - name: Build and test with Rake
         run: |
           bundle exec rake
