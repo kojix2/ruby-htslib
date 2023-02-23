@@ -2868,8 +2868,8 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_write_header'>write_header</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
 
-  <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-class_method" title="HTS::LibHTS.bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+  <span class='comment'># @header = header.dup
+</span>  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_write'><span class='object_link'><a href="LibHTS.html#bcf_hdr_write-class_method" title="HTS::LibHTS.bcf_hdr_write (method)">bcf_hdr_write</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2881,7 +2881,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Feb 23 14:45:15 2023 by
+  Generated on Thu Feb 23 15:35:27 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.1).
 </div>
