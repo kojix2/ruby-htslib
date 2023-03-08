@@ -17,7 +17,7 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
   - Ubuntu : `apt install libhts-dev`
   - macOS : `brew install htslib`
   - Windows : [mingw-w64-htslib](https://packages.msys2.org/base/mingw-w64-htslib) is automatically fetched when installing the gem ([RubyInstaller](https://rubyinstaller.org) only).
-  - Build from source code (see Development section)
+  - Build from source code (see the Development section)
 
 ## Installation
 
@@ -33,7 +33,7 @@ Alternatively, you can specify the directory of the shared library by setting th
 export HTSLIBDIR="/your/path/to/htslib" # Directory where libhts.so is located
 ```
 
-ruby-htslib also works on Windows. if you use RubyInstaller, htslib will be prepared automatically.
+ruby-htslib also works on Windows. If you use RubyInstaller, htslib will be prepared automatically.
 
 ## Usage
 
@@ -158,7 +158,7 @@ HTSlib has many macro functions. These macro functions cannot be called from FFI
 
 Use Ruby 3 or newer to take advantage of new features. This is possible because we have a small number of users.
 
-#### Keep compatibility with Crystal Languages
+#### Keep compatibility with Crystal language
 
 Compatibility with Crystal language is important for Ruby-htslib development. 
 
@@ -199,7 +199,7 @@ Ruby-htslib is a library under development, so even minor improvements like typo
 - [financial contributions](https://github.com/sponsors/kojix2)
 
 ```markdown
-# Ownership and Commitment Rights
+# Ownership and Commit Rights
 
 Do you need commit rights to the ruby-htslib repository?
 Do you want to get admin rights and take over the project?
