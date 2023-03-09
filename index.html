@@ -125,7 +125,9 @@
 
 <p>Reading fields</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>b.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/test.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
 <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
   <span class='id identifier rubyid_p'>p</span> <span class='label'>chrom:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_chrom'>chrom</span><span class='comma'>,</span>
@@ -146,6 +148,7 @@
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_fa'>fa</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Faidx.html" title="HTS::Faidx (class)">Faidx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Faidx.html#open-class_method" title="HTS::Faidx.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-10</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
 <h3 id="label-HTS-3A-3ATabix+-+GFF+-2F+BED+-+TAB-delimited+genome+position+file">HTS::Tabix - GFF / BED - TAB-delimited genome position file</h3>
@@ -154,6 +157,7 @@
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>10000</span><span class='comma'>,</span> <span class='int'>20000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
   <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_line'>line</span>
 <span class='kw'>end</span>
+<span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
 
 <p>Note: Faidx or Tabix should not be explicitly closed. See <a href="https://github.com/kojix2/ruby-htslib/issues/27">#27</a></p>
@@ -288,7 +292,7 @@ If so, please feel free to contact us @kojix2.
 </div></div>
 
       <div id="footer">
-  Generated on Wed Mar  8 09:29:42 2023 by
+  Generated on Thu Mar  9 01:10:23 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.2.1).
 </div>
