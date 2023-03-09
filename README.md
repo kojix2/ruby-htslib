@@ -111,8 +111,8 @@ end
 ### HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence
 
 ```ruby
-fa = HTS::Faidx.open("c.fa")
-fa.seq("chr1:1-10")
+fa = HTS::Faidx.open("test/fixtures/moo.fa")
+fa.seq("chr1:1-10") # => CGCAACCCGA # 1-based
 # fa.close
 ```
 
@@ -130,7 +130,8 @@ Note: Faidx or Tabix should not be explicitly closed. See [#27](https://github.c
 
 ### Low-level API
 
-`HTS::LibHTS` provides native C functions.
+Middle architectural layer between high-level Ruby code and low-level C code.
+`HTS::LibHTS` provides native C functions using [Ruby-FFI](https://github.com/ffi/ffi).
 
 ```ruby
 require 'htslib'
@@ -147,7 +148,7 @@ HTSlib is designed to improve performance with many macro functions. However, it
 
 #### Garbage Collection and Memory Freeing
 
-A small number of commonly used structs, such as Bam1 and Bcf1, are implemented using FFI's ManagedStruct. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using FFI::Struct, and they will require manual memory release.
+A small number of commonly used structs, such as `Bam1` and `Bcf1`, are implemented using FFI's `ManagedStruct`. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using `FFI::Struct`, and they will require manual memory release.
 
 ### Need more speed?
 
@@ -195,6 +196,10 @@ The most challenging part is the return value. In the Crystal language, methods 
 Memory management
 
 Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
+
+Macro functions
+
+In ruby-htslib, C macro functions are added to `LibHTS`, but in Crystal, `LibHTS` is a Lib, so methods cannot be added. methods are added to `LibHTS2`.
 
 #### Naming convention
 
