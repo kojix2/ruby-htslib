@@ -69,7 +69,9 @@ bam.close
 Reading fields
 
 ```ruby
-bcf = HTS::Bcf.open("b.bcf")
+require 'htslib'
+
+bcf = HTS::Bcf.open("test/fixtures/test.bcf")
 
 bcf.each do |r|
   p chrom:  r.chrom,
@@ -91,6 +93,7 @@ bcf.close
 ```ruby
 fa = HTS::Faidx.open("c.fa")
 fa.seq("chr1:1-10")
+fa.close
 ```
 
 ### HTS::Tabix - GFF / BED - TAB-delimited genome position file
@@ -100,6 +103,7 @@ tb = HTS::Tabix.open("test.vcf.gz")
 tb.query("chr1", 10000, 20000) do |line|
   p line
 end
+tb.close
 ```
 
 Note: Faidx or Tabix should not be explicitly closed. See [#27](https://github.com/kojix2/ruby-htslib/issues/27)
