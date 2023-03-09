@@ -64,6 +64,16 @@ end
 bam.close
 ```
 
+With a block
+
+```ruby
+HTS::Bam.open("test/fixtures/moo.bam") do |bam|
+  bam.each do |r|
+    puts r.to_s
+  end
+end
+```
+
 ### HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields
@@ -86,6 +96,16 @@ bcf.each do |r|
 end
 
 bcf.close
+```
+
+With a block
+
+```ruby
+HTS::Bcf.open("test/fixtures/test.bcf") do |bcf|
+  bcf.each do |r|
+    puts r.to_s
+  end
+end
 ```
 
 ### HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence
