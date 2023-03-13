@@ -129,7 +129,7 @@ tb.close
 ### Low-level API
 
 Middle architectural layer between high-level Ruby code and low-level C code.
-`HTS::LibHTS` provides native C functions using [Ruby-FFI](https://github.com/ffi/ffi).
+`HTS::LibHTS` provides native C functions using [Ruby-FFI](https://github.com/ffi/ffi). 
 
 ```ruby
 require 'htslib'
@@ -139,6 +139,8 @@ b = HTS::LibHTS.hts_get_format(a)
 p b[:category]
 p b[:format]
 ```
+
+The low-level API makes it possible to perform detailed operations, such as calling CRAM-specific functions.
 
 #### Macro functions
 
