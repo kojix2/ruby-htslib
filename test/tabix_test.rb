@@ -7,6 +7,10 @@ class TabixTest < Minitest::Test
     @bcf = HTS::Tabix.new(Fixtures["test.vcf.gz"])
   end
 
+  def teardown
+    @bcf.close
+  end
+
   def test_initialize
     assert_instance_of HTS::Tabix, @bcf
   end

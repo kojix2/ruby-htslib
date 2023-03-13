@@ -113,20 +113,19 @@ end
 ```ruby
 fa = HTS::Faidx.open("test/fixtures/moo.fa")
 fa.seq("chr1:1-10") # => CGCAACCCGA # 1-based
-# fa.close
+fa.close
 ```
 
 ### HTS::Tabix - GFF / BED - TAB-delimited genome position file
 
 ```ruby
-tb = HTS::Tabix.open("test.vcf.gz")
-tb.query("chr1", 10000, 20000) do |line|
-  p line
+tb = HTS::Tabix.open("test/fixtures/test.vcf.gz")
+tb.query("poo", 2000, 3000) do |line|
+  puts line.join("\t")
 end
 # tb.close
 ```
 
-Note: Faidx or Tabix should not be explicitly closed. See [#27](https://github.com/kojix2/ruby-htslib/issues/27)
 
 ### Low-level API
 
