@@ -7,6 +7,10 @@ class FaidxTest < Minitest::Test
     @fai = HTS::Faidx.new(Fixtures["random.fa"])
   end
 
+  def teardown
+    @fai.close
+  end
+
   def test_initialize_fai
     assert_instance_of HTS::Faidx, @fai
     stderr_old = $stderr.dup
@@ -24,6 +28,12 @@ class FaidxTest < Minitest::Test
     HTS::Faidx.open(Fixtures["random.fa"]) do |f|
       assert_instance_of HTS::Faidx, f
     end
+  end
+
+  def test_closed?
+    assert_equal false, @fai.closed?
+    assert_nil @fai.close
+    assert_equal true, @fai.closed
   end
 
   def test_struct

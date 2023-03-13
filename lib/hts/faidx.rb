@@ -41,7 +41,14 @@ module HTS
     end
 
     def close
+      return if closed?
+
       LibHTS.fai_destroy(@fai)
+      @fai = nil
+    end
+
+    def closed?
+      @fai.nil? || @fai.null?
     end
 
     def file_format
