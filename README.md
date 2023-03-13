@@ -123,9 +123,8 @@ tb = HTS::Tabix.open("test/fixtures/test.vcf.gz")
 tb.query("poo", 2000, 3000) do |line|
   puts line.join("\t")
 end
-# tb.close
+tb.close
 ```
-
 
 ### Low-level API
 
