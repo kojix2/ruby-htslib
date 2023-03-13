@@ -33,7 +33,7 @@ class FaidxTest < Minitest::Test
   def test_closed?
     assert_equal false, @fai.closed?
     assert_nil @fai.close
-    assert_equal true, @fai.closed
+    assert_equal true, @fai.closed?
   end
 
   def test_struct
@@ -42,13 +42,6 @@ class FaidxTest < Minitest::Test
 
   def test_close
     assert_nil @fai.close
-  end
-
-  def test_closed?
-    skip
-    assert_equal false, @fai.closed?
-    @fai.close
-    assert_equal true, @fai.closed?
   end
 
   def test_file_format
