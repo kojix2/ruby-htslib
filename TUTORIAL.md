@@ -76,7 +76,7 @@ class `Bam::Record` {
   +cigar()
   +qlen()
   +rlen()
-  +seq()
+  +seq() sequence()
   +len()
   +base(n)
   +qual()
