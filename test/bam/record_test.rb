@@ -123,6 +123,11 @@ class BamRecordTest < Minitest::Test
     assert_equal "+", @aln2.strand
   end
 
+  def test_mate_strand
+    assert_equal "+", @aln1.mate_strand
+    assert_equal "+", @aln2.mate_strand
+  end
+
   def test_insert_size
     assert_equal 0, @aln1.insert_size
     assert_equal 0, @aln2.insert_size
