@@ -182,7 +182,7 @@ module HTS
       def seq
         r = LibHTS.bam_get_seq(@bam1)
         seq = String.new
-        (@bam1[:core][:l_qseq]).times do |i|
+        (len).times do |i|
           seq << SEQ_NT16_STR[LibHTS.bam_seqi(r, i)]
         end
         seq
@@ -199,8 +199,8 @@ module HTS
       # @param [Integer] i index
       # @return [String] base
       def base(n)
-        n += @bam1[:core][:l_qseq] if n < 0
-        return "." if (n >= @bam1[:core][:l_qseq]) || (n < 0) # eg. base(-1000)
+        n += len if n < 0
+        return "." if (n >= len) || (n < 0) # eg. base(-1000)
 
         r = LibHTS.bam_get_seq(@bam1)
         SEQ_NT16_STR[LibHTS.bam_seqi(r, n)]
@@ -210,7 +210,7 @@ module HTS
       # @return [Array] base qualities
       def qual
         q_ptr = LibHTS.bam_get_qual(@bam1)
-        q_ptr.read_array_of_uint8(@bam1[:core][:l_qseq])
+        q_ptr.read_array_of_uint8(len)
       end
 
       # Get the base qualities as a string. (a.k.a QUAL)
@@ -224,8 +224,8 @@ module HTS
       # @param [Integer] i index
       # @return [Integer] base quality
       def base_qual(n)
-        n += @bam1[:core][:l_qseq] if n < 0
-        return 0 if (n >= @bam1[:core][:l_qseq]) || (n < 0) # eg. base_qual(-1000)
+        n += len if n < 0
+        return 0 if (n >= len) || (n < 0) # eg. base_qual(-1000)
 
         q_ptr = LibHTS.bam_get_qual(@bam1)
         q_ptr.get_uint8(n)
