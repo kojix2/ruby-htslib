@@ -46,6 +46,8 @@ class `Bam::Header`{
   +struct()
   +target_count()
   +target_names()
+  +name2tid()
+  +tid2name()
   +to_s()
 }
 class `Bam::Record` {
