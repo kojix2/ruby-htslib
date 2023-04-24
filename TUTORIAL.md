@@ -52,6 +52,8 @@ class `Bam::Record` {
   +@bam1 : FFI::Struct
   +@header : Bam::Header
   +struct()
+  +qname()
+  +qname=()
   +tid()
   +tid=()
   +mtid()
@@ -62,8 +64,8 @@ class `Bam::Record` {
   +mpos=()
   +bin()
   +bin=()
-  +qname()
   +flag()
+  +flag=()
   +chorm()
   +mapq()
   +cigar()
