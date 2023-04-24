@@ -20,6 +20,14 @@ class BamRecordTest < Minitest::Test
     assert_equal "chr1", @aln2.qname
   end
 
+  def test_qname=
+    assert_equal "poo_3290_3833_2:0:0_2:0:0_119", @aln1.qname
+    @aln1.qname = "test_qname_01"
+    assert_equal "test_qname_01", @aln1.qname
+    @aln1.qname = "poo_3290_3833_2:0:0_2:0:0_119"
+    assert_equal "poo_3290_3833_2:0:0_2:0:0_119", @aln1.qname
+  end
+
   def test_tid
     assert_equal 0, @aln1.tid
     assert_equal 0, @aln2.tid

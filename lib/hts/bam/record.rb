@@ -32,6 +32,10 @@ module HTS
         LibHTS.bam_get_qname(@bam1).read_string
       end
 
+      def qname=(name)
+        LibHTS.bam_set_qname(@bam1, name)
+      end
+
       # Get the chromosome ID of the alignment. -1 if not mapped.
       # @return [Integer] chromosome ID
       def tid
