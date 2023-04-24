@@ -182,7 +182,7 @@ module HTS
       def seq
         r = LibHTS.bam_get_seq(@bam1)
         seq = String.new
-        (len).times do |i|
+        len.times do |i|
           seq << SEQ_NT16_STR[LibHTS.bam_seqi(r, i)]
         end
         seq
