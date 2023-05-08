@@ -265,7 +265,7 @@ module HTS
 
     def query_reuse_yield(qiter)
       bcf1 = LibHTS.bcf_init
-      record = Record.new(bcf1, header)
+      record = Record.new(header, bcf1)
       begin
         loop do
           slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
@@ -306,7 +306,7 @@ module HTS
         break if slen == -1
         raise if slen < -1
 
-        yield Record.new(bcf1, header)
+        yield Record.new(header, bcf1)
       end
     ensure
       LibHTS.bcf_itr_destroy(qiter)
@@ -318,7 +318,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       bcf1 = LibHTS.bcf_init
-      record = Record.new(bcf1, header)
+      record = Record.new(header, bcf1)
       yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
       self
     end
@@ -329,7 +329,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
-        record = Record.new(bcf1, header)
+        record = Record.new(header, bcf1)
         yield record
       end
       self

@@ -12,7 +12,7 @@ module HTS
 
       attr_reader :header
 
-      def initialize(bam1_t, header)
+      def initialize(header, bam1_t)
         @bam1 = bam1_t
         @header = header
       end

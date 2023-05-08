@@ -4,7 +4,7 @@ module HTS
   class Bcf < Hts
     # A class for working with VCF records.
     class Record
-      def initialize(bcf_t, header)
+      def initialize(header, bcf_t)
         @bcf1 = bcf_t
         @header = header
       end

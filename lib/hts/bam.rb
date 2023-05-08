@@ -228,7 +228,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       bam1 = LibHTS.bam_init1
-      record = Record.new(bam1, header)
+      record = Record.new(header, bam1)
       yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
       self
     end
@@ -238,7 +238,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
-        record = Record.new(bam1, header)
+        record = Record.new(header, bam1)
         yield record
       end
       self
@@ -286,7 +286,7 @@ module HTS
 
     def query_reuse_yield(qiter)
       bam1 = LibHTS.bam_init1
-      record = Record.new(bam1, header)
+      record = Record.new(header, bam1)
       begin
         yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
       ensure
@@ -301,7 +301,7 @@ module HTS
         break if slen == -1
         raise if slen < -1
 
-        yield Record.new(bam1, header)
+        yield Record.new(header, bam1)
       end
     ensure
       LibHTS.hts_itr_destroy(qiter)
