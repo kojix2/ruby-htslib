@@ -103,7 +103,7 @@ module HTS
     def write_header(header)
       check_closed
 
-      # @header = header.dup
+      @header = header.dup
       LibHTS.sam_hdr_write(@hts_file, header)
     end
 
