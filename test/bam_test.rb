@@ -231,4 +231,9 @@ class BamTest < Minitest::Test
     $stderr.flush
     $stderr.reopen(stderr_old)
   end
+
+  def test_build_index
+    bam("bam_string").build_index("test_bam_index_file")
+    File.unlink("test_bam_index_file") if File.exist?("test_bam_index_file")
+  end
 end

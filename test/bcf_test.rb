@@ -169,4 +169,10 @@ class BcfTest < Minitest::Test
     end
     assert_equal [4021, 4310, 4337], r
   end
+
+  def test_build_index
+    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
+    bcf.build_index("test_bcf_index_file")
+    File.unlink("test_bcf_index_file") if File.exist?("test_bcf_index_file")
+  end
 end
