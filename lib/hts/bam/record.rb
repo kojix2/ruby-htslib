@@ -12,8 +12,8 @@ module HTS
 
       attr_reader :header
 
-      def initialize(header, bam1_t)
-        @bam1 = bam1_t
+      def initialize(header, bam1_t = nil)
+        @bam1 = bam1_t || LibHTS.bam_init1
         @header = header
       end
 
