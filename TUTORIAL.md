@@ -229,9 +229,8 @@ bam.close
 Open with block
 
 ```ruby
-HTS::Bam.open("test/fixtures/moo.bam") do |b|
-  b.
-  do |r|
+HTS::Bam.open("test/fixtures/moo.bam") do |bam|
+  bam.each do |record|
     # ...
   end
 end
@@ -253,6 +252,18 @@ end
 
 in.close
 out.close
+```
+
+Create index
+
+```ruby
+HTS::Bam.open("foo.bam", build_index: true)
+```
+
+```
+b = HTS::Bam.open("foo.bam")
+            .build_index
+            .load_index
 ```
 
 ## HTS::Bcf - VCF / BCF - Variant Call Format file
@@ -280,8 +291,8 @@ bcf.close
 Open with block
 
 ```ruby
-HTS::Bcf.open("b.bcf") do |b|
-  b.each do |r|
+HTS::Bcf.open("b.bcf") do |bcf|
+  bcf.each do |record|
     # ...
   end
 end
