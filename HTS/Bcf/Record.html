@@ -388,7 +388,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(bcf_t, header)  &#x21d2; Record </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(header, bcf_t)  &#x21d2; Record </a>
     
 
     
@@ -646,7 +646,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(bcf_t, header)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bcf::Record (class)">Record</a></span></tt> 
+    #<strong>initialize</strong>(header, bcf_t)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bcf::Record (class)">Record</a></span></tt> 
   
 
   
@@ -677,7 +677,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/record.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_t'>bcf_t</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_bcf_t'>bcf_t</span><span class='rparen'>)</span>
   <span class='ivar'>@bcf1</span> <span class='op'>=</span> <span class='id identifier rubyid_bcf_t'>bcf_t</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span>
 <span class='kw'>end</span></pre>
@@ -1488,7 +1488,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May  8 06:49:39 2023 by
+  Generated on Mon May  8 12:46:50 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
