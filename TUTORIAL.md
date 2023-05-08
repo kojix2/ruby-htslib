@@ -1,5 +1,7 @@
 # Tutorial
 
+## Overview
+
 ```mermaid
 %%{init:{'theme':'base'}}%%
 classDiagram
@@ -201,13 +203,35 @@ puts HTS.lib_path
 
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
+Opening files
+
+```ruby
+sam = HTS::Bam.open("test/fixtures/moo.sam")
+bam = HTS::Bam.open("test/fixtures/moo.bam")
+carm = HTS::Bam.open("test/fixtures/moo.cram")
+```
+
+Closing files
+
+```ruby
+sam.close
+bam.close
+carm.close
+```
+
+Opening with a block
+
+```ruby
+HTS::Bam.open("test/fixtures/moo.bam") do |bam|
+  bam.each do |record|
+    # ...
+  end
+end
+```
+
 Reading fields
 
 ```ruby
-require 'htslib'
-
-bam = HTS::Bam.open("test/fixtures/moo.bam")
-
 bam.each do |r|
   pp name: r.qname,
      flag: r.flag,
@@ -221,18 +245,6 @@ bam.each do |r|
      seqs: r.seq,
      qual: r.qual_string,
      MC:   r.aux("MC")
-end
-
-bam.close
-```
-
-Open with block
-
-```ruby
-HTS::Bam.open("test/fixtures/moo.bam") do |bam|
-  bam.each do |record|
-    # ...
-  end
 end
 ```
 
@@ -254,16 +266,16 @@ in.close
 out.close
 ```
 
-Create index
+Creating index file
 
 ```ruby
 HTS::Bam.open("foo.bam", build_index: true)
 ```
 
-```
-b = HTS::Bam.open("foo.bam")
-            .build_index
-            .load_index
+```ruby
+HTS::Bam.open("foo.bam")
+        .build_index
+        .load_index
 ```
 
 ## HTS::Bcf - VCF / BCF - Variant Call Format file
