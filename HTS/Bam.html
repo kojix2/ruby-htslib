@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/hts/bam.rb<span class="defines">,<br />
-  lib/hts/bam/auxi.rb,<br /> lib/hts/bam/flag.rb,<br /> lib/hts/bam/cigar.rb,<br /> lib/hts/bam/header.rb,<br /> lib/hts/bam/record.rb,<br /> lib/hts/bam/header_record.rb</span>
+  lib/hts/bam/auxi.rb,<br /> lib/hts/bam/flag.rb,<br /> lib/hts/bam/cigar.rb,<br /> lib/hts/bam/record.rb,<br /> lib/hts/bam/header_record.rb</span>
 </dd>
   </dl>
   
@@ -125,7 +125,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bam/Aux.html" title="HTS::Bam::Aux (class)">Aux</a></span>, <span class='object_link'><a href="Bam/Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span>, <span class='object_link'><a href="Bam/Flag.html" title="HTS::Bam::Flag (class)">Flag</a></span>, <span class='object_link'><a href="Bam/Header.html" title="HTS::Bam::Header (class)">Header</a></span>, <span class='object_link'><a href="Bam/HeaderRecord.html" title="HTS::Bam::HeaderRecord (class)">HeaderRecord</a></span>, <span class='object_link'><a href="Bam/Record.html" title="HTS::Bam::Record (class)">Record</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bam/Aux.html" title="HTS::Bam::Aux (class)">Aux</a></span>, <span class='object_link'><a href="Bam/Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span>, <span class='object_link'><a href="Bam/Flag.html" title="HTS::Bam::Flag (class)">Flag</a></span>, <span class='object_link'><a href="Bam/HeaderRecord.html" title="HTS::Bam::HeaderRecord (class)">HeaderRecord</a></span>, <span class='object_link'><a href="Bam/Record.html" title="HTS::Bam::Record (class)">Record</a></span>
     
   
 </p>
@@ -1249,7 +1249,7 @@
 
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@mode</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span>
 
-  <span class='ivar'>@header</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="HTS::Bam (class)">Bam</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Bam/Header.html" title="HTS::Bam::Header (class)">Header</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bam/Header.html#initialize-instance_method" title="HTS::Bam::Header#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='rparen'>)</span>
+  <span class='ivar'>@header</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="HTS::Bam (class)">Bam</a></span></span><span class='op'>::</span><span class='const'>Header</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@hts_file</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_build_index'>build_index</span>
   <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='ivar'>@start_position</span> <span class='op'>=</span> <span class='id identifier rubyid_tell'>tell</span>
@@ -3059,7 +3059,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May  8 13:26:39 2023 by
+  Generated on Mon May  8 13:54:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
