@@ -1,4 +1,8 @@
-# Tutorial
+# Introduction to Ruby-htslib
+
+## Logo
+
+TODO: Create a suitable logo for the project.
 
 ## Overview
 
@@ -201,6 +205,8 @@ puts HTS.lib_path
 # => "/home/kojix2/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/htslib-0.2.6/vendor/libhts.so"
 ```
 
+* pkg-config
+
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 
 Opening files
@@ -248,7 +254,11 @@ bam.each do |r|
 end
 ```
 
+* Support for TAG is not yet sufficient
+
 Writing
+
+* In ruby-htslib, reader and writer are not separate classes as in rust-htslib.
 
 ```ruby
 in = HTS::Bam.open("foo.bam")
