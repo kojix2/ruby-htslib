@@ -49,12 +49,12 @@ module HTS
       end
 
       # experimental
-      def add_lines(str)
+      def add_line(str)
         LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
       end
 
       # experimental
-      def add_line(type, *args)
+      def add_linestype, *args)
         args = args.flat_map { |arg| [:string, arg] }
         LibHTS.sam_hdr_add_line(@sam_hdr, type, *args, :pointer, FFI::Pointer::NULL)
       end
