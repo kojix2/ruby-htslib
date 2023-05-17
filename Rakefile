@@ -17,7 +17,7 @@ end
 # Prevent releasing the gem including htslib shared library.
 
 task :check_shared_library_exist do
-  unless Dir.glob("vendor/*.{so,dylib}").empty?
+  unless Dir.glob("vendor/*.{so,dylib,dll}").empty?
     magenta = "\e[35m"
     clear = "\e[0m"
     abort "#{magenta}Shared library exists in the vendor directory.#{clear}"
