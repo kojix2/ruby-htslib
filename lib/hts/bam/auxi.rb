@@ -107,6 +107,19 @@ module HTS
           LibHTS.bam_aux2Z(aux)
         when "A" # char
           LibHTS.bam_aux2A(aux).chr
+        when "B" # array
+          t2 = aux.read_string(2)[1] # just a little less efficient
+          l = LibHTS.bam_auxB_len(aux)
+          case t2
+          when "c", "C", "s", "S", "i", "I"
+            # FIXME : Not efficient.
+            Array.new(l) { |i| LibHTS.bam_auxB2i(aux, i) }
+          when "f", "d"
+            # FIXME : Not efficient.
+            Array.new(l) { |i| LibHTS.bam_auxB2f(aux, i) }
+          else
+            raise NotImplementedError, "type: #{type} #{t2}"
+          end
         else
           raise NotImplementedError, "type: #{type}"
         end
