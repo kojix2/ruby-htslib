@@ -3,8 +3,11 @@
 # Q. Why is the file name auxi.rb and not aux.rb?
 #
 # A. This is for compatibility with Windows.
+#
 # In Windows, aux is a reserved word
-# You cannot create a file named aux. Eww!
+# You cannot create a file named aux.
+#
+# What?! That's crazy!
 
 module HTS
   class Bam < Hts
@@ -105,7 +108,7 @@ module HTS
         when "A" # char
           LibHTS.bam_aux2A(aux).chr
         else
-          raise NotImplementedError, "type: #{t}"
+          raise NotImplementedError, "type: #{type}"
         end
       end
     end
