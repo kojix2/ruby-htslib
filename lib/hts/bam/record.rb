@@ -213,6 +213,17 @@ module HTS
         Cigar.new(self)
       end
 
+      def cigar=(str)
+        if cigar.is_a? Cigar
+          raise "Not implemented yet."
+        elsif cigar.is_a? String
+          r = LibHTS.bam_parse_cigar(str, FFI::Pointer::NULL, @bam1)
+          raise "bam_parse_cigar failed: #{r}" if r != 0
+        else
+          raise ArgumentError, "cigar must be a String or Bam::Cigar"
+        end
+      end
+
       # Calculate query length from CIGAR.
       # @return [Integer] query length
       def qlen
