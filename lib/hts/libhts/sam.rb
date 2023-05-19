@@ -247,7 +247,7 @@ module HTS
        :hts_pos_t,
        :uint8,
        :size_t,
-       :string,
+       :pointer,
        :int32,
        :hts_pos_t,
        :hts_pos_t,

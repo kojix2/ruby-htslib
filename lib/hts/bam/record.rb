@@ -12,9 +12,64 @@ module HTS
 
       attr_reader :header
 
-      def initialize(header, bam1_t = nil)
-        @bam1 = bam1_t || LibHTS.bam_init1
+      # Initialization API is experimental.
+
+      def initialize(
+        header,
+        bam1 = nil,
+        qname: nil,
+        flag: nil,
+        tid: nil,
+        pos: nil,
+        mapq: nil,
+        cigar: nil,
+        mtid: nil,
+        mpos: nil,
+        isize: nil,
+        seq: nil,
+        qual: nil,
+        l_aux: nil
+      )
+        @bam1 = bam1 || LibHTS.bam_init1
         @header = header
+
+        params = [qname, flag, tid, pos, mapq, cigar, mtid, mpos, isize, seq, qual, aux]
+        return if params.all? { |x| x.nil? }
+
+        if params.all?
+          c = FFI::MemoryPointer.new(:pointer)
+          m = FFI::MemoryPointer.new(:size_t)
+          LibHTS.sam_parse_cigar(cigar, FFI::Pointer::NULL, c, m)
+          cigar_array = c.read_pointer.read_array_of_uint32(m.read(:size_t))
+          cigar_pointer = FFI::MemoryPointer.new(:uint32, cigar_array.length)
+          cigar_pointer.write_array_of_uint32(cigar_array)
+          if qual.is_a?(Array)
+            qual = qual.pack("C*")
+          elsif qual.is_a?(String)
+            raise "Which implementation is better? +33 or not? Please tell me."
+          end
+          r = LibHTS.bam_set1(
+            @bam1,
+            l_qname = qname.length,
+            qname,
+            flag,
+            tid,
+            pos,
+            mapq,
+            cigar_array.length,
+            cigar_pointer,
+            mtid,
+            mpos,
+            isize,
+            l_seq = seq.length,
+            seq,
+            qual,
+            l_aux
+          )
+          raise "bam_set1 failed: #{r}" if r < 0
+        else
+          warn "Ignore bam_set1 because some arguments are missing."
+        end
       end
 
       # Return the FFI::Struct object.
