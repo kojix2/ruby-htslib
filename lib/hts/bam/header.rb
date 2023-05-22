@@ -52,7 +52,10 @@ module HTS
         add_lines(...)
       end
 
-      alias << write
+      def <<(obj)
+        add_lines(obj.to_s)
+        self
+      end
 
       # experimental
       def add_line(type, *args)
