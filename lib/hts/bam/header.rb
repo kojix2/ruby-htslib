@@ -48,10 +48,11 @@ module HTS
         end
       end
 
-      # experimental
-      def add_lines(str)
-        LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
+      def write(...)
+        add_lines(...)
       end
+
+      alias << write
 
       # experimental
       def add_line(type, *args)
@@ -96,6 +97,10 @@ module HTS
       end
 
       private
+
+      def add_lines(str)
+        LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
+      end
 
       def initialize_copy(orig)
         @sam_hdr = LibHTS.sam_hdr_dup(orig.struct)
