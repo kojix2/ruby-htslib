@@ -21,6 +21,8 @@ module HTS
         else
           raise TypeError, "Invalid argument"
         end
+
+        yield self if block_given?
       end
 
       def struct

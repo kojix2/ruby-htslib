@@ -16,6 +16,12 @@ class BcfHeaderTest < Minitest::Test
     @bcf.close
   end
 
+  def test_initialize_with_block
+    assert_instance_of HTS::Bcf::Header, HTS::Bcf::Header.new do |h|
+      assert_instance_of HTS::Bcf::Header, h
+    end
+  end
+
   def test_get_version
     assert_equal "VCFv4.1", @hdr.get_version
   end
