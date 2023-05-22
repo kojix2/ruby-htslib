@@ -52,15 +52,16 @@ module HTS
         add_lines(...)
       end
 
-      def <<(obj)
-        add_lines(obj.to_s)
-        self
-      end
-
       # experimental
-      def add_line(type, *args)
-        args = args.flat_map { |arg| [:string, arg] }
-        LibHTS.sam_hdr_add_line(@sam_hdr, type, *args, :pointer, FFI::Pointer::NULL)
+      def <<(obj)
+        case obj
+        when Array, Hash
+          args = obj.flatten(-1).map { |i| i.to_a if i.is_a?(Hash) }
+          add_line(*args)
+        else
+          add_lines(obj.to_s)
+        end
+        self
       end
 
       # experimental
@@ -103,6 +104,12 @@ module HTS
 
       def add_lines(str)
         LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
+      end
+
+      def add_line(*args)
+        type = args.shift
+        args = args.flat_map { |arg| [:string, arg] }
+        LibHTS.sam_hdr_add_line(@sam_hdr, type, *args, :pointer, FFI::Pointer::NULL)
       end
 
       def initialize_copy(orig)
