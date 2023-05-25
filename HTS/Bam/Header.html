@@ -1127,7 +1127,7 @@
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-class_method" title="HTS::LibHTS.sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2len-class_method" title="HTS::LibHTS.sam_hdr_tid2len (method)">sam_hdr_tid2len</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
-    <span class='lbrace'>{</span><span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>len:</span> <span class='id identifier rubyid_len'>len</span><span class='rbrace'>}</span>
+    <span class='lbrace'>{</span> <span class='label'>name:</span><span class='comma'>,</span> <span class='label'>len:</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1230,7 +1230,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 25 03:30:08 2023 by
+  Generated on Thu May 25 03:32:15 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
