@@ -37,7 +37,7 @@ module HTS
         Array.new(target_count) do |i|
           name = LibHTS.sam_hdr_tid2name(@sam_hdr, i)
           len = LibHTS.sam_hdr_tid2len(@sam_hdr, i)
-          {name: name, len: len}
+          { name:, len: }
         end
       end
 
@@ -112,6 +112,7 @@ module HTS
       end
 
       private
+
       def name2tid(name)
         LibHTS.sam_hdr_name2tid(@sam_hdr, name)
       end
