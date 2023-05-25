@@ -14,12 +14,16 @@ class BamHeaderTest < Minitest::Test
 
   def test_initialize
     assert_instance_of HTS::Bam::Header, @bam_header
+    assert_instance_of HTS::Bam::Header, HTS::Bam::Header.new
   end
 
   def test_initialize_with_block
-    assert_instance_of HTS::Bam::Header, HTS::Bam::Header.new do |h|
-      assert_instance_of HTS::Bam::Header, h
+    b = nil
+    a = HTS::Bam::Header.new do |h|
+      b = h
     end
+    assert_instance_of HTS::Bam::Header, a
+    assert_instance_of HTS::Bam::Header, b
   end
 
   def test_target_count
@@ -34,12 +38,12 @@ class BamHeaderTest < Minitest::Test
     assert_equal [5000], @bam_header.target_len
   end
 
-  def test_name2tid
-    assert_equal 0, @bam_header.name2tid("poo")
+  def test_get_tid
+    assert_equal 0, @bam_header.get_tid("poo")
   end
 
-  def test_tid2name
-    assert_equal "poo", @bam_header.tid2name(0)
+  def test_target_name
+    assert_equal "poo", @bam_header.target_name(0)
   end
 
   def test_to_s

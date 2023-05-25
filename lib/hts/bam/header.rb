@@ -33,9 +33,21 @@ module HTS
         @sam_hdr.to_ptr
       end
 
+      def targets
+        Array.new(target_count) do |i|
+          name = LibHTS.sam_hdr_tid2name(@sam_hdr, i)
+          len = LibHTS.sam_hdr_tid2len(@sam_hdr, i)
+          {name: name, len: len}
+        end
+      end
+
       def target_count
         # FIXME: sam_hdr_nref
         @sam_hdr[:n_targets]
+      end
+
+      def target_name(tid)
+        tid2name(tid)
       end
 
       def target_names
@@ -94,6 +106,12 @@ module HTS
         LibHTS.sam_hdr_str(@sam_hdr)
       end
 
+      # experimental
+      def get_tid(name)
+        name2tid(name)
+      end
+
+      private
       def name2tid(name)
         LibHTS.sam_hdr_name2tid(@sam_hdr, name)
       end
@@ -101,8 +119,6 @@ module HTS
       def tid2name(tid)
         LibHTS.sam_hdr_tid2name(@sam_hdr, tid)
       end
-
-      private
 
       def add_lines(str)
         LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
