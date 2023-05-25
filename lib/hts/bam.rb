@@ -194,7 +194,7 @@ module HTS
       raise "Index file is required to call the query method." unless index_loaded?
 
       if beg && end_
-        tid = header.name2tid(region)
+        tid = header.get_tid(region)
         queryi(tid, beg, end_, copy:, &block)
       elsif beg.nil? && end_.nil?
         querys(region, copy:, &block)
