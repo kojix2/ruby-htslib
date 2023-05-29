@@ -33,7 +33,7 @@ module HTS
         @bam1 = bam1 || LibHTS.bam_init1
         @header = header
 
-        params = [qname, flag, tid, pos, mapq, cigar, mtid, mpos, isize, seq, qual, aux]
+        params = [qname, flag, tid, pos, mapq, cigar, mtid, mpos, isize, seq, qual, l_aux]
         return if params.all? { |x| x.nil? }
 
         if params.all?
