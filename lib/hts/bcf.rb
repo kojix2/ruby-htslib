@@ -185,8 +185,7 @@ module HTS
 
     def each_info(key)
       check_closed
-      return to_enum(__method__, key) unless block
-
+      return to_enum(__method__, key) unless block_given?
       each do |r|
         yield r.info(key)
       end
@@ -194,8 +193,7 @@ module HTS
 
     def each_format(key)
       check_closed
-      return to_enum(__method__, key) unless block
-
+      return to_enum(__method__, key) unless block_given?
       each do |r|
         yield r.format(key)
       end
