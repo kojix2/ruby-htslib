@@ -78,6 +78,11 @@ class BamFlagTest < Minitest::Test
     assert_equal 0, (@flag_zero >> 1).value
   end
 
+  def test_to_i
+    assert_equal 4095, @flag.to_i
+    assert_equal 0, @flag_zero.to_i
+  end
+
   def test_to_s
     assert_equal "PAIRED,PROPER_PAIR,UNMAP,MUNMAP,REVERSE,MREVERSE,READ1,READ2,SECONDARY,QCFAIL,DUP,SUPPLEMENTARY",
                  @flag.to_s

@@ -69,27 +69,29 @@ module HTS
       end
 
       def &(other)
-        Flag.new(@value & other.to_i)
+        self.class.new(@value & other.to_i)
       end
 
       def |(other)
-        Flag.new(@value | other.to_i)
+        self.class.new(@value | other.to_i)
       end
 
       def ^(other)
-        Flag.new(@value ^ other.to_i)
+        self.class.new(@value ^ other.to_i)
       end
 
       def ~
-        Flag.new(~@value)
+        # FIXME: Only 12bits are used for flags
+        # The result is diffent from the Crystal version.
+        self.class.new(~@value)
       end
 
       def <<(f)
-        Flag.new(@value << f.to_i)
+        self.class.new(@value << f.to_i)
       end
 
       def >>(other)
-        Flag.new(@value >> other.to_i)
+        self.class.new(@value >> other.to_i)
       end
 
       def to_i
