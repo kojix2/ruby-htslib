@@ -12,6 +12,13 @@ class BamHeaderTest < Minitest::Test
     @bam.close
   end
 
+  def test_parse
+    s = @bam_header.to_s
+    b = HTS::Bam::Header.parse(s)
+    assert_instance_of HTS::Bam::Header, b
+    assert_equal s, b.to_s
+  end
+
   def test_initialize
     assert_instance_of HTS::Bam::Header, @bam_header
     assert_instance_of HTS::Bam::Header, HTS::Bam::Header.new

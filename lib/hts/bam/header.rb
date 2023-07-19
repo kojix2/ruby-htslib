@@ -6,8 +6,8 @@ module HTS
   class Bam < Hts
     # A class for working with alignment header.
     class Header
-      def self.parse(str)
-        new(LibHTS.sam_hdr_parse(str.size, str))
+      def self.parse(text)
+        new(LibHTS.sam_hdr_parse(text.size, text))
       end
 
       def initialize(arg = nil)
