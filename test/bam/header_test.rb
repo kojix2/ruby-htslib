@@ -37,6 +37,10 @@ class BamHeaderTest < Minitest::Test
     assert_equal 1, @bam_header.target_count
   end
 
+  def test_target_name
+    assert_equal "poo", @bam_header.target_name(0)
+  end
+
   def test_target_names
     assert_equal ["poo"], @bam_header.target_names
   end
@@ -47,10 +51,6 @@ class BamHeaderTest < Minitest::Test
 
   def test_get_tid
     assert_equal 0, @bam_header.get_tid("poo")
-  end
-
-  def test_target_name
-    assert_equal "poo", @bam_header.target_name(0)
   end
 
   def test_to_s
