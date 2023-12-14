@@ -2,7 +2,7 @@
 
 require "htslib"
 
-bam_path = (ARGV[0] || File.expand_path("../test/fixtures/moo.sam", __dir__))
+bam_path = ARGV[0] || File.expand_path("../test/fixtures/moo.sam", __dir__)
 
 HTS::Bam.open(bam_path) do |bam|
   bam.each do |r|
