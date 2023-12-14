@@ -272,7 +272,7 @@ module HTS
       alias bcf_itr_destroy hts_itr_destroy
 
       def bcf_itr_queryi(idx, tid, beg, _end)
-        hts_itr_query(idx, tid, beg, _end, @@bcf_readrec)
+        hts_itr_query(idx, tid, beg, _end, @ffi_functions[:bcf_readrec])
       end
 
       @@bcf_hdr_name2id = proc do |hdr, id|
@@ -280,7 +280,7 @@ module HTS
       end
 
       def bcf_itr_querys(idx, hdr, s)
-        hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @@hts_itr_query, @@bcf_readrec)
+        hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @ffi_functions[:hts_itr_query], @ffi_functions[:bcf_readrec])
       end
 
       # Load a BCF index
