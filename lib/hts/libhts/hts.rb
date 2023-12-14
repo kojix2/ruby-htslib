@@ -447,7 +447,7 @@ module HTS
     # Computes the final 128-bit MD5 hash from the given context
     attach_function \
       :hts_md5_final,
-      %i[pointer pointer], # unsinged char
+      %i[pointer pointer], # unsigned char
       :void
 
     #  Resets an md5_context to the initial state, as returned by hts_md5_init().

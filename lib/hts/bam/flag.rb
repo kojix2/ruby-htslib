@@ -82,7 +82,7 @@ module HTS
 
       def ~
         # FIXME: Only 12bits are used for flags
-        # The result is diffent from the Crystal version.
+        # The result is different from the Crystal version.
         self.class.new(~@value)
       end
 
