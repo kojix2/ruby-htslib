@@ -1,7 +1,7 @@
 # ruby-htslib
 
 [![Gem Version](https://badge.fury.io/rb/htslib.svg)](https://badge.fury.io/rb/htslib)
-![CI](https://github.com/kojix2/ruby-htslib/workflows/CI/badge.svg)
+[![test](https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml)
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 [![DOI](https://zenodo.org/badge/247078205.svg)](https://zenodo.org/badge/latestdoi/247078205)
 [![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/htslib)
