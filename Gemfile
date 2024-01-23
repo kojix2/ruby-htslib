@@ -2,5 +2,8 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in htslib.gemspec
 gemspec
+
+gem "minitest"
+gem "rake"
+gem "simplecov"
