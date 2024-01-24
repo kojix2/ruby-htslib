@@ -252,6 +252,22 @@
   <span class='symbol'>:core</span><span class='comma'>,</span>               <span class='int'>5</span>
 <span class='rparen'>)</span></pre></dd>
       
+        <dt id="CramBlockMethod-constant" class="">CramBlockMethod =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span>
+  <span class='symbol'>:unknown</span><span class='comma'>,</span>      <span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span>
+  <span class='symbol'>:raw</span><span class='comma'>,</span>          <span class='int'>0</span><span class='comma'>,</span>
+  <span class='symbol'>:gzip</span><span class='comma'>,</span>         <span class='int'>1</span><span class='comma'>,</span>
+  <span class='symbol'>:bzip2</span><span class='comma'>,</span>        <span class='int'>2</span><span class='comma'>,</span>
+  <span class='symbol'>:lzma</span><span class='comma'>,</span>         <span class='int'>3</span><span class='comma'>,</span>
+  <span class='symbol'>:rans4x8</span><span class='comma'>,</span>      <span class='int'>4</span><span class='comma'>,</span>
+  <span class='symbol'>:ransnx16</span><span class='comma'>,</span>     <span class='int'>5</span><span class='comma'>,</span>
+  <span class='symbol'>:arith</span><span class='comma'>,</span>        <span class='int'>6</span><span class='comma'>,</span>
+  <span class='symbol'>:fqz</span><span class='comma'>,</span>          <span class='int'>7</span><span class='comma'>,</span>
+  <span class='symbol'>:tok3</span><span class='comma'>,</span>         <span class='int'>8</span>
+<span class='rparen'>)</span></pre></dd>
+      
         <dt id="BAM_CMATCH-constant" class="">BAM_CMATCH =
           <div class="docstring">
   <div class="discussion">
@@ -6735,6 +6751,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#cram_block_get_method-class_method" title="cram_block_get_method (class method)">.<strong>cram_block_get_method</strong>(cram_block)  &#x21d2; CramBlockMethod </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The return value of attach_function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#cram_block_get_offset-class_method" title="cram_block_get_offset (class method)">.<strong>cram_block_get_offset</strong>(cram_block)  &#x21d2; size_t </a>
     
 
@@ -7095,7 +7135,55 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#cram_container_get_num_bases-class_method" title="cram_container_get_num_bases (class method)">.<strong>cram_container_get_num_bases</strong>(cram_container)  &#x21d2; int32 </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The return value of attach_function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#cram_container_get_num_blocks-class_method" title="cram_container_get_num_blocks (class method)">.<strong>cram_container_get_num_blocks</strong>(cram_container)  &#x21d2; int32 </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The return value of attach_function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cram_container_get_num_records-class_method" title="cram_container_get_num_records (class method)">.<strong>cram_container_get_num_records</strong>(cram_container)  &#x21d2; int32 </a>
     
 
     
@@ -26359,13 +26447,13 @@
       <pre class="lines">
 
 
-144
-145
-146
-147</pre>
+159
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 159</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_append</span><span class='comma'>,</span>
@@ -26420,13 +26508,13 @@
       <pre class="lines">
 
 
-94
-95
-96
-97</pre>
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 104</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_comp_size</span><span class='comma'>,</span>
@@ -26481,13 +26569,13 @@
       <pre class="lines">
 
 
-89
-90
-91
-92</pre>
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 99</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_content_id</span><span class='comma'>,</span>
@@ -26542,13 +26630,13 @@
       <pre class="lines">
 
 
-114
-115
-116
-117</pre>
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 124</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_content_type</span><span class='comma'>,</span>
@@ -26603,13 +26691,13 @@
       <pre class="lines">
 
 
-104
-105
-106
-107</pre>
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 114</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_crc32</span><span class='comma'>,</span>
@@ -26664,18 +26752,79 @@
       <pre class="lines">
 
 
-109
-110
-111
-112</pre>
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 119</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_data</span><span class='comma'>,</span>
 <span class='lbracket'>[</span><span class='symbol'>:cram_block</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:pointer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cram_block_get_method-class_method">
+  
+    .<strong>cram_block_get_method</strong>(cram_block)  &#x21d2; <tt><span class='object_link'><a href="#CramBlockMethod-constant" title="HTS::LibHTS::CramBlockMethod (constant)">CramBlockMethod</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the return value of attach_function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="#CramBlockMethod-constant" title="HTS::LibHTS::CramBlockMethod (constant)">CramBlockMethod</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130
+131
+132</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 129</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:cram_block_get_method</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:cram_block</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='const'><span class='object_link'><a href="#CramBlockMethod-constant" title="HTS::LibHTS::CramBlockMethod (constant)">CramBlockMethod</a></span></span></pre>
     </td>
   </tr>
 </table>
@@ -26725,13 +26874,13 @@
       <pre class="lines">
 
 
-154
-155
-156
-157</pre>
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 169</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_offset</span><span class='comma'>,</span>
@@ -26786,13 +26935,13 @@
       <pre class="lines">
 
 
-99
-100
-101
-102</pre>
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 109</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_get_uncomp_size</span><span class='comma'>,</span>
@@ -26829,13 +26978,13 @@
       <pre class="lines">
 
 
-124
-125
-126
-127</pre>
+139
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 139</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_comp_size</span><span class='comma'>,</span>
@@ -26872,13 +27021,13 @@
       <pre class="lines">
 
 
-119
-120
-121
-122</pre>
+134
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 134</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_content_id</span><span class='comma'>,</span>
@@ -26915,13 +27064,13 @@
       <pre class="lines">
 
 
-134
-135
-136
-137</pre>
+149
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 149</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_crc32</span><span class='comma'>,</span>
@@ -26958,13 +27107,13 @@
       <pre class="lines">
 
 
-139
-140
-141
-142</pre>
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 154</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_data</span><span class='comma'>,</span>
@@ -27001,13 +27150,13 @@
       <pre class="lines">
 
 
-159
-160
-161
-162</pre>
+174
+175
+176
+177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 174</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_offset</span><span class='comma'>,</span>
@@ -27044,13 +27193,13 @@
       <pre class="lines">
 
 
-129
-130
-131
-132</pre>
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 144</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_set_uncomp_size</span><span class='comma'>,</span>
@@ -27105,13 +27254,13 @@
       <pre class="lines">
 
 
-165
-166
-167
-168</pre>
+180
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 180</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_size</span><span class='comma'>,</span>
@@ -27148,13 +27297,13 @@
       <pre class="lines">
 
 
-149
-150
-151
-152</pre>
+164
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 164</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_block_update_size</span><span class='comma'>,</span>
@@ -27209,13 +27358,13 @@
       <pre class="lines">
 
 
-347
-348
-349
-350</pre>
+362
+363
+364
+365</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 347</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 362</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_check_EOF</span><span class='comma'>,</span>
@@ -27270,13 +27419,13 @@
       <pre class="lines">
 
 
-305
-306
-307
-308</pre>
+320
+321
+322
+323</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 320</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_close</span><span class='comma'>,</span>
@@ -27331,13 +27480,13 @@
       <pre class="lines">
 
 
-246
-247
-248
-249</pre>
+261
+262
+263
+264</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 261</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_compress_block</span><span class='comma'>,</span>
@@ -27471,6 +27620,67 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="cram_container_get_num_bases-class_method">
+  
+    .<strong>cram_container_get_num_bases</strong>(cram_container)  &#x21d2; <tt>int32</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the return value of attach_function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int32</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 87</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:cram_container_get_num_bases</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:cram_container</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int32</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="cram_container_get_num_blocks-class_method">
   
     .<strong>cram_container_get_num_blocks</strong>(cram_container)  &#x21d2; <tt>int32</tt> 
@@ -27532,6 +27742,67 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="cram_container_get_num_records-class_method">
+  
+    .<strong>cram_container_get_num_records</strong>(cram_container)  &#x21d2; <tt>int32</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the return value of attach_function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>int32</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the return value of attach_function</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 82</span>
+
+<span class='id identifier rubyid_attach_function'>attach_function</span> \
+<span class='symbol'>:cram_container_get_num_records</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:cram_container</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='symbol'>:int32</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="cram_container_is_empty-class_method">
   
     .<strong>cram_container_is_empty</strong>(cram_fd)  &#x21d2; <tt>int</tt> 
@@ -27575,13 +27846,13 @@
       <pre class="lines">
 
 
-82
-83
-84
-85</pre>
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 92</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_container_is_empty</span><span class='comma'>,</span>
@@ -27765,13 +28036,13 @@
       <pre class="lines">
 
 
-287
-288
-289
-290</pre>
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 287</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 302</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_container_size</span><span class='comma'>,</span>
@@ -27826,13 +28097,13 @@
       <pre class="lines">
 
 
-178
-179
-180
-181</pre>
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 178</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 193</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_copy_slice</span><span class='comma'>,</span>
@@ -27887,13 +28158,13 @@
       <pre class="lines">
 
 
-203
-204
-205
-206</pre>
+218
+219
+220
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 218</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_decode_slice_header</span><span class='comma'>,</span>
@@ -27948,13 +28219,13 @@
       <pre class="lines">
 
 
-299
-300
-301
-302</pre>
+314
+315
+316
+317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 299</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 314</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_dopen</span><span class='comma'>,</span>
@@ -28009,13 +28280,13 @@
       <pre class="lines">
 
 
-323
-324
-325
-326</pre>
+338
+339
+340
+341</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 323</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 338</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_eof</span><span class='comma'>,</span>
@@ -28382,13 +28653,13 @@
       <pre class="lines">
 
 
-317
-318
-319
-320</pre>
+332
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 317</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 332</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_flush</span><span class='comma'>,</span>
@@ -28425,13 +28696,13 @@
       <pre class="lines">
 
 
-234
-235
-236
-237</pre>
+249
+250
+251
+252</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 249</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_free_block</span><span class='comma'>,</span>
@@ -28468,13 +28739,13 @@
       <pre class="lines">
 
 
-263
-264
-265
-266</pre>
+278
+279
+280
+281</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 263</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 278</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_free_container</span><span class='comma'>,</span>
@@ -28511,13 +28782,13 @@
       <pre class="lines">
 
 
-209
-210
-211
-212</pre>
+224
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 224</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_free_slice_header</span><span class='comma'>,</span>
@@ -28572,13 +28843,13 @@
       <pre class="lines">
 
 
-359
-360
-361
-362</pre>
+374
+375
+376
+377</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 359</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 374</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_get_refs</span><span class='comma'>,</span>
@@ -28755,13 +29026,13 @@
       <pre class="lines">
 
 
-216
-217
-218
-219</pre>
+231
+232
+233
+234</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 216</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 231</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_new_block</span><span class='comma'>,</span>
@@ -28816,13 +29087,13 @@
       <pre class="lines">
 
 
-258
-259
-260
-261</pre>
+273
+274
+275
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 258</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 273</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_new_container</span><span class='comma'>,</span>
@@ -28877,13 +29148,13 @@
       <pre class="lines">
 
 
-293
-294
-295
-296</pre>
+308
+309
+310
+311</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 293</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 308</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_open</span><span class='comma'>,</span>
@@ -28938,13 +29209,13 @@
       <pre class="lines">
 
 
-222
-223
-224
-225</pre>
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 222</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 237</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_read_block</span><span class='comma'>,</span>
@@ -28999,13 +29270,13 @@
       <pre class="lines">
 
 
-269
-270
-271
-272</pre>
+284
+285
+286
+287</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 269</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 284</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_read_container</span><span class='comma'>,</span>
@@ -29060,13 +29331,13 @@
       <pre class="lines">
 
 
-311
-312
-313
-314</pre>
+326
+327
+328
+329</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 311</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 326</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_seek</span><span class='comma'>,</span>
@@ -29121,13 +29392,13 @@
       <pre class="lines">
 
 
-341
-342
-343
-344</pre>
+356
+357
+358
+359</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 341</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 356</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_set_header</span><span class='comma'>,</span>
@@ -29182,13 +29453,13 @@
       <pre class="lines">
 
 
-329
-330
-331
-332</pre>
+344
+345
+346
+347</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 329</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 344</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_set_option</span><span class='comma'>,</span>
@@ -29243,13 +29514,13 @@
       <pre class="lines">
 
 
-335
-336
-337
-338</pre>
+350
+351
+352
+353</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 335</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 350</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_set_voption</span><span class='comma'>,</span>
@@ -29286,13 +29557,13 @@
       <pre class="lines">
 
 
-197
-198
-199
-200</pre>
+212
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 212</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_slice_hdr_get_coords</span><span class='comma'>,</span>
@@ -29347,13 +29618,13 @@
       <pre class="lines">
 
 
-191
-192
-193
-194</pre>
+206
+207
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 206</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_slice_hdr_get_embed_ref_id</span><span class='comma'>,</span>
@@ -29408,13 +29679,13 @@
       <pre class="lines">
 
 
-184
-185
-186
-187</pre>
+199
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 199</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_slice_hdr_get_num_blocks</span><span class='comma'>,</span>
@@ -29469,13 +29740,13 @@
       <pre class="lines">
 
 
-282
-283
-284
-285</pre>
+297
+298
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 282</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 297</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_store_container</span><span class='comma'>,</span>
@@ -29530,13 +29801,13 @@
       <pre class="lines">
 
 
-171
-172
-173
-174</pre>
+186
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 186</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_transcode_rg</span><span class='comma'>,</span>
@@ -29591,13 +29862,13 @@
       <pre class="lines">
 
 
-240
-241
-242
-243</pre>
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 255</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_uncompress_block</span><span class='comma'>,</span>
@@ -29652,13 +29923,13 @@
       <pre class="lines">
 
 
-228
-229
-230
-231</pre>
+243
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 243</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_write_block</span><span class='comma'>,</span>
@@ -29713,13 +29984,13 @@
       <pre class="lines">
 
 
-275
-276
-277
-278</pre>
+290
+291
+292
+293</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 275</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 290</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:cram_write_container</span><span class='comma'>,</span>
@@ -38020,13 +38291,13 @@
       <pre class="lines">
 
 
-353
-354
-355
-356</pre>
+368
+369
+370
+371</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 353</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/cram.rb', line 368</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:int32_put_blk</span><span class='comma'>,</span>
@@ -43326,7 +43597,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jan 24 04:07:22 2024 by
+  Generated on Wed Jan 24 05:22:38 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.3.0).
 </div>
