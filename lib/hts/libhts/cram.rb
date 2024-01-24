@@ -80,6 +80,16 @@ module HTS
       :void
 
     attach_function \
+      :cram_container_get_num_records,
+      [:cram_container],
+      :int32
+
+    attach_function \
+      :cram_container_get_num_bases,
+      [:cram_container],
+      :int32
+
+    attach_function \
       :cram_container_is_empty,
       [:cram_fd],
       :int
@@ -115,6 +125,11 @@ module HTS
       :cram_block_get_content_type,
       [:cram_block],
       CramContentType
+
+    attach_function \
+      :cram_block_get_method,
+      [:cram_block],
+      CramBlockMethod
 
     attach_function \
       :cram_block_set_content_id,

@@ -570,5 +570,18 @@ module HTS
       :external,           4,
       :core,               5
     )
+
+    CramBlockMethod = enum(
+      :unknown,      -1,
+      :raw,          0,
+      :gzip,         1,
+      :bzip2,        2,
+      :lzma,         3,
+      :rans4x8,      4,
+      :ransnx16,     5,
+      :arith,        6,
+      :fqz,          7,
+      :tok3,         8
+    )
   end
 end
