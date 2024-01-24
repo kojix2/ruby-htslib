@@ -2,6 +2,8 @@ require "open3"
 require "diffy"
 require "colorize"
 
+GCC = ENV["GCC"] || "gcc"
+
 def extract_attach_functions(header_file_path)
   str = File.read(header_file_path)
   attach_function_count = str.scan(/attach_function/).count
@@ -15,7 +17,7 @@ def extract_native_functions(header_file_path)
   htslib_export_count = File.foreach(header_file_path).grep(/HTSLIB_EXPORT/).count
   puts "count HTSLIB_EXPORT: #{htslib_export_count}"
 
-  preprocessed_header, stderr, status = Open3.capture3("gcc -fpreprocessed -dD -E #{header_file_path}")
+  preprocessed_header, stderr, status = Open3.capture3("#{GCC} -fpreprocessed -dD -E #{header_file_path}")
   raise stderr unless status.success?
 
   preprocessed_header
