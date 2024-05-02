@@ -6,11 +6,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:   ['ubuntu', 'macos', 'windows']
-        ruby: ['3.3']
+        os: ["ubuntu", "macos", "windows"]
+        ruby: ["3.3"]
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - uses: ruby/setup-ruby@v1
