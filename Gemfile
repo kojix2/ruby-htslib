@@ -7,3 +7,6 @@ gemspec
 gem "minitest"
 gem "rake"
 gem "simplecov"
+
+gem "colorize"
+gem "diffy"

@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require "open3"
 require "diffy"
 require "colorize"
@@ -16,6 +18,13 @@ end
 def extract_native_functions(header_file_path)
   htslib_export_count = File.foreach(header_file_path).grep(/HTSLIB_EXPORT/).count
   puts "count HTSLIB_EXPORT: #{htslib_export_count}"
+
+  # check if the gcc command is gcc not clang
+  if `#{GCC} --version`.include?("clang")
+    raise "Please use GCC instead of Clang. \n" \
+          "You can set the GCC environment variable to the path of the GCC compiler. \n" \
+          "For example: GCC=gcc-14"
+  end
 
   preprocessed_header, stderr, status = Open3.capture3("#{GCC} -fpreprocessed -dD -E #{header_file_path}")
   raise stderr unless status.success?
@@ -39,8 +48,8 @@ files = %w[bgzf cram hfile hts kfunc sam tbx vcf]
 
 files.each do |file|
   puts " #{file} ".colorize(:white).on_blue.bold
-  h_file_path = "../htslib/htslib/#{file}.h"
-  rb_file_path = "../lib/hts/libhts/#{file}.rb"
+  h_file_path = File.expand_path("../htslib/htslib/#{file}.h", __dir__)
+  rb_file_path = File.expand_path("../lib/hts/libhts/#{file}.rb", __dir__)
 
   h_functions = extract_native_functions(h_file_path).join("\n")
   rb_functions = extract_attach_functions(rb_file_path).join("\n")
