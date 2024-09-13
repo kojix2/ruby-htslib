@@ -89,12 +89,17 @@ module HTS
       [:cram_container],
       :int32
 
+    # Returns true if the container is empty (EOF marker)
     attach_function \
       :cram_container_is_empty,
       [:cram_fd],
       :int
 
-    # cram_block
+    # Returns chromosome and start/span from container struct
+    attach_function \
+      :cram_container_get_coords,
+      %i[cram_container pointer pointer],
+      :void
 
     attach_function \
       :cram_block_get_content_id,
@@ -130,6 +135,11 @@ module HTS
       :cram_block_get_method,
       [:cram_block],
       CramBlockMethod
+
+    attach_function \
+      :cram_expand_method,
+      [:pointer, :int32, CramBlockMethod],
+      :pointer
 
     attach_function \
       :cram_block_set_content_id,
@@ -182,6 +192,18 @@ module HTS
       [:cram_block],
       :uint32
 
+    # Returns the Block Content ID values referred to by a cram_codec in ids[2].
+    attach_function \
+      :cram_codec_get_content_ids,
+      %i[pointer pointer],
+      :void
+
+    # Produces a human readable description of the codec parameters.
+    attach_function \
+      :cram_codec_describe,
+      [:pointer, KString.ptr],
+      :int
+
     # Renumbers RG numbers in a cram compression header.
     attach_function \
       :cram_transcode_rg,
@@ -193,6 +215,51 @@ module HTS
     attach_function \
       :cram_copy_slice,
       %i[cram_fd cram_fd int32],
+      :int
+
+    # Copies a container, but filtering it down to a specific region (as
+    # already specified in 'in'
+    attach_function \
+      :cram_filter_container,
+      %i[cram_fd cram_fd cram_container pointer],
+      :int
+
+    # Decodes a CRAM block compression header.
+    attach_function \
+      :cram_decode_compression_header,
+      %i[cram_fd cram_block],
+      :pointer # cram_block_compression_hdr
+
+    # Frees a cram_block_compression_hdr structure.
+    attach_function \
+      :cram_free_compression_header,
+      [:pointer],
+      :void
+
+    # Map cram block numbers to data-series.
+    attach_function \
+      :cram_update_cid2ds_map,
+      %i[pointer pointer],
+      :pointer
+
+    # Return a list of data series observed as belonging to a block with
+    # the specified content_id.
+    attach_function \
+      :cram_cid2ds_query,
+      %i[pointer int pointer],
+      :int
+
+    # Frees a cram_cid2ds_t allocated by cram_update_cid2ds_map
+    attach_function \
+      :cram_cid2ds_free,
+      [:pointer],
+      :void
+
+    # Produces a description of the record and tag encodings held within
+    # a compression header and appends to 'ks'.
+    attach_function \
+      :cram_describe_encodings,
+      [:pointer, KString.ptr],
       :int
 
     # Returns the number of cram blocks within this slice.
@@ -375,5 +442,35 @@ module HTS
       :cram_get_refs,
       [HtsFile.by_ref],
       :pointer # refs_t
+
+    # Returns the file offsets of CRAM slices covering a specific region query.
+    attach_function \
+      :cram_index_extents,
+      %i[cram_fd int hts_pos_t hts_pos_t pointer pointer],
+      :int
+
+    # Returns the total number of containers in the CRAM index.
+    attach_function \
+      :cram_num_containers,
+      [:cram_fd],
+      :int64
+
+    # Returns the number of containers in the CRAM index within given offsets.
+    attach_function \
+      :cram_num_containers_between,
+      %i[cram_fd off_t off_t pointer pointer],
+      :int64
+
+    # Returns the byte offset for the start of the n^th container.
+    attach_function \
+      :cram_container_num2offset,
+      %i[cram_fd int64],
+      :off_t
+
+    # Returns the container number for the first container at offset >= pos.
+    attach_function \
+      :cram_container_offset2num,
+      %i[cram_fd off_t],
+      :int64
   end
 end
