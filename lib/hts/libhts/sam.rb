@@ -512,6 +512,12 @@ module HTS
       [Bam1, :pointer],
       :int
 
+    # Delete an aux field from a BAM record. Identical to @c bam_aux_del() apart from the return value
+    attach_function \
+      :bam_aux_remove,
+      [Bam1, :pointer],
+      :pointer
+
     # Update or add a string-type tag
     attach_function \
       :bam_aux_update_str,
@@ -674,10 +680,16 @@ module HTS
       [:pointer], # hts_base_mod_state
       :void
 
-    # Parses the Mm and Ml tags out of a bam record.
+    # Parses the MM and ML tags out of a bam record.
     attach_function \
       :bam_parse_basemod,
       [Bam1, :pointer],
+      :int
+
+    # Parses the MM and ML tags out of a bam record.
+    attach_function \
+      :bam_parse_basemod2,
+      [Bam1, :pointer, :uint32],
       :int
 
     # Returns modification status for the next base position in the query seq.
@@ -701,6 +713,12 @@ module HTS
     # Returns data about a specific modification type for the alignment record.
     attach_function \
       :bam_mods_query_type,
+      %i[pointer int pointer pointer string],
+      :int
+
+    # Returns data about the i^th modification type for the alignment record.
+    attach_function \
+      :bam_mods_queryi,
       %i[pointer int pointer pointer string],
       :int
 
