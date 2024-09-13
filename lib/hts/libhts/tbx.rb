@@ -2,6 +2,14 @@
 
 module HTS
   module LibHTS
+
+    attach_variable :tbx_conf_gff, TbxConf
+    attach_variable :tbx_conf_bed, TbxConf
+    attach_variable :tbx_conf_psltbl, TbxConf
+    attach_variable :tbx_conf_sam, TbxConf
+    attach_variable :tbx_conf_vcf, TbxConf
+    attach_variable :tbx_conf_gaf, TbxConf
+
     attach_function \
       :tbx_name2id,
       [Tbx, :string],
