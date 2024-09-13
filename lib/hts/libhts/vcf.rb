@@ -2,6 +2,12 @@
 
 module HTS
   module LibHTS
+    # Get error description for bcf error code
+    attach_function \
+      :bcf_strerror,
+      [:int, :pointer, :size_t],
+      :string
+
     # Create an empty BCF header.
     attach_function \
       :bcf_hdr_init,
