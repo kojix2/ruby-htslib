@@ -50,7 +50,7 @@ module HTS
           end
           r = LibHTS.bam_set1(
             @bam1,
-            l_qname = qname.length,
+            qname.length,
             qname,
             flag,
             tid,
@@ -61,7 +61,7 @@ module HTS
             mtid,
             mpos,
             isize,
-            l_seq = seq.length,
+            seq.length,
             seq,
             qual,
             l_aux

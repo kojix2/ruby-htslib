@@ -2,7 +2,6 @@
 
 module HTS
   module LibHTS
-
     attach_variable :tbx_conf_gff, TbxConf
     attach_variable :tbx_conf_bed, TbxConf
     attach_variable :tbx_conf_psltbl, TbxConf
