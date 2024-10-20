@@ -379,6 +379,10 @@ module HTS
                  :is_refskip, 1,
                  :_reserved,  1,
                  :aux,        27
+
+      # def self.release(ptr)
+      #   LibHTS.bam_plp_destroy(ptr) unless ptr.null?
+      # end
     end
 
     class TbxConf < FFI::Struct
