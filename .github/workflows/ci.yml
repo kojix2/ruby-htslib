@@ -22,11 +22,11 @@ jobs:
         run: |
           brew install automake libdeflate
           bundle exec rake htslib:build
-      - name: Install libdeflate & libcurl4 (ubuntu)
+      - name: Install libraries (ubuntu)
         if: ${{ matrix.os == 'ubuntu' }}
         run: |
           sudo apt update -y
-          sudo apt install -yq libbz2-dev libdeflate-dev libcurl4-openssl-dev
+          sudo apt install -yq libbz2-dev liblzma-dev libdeflate-dev libcurl4-openssl-dev
           bundle exec rake htslib:build
       - name: Update package databases (windows)
         if: ${{ matrix.os == 'windows' }}
