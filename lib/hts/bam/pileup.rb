@@ -5,7 +5,12 @@ module HTS
 
       def initialize(bam)
         @bam = bam
-        @iterator = LibHTS.bam_plp_init(nil, nil)
+        # typedef int (*bam_plp_auto_f)(void *data, bam1_t *b);
+        f = FFI::Function.new(:int, [:pointer, :pointer], blocking: true) do |data, b|
+          0
+        end
+        pt = FFI::MemoryPointer.new(:pointer)
+        @iterator = LibHTS.bam_plp_init(f, pt)
         raise "Failed to initialize pileup" if @iterator.null?
       end
 
