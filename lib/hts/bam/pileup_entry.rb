@@ -1,8 +1,6 @@
 module HTS
   class Bam
     class PileupEntry
-      attr_reader :is_del, :is_refskip
-
       def initialize(pointer)
         @entry = LibHTS::BamPileup1.new(pointer)
       end
@@ -20,11 +18,11 @@ module HTS
       end
 
       def is_del?
-        @entry[:is_del]
+        @entry[:is_del] == 1
       end
 
-      def i1_refskip?
-        @entry[:is_refskip]
+      def is_refskip?
+        @entry[:is_refskip] == 1
       end
 
       def base
@@ -33,8 +31,7 @@ module HTS
       end
 
       def to_s
-        # FIXME
-        "Position: #{qpos}, Indel: #{indel}, Base: #{base}"
+        "Position: #{qpos}, Indel: #{indel}, Level: #{level}, Base: #{base}, Is_del: #{is_del?}, Is_refskip: #{is_refskip?}"
       end
     end
   end
