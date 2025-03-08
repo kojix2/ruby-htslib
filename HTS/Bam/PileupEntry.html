@@ -103,69 +103,6 @@
 
 
 
-  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#is_del-instance_method" title="#is_del (instance method)">#<strong>is_del</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute is_del.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#is_refskip-instance_method" title="#is_refskip (instance method)">#<strong>is_refskip</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute is_refskip.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
-
 
 
 
@@ -181,28 +118,6 @@
   <span class="summary_signature">
     
       <a href="#base-instance_method" title="#base (instance method)">#<strong>base</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#i1_refskip%3F-instance_method" title="#i1_refskip? (instance method)">#<strong>i1_refskip?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -273,6 +188,28 @@
   <span class="summary_signature">
     
       <a href="#is_del%3F-instance_method" title="#is_del? (instance method)">#<strong>is_del?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_refskip%3F-instance_method" title="#is_refskip? (instance method)">#<strong>is_refskip?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -389,12 +326,12 @@
       <pre class="lines">
 
 
-6
-7
-8</pre>
+4
+5
+6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='rparen'>)</span>
   <span class='ivar'>@entry</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='rparen'>)</span>
@@ -405,97 +342,6 @@
 </div>
   
 </div>
-
-  <div id="instance_attr_details" class="attr_details">
-    <h2>Instance Attribute Details</h2>
-    
-      
-      <span id=""></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="is_del-instance_method">
-  
-    #<strong>is_del</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute is_del.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-4
-5
-6</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 4</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_is_del'>is_del</span>
-  <span class='ivar'>@is_del</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="is_refskip-instance_method">
-  
-    #<strong>is_refskip</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute is_refskip.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-4
-5
-6</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 4</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_is_refskip'>is_refskip</span>
-  <span class='ivar'>@is_refskip</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -517,69 +363,17 @@
       <pre class="lines">
 
 
+28
+29
 30
-31
-32
-33</pre>
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base'>base</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_seq'><span class='object_link'><a href="../LibHTS.html#bam_get_seq-class_method" title="HTS::LibHTS.bam_get_seq (method)">bam_get_seq</a></span></span><span class='lparen'>(</span><span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Record.html" title="HTS::Bam::Record (class)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Record.html#SEQ_NT16_STR-constant" title="HTS::Bam::Record::SEQ_NT16_STR (constant)">SEQ_NT16_STR</a></span></span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_seqi'><span class='object_link'><a href="../LibHTS.html#bam_seqi-class_method" title="HTS::LibHTS.bam_seqi (method)">bam_seqi</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_qpos'>qpos</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="i1_refskip?-instance_method">
-  
-    #<strong>i1_refskip?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-26
-27
-28</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 26</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_i1_refskip?'>i1_refskip?</span>
-  <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_refskip</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -601,12 +395,12 @@
       <pre class="lines">
 
 
-14
-15
-16</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_indel'>indel</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:indel</span><span class='rbracket'>]</span>
@@ -653,15 +447,67 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_del?'>is_del?</span>
-  <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_del</span><span class='rbracket'>]</span>
+  <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_del</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_refskip?-instance_method">
+  
+    #<strong>is_refskip?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_refskip?'>is_refskip?</span>
+  <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_refskip</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -683,12 +529,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_level'>level</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:level</span><span class='rbracket'>]</span>
@@ -713,12 +559,12 @@
       <pre class="lines">
 
 
-10
-11
-12</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qpos'>qpos</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:qpos</span><span class='rbracket'>]</span>
@@ -743,17 +589,15 @@
       <pre class="lines">
 
 
-35
-36
-37
-38</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup_entry.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='comment'># FIXME
-</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Position: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_qpos'>qpos</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Indel: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indel'>indel</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Base: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base'>base</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Position: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_qpos'>qpos</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Indel: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indel'>indel</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Level: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_level'>level</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Base: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base'>base</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Is_del: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_is_del?'>is_del?</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Is_refskip: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_is_refskip?'>is_refskip?</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -765,7 +609,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Mar  8 13:39:26 2025 by
+  Generated on Sat Mar  8 14:03:41 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
