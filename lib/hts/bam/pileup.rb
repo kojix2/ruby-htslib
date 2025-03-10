@@ -6,7 +6,7 @@ module HTS
       def initialize(bam)
         @bam = bam
         # typedef int (*bam_plp_auto_f)(void *data, bam1_t *b);
-        f = FFI::Function.new(:int, [:pointer, :pointer], blocking: true) do |data, b|
+        f = FFI::Function.new(:int, %i[pointer pointer], blocking: true) do |_data, _b|
           0
         end
         pt = FFI::MemoryPointer.new(:pointer)

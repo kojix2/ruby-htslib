@@ -20,8 +20,8 @@ class PileupTest < Minitest::Test
     pileup = @bam.pileup
     entries_count = 0
 
-    pileup.each do |entry|
-      #assert_instance_of HTS::Bam::PileupEntry, entry
+    pileup.each do |_entry|
+      # assert_instance_of HTS::Bam::PileupEntry, entry
       entries_count += 1
     end
 
@@ -46,8 +46,8 @@ class PileupTest < Minitest::Test
     assert_includes [true, false], entry.is_del?
     assert_includes [true, false], entry.is_refskip?
 
-    #assert_kind_of String, entry.base
-    #assert_match(/[ACGTN]/, entry.base) unless entry.is_del?
+    # assert_kind_of String, entry.base
+    # assert_match(/[ACGTN]/, entry.base) unless entry.is_del?
   end
 
   def test_pileup_entry_to_s
