@@ -217,7 +217,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='rparen'>)</span>
   <span class='ivar'>@bam</span> <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span>
   <span class='comment'># typedef int (*bam_plp_auto_f)(void *data, bam1_t *b);
-</span>  <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
+</span>  <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__data'>_data</span><span class='comma'>,</span> <span class='id identifier rubyid__b'>_b</span><span class='op'>|</span>
     <span class='int'>0</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_pt'>pt</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
@@ -291,7 +291,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Mar 10 12:21:10 2025 by
+  Generated on Mon Mar 10 12:38:54 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
