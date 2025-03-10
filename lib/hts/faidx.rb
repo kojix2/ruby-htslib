@@ -21,7 +21,7 @@ module HTS
 
     def initialize(file_name)
       if block_given?
-        message = "HTS::Faidx.new() dose not take block; Please use HTS::Faidx.open() instead"
+        message = "HTS::Faidx.new() does not take block; Please use HTS::Faidx.open() instead"
         raise message
       end
 

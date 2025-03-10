@@ -30,7 +30,7 @@ module HTS
     def initialize(file_name, mode = "r", index: nil, threads: nil,
                    build_index: false)
       if block_given?
-        message = "HTS::Bcf.new() dose not take block; Please use HTS::Bcf.open() instead"
+        message = "HTS::Bcf.new() does not take block; Please use HTS::Bcf.open() instead"
         raise message
       end
 

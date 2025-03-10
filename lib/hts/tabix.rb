@@ -24,7 +24,7 @@ module HTS
 
     def initialize(file_name, index: nil, threads: nil, build_index: false)
       if block_given?
-        message = "HTS::Tabix.new() dose not take block; Please use HTS::Tabix.open() instead"
+        message = "HTS::Tabix.new() does not take block; Please use HTS::Tabix.open() instead"
         raise message
       end
 

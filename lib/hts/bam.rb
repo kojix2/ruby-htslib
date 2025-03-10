@@ -32,7 +32,7 @@ module HTS
     def initialize(file_name, mode = "r", index: nil, fai: nil, threads: nil,
                    build_index: false)
       if block_given?
-        message = "HTS::Bam.new() dose not take block; Please use HTS::Bam.open() instead"
+        message = "HTS::Bam.new() does not take block; Please use HTS::Bam.open() instead"
         raise message
       end
 
@@ -143,7 +143,7 @@ module HTS
     alias isize insert_size
     alias mpos mate_pos
 
-    # FXIME: experimental
+    # FIXME: experimental
     def aux(tag)
       check_closed
 
