@@ -97,7 +97,7 @@ module HTS
     end
 
     def close
-      LibHTS.hts_idx_destroy(@idx) if @idx&.null?
+      LibHTS.hts_idx_destroy(@idx) if @idx && !@idx.null?
       @idx = nil
       super
     end

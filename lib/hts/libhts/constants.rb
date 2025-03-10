@@ -158,7 +158,7 @@ module HTS
         :specific,          :pointer
     end
 
-    class HtsIdx < FFI::Struct # FIXME: ManagedStruct
+    class HtsIdx < FFI::Struct
       layout \
         :fmt,            :int,
         :min_shift,      :int,
@@ -189,9 +189,9 @@ module HTS
           :n_unmapped,   :uint64
         )
 
-      def self.release(ptr)
-        LibHTS.hts_idx_destroy(ptr) unless ptr.null?
-      end
+      # def self.release(ptr)
+      #   LibHTS.hts_idx_destroy(ptr) unless ptr.null?
+      # end
     end
 
     class HtsReglist < FFI::Struct
