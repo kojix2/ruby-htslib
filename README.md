@@ -164,6 +164,8 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 ## Development
 
+![Diagram](diagram.svg)
+
 #### Compile from source code
 
 [GNU Autotools](https://en.wikipedia.org/wiki/GNU_Autotools) is required to compile htslib.
