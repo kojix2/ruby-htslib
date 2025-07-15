@@ -167,7 +167,7 @@ module HTS
 
       # Conversion between alleles indexes to Number=G genotype index (assuming diploid, all 0-based)
       def bcf_alleles2gt(a, b)
-        ((a) > (b) ? (a * (a + 1) / 2 + b) : (b * (b + 1) / 2 + a))
+        (a > b ? (a * (a + 1) / 2 + b) : (b * (b + 1) / 2 + a))
       end
 
       # Get INFO values

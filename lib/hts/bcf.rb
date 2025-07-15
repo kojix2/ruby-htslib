@@ -62,7 +62,7 @@ module HTS
       else
         warn "Create index for #{@file_name}"
       end
-      case LibHTS.bcf_index_build3(@file_name, index_name, min_shift, (@nthreads || threads))
+      case LibHTS.bcf_index_build3(@file_name, index_name, min_shift, @nthreads || threads)
       when 0 # successful
       when -1 then raise "indexing failed"
       when -2 then raise "opening #{@file_name} failed"

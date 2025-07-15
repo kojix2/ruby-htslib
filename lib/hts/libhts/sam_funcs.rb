@@ -105,7 +105,7 @@ module HTS
 
       # Modifies a single base in the bam structure.
       def bam_set_seqi(s, i, b)
-        s[i >> 1] = (s[i >> 1] & (0xf0 >> ((~i & 1) << 2))) | ((b) << ((~i & 1) << 2))
+        s[i >> 1] = (s[i >> 1] & (0xf0 >> ((~i & 1) << 2))) | (b << ((~i & 1) << 2))
       end
 
       # Returns the SAM formatted text of the \@HD header line
