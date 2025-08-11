@@ -52,7 +52,9 @@ module HTS
         base_name = File.basename(@file_name, '.cram')
         dir_name = File.dirname(@file_name)
         potential_ref = File.join(dir_name, "#{base_name}.fa")
-        if File.exist?(potential_ref)
+        
+        # For remote URLs, assume reference exists; for local files, check existence
+        if @file_name.start_with?('http') || File.exist?(potential_ref)
           fai = potential_ref
         end
       end
