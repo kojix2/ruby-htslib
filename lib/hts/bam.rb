@@ -7,8 +7,8 @@ require_relative "bam/header"
 require_relative "bam/cigar"
 require_relative "bam/flag"
 require_relative "bam/record"
-require_relative "bam/pileup"
-require_relative "bam/pileup_entry"
+# require_relative "bam/pileup"
+# require_relative "bam/pileup_entry"
 
 module HTS
   # A class for working with SAM, BAM, CRAM files.
@@ -205,9 +205,9 @@ module HTS
       end
     end
 
-    def pileup
-      Pileup.new(self)
-    end
+    # def pileup
+    #   Pileup.new(self)
+    # end
 
     private
 
