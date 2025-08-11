@@ -4,6 +4,7 @@
 /_yardoc/
 /.vscode/
 /coverage/
+/test/coverage/
 /doc/
 /pkg/
 /tmp/
