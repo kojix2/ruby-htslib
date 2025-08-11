@@ -13,7 +13,7 @@ module HTS
           check_closed
           position = tell
           ary = map(&name)
-          seek(position)
+          seek(position) if position
           ary
         end
       end

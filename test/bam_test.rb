@@ -105,10 +105,25 @@ class BamTest < Minitest::Test
       end
 
       define_method "test_qname_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).qname
-        exp = bam(ft).map(&:qname)
-        assert_equal exp, act
+        if format == "cram"
+          # CRAM files don't support position restoration due to format limitations
+          # Use separate instances to avoid file position issues
+          bam1 = HTS::Bam.new(bam_path(ft))
+          bam2 = HTS::Bam.new(bam_path(ft))
+          begin
+            act = bam1.qname
+            exp = bam2.map(&:qname)
+            assert_equal exp.length, act.length
+            assert_equal exp.sort, act.sort
+          ensure
+            bam1.close
+            bam2.close
+          end
+        else
+          act = bam(ft).qname
+          exp = bam(ft).map(&:qname)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_flag_#{ft}" do

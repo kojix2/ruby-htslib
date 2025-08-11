@@ -46,7 +46,7 @@ module HTS
 
     def build_index(index_name = nil, min_shift: 0)
       check_closed
-      
+
       if index_name
         warn "Create index for #{@file_name} to #{index_name}"
         case LibHTS.tbx_index_build2(@file_name, index_name, min_shift, LibHTS.tbx_conf_vcf)
