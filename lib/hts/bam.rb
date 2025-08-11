@@ -160,7 +160,7 @@ module HTS
 
       position = tell
       ary = map { |r| r.aux(tag) }
-      seek(position)
+      seek(position) if position
       ary
     end
 

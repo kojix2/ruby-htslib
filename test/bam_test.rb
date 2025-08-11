@@ -19,6 +19,35 @@ class BamTest < Minitest::Test
     public_send("path_#{ft}")
   end
 
+  # Helper method for CRAM tests that require separate instances
+  def assert_cram_getter_equal(ft, method_name, &block)
+    bam1 = HTS::Bam.new(bam_path(ft))
+    bam2 = HTS::Bam.new(bam_path(ft))
+    begin
+      if block_given?
+        act = block.call(bam1)
+        exp = bam2.map { |r| block.call(r) }
+      else
+        act = bam1.public_send(method_name)
+        exp = bam2.map(&method_name)
+      end
+
+      assert_equal exp.length, act.length
+
+      # Handle different data types appropriately
+      if act.any? { |x| x.nil? }
+        # For aux data with nil values
+        assert_equal exp.compact.sort, act.compact.sort
+        assert_equal exp.count(nil), act.count(nil)
+      else
+        assert_equal exp.sort, act.sort
+      end
+    ensure
+      bam1.close
+      bam2.close
+    end
+  end
+
   %w[bam sam cram].each do |format|
     define_method "path_#{format}_string" do
       Fixtures["moo.#{format}"]
@@ -106,19 +135,7 @@ class BamTest < Minitest::Test
 
       define_method "test_qname_#{ft}" do
         if format == "cram"
-          # CRAM files don't support position restoration due to format limitations
-          # Use separate instances to avoid file position issues
-          bam1 = HTS::Bam.new(bam_path(ft))
-          bam2 = HTS::Bam.new(bam_path(ft))
-          begin
-            act = bam1.qname
-            exp = bam2.map(&:qname)
-            assert_equal exp.length, act.length
-            assert_equal exp.sort, act.sort
-          ensure
-            bam1.close
-            bam2.close
-          end
+          assert_cram_getter_equal(ft, :qname)
         else
           act = bam(ft).qname
           exp = bam(ft).map(&:qname)
@@ -127,80 +144,113 @@ class BamTest < Minitest::Test
       end
 
       define_method "test_flag_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).flag.map(&:to_i)
-        exp = bam(ft).map { |r| r.flag.to_i }
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, nil) { |r| r.is_a?(HTS::Bam) ? r.flag.map(&:to_i) : r.flag.to_i }
+        else
+          act = bam(ft).flag.map(&:to_i)
+          exp = bam(ft).map { |r| r.flag.to_i }
+          assert_equal exp, act
+        end
       end
 
       define_method "test_chrom_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).chrom
-        exp = bam(ft).map(&:chrom)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :chrom)
+        else
+          act = bam(ft).chrom
+          exp = bam(ft).map(&:chrom)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_pos_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).pos
-        exp = bam(ft).map(&:pos)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :pos)
+        else
+          act = bam(ft).pos
+          exp = bam(ft).map(&:pos)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_mapq_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).mapq
-        exp = bam(ft).map(&:mapq)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :mapq)
+        else
+          act = bam(ft).mapq
+          exp = bam(ft).map(&:mapq)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_cigar_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).cigar.map(&:to_s)
-        exp = bam(ft).map { |r| r.cigar.to_s }
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, nil) { |r| r.is_a?(HTS::Bam) ? r.cigar.map(&:to_s) : r.cigar.to_s }
+        else
+          act = bam(ft).cigar.map(&:to_s)
+          exp = bam(ft).map { |r| r.cigar.to_s }
+          assert_equal exp, act
+        end
       end
 
       define_method "test_mate_chrom_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).mate_chrom
-        exp = bam(ft).map(&:mate_chrom)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :mate_chrom)
+        else
+          act = bam(ft).mate_chrom
+          exp = bam(ft).map(&:mate_chrom)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_mpos_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).mpos
-        exp = bam(ft).map(&:mpos)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :mpos)
+        else
+          act = bam(ft).mpos
+          exp = bam(ft).map(&:mpos)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_isize_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).isize
-        exp = bam(ft).map(&:isize)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :isize)
+        else
+          act = bam(ft).isize
+          exp = bam(ft).map(&:isize)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_seq_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).seq
-        exp = bam(ft).map(&:seq)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :seq)
+        else
+          act = bam(ft).seq
+          exp = bam(ft).map(&:seq)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_qual_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).qual
-        exp = bam(ft).map(&:qual)
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, :qual)
+        else
+          act = bam(ft).qual
+          exp = bam(ft).map(&:qual)
+          assert_equal exp, act
+        end
       end
 
       define_method "test_aux_#{ft}" do
-        skip if format == "cram"
-        act = bam(ft).aux("MC")
-        exp = bam(ft).map { |r| r.aux("MC") }
-        assert_equal exp, act
+        if format == "cram"
+          assert_cram_getter_equal(ft, nil) { |r| r.is_a?(HTS::Bam) ? r.aux("MC") : r.aux("MC") }
+        else
+          act = bam(ft).aux("MC")
+          exp = bam(ft).map { |r| r.aux("MC") }
+          assert_equal exp, act
+        end
       end
 
       next unless format != "sam"
