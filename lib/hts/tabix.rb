@@ -44,8 +44,27 @@ module HTS
       @idx = load_index(index)
     end
 
-    def build_index
-      raise "Not implemented yet"
+    def build_index(index_name = nil, min_shift: 0)
+      check_closed
+      
+      if index_name
+        warn "Create index for #{@file_name} to #{index_name}"
+        case LibHTS.tbx_index_build2(@file_name, index_name, min_shift, LibHTS.tbx_conf_vcf)
+        when 0 # successful
+        when -1 then raise "general failure"
+        when -2 then raise "compression not BGZF"
+        else raise "unknown error"
+        end
+      else
+        warn "Create index for #{@file_name}"
+        case LibHTS.tbx_index_build(@file_name, min_shift, LibHTS.tbx_conf_vcf)
+        when 0 # successful
+        when -1 then raise "general failure"
+        when -2 then raise "compression not BGZF"
+        else raise "unknown error"
+        end
+      end
+      self # for method chaining
     end
 
     def load_index(index_name = nil)
