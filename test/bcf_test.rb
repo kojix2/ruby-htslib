@@ -56,13 +56,13 @@ class BcfTest < Minitest::Test
     @bcf.each do |aln|
       alns << aln
     end
-    assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
+    assert_equal(true, alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
   end
 
   def test_each_without_block
     alns = @bcf.each
     assert_kind_of Enumerator, alns
-    assert_equal true, (alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
+    assert_equal(true, alns.all? { |i| i.is_a?(HTS::Bcf::Record) })
   end
 
   def test_chrom
