@@ -46,6 +46,17 @@ module HTS
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
 
+      # Auto-detect and set reference for CRAM files
+      if fai.nil? && @file_name.end_with?('.cram')
+        # Try to find reference file in the same directory
+        base_name = File.basename(@file_name, '.cram')
+        dir_name = File.dirname(@file_name)
+        potential_ref = File.join(dir_name, "#{base_name}.fa")
+        if File.exist?(potential_ref)
+          fai = potential_ref
+        end
+      end
+
       if fai
         r = LibHTS.hts_set_fai_filename(@hts_file, fai)
         raise "Failed to load fasta index: #{fai}" if r < 0
