@@ -326,6 +326,12 @@ module HTS
         end
       end
 
+      # Get base modification information from MM/ML tags
+      # @return [BaseMod] Base modification object
+      def base_mod
+        BaseMod.new(self)
+      end
+
       # TODO: add a method to get the auxiliary fields as a hash.
 
       # TODO: add a method to set the auxiliary fields.
