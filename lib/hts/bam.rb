@@ -195,6 +195,13 @@ module HTS
       self
     end
 
+    # Iterate alignment records in this file.
+    #
+    # Performance and memory semantics:
+    # - copy: false (default) reuses a single Record instance and its underlying bam1_t buffer.
+    #   The yielded Record MUST NOT be stored beyond the block; its content will be overwritten
+    #   by the next iteration. If you need to retain it, call `rec = rec.dup`.
+    # - copy: true yields a fresh Record per iteration (deep-copied via bam_dup1). Slower, safe to keep.
     def each(copy: false, &block)
       if copy
         each_record_copy(&block)
@@ -203,6 +210,8 @@ module HTS
       end
     end
 
+    # Iterate records in a genomic region.
+    # See {#each} for copy semantics. When copy: false, the yielded Record is reused and should not be stored.
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
@@ -239,6 +248,8 @@ module HTS
       end
     end
 
+    # Internal: yield a single reused Record over the entire file.
+    # The underlying bam1_t is mutated on each iteration for speed.
     def each_record_reuse
       check_closed
       # Each does not always start at the beginning of the file.
@@ -251,6 +262,7 @@ module HTS
       self
     end
 
+    # Internal: yield deep-copied Records so callers may retain them safely.
     def each_record_copy
       check_closed
       return to_enum(__method__) unless block_given?
@@ -302,6 +314,7 @@ module HTS
       self
     end
 
+    # Internal: reused-Record iterator over a query iterator.
     def query_reuse_yield(qiter)
       bam1 = LibHTS.bam_init1
       record = Record.new(header, bam1)

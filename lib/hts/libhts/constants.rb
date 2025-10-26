@@ -362,9 +362,8 @@ module HTS
     end
 
     # Base modification state (opaque pointer)
-    class HtsBaseModState < FFI::ManagedStruct
-      # Opaque structure - no layout defined
-
+    # Use AutoPointer since the structure is opaque and we only need custom release.
+    class HtsBaseModState < FFI::AutoPointer
       def self.release(ptr)
         LibHTS.hts_base_mod_state_free(ptr) unless ptr.null?
       end

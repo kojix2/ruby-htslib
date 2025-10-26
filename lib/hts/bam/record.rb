@@ -359,8 +359,13 @@ module HTS
       private
 
       def initialize_copy(orig)
+        super
         @header = orig.header
-        @bam = LibHTS.bam_dup1(orig.struct)
+        # Deep-copy underlying bam1_t to detach from original buffer
+        dup_bam1 = LibHTS.bam_dup1(orig.struct)
+        raise "bam_dup1 failed" if dup_bam1.null?
+
+        @bam1 = dup_bam1
       end
     end
   end

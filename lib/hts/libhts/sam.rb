@@ -672,7 +672,7 @@ module HTS
     attach_function \
       :hts_base_mod_state_alloc,
       [],
-      HtsBaseModState.by_ref
+      HtsBaseModState
 
     # Destroys an  hts_base_mode_state.
     attach_function \

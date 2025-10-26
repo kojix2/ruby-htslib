@@ -144,10 +144,10 @@ module HTS
       # @return [void]
       def close
         return if @closed
-        return unless @state && !@state.null?
 
-        LibHTS.hts_base_mod_state_free(@state)
-        @state = FFI::Pointer::NULL
+        # With HtsBaseModState as an AutoPointer, releasing the Ruby object
+        # is sufficient. Avoid manual free to prevent double-free.
+        @state = nil
         @closed = true
       end
 
