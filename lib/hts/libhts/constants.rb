@@ -361,6 +361,15 @@ module HTS
         :qual,            :int
     end
 
+    # Base modification state (opaque pointer)
+    class HtsBaseModState < FFI::ManagedStruct
+      # Opaque structure - no layout defined
+
+      def self.release(ptr)
+        LibHTS.hts_base_mod_state_free(ptr) unless ptr.null?
+      end
+    end
+
     typedef :pointer, :bam_plp
     typedef :pointer, :bam_mplp
 

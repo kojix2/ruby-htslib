@@ -138,23 +138,12 @@ module HTS
         @auto_parse = !!auto_parse
         @parsed = false
         raise Error, "Failed to allocate hts_base_mod_state" if @state.null?
-
-        # Register finalizer to free the state
-        ObjectSpace.define_finalizer(self, self.class.finalize(@state))
-      end
-
-      # Create a finalizer proc for cleanup
-      # @param state [FFI::Pointer] Pointer to hts_base_mod_state
-      # @return [Proc] Finalizer proc
-      def self.finalize(state)
-        proc { LibHTS.hts_base_mod_state_free(state) unless state.null? }
       end
 
       # Explicitly free the state
       # @return [void]
       def close
         return if @closed
-
         return unless @state && !@state.null?
 
         LibHTS.hts_base_mod_state_free(@state)

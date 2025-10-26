@@ -672,60 +672,60 @@ module HTS
     attach_function \
       :hts_base_mod_state_alloc,
       [],
-      :pointer # hts_base_mod_state
+      HtsBaseModState.by_ref
 
     # Destroys an  hts_base_mode_state.
     attach_function \
       :hts_base_mod_state_free,
-      [:pointer], # hts_base_mod_state
+      [HtsBaseModState],
       :void
 
     # Parses the MM and ML tags out of a bam record.
     attach_function \
       :bam_parse_basemod,
-      [Bam1, :pointer],
+      [Bam1, HtsBaseModState],
       :int
 
     # Parses the MM and ML tags out of a bam record.
     attach_function \
       :bam_parse_basemod2,
-      [Bam1, :pointer, :uint32],
+      [Bam1, HtsBaseModState, :uint32],
       :int
 
     # Returns modification status for the next base position in the query seq.
     attach_function \
       :bam_mods_at_next_pos,
-      [Bam1, :pointer, :pointer, :int],
+      [Bam1, HtsBaseModState, :pointer, :int],
       :int
 
     # Finds the next location containing base modifications and returns them
     attach_function \
       :bam_next_basemod,
-      [Bam1, :pointer, :pointer, :int, :pointer],
+      [Bam1, HtsBaseModState, :pointer, :int, :pointer],
       :int
 
     # Returns modification status for a specific query position.
     attach_function \
       :bam_mods_at_qpos,
-      [Bam1, :int, :pointer, :pointer, :int],
+      [Bam1, :int, HtsBaseModState, :pointer, :int],
       :int
 
     # Returns data about a specific modification type for the alignment record.
     attach_function \
       :bam_mods_query_type,
-      %i[pointer int pointer pointer pointer],
+      [HtsBaseModState, :int, :pointer, :pointer, :pointer],
       :int
 
     # Returns data about the i^th modification type for the alignment record.
     attach_function \
       :bam_mods_queryi,
-      %i[pointer int pointer pointer pointer],
+      [HtsBaseModState, :int, :pointer, :pointer, :pointer],
       :int
 
     # Returns the list of base modification codes provided for this
     attach_function \
       :bam_mods_recorded,
-      %i[pointer pointer],
+      [HtsBaseModState, :pointer],
       :pointer
   end
 end
