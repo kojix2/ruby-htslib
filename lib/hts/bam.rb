@@ -8,7 +8,8 @@ require_relative "bam/cigar"
 require_relative "bam/flag"
 require_relative "bam/record"
 require_relative "bam/base_mod"
-# require_relative "bam/pileup"
+require_relative "bam/pileup"
+require_relative "bam/mpileup"
 # require_relative "bam/pileup_entry"
 
 module HTS
@@ -226,9 +227,22 @@ module HTS
       end
     end
 
-    # def pileup
-    #   Pileup.new(self)
-    # end
+    # Pileup iterator over this file. Optional region can be specified.
+    # When a block is given, yields PileupColumn and returns self.
+    # Without a block, returns an Enumerator.
+    #
+    # @param region [String, nil] region string like "chr1:100-200"
+    # @param beg [Integer, nil]
+    # @param end_ [Integer, nil]
+    # @param maxcnt [Integer, nil] cap on depth per position
+    def pileup(region = nil, beg = nil, end_: nil, maxcnt: nil, &block)
+      check_closed
+      piter = Pileup.new(self, region:, beg:, end_: end_, maxcnt: maxcnt)
+      return piter.to_enum(:each) unless block_given?
+
+      piter.each(&block)
+      self
+    end
 
     private
 

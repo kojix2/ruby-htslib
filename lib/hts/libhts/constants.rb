@@ -351,6 +351,19 @@ module HTS
       end
     end
 
+    # Internal: Non-owning view of bam1_t used when the pointer is managed by HTSlib
+    # (e.g., pileup/mpileup). This struct mirrors the layout of bam1_t and MUST NOT
+    # free memory on GC. Do not expose publicly; use only for read-only access.
+    class Bam1View < FFI::Struct
+      layout \
+        :core,           Bam1Core,
+        :id,             :uint64,
+        :data,           :pointer, # uint8_t
+        :l_data,         :int,
+        :m_data,         :uint32,
+        :_mempolicy,     :uint32 # bit_fields
+    end
+
     # Base modification structure
     class HtsBaseMod < FFI::Struct
       layout \
@@ -380,7 +393,7 @@ module HTS
 
     class BamPileup1 < FFI::BitStruct
       layout \
-        :b,              Bam1.ptr,
+        :b,              :pointer,
         :qpos,           :int32,
         :indel,          :int,
         :level,          :int,

@@ -2,9 +2,10 @@
 
 module HTS
   module LibHTS
-  # Callback type for bam_plp_auto_f: int (*)(void *data, bam1_t *b)
-  # Use Bam1.by_ref to make pointer semantics explicit
-  callback :bam_plp_auto_f, [:pointer, Bam1.by_ref], :int
+    # Callback type for bam_plp_auto_f: int (*)(void *data, bam1_t *b)
+    # Use raw pointer for bam1_t to avoid creating ManagedStruct wrappers (which would double-free)
+    callback :bam_plp_auto_f, %i[pointer pointer], :int
+    # callback :bam_plp_auto_f, [:pointer, Bam1.by_ref], :int
 
     # Generates a new unpopulated header structure.
     attach_function \
@@ -418,24 +419,24 @@ module HTS
 
     attach_function \
       :sam_parse1,
-      [KString, SamHdr, Bam1],
+      [KString, SamHdr, :pointer], # [KString, SamHdr, (Bam1 | Bam1View)]
       :int
 
     attach_function \
       :sam_format1,
-      [SamHdr, Bam1, KString],
+      [SamHdr, :pointer, KString], # [SamHdr, (Bam1 | Bam1View), KString]
       :int
 
     # Read a record from a file
     attach_function \
       :sam_read1,
-      [HtsFile, SamHdr, Bam1],
+      [HtsFile, SamHdr, :pointer], # [HtsFile, SamHdr, (Bam1 | Bam1View)]
       :int
 
     # Write a record to a file
     attach_function \
       :sam_write1,
-      [HtsFile, SamHdr, Bam1],
+      [HtsFile, SamHdr, :pointer], # [HtsFile, SamHdr, (Bam1 | Bam1View)]
       :int
 
     # Checks whether a record passes an hts_filter.
@@ -565,22 +566,22 @@ module HTS
     attach_function \
       :bam_plp_next,
       %i[bam_plp pointer pointer pointer],
-      BamPileup1.by_ref
+      :pointer # BamPileup1.by_ref
 
     attach_function \
       :bam_plp_auto,
       %i[bam_plp pointer pointer pointer],
-      BamPileup1.by_ref
+      :pointer # BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_next,
       %i[bam_plp pointer pointer pointer],
-      BamPileup1.by_ref
+      :pointer # BamPileup1.by_ref
 
     attach_function \
       :bam_plp64_auto,
       %i[bam_plp pointer pointer pointer],
-      BamPileup1.by_ref
+      :pointer # BamPileup1.by_ref
 
     attach_function \
       :bam_plp_set_maxcnt,
@@ -592,8 +593,9 @@ module HTS
       [:bam_plp],
       :void
 
-  # Callback type for constructor/destructor: int (*)(void *data, const bam1_t *b, bam_pileup_cd *cd)
-  callback :bam_plp_callback_function, [:pointer, Bam1.by_ref, BamPileupCd.by_ref], :int
+    # Callback type for constructor/destructor: int (*)(void *data, const bam1_t *b, bam_pileup_cd *cd)
+    callback :bam_plp_callback_function, [:pointer, :pointer, BamPileupCd.by_ref], :int
+    # callback :bam_plp_callback_function, [:pointer, Bam1.by_ref, BamPileupCd.by_ref], :int
 
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
@@ -619,7 +621,7 @@ module HTS
       [BamPileup1.by_ref, HtsBaseModState, KString.by_ref, :pointer],
       :int
 
-    # Note: There is no bam_plp_init_overlaps in HTSlib (only bam_mplp_init_overlaps exists).
+    # NOTE: There is no bam_plp_init_overlaps in HTSlib (only bam_mplp_init_overlaps exists).
     # The incorrect binding is removed to avoid undefined symbol errors.
 
     attach_function \
