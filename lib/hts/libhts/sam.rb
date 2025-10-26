@@ -713,20 +713,20 @@ module HTS
     # Returns data about a specific modification type for the alignment record.
     attach_function \
       :bam_mods_query_type,
-      %i[pointer int pointer pointer string],
+      %i[pointer int pointer pointer pointer],
       :int
 
     # Returns data about the i^th modification type for the alignment record.
     attach_function \
       :bam_mods_queryi,
-      %i[pointer int pointer pointer string],
+      %i[pointer int pointer pointer pointer],
       :int
 
     # Returns the list of base modification codes provided for this
     attach_function \
       :bam_mods_recorded,
       %i[pointer pointer],
-      :int
+      :pointer
   end
 end
 
