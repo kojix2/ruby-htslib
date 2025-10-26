@@ -326,6 +326,13 @@ module HTS
         end
       end
 
+      # Get base modification information from MM/ML tags
+      # @param auto_parse [Boolean] If true (default), parse lazily on first access
+      # @return [BaseMod] Base modification object
+      def base_mod(auto_parse: true)
+        BaseMod.new(self, auto_parse: auto_parse)
+      end
+
       # TODO: add a method to get the auxiliary fields as a hash.
 
       # TODO: add a method to set the auxiliary fields.
