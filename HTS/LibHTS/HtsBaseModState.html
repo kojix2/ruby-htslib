@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">FFI::ManagedStruct</span>
+      <span class="inheritName">FFI::AutoPointer</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">FFI::ManagedStruct</li>
+            <li class="next">FFI::AutoPointer</li>
           
             <li class="next">HTS::LibHTS::HtsBaseModState</li>
           
@@ -104,7 +104,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Base modification state (opaque pointer)</p>
+<p>Base modification state (opaque pointer) Use AutoPointer since the structure is opaque and we only need custom release.</p>
 
 
   </div>
@@ -144,9 +144,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Opaque structure - no layout defined.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -170,29 +168,18 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Opaque structure - no layout defined</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+367
 368
-369
-370</pre>
+369</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/constants.rb', line 368</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/constants.rb', line 367</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_base_mod_state_free'><span class='object_link'><a href="../LibHTS.html#hts_base_mod_state_free-class_method" title="HTS::LibHTS.hts_base_mod_state_free (method)">hts_base_mod_state_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -207,7 +194,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 09:23:57 2025 by
+  Generated on Sun Oct 26 09:36:29 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

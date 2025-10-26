@@ -922,10 +922,10 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@closed</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@state</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@state</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_base_mod_state_free'><span class='object_link'><a href="../LibHTS.html#hts_base_mod_state_free-class_method" title="HTS::LibHTS.hts_base_mod_state_free (method)">hts_base_mod_state_free</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='rparen'>)</span>
-  <span class='ivar'>@state</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span>
+  <span class='comment'># With HtsBaseModState as an AutoPointer, releasing the Ruby object
+</span>  <span class='comment'># is sufficient. Avoid manual free to prevent double-free.
+</span>  <span class='ivar'>@state</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@closed</span> <span class='op'>=</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1799,7 +1799,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 09:23:57 2025 by
+  Generated on Sun Oct 26 09:36:29 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

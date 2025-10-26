@@ -478,7 +478,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Iterate alignment records in this file.</p>
+</div></span>
   
 </li>
 
@@ -1058,7 +1060,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Iterate records in a genomic region.</p>
+</div></span>
   
 </li>
 
@@ -1854,22 +1858,40 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Iterate alignment records in this file.</p>
+
+<p>Performance and memory semantics:</p>
+<ul><li>
+<p>copy: false (default) reuses a single Record instance and its underlying bam1_t buffer. The yielded Record MUST NOT be stored beyond the block; its content will be overwritten by the next iteration. If you need to retain it, call ‘rec = rec.dup`.</p>
+</li><li>
+<p>copy: true yields a fresh Record per iteration (deep-copied via bam_dup1). Slower, safe to keep.</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
-203
-204</pre>
+205
+206
+207
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='label'>copy:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_copy'>copy</span>
@@ -2908,28 +2930,39 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Iterate records in a genomic region. See <span class='object_link'><a href="#each-instance_method" title="HTS::Bam#each (method)">#each</a></span> for copy semantics. When copy: false, the yielded Record is reused and should not be stored.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-206
-207
-208
-209
-210
-211
-212
-213
-214
 215
 216
 217
-218</pre>
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>copy:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -3081,7 +3114,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 09:23:56 2025 by
+  Generated on Sun Oct 26 09:36:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
