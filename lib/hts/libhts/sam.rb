@@ -2,8 +2,9 @@
 
 module HTS
   module LibHTS
-    # Callback type for bam_plp_auto_f: int (*)(void *data, bam1_t *b)
-    callback :bam_plp_auto_f, [:pointer, Bam1], :int
+  # Callback type for bam_plp_auto_f: int (*)(void *data, bam1_t *b)
+  # Use Bam1.by_ref to make pointer semantics explicit
+  callback :bam_plp_auto_f, [:pointer, Bam1.by_ref], :int
 
     # Generates a new unpopulated header structure.
     attach_function \
@@ -558,7 +559,7 @@ module HTS
 
     attach_function \
       :bam_plp_push,
-      [:bam_plp, Bam1],
+      [:bam_plp, Bam1.by_ref],
       :int
 
     attach_function \
@@ -591,8 +592,8 @@ module HTS
       [:bam_plp],
       :void
 
-    # Callback type for constructor/destructor: int (*)(void *data, const bam1_t *b, bam_pileup_cd *cd)
-    callback :bam_plp_callback_function, [:pointer, Bam1, BamPileupCd.by_ref], :int
+  # Callback type for constructor/destructor: int (*)(void *data, const bam1_t *b, bam_pileup_cd *cd)
+  callback :bam_plp_callback_function, [:pointer, Bam1.by_ref, BamPileupCd.by_ref], :int
 
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
@@ -606,21 +607,20 @@ module HTS
       :void
 
     # Get pileup padded insertion sequence
+    # Make pointer passing explicit by using by_ref for structs
     attach_function \
       :bam_plp_insertion,
-      [BamPileup1, KString, :pointer],
+      [BamPileup1.by_ref, KString.by_ref, :pointer],
       :int
 
     # Get pileup padded insertion sequence, including base modifications
     attach_function \
       :bam_plp_insertion_mod,
-      [BamPileup1, HtsBaseModState, KString, :pointer],
+      [BamPileup1.by_ref, HtsBaseModState, KString.by_ref, :pointer],
       :int
 
-    attach_function \
-      :bam_plp_init_overlaps,
-      [:bam_plp],
-      :int
+    # Note: There is no bam_plp_init_overlaps in HTSlib (only bam_mplp_init_overlaps exists).
+    # The incorrect binding is removed to avoid undefined symbol errors.
 
     attach_function \
       :bam_mplp_init,
