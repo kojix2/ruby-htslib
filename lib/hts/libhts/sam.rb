@@ -2,6 +2,9 @@
 
 module HTS
   module LibHTS
+    # Callback type for bam_plp_auto_f: int (*)(void *data, bam1_t *b)
+    callback :bam_plp_auto_f, [:pointer, Bam1], :int
+
     # Generates a new unpopulated header structure.
     attach_function \
       :sam_hdr_init,
@@ -588,7 +591,8 @@ module HTS
       [:bam_plp],
       :void
 
-    callback :bam_plp_callback_function, [:pointer, Bam1, BamPileupCd], :int
+    # Callback type for constructor/destructor: int (*)(void *data, const bam1_t *b, bam_pileup_cd *cd)
+    callback :bam_plp_callback_function, [:pointer, Bam1, BamPileupCd.by_ref], :int
 
     # sets a callback to initialise any per-pileup1_t fields.
     attach_function \
@@ -610,7 +614,12 @@ module HTS
     # Get pileup padded insertion sequence, including base modifications
     attach_function \
       :bam_plp_insertion_mod,
-      [BamPileup1, :pointer, KString, :pointer],
+      [BamPileup1, HtsBaseModState, KString, :pointer],
+      :int
+
+    attach_function \
+      :bam_plp_init_overlaps,
+      [:bam_plp],
       :int
 
     attach_function \
