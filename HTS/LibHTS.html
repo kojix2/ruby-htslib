@@ -2274,7 +2274,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The return value of attach_function.</p>
+<p>Note: There is no bam_plp_init_overlaps in HTSlib (only bam_mplp_init_overlaps exists).</p>
 </div></span>
   
 </li>
@@ -2619,7 +2619,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bam_plp_init_overlaps-class_method" title="bam_plp_init_overlaps (class method)">.<strong>bam_plp_init_overlaps</strong>(bam_plp)  &#x21d2; int </a>
+      <a href="#bam_plp_insertion-class_method" title="bam_plp_insertion (class method)">.<strong>bam_plp_insertion</strong>(by_ref)  &#x21d2; int </a>
     
 
     
@@ -2634,7 +2634,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The return value of attach_function.</p>
+<p>Get pileup padded insertion sequence Make pointer passing explicit by using by_ref for structs.</p>
 </div></span>
   
 </li>
@@ -2643,31 +2643,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bam_plp_insertion-class_method" title="bam_plp_insertion (class method)">.<strong>bam_plp_insertion</strong>(pointer)  &#x21d2; int </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Get pileup padded insertion sequence.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#bam_plp_insertion_mod-class_method" title="bam_plp_insertion_mod (class method)">.<strong>bam_plp_insertion_mod</strong>(pointer)  &#x21d2; int </a>
+      <a href="#bam_plp_insertion_mod-class_method" title="bam_plp_insertion_mod (class method)">.<strong>bam_plp_insertion_mod</strong>(by_ref)  &#x21d2; int </a>
     
 
     
@@ -14388,13 +14364,13 @@
       <pre class="lines">
 
 
-477
 478
 479
-480</pre>
+480
+481</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 477</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 478</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux2A</span><span class='comma'>,</span>
@@ -14449,13 +14425,13 @@
       <pre class="lines">
 
 
-471
 472
 473
-474</pre>
+474
+475</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 471</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 472</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux2f</span><span class='comma'>,</span>
@@ -14510,13 +14486,13 @@
       <pre class="lines">
 
 
-465
 466
 467
-468</pre>
+468
+469</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 465</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 466</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux2i</span><span class='comma'>,</span>
@@ -14571,13 +14547,13 @@
       <pre class="lines">
 
 
-483
 484
 485
-486</pre>
+486
+487</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 483</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 484</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux2Z</span><span class='comma'>,</span>
@@ -14632,13 +14608,13 @@
       <pre class="lines">
 
 
-507
 508
 509
-510</pre>
+510
+511</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 507</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 508</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_append</span><span class='comma'>,</span>
@@ -14693,13 +14669,13 @@
       <pre class="lines">
 
 
-513
 514
 515
-516</pre>
+516
+517</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 513</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 514</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_del</span><span class='comma'>,</span>
@@ -14754,13 +14730,13 @@
       <pre class="lines">
 
 
-447
 448
 449
-450</pre>
+450
+451</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 447</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 448</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_first</span><span class='comma'>,</span>
@@ -14815,13 +14791,13 @@
       <pre class="lines">
 
 
-459
 460
 461
-462</pre>
+462
+463</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 459</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 460</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_get</span><span class='comma'>,</span>
@@ -14876,13 +14852,13 @@
       <pre class="lines">
 
 
-453
 454
 455
-456</pre>
+456
+457</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 453</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 454</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_next</span><span class='comma'>,</span>
@@ -14937,13 +14913,13 @@
       <pre class="lines">
 
 
-519
 520
 521
-522</pre>
+522
+523</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 519</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 520</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_remove</span><span class='comma'>,</span>
@@ -14998,13 +14974,13 @@
       <pre class="lines">
 
 
-543
 544
 545
-546</pre>
+546
+547</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 543</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 544</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_update_array</span><span class='comma'>,</span>
@@ -15059,13 +15035,13 @@
       <pre class="lines">
 
 
-537
 538
 539
-540</pre>
+540
+541</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 537</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 538</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_update_float</span><span class='comma'>,</span>
@@ -15120,13 +15096,13 @@
       <pre class="lines">
 
 
-531
 532
 533
-534</pre>
+534
+535</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 531</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 532</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_update_int</span><span class='comma'>,</span>
@@ -15181,13 +15157,13 @@
       <pre class="lines">
 
 
-525
 526
 527
-528</pre>
+528
+529</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 525</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 526</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_aux_update_str</span><span class='comma'>,</span>
@@ -15242,13 +15218,13 @@
       <pre class="lines">
 
 
-501
 502
 503
-504</pre>
+504
+505</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 501</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 502</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_auxB2f</span><span class='comma'>,</span>
@@ -15303,13 +15279,13 @@
       <pre class="lines">
 
 
-495
 496
 497
-498</pre>
+498
+499</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 495</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 496</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_auxB2i</span><span class='comma'>,</span>
@@ -15364,13 +15340,13 @@
       <pre class="lines">
 
 
-489
 490
 491
-492</pre>
+492
+493</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 489</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 490</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_auxB_len</span><span class='comma'>,</span>
@@ -15425,13 +15401,13 @@
       <pre class="lines">
 
 
-264
 265
 266
-267</pre>
+267
+268</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 264</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 265</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_cigar2qlen</span><span class='comma'>,</span>
@@ -15486,13 +15462,13 @@
       <pre class="lines">
 
 
-270
 271
 272
-273</pre>
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 270</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 271</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_cigar2rlen</span><span class='comma'>,</span>
@@ -15697,13 +15673,13 @@
       <pre class="lines">
 
 
-231
 232
 233
-234</pre>
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 231</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 232</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_copy1</span><span class='comma'>,</span>
@@ -15740,13 +15716,13 @@
       <pre class="lines">
 
 
-213
 214
 215
-216</pre>
+216
+217</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 213</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 214</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_destroy1</span><span class='comma'>,</span>
@@ -15801,13 +15777,13 @@
       <pre class="lines">
 
 
-237
 238
 239
-240</pre>
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 237</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 238</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_dup1</span><span class='comma'>,</span>
@@ -15862,13 +15838,13 @@
       <pre class="lines">
 
 
-276
 277
 278
-279</pre>
+279
+280</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 276</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 277</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_endpos</span><span class='comma'>,</span>
@@ -15923,13 +15899,13 @@
       <pre class="lines">
 
 
-286
 287
 288
-289</pre>
+289
+290</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 286</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 287</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_flag2str</span><span class='comma'>,</span>
@@ -16230,13 +16206,13 @@
       <pre class="lines">
 
 
-15
 16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 16</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_hdr_read</span><span class='comma'>,</span>
@@ -16291,13 +16267,13 @@
       <pre class="lines">
 
 
-21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 22</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_hdr_write</span><span class='comma'>,</span>
@@ -16393,13 +16369,13 @@
       <pre class="lines">
 
 
-207
 208
 209
-210</pre>
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 208</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_init1</span><span class='comma'>,</span>
@@ -17060,7 +17036,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the return value of attach_function.</p>
+<p>Note: There is no bam_plp_init_overlaps in HTSlib (only bam_mplp_init_overlaps exists). The incorrect binding is removed to avoid undefined symbol errors.</p>
 
 
   </div>
@@ -17483,13 +17459,13 @@
       <pre class="lines">
 
 
-304
 305
 306
-307</pre>
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 304</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 305</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_parse_cigar</span><span class='comma'>,</span>
@@ -17544,13 +17520,13 @@
       <pre class="lines">
 
 
-579
 580
 581
-582</pre>
+582
+583</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 579</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 580</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp64_auto</span><span class='comma'>,</span>
@@ -17605,13 +17581,13 @@
       <pre class="lines">
 
 
-574
 575
 576
-577</pre>
+577
+578</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 574</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 575</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp64_next</span><span class='comma'>,</span>
@@ -17666,13 +17642,13 @@
       <pre class="lines">
 
 
-569
 570
 571
-572</pre>
+572
+573</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 569</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 570</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_auto</span><span class='comma'>,</span>
@@ -17709,13 +17685,13 @@
       <pre class="lines">
 
 
-598
 599
 600
-601</pre>
+601
+602</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 598</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 599</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_constructor</span><span class='comma'>,</span>
@@ -17752,13 +17728,13 @@
       <pre class="lines">
 
 
-554
 555
 556
-557</pre>
+557
+558</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 554</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 555</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_destroy</span><span class='comma'>,</span>
@@ -17795,13 +17771,13 @@
       <pre class="lines">
 
 
-603
 604
 605
-606</pre>
+606
+607</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 603</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 604</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_destructor</span><span class='comma'>,</span>
@@ -17856,13 +17832,13 @@
       <pre class="lines">
 
 
-549
 550
 551
-552</pre>
+552
+553</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 549</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 550</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_init</span><span class='comma'>,</span>
@@ -17874,70 +17850,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="bam_plp_init_overlaps-class_method">
-  
-    .<strong>bam_plp_init_overlaps</strong>(bam_plp)  &#x21d2; <tt>int</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the return value of attach_function.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>int</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the return value of attach_function</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-620
-621
-622
-623</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 620</span>
-
-<span class='id identifier rubyid_attach_function'>attach_function</span> \
-<span class='symbol'>:bam_plp_init_overlaps</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='symbol'>:bam_plp</span><span class='rbracket'>]</span><span class='comma'>,</span>
-<span class='symbol'>:int</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="bam_plp_insertion-class_method">
   
-    .<strong>bam_plp_insertion</strong>(pointer)  &#x21d2; <tt>int</tt> 
+    .<strong>bam_plp_insertion</strong>(by_ref)  &#x21d2; <tt>int</tt> 
   
 
   
@@ -17946,7 +17861,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Get pileup padded insertion sequence</p>
+<p>Get pileup padded insertion sequence Make pointer passing explicit by using by_ref for structs</p>
 
 
   </div>
@@ -17978,17 +17893,17 @@
       <pre class="lines">
 
 
-609
-610
 611
-612</pre>
+612
+613
+614</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 609</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 611</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_insertion</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:int</span></pre>
     </td>
   </tr>
@@ -17998,7 +17913,7 @@
       <div class="method_details ">
   <h3 class="signature " id="bam_plp_insertion_mod-class_method">
   
-    .<strong>bam_plp_insertion_mod</strong>(pointer)  &#x21d2; <tt>int</tt> 
+    .<strong>bam_plp_insertion_mod</strong>(by_ref)  &#x21d2; <tt>int</tt> 
   
 
   
@@ -18039,17 +17954,17 @@
       <pre class="lines">
 
 
-615
-616
 617
-618</pre>
+618
+619
+620</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 615</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 617</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_insertion_mod</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/HtsBaseModState.html" title="HTS::LibHTS::HtsBaseModState (class)">HtsBaseModState</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/HtsBaseModState.html" title="HTS::LibHTS::HtsBaseModState (class)">HtsBaseModState</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span><span class='comma'>,</span> <span class='symbol'>:pointer</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:int</span></pre>
     </td>
   </tr>
@@ -18100,13 +18015,13 @@
       <pre class="lines">
 
 
-564
 565
 566
-567</pre>
+567
+568</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 564</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 565</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_next</span><span class='comma'>,</span>
@@ -18161,17 +18076,17 @@
       <pre class="lines">
 
 
-559
 560
 561
-562</pre>
+562
+563</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 559</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 560</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_push</span><span class='comma'>,</span>
-<span class='lbracket'>[</span><span class='symbol'>:bam_plp</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='lbracket'>[</span><span class='symbol'>:bam_plp</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="LibHTS/Bam1.html" title="HTS::LibHTS::Bam1 (class)">Bam1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_by_ref'>by_ref</span><span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='symbol'>:int</span></pre>
     </td>
   </tr>
@@ -18204,13 +18119,13 @@
       <pre class="lines">
 
 
-589
 590
 591
-592</pre>
+592
+593</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 589</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 590</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_reset</span><span class='comma'>,</span>
@@ -18247,13 +18162,13 @@
       <pre class="lines">
 
 
-584
 585
 586
-587</pre>
+587
+588</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 584</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 585</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_plp_set_maxcnt</span><span class='comma'>,</span>
@@ -18308,13 +18223,13 @@
       <pre class="lines">
 
 
-219
 220
 221
-222</pre>
+222
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 220</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_read1</span><span class='comma'>,</span>
@@ -18410,7 +18325,6 @@
       <pre class="lines">
 
 
-243
 244
 245
 246
@@ -18428,10 +18342,11 @@
 258
 259
 260
-261</pre>
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 243</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 244</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_set1</span><span class='comma'>,</span>
@@ -18501,13 +18416,13 @@
       <pre class="lines">
 
 
-292
 293
 294
-295</pre>
+295
+296</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 292</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 293</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_set_qname</span><span class='comma'>,</span>
@@ -18603,13 +18518,13 @@
       <pre class="lines">
 
 
-281
 282
 283
-284</pre>
+284
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 281</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 282</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_str2flag</span><span class='comma'>,</span>
@@ -18664,13 +18579,13 @@
       <pre class="lines">
 
 
-225
 226
 227
-228</pre>
+228
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 226</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:bam_write1</span><span class='comma'>,</span>
@@ -40553,13 +40468,13 @@
       <pre class="lines">
 
 
-423
 424
 425
-426</pre>
+426
+427</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 423</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 424</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_format1</span><span class='comma'>,</span>
@@ -40614,13 +40529,13 @@
       <pre class="lines">
 
 
-81
 82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 82</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_add_line</span><span class='comma'>,</span>
@@ -40675,13 +40590,13 @@
       <pre class="lines">
 
 
-75
 76
 77
-78</pre>
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 76</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_add_lines</span><span class='comma'>,</span>
@@ -40736,13 +40651,13 @@
       <pre class="lines">
 
 
-189
 190
 191
-192</pre>
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 190</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_add_pg</span><span class='comma'>,</span>
@@ -40797,13 +40712,13 @@
       <pre class="lines">
 
 
-413
 414
 415
-416</pre>
+416
+417</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 413</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 414</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_change_HD</span><span class='comma'>,</span>
@@ -40858,13 +40773,13 @@
       <pre class="lines">
 
 
-129
 130
 131
-132</pre>
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 130</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_count_lines</span><span class='comma'>,</span>
@@ -40901,13 +40816,13 @@
       <pre class="lines">
 
 
-27
 28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 28</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_destroy</span><span class='comma'>,</span>
@@ -40962,13 +40877,13 @@
       <pre class="lines">
 
 
-33
 34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 34</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_dup</span><span class='comma'>,</span>
@@ -41064,13 +40979,13 @@
       <pre class="lines">
 
 
-87
 88
 89
-90</pre>
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 88</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_find_line_id</span><span class='comma'>,</span>
@@ -41125,13 +41040,13 @@
       <pre class="lines">
 
 
-93
 94
 95
-96</pre>
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 94</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_find_line_pos</span><span class='comma'>,</span>
@@ -41227,13 +41142,13 @@
       <pre class="lines">
 
 
-147
 148
 149
-150</pre>
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 148</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_find_tag_id</span><span class='comma'>,</span>
@@ -41288,13 +41203,13 @@
       <pre class="lines">
 
 
-153
 154
 155
-156</pre>
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 154</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_find_tag_pos</span><span class='comma'>,</span>
@@ -41331,13 +41246,13 @@
       <pre class="lines">
 
 
-201
 202
 203
-204</pre>
+204
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 202</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_incr_ref</span><span class='comma'>,</span>
@@ -41392,13 +41307,13 @@
       <pre class="lines">
 
 
-9
 10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 10</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_init</span><span class='comma'>,</span>
@@ -41453,13 +41368,13 @@
       <pre class="lines">
 
 
-57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 58</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_length</span><span class='comma'>,</span>
@@ -41514,13 +41429,13 @@
       <pre class="lines">
 
 
-135
 136
 137
-138</pre>
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 136</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_line_index</span><span class='comma'>,</span>
@@ -41575,13 +41490,13 @@
       <pre class="lines">
 
 
-141
 142
 143
-144</pre>
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 142</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_line_name</span><span class='comma'>,</span>
@@ -41636,13 +41551,13 @@
       <pre class="lines">
 
 
-165
 166
 167
-168</pre>
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 166</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_name2tid</span><span class='comma'>,</span>
@@ -41697,13 +41612,13 @@
       <pre class="lines">
 
 
-69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 70</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_nref</span><span class='comma'>,</span>
@@ -41758,13 +41673,13 @@
       <pre class="lines">
 
 
-39
 40
 41
-42</pre>
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 40</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_parse</span><span class='comma'>,</span>
@@ -41819,13 +41734,13 @@
       <pre class="lines">
 
 
-183
 184
 185
-186</pre>
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 184</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_pg_id</span><span class='comma'>,</span>
@@ -41880,13 +41795,13 @@
       <pre class="lines">
 
 
-45
 46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 46</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_read</span><span class='comma'>,</span>
@@ -41941,13 +41856,13 @@
       <pre class="lines">
 
 
-117
 118
 119
-120</pre>
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 118</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_remove_except</span><span class='comma'>,</span>
@@ -42002,13 +41917,13 @@
       <pre class="lines">
 
 
-99
 100
 101
-102</pre>
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 100</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_remove_line_id</span><span class='comma'>,</span>
@@ -42063,13 +41978,13 @@
       <pre class="lines">
 
 
-105
 106
 107
-108</pre>
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 106</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_remove_line_pos</span><span class='comma'>,</span>
@@ -42124,13 +42039,13 @@
       <pre class="lines">
 
 
-123
 124
 125
-126</pre>
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 124</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_remove_lines</span><span class='comma'>,</span>
@@ -42226,13 +42141,13 @@
       <pre class="lines">
 
 
-159
 160
 161
-162</pre>
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 160</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_remove_tag_id</span><span class='comma'>,</span>
@@ -42287,13 +42202,13 @@
       <pre class="lines">
 
 
-63
 64
 65
-66</pre>
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 64</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_str</span><span class='comma'>,</span>
@@ -42348,13 +42263,13 @@
       <pre class="lines">
 
 
-177
 178
 179
-180</pre>
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 178</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_tid2len</span><span class='comma'>,</span>
@@ -42409,13 +42324,13 @@
       <pre class="lines">
 
 
-171
 172
 173
-174</pre>
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 172</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_tid2name</span><span class='comma'>,</span>
@@ -42511,13 +42426,13 @@
       <pre class="lines">
 
 
-111
 112
 113
-114</pre>
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 112</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_update_line</span><span class='comma'>,</span>
@@ -42572,13 +42487,13 @@
       <pre class="lines">
 
 
-51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 52</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_hdr_write</span><span class='comma'>,</span>
@@ -42633,13 +42548,13 @@
       <pre class="lines">
 
 
-310
 311
 312
-313</pre>
+313
+314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 311</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_idx_init</span><span class='comma'>,</span>
@@ -42694,13 +42609,13 @@
       <pre class="lines">
 
 
-316
 317
 318
-319</pre>
+319
+320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 316</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 317</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_idx_save</span><span class='comma'>,</span>
@@ -42759,13 +42674,13 @@
       <pre class="lines">
 
 
-340
 341
 342
-343</pre>
+343
+344</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 340</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 341</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_build</span><span class='comma'>,</span>
@@ -42820,13 +42735,13 @@
       <pre class="lines">
 
 
-346
 347
 348
-349</pre>
+349
+350</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 346</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 347</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_build2</span><span class='comma'>,</span>
@@ -42881,13 +42796,13 @@
       <pre class="lines">
 
 
-352
 353
 354
-355</pre>
+355
+356</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 352</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 353</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_build3</span><span class='comma'>,</span>
@@ -42942,13 +42857,13 @@
       <pre class="lines">
 
 
-322
 323
 324
-325</pre>
+325
+326</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 322</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 323</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_load</span><span class='comma'>,</span>
@@ -43003,13 +42918,13 @@
       <pre class="lines">
 
 
-328
 329
 330
-331</pre>
+331
+332</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 328</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 329</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_load2</span><span class='comma'>,</span>
@@ -43064,13 +42979,13 @@
       <pre class="lines">
 
 
-334
 335
 336
-337</pre>
+337
+338</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 334</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 335</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_index_load3</span><span class='comma'>,</span>
@@ -43111,16 +43026,16 @@
       <pre class="lines">
 
 
-382
 383
 384
 385
 386
 387
-388</pre>
+388
+389</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 382</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 383</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'>sam_itr_next</span><span class='lparen'>(</span><span class='id identifier rubyid_htsfp'>htsfp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
   <span class='comment'># FIXME: check if htsfp is compressed BGZF
@@ -43182,13 +43097,13 @@
       <pre class="lines">
 
 
-358
 359
 360
-361</pre>
+361
+362</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 358</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 359</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_itr_queryi</span><span class='comma'>,</span>
@@ -43247,13 +43162,13 @@
       <pre class="lines">
 
 
-364
 365
 366
-367</pre>
+367
+368</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 364</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 365</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_itr_querys</span><span class='comma'>,</span>
@@ -43308,13 +43223,13 @@
       <pre class="lines">
 
 
-376
 377
 378
-379</pre>
+379
+380</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 376</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 377</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_itr_regarray</span><span class='comma'>,</span>
@@ -43369,13 +43284,13 @@
       <pre class="lines">
 
 
-370
 371
 372
-373</pre>
+373
+374</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 370</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 371</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_itr_regions</span><span class='comma'>,</span>
@@ -43430,13 +43345,13 @@
       <pre class="lines">
 
 
-402
 403
 404
-405</pre>
+405
+406</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 402</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 403</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_open_mode</span><span class='comma'>,</span>
@@ -43491,13 +43406,13 @@
       <pre class="lines">
 
 
-408
 409
 410
-411</pre>
+411
+412</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 408</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 409</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_open_mode_opts</span><span class='comma'>,</span>
@@ -43552,13 +43467,13 @@
       <pre class="lines">
 
 
-418
 419
 420
-421</pre>
+421
+422</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 418</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 419</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_parse1</span><span class='comma'>,</span>
@@ -43613,13 +43528,13 @@
       <pre class="lines">
 
 
-298
 299
 300
-301</pre>
+301
+302</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 298</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 299</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_parse_cigar</span><span class='comma'>,</span>
@@ -43674,13 +43589,13 @@
       <pre class="lines">
 
 
-390
 391
 392
-393</pre>
+393
+394</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 390</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 391</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_parse_region</span><span class='comma'>,</span>
@@ -43735,13 +43650,13 @@
       <pre class="lines">
 
 
-441
 442
 443
-444</pre>
+444
+445</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 441</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 442</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_passes_filter</span><span class='comma'>,</span>
@@ -43857,13 +43772,13 @@
       <pre class="lines">
 
 
-429
 430
 431
-432</pre>
+432
+433</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 429</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 430</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_read1</span><span class='comma'>,</span>
@@ -43918,13 +43833,13 @@
       <pre class="lines">
 
 
-435
 436
 437
-438</pre>
+438
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 435</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 436</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:sam_write1</span><span class='comma'>,</span>
@@ -43979,13 +43894,13 @@
       <pre class="lines">
 
 
-195
 196
 197
-198</pre>
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/sam.rb', line 196</span>
 
 <span class='id identifier rubyid_attach_function'>attach_function</span> \
 <span class='symbol'>:stringify_argv</span><span class='comma'>,</span>
@@ -45310,7 +45225,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 10:13:03 2025 by
+  Generated on Sun Oct 26 10:57:02 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
