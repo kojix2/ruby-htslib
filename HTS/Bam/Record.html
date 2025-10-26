@@ -226,6 +226,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#base_mod-instance_method" title="#base_mod (instance method)">#<strong>base_mod</strong>(auto_parse: true)  &#x21d2; BaseMod </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get base modification information from MM/ML tags.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#base_qual-instance_method" title="#base_qual (instance method)">#<strong>base_qual</strong>(n)  &#x21d2; Integer </a>
     
 
@@ -1463,6 +1487,87 @@
 </span>
   <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_seq'><span class='object_link'><a href="../LibHTS.html#bam_get_seq-class_method" title="HTS::LibHTS.bam_get_seq (method)">bam_get_seq</a></span></span><span class='lparen'>(</span><span class='ivar'>@bam1</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="#SEQ_NT16_STR-constant" title="HTS::Bam::Record::SEQ_NT16_STR (constant)">SEQ_NT16_STR</a></span></span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_seqi'><span class='object_link'><a href="../LibHTS.html#bam_seqi-class_method" title="HTS::LibHTS.bam_seqi (method)">bam_seqi</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="base_mod-instance_method">
+  
+    #<strong>base_mod</strong>(auto_parse: true)  &#x21d2; <tt><span class='object_link'><a href="BaseMod.html" title="HTS::Bam::BaseMod (class)">BaseMod</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get base modification information from MM/ML tags</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>auto_parse</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If true (default), parse lazily on first access</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="BaseMod.html" title="HTS::Bam::BaseMod (class)">BaseMod</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Base modification object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+332
+333
+334</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 332</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_base_mod'>base_mod</span><span class='lparen'>(</span><span class='label'>auto_parse:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="BaseMod.html" title="HTS::Bam::BaseMod (class)">BaseMod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BaseMod.html#initialize-instance_method" title="HTS::Bam::BaseMod#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='label'>auto_parse:</span> <span class='id identifier rubyid_auto_parse'>auto_parse</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3300,15 +3405,15 @@
       <pre class="lines">
 
 
-345
-346
-347
-348
-349
-350</pre>
+352
+353
+354
+355
+356
+357</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 345</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 352</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -3326,9 +3431,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 11 15:28:37 2025 by
+  Generated on Sun Oct 26 07:10:47 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.5).
+  0.9.37 (ruby-3.4.7).
 </div>
 
     </div>
