@@ -244,7 +244,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#at_pos-instance_method" title="#at_pos (instance method)">#<strong>at_pos</strong>(position)  &#x21d2; Position<sup>?</sup> </a>
+      <a href="#at_pos-instance_method" title="#at_pos (instance method)">#<strong>at_pos</strong>(position, max_mods: 10)  &#x21d2; Position<sup>?</sup> </a>
     
 
     
@@ -292,7 +292,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each_position-instance_method" title="#each_position (instance method)">#<strong>each_position</strong> {|Position| ... } &#x21d2; Enumerator </a>
+      <a href="#each_position-instance_method" title="#each_position (instance method)">#<strong>each_position</strong>(max_mods: 10) {|Position| ... } &#x21d2; Enumerator </a>
     
 
     
@@ -392,7 +392,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#modification_types-instance_method" title="#modification_types (instance method)">#<strong>modification_types</strong>  &#x21d2; Array&lt;String&gt; </a>
+      <a href="#modification_types-instance_method" title="#modification_types (instance method)">#<strong>modification_types</strong>  &#x21d2; Array&lt;Integer&gt; </a>
     
 
     
@@ -466,7 +466,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#query_type-instance_method" title="#query_type (instance method)">#<strong>query_type</strong>(code_char)  &#x21d2; Hash<sup>?</sup> </a>
+      <a href="#query_type-instance_method" title="#query_type (instance method)">#<strong>query_type</strong>(code)  &#x21d2; Hash<sup>?</sup> </a>
     
 
     
@@ -481,7 +481,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Query information about a specific modification type.</p>
+<p>Query information about a specific modification type by code.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#query_type_at-instance_method" title="#query_type_at (instance method)">#<strong>query_type_at</strong>(index)  &#x21d2; Hash<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Query information about i-th modification type.</p>
 </div></span>
   
 </li>
@@ -619,20 +643,20 @@
       <pre class="lines">
 
 
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132</pre>
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='comma'>,</span> <span class='label'>auto_parse:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@record</span> <span class='op'>=</span> <span class='id identifier rubyid_record'>record</span>
@@ -769,12 +793,12 @@
       <pre class="lines">
 
 
-137
-138
-139</pre>
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_finalize'>finalize</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_base_mod_state_free'><span class='object_link'><a href="../LibHTS.html#hts_base_mod_state_free-class_method" title="HTS::LibHTS.hts_base_mod_state_free (method)">hts_base_mod_state_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_state'>state</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='rbrace'>}</span>
@@ -854,12 +878,12 @@
       <pre class="lines">
 
 
-199
-200
-201</pre>
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_at_pos'>at_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
@@ -872,7 +896,7 @@
       <div class="method_details ">
   <h3 class="signature " id="at_pos-instance_method">
   
-    #<strong>at_pos</strong>(position)  &#x21d2; <tt><span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span></tt><sup>?</sup> 
+    #<strong>at_pos</strong>(position, max_mods: 10)  &#x21d2; <tt><span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span></tt><sup>?</sup> 
   
 
   
@@ -906,6 +930,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>max_mods</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>10</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Maximum number of modifications to retrieve</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -933,29 +975,31 @@
       <pre class="lines">
 
 
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194</pre>
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 198</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_at_pos'>at_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_at_pos'>at_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
-  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n_mods'>n_mods</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_at_qpos'><span class='object_link'><a href="../LibHTS.html#bam_mods_at_qpos-class_method" title="HTS::LibHTS.bam_mods_at_qpos (method)">bam_mods_at_qpos</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_n_mods'>n_mods</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_build_position_info'>build_position_info</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_ret'>ret</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_n_mods'>n_mods</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_at_qpos'><span class='object_link'><a href="../LibHTS.html#bam_mods_at_qpos-class_method" title="HTS::LibHTS.bam_mods_at_qpos (method)">bam_mods_at_qpos</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span>
+                                <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
+
+  <span class='id identifier rubyid_build_position'>build_position</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_ret'>ret</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -988,18 +1032,18 @@
       <pre class="lines">
 
 
-143
-144
-145
-146
-147
-148
-149
-150
-151</pre>
+155
+156
+157
+158
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@closed</span>
@@ -1018,7 +1062,7 @@
       <div class="method_details ">
   <h3 class="signature " id="each_position-instance_method">
   
-    #<strong>each_position</strong> {|Position| ... } &#x21d2; <tt>Enumerator</tt> 
+    #<strong>each_position</strong>(max_mods: 10) {|Position| ... } &#x21d2; <tt>Enumerator</tt> 
   
 
   
@@ -1037,7 +1081,29 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>max_mods</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>10</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Maximum number of modifications per position</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Yields:</p>
 <ul class="yield">
   
@@ -1081,38 +1147,42 @@
       <pre class="lines">
 
 
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220</pre>
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 221</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each_position'>each_position</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_position'>each_position</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
-  <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n_mods'>n_mods</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_pos_ptr'>pos_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_next_basemod'><span class='object_link'><a href="../LibHTS.html#bam_next_basemod-class_method" title="HTS::LibHTS.bam_next_basemod (method)">bam_next_basemod</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_n_mods'>n_mods</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
-    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_next_basemod'><span class='object_link'><a href="../LibHTS.html#bam_next_basemod-class_method" title="HTS::LibHTS.bam_next_basemod (method)">bam_next_basemod</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span>
+                                  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='comma'>,</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='rparen'>)</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
 
-    <span class='kw'>yield</span> <span class='id identifier rubyid_build_position_info'>build_position_info</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='comma'>,</span> <span class='id identifier rubyid_ret'>ret</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_n_mods'>n_mods</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_build_position'>build_position</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_ret'>ret</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1176,16 +1246,16 @@
       <pre class="lines">
 
 
-162
-163
-164
-165
-166
-167
-168</pre>
+174
+175
+176
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span><span class='lparen'>(</span><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@parsed</span>
@@ -1243,12 +1313,12 @@
       <pre class="lines">
 
 
-276
-277
-278</pre>
+323
+324
+325</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 276</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 323</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_to_s'>to_s</span>
@@ -1261,7 +1331,7 @@
       <div class="method_details ">
   <h3 class="signature " id="modification_types-instance_method">
   
-    #<strong>modification_types</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+    #<strong>modification_types</strong>  &#x21d2; <tt>Array&lt;Integer&gt;</tt> 
   
 
   
@@ -1287,13 +1357,13 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Integer&gt;</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Array of modification code characters</p>
+<p>Array of modification codes (char code or -ChEBI)</p>
 </div>
       
     </li>
@@ -1306,25 +1376,31 @@
       <pre class="lines">
 
 
-226
-227
-228
-229
-230
-231
-232
-233</pre>
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_modification_types'>modification_types</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
-  <span class='id identifier rubyid_codes_ptr'>codes_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n_types'>n_types</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_recorded'><span class='object_link'><a href="../LibHTS.html#bam_mods_recorded-class_method" title="HTS::LibHTS.bam_mods_recorded (method)">bam_mods_recorded</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_codes_ptr'>codes_ptr</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_n_types'>n_types</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
 
-  <span class='id identifier rubyid_codes_ptr'>codes_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='id identifier rubyid_n_types'>n_types</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chars'>chars</span>
+  <span class='id identifier rubyid_ntype_ptr'>ntype_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_codes_ptr'>codes_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_recorded'><span class='object_link'><a href="../LibHTS.html#bam_mods_recorded-class_method" title="HTS::LibHTS.bam_mods_recorded (method)">bam_mods_recorded</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_ntype_ptr'>ntype_ptr</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ntype'>ntype</span> <span class='op'>=</span> <span class='id identifier rubyid_ntype_ptr'>ntype_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
+  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_ntype'>ntype</span> <span class='op'>&lt;=</span> <span class='int'>0</span> <span class='op'>||</span> <span class='id identifier rubyid_codes_ptr'>codes_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+
+  <span class='id identifier rubyid_codes_ptr'>codes_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_int'>read_array_of_int</span><span class='lparen'>(</span><span class='id identifier rubyid_ntype'>ntype</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1415,16 +1491,16 @@
       <pre class="lines">
 
 
-174
-175
-176
-177
-178
-179
-180</pre>
+186
+187
+188
+189
+190
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_parse_basemod2'><span class='object_link'><a href="../LibHTS.html#bam_parse_basemod2-class_method" title="HTS::LibHTS.bam_parse_basemod2 (method)">bam_parse_basemod2</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_flags'>flags</span><span class='rparen'>)</span>
@@ -1477,12 +1553,12 @@
       <pre class="lines">
 
 
-155
-156
-157</pre>
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parsed?'>parsed?</span>
   <span class='ivar'>@parsed</span>
@@ -1495,7 +1571,7 @@
       <div class="method_details ">
   <h3 class="signature " id="query_type-instance_method">
   
-    #<strong>query_type</strong>(code_char)  &#x21d2; <tt>Hash</tt><sup>?</sup> 
+    #<strong>query_type</strong>(code)  &#x21d2; <tt>Hash</tt><sup>?</sup> 
   
 
   
@@ -1504,7 +1580,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Query information about a specific modification type</p>
+<p>Query information about a specific modification type by code</p>
 
 
   </div>
@@ -1515,16 +1591,16 @@
   
     <li>
       
-        <span class='name'>code_char</span>
+        <span class='name'>code</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Modification code character</p>
+<p>Modification code (char code or -ChEBI, or single char string)</p>
 </div>
       
     </li>
@@ -1556,38 +1632,157 @@
       <pre class="lines">
 
 
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254</pre>
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 260</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_query_type'>query_type</span><span class='lparen'>(</span><span class='id identifier rubyid_code_char'>code_char</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_query_type'>query_type</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
-  <span class='id identifier rubyid_strand'>strand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_implicit'>implicit</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_canonical'>canonical</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:char</span><span class='comma'>,</span> <span class='int'>8</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_query_type'><span class='object_link'><a href="../LibHTS.html#bam_mods_query_type-class_method" title="HTS::LibHTS.bam_mods_query_type (method)">bam_mods_query_type</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_code_char'>code_char</span><span class='period'>.</span><span class='id identifier rubyid_ord'>ord</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='id identifier rubyid_implicit'>implicit</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical'>canonical</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_ord'>ord</span> <span class='kw'>if</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_strand_ptr'>strand_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:char</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_query_type'><span class='object_link'><a href="../LibHTS.html#bam_mods_query_type-class_method" title="HTS::LibHTS.bam_mods_query_type (method)">bam_mods_query_type</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_strand_ptr'>strand_ptr</span><span class='comma'>,</span>
+                                   <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
 
   <span class='lbrace'>{</span>
-    <span class='label'>canonical:</span> <span class='id identifier rubyid_canonical'>canonical</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='comma'>,</span>
-    <span class='label'>strand:</span> <span class='id identifier rubyid_strand'>strand</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='comma'>,</span>
-    <span class='label'>implicit:</span> <span class='id identifier rubyid_implicit'>implicit</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span> <span class='op'>!=</span> <span class='int'>0</span>
+    <span class='label'>canonical:</span> <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_char'>read_char</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span><span class='comma'>,</span>
+    <span class='label'>strand:</span> <span class='id identifier rubyid_strand_ptr'>strand_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='comma'>,</span>
+    <span class='label'>implicit:</span> <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span> <span class='op'>!=</span> <span class='int'>0</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="query_type_at-instance_method">
+  
+    #<strong>query_type_at</strong>(index)  &#x21d2; <tt>Hash</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Query information about i-th modification type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Modification type index (0-based)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash with code, canonical, strand, implicit info</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 283</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_query_type_at'>query_type_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
+
+  <span class='id identifier rubyid_strand_ptr'>strand_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:char</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_mods_queryi'><span class='object_link'><a href="../LibHTS.html#bam_mods_queryi-class_method" title="HTS::LibHTS.bam_mods_queryi (method)">bam_mods_queryi</a></span></span><span class='lparen'>(</span><span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_strand_ptr'>strand_ptr</span><span class='comma'>,</span>
+                               <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+
+  <span class='id identifier rubyid_types'>types</span> <span class='op'>=</span> <span class='id identifier rubyid_modification_types'>modification_types</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>code:</span> <span class='id identifier rubyid_types'>types</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='label'>canonical:</span> <span class='id identifier rubyid_canonical_ptr'>canonical_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_char'>read_char</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span><span class='comma'>,</span>
+    <span class='label'>strand:</span> <span class='id identifier rubyid_strand_ptr'>strand_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='comma'>,</span>
+    <span class='label'>implicit:</span> <span class='id identifier rubyid_implicit_ptr'>implicit_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span> <span class='op'>!=</span> <span class='int'>0</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1639,16 +1834,14 @@
       <pre class="lines">
 
 
-258
-259
-260
-261</pre>
+305
+306
+307</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 258</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 305</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
-  <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
   <span class='id identifier rubyid_each_position'>each_position</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1700,20 +1893,22 @@
       <pre class="lines">
 
 
-265
-266
-267
-268
-269
-270
-271
-272</pre>
+311
+312
+313
+314
+315
+316
+317
+318
+319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 265</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 311</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;HTS::Bam::BaseMod (not parsed)&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@parsed</span>
+
   <span class='id identifier rubyid_mods'>mods</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_each_position'>each_position</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pos'>pos</span><span class='op'>|</span>
     <span class='id identifier rubyid_mods'>mods</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_pos'>pos</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -1730,7 +1925,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 08:52:15 2025 by
+  Generated on Sun Oct 26 09:03:45 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

@@ -120,7 +120,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#canonical-instance_method" title="#canonical (instance method)">#<strong>canonical</strong>  &#x21d2; Object </a>
+      <a href="#canonical_base-instance_method" title="#canonical_base (instance method)">#<strong>canonical_base</strong>  &#x21d2; Object </a>
     
 
     
@@ -140,7 +140,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute canonical.</p>
+<p>Returns the value of attribute canonical_base.</p>
 </div></span>
   
 </li>
@@ -149,7 +149,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#code-instance_method" title="#code (instance method)">#<strong>code</strong>  &#x21d2; Object </a>
+      <a href="#modified_base-instance_method" title="#modified_base (instance method)">#<strong>modified_base</strong>  &#x21d2; Object </a>
     
 
     
@@ -169,7 +169,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute code.</p>
+<p>Returns the value of attribute modified_base.</p>
 </div></span>
   
 </li>
@@ -178,7 +178,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#likelihood-instance_method" title="#likelihood (instance method)">#<strong>likelihood</strong>  &#x21d2; Object </a>
+      <a href="#qual-instance_method" title="#qual (instance method)">#<strong>qual</strong>  &#x21d2; Object </a>
     
 
     
@@ -198,7 +198,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute likelihood.</p>
+<p>Returns the value of attribute qual.</p>
 </div></span>
   
 </li>
@@ -207,7 +207,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#modified-instance_method" title="#modified (instance method)">#<strong>modified</strong>  &#x21d2; Object </a>
+      <a href="#strand-instance_method" title="#strand (instance method)">#<strong>strand</strong>  &#x21d2; Object </a>
     
 
     
@@ -227,7 +227,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute modified.</p>
+<p>Returns the value of attribute strand.</p>
 </div></span>
   
 </li>
@@ -249,7 +249,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(code:, canonical:, modified: nil, likelihood: nil)  &#x21d2; Modification </a>
+      <a href="#canonical-instance_method" title="#canonical (instance method)">#<strong>canonical</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get canonical base as character.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#code-instance_method" title="#code (instance method)">#<strong>code</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get modification code as character or ChEBI number as string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(modified_base:, canonical_base:, strand:, qual:)  &#x21d2; Modification </a>
     
 
     
@@ -377,7 +425,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(code:, canonical:, modified: nil, likelihood: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bam::BaseMod::Modification (class)">Modification</a></span></tt> 
+    #<strong>initialize</strong>(modified_base:, canonical_base:, strand:, qual:)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Bam::BaseMod::Modification (class)">Modification</a></span></tt> 
   
 
   
@@ -397,68 +445,64 @@
   
     <li>
       
-        <span class='name'>code</span>
+        <span class='name'>modified_base</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Modification code (e.g., ‘m’, ‘h’)</p>
+<p>Modification code as char or -ChEBI</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>canonical</span>
+        <span class='name'>canonical_base</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Original base (e.g., ‘C’, ‘A’)</p>
+<p>Canonical base (A, C, G, T, N)</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>modified</span>
+        <span class='name'>strand</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Modified base name (optional)</p>
+<p>0 or 1 for +/- strand</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>likelihood</span>
+        <span class='name'>qual</span>
       
       
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Likelihood value 0-255 (optional)</p>
+<p>Quality (256*probability) or -1 if unknown</p>
 </div>
       
     </li>
@@ -482,11 +526,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>code:</span><span class='comma'>,</span> <span class='label'>canonical:</span><span class='comma'>,</span> <span class='label'>modified:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>likelihood:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
-  <span class='ivar'>@canonical</span> <span class='op'>=</span> <span class='id identifier rubyid_canonical'>canonical</span>
-  <span class='ivar'>@modified</span> <span class='op'>=</span> <span class='id identifier rubyid_modified'>modified</span>
-  <span class='ivar'>@likelihood</span> <span class='op'>=</span> <span class='id identifier rubyid_likelihood'>likelihood</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>modified_base:</span><span class='comma'>,</span> <span class='label'>canonical_base:</span><span class='comma'>,</span> <span class='label'>strand:</span><span class='comma'>,</span> <span class='label'>qual:</span><span class='rparen'>)</span>
+  <span class='ivar'>@modified_base</span> <span class='op'>=</span> <span class='id identifier rubyid_modified_base'>modified_base</span>
+  <span class='ivar'>@canonical_base</span> <span class='op'>=</span> <span class='id identifier rubyid_canonical_base'>canonical_base</span>
+  <span class='ivar'>@strand</span> <span class='op'>=</span> <span class='id identifier rubyid_strand'>strand</span>
+  <span class='ivar'>@qual</span> <span class='op'>=</span> <span class='id identifier rubyid_qual'>qual</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -501,9 +545,9 @@
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="canonical-instance_method">
+  <h3 class="signature first" id="canonical_base-instance_method">
   
-    #<strong>canonical</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>canonical_base</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -512,7 +556,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute canonical.</p>
+<p>Returns the value of attribute canonical_base.</p>
 
 
   </div>
@@ -533,8 +577,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 21</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_canonical'>canonical</span>
-  <span class='ivar'>@canonical</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_canonical_base'>canonical_base</span>
+  <span class='ivar'>@canonical_base</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -544,9 +588,9 @@
       
       <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="code-instance_method">
+  <h3 class="signature " id="modified_base-instance_method">
   
-    #<strong>code</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>modified_base</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -555,7 +599,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute code.</p>
+<p>Returns the value of attribute modified_base.</p>
 
 
   </div>
@@ -576,8 +620,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 21</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_code'>code</span>
-  <span class='ivar'>@code</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_modified_base'>modified_base</span>
+  <span class='ivar'>@modified_base</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -587,9 +631,9 @@
       
       <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="likelihood-instance_method">
+  <h3 class="signature " id="qual-instance_method">
   
-    #<strong>likelihood</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>qual</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -598,7 +642,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute likelihood.</p>
+<p>Returns the value of attribute qual.</p>
 
 
   </div>
@@ -619,8 +663,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 21</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_likelihood'>likelihood</span>
-  <span class='ivar'>@likelihood</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span>
+  <span class='ivar'>@qual</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -630,9 +674,9 @@
       
       <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="modified-instance_method">
+  <h3 class="signature " id="strand-instance_method">
   
-    #<strong>modified</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+    #<strong>strand</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -641,7 +685,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute modified.</p>
+<p>Returns the value of attribute strand.</p>
 
 
   </div>
@@ -662,8 +706,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 21</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_modified'>modified</span>
-  <span class='ivar'>@modified</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_strand'>strand</span>
+  <span class='ivar'>@strand</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -678,7 +722,125 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="inspect-instance_method">
+  <h3 class="signature first" id="canonical-instance_method">
+  
+    #<strong>canonical</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get canonical base as character</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Single character (A, C, G, T, N)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_canonical'>canonical</span>
+  <span class='ivar'>@canonical_base</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="code-instance_method">
+  
+    #<strong>code</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get modification code as character or ChEBI number as string</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Single character code or ChEBI number as string</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_code'>code</span>
+  <span class='ivar'>@modified_base</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>?</span> <span class='ivar'>@modified_base</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span> <span class='op'>:</span> <span class='ivar'>@modified_base</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inspect-instance_method">
   
     #<strong>inspect</strong>  &#x21d2; <tt>String</tt> 
   
@@ -721,12 +883,12 @@
       <pre class="lines">
 
 
-65
-66
-67</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;HTS::Bam::BaseMod::Modification </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -767,7 +929,7 @@
       
         &mdash;
         <div class='inline'>
-<p>Probability or nil if likelihood is not set</p>
+<p>Probability or nil if qual is -1</p>
 </div>
       
     </li>
@@ -780,19 +942,19 @@
       <pre class="lines">
 
 
-36
-37
-38
-39
-40</pre>
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_probability'>probability</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='ivar'>@likelihood</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='ivar'>@qual</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
-  <span class='ivar'>@likelihood</span> <span class='op'>/</span> <span class='float'>255.0</span>
+  <span class='ivar'>@qual</span> <span class='op'>/</span> <span class='float'>256.0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -843,24 +1005,30 @@
       <pre class="lines">
 
 
-44
-45
-46
-47
-48
-49
-50
-51</pre>
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='lbrace'>{</span>
-    <span class='label'>code:</span> <span class='ivar'>@code</span><span class='comma'>,</span>
-    <span class='label'>canonical:</span> <span class='ivar'>@canonical</span><span class='comma'>,</span>
-    <span class='label'>modified:</span> <span class='ivar'>@modified</span><span class='comma'>,</span>
-    <span class='label'>likelihood:</span> <span class='ivar'>@likelihood</span>
+    <span class='label'>modified_base:</span> <span class='ivar'>@modified_base</span><span class='comma'>,</span>
+    <span class='label'>code:</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+    <span class='label'>canonical_base:</span> <span class='ivar'>@canonical_base</span><span class='comma'>,</span>
+    <span class='label'>canonical:</span> <span class='id identifier rubyid_canonical'>canonical</span><span class='comma'>,</span>
+    <span class='label'>strand:</span> <span class='ivar'>@strand</span><span class='comma'>,</span>
+    <span class='label'>qual:</span> <span class='ivar'>@qual</span><span class='comma'>,</span>
+    <span class='label'>probability:</span> <span class='id identifier rubyid_probability'>probability</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -912,22 +1080,22 @@
       <pre class="lines">
 
 
-55
-56
-57
-58
-59
-60
-61</pre>
+70
+71
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='kw'>if</span> <span class='ivar'>@likelihood</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@canonical</span><span class='embexpr_end'>}</span><span class='tstring_content'>-&gt;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@code</span><span class='embexpr_end'>}</span><span class='tstring_content'>(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_probability'>probability</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>3</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='ivar'>@qual</span> <span class='op'>&gt;=</span> <span class='int'>0</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_canonical'>canonical</span><span class='embexpr_end'>}</span><span class='tstring_content'>-&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_code'>code</span><span class='embexpr_end'>}</span><span class='tstring_content'>(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_probability'>probability</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>3</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@canonical</span><span class='embexpr_end'>}</span><span class='tstring_content'>-&gt;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_canonical'>canonical</span><span class='embexpr_end'>}</span><span class='tstring_content'>-&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_code'>code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -940,7 +1108,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 26 08:52:15 2025 by
+  Generated on Sun Oct 26 09:03:45 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
