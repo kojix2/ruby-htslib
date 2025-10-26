@@ -352,6 +352,15 @@ module HTS
       end
     end
 
+    # Base modification structure
+    class HtsBaseMod < FFI::Struct
+      layout \
+        :modified_base,   :int,
+        :canonical_base,  :int,
+        :strand,          :int,
+        :qual,            :int
+    end
+
     typedef :pointer, :bam_plp
     typedef :pointer, :bam_mplp
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
+require_relative "../test_helper"
 
 class BaseModTest < Minitest::Test
   # NOTE: This test requires BAM files with MM/ML tags for base modifications
@@ -17,23 +17,24 @@ class BaseModTest < Minitest::Test
 
   def test_modification_initialization
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C",
-      modified: "5mC",
-      likelihood: 200
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: 204 # 256 * 0.8
     )
 
-    assert_equal "m", mod.code
-    assert_equal "C", mod.canonical
-    assert_equal "5mC", mod.modified
-    assert_equal 200, mod.likelihood
+    assert_equal 109, mod.modified_base
+    assert_equal 67, mod.canonical_base
+    assert_equal 0, mod.strand
+    assert_equal 204, mod.qual
   end
 
   def test_modification_probability
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C",
-      likelihood: 255
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: 256 # 256 * 1.0
     )
 
     assert_in_delta 1.0, mod.probability, 0.01
@@ -41,8 +42,10 @@ class BaseModTest < Minitest::Test
 
   def test_modification_probability_nil
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C"
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: -1 # unknown
     )
 
     assert_nil mod.probability
@@ -50,24 +53,27 @@ class BaseModTest < Minitest::Test
 
   def test_modification_to_h
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C",
-      modified: "5mC",
-      likelihood: 200
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: 204
     )
 
     hash = mod.to_h
+    assert_equal 109, hash[:modified_base]
     assert_equal "m", hash[:code]
+    assert_equal 67, hash[:canonical_base]
     assert_equal "C", hash[:canonical]
-    assert_equal "5mC", hash[:modified]
-    assert_equal 200, hash[:likelihood]
+    assert_equal 0, hash[:strand]
+    assert_equal 204, hash[:qual]
   end
 
   def test_modification_to_s
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C",
-      likelihood: 200
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: 204
     )
 
     assert_match(/C->m/, mod.to_s)
@@ -76,8 +82,10 @@ class BaseModTest < Minitest::Test
 
   def test_modification_to_s_without_likelihood
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C"
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: -1
     )
 
     assert_equal "C->m", mod.to_s
@@ -89,63 +97,90 @@ class BaseModTest < Minitest::Test
 
   def test_position_initialization
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "m", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 109, # 'm'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     assert_equal 10, pos.position
-    assert_equal 0, pos.strand
     assert_equal 1, pos.modifications.length
   end
 
   def test_position_methylated?
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "m", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 109, # 'm'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     assert pos.methylated?
   end
 
   def test_position_not_methylated?
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "h", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 104, # 'h'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     refute pos.methylated?
   end
 
   def test_position_hydroxymethylated?
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "h", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 104, # 'h'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     assert pos.hydroxymethylated?
   end
 
   def test_position_to_h
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "m", canonical: "C", likelihood: 200)
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 109, # 'm'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     hash = pos.to_h
     assert_equal 10, hash[:position]
-    assert_equal 0, hash[:strand]
     assert_equal 1, hash[:modifications].length
   end
 
   def test_position_to_s
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "m", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 109, # 'm'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     str = pos.to_s
     assert_match(/pos=10/, str)
-    assert_match(/strand=0/, str)
   end
 
   def test_basemod_class_exists
@@ -199,9 +234,10 @@ class BaseModTest < Minitest::Test
 
   def test_modification_inspect
     mod = HTS::Bam::BaseMod::Modification.new(
-      code: "m",
-      canonical: "C",
-      likelihood: 200
+      modified_base: 109, # 'm'
+      canonical_base: 67, # 'C'
+      strand: 0,
+      qual: 204
     )
 
     inspect_str = mod.inspect
@@ -211,9 +247,14 @@ class BaseModTest < Minitest::Test
 
   def test_position_inspect
     mods = [
-      HTS::Bam::BaseMod::Modification.new(code: "m", canonical: "C")
+      HTS::Bam::BaseMod::Modification.new(
+        modified_base: 109, # 'm'
+        canonical_base: 67, # 'C'
+        strand: 0,
+        qual: 204
+      )
     ]
-    pos = HTS::Bam::BaseMod::Position.new(10, 0, mods)
+    pos = HTS::Bam::BaseMod::Position.new(10, mods)
 
     inspect_str = pos.inspect
     assert_match(/HTS::Bam::BaseMod::Position/, inspect_str)

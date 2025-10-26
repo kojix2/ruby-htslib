@@ -18,45 +18,60 @@ module HTS
 
       # Individual base modification information
       class Modification
-        attr_reader :code, :canonical, :modified, :likelihood
+        attr_reader :modified_base, :canonical_base, :strand, :qual
 
-        # @param code [String] Modification code (e.g., 'm', 'h')
-        # @param canonical [String] Original base (e.g., 'C', 'A')
-        # @param modified [String, nil] Modified base name (optional)
-        # @param likelihood [Integer, nil] Likelihood value 0-255 (optional)
-        def initialize(code:, canonical:, modified: nil, likelihood: nil)
-          @code = code
-          @canonical = canonical
-          @modified = modified
-          @likelihood = likelihood
+        # @param modified_base [Integer] Modification code as char or -ChEBI
+        # @param canonical_base [Integer] Canonical base (A, C, G, T, N)
+        # @param strand [Integer] 0 or 1 for +/- strand
+        # @param qual [Integer] Quality (256*probability) or -1 if unknown
+        def initialize(modified_base:, canonical_base:, strand:, qual:)
+          @modified_base = modified_base
+          @canonical_base = canonical_base
+          @strand = strand
+          @qual = qual
+        end
+
+        # Get modification code as character or ChEBI number as string
+        # @return [String] Single character code or ChEBI number as string
+        def code
+          @modified_base > 0 ? @modified_base.chr : @modified_base.to_s
+        end
+
+        # Get canonical base as character
+        # @return [String] Single character (A, C, G, T, N)
+        def canonical
+          @canonical_base.chr
         end
 
         # Get likelihood as a probability (0.0-1.0)
-        # @return [Float, nil] Probability or nil if likelihood is not set
+        # @return [Float, nil] Probability or nil if qual is -1
         def probability
-          return nil unless @likelihood
+          return nil if @qual == -1
 
-          @likelihood / 255.0
+          @qual / 256.0
         end
 
         # Convert to hash representation
         # @return [Hash] Hash with modification information
         def to_h
           {
-            code: @code,
-            canonical: @canonical,
-            modified: @modified,
-            likelihood: @likelihood
+            modified_base: @modified_base,
+            code: code,
+            canonical_base: @canonical_base,
+            canonical: canonical,
+            strand: @strand,
+            qual: @qual,
+            probability: probability
           }
         end
 
         # String representation
         # @return [String] String representation of the modification
         def to_s
-          if @likelihood
-            "#{@canonical}->#{@code}(#{probability.round(3)})"
+          if @qual >= 0
+            "#{canonical}->#{code}(#{probability.round(3)})"
           else
-            "#{@canonical}->#{@code}"
+            "#{canonical}->#{code}"
           end
         end
 
@@ -69,14 +84,12 @@ module HTS
 
       # Position-specific modification information
       class Position
-        attr_reader :position, :strand, :modifications
+        attr_reader :position, :modifications
 
         # @param position [Integer] Position in query sequence
-        # @param strand [Integer] Strand (0 or 1)
         # @param modifications [Array<Modification>] Array of modifications at this position
-        def initialize(position, strand, modifications)
+        def initialize(position, modifications)
           @position = position
-          @strand = strand
           @modifications = modifications
         end
 
@@ -97,7 +110,6 @@ module HTS
         def to_h
           {
             position: @position,
-            strand: @strand,
             modifications: @modifications.map(&:to_h)
           }
         end
@@ -106,7 +118,7 @@ module HTS
         # @return [String] String representation
         def to_s
           mods_str = @modifications.map(&:to_s).join(", ")
-          "pos=#{@position} strand=#{@strand} [#{mods_str}]"
+          "pos=#{@position} [#{mods_str}]"
         end
 
         # Inspect string
@@ -181,16 +193,18 @@ module HTS
 
       # Get modification information at a specific query position
       # @param position [Integer] Query position (0-based)
+      # @param max_mods [Integer] Maximum number of modifications to retrieve
       # @return [Position, nil] Position object with modifications, or nil if none
-      def at_pos(position)
+      def at_pos(position, max_mods: 10)
         ensure_parsed!
-        mods_ptr = FFI::MemoryPointer.new(:pointer)
-        n_mods = FFI::MemoryPointer.new(:int)
 
-        ret = LibHTS.bam_mods_at_qpos(@record.struct, position, @state, mods_ptr, n_mods)
-        return nil if ret < 0
+        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
 
-        build_position_info(position, ret, mods_ptr, n_mods.read_int)
+        ret = LibHTS.bam_mods_at_qpos(@record.struct, position, @state,
+                                      mods_ptr, max_mods)
+        return nil if ret <= 0
+
+        build_position(position, mods_ptr, [ret, max_mods].min)
       end
 
       # Array-style access to modifications at a position
@@ -201,69 +215,102 @@ module HTS
       end
 
       # Iterate over all positions with modifications
+      # @param max_mods [Integer] Maximum number of modifications per position
       # @yield [Position] Position object for each modified position
       # @return [Enumerator] If no block given
-      def each_position
-        return enum_for(__method__) unless block_given?
+      def each_position(max_mods: 10)
+        return enum_for(__method__, max_mods: max_mods) unless block_given?
 
         ensure_parsed!
-        position = FFI::MemoryPointer.new(:int)
-        mods_ptr = FFI::MemoryPointer.new(:pointer)
-        n_mods = FFI::MemoryPointer.new(:int)
+
+        pos_ptr = FFI::MemoryPointer.new(:int)
+        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
 
         loop do
-          ret = LibHTS.bam_next_basemod(@record.struct, @state, mods_ptr, n_mods, position)
-          break if ret < 0
+          ret = LibHTS.bam_next_basemod(@record.struct, @state,
+                                        mods_ptr, max_mods, pos_ptr)
+          break if ret <= 0
 
-          yield build_position_info(position.read_int, ret, mods_ptr, n_mods.read_int)
+          position = pos_ptr.read_int
+          yield build_position(position, mods_ptr, [ret, max_mods].min)
         end
       end
 
       alias each each_position
 
       # Get list of modification types present in this record
-      # @return [Array<String>] Array of modification code characters
+      # @return [Array<Integer>] Array of modification codes (char code or -ChEBI)
       def modification_types
         ensure_parsed!
-        codes_ptr = FFI::MemoryPointer.new(:pointer)
-        n_types = LibHTS.bam_mods_recorded(@state, codes_ptr)
-        return [] if n_types <= 0
 
-        codes_ptr.read_pointer.read_string(n_types).chars
+        ntype_ptr = FFI::MemoryPointer.new(:int)
+        codes_ptr = LibHTS.bam_mods_recorded(@state, ntype_ptr)
+
+        ntype = ntype_ptr.read_int
+        return [] if ntype <= 0 || codes_ptr.null?
+
+        codes_ptr.read_array_of_int(ntype)
       end
 
       alias recorded_types modification_types
 
-      # Query information about a specific modification type
-      # @param code_char [String] Modification code character
+      # Query information about a specific modification type by code
+      # @param code [Integer, String] Modification code (char code or -ChEBI, or single char string)
       # @return [Hash, nil] Hash with canonical, strand, implicit info, or nil if not found
-      def query_type(code_char)
+      def query_type(code)
         ensure_parsed!
-        strand = FFI::MemoryPointer.new(:int)
-        implicit = FFI::MemoryPointer.new(:int)
-        canonical = FFI::MemoryPointer.new(:char, 8)
 
-        ret = LibHTS.bam_mods_query_type(@state, code_char.ord, strand, implicit, canonical)
+        code = code.ord if code.is_a?(String)
+
+        strand_ptr = FFI::MemoryPointer.new(:int)
+        implicit_ptr = FFI::MemoryPointer.new(:int)
+        canonical_ptr = FFI::MemoryPointer.new(:char, 1)
+
+        ret = LibHTS.bam_mods_query_type(@state, code, strand_ptr,
+                                         implicit_ptr, canonical_ptr)
         return nil if ret < 0
 
         {
-          canonical: canonical.read_string,
-          strand: strand.read_int,
-          implicit: implicit.read_int != 0
+          canonical: canonical_ptr.read_char.chr,
+          strand: strand_ptr.read_int,
+          implicit: implicit_ptr.read_int != 0
+        }
+      end
+
+      # Query information about i-th modification type
+      # @param index [Integer] Modification type index (0-based)
+      # @return [Hash, nil] Hash with code, canonical, strand, implicit info
+      def query_type_at(index)
+        ensure_parsed!
+
+        strand_ptr = FFI::MemoryPointer.new(:int)
+        implicit_ptr = FFI::MemoryPointer.new(:int)
+        canonical_ptr = FFI::MemoryPointer.new(:char, 1)
+
+        ret = LibHTS.bam_mods_queryi(@state, index, strand_ptr,
+                                     implicit_ptr, canonical_ptr)
+        return nil if ret < 0
+
+        types = modification_types
+        {
+          code: types[index],
+          canonical: canonical_ptr.read_char.chr,
+          strand: strand_ptr.read_int,
+          implicit: implicit_ptr.read_int != 0
         }
       end
 
       # Get all modifications as an array
       # @return [Array<Position>] Array of all positions with modifications
       def to_a
-        ensure_parsed!
         each_position.to_a
       end
 
       # String representation for debugging
       # @return [String] String representation
       def to_s
-        ensure_parsed!
+        return "#<HTS::Bam::BaseMod (not parsed)>" unless @parsed
+
         mods = []
         each_position do |pos|
           mods << pos.to_s
@@ -279,44 +326,26 @@ module HTS
 
       private
 
-      # Build Position object from C API results
+      # Build Position object from hts_base_mod array
       # @param position [Integer] Query position
-      # @param strand [Integer] Strand information
-      # @param mods_ptr [FFI::Pointer] Pointer to modifications array
+      # @param mods_ptr [FFI::Pointer] Pointer to array of HtsBaseMod structures
       # @param n_mods [Integer] Number of modifications
       # @return [Position] Position object
-      def build_position_info(position, strand, _mods_ptr, n_mods)
+      def build_position(position, mods_ptr, n_mods)
         modifications = []
-        # mods_array = mods_ptr.read_pointer # Would be used for parsing mod structures
-
-        # Get canonical base information
-        type_info = nil
-        recorded = modification_types
-        recorded.each do |code|
-          info = query_type(code)
-          if info
-            type_info = info
-            break
-          end
-        end
 
         n_mods.times do |i|
-          # Each modification is represented as a hts_base_mod structure
-          # We need to read the modification code and likelihood
-          # The structure layout depends on htslib version, so we'll use the query functions
-
-          # For now, create a basic Modification object
-          # In a full implementation, we'd parse the actual mod data from mods_array
-          # mod_data = mods_array[i * 8, 8] # Would need proper structure parsing
+          mod_struct = LibHTS::HtsBaseMod.new(mods_ptr + i * LibHTS::HtsBaseMod.size)
 
           modifications << Modification.new(
-            code: recorded[i] || "?",
-            canonical: type_info ? type_info[:canonical] : "N",
-            likelihood: nil # Would need to extract from proper structure
+            modified_base: mod_struct[:modified_base],
+            canonical_base: mod_struct[:canonical_base],
+            strand: mod_struct[:strand],
+            qual: mod_struct[:qual]
           )
         end
 
-        Position.new(position, strand, modifications)
+        Position.new(position, modifications)
       end
     end
   end
