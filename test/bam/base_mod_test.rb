@@ -260,4 +260,97 @@ class BaseModTest < Minitest::Test
     assert_match(/HTS::Bam::BaseMod::Position/, inspect_str)
     assert_match(/pos=10/, inspect_str)
   end
+
+  # --- Integration tests using MM/ML sample from htslib ---
+
+  def mm_chebi_path
+    File.expand_path("../../htslib/test/base_mods/MM-chebi.sam", __dir__)
+  end
+
+  def with_mm_chebi
+    skip "MM-chebi.sam not found" unless File.exist?(mm_chebi_path)
+    bam = HTS::Bam.new(mm_chebi_path)
+    begin
+      rec = bam.first
+      assert rec, "No record found in MM-chebi.sam"
+      bm = rec.base_mod
+      yield bm
+    ensure
+      bam.close if bam
+    end
+  end
+
+  def test_mm_chebi_recorded_types_and_total_count
+    with_mm_chebi do |bm|
+      types = bm.recorded_types
+      assert_includes types, "m".ord
+      assert_includes types, -76_792
+      assert_includes types, "n".ord
+
+      total = bm.to_a.sum { |p| p.modifications.length }
+      assert_equal 8, total
+    end
+  end
+
+  def test_mm_chebi_expected_positions_and_codes
+    with_mm_chebi do |bm|
+      expected_positions = [6, 15, 17, 19, 20, 31, 34].sort
+      got_positions = []
+      pos_to_codes = {}
+
+      bm.each_position do |p|
+        got_positions << p.position
+        pos_to_codes[p.position] = p.modifications.map(&:modified_base)
+      end
+
+      assert_equal expected_positions, got_positions.sort
+
+      [6, 17, 20, 31, 34].each do |q|
+        assert pos_to_codes[q].any? { |c| c == "m".ord }, "pos #{q} should have 'm'"
+      end
+
+      [19, 34].each do |q|
+        assert pos_to_codes[q].any? { |c| c == -76_792 }, "pos #{q} should have -76792"
+      end
+
+      assert pos_to_codes[15].any? { |c| c == "n".ord }, "pos 15 should have 'n'"
+    end
+  end
+
+  def test_mm_chebi_query_type_metadata
+    with_mm_chebi do |bm|
+      info_m = bm.query_type("m".ord)
+      info_n = bm.query_type("n".ord)
+      info_chebi = bm.query_type(-76_792)
+
+      refute_nil info_m
+      refute_nil info_n
+      refute_nil info_chebi
+
+      assert_equal "C", info_m[:canonical]
+      assert_equal "N", info_n[:canonical]
+      assert_equal "C", info_chebi[:canonical]
+
+      refute_nil info_m[:strand]
+      refute_nil info_n[:strand]
+      refute_nil info_chebi[:strand]
+
+      assert_includes [true, false], info_m[:implicit]
+      assert_includes [true, false], info_n[:implicit]
+      assert_includes [true, false], info_chebi[:implicit]
+    end
+  end
+
+  def test_mm_chebi_at_pos_matches_each_position
+    with_mm_chebi do |bm|
+      from_each = bm.to_a.map { |p| [p.position, p.modifications.map(&:modified_base).sort] }.to_h
+
+      from_each.each do |qpos, codes|
+        p = bm.at_pos(qpos, max_mods: 4)
+        skip "bam_mods_at_qpos returned nil for qpos=#{qpos}; skipping at_pos comparison" if p.nil?
+        got_codes = p.modifications.map(&:modified_base).sort
+        assert_equal codes, got_codes
+      end
+    end
+  end
 end

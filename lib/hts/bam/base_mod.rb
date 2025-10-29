@@ -185,7 +185,8 @@ module HTS
       # @param max_mods [Integer] Maximum number of modifications to retrieve
       # @return [Position, nil] Position object with modifications, or nil if none
       def at_pos(position, max_mods: 10)
-        ensure_parsed!
+        # Reset state to ensure deterministic results even after prior iteration
+        parsed? ? parse : ensure_parsed!
 
         mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
 
@@ -210,7 +211,8 @@ module HTS
       def each_position(max_mods: 10)
         return enum_for(__method__, max_mods: max_mods) unless block_given?
 
-        ensure_parsed!
+        # Reset state at the start of iteration to allow repeated enumerations
+        parsed? ? parse : ensure_parsed!
 
         pos_ptr = FFI::MemoryPointer.new(:int)
         mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
