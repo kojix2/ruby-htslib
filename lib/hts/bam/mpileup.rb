@@ -118,7 +118,7 @@ module HTS
                 aligns = c.times.map do |j|
                   e_ptr = base_ptr + (j * size)
                   entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                  HTS::Bam::Pileup::PileupAlignment.new(entry, @bams[i].header)
+                  HTS::Bam::Pileup::PileupRecord.new(entry, @bams[i].header)
                 end
                 HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: aligns)
               end

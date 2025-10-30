@@ -14,7 +14,7 @@ module HTS
       end
 
       # A wrapper of one bam_pileup1_t entry
-      class PileupAlignment
+      class PileupRecord
         def initialize(entry, header)
           @entry  = entry
           @header = header
@@ -136,7 +136,7 @@ module HTS
                            n.times.map do |i|
                              e_ptr = base_ptr + (i * size)
                              entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                             PileupAlignment.new(entry, @header)
+                             PileupRecord.new(entry, @header)
                            end
                          end
 
