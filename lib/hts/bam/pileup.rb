@@ -129,25 +129,43 @@ module HTS
         pos_ptr = FFI::MemoryPointer.new(:long_long) # hts_pos_t
         n_ptr   = FFI::MemoryPointer.new(:int)
 
+        # Micro-optimizations:
+        # - Compute constant struct size once
+        # - Hoist header reference outside the loop
+        plp1_size    = HTS::LibHTS::BamPileup1.size
+        header_local = @header
+
         begin
-          while (base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, n_ptr)) && !base_ptr.null?
+          loop do
+            base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, n_ptr)
+
+            # When base_ptr is NULL, check n to distinguish EOF (n == 0) from error (n < 0)
+            if base_ptr.null?
+              n = n_ptr.read_int
+              raise "HTSlib pileup error (bam_plp64_auto)" if n < 0
+
+              break
+            end
+
             tid = tid_ptr.read_int
             pos = pos_ptr.read_long_long
             n   = n_ptr.read_int
 
-            # Construct alignment entries
-            alignments = if n.zero?
-                           []
-                         else
-                           size = HTS::LibHTS::BamPileup1.size
-                           n.times.map do |i|
-                             e_ptr = base_ptr + (i * size)
-                             entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                             PileupRecord.new(entry, @header)
-                           end
-                         end
+            # Construct alignment entries with minimal allocations
+            if n.zero?
+              alignments = []
+            else
+              alignments = Array.new(n)
+              i = 0
+              while i < n
+                e_ptr = base_ptr + (i * plp1_size)
+                entry = HTS::LibHTS::BamPileup1.new(e_ptr)
+                alignments[i] = PileupRecord.new(entry, header_local)
+                i += 1
+              end
+            end
 
-            yield PileupColumn.new(tid:, pos:, alignments:)
+            yield PileupColumn.new(tid: tid, pos: pos, alignments: alignments)
           end
         ensure
           close

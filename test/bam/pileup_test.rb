@@ -17,6 +17,13 @@ class BamPileupTest < Minitest::Test
       assert_kind_of Array, got.alignments
       assert_kind_of Integer, got.depth
       assert_operator got.depth, :>=, 0
+
+      # depth must equal the number of alignments in the column
+      assert_equal got.alignments.length, got.depth
+
+      # tid must be a valid reference id within the header target count
+      assert_operator got.tid, :>=, 0
+      assert_operator got.tid, :<, bam.header.target_count
     end
   end
 
@@ -55,6 +62,42 @@ class BamPileupTest < Minitest::Test
       assert_kind_of String, kept.qname
       # Access a base in the read sequence
       assert_includes %w[= A C G T M R S V W Y H K D B N], kept.base(0)
+    end
+  end
+
+  # Calling record multiple times must return the same instance (idempotent lazy copy).
+  def test_record_idempotent
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      r1 = r2 = nil
+      bam.pileup do |col|
+        next if col.alignments.empty?
+
+        aln = col.alignments.first
+        r1 = aln.record
+        r2 = aln.record
+        break
+      end
+      refute_nil r1
+      assert_same r1, r2
+    end
+  end
+
+  # HTSlib contract: if is_refskip is set, is_del must also be set.
+  def test_refskip_implies_del
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      seen_refskip = false
+      checked = 0
+      bam.pileup do |col|
+        col.alignments.each do |aln|
+          if aln.refskip?
+            seen_refskip = true
+            assert aln.del?, "refskip implies del in bam_pileup1_t"
+          end
+        end
+        checked += 1
+        break if seen_refskip || checked >= 200
+      end
+      # If no refskip appears in the inspected window, we don't fail the test.
     end
   end
 end
