@@ -9,5 +9,7 @@ gem "minitest"
 gem "rake"
 gem "simplecov"
 
+gem "csv"
+
 gem "colorize"
 gem "diffy"
