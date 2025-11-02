@@ -18,24 +18,23 @@ module HTS
         def initialize(entry, header)
           @entry  = entry
           @header = header
+          @record = nil
         end
 
-        # Lightweight read-only view over the underlying bam1_t without taking ownership.
+        # Return Bam::Record. On the first call, duplicate the underlying bam1_t (bam_dup1)
+        # so the record becomes safe to keep beyond the current pileup step. Subsequent calls
+        # return the cached Bam::Record instance.
+        # NOTE: Without duplication, bam1_t memory may be reused by HTSlib on the next step.
         def record
-          @record_view ||= ReadView.new(@entry[:b])
-        end
+          return @record if @record
 
-        class ReadView
-          def initialize(bam1_ptr)
-            # Accept either FFI::Pointer or FFI::Struct (Managed/Unmanaged); store as raw pointer
-            @bam1_ptr = bam1_ptr.is_a?(FFI::Pointer) ? bam1_ptr : bam1_ptr.to_ptr
-          end
+          # Normalize to a raw pointer and duplicate to obtain owned memory.
+          b_ptr = @entry[:b].is_a?(FFI::Pointer) ? @entry[:b] : @entry[:b].to_ptr
+          dup_ptr = HTS::LibHTS.bam_dup1(b_ptr)
+          raise "bam_dup1 failed" if dup_ptr.null?
 
-          def base(i)
-            view = HTS::LibHTS::Bam1View.new(@bam1_ptr)
-            seq_ptr = HTS::LibHTS.bam_get_seq(view)
-            HTS::Bam::Record::SEQ_NT16_STR[HTS::LibHTS.bam_seqi(seq_ptr, i)]
-          end
+          # Build a Bam::Record backed by the duplicated bam1_t.
+          @record = HTS::Bam::Record.new(@header, dup_ptr)
         end
 
         def query_position

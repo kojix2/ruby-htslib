@@ -39,4 +39,22 @@ class BamPileupTest < Minitest::Test
       assert_operator count, :>, 0
     end
   end
+
+  def test_pileup_record_persists_beyond_step
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      kept = nil
+      # take a record from the first non-empty column and keep it
+      bam.pileup do |col|
+        next if col.alignments.empty?
+
+        kept = col.alignments.first.record
+        break
+      end
+      refute_nil kept
+      # Access after the pileup iterator has moved on; should be safe
+      assert_kind_of String, kept.qname
+      # Access a base in the read sequence
+      assert_includes %w[= A C G T M R S V W Y H K D B N], kept.base(0)
+    end
+  end
 end

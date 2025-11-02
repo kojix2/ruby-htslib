@@ -43,4 +43,26 @@ class BamMpileupTest < Minitest::Test
       b2.close
     end
   end
+
+  def test_multipileup_record_lazy_copy
+    inputs = [Fixtures["moo.bam"], Fixtures["moo.bam"]]
+    mp = HTS::Bam::Mpileup.new(inputs)
+    begin
+      kept = nil
+      mp.each do |columns|
+        # find first column with at least one alignment in any input
+        col = columns.find { |c| !c.alignments.empty? }
+        next unless col
+
+        kept = col.alignments.first.record
+        break
+      end
+      refute_nil kept
+      # Should be usable after iteration moved on
+      assert_kind_of Integer, kept.len
+      assert_includes %w[= A C G T M R S V W Y H K D B N], kept.base(0)
+    ensure
+      mp.close
+    end
+  end
 end
