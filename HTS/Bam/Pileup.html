@@ -352,6 +352,7 @@
       <pre class="lines">
 
 
+71
 72
 73
 74
@@ -395,11 +396,10 @@
 112
 113
 114
-115
-116</pre>
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='comma'>,</span> <span class='label'>region:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>beg:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>end_:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>maxcnt:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@bam</span>    <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span>
@@ -473,6 +473,7 @@
       <pre class="lines">
 
 
+155
 156
 157
 158
@@ -483,11 +484,10 @@
 163
 164
 165
-166
-167</pre>
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -521,6 +521,7 @@
       <pre class="lines">
 
 
+117
 118
 119
 120
@@ -552,11 +553,10 @@
 146
 147
 148
-149
-150</pre>
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -611,12 +611,12 @@
       <pre class="lines">
 
 
+151
 152
-153
-154</pre>
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_reset'><span class='object_link'><a href="../LibHTS.html#bam_plp_reset-class_method" title="HTS::LibHTS.bam_plp_reset (method)">bam_plp_reset</a></span></span><span class='lparen'>(</span><span class='ivar'>@plp</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -631,7 +631,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 30 04:31:49 2025 by
+  Generated on Sun Nov  2 13:28:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
