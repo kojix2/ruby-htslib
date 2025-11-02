@@ -91,22 +91,30 @@ module HTS
           raise ArgumentError, "beg and end_ must be specified together"
         end
 
-        # Build the auto callback for bam_plp_init
-        @cb = FFI::Function.new(:int, %i[pointer pointer]) do |_data, b|
-          if @itr && !@itr.null?
-            slen = HTS::LibHTS.sam_itr_next(@bam.instance_variable_get(:@hts_file), @itr, b)
-            if slen > 0
-              0
-            elsif slen == -1
-              -1
-            else
-              -2
-            end
-          else
-            r = HTS::LibHTS.sam_read1(@bam.instance_variable_get(:@hts_file), @header.struct, b)
-            r == -1 ? -1 : 0
-          end
-        end
+        # Build the auto callback for bam_plp_init (micro-optimized)
+        # - Hoist ivar/constant lookups out of the callback to reduce per-call overhead.
+        # - Specialize callbacks to avoid branching in the hot path.
+        hts_fp     = @bam.instance_variable_get(:@hts_file)
+        hdr_struct = @header.struct
+        itr_local  = @itr
+
+        @cb = if itr_local && !itr_local.null?
+                FFI::Function.new(:int, %i[pointer pointer]) do |_data, b|
+                  # HTSlib contract: sam_itr_next returns >= 0 on success, -1 on EOF, < -1 on error.
+                  r = HTS::LibHTS.sam_itr_next(hts_fp, itr_local, b)
+                  if r >= 0
+                    0
+                  else
+                    (r == -1 ? -1 : -2)
+                  end
+                end
+              else
+                FFI::Function.new(:int, %i[pointer pointer]) do |_data, b|
+                  # HTSlib contract: sam_read1 returns >= 0 on success, -1 on EOF/error.
+                  r = HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
+                  r == -1 ? -1 : 0
+                end
+              end
 
         @plp = HTS::LibHTS.bam_plp_init(@cb, nil)
         raise "bam_plp_init failed" if @plp.null?

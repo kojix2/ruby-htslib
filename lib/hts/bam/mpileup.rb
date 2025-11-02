@@ -26,9 +26,8 @@ module HTS
         end
 
         n = @bams.length
-        @state_map = {}
-        @handles   = []
-        @iters     = []
+        @iters       = []
+        @data_blocks = [] # per-input packed pointers kept alive
 
         # Prepare optional region iterators for each input
         @bams.each_with_index do |bam, i|
@@ -50,32 +49,38 @@ module HTS
           @iters << itr
         end
 
-        # Build per-input handle pointers so C passes them back to the callback
+        # Build per-input packed pointer blocks so C passes them back to the callback.
+        # Layout per input: [0] hts_fp (htsFile*), [1] hdr_struct (bam_hdr_t*), [2] itr (hts_itr_t* or NULL)
+        ptr_size = FFI.type_size(:pointer)
         data_array = FFI::MemoryPointer.new(:pointer, n)
         @bams.each_with_index do |bam, i|
-          handle = FFI::MemoryPointer.new(:char, 1) # unique address token
-          @handles << handle
-          @state_map[handle.address] = { bam:, itr: @iters[i] }
-          data_array.put_pointer(i * FFI.type_size(:pointer), handle)
+          hts_fp     = bam.instance_variable_get(:@hts_file)
+          hdr_struct = bam.header.struct
+          itr        = @iters[i]
+          block = FFI::MemoryPointer.new(:pointer, 3)
+          block.put_pointer(0 * ptr_size, hts_fp)
+          block.put_pointer(1 * ptr_size, hdr_struct)
+          block.put_pointer(2 * ptr_size, itr && !itr.null? ? itr : FFI::Pointer::NULL)
+          @data_blocks << block
+          data_array.put_pointer(i * ptr_size, block)
         end
-        # Keep the array of per-input handles alive while the C side holds on to them
+        # Keep the array of per-input blocks alive while the C side holds on to them
         @data_array = data_array
 
         @cb = FFI::Function.new(:int, %i[pointer pointer]) do |data, b|
-          st = @state_map[data.address]
-          bam = st[:bam]
-          itr = st[:itr]
+          # Unpack pointers from the per-input block
+          hts_fp     = data.get_pointer(0 * ptr_size)
+          hdr_struct = data.get_pointer(1 * ptr_size)
+          itr        = data.get_pointer(2 * ptr_size)
           if itr && !itr.null?
-            slen = HTS::LibHTS.sam_itr_next(bam.instance_variable_get(:@hts_file), itr, b)
-            if slen > 0
+            r = HTS::LibHTS.sam_itr_next(hts_fp, itr, b)
+            if r >= 0
               0
-            elsif slen == -1
-              -1
             else
-              -2
+              (r == -1 ? -1 : -2)
             end
           else
-            r = HTS::LibHTS.sam_read1(bam.instance_variable_get(:@hts_file), bam.header.struct, b)
+            r = HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
             r == -1 ? -1 : 0
           end
         end
@@ -99,6 +104,8 @@ module HTS
         pos_ptr = FFI::MemoryPointer.new(:long_long)
         n_ptr   = FFI::MemoryPointer.new(:int, n)
         plp_ptr = FFI::MemoryPointer.new(:pointer, n)
+        plp1_size = HTS::LibHTS::BamPileup1.size
+        headers   = @bams.map(&:header)
 
         begin
           while HTS::LibHTS.bam_mplp64_auto(@iter, tid_ptr, pos_ptr, n_ptr, plp_ptr) > 0
@@ -108,20 +115,25 @@ module HTS
             counts = n_ptr.read_array_of_int(n)
             plp_arr = plp_ptr.read_array_of_pointer(n)
 
-            cols = Array.new(n) do |i|
+            cols = Array.new(n)
+            i = 0
+            while i < n
               c = counts[i]
               if c <= 0 || plp_arr[i].null?
-                HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: [])
+                cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: [])
               else
                 base_ptr = plp_arr[i]
-                size = HTS::LibHTS::BamPileup1.size
-                aligns = c.times.map do |j|
-                  e_ptr = base_ptr + (j * size)
+                aligns = Array.new(c)
+                j = 0
+                while j < c
+                  e_ptr = base_ptr + (j * plp1_size)
                   entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                  HTS::Bam::Pileup::PileupRecord.new(entry, @bams[i].header)
+                  aligns[j] = HTS::Bam::Pileup::PileupRecord.new(entry, headers[i])
+                  j += 1
                 end
-                HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: aligns)
+                cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: aligns)
               end
+              i += 1
             end
 
             yield cols
@@ -142,8 +154,8 @@ module HTS
           HTS::LibHTS.hts_itr_destroy(itr) if itr && !itr.null?
         end
         @iters.clear
-        # Keep references to callback and handles to prevent GC
-        @_keepalive = [@cb, *@handles]
+        # Keep references to callback and data blocks to prevent GC
+        @_keepalive = [@cb, @data_array, *@data_blocks]
         # Close owned bams opened by this object
         @owned_bams.each do |b|
           b.close
