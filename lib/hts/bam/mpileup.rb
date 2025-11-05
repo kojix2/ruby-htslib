@@ -6,6 +6,22 @@ module HTS
     class Mpileup
       include Enumerable
 
+      # Usage:
+      #   HTS::Bam::Mpileup.open([bam1, bam2], region: "chr1:1-100") do |mpl|
+      #     mpl.each { |cols| ... }
+      #   end
+      def self.open(*args, **kw)
+        m = new(*args, **kw)
+        return m unless block_given?
+
+        begin
+          yield m
+        ensure
+          m.close
+        end
+        m
+      end
+
       # Normalize inputs to HTS::Bam instances
       # Accepts array of HTS::Bam or filenames (String)
       def initialize(inputs, region: nil, beg: nil, end_: nil, maxcnt: nil, overlaps: false)
@@ -107,39 +123,35 @@ module HTS
         plp1_size = HTS::LibHTS::BamPileup1.size
         headers   = @bams.map(&:header)
 
-        begin
-          while HTS::LibHTS.bam_mplp64_auto(@iter, tid_ptr, pos_ptr, n_ptr, plp_ptr) > 0
-            tid = tid_ptr.read_int
-            pos = pos_ptr.read_long_long
+        while HTS::LibHTS.bam_mplp64_auto(@iter, tid_ptr, pos_ptr, n_ptr, plp_ptr) > 0
+          tid = tid_ptr.read_int
+          pos = pos_ptr.read_long_long
 
-            counts = n_ptr.read_array_of_int(n)
-            plp_arr = plp_ptr.read_array_of_pointer(n)
+          counts = n_ptr.read_array_of_int(n)
+          plp_arr = plp_ptr.read_array_of_pointer(n)
 
-            cols = Array.new(n)
-            i = 0
-            while i < n
-              c = counts[i]
-              if c <= 0 || plp_arr[i].null?
-                cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: [])
-              else
-                base_ptr = plp_arr[i]
-                aligns = Array.new(c)
-                j = 0
-                while j < c
-                  e_ptr = base_ptr + (j * plp1_size)
-                  entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                  aligns[j] = HTS::Bam::Pileup::PileupRecord.new(entry, headers[i])
-                  j += 1
-                end
-                cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: aligns)
+          cols = Array.new(n)
+          i = 0
+          while i < n
+            c = counts[i]
+            if c <= 0 || plp_arr[i].null?
+              cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: [])
+            else
+              base_ptr = plp_arr[i]
+              aligns = Array.new(c)
+              j = 0
+              while j < c
+                e_ptr = base_ptr + (j * plp1_size)
+                entry = HTS::LibHTS::BamPileup1.new(e_ptr)
+                aligns[j] = HTS::Bam::Pileup::PileupRecord.new(entry, headers[i])
+                j += 1
               end
-              i += 1
+              cols[i] = HTS::Bam::Pileup::PileupColumn.new(tid: tid, pos: pos, alignments: aligns)
             end
-
-            yield cols
+            i += 1
           end
-        ensure
-          close
+
+          yield cols
         end
 
         self

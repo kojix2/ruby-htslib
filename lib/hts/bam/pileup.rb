@@ -6,6 +6,22 @@ module HTS
     class Pileup
       include Enumerable
 
+      # Usage:
+      #   HTS::Bam::Pileup.open(bam, region: "chr1:1-100") do |pl|
+      #     pl.each { |col| ... }
+      #   end
+      def self.open(*args, **kw)
+        pu = new(*args, **kw)
+        return pu unless block_given?
+
+        begin
+          yield pu
+        ensure
+          pu.close
+        end
+        pu
+      end
+
       # A column at a reference position with pileup alignments
       PileupColumn = Struct.new(:tid, :pos, :alignments, keyword_init: true) do
         def depth
@@ -135,40 +151,36 @@ module HTS
         plp1_size    = HTS::LibHTS::BamPileup1.size
         header_local = @header
 
-        begin
-          loop do
-            base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, n_ptr)
+        loop do
+          base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, n_ptr)
 
-            # When base_ptr is NULL, check n to distinguish EOF (n == 0) from error (n < 0)
-            if base_ptr.null?
-              n = n_ptr.read_int
-              raise "HTSlib pileup error (bam_plp64_auto)" if n < 0
+          # When base_ptr is NULL, check n to distinguish EOF (n == 0) from error (n < 0)
+          if base_ptr.null?
+            n = n_ptr.read_int
+            raise "HTSlib pileup error (bam_plp64_auto)" if n < 0
 
-              break
-            end
-
-            tid = tid_ptr.read_int
-            pos = pos_ptr.read_long_long
-            n   = n_ptr.read_int
-
-            # Construct alignment entries with minimal allocations
-            if n.zero?
-              alignments = []
-            else
-              alignments = Array.new(n)
-              i = 0
-              while i < n
-                e_ptr = base_ptr + (i * plp1_size)
-                entry = HTS::LibHTS::BamPileup1.new(e_ptr)
-                alignments[i] = PileupRecord.new(entry, header_local)
-                i += 1
-              end
-            end
-
-            yield PileupColumn.new(tid: tid, pos: pos, alignments: alignments)
+            break
           end
-        ensure
-          close
+
+          tid = tid_ptr.read_int
+          pos = pos_ptr.read_long_long
+          n   = n_ptr.read_int
+
+          # Construct alignment entries with minimal allocations
+          if n.zero?
+            alignments = []
+          else
+            alignments = Array.new(n)
+            i = 0
+            while i < n
+              e_ptr = base_ptr + (i * plp1_size)
+              entry = HTS::LibHTS::BamPileup1.new(e_ptr)
+              alignments[i] = PileupRecord.new(entry, header_local)
+              i += 1
+            end
+          end
+
+          yield PileupColumn.new(tid: tid, pos: pos, alignments: alignments)
         end
 
         self

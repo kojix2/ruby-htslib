@@ -228,8 +228,8 @@ module HTS
     end
 
     # Pileup iterator over this file. Optional region can be specified.
-    # When a block is given, yields PileupColumn and returns self.
-    # Without a block, returns an Enumerator.
+    # When a block is given, uses RAII-style and ensures the iterator is closed at block end.
+    # Without a block, returns an Enumerator over a live Pileup instance; caller should close when done.
     #
     # @param region [String, nil] region string like "chr1:100-200"
     # @param beg [Integer, nil]
@@ -237,11 +237,15 @@ module HTS
     # @param maxcnt [Integer, nil] cap on depth per position
     def pileup(region = nil, beg = nil, end_: nil, maxcnt: nil, &block)
       check_closed
-      piter = Pileup.new(self, region:, beg:, end_: end_, maxcnt: maxcnt)
-      return piter.to_enum(:each) unless block_given?
-
-      piter.each(&block)
-      self
+      if block_given?
+        Pileup.open(self, region:, beg:, end_: end_, maxcnt: maxcnt) do |piter|
+          piter.each(&block)
+        end
+        self
+      else
+        piter = Pileup.new(self, region:, beg:, end_: end_, maxcnt: maxcnt)
+        piter.to_enum(:each)
+      end
     end
 
     private
