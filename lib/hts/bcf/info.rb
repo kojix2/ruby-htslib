@@ -74,6 +74,164 @@ module HTS
         get(key)
       end
 
+      # Set INFO field value with automatic type detection.
+      # @param key [String] INFO tag name
+      # @param value [Integer, Float, String, Array, true, false, nil] value to set
+      #   - Integer or Array<Integer> -> update_int
+      #   - Float or Array<Float,Integer> -> update_float
+      #   - String -> update_string
+      #   - true/false -> update_flag
+      #   - nil -> delete the INFO field
+      def []=(key, value)
+        case value
+        when nil
+          delete(key)
+        when true, false
+          update_flag(key, value)
+        when Integer
+          update_int(key, [value])
+        when Float
+          update_float(key, [value])
+        when String
+          update_string(key, value)
+        when Array
+          if value.empty?
+            raise ArgumentError, "Cannot set INFO field to empty array. Use nil to delete."
+          elsif value.all? { |v| v.is_a?(Integer) }
+            update_int(key, value)
+          elsif value.all? { |v| v.is_a?(Numeric) }
+            update_float(key, value)
+          else
+            raise ArgumentError, "INFO array must contain only integers or floats, got: #{value.map(&:class).uniq}"
+          end
+        else
+          raise ArgumentError, "Unsupported INFO value type: #{value.class}"
+        end
+      end
+
+      # Update INFO field with integer value(s).
+      # For compatibility with HTS.cr.
+      # @param key [String] INFO tag name
+      # @param values [Array<Integer>] integer values (use single-element array for scalar)
+      def update_int(key, values)
+        values = Array(values)
+        ptr = FFI::MemoryPointer.new(:int32, values.size)
+        ptr.write_array_of_int32(values)
+        ret = LibHTS.bcf_update_info(
+          @record.header.struct,
+          @record.struct,
+          key,
+          ptr,
+          values.size,
+          LibHTS::BCF_HT_INT
+        )
+        raise "Failed to update INFO int field '#{key}': #{ret}" if ret < 0
+
+        ret
+      end
+
+      # Update INFO field with float value(s).
+      # For compatibility with HTS.cr.
+      # @param key [String] INFO tag name
+      # @param values [Array<Float>] float values (use single-element array for scalar)
+      def update_float(key, values)
+        values = Array(values).map(&:to_f)
+        ptr = FFI::MemoryPointer.new(:float, values.size)
+        ptr.write_array_of_float(values)
+        ret = LibHTS.bcf_update_info(
+          @record.header.struct,
+          @record.struct,
+          key,
+          ptr,
+          values.size,
+          LibHTS::BCF_HT_REAL
+        )
+        raise "Failed to update INFO float field '#{key}': #{ret}" if ret < 0
+
+        ret
+      end
+
+      # Update INFO field with string value.
+      # For compatibility with HTS.cr.
+      # @param key [String] INFO tag name
+      # @param value [String] string value
+      def update_string(key, value)
+        ret = LibHTS.bcf_update_info(
+          @record.header.struct,
+          @record.struct,
+          key,
+          value.to_s,
+          1,
+          LibHTS::BCF_HT_STR
+        )
+        raise "Failed to update INFO string field '#{key}': #{ret}" if ret < 0
+
+        ret
+      end
+
+      # Update INFO flag field.
+      # For compatibility with HTS.cr.
+      # @param key [String] INFO tag name
+      # @param present [Boolean] true to set flag, false to remove it
+      def update_flag(key, present = true)
+        ret = if present
+                LibHTS.bcf_update_info(
+                  @record.header.struct,
+                  @record.struct,
+                  key,
+                  FFI::Pointer::NULL,
+                  1,
+                  LibHTS::BCF_HT_FLAG
+                )
+              else
+                # Remove flag by setting n=0
+                LibHTS.bcf_update_info(
+                  @record.header.struct,
+                  @record.struct,
+                  key,
+                  FFI::Pointer::NULL,
+                  0,
+                  LibHTS::BCF_HT_FLAG
+                )
+              end
+        raise "Failed to update INFO flag field '#{key}': #{ret}" if ret < 0
+
+        ret
+      end
+
+      # Delete an INFO field.
+      # @param key [String] INFO tag name
+      # @return [Boolean] true if field was deleted, false if it didn't exist
+      def delete(key)
+        # Try to get current type to check existence
+        type = get_info_type(key)
+        return false if type.nil?
+
+        # Delete by setting n=0
+        ret = LibHTS.bcf_update_info(
+          @record.header.struct,
+          @record.struct,
+          key,
+          FFI::Pointer::NULL,
+          0,
+          type
+        )
+        return false if ret < 0
+
+        true
+      end
+
+      # Check if an INFO field exists.
+      # @param key [String] INFO tag name
+      # @return [Boolean] true if the field exists
+      def key?(key)
+        # Use get() to check if value is actually present
+        # (get_info_type only checks header, not actual value)
+        !get(key).nil?
+      end
+
+      alias include? key?
+
       # FIXME: naming? room for improvement.
       def fields
         keys.map do |key|
