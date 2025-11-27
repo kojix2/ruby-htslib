@@ -27,6 +27,14 @@ class TabixTest < Minitest::Test
     assert_equal "vcf", @bcf.file_format
   end
 
+  def test_close
+    assert_equal false, @bcf.closed?
+    @bcf.close
+    assert_equal true, @bcf.closed?
+    # second close should be no-op
+    assert_nil @bcf.close
+  end
+
   def test_name2id
     assert_equal 0, @bcf.name2id("poo")
   end

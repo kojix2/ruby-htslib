@@ -68,6 +68,7 @@ module HTS
     end
 
     def load_index(index_name = nil)
+      check_closed
       if index_name
         LibHTS.tbx_index_load2(@file_name, index_name)
       else
@@ -76,14 +77,17 @@ module HTS
     end
 
     def index_loaded?
+      check_closed
       !@idx.null?
     end
 
     def name2id(name)
+      check_closed
       LibHTS.tbx_name2id(@idx, name)
     end
 
     def seqnames
+      check_closed
       nseq = FFI::MemoryPointer.new(:int)
       LibHTS.tbx_seqnames(@idx, nseq).then do |pts|
         pts.read_array_of_pointer(nseq.read_int).map(&:read_string)
@@ -99,6 +103,20 @@ module HTS
       else
         querys(region, &block)
       end
+    end
+
+    def close
+      return if closed?
+
+      # @idx is an internal index (LibHTS::Tbx, a ManagedStruct).
+      # Do not call tbx_destroy here; the FFI finalizer will
+      # release the underlying C struct when @idx becomes unreachable.
+      @idx = nil
+      super
+    end
+
+    def closed?
+      @hts_file.nil? || @hts_file.null?
     end
 
     private
@@ -130,6 +148,10 @@ module HTS
       ensure
         LibHTS.hts_itr_destroy(qiter)
       end
+    end
+
+    def check_closed
+      raise IOError, "closed Tabix" if closed?
     end
   end
 end
