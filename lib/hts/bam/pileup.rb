@@ -116,19 +116,13 @@ module HTS
 
         @cb = if itr_local && !itr_local.null?
                 FFI::Function.new(:int, %i[pointer pointer]) do |_data, b|
-                  # HTSlib contract: sam_itr_next returns >= 0 on success, -1 on EOF, < -1 on error.
-                  r = HTS::LibHTS.sam_itr_next(hts_fp, itr_local, b)
-                  if r >= 0
-                    0
-                  else
-                    (r == -1 ? -1 : -2)
-                  end
+                  # HTSlib contract: return same as sam_itr_next (>= 0 on success, -1 on EOF, < -1 on error)
+                  HTS::LibHTS.sam_itr_next(hts_fp, itr_local, b)
                 end
               else
                 FFI::Function.new(:int, %i[pointer pointer]) do |_data, b|
-                  # HTSlib contract: sam_read1 returns >= 0 on success, -1 on EOF/error.
-                  r = HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
-                  r == -1 ? -1 : 0
+                  # HTSlib contract: return same as sam_read1 (>= 0 on success, -1 on EOF, < -1 on error)
+                  HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
                 end
               end
 

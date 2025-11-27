@@ -88,16 +88,11 @@ module HTS
           hts_fp     = data.get_pointer(0 * ptr_size)
           hdr_struct = data.get_pointer(1 * ptr_size)
           itr        = data.get_pointer(2 * ptr_size)
+          # HTSlib contract: return same as sam_itr_next/sam_read1 (>= 0 on success, -1 on EOF, < -1 on error)
           if itr && !itr.null?
-            r = HTS::LibHTS.sam_itr_next(hts_fp, itr, b)
-            if r >= 0
-              0
-            else
-              (r == -1 ? -1 : -2)
-            end
+            HTS::LibHTS.sam_itr_next(hts_fp, itr, b)
           else
-            r = HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
-            r == -1 ? -1 : 0
+            HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
           end
         end
 
