@@ -1045,6 +1045,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#attach_variable-class_method" title="attach_variable (class method)">.<strong>attach_variable</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bam_aux2A-class_method" title="bam_aux2A (class method)">.<strong>bam_aux2A</strong>(pointer)  &#x21d2; char </a>
     
 
@@ -14311,6 +14333,40 @@
       <pre class="code"><span class="info file"># File 'lib/hts/libhts.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attach_function'>attach_function</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
+  <span class='kw'>super</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>NotFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='kw'>if</span> <span class='gvar'>$VERBOSE</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="attach_variable-class_method">
+  
+    .<strong>attach_variable</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attach_variable'>attach_variable</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
   <span class='kw'>super</span>
 <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>NotFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='kw'>if</span> <span class='gvar'>$VERBOSE</span>
@@ -45225,7 +45281,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 21 09:31:07 2025 by
+  Generated on Thu Nov 27 06:00:44 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
