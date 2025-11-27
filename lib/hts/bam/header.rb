@@ -111,6 +111,23 @@ module HTS
         name2tid(name)
       end
 
+      # Add a @PG (program) line to the header
+      # @param program_name [String] Name of the program
+      # @param options [Hash] Key-value pairs for @PG tags (ID, PN, VN, CL, PP, etc.)
+      # @return [Integer] 0 on success, -1 on failure
+      #
+      # This is a convenience wrapper around sam_hdr_add_pg that automatically:
+      # - Generates a unique ID if the specified one clashes
+      # - Manages PP (previous program) chains automatically
+      #
+      # @example
+      #   header.add_pg("bwa", VN: "0.7.17", CL: "bwa mem ref.fa read.fq")
+      #   header.add_pg("samtools", VN: "1.15", PP: "bwa")
+      def add_pg(program_name, **options)
+        args = options.flat_map { |k, v| [:string, k.to_s, :string, v.to_s] }
+        LibHTS.sam_hdr_add_pg(@sam_hdr, program_name, *args, :pointer, FFI::Pointer::NULL)
+      end
+
       private
 
       def name2tid(name)
