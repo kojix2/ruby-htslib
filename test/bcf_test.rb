@@ -170,6 +170,22 @@ class BcfTest < Minitest::Test
     assert_equal [4021, 4310, 4337], r
   end
 
+  def test_query_multi_regions
+    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
+
+    r = bcf.query(["poo:4000-4100", "poo:4300-4400"]).map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+
+    r = bcf.query(["poo:4000-4100", "poo:4300-4400"], copy: true).map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+
+    r = bcf.query(["poo:4000-4500"]).map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+
+    r = bcf.query(["poo:4000-4500"], copy: true).map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+  end
+
   def test_build_index
     bcf = HTS::Bcf.open(Fixtures["test.bcf"])
     bcf.build_index("test_bcf_index_file")

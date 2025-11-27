@@ -215,13 +215,20 @@ module HTS
       raise "query is only available for BCF files" unless file_format == "bcf"
       raise "Index file is required to call the query method." unless index_loaded?
 
-      if beg && end_
-        tid = header.name2id(region)
-        queryi(tid, beg, end_, copy:, &block)
-      elsif beg.nil? && end_.nil?
-        querys(region, copy:, &block)
+      case region
+      when Array
+        raise ArgumentError, "beg and end must not be specified when region is an Array" unless beg.nil? && end_.nil?
+
+        query_regions(region, copy:, &block)
       else
-        raise ArgumentError, "beg and end must be specified together"
+        if beg && end_
+          tid = header.name2id(region)
+          queryi(tid, beg, end_, copy:, &block)
+        elsif beg.nil? && end_.nil?
+          querys(region, copy:, &block)
+        else
+          raise ArgumentError, "beg and end must be specified together"
+        end
       end
     end
 
@@ -243,6 +250,14 @@ module HTS
       end
     end
 
+    def query_regions(regions, copy: false, &block)
+      if copy
+        query_regions_copy(regions, &block)
+      else
+        query_regions_reuse(regions, &block)
+      end
+    end
+
     def queryi_reuse(tid, beg, end_, &block)
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
@@ -260,6 +275,15 @@ module HTS
       raise "Failed to query region #{region}" if qiter.null?
 
       query_reuse_yield(qiter, &block)
+      self
+    end
+
+    def query_regions_reuse(regions, &block)
+      return to_enum(__method__, regions) unless block_given?
+
+      regions.each do |region|
+        querys_reuse(region, &block)
+      end
       self
     end
 
@@ -296,6 +320,15 @@ module HTS
       raise "Failed to query region #{region}" if qiter.null?
 
       query_copy_yield(qiter, &block)
+      self
+    end
+
+    def query_regions_copy(regions, &block)
+      return to_enum(__method__, regions) unless block_given?
+
+      regions.each do |region|
+        querys_copy(region, &block)
+      end
       self
     end
 
