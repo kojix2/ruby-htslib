@@ -439,7 +439,13 @@ module HTS
 
     FaiFormatOptions = enum(:FAI_NONE, :FAI_FASTA, :FAI_FASTQ)
 
-    class Faidx < FFI::Struct # FIXME: ManagedStruct
+    # Faidx represents a faidx_t handle which is treated as a
+    # file-level RAII object in HTS::Faidx. It is intentionally
+    # kept as a plain Struct and is destroyed explicitly via
+    # LibHTS.fai_destroy in HTS::Faidx#close. Do not convert this
+    # to ManagedStruct; that would interfere with the explicit
+    # lifetime managed by the Ruby wrapper.
+    class Faidx < FFI::Struct
       layout :bgzf,      BGZF.ptr,
              :n,         :int,
              :m,         :int,
