@@ -254,6 +254,51 @@ in.close
 out.close
 ```
 
+Writing and modifying auxiliary tags
+
+```ruby
+# Reading auxiliary tags
+bam = HTS::Bam.open("input.bam")
+record = bam.first
+aux = record.aux
+
+# Read tags
+alignment_score = aux["AS"]           # Auto-detect type
+mc_cigar = aux.get_string("MC")       # Type-specific getter
+edit_distance = aux.get_int("NM")     # Type-specific getter
+
+# Writing/updating auxiliary tags
+in_bam = HTS::Bam.open("input.bam")
+out_bam = HTS::Bam.open("output.bam", "wb")
+out_bam.write_header(in_bam.header)
+
+in_bam.each do |record|
+  aux = record.aux
+  
+  # Update or add tags using type-specific methods
+  aux.update_int("AS", 100)                    # Integer tag
+  aux.update_float("ZQ", 0.95)                 # Float tag
+  aux.update_string("RG", "sample1")           # String tag
+  aux.update_array("BC", [25, 30, 28, 32])     # Array tag
+  
+  # Or use the []= operator (auto-detects type)
+  aux["NM"] = 2                                # Integer
+  aux["ZS"] = "modified"                       # String
+  aux["ZF"] = 3.14                             # Float
+  aux["ZA"] = [1, 2, 3, 4]                     # Array
+  
+  # Check if tag exists
+  if aux.key?("XS")
+    aux.delete("XS")  # Delete tag
+  end
+  
+  out_bam.write(record)
+end
+
+in_bam.close
+out_bam.close
+```
+
 Create index
 
 ```ruby

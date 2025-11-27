@@ -333,4 +333,179 @@ class BamTest < Minitest::Test
     bam("bam_string").build_index("test_bam_index_file")
     File.unlink("test_bam_index_file") if File.exist?("test_bam_index_file")
   end
+
+  # Tag writing tests
+  def test_aux_update_int
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Update existing tag
+    aux.update_int("AS", 42)
+    assert_equal 42, aux.get_int("AS")
+
+    # Add new tag
+    aux.update_int("NM", 5)
+    assert_equal 5, aux.get_int("NM")
+
+    bam.close
+  end
+
+  def test_aux_update_float
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Add float tag
+    aux.update_float("ZF", 3.14)
+    assert_in_delta 3.14, aux.get_float("ZF"), 0.001
+
+    bam.close
+  end
+
+  def test_aux_update_string
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Update existing string tag
+    aux.update_string("MC", "100M")
+    assert_equal "100M", aux.get_string("MC")
+
+    # Add new string tag
+    aux.update_string("RG", "sample1")
+    assert_equal "sample1", aux.get_string("RG")
+
+    bam.close
+  end
+
+  def test_aux_update_array_int
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Add integer array
+    aux.update_array("ZI", [1, 2, 3, 4, 5])
+    result = aux["ZI"]
+    assert_equal [1, 2, 3, 4, 5], result
+
+    bam.close
+  end
+
+  def test_aux_update_array_float
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Add float array
+    aux.update_array("ZF", [1.1, 2.2, 3.3])
+    result = aux["ZF"]
+    assert_equal 3, result.size
+    assert_in_delta 1.1, result[0], 0.001
+    assert_in_delta 2.2, result[1], 0.001
+    assert_in_delta 3.3, result[2], 0.001
+
+    bam.close
+  end
+
+  def test_aux_bracket_assignment
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Test []= with different types
+    aux["AS"] = 100
+    assert_equal 100, aux["AS"]
+
+    aux["ZF"] = 2.718
+    assert_in_delta 2.718, aux["ZF"], 0.001
+
+    aux["ZS"] = "test_string"
+    assert_equal "test_string", aux["ZS"]
+
+    aux["ZA"] = [10, 20, 30]
+    assert_equal [10, 20, 30], aux["ZA"]
+
+    bam.close
+  end
+
+  def test_aux_delete
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Add a tag and delete it
+    aux["ZZ"] = 999
+    assert_equal 999, aux["ZZ"]
+    assert aux.key?("ZZ")
+
+    result = aux.delete("ZZ")
+    assert result
+    assert_nil aux["ZZ"]
+    refute aux.key?("ZZ")
+
+    # Deleting non-existent tag returns false
+    result = aux.delete("XX")
+    refute result
+
+    bam.close
+  end
+
+  def test_aux_key?
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    # Existing tag (AS exists in first record)
+    assert aux.key?("AS")
+    assert aux.include?("AS")
+
+    # Non-existent tag
+    refute aux.key?("ZZ")
+    refute aux.include?("ZZ")
+
+    # After adding
+    aux["ZZ"] = 123
+    assert aux.key?("ZZ")
+
+    bam.close
+  end
+
+  def test_aux_roundtrip_write_read
+    require "tempfile"
+
+    # Create a temporary BAM file
+    Tempfile.create(["test_bam_write", ".bam"]) do |tmp|
+      tmp_path = tmp.path
+      tmp.close
+
+      # Read original BAM
+      input_bam = HTS::Bam.new(path_bam_string)
+      header = input_bam.header
+
+      # Write BAM with modified tags
+      output_bam = HTS::Bam.new(tmp_path, "wb")
+      output_bam.write_header(header)
+
+      input_bam.each do |record|
+        aux = record.aux
+        aux["AS"] = 999
+        aux["ZT"] = "modified"
+        aux["ZA"] = [1, 2, 3]
+        output_bam.write(record)
+      end
+
+      input_bam.close
+      output_bam.close
+
+      # Read back and verify
+      verify_bam = HTS::Bam.new(tmp_path)
+      verify_bam.each do |record|
+        assert_equal 999, record.aux["AS"]
+        assert_equal "modified", record.aux["ZT"]
+        assert_equal [1, 2, 3], record.aux["ZA"]
+      end
+      verify_bam.close
+    end
+  end
 end
