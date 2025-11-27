@@ -211,19 +211,42 @@ module HTS
       end
     end
 
-    # Iterate records in a genomic region.
+    # Iterate records in a genomic region or multiple regions.
     # See {#each} for copy semantics. When copy: false, the yielded Record is reused and should not be stored.
+    #
+    # @param region [String, Array<String>] Region specification(s)
+    #   - Single region: "chr1:100-200" or "chr1" with beg/end parameters
+    #   - Multiple regions: ["chr1:100-200", "chr2:500-600", ...]
+    # @param beg [Integer, nil] Start position (used with single string region)
+    # @param end_ [Integer, nil] End position (used with single string region)
+    # @param copy [Boolean] Whether to deep-copy records (see {#each})
+    #
+    # @example Single region query
+    #   bam.query("chr1:100-200") { |r| puts r.qname }
+    #   bam.query("chr1", 100, 200) { |r| puts r.qname }
+    #
+    # @example Multi-region query
+    #   bam.query(["chr1:100-200", "chr2:500-600"]) { |r| puts r.qname }
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
       raise "Index file is required to call the query method." unless index_loaded?
 
-      if beg && end_
-        tid = header.get_tid(region)
-        queryi(tid, beg, end_, copy:, &block)
-      elsif beg.nil? && end_.nil?
-        querys(region, copy:, &block)
+      case region
+      when Array
+        raise ArgumentError, "beg and end_ cannot be used with array of regions" if beg || end_
+
+        query_regions(region, copy:, &block)
+      when String
+        if beg && end_
+          tid = header.get_tid(region)
+          queryi(tid, beg, end_, copy:, &block)
+        elsif beg.nil? && end_.nil?
+          querys(region, copy:, &block)
+        else
+          raise ArgumentError, "beg and end_ must be specified together"
+        end
       else
-        raise ArgumentError, "beg and end_ must be specified together"
+        raise ArgumentError, "region must be String or Array"
       end
     end
 
@@ -263,6 +286,15 @@ module HTS
         querys_copy(region, &block)
       else
         querys_reuse(region, &block)
+      end
+    end
+
+    # Multi-region query implementation
+    def query_regions(regions, copy: false, &block)
+      if copy
+        query_regions_copy(regions, &block)
+      else
+        query_regions_reuse(regions, &block)
       end
     end
 
@@ -354,6 +386,28 @@ module HTS
       end
     ensure
       LibHTS.hts_itr_destroy(qiter)
+    end
+
+    # Multi-region query using sequential single-region queries
+    # Note: This is a fallback implementation. Ideally we would use sam_itr_regarray
+    # but there seem to be issues with the multi-region iterator in the current setup.
+    def query_regions_reuse(regions, &block)
+      return to_enum(__method__, regions) unless block_given?
+
+      regions.each do |region|
+        querys_reuse(region, &block)
+      end
+      self
+    end
+
+    # Multi-region query with copied Records using sequential queries
+    def query_regions_copy(regions, &block)
+      return to_enum(__method__, regions) unless block_given?
+
+      regions.each do |region|
+        querys_copy(region, &block)
+      end
+      self
     end
   end
 end

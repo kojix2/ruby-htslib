@@ -289,6 +289,38 @@ class BamTest < Minitest::Test
     end
   end
 
+  # CRAM multi-region iterator has issues, only test BAM formats
+  %i[bam_string bam_uri].each do |ft|
+    define_method "test_query_multi_regions_#{ft}" do
+      arr = []
+      bam(ft).query(["chr1:100-200", "chr2:350-700"]) do |aln|
+        arr << aln.pos
+      end
+      # Should get records from both regions
+      assert_includes arr, 341
+      assert_includes arr, 658
+    end
+
+    define_method "test_query_multi_regions_copy_#{ft}" do
+      arr = []
+      bam(ft).query(["chr1:100-200", "chr2:350-700"], copy: true) do |aln|
+        arr << aln.pos
+      end
+      # Should get records from both regions
+      assert_includes arr, 341
+      assert_includes arr, 658
+    end
+
+    define_method "test_query_multi_regions_single_#{ft}" do
+      # Single region as array should also work
+      arr = []
+      bam(ft).query(["chr2:350-700"]) do |aln|
+        arr << aln.pos
+      end
+      assert_equal [341, 658], arr
+    end
+  end
+
   def test_initialize_no_file_bam
     stderr_old = $stderr.dup
     $stderr.reopen(File::NULL)
