@@ -431,13 +431,7 @@
 130
 131
 132
-133
-134
-135
-136
-137
-138
-139</pre>
+133</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 87</span>
@@ -474,19 +468,13 @@
 
   <span class='ivar'>@cb</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_itr_local'>itr_local</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_itr_local'>itr_local</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
           <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__data'>_data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
-            <span class='comment'># HTSlib contract: sam_itr_next returns &gt;= 0 on success, -1 on EOF, &lt; -1 on error.
-</span>            <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'><span class='object_link'><a href="../LibHTS.html#sam_itr_next-class_method" title="HTS::LibHTS.sam_itr_next (method)">sam_itr_next</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr_local'>itr_local</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
-            <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>&gt;=</span> <span class='int'>0</span>
-              <span class='int'>0</span>
-            <span class='kw'>else</span>
-              <span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span> <span class='op'>?</span> <span class='op'>-</span><span class='int'>1</span> <span class='op'>:</span> <span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span>
-            <span class='kw'>end</span>
+            <span class='comment'># HTSlib contract: return same as sam_itr_next (&gt;= 0 on success, -1 on EOF, &lt; -1 on error)
+</span>            <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'><span class='object_link'><a href="../LibHTS.html#sam_itr_next-class_method" title="HTS::LibHTS.sam_itr_next (method)">sam_itr_next</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr_local'>itr_local</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
           <span class='kw'>end</span>
         <span class='kw'>else</span>
           <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__data'>_data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
-            <span class='comment'># HTSlib contract: sam_read1 returns &gt;= 0 on success, -1 on EOF/error.
-</span>            <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_read1'><span class='object_link'><a href="../LibHTS.html#sam_read1-class_method" title="HTS::LibHTS.sam_read1 (method)">sam_read1</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
-            <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span> <span class='op'>?</span> <span class='op'>-</span><span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span>
+            <span class='comment'># HTSlib contract: return same as sam_read1 (&gt;= 0 on success, -1 on EOF, &lt; -1 on error)
+</span>            <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_read1'><span class='object_link'><a href="../LibHTS.html#sam_read1-class_method" title="HTS::LibHTS.sam_read1 (method)">sam_read1</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
           <span class='kw'>end</span>
         <span class='kw'>end</span>
 
@@ -590,21 +578,21 @@ end
       <pre class="lines">
 
 
+187
+188
+189
+190
+191
+192
 193
 194
 195
 196
 197
-198
-199
-200
-201
-202
-203
-204</pre>
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -638,6 +626,12 @@ end
       <pre class="lines">
 
 
+135
+136
+137
+138
+139
+140
 141
 142
 143
@@ -678,16 +672,10 @@ end
 178
 179
 180
-181
-182
-183
-184
-185
-186
-187</pre>
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -756,12 +744,12 @@ end
       <pre class="lines">
 
 
-189
-190
-191</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_reset'><span class='object_link'><a href="../LibHTS.html#bam_plp_reset-class_method" title="HTS::LibHTS.bam_plp_reset (method)">bam_plp_reset</a></span></span><span class='lparen'>(</span><span class='ivar'>@plp</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -776,7 +764,7 @@ end
 </div>
 
       <div id="footer">
-  Generated on Thu Nov 27 06:00:44 2025 by
+  Generated on Thu Nov 27 06:09:10 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
