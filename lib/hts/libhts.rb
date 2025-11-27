@@ -23,6 +23,12 @@ module HTS
     rescue FFI::NotFoundError => e
       warn e.message if $VERBOSE
     end
+
+    def self.attach_variable(*)
+      super
+    rescue FFI::NotFoundError => e
+      warn e.message if $VERBOSE
+    end
   end
 end
 
