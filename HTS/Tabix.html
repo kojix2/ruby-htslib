@@ -298,6 +298,50 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#close-instance_method" title="#close (instance method)">#<strong>close</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#closed%3F-instance_method" title="#closed? (instance method)">#<strong>closed?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#index_loaded%3F-instance_method" title="#index_loaded? (instance method)">#<strong>index_loaded?</strong>  &#x21d2; Boolean </a>
     
 
@@ -445,7 +489,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Hts.html" title="HTS::Hts (class)">Hts</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Hts.html#close-instance_method" title="HTS::Hts#close (method)">#close</a></span>, <span class='object_link'><a href="Hts.html#closed%3F-instance_method" title="HTS::Hts#closed? (method)">#closed?</a></span>, <span class='object_link'><a href="Hts.html#fai=-instance_method" title="HTS::Hts#fai= (method)">#fai=</a></span>, <span class='object_link'><a href="Hts.html#file_format-instance_method" title="HTS::Hts#file_format (method)">#file_format</a></span>, <span class='object_link'><a href="Hts.html#file_format_version-instance_method" title="HTS::Hts#file_format_version (method)">#file_format_version</a></span>, <span class='object_link'><a href="Hts.html#rewind-instance_method" title="HTS::Hts#rewind (method)">#rewind</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#set_threads-instance_method" title="HTS::Hts#set_threads (method)">#set_threads</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Hts.html#fai=-instance_method" title="HTS::Hts#fai= (method)">#fai=</a></span>, <span class='object_link'><a href="Hts.html#file_format-instance_method" title="HTS::Hts#file_format (method)">#file_format</a></span>, <span class='object_link'><a href="Hts.html#file_format_version-instance_method" title="HTS::Hts#file_format_version (method)">#file_format_version</a></span>, <span class='object_link'><a href="Hts.html#rewind-instance_method" title="HTS::Hts#rewind (method)">#rewind</a></span>, <span class='object_link'><a href="Hts.html#seek-instance_method" title="HTS::Hts#seek (method)">#seek</a></span>, <span class='object_link'><a href="Hts.html#set_threads-instance_method" title="HTS::Hts#set_threads (method)">#set_threads</a></span>, <span class='object_link'><a href="Hts.html#struct-instance_method" title="HTS::Hts#struct (method)">#struct</a></span>, <span class='object_link'><a href="Hts.html#tell-instance_method" title="HTS::Hts#tell (method)">#tell</a></span>, <span class='object_link'><a href="Hts.html#to_ptr-instance_method" title="HTS::Hts#to_ptr (method)">#to_ptr</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -844,6 +888,100 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="close-instance_method">
+  
+    #<strong>close</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
+
+  <span class='comment'># @idx is an internal index (LibHTS::Tbx, a ManagedStruct).
+</span>  <span class='comment'># Do not call tbx_destroy here; the FFI finalizer will
+</span>  <span class='comment'># release the underlying C struct when @idx becomes unreachable.
+</span>  <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>super</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="closed?-instance_method">
+  
+    #<strong>closed?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 118</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
+  <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="index_loaded?-instance_method">
   
     #<strong>index_loaded?</strong>  &#x21d2; <tt>Boolean</tt> 
@@ -880,14 +1018,16 @@
       <pre class="lines">
 
 
-78
 79
-80</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='op'>!</span><span class='ivar'>@idx</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -916,12 +1056,14 @@
 73
 74
 75
-76</pre>
+76
+77</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_index_name'>index_name</span>
     <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_index_load2'><span class='object_link'><a href="LibHTS.html#tbx_index_load2-class_method" title="HTS::LibHTS.tbx_index_load2 (method)">tbx_index_load2</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
@@ -948,14 +1090,16 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_name2id'><span class='object_link'><a href="LibHTS.html#tbx_name2id-class_method" title="HTS::LibHTS.tbx_name2id (method)">tbx_name2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -978,19 +1122,19 @@
       <pre class="lines">
 
 
-93
-94
-95
-96
 97
 98
 99
 100
 101
-102</pre>
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1022,17 +1166,19 @@
       <pre class="lines">
 
 
-86
-87
-88
 89
 90
-91</pre>
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seqnames'>seqnames</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='id identifier rubyid_nseq'>nseq</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_seqnames'><span class='object_link'><a href="LibHTS.html#tbx_seqnames-class_method" title="HTS::LibHTS.tbx_seqnames (method)">tbx_seqnames</a></span></span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nseq'>nseq</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pts'>pts</span><span class='op'>|</span>
     <span class='id identifier rubyid_pts'>pts</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_pointer'>read_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_nseq'>nseq</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:read_string</span><span class='rparen'>)</span>
@@ -1048,7 +1194,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Nov 27 11:44:27 2025 by
+  Generated on Thu Nov 27 12:33:56 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
