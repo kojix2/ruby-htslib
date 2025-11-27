@@ -60,7 +60,7 @@ class FaidxTest < Minitest::Test
     assert_equal 500, @fai.seq_len("chr1")
     assert_equal 500, @fai.seq_len(:chr1)
     assert_raises(ArgumentError) { @fai.seq_len(nil) }
-    assert_nil @fai.seq_len("chr")
+    assert_raises(ArgumentError) { @fai.seq_len("chr") }
   end
 
   def test_names
@@ -87,5 +87,44 @@ class FaidxTest < Minitest::Test
     # assert_equal nil, @fai.qual(:chr1, 0, 9)
     fq = HTS::Faidx.new(Fixtures["moo.fastq"])
     assert_equal "2222222222222222222222222222222222222222", fq.qual(fq.names.first)
+  end
+
+  def test_each
+    count = 0
+    @fai.each do |seq|
+      assert_instance_of HTS::Faidx::Sequence, seq
+      count += 1
+    end
+    assert_equal 5, count
+  end
+
+  def test_each_enumerator
+    enum = @fai.each
+    assert_instance_of Enumerator, enum
+    assert_equal 5, enum.count
+  end
+
+  def test_closed_object_raises
+    @fai.close
+    assert_raises(IOError) { @fai.length }
+    assert_raises(IOError) { @fai.names }
+    assert_raises(IOError) { @fai.has_key?("chr1") }
+    assert_raises(IOError) { @fai["chr1"] }
+    assert_raises(IOError) { @fai.seq_len("chr1") }
+    assert_raises(IOError) { @fai.seq("chr1") }
+    assert_raises(IOError) { @fai.qual("chr1") }
+    assert_raises(IOError) { @fai.each {} }
+  end
+
+  def test_invalid_range
+    assert_raises(ArgumentError) { @fai.seq("chr1", -1, 10) }
+    assert_raises(ArgumentError) { @fai.seq("chr1", 0, -1) }
+    assert_raises(ArgumentError) { @fai.seq("chr1", 10, 5) }
+    assert_raises(ArgumentError) { @fai.seq("chr1", 0, 500) }
+    assert_raises(ArgumentError) { @fai.seq("nonexistent", 0, 10) }
+  end
+
+  def test_initialize_with_block_raises
+    assert_raises(ArgumentError) { HTS::Faidx.new(Fixtures["random.fa"]) {} }
   end
 end

@@ -4,7 +4,7 @@ module HTS
       attr_reader :name, :faidx
 
       def initialize(faidx, name)
-        raise unless faidx.has_key?(name)
+        raise ArgumentError, "Sequence not found: #{name}" unless faidx.has_key?(name)
 
         @faidx = faidx
         @name = name
