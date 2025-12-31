@@ -46,10 +46,10 @@ module HTS
 
     # Report the current stream offset
     def self.htell(fp)
-      # TODO: This is a hack. Is this OK?
-      bg = FFI::Pointer.new(:int, fp.pointer.address + fp.offset_of(:begin)).read_int
-      bf = FFI::Pointer.new(:int, fp.pointer.address + fp.offset_of(:buffer)).read_int
-      fp[:offset] + (bg - bf)
+      base_ptr   = fp.pointer
+      begin_ptr  = base_ptr.get_pointer(fp.offset_of(:begin))
+      buffer_ptr = base_ptr.get_pointer(fp.offset_of(:buffer))
+      fp[:offset] + (begin_ptr.address - buffer_ptr.address)
     end
 
     # Read from the stream until the delimiter, up to a maximum length
