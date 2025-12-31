@@ -467,5 +467,11 @@ module HTS
       :hts_md5_destroy,
       [:pointer],
       :void
+
+    # Computes CRC32 for a buffer with an initial crc value
+    attach_function \
+      :hts_crc32,
+      %i[uint32 pointer size_t],
+      :uint32
   end
 end
