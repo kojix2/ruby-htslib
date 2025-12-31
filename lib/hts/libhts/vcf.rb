@@ -548,6 +548,11 @@ module HTS
       :bcf_float_missing,
       [],
       :uint32
+
+    attach_function \
+      :bcf_format_gt_v2,
+      [BcfHdr, BcfFmt, :int, KString],
+      :int
   end
 end
 
