@@ -738,6 +738,18 @@ module HTS
       :bam_mods_recorded,
       [HtsBaseModState, :pointer],
       :pointer
+
+    # Sets the header to the file
+    attach_function \
+      :sam_hdr_set,
+      [HtsFile, SamHdr, :int],
+      :int
+
+    # Get the header from the file pointer
+    attach_function \
+      :sam_hdr_get,
+      [HtsFile],
+      SamHdr
   end
 end
 
