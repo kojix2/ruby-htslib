@@ -330,11 +330,6 @@ module HTS
       %i[cram_fd cram_block cram_metrics int int],
       :int
 
-    # attach_function \
-    #   :cram_compress_block2,
-    #   %i[cram_fd cram_slice cram_block cram_metrics int int],
-    #   :int
-
     # Creates a new container, specifying the maximum number of slices
     # and records permitted.
     attach_function \
