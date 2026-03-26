@@ -93,10 +93,10 @@ module HTS
       @start_position = tell
     end
 
-    def build_index(index_name = nil, min_shift: 0, threads: 2, verbose: true)
+    def build_index(index_name = nil, min_shift: 0, verbose: true)
       check_closed
 
-      self.class.build_index(@file_name, index_name, min_shift, @nthreads || threads, verbose)
+      self.class.build_index(@file_name, index_name, min_shift, @nthreads || 0, verbose)
       self # for method chaining
     end
 
