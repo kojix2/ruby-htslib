@@ -214,6 +214,8 @@ class BamRecordTest < Minitest::Test
   def test_qual
     assert_equal ([17] * 70), @aln1.qual
     assert_equal ([255] * 10), @aln2.qual
+    assert_equal true, @aln1.qual.all? { |q| q.is_a?(Integer) && q.between?(0, 255) }
+    assert_equal true, @aln2.qual.all? { |q| q.is_a?(Integer) && q.between?(0, 255) }
   end
 
   def test_base_qual

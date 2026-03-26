@@ -272,8 +272,11 @@ module HTS
         SEQ_NT16_STR[LibHTS.bam_seqi(r, n)]
       end
 
-      # Get the base qualities.
-      # @return [Array] base qualities
+      # Get the base qualities as raw PHRED bytes.
+      # Ruby has no UInt8 type, so this returns an Array<Integer> with values in 0..255,
+      # corresponding to Crystal's Array(UInt8).
+      # Use qual_string for the SAM-style ASCII representation.
+      # @return [Array<Integer>] base qualities as unsigned bytes
       def qual
         q_ptr = LibHTS.bam_get_qual(@bam1)
         q_ptr.read_array_of_uint8(len)
