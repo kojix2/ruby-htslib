@@ -48,24 +48,24 @@ module HTS
     attach_function \
       :fai_fetch,
       [Faidx, :string, :pointer],
-      :string
+      :pointer
 
     # Fetch the sequence in a region
     attach_function \
       :fai_fetch64,
       [Faidx, :string, :pointer],
-      :string
+      :pointer
 
     # Fetch the quality string for a region for FASTQ files
     attach_function \
       :fai_fetchqual,
       [Faidx, :string, :pointer],
-      :string
+      :pointer
 
     attach_function \
       :fai_fetchqual64,
       [Faidx, :string, :pointer],
-      :string
+      :pointer
 
     # Fetch the number of sequences
     attach_function \
@@ -77,25 +77,25 @@ module HTS
     attach_function \
       :faidx_fetch_seq,
       [Faidx, :string, :int, :int, :pointer],
-      :string
+      :pointer
 
     # Fetch the sequence in a region
     attach_function \
       :faidx_fetch_seq64,
       [Faidx, :string, :int64, :int64, :pointer],
-      :string
+      :pointer
 
     # Fetch the quality string in a region for FASTQ files
     attach_function \
       :faidx_fetch_qual,
       [Faidx, :string, :int, :int, :pointer],
-      :string
+      :pointer
 
     # Fetch the quality string in a region for FASTQ files
     attach_function \
       :faidx_fetch_qual64,
       [Faidx, :string, :int64, :int64, :pointer],
-      :string
+      :pointer
 
     # Query if sequence is present
     attach_function \
@@ -120,6 +120,11 @@ module HTS
       :faidx_seq_len,
       [Faidx, :string],
       :int
+
+    attach_function \
+      :faidx_seq_len64,
+      [Faidx, :string],
+      :int64
 
     # Parses a region string.
     attach_function \

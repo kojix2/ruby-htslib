@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 require_relative "../htslib"
-require_relative "faidx/sequence"
+
+module HTS
+  module LibC
+    extend FFI::Library
+    ffi_lib FFI::Library::LIBC
+    attach_function :free, [:pointer], :void
+  end
+end
 
 module HTS
   class Faidx
-    include Enumerable
+    attr_reader :file_name, :format
 
-    attr_reader :file_name
-
-    def self.open(*args, **kw)
-      file = new(*args, **kw) # do not yield
+    def self.open(file_name, format: :auto, auto_build: true)
+      file = new(file_name, format:, auto_build:) # do not yield
       return file unless block_given?
 
       begin
@@ -21,16 +26,19 @@ module HTS
       file
     end
 
-    def initialize(file_name)
+    def self.build_index(file_name, fai_path = nil, gzi_path = nil)
+      case LibHTS.fai_build3(file_name, fai_path, gzi_path)
+      when 0
+      else raise HTS::Error, "Failed to build faidx index for #{file_name}"
+      end
+    end
+
+    def initialize(file_name, format: :auto, auto_build: true)
       raise ArgumentError, "HTS::Faidx.new() does not take block; Please use HTS::Faidx.open() instead" if block_given?
 
       @file_name = file_name.freeze
-      @fai = case File.extname(@file_name)
-             when ".fq", ".fastq"
-               LibHTS.fai_load_format(@file_name, 2)
-             else
-               LibHTS.fai_load(@file_name)
-             end
+      @format = resolve_format(@file_name, format)
+      @fai = load_handle(@file_name, @format, auto_build)
 
       raise Errno::ENOENT, "Failed to open #{@file_name}" if @fai.null?
     end
@@ -50,42 +58,19 @@ module HTS
       @fai.nil? || @fai.null?
     end
 
-    def file_format
-      check_closed
-      @fai[:format]
-    end
-
-    # Iterate over each sequence in the index.
-    # @yield [Sequence] each sequence object
-    # @return [Enumerator] if no block given
-    def each
-      return to_enum(__method__) unless block_given?
-
-      check_closed
-      names.each { |name| yield self[name] }
-    end
-
-    # the number of sequences in the index.
-    # @return [Integer] the number of sequences
-    def length
+    def size
       check_closed
       LibHTS.faidx_nseq(@fai)
     end
-    alias size length
 
-    # Return the list of sequence names in the index.
-    # @return [Array<String>] sequence names
+    alias length size
+
     def names
       check_closed
       Array.new(length) { |i| LibHTS.faidx_iseq(@fai, i) }
     end
 
-    alias keys names
-
-    # Check if a sequence exists in the index.
-    # @param key [String, Symbol] sequence name
-    # @return [Boolean] true if the sequence exists
-    def has_key?(key)
+    def has_seq?(key)
       check_closed
       raise ArgumentError, "Expect chrom to be String or Symbol" unless key.is_a?(String) || key.is_a?(Symbol)
 
@@ -97,94 +82,54 @@ module HTS
       end
     end
 
-    # Get a Sequence object by name or index.
-    # @param name [String, Symbol, Integer] sequence name or index
-    # @return [Sequence] the sequence object
-    # @raise [ArgumentError] if the sequence does not exist
-    def [](name)
-      check_closed
-      name = LibHTS.faidx_iseq(@fai, name) if name.is_a?(Integer)
-      Sequence.new(self, name)
-    end
-
-    # Return the length of the requested chromosome.
-    # @param chrom [String, Symbol] chromosome name
-    # @return [Integer] sequence length
-    # @raise [ArgumentError] if the sequence does not exist
     def seq_len(chrom)
       check_closed
       raise ArgumentError, "Expect chrom to be String or Symbol" unless chrom.is_a?(String) || chrom.is_a?(Symbol)
 
       chrom = chrom.to_s
-      result = LibHTS.faidx_seq_len(@fai, chrom)
+      result = LibHTS.faidx_seq_len64(@fai, chrom)
       raise ArgumentError, "Sequence not found: #{chrom}" if result == -1
 
       result
     end
 
-    # @overload fetch_seq(name)
-    #   Fetch the sequence as a String.
-    #   @param name [String, Symbol] chr1:0-10
-    #   @return [String] the sequence
-    # @overload fetch_seq(name, start, stop)
-    #   Fetch the sequence as a String.
-    #   @param name [String, Symbol] the name of the chromosome
-    #   @param start [Integer] the start position of the sequence (0-based)
-    #   @param stop [Integer] the end position of the sequence (0-based)
-    #   @return [String] the sequence
     def fetch_seq(name, start = nil, stop = nil)
       check_closed
       name = name.to_s
-      rlen = FFI::MemoryPointer.new(:int)
 
       if start.nil? && stop.nil?
-        result = LibHTS.fai_fetch64(@fai, name, rlen)
+        len = seq_len(name)
+        return "" if len.zero?
+        return fetch_seq(name, 0, len - 1)
       else
         validate_range!(name, start, stop)
+        rlen = FFI::MemoryPointer.new(:int64)
         result = LibHTS.faidx_fetch_seq64(@fai, name, start, stop, rlen)
+        return fetch_result(result, rlen.read_int64, "sequence", name, start, stop)
       end
-
-      case rlen.read_int
-      when -2 then raise ArgumentError, "Invalid chromosome name: #{name}"
-      when -1 then raise HTS::Error, "Error fetching sequence: #{name}:#{start}-#{stop}"
-      end
-
-      result
     end
 
-    alias seq fetch_seq
-
-    # @overload fetch_qual(name)
-    #   Fetch the quality string.
-    #   @param name [String, Symbol] sequence name
-    #   @return [String] the quality string
-    # @overload fetch_qual(name, start, stop)
-    #   Fetch the quality string.
-    #   @param name [String, Symbol] the name of the chromosome
-    #   @param start [Integer] the start position of the sequence (0-based)
-    #   @param stop [Integer] the end position of the sequence (0-based)
-    #   @return [String] the quality string
     def fetch_qual(name, start = nil, stop = nil)
       check_closed
+      raise HTS::Error, "Quality is only available for FASTQ indexes" unless format == :fastq
       name = name.to_s
-      rlen = FFI::MemoryPointer.new(:int)
 
       if start.nil? && stop.nil?
-        result = LibHTS.fai_fetchqual64(@fai, name, rlen)
+        len = seq_len(name)
+        return "" if len.zero?
+        return fetch_qual(name, 0, len - 1)
       else
         validate_range!(name, start, stop)
+        rlen = FFI::MemoryPointer.new(:int64)
         result = LibHTS.faidx_fetch_qual64(@fai, name, start, stop, rlen)
+        return fetch_result(result, rlen.read_int64, "quality", name, start, stop)
       end
-
-      case rlen.read_int
-      when -2 then raise ArgumentError, "Invalid chromosome name: #{name}"
-      when -1 then raise HTS::Error, "Error fetching quality: #{name}:#{start}-#{stop}"
-      end
-
-      result
     end
 
-    alias qual fetch_qual
+    def build_index(fai_path = nil, gzi_path = nil)
+      self.class.build_index(@file_name, fai_path, gzi_path)
+      self
+    end
 
     private
 
@@ -192,19 +137,54 @@ module HTS
       raise IOError, "closed Faidx" if closed?
     end
 
-    # Validate range parameters.
-    # @param name [String] sequence name
-    # @param start [Integer] start position (0-based)
-    # @param stop [Integer] stop position (0-based)
-    # @raise [ArgumentError] if range is invalid
     def validate_range!(name, start, stop)
       raise ArgumentError, "Expect start to be >= 0" if start < 0
       raise ArgumentError, "Expect stop to be >= 0" if stop < 0
       raise ArgumentError, "Expect start to be <= stop" if start > stop
 
       len = seq_len(name)
-      raise ArgumentError, "Sequence not found: #{name}" if len.nil?
       raise ArgumentError, "Expect stop to be < seq_len (#{len})" if stop >= len
+    end
+
+    def fetch_result(ptr, len, kind, name, start, stop)
+      case len
+      when -2 then raise ArgumentError, "Sequence not found: #{name}"
+      when -1 then raise HTS::Error, "Error fetching #{kind}: #{name}:#{start}-#{stop}"
+      end
+
+      raise HTS::Error, "Error fetching #{kind}: #{name}:#{start}-#{stop}" if ptr.null?
+
+      begin
+        ptr.read_string_length(len)
+      ensure
+        HTS::LibC.free(ptr)
+      end
+    end
+
+    def load_handle(file_name, format, auto_build)
+      case [format, auto_build]
+      when [:fasta, true]
+        LibHTS.fai_load_format(file_name, :FAI_FASTA)
+      when [:fastq, true]
+        LibHTS.fai_load_format(file_name, :FAI_FASTQ)
+      when [:fasta, false]
+        LibHTS.fai_load3_format(file_name, nil, nil, 0, :FAI_FASTA)
+      when [:fastq, false]
+        LibHTS.fai_load3_format(file_name, nil, nil, 0, :FAI_FASTQ)
+      else
+        raise ArgumentError, "Unsupported format: #{format}"
+      end
+    end
+
+    def resolve_format(file_name, format)
+      case format
+      when :auto
+        file_name.match?(/\.(fastq|fq)(\.gz|\.bgz)?\z/i) ? :fastq : :fasta
+      when :fasta, :fastq
+        format
+      else
+        raise ArgumentError, "Unsupported format: #{format}"
+      end
     end
   end
 end

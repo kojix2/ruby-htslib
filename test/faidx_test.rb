@@ -4,15 +4,17 @@ require_relative "test_helper"
 
 class FaidxTest < Minitest::Test
   def setup
-    @fai = HTS::Faidx.new(Fixtures["random.fa"])
+    @fasta = HTS::Faidx.new(Fixtures["random.fa"])
+    @fastq = HTS::Faidx.new(Fixtures["moo.fastq"], format: :fastq)
   end
 
   def teardown
-    @fai.close
+    @fasta&.close
+    @fastq&.close
   end
 
   def test_initialize_fai
-    assert_instance_of HTS::Faidx, @fai
+    assert_instance_of HTS::Faidx, @fasta
     stderr_old = $stderr.dup
     $stderr.reopen(File::NULL)
     assert_raises { HTS::Faidx.new("foo") }
@@ -21,7 +23,6 @@ class FaidxTest < Minitest::Test
   end
 
   def test_open
-    # FIXME: API
     faidx = HTS::Faidx.open(Fixtures["random.fa"])
     assert_instance_of HTS::Faidx, faidx
     faidx.close
@@ -31,97 +32,94 @@ class FaidxTest < Minitest::Test
   end
 
   def test_closed?
-    assert_equal false, @fai.closed?
-    assert_nil @fai.close
-    assert_equal true, @fai.closed?
+    assert_equal false, @fasta.closed?
+    assert_nil @fasta.close
+    assert_equal true, @fasta.closed?
   end
 
   def test_struct
-    assert_equal false, @fai.struct.null?
+    assert_equal false, @fasta.struct.null?
   end
 
   def test_close
-    assert_nil @fai.close
+    assert_nil @fasta.close
   end
 
-  def test_file_format
-    assert_equal :FAI_NONE, @fai.file_format
+  def test_format
+    assert_equal :fasta, @fasta.format
+    assert_equal :fastq, @fastq.format
   end
 
   def test_size
-    assert_equal 5, @fai.size
+    assert_equal 5, @fasta.size
   end
 
   def test_length
-    assert_equal 5, @fai.length
+    assert_equal 5, @fasta.length
   end
 
   def test_seq_len
-    assert_equal 500, @fai.seq_len("chr1")
-    assert_equal 500, @fai.seq_len(:chr1)
-    assert_raises(ArgumentError) { @fai.seq_len(nil) }
-    assert_raises(ArgumentError) { @fai.seq_len("chr") }
+    assert_equal 500, @fasta.seq_len("chr1")
+    assert_equal 500, @fasta.seq_len(:chr1)
+    assert_raises(ArgumentError) { @fasta.seq_len(nil) }
+    assert_raises(ArgumentError) { @fasta.seq_len("chr") }
   end
 
   def test_names
-    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.names
+    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fasta.names
   end
 
-  def test_keys
-    assert_equal %w[chr1 chr2 chr3 chr4 chr5], @fai.keys
+  def test_has_seq
+    assert_equal true, @fasta.has_seq?("chr1")
+    assert_equal false, @fasta.has_seq?("chrX")
   end
 
-  def test_at
-    assert_instance_of HTS::Faidx::Sequence, @fai["chr1"]
-    assert_equal "chr1", @fai[0].name
+  def test_fetch_seq
+    assert_equal "TTGTGGAGAC", @fasta.fetch_seq(:chr1, 0, 9)
+    assert_equal "ACTTAGTTGA", @fasta.fetch_seq(:chr2, 10, 19)
   end
 
-  def test_seq
-    assert_equal "TTGTGGAGAC", @fai.seq("chr1:1-10")
-    assert_equal "TTGTGGAGAC", @fai.seq(:chr1, 0, 9)
-    assert_equal "ACTTAGTTGA", @fai.seq("chr2:11-20")
-    assert_equal "ACTTAGTTGA", @fai.seq(:chr2, 10, 19)
+  def test_fetch_full_sequence
+    assert_equal 500, @fasta.fetch_seq("chr1").length
   end
 
-  def test_qual
-    # assert_equal nil, @fai.qual(:chr1, 0, 9)
-    fq = HTS::Faidx.new(Fixtures["moo.fastq"])
-    assert_equal "2222222222222222222222222222222222222222", fq.qual(fq.names.first)
+  def test_fetch_qual
+    assert_equal "2222222222222222222222222222222222222222", @fastq.fetch_qual(@fastq.names.first)
+    assert_equal "22222", @fastq.fetch_qual(@fastq.names.first, 0, 4)
   end
 
-  def test_each
-    count = 0
-    @fai.each do |seq|
-      assert_instance_of HTS::Faidx::Sequence, seq
-      count += 1
+  def test_fetch_qual_on_fasta_raises
+    assert_raises(HTS::Error) { @fasta.fetch_qual("chr1") }
+  end
+
+  def test_build_index
+    Tempfile.create(["faidx", ".fa"]) do |file|
+      file.write(">chr1\nACGT\n")
+      file.flush
+      HTS::Faidx.build_index(file.path)
+      assert File.exist?("#{file.path}.fai")
+    ensure
+      File.delete("#{file.path}.fai") if File.exist?("#{file.path}.fai")
+      File.delete("#{file.path}.gzi") if File.exist?("#{file.path}.gzi")
     end
-    assert_equal 5, count
-  end
-
-  def test_each_enumerator
-    enum = @fai.each
-    assert_instance_of Enumerator, enum
-    assert_equal 5, enum.count
   end
 
   def test_closed_object_raises
-    @fai.close
-    assert_raises(IOError) { @fai.length }
-    assert_raises(IOError) { @fai.names }
-    assert_raises(IOError) { @fai.has_key?("chr1") }
-    assert_raises(IOError) { @fai["chr1"] }
-    assert_raises(IOError) { @fai.seq_len("chr1") }
-    assert_raises(IOError) { @fai.seq("chr1") }
-    assert_raises(IOError) { @fai.qual("chr1") }
-    assert_raises(IOError) { @fai.each {} }
+    @fasta.close
+    assert_raises(IOError) { @fasta.length }
+    assert_raises(IOError) { @fasta.names }
+    assert_raises(IOError) { @fasta.has_seq?("chr1") }
+    assert_raises(IOError) { @fasta.seq_len("chr1") }
+    assert_raises(IOError) { @fasta.fetch_seq("chr1") }
+    assert_raises(IOError) { @fasta.fetch_qual("chr1") }
   end
 
   def test_invalid_range
-    assert_raises(ArgumentError) { @fai.seq("chr1", -1, 10) }
-    assert_raises(ArgumentError) { @fai.seq("chr1", 0, -1) }
-    assert_raises(ArgumentError) { @fai.seq("chr1", 10, 5) }
-    assert_raises(ArgumentError) { @fai.seq("chr1", 0, 500) }
-    assert_raises(ArgumentError) { @fai.seq("nonexistent", 0, 10) }
+    assert_raises(ArgumentError) { @fasta.fetch_seq("chr1", -1, 10) }
+    assert_raises(ArgumentError) { @fasta.fetch_seq("chr1", 0, -1) }
+    assert_raises(ArgumentError) { @fasta.fetch_seq("chr1", 10, 5) }
+    assert_raises(ArgumentError) { @fasta.fetch_seq("chr1", 0, 500) }
+    assert_raises(ArgumentError) { @fasta.fetch_seq("nonexistent", 0, 10) }
   end
 
   def test_initialize_with_block_raises
