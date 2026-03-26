@@ -87,11 +87,6 @@
   
   
   
-  <dl>
-      <dt>Includes:</dt>
-      <dd>Enumerable</dd>
-  </dl>
-  
   
 
   
@@ -99,23 +94,11 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/faidx.rb<span class="defines">,<br />
-  lib/hts/faidx/sequence.rb</span>
-</dd>
+    <dd>lib/hts/faidx.rb</dd>
   </dl>
   
 </div>
 
-<h2>Defined Under Namespace</h2>
-<p class="children">
-  
-    
-  
-    
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Faidx/Sequence.html" title="HTS::Faidx::Sequence (class)">Sequence</a></span>
-    
-  
-</p>
 
 
 
@@ -152,6 +135,35 @@
 </li>
 
     
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format-instance_method" title="#format (instance method)">#<strong>format</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute format.</p>
+</div></span>
+  
+</li>
+
+    
   </ul>
 
 
@@ -168,7 +180,29 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(*args, **kw)  &#x21d2; Object </a>
+      <a href="#build_index-class_method" title="build_index (class method)">.<strong>build_index</strong>(file_name, fai_path = nil, gzi_path = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(file_name, format: :auto, auto_build: true)  &#x21d2; Object </a>
     
 
     
@@ -199,7 +233,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#[]-instance_method" title="#[] (instance method)">#<strong>[]</strong>(name)  &#x21d2; Sequence </a>
+      <a href="#build_index-instance_method" title="#build_index (instance method)">#<strong>build_index</strong>(fai_path = nil, gzi_path = nil)  &#x21d2; Object </a>
     
 
     
@@ -213,9 +247,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get a Sequence object by name or index.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -267,35 +299,9 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each-instance_method" title="#each (instance method)">#<strong>each</strong> {|Sequence| ... } &#x21d2; Enumerator </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Iterate over each sequence in the index.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#fetch_qual-instance_method" title="#fetch_qual (instance method)">#<strong>fetch_qual</strong>(name, start = nil, stop = nil)  &#x21d2; Object </a>
     
 
-    
-      (also: #qual)
     
   </span>
   
@@ -319,7 +325,27 @@
     
 
     
-      (also: #seq)
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_seq%3F-instance_method" title="#has_seq? (instance method)">#<strong>has_seq?</strong>(key)  &#x21d2; Boolean </a>
+    
+
     
   </span>
   
@@ -339,53 +365,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#file_format-instance_method" title="#file_format (instance method)">#<strong>file_format</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#has_key%3F-instance_method" title="#has_key? (instance method)">#<strong>has_key?</strong>(key)  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Check if a sequence exists in the index.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_name)  &#x21d2; Faidx </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_name, format: :auto, auto_build: true)  &#x21d2; Faidx </a>
     
 
     
@@ -411,11 +391,9 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#length-instance_method" title="#length (instance method)">#<strong>length</strong>  &#x21d2; Integer </a>
+      <a href="#names-instance_method" title="#names (instance method)">#<strong>names</strong>  &#x21d2; Object </a>
     
 
-    
-      (also: #size)
     
   </span>
   
@@ -427,9 +405,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the number of sequences in the index.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -437,11 +413,9 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#names-instance_method" title="#names (instance method)">#<strong>names</strong>  &#x21d2; Array&lt;String&gt; </a>
+      <a href="#seq_len-instance_method" title="#seq_len (instance method)">#<strong>seq_len</strong>(chrom)  &#x21d2; Object </a>
     
 
-    
-      (also: #keys)
     
   </span>
   
@@ -453,9 +427,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Return the list of sequence names in the index.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -463,9 +435,11 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#seq_len-instance_method" title="#seq_len (instance method)">#<strong>seq_len</strong>(chrom)  &#x21d2; Integer </a>
+      <a href="#size-instance_method" title="#size (instance method)">#<strong>size</strong>  &#x21d2; Object </a>
     
 
+    
+      (also: #length)
     
   </span>
   
@@ -477,9 +451,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Return the length of the requested chromosome.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -509,14 +481,13 @@
     </ul>
   
 
-
-  <div id="constructor_details" class="method_details_list">
+<div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(file_name)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Faidx (class)">Faidx</a></span></tt> 
+    #<strong>initialize</strong>(file_name, format: :auto, auto_build: true)  &#x21d2; <tt><span class='object_link'><a href="" title="HTS::Faidx (class)">Faidx</a></span></tt> 
   
 
   
@@ -552,33 +523,25 @@
       <pre class="lines">
 
 
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 36</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:auto</span><span class='comma'>,</span> <span class='label'>auto_build:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTS::Faidx.new() does not take block; Please use HTS::Faidx.open() instead</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='ivar'>@file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
-  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
-         <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fq</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.fastq</span><span class='tstring_end'>&quot;</span></span>
-           <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load_format'><span class='object_link'><a href="LibHTS.html#fai_load_format-class_method" title="HTS::LibHTS.fai_load_format (method)">fai_load_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
-         <span class='kw'>else</span>
-           <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_load'><span class='object_link'><a href="LibHTS.html#fai_load-class_method" title="HTS::LibHTS.fai_load (method)">fai_load</a></span></span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='rparen'>)</span>
-         <span class='kw'>end</span>
+  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_resolve_format'>resolve_format</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
+  <span class='ivar'>@fai</span> <span class='op'>=</span> <span class='id identifier rubyid_load_handle'>load_handle</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='ivar'>@format</span><span class='comma'>,</span> <span class='id identifier rubyid_auto_build'>auto_build</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOENT</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to open </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@fai</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 <span class='kw'>end</span></pre>
@@ -620,15 +583,58 @@
       <pre class="lines">
 
 
-10
-11
-12</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_name'>file_name</span>
   <span class='ivar'>@file_name</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="format-instance_method">
+  
+    #<strong>format</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute format.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
+  <span class='ivar'>@format</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -643,9 +649,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="open-class_method">
+  <h3 class="signature first" id="build_index-class_method">
   
-    .<strong>open</strong>(*args, **kw)  &#x21d2; <tt>Object</tt> 
+    .<strong>build_index</strong>(file_name, fai_path = nil, gzi_path = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -657,23 +663,59 @@
       <pre class="lines">
 
 
-12
-13
-14
-15
-16
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_fai_path'>fai_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_gzi_path'>gzi_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_build3'><span class='object_link'><a href="LibHTS.html#fai_build3-class_method" title="HTS::LibHTS.fai_build3 (method)">fai_build3</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_fai_path'>fai_path</span><span class='comma'>,</span> <span class='id identifier rubyid_gzi_path'>gzi_path</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='int'>0</span>
+  <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="HTS::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to build faidx index for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file_name'>file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open-class_method">
+  
+    .<strong>open</strong>(file_name, format: :auto, auto_build: true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 17
 18
 19
 20
 21
-22</pre>
+22
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 17</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span> <span class='comment'># do not yield
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:auto</span><span class='comma'>,</span> <span class='label'>auto_build:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='label'>format:</span><span class='comma'>,</span> <span class='label'>auto_build:</span><span class='rparen'>)</span> <span class='comment'># do not yield
 </span>  <span class='kw'>return</span> <span class='id identifier rubyid_file'>file</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='kw'>begin</span>
@@ -695,100 +737,31 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="[]-instance_method">
+  <h3 class="signature first" id="build_index-instance_method">
   
-    #<strong>[]</strong>(name)  &#x21d2; <tt><span class='object_link'><a href="Faidx/Sequence.html" title="HTS::Faidx::Sequence (class)">Sequence</a></span></tt> 
-  
-
+    #<strong>build_index</strong>(fai_path = nil, gzi_path = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Get a Sequence object by name or index.</p>
 
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>sequence name or index</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Faidx/Sequence.html" title="HTS::Faidx::Sequence (class)">Sequence</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the sequence object</p>
-</div>
-      
-    </li>
-  
-</ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if the sequence does not exist</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-104
-105
-106
-107
-108</pre>
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 129</span>
 
-<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_iseq'><span class='object_link'><a href="LibHTS.html#faidx_iseq-class_method" title="HTS::LibHTS.faidx_iseq (method)">faidx_iseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="Faidx/Sequence.html" title="HTS::Faidx::Sequence (class)">Sequence</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Faidx/Sequence.html#initialize-instance_method" title="HTS::Faidx::Sequence#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='id identifier rubyid_fai_path'>fai_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_gzi_path'>gzi_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='ivar'>@file_name</span><span class='comma'>,</span> <span class='id identifier rubyid_fai_path'>fai_path</span><span class='comma'>,</span> <span class='id identifier rubyid_gzi_path'>gzi_path</span><span class='rparen'>)</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -810,15 +783,15 @@
       <pre class="lines">
 
 
-42
-43
-44
-45
-46
-47</pre>
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -868,12 +841,12 @@
       <pre class="lines">
 
 
-49
-50
-51</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@fai</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@fai</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -884,102 +857,11 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="each-instance_method">
-  
-    #<strong>each</strong> {|Sequence| ... } &#x21d2; <tt>Enumerator</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Iterate over each sequence in the index.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Yields:</p>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Faidx/Sequence.html" title="HTS::Faidx::Sequence (class)">Sequence</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>each sequence object</p>
-</div>
-      
-    </li>
-  
-</ul>
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Enumerator</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if no block given</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-61
-62
-63
-64
-65
-66</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 61</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='id identifier rubyid_names'>names</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="fetch_qual-instance_method">
   
-    
-      <span class="overload">#<strong>fetch_qual</strong>(name)  &#x21d2; <tt>String</tt> </span>
-    
-      <span class="overload">#<strong>fetch_qual</strong>(name, start, stop)  &#x21d2; <tt>String</tt> </span>
-    
+    #<strong>fetch_qual</strong>(name, start = nil, stop = nil)  &#x21d2; <tt>Object</tt> 
   
 
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='qual-instance_method'>qual</span></span>
-    </span>
   
 
   
@@ -991,153 +873,19 @@
 </div>
 <div class="tags">
   
-  <p class="tag_title">Overloads:</p>
-  <ul class="overload">
-    
-      
-      <li class="overload_item">
-        <span class="signature">#<strong>fetch_qual</strong>(name)  &#x21d2; <tt>String</tt> </span>
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>Fetch the quality string.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
+<p class="tag_title">Raises:</p>
+<ul class="raise">
   
     <li>
       
-        <span class='name'>name</span>
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error.html" title="HTS::Error (class)">HTS::Error</a></span></tt>)</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>sequence name</p>
-</div>
       
     </li>
   
 </ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the quality string</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-      </li>
-    
-      
-      <li class="overload_item">
-        <span class="signature">#<strong>fetch_qual</strong>(name, start, stop)  &#x21d2; <tt>String</tt> </span>
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>Fetch the quality string.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the name of the chromosome</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>start</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the start position of the sequence (0-based)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>stop</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the end position of the sequence (0-based)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the quality string</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-      </li>
-    
-  </ul>
-
 
 </div><table class="source_code">
   <tr>
@@ -1145,47 +893,41 @@
       <pre class="lines">
 
 
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185</pre>
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_qual'>fetch_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="HTS::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Quality is only available for FASTQ indexes</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_format'>format</span> <span class='op'>==</span> <span class='symbol'>:fastq</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_start'>start</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_stop'>stop</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_fetchqual64'><span class='object_link'><a href="LibHTS.html#fai_fetchqual64-class_method" title="HTS::LibHTS.fai_fetchqual64 (method)">fai_fetchqual64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_len'>len</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_fetch_qual'>fetch_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_validate_range!'>validate_range!</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int64</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_fetch_qual64'><span class='object_link'><a href="LibHTS.html#faidx_fetch_qual64-class_method" title="HTS::LibHTS.faidx_fetch_qual64 (method)">faidx_fetch_qual64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_fetch_result'>fetch_result</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='period'>.</span><span class='id identifier rubyid_read_int64'>read_int64</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>quality</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-
-  <span class='kw'>case</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
-  <span class='kw'>when</span> <span class='op'>-</span><span class='int'>2</span> <span class='kw'>then</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid chromosome name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>when</span> <span class='op'>-</span><span class='int'>1</span> <span class='kw'>then</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="HTS::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error fetching quality: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_start'>start</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stop'>stop</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_result'>result</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1195,233 +937,7 @@
       <div class="method_details ">
   <h3 class="signature " id="fetch_seq-instance_method">
   
-    
-      <span class="overload">#<strong>fetch_seq</strong>(name)  &#x21d2; <tt>String</tt> </span>
-    
-      <span class="overload">#<strong>fetch_seq</strong>(name, start, stop)  &#x21d2; <tt>String</tt> </span>
-    
-  
-
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='seq-instance_method'>seq</span></span>
-    </span>
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  <p class="tag_title">Overloads:</p>
-  <ul class="overload">
-    
-      
-      <li class="overload_item">
-        <span class="signature">#<strong>fetch_seq</strong>(name)  &#x21d2; <tt>String</tt> </span>
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>Fetch the sequence as a String.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>chr1:0-10</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the sequence</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-      </li>
-    
-      
-      <li class="overload_item">
-        <span class="signature">#<strong>fetch_seq</strong>(name, start, stop)  &#x21d2; <tt>String</tt> </span>
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>Fetch the sequence as a String.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the name of the chromosome</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>start</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the start position of the sequence (0-based)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>stop</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the end position of the sequence (0-based)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the sequence</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-      </li>
-    
-  </ul>
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 135</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_seq'>fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_start'>start</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_stop'>stop</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fai_fetch64'><span class='object_link'><a href="LibHTS.html#fai_fetch64-class_method" title="HTS::LibHTS.fai_fetch64 (method)">fai_fetch64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_validate_range!'>validate_range!</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_fetch_seq64'><span class='object_link'><a href="LibHTS.html#faidx_fetch_seq64-class_method" title="HTS::LibHTS.faidx_fetch_seq64 (method)">faidx_fetch_seq64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>case</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
-  <span class='kw'>when</span> <span class='op'>-</span><span class='int'>2</span> <span class='kw'>then</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid chromosome name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>when</span> <span class='op'>-</span><span class='int'>1</span> <span class='kw'>then</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="HTS::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error fetching sequence: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_start'>start</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stop'>stop</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_result'>result</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="file_format-instance_method">
-  
-    #<strong>file_format</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>fetch_seq</strong>(name, start = nil, stop = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1433,17 +949,39 @@
       <pre class="lines">
 
 
-53
-54
-55
-56</pre>
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 96</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_file_format'>file_format</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_seq'>fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='ivar'>@fai</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_start'>start</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_stop'>stop</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_len'>len</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_fetch_seq'>fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_validate_range!'>validate_range!</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int64</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_fetch_seq64'><span class='object_link'><a href="LibHTS.html#faidx_fetch_seq64-class_method" title="HTS::LibHTS.faidx_fetch_seq64 (method)">faidx_fetch_seq64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_fetch_result'>fetch_result</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_rlen'>rlen</span><span class='period'>.</span><span class='id identifier rubyid_read_int64'>read_int64</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sequence</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1451,9 +989,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="has_key?-instance_method">
+  <h3 class="signature " id="has_seq?-instance_method">
   
-    #<strong>has_key?</strong>(key)  &#x21d2; <tt>Boolean</tt> 
+    #<strong>has_seq?</strong>(key)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1462,33 +1000,11 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Check if a sequence exists in the index.</p>
-
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>key</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>sequence name</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -1498,11 +1014,6 @@
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>true if the sequence exists</p>
-</div>
       
     </li>
   
@@ -1527,22 +1038,22 @@
       <pre class="lines">
 
 
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98</pre>
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 73</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_seq?'>has_seq?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expect chrom to be String or Symbol</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
 
@@ -1559,125 +1070,27 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="length-instance_method">
-  
-    #<strong>length</strong>  &#x21d2; <tt>Integer</tt> 
-  
-
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='size-instance_method'>size</span></span>
-    </span>
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>the number of sequences in the index.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the number of sequences</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-70
-71
-72
-73</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 70</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_nseq'><span class='object_link'><a href="LibHTS.html#faidx_nseq-class_method" title="HTS::LibHTS.faidx_nseq (method)">faidx_nseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="names-instance_method">
   
-    #<strong>names</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+    #<strong>names</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
-    <span class="aliases">Also known as:
-    <span class="names"><span id='keys-instance_method'>keys</span></span>
-    </span>
-  
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Return the list of sequence names in the index.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>sequence names</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-78
-79
-80
-81</pre>
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_names'>names</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1691,7 +1104,7 @@
       <div class="method_details ">
   <h3 class="signature " id="seq_len-instance_method">
   
-    #<strong>seq_len</strong>(chrom)  &#x21d2; <tt>Integer</tt> 
+    #<strong>seq_len</strong>(chrom)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1700,51 +1113,11 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Return the length of the requested chromosome.</p>
-
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>chrom</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>chromosome name</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>sequence length</p>
-</div>
-      
-    </li>
-  
-</ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
   
@@ -1754,11 +1127,6 @@
         <span class='type'>(<tt>ArgumentError</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>if the sequence does not exist</p>
-</div>
       
     </li>
   
@@ -1770,29 +1138,65 @@
       <pre class="lines">
 
 
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123</pre>
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq_len'>seq_len</span><span class='lparen'>(</span><span class='id identifier rubyid_chrom'>chrom</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expect chrom to be String or Symbol</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_chrom'>chrom</span> <span class='op'>=</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_seq_len'><span class='object_link'><a href="LibHTS.html#faidx_seq_len-class_method" title="HTS::LibHTS.faidx_seq_len (method)">faidx_seq_len</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_seq_len64'><span class='object_link'><a href="LibHTS.html#faidx_seq_len64-class_method" title="HTS::LibHTS.faidx_seq_len64 (method)">faidx_seq_len64</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='comma'>,</span> <span class='id identifier rubyid_chrom'>chrom</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sequence not found: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chrom'>chrom</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
 
   <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="size-instance_method">
+  
+    #<strong>size</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='length-instance_method'>length</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
+  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_faidx_nseq'><span class='object_link'><a href="LibHTS.html#faidx_nseq-class_method" title="HTS::LibHTS.faidx_nseq (method)">faidx_nseq</a></span></span><span class='lparen'>(</span><span class='ivar'>@fai</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1814,12 +1218,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/faidx.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
   <span class='ivar'>@fai</span>
@@ -1834,9 +1238,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  5 04:53:33 2026 by
+  Generated on Thu Mar 26 10:38:08 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.1).
+  0.9.38 (ruby-4.0.2).
 </div>
 
     </div>
