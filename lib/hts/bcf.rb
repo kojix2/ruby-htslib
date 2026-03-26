@@ -27,6 +27,25 @@ module HTS
       file
     end
 
+    def self.build_index(file_name, index_name = nil, min_shift = 14, threads = 0, verbose = true)
+      if verbose
+        if index_name
+          warn "Create index for #{file_name} to #{index_name}"
+        else
+          warn "Create index for #{file_name}"
+        end
+      end
+
+      case LibHTS.bcf_index_build3(file_name, index_name, min_shift, threads)
+      when 0 # successful
+      when -1 then raise "indexing failed"
+      when -2 then raise "opening #{file_name} failed"
+      when -3 then raise "format not indexable"
+      when -4 then raise "failed to create and/or save the index"
+      else raise "unknown error"
+      end
+    end
+
     def initialize(file_name, mode = "r", index: nil, threads: nil,
                    build_index: false)
       if block_given?
@@ -54,22 +73,10 @@ module HTS
       @start_position = tell
     end
 
-    def build_index(index_name = nil, min_shift: 14, threads: 2)
+    def build_index(index_name = nil, min_shift: 14, verbose: true)
       check_closed
 
-      if index_name
-        warn "Create index for #{@file_name} to #{index_name}"
-      else
-        warn "Create index for #{@file_name}"
-      end
-      case LibHTS.bcf_index_build3(@file_name, index_name, min_shift, @nthreads || threads)
-      when 0 # successful
-      when -1 then raise "indexing failed"
-      when -2 then raise "opening #{@file_name} failed"
-      when -3 then raise "format not indexable"
-      when -4 then raise "failed to create and/or save the index"
-      else raise "unknown error"
-      end
+      self.class.build_index(@file_name, index_name, min_shift, @nthreads || 0, verbose)
       self # for method chaining
     end
 
