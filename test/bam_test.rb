@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "fileutils"
+require "tmpdir"
 
 class BamTest < Minitest::Test
   def teardown
@@ -332,6 +334,30 @@ class BamTest < Minitest::Test
   def test_build_index
     bam("bam_string").build_index("test_bam_index_file")
     File.unlink("test_bam_index_file") if File.exist?("test_bam_index_file")
+  end
+
+  def test_class_build_index_with_explicit_index_name
+    Dir.mktmpdir do |dir|
+      bam_path = File.join(dir, "copy.bam")
+      index_path = File.join(dir, "copy.bam.bai")
+      FileUtils.cp(path_bam_string, bam_path)
+
+      HTS::Bam.build_index(bam_path, index_path, 0, 0, false)
+
+      assert_equal true, File.exist?(index_path)
+    end
+  end
+
+  def test_class_build_index_with_default_index_name
+    Dir.mktmpdir do |dir|
+      bam_path = File.join(dir, "copy.bam")
+      default_index_path = "#{bam_path}.bai"
+      FileUtils.cp(path_bam_string, bam_path)
+
+      HTS::Bam.build_index(bam_path, nil, 0, 0, false)
+
+      assert_equal true, File.exist?(default_index_path)
+    end
   end
 
   # Tag writing tests
