@@ -139,6 +139,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(key)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#fields-instance_method" title="#fields (instance method)">#<strong>fields</strong>  &#x21d2; Object </a>
     
 
@@ -210,6 +232,30 @@
   <span class="summary_signature">
     
       <a href="#get_float-instance_method" title="#get_float (instance method)">#<strong>get_float</strong>(key)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>For compatibility with HTS.cr.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_genotypes-instance_method" title="#get_genotypes (instance method)">#<strong>get_genotypes</strong>  &#x21d2; Object </a>
     
 
     
@@ -370,6 +416,94 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_float-instance_method" title="#update_float (instance method)">#<strong>update_float</strong>(key, values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_genotypes-instance_method" title="#update_genotypes (instance method)">#<strong>update_genotypes</strong>(values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_int-instance_method" title="#update_int (instance method)">#<strong>update_int</strong>(key, values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_string-instance_method" title="#update_string (instance method)">#<strong>update_string</strong>(key, values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -439,15 +573,59 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete-instance_method">
+  
+    #<strong>delete</strong>(key)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 115</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_header_format_type'>header_format_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_format_present?'>format_present?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span> <span class='op'>:</span> <span class='id identifier rubyid_header_format_type_code'>header_format_type_code</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_format'><span class='object_link'><a href="../LibHTS.html#bcf_update_format-class_method" title="HTS::LibHTS.bcf_update_format (method)">bcf_update_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to delete FORMAT field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ret'>ret</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+
+  <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -469,22 +647,22 @@
       <pre class="lines">
 
 
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96</pre>
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span>
   <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
@@ -554,75 +732,35 @@
 35
 36
 37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58</pre>
+38</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p1'>p1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_write_pointer'>write_pointer</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
-  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
-
-  <span class='id identifier rubyid_format_values'>format_values</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_typ'>typ</span><span class='comma'>,</span> <span class='id identifier rubyid_reader'>reader</span><span class='op'>|</span>
-    <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_get_format_values'><span class='object_link'><a href="../LibHTS.html#bcf_get_format_values-class_method" title="HTS::LibHTS.bcf_get_format_values (method)">bcf_get_format_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_p1'>p1</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_typ'>typ</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span> <span class='comment'># return from method.
-</span>
-    <span class='id identifier rubyid_dst'>dst</span> <span class='op'>=</span> <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span>
-    <span class='kw'>begin</span>
-      <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
-    <span class='kw'>ensure</span>
-      <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_free'><span class='object_link'><a href="../LibHTS.html#hts_free-class_method" title="HTS::LibHTS.hts_free (method)">hts_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-      <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_write_pointer'>write_pointer</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-
   <span class='comment'># The GT FORMAT field is special in that it is marked as a string in the header,
 </span>  <span class='comment'># but it is actually encoded as an integer.
-</span>  <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='symbol'>:int</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_ht_type_to_sym'>ht_type_to_sym</span><span class='lparen'>(</span><span class='id identifier rubyid_get_fmt_type'>get_fmt_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+</span>  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+           <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='symbol'>:int</span> <span class='op'>:</span> <span class='id identifier rubyid_header_format_type'>header_format_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+         <span class='kw'>else</span>
+           <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+         <span class='kw'>end</span>
 
-  <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
   <span class='kw'>when</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:int32</span>
-    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='comma'>,</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_int32'>read_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise_unsupported_format_flag'>raise_unsupported_format_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_get_numeric_values'>get_numeric_values</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>integer</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='op'>|</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_int32'>read_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>when</span> <span class='symbol'>:float</span><span class='comma'>,</span> <span class='symbol'>:real</span>
-    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='comma'>,</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_float'>read_array_of_float</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise_unsupported_format_flag'>raise_unsupported_format_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_get_numeric_values'>get_numeric_values</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>float</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='op'>|</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_float'>read_array_of_float</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>when</span> <span class='symbol'>:flag</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Flag type not implemented yet. </span><span class='tstring_end'>&quot;</span></span> \
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please file an issue on GitHub.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='comment'># format_values.call(LibHTS::BCF_HT_FLAG)
-</span>    <span class='comment'>#              .read_int == 1
-</span>  <span class='kw'>when</span> <span class='symbol'>:string</span><span class='comma'>,</span> <span class='symbol'>:str</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>String type not implemented yet. </span><span class='tstring_end'>&quot;</span></span> \
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please file an issue on GitHub.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='comment'># format_values.call(LibHTS::BCF_HT_STR)
-</span>    <span class='comment'>#              .read_string
-</span>  <span class='kw'>end</span>
+    <span class='id identifier rubyid_raise_unsupported_format_flag'>raise_unsupported_format_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:string</span><span class='comma'>,</span> <span class='symbol'>:str</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_decode_genotypes'>decode_genotypes</span> <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='id identifier rubyid_raise_unsupported_format_flag'>raise_unsupported_format_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_get_string_values'>get_string_values</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -655,12 +793,12 @@
       <pre class="lines">
 
 
-71
-72
-73</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_flag'>get_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:flag</span><span class='rparen'>)</span>
@@ -696,15 +834,56 @@
       <pre class="lines">
 
 
-66
-67
-68</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_float'>get_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:float</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_genotypes-instance_method">
+  
+    #<strong>get_genotypes</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>For compatibility with HTS.cr.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_genotypes'>get_genotypes</span>
+  <span class='id identifier rubyid_get_numeric_values'>get_numeric_values</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>genotype</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='op'>|</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_int32'>read_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -737,12 +916,12 @@
       <pre class="lines">
 
 
-61
-62
-63</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_int'>get_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rparen'>)</span>
@@ -778,12 +957,12 @@
       <pre class="lines">
 
 
-76
-77
-78</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_string'>get_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='rparen'>)</span>
@@ -808,12 +987,12 @@
       <pre class="lines">
 
 
-98
-99
-100</pre>
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_fmt</span><span class='rbracket'>]</span>
@@ -838,12 +1017,12 @@
       <pre class="lines">
 
 
-102
-103
-104</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='id identifier rubyid_length'>length</span>
@@ -868,17 +1047,17 @@
       <pre class="lines">
 
 
-106
-107
-108
-109
-110
-111
-112
-113</pre>
+148
+149
+150
+151
+152
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -893,12 +1072,236 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="update_float-instance_method">
+  
+    #<strong>update_float</strong>(key, values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ensure_expected_format_type!'>ensure_expected_format_type!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:float</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>float</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_float_values'>normalize_float_values</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validate_numeric_sample_count!'>validate_numeric_sample_count!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:float</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_write_array_of_float'>write_array_of_float</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_update_rc!'>check_update_rc!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_format_float'><span class='object_link'><a href="../LibHTS.html#bcf_update_format_float-class_method" title="HTS::LibHTS.bcf_update_format_float (method)">bcf_update_format_float</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_genotypes-instance_method">
+  
+    #<strong>update_genotypes</strong>(values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_genotypes'>update_genotypes</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ensure_gt_defined!'>ensure_gt_defined!</span>
+
+  <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_int_values'>normalize_int_values</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validate_numeric_sample_count!'>validate_numeric_sample_count!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int32</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_write_array_of_int32'>write_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_update_rc!'>check_update_rc!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_genotypes'><span class='object_link'><a href="../LibHTS.html#bcf_update_genotypes-class_method" title="HTS::LibHTS.bcf_update_genotypes (method)">bcf_update_genotypes</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_int-instance_method">
+  
+    #<strong>update_int</strong>(key, values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use update_genotypes for GT</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_ensure_expected_format_type!'>ensure_expected_format_type!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>integer</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_int_values'>normalize_int_values</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validate_numeric_sample_count!'>validate_numeric_sample_count!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int32</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_write_array_of_int32'>write_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_update_rc!'>check_update_rc!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_format_int32'><span class='object_link'><a href="../LibHTS.html#bcf_update_format_int32-class_method" title="HTS::LibHTS.bcf_update_format_int32 (method)">bcf_update_format_int32</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_string-instance_method">
+  
+    #<strong>update_string</strong>(key, values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_string'>update_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use update_genotypes for GT</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_ensure_expected_format_type!'>ensure_expected_format_type!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>string</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_string_values'>normalize_string_values</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validate_string_sample_count!'>validate_string_sample_count!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_strings'>strings</span> <span class='op'>=</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_strings'>strings</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ptr'>ptr</span><span class='period'>.</span><span class='id identifier rubyid_write_array_of_pointer'>write_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_strings'>strings</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_update_rc!'>check_update_rc!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_format_string'><span class='object_link'><a href="../LibHTS.html#bcf_update_format_string-class_method" title="HTS::LibHTS.bcf_update_format_string (method)">bcf_update_format_string</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ptr'>ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 09:39:04 2026 by
+  Generated on Fri Mar 27 10:08:58 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-4.0.2).
 </div>

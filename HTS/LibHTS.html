@@ -3847,6 +3847,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bcf_gt_is_vector_end-class_method" title="bcf_gt_is_vector_end (class method)">.<strong>bcf_gt_is_vector_end</strong>(val)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Macro for setting genotypes correctly.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bcf_gt_missing-class_method" title="bcf_gt_missing (class method)">.<strong>bcf_gt_missing</strong>  &#x21d2; Object </a>
     
 
@@ -3896,6 +3920,30 @@
   <span class="summary_signature">
     
       <a href="#bcf_gt_unphased-class_method" title="bcf_gt_unphased (class method)">.<strong>bcf_gt_unphased</strong>(idx)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Macro for setting genotypes correctly.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_gt_vector_end-class_method" title="bcf_gt_vector_end (class method)">.<strong>bcf_gt_vector_end</strong>  &#x21d2; Object </a>
     
 
     
@@ -4320,6 +4368,28 @@
     <span class="summary_desc"><div class='inline'>
 <p>Macro for accessing bcf_idinfo_t.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bcf_hdr_idinfo_exists-class_method" title="bcf_hdr_idinfo_exists (class method)">.<strong>bcf_hdr_idinfo_exists</strong>(hdr, type, int_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -18968,12 +19038,12 @@
       <pre class="lines">
 
 
-174
-175
-176</pre>
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_alleles2gt'>bcf_alleles2gt</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_b'>b</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>+</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>+</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -19882,12 +19952,12 @@
       <pre class="lines">
 
 
-214
-215
-216</pre>
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_char'>bcf_get_format_char</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
@@ -19923,12 +19993,12 @@
       <pre class="lines">
 
 
-209
-210
-211</pre>
+219
+220
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 219</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_float'>bcf_get_format_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
@@ -19964,12 +20034,12 @@
       <pre class="lines">
 
 
-204
-205
-206</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_format_int32'>bcf_get_format_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
@@ -20127,12 +20197,12 @@
       <pre class="lines">
 
 
-219
-220
-221</pre>
+229
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 229</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_genotypes'>bcf_get_genotypes</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_format_values'>bcf_get_format_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
@@ -20229,12 +20299,12 @@
       <pre class="lines">
 
 
-199
-200
-201</pre>
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_flag'>bcf_get_info_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_FLAG-constant" title="HTS::LibHTS::BCF_HT_FLAG (constant)">BCF_HT_FLAG</a></span></span><span class='rparen'>)</span>
@@ -20270,12 +20340,12 @@
       <pre class="lines">
 
 
-189
-190
-191</pre>
+199
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_float'>bcf_get_info_float</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
@@ -20372,12 +20442,12 @@
       <pre class="lines">
 
 
-179
-180
-181</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_int32'>bcf_get_info_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
@@ -20413,12 +20483,12 @@
       <pre class="lines">
 
 
-184
-185
-186</pre>
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 194</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_int64'>bcf_get_info_int64</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_LONG-constant" title="HTS::LibHTS::BCF_HT_LONG (constant)">BCF_HT_LONG</a></span></span><span class='rparen'>)</span>
@@ -20454,12 +20524,12 @@
       <pre class="lines">
 
 
-194
-195
-196</pre>
+204
+205
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 194</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 204</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_get_info_string'>bcf_get_info_string</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_get_info_values'>bcf_get_info_values</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_ndst'>ndst</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::LibHTS::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span>
@@ -20678,12 +20748,12 @@
       <pre class="lines">
 
 
-169
-170
-171</pre>
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_allele'>bcf_gt_allele</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
@@ -20719,15 +20789,15 @@
       <pre class="lines">
 
 
-159
-160
-161</pre>
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_missing'>bcf_gt_is_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span> <span class='op'>&gt;&gt;</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -20760,15 +20830,56 @@
       <pre class="lines">
 
 
-164
-165
-166</pre>
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_phased'>bcf_gt_is_phased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_is_vector_end-class_method">
+  
+    .<strong>bcf_gt_is_vector_end</strong>(val)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Macro for setting genotypes correctly</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_is_vector_end'>bcf_gt_is_vector_end</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_val'>val</span> <span class='op'>==</span> <span class='id identifier rubyid_bcf_gt_vector_end'>bcf_gt_vector_end</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -20892,6 +21003,47 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_unphased'>bcf_gt_unphased</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_gt_vector_end-class_method">
+  
+    .<strong>bcf_gt_vector_end</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Macro for setting genotypes correctly</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_gt_vector_end'>bcf_gt_vector_end</span>
+  <span class='id identifier rubyid_bcf_int32_vector_end'>bcf_int32_vector_end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -21577,15 +21729,15 @@
       <pre class="lines">
 
 
-271
-272
-273
-274
-275
-276</pre>
+281
+282
+283
+284
+285
+286</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 281</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2coltype'>bcf_hdr_id2coltype</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -21685,15 +21837,15 @@
       <pre class="lines">
 
 
-247
-248
-249
-250
-251
-252</pre>
+257
+258
+259
+260
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 247</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 257</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2length'>bcf_hdr_id2length</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -21732,17 +21884,17 @@
       <pre class="lines">
 
 
-237
-238
-239
-240
-241
-242
-243
-244</pre>
+247
+248
+249
+250
+251
+252
+253
+254</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 237</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 247</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2name'>bcf_hdr_id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='op'>||</span> <span class='id identifier rubyid_rid'>rid</span> <span class='op'>&lt;</span> <span class='int'>0</span> <span class='op'>||</span> <span class='id identifier rubyid_rid'>rid</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:n</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_CTG-constant" title="HTS::LibHTS::BCF_DT_CTG (constant)">BCF_DT_CTG</a></span></span><span class='rbracket'>]</span>
@@ -21783,15 +21935,15 @@
       <pre class="lines">
 
 
-255
-256
-257
-258
-259
-260</pre>
+265
+266
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 265</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2number'>bcf_hdr_id2number</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -21830,21 +21982,65 @@
       <pre class="lines">
 
 
-263
-264
-265
-266
-267
-268</pre>
+273
+274
+275
+276
+277
+278</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 263</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 273</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_id2type'>bcf_hdr_id2type</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
     <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
     <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='comment'># offset
 </span>  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:val</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:info</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='op'>&gt;&gt;</span> <span class='int'>4</span> <span class='op'>&amp;</span> <span class='int'>0xf</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bcf_hdr_idinfo_exists-class_method">
+  
+    .<strong>bcf_hdr_idinfo_exists</strong>(hdr, type, int_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 288</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_idinfo_exists'>bcf_hdr_idinfo_exists</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span> <span class='op'>||</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:n</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_pair'>pair</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_hdr'>hdr</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#BCF_DT_ID-constant" title="HTS::LibHTS::BCF_DT_ID (constant)">BCF_DT_ID</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span> <span class='op'>+</span>
+    <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='id identifier rubyid_int_id'>int_id</span> <span class='comment'># offset
+</span>  <span class='rparen'>)</span>
+
+  <span class='op'>!</span><span class='id identifier rubyid_pair'>pair</span><span class='lbracket'>[</span><span class='symbol'>:val</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_bcf_hdr_id2coltype'>bcf_hdr_id2coltype</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='int'>0xf</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -21938,15 +22134,15 @@
       <pre class="lines">
 
 
-224
-225
-226
-227
-228
-229</pre>
+234
+235
+236
+237
+238
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 234</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_int2id'>bcf_hdr_int2id</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_int_id'>int_id</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="LibHTS/BcfIdpair.html" title="HTS::LibHTS::BcfIdpair (class)">BcfIdpair</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -22046,12 +22242,12 @@
       <pre class="lines">
 
 
-232
-233
-234</pre>
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_hdr_name2id'>bcf_hdr_name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_bcf_hdr_id2int'>bcf_hdr_id2int</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#BCF_DT_CTG-constant" title="HTS::LibHTS::BCF_DT_CTG (constant)">BCF_DT_CTG</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
@@ -23495,12 +23691,12 @@
       <pre class="lines">
 
 
-297
-298
-299</pre>
+316
+317
+318</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 297</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 316</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_load'>bcf_index_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_idx_load'>hts_idx_load</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span> <span class='const'>HTS_FMT_CSI</span><span class='rparen'>)</span>
@@ -23658,12 +23854,12 @@
       <pre class="lines">
 
 
-302
-303
-304</pre>
+321
+322
+323</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 302</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 321</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_index_seqnames'>bcf_index_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_idx_seqnames'>hts_idx_seqnames</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nptr'>nptr</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_id2name</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
@@ -23764,11 +23960,11 @@
       <pre class="lines">
 
 
-319
-320</pre>
+338
+339</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 319</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 338</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_missing'>bcf_int16_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>32_767</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
 <span class='comment'># INT32_MIN</span></pre>
@@ -23803,11 +23999,11 @@
       <pre class="lines">
 
 
-310
-311</pre>
+329
+330</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 329</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int16_vector_end'>bcf_int16_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>32_767</span>
 <span class='comment'># INT32_MIN + 1</span></pre>
@@ -23842,11 +24038,11 @@
       <pre class="lines">
 
 
-321
-322</pre>
+340
+341</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 321</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 340</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_missing'>bcf_int32_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>2_147_483_647</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
 <span class='comment'># INT64_MIN</span></pre>
@@ -23881,11 +24077,11 @@
       <pre class="lines">
 
 
-312
-313</pre>
+331
+332</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 312</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 331</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int32_vector_end'>bcf_int32_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>2_147_483_647</span>
 <span class='comment'># INT64_MIN + 1</span></pre>
@@ -23920,10 +24116,10 @@
       <pre class="lines">
 
 
-323</pre>
+342</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 323</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 342</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_missing'>bcf_int64_missing</span>    <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span></pre>
     </td>
@@ -23957,10 +24153,10 @@
       <pre class="lines">
 
 
-314</pre>
+333</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 314</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 333</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int64_vector_end'>bcf_int64_vector_end</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>9_223_372_036_854_775_807</span></pre>
     </td>
@@ -23994,11 +24190,11 @@
       <pre class="lines">
 
 
-317
-318</pre>
+336
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 317</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 336</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_missing'>bcf_int8_missing</span>     <span class='op'>=</span> <span class='op'>-</span><span class='int'>128</span>
 <span class='comment'># INT16_MIN</span></pre>
@@ -24033,11 +24229,11 @@
       <pre class="lines">
 
 
-308
-309</pre>
+327
+328</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 308</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 327</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_int8_vector_end'>bcf_int8_vector_end</span>  <span class='op'>=</span> <span class='op'>-</span><span class='int'>127</span>
 <span class='comment'># INT16_MIN + 1</span></pre>
@@ -24122,12 +24318,12 @@
       <pre class="lines">
 
 
-284
-285
-286</pre>
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 284</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 303</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_itr_queryi'>bcf_itr_queryi</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid__end'>_end</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_query'>hts_itr_query</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid__end'>_end</span><span class='comma'>,</span> <span class='ivar'>@ffi_functions</span><span class='lbracket'>[</span><span class='symbol'>:bcf_readrec</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -24152,12 +24348,12 @@
       <pre class="lines">
 
 
-292
-293
-294</pre>
+311
+312
+313</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 292</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 311</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_itr_querys'>bcf_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hts_itr_querys'>hts_itr_querys</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='cvar'>@@bcf_hdr_name2id</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='comma'>,</span> <span class='ivar'>@ffi_functions</span><span class='lbracket'>[</span><span class='symbol'>:hts_itr_query</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@ffi_functions</span><span class='lbracket'>[</span><span class='symbol'>:bcf_readrec</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -24369,10 +24565,10 @@
       <pre class="lines">
 
 
-324</pre>
+343</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 324</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 343</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_str_missing'>bcf_str_missing</span>      <span class='op'>=</span> <span class='int'>0x07</span></pre>
     </td>
@@ -24395,11 +24591,11 @@
       <pre class="lines">
 
 
-315
-316</pre>
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 315</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/libhts/vcf_funcs.rb', line 334</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcf_str_vector_end'>bcf_str_vector_end</span>   <span class='op'>=</span> <span class='int'>0</span>
 <span class='comment'># INT8_MIN</span></pre>
@@ -45836,7 +46032,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 09:39:03 2026 by
+  Generated on Fri Mar 27 10:08:57 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-4.0.2).
 </div>
