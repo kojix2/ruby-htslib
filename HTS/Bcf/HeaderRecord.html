@@ -455,15 +455,23 @@
 33
 34
 35
-36</pre>
+36
+37
+38
+39
+40</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/header_record.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hrec_format'><span class='object_link'><a href="../LibHTS.html#bcf_hrec_format-class_method" title="HTS::LibHTS.bcf_hrec_format (method)">bcf_hrec_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hrec</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_kstr'>kstr</span><span class='lbracket'>[</span><span class='symbol'>:s</span><span class='rbracket'>]</span>
+  <span class='kw'>begin</span>
+    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hrec_format'><span class='object_link'><a href="../LibHTS.html#bcf_hrec_format-class_method" title="HTS::LibHTS.bcf_hrec_format (method)">bcf_hrec_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hrec</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_kstr'>kstr</span><span class='period'>.</span><span class='id identifier rubyid_read_string_copy'>read_string_copy</span>
+  <span class='kw'>ensure</span>
+    <span class='id identifier rubyid_kstr'>kstr</span><span class='period'>.</span><span class='id identifier rubyid_free_buffer'>free_buffer</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -475,7 +483,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 10:08:59 2026 by
+  Generated on Fri Mar 27 10:25:22 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-4.0.2).
 </div>

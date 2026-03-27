@@ -902,18 +902,18 @@
       <pre class="lines">
 
 
-108
-109
-110
 111
 112
 113
 114
 115
-116</pre>
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -966,12 +966,12 @@
       <pre class="lines">
 
 
-118
-119
-120</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1122,19 +1122,19 @@
       <pre class="lines">
 
 
-97
-98
-99
 100
 101
 102
 103
 104
 105
-106</pre>
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1172,7 +1172,10 @@
 92
 93
 94
-95</pre>
+95
+96
+97
+98</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 89</span>
@@ -1180,8 +1183,11 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_seqnames'>seqnames</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
   <span class='id identifier rubyid_nseq'>nseq</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_seqnames'><span class='object_link'><a href="LibHTS.html#tbx_seqnames-class_method" title="HTS::LibHTS.tbx_seqnames (method)">tbx_seqnames</a></span></span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nseq'>nseq</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pts'>pts</span><span class='op'>|</span>
+  <span class='id identifier rubyid_pts'>pts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tbx_seqnames'><span class='object_link'><a href="LibHTS.html#tbx_seqnames-class_method" title="HTS::LibHTS.tbx_seqnames (method)">tbx_seqnames</a></span></span><span class='lparen'>(</span><span class='ivar'>@idx</span><span class='comma'>,</span> <span class='id identifier rubyid_nseq'>nseq</span><span class='rparen'>)</span>
+  <span class='kw'>begin</span>
     <span class='id identifier rubyid_pts'>pts</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_pointer'>read_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_nseq'>nseq</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:read_string</span><span class='rparen'>)</span>
+  <span class='kw'>ensure</span>
+    <span class='const'><span class='object_link'><a href="LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_free'><span class='object_link'><a href="LibHTS.html#hts_free-class_method" title="HTS::LibHTS.hts_free (method)">hts_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_pts'>pts</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_pts'>pts</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1194,7 +1200,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 10:08:57 2026 by
+  Generated on Fri Mar 27 10:25:20 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-4.0.2).
 </div>
