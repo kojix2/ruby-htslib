@@ -97,6 +97,11 @@ module HTS
         bcf_update_info(hdr, line, key, values, n, BCF_HT_INT)
       end
 
+      # Function for updating INFO fields (int64; VCF only)
+      def bcf_update_info_int64(hdr, line, key, values, n)
+        bcf_update_info(hdr, line, key, values, n, BCF_HT_LONG)
+      end
+
       # Function for updating INFO fields
       def bcf_update_info_float(hdr, line, key, values, n)
         bcf_update_info(hdr, line, key, values, n, BCF_HT_REAL)
@@ -173,6 +178,11 @@ module HTS
       # Get INFO values
       def bcf_get_info_int32(hdr, line, tag, dst, ndst)
         bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_INT)
+      end
+
+      # Get INFO values (int64; VCF only)
+      def bcf_get_info_int64(hdr, line, tag, dst, ndst)
+        bcf_get_info_values(hdr, line, tag, dst, ndst, BCF_HT_LONG)
       end
 
       # Get INFO values

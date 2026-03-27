@@ -254,6 +254,23 @@ in.close
 out.close
 ```
 
+Update INFO fields
+
+```ruby
+bcf = HTS::Bcf.open("in.vcf")
+record = bcf.first
+info = record.info
+
+info.update_int("DP", [30])
+# info.update_int64("DP", [2**40])     # Backend-dependent (BCF_HT_LONG)
+info.update_float("AF", [0.25])
+info.update_string("STR", "sample")
+info.update_flag("SOMATIC", true)
+
+info["DP"] = 100
+# Out-of-int32 integers require explicit update_int64
+```
+
 Writing and modifying auxiliary tags
 
 ```ruby

@@ -5,7 +5,6 @@ module HTS
     class Format
       def initialize(record)
         @record = record
-        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
       # @note: Why is this method named "get" instead of "fetch"?
@@ -14,15 +13,22 @@ module HTS
       # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
-        p1 = @p1
+        p1 = FFI::MemoryPointer.new(:pointer)
+        p1.write_pointer(FFI::Pointer::NULL)
         h = @record.header.struct
         r = @record.struct
 
-        format_values = proc do |typ|
+        format_values = proc do |typ, reader|
           ret = LibHTS.bcf_get_format_values(h, r, key, p1, n, typ)
           return nil if ret < 0 # return from method.
 
-          p1.read_pointer
+          dst = p1.read_pointer
+          begin
+            reader.call(dst, n.read_int)
+          ensure
+            LibHTS.hts_free(dst) unless dst.null?
+            p1.write_pointer(FFI::Pointer::NULL)
+          end
         end
 
         # The GT FORMAT field is special in that it is marked as a string in the header,
@@ -35,11 +41,9 @@ module HTS
 
         case type&.to_sym
         when :int, :int32
-          format_values.call(LibHTS::BCF_HT_INT)
-                       .read_array_of_int32(n.read_int)
+          format_values.call(LibHTS::BCF_HT_INT, ->(dst, len) { dst.read_array_of_int32(len) })
         when :float, :real
-          format_values.call(LibHTS::BCF_HT_REAL)
-                       .read_array_of_float(n.read_int)
+          format_values.call(LibHTS::BCF_HT_REAL, ->(dst, len) { dst.read_array_of_float(len) })
         when :flag
           raise NotImplementedError, "Flag type not implemented yet. " \
           "Please file an issue on GitHub."

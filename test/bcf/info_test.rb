@@ -27,8 +27,11 @@ class BcfInfoTest < Minitest::Test
 
   def test_get_like_crystal
     assert_equal [1, 2, 3, 4], @info.get_int("DP4")
+    assert_equal [1, 2, 3, 4], @info.get_int64("DP4")
     assert_equal [4], @info.get_int("AN")
+    assert_equal [4], @info.get_int64("AN")
     assert_equal [2], @info.get_int("AC")
+    assert_equal [2], @info.get_int64("AC")
     assert_equal true, @info.get_flag("INDEL")
     assert_equal "test", @info.get_string("STR")
   end
@@ -53,6 +56,8 @@ class BcfInfoTest < Minitest::Test
     assert_nil @info.get("UNKNOWN")
     assert_nil @info.get("UNKNOWN", :int)
     assert_nil @info.get_int("UNKNOWN")
+    assert_nil @info.get("UNKNOWN", :int64)
+    assert_nil @info.get_int64("UNKNOWN")
     assert_nil @info.get("UNKNOWN", :float)
     assert_nil @info.get_float("UNKNOWN")
     assert_nil @info.get("UNKNOWN", :flag)

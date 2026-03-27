@@ -230,9 +230,25 @@ class BcfTest < Minitest::Test
   end
 
   def test_info_update_string
-    # String INFO fields are rare in VCF, skip for now
-    # (would need to add string INFO to header first)
-    skip "String INFO fields require header definition"
+    require "tempfile"
+
+    Tempfile.create(["test_bcf_info_string_source", ".vcf"]) do |src|
+      src.write <<~VCF
+        ##fileformat=VCFv4.2
+        ##contig=<ID=1,length=1000>
+        ##INFO=<ID=STRX,Number=1,Type=String,Description="string info test">
+        #CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO
+        1\t10\t.\tA\tT\t.\tPASS\t.
+      VCF
+      src.flush
+
+      bcf = HTS::Bcf.new(src.path)
+      record = bcf.first
+      info = record.info
+      info.update_string("STRX", "hello")
+      assert_equal "hello", info.get_string("STRX")
+      bcf.close
+    end
   end
 
   def test_info_update_flag

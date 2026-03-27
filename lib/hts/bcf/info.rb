@@ -6,7 +6,6 @@ module HTS
     class Info
       def initialize(record)
         @record = record
-        @p1 = FFI::MemoryPointer.new(:pointer) # FIXME: naming
       end
 
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
@@ -16,37 +15,49 @@ module HTS
       # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
         n = FFI::MemoryPointer.new(:int)
-        p1 = @p1
+        p1 = FFI::MemoryPointer.new(:pointer)
+        p1.write_pointer(FFI::Pointer::NULL)
         h = @record.header.struct
         r = @record.struct
 
-        info_values = proc do |typ|
+        info_values = proc do |typ, reader|
           ret = LibHTS.bcf_get_info_values(h, r, key, p1, n, typ)
           return nil if ret < 0 # return from method.
 
-          p1.read_pointer
+          dst = p1.read_pointer
+          begin
+            reader.call(dst, n.read_int)
+          ensure
+            LibHTS.hts_free(dst) unless dst.null?
+            p1.write_pointer(FFI::Pointer::NULL)
+          end
         end
 
         type ||= ht_type_to_sym(get_info_type(key))
 
         case type&.to_sym
         when :int, :int32
-          info_values.call(LibHTS::BCF_HT_INT)
-                     .read_array_of_int32(n.read_int)
+          info_values.call(LibHTS::BCF_HT_INT, ->(dst, len) { dst.read_array_of_int32(len) })
+        when :int64, :long
+          info_values.call(LibHTS::BCF_HT_LONG, ->(dst, len) { dst.read_array_of_int64(len) })
         when :float, :real
-          info_values.call(LibHTS::BCF_HT_REAL)
-                     .read_array_of_float(n.read_int)
+          info_values.call(LibHTS::BCF_HT_REAL, ->(dst, len) { dst.read_array_of_float(len) })
         when :flag, :bool
-          case ret = LibHTS.bcf_get_info_flag(h, r, key, p1, n)
-          when 1 then true
-          when 0 then false
-          when -1 then nil
-          else
-            raise "Unknown return value from bcf_get_info_flag: #{ret}"
+          begin
+            case ret = LibHTS.bcf_get_info_flag(h, r, key, p1, n)
+            when 1 then true
+            when 0 then false
+            when -1 then nil
+            else
+              raise "Unknown return value from bcf_get_info_flag: #{ret}"
+            end
+          ensure
+            dst = p1.read_pointer
+            LibHTS.hts_free(dst) unless dst.null?
+            p1.write_pointer(FFI::Pointer::NULL)
           end
         when :string, :str
-          info_values.call(LibHTS::BCF_HT_STR)
-                     .read_string
+          info_values.call(LibHTS::BCF_HT_STR, ->(dst, _len) { dst.read_string })
         end
       end
 
@@ -58,6 +69,11 @@ module HTS
       # For compatibility with HTS.cr.
       def get_float(key)
         get(key, :float)
+      end
+
+      # For compatibility with HTS.cr.
+      def get_int64(key)
+        get(key, :int64)
       end
 
       # For compatibility with HTS.cr.
@@ -89,6 +105,9 @@ module HTS
         when true, false
           update_flag(key, value)
         when Integer
+          unless int32_range?(value)
+            raise RangeError, "Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update."
+          end
           update_int(key, [value])
         when Float
           update_float(key, [value])
@@ -98,6 +117,9 @@ module HTS
           if value.empty?
             raise ArgumentError, "Cannot set INFO field to empty array. Use nil to delete."
           elsif value.all? { |v| v.is_a?(Integer) }
+            unless value.all? { |v| int32_range?(v) }
+              raise RangeError, "Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update."
+            end
             update_int(key, value)
           elsif value.all? { |v| v.is_a?(Numeric) }
             update_float(key, value)
@@ -128,6 +150,14 @@ module HTS
         raise "Failed to update INFO int field '#{key}': #{ret}" if ret < 0
 
         ret
+      end
+
+      # Update INFO field with int64 value(s).
+      # @note int64 INFO values are primarily relevant for VCF output.
+      # @param key [String] INFO tag name
+      # @param values [Array<Integer>] integer values (use single-element array for scalar)
+      def update_int64(key, values)
+        raise NotImplementedError, "htslib backend does not implement int64 INFO update (BCF_HT_LONG)"
       end
 
       # Update INFO field with float value(s).
@@ -295,8 +325,12 @@ module HTS
         when LibHTS::BCF_HT_INT then :int
         when LibHTS::BCF_HT_REAL then :float
         when LibHTS::BCF_HT_STR then :string
-        when LibHTS::BCF_HT_LONG then :float
+        when LibHTS::BCF_HT_LONG then :int64
         end
+      end
+
+      def int32_range?(value)
+        value >= -2_147_483_648 && value <= 2_147_483_647
       end
     end
   end
