@@ -508,7 +508,7 @@ module HTS
     # Append tag data to a bam record
     attach_function \
       :bam_aux_append,
-      [Bam1, :string, :string, :int, :pointer],
+      [Bam1, :string, :char, :int, :pointer],
       :int
 
     # Delete tag data from a bam record

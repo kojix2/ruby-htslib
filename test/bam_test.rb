@@ -405,6 +405,61 @@ class BamTest < Minitest::Test
     bam.close
   end
 
+  def test_aux_update_char
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    aux.update_char("YC", "N")
+    assert_equal "N", aux["YC"]
+
+    bam.close
+  end
+
+  def test_aux_update_hex
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    aux.update_hex("YH", "DEADBEEF")
+    assert_equal "DEADBEEF", aux["YH"]
+
+    bam.close
+  end
+
+  def test_aux_update_double
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    aux.update_double("YD", 6.25)
+    assert_in_delta 6.25, aux["YD"], 0.0001
+
+    bam.close
+  end
+
+  def test_aux_update_typed_integers
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    aux.update_int8("A1", -5)
+    aux.update_uint8("A2", 250)
+    aux.update_int16("A3", -1024)
+    aux.update_uint16("A4", 60_000)
+    aux.update_int32("A5", -1_000_000)
+    aux.update_uint32("A6", 4_000_000_000)
+
+    assert_equal(-5, aux["A1"])
+    assert_equal(250, aux["A2"])
+    assert_equal(-1024, aux["A3"])
+    assert_equal(60_000, aux["A4"])
+    assert_equal(-1_000_000, aux["A5"])
+    assert_equal(4_000_000_000, aux["A6"])
+
+    bam.close
+  end
+
   def test_aux_update_array_int
     bam = HTS::Bam.new(path_bam_string)
     record = bam.first
@@ -430,6 +485,28 @@ class BamTest < Minitest::Test
     assert_in_delta 1.1, result[0], 0.001
     assert_in_delta 2.2, result[1], 0.001
     assert_in_delta 3.3, result[2], 0.001
+
+    bam.close
+  end
+
+  def test_aux_update_array_with_uint8_subtype
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    aux.update_array("ZC", [1, 2, 255], type: "C")
+    assert_equal [1, 2, 255], aux["ZC"]
+
+    bam.close
+  end
+
+  def test_aux_update_hex_validation
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    assert_raises(ArgumentError) { aux.update_hex("YH", "ABC") }
+    assert_raises(ArgumentError) { aux.update_hex("YH", "GG") }
 
     bam.close
   end

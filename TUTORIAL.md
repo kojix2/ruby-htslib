@@ -277,9 +277,14 @@ in_bam.each do |record|
   
   # Update or add tags using type-specific methods
   aux.update_int("AS", 100)                    # Integer tag
+  aux.update_uint8("XI", 255)                  # Exact unsigned 8-bit integer tag
   aux.update_float("ZQ", 0.95)                 # Float tag
+  aux.update_double("ZD", 0.125)               # Double tag
+  aux.update_char("XC", "Y")                  # Character tag
+  aux.update_hex("XH", "DEADBEEF")            # Hex string tag
   aux.update_string("RG", "sample1")           # String tag
-  aux.update_array("BC", [25, 30, 28, 32])     # Array tag
+  aux.update_array("BC", [25, 30, 28, 32])     # Array tag (default subtype: i)
+  aux.update_array("BQ", [25, 30, 28, 32], type: "C") # Array tag with explicit subtype
   
   # Or use the []= operator (auto-detects type)
   aux["NM"] = 2                                # Integer

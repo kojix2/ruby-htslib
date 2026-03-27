@@ -79,10 +79,41 @@ module HTS
       # @param key [String] tag name (2 characters)
       # @param value [Integer] integer value
       def update_int(key, value)
+        validate_tag!(key)
         ret = LibHTS.bam_aux_update_int(@record.struct, key, value.to_i)
         raise "Failed to update integer tag '#{key}': errno #{FFI.errno}" if ret < 0
 
         value
+      end
+
+      # Update or add a signed 8-bit integer tag.
+      def update_int8(key, value)
+        update_exact_integer(key, value, "c", -128, 127)
+      end
+
+      # Update or add an unsigned 8-bit integer tag.
+      def update_uint8(key, value)
+        update_exact_integer(key, value, "C", 0, 255)
+      end
+
+      # Update or add a signed 16-bit integer tag.
+      def update_int16(key, value)
+        update_exact_integer(key, value, "s", -32_768, 32_767)
+      end
+
+      # Update or add an unsigned 16-bit integer tag.
+      def update_uint16(key, value)
+        update_exact_integer(key, value, "S", 0, 65_535)
+      end
+
+      # Update or add a signed 32-bit integer tag.
+      def update_int32(key, value)
+        update_exact_integer(key, value, "i", -2_147_483_648, 2_147_483_647)
+      end
+
+      # Update or add an unsigned 32-bit integer tag.
+      def update_uint32(key, value)
+        update_exact_integer(key, value, "I", 0, 4_294_967_295)
       end
 
       # Update or add a floating-point tag
@@ -90,6 +121,7 @@ module HTS
       # @param key [String] tag name (2 characters)
       # @param value [Float] floating-point value
       def update_float(key, value)
+        validate_tag!(key)
         ret = LibHTS.bam_aux_update_float(@record.struct, key, value.to_f)
         raise "Failed to update float tag '#{key}': errno #{FFI.errno}" if ret < 0
 
@@ -101,10 +133,42 @@ module HTS
       # @param key [String] tag name (2 characters)
       # @param value [String] string value
       def update_string(key, value)
+        validate_tag!(key)
         ret = LibHTS.bam_aux_update_str(@record.struct, key, -1, value.to_s)
         raise "Failed to update string tag '#{key}': errno #{FFI.errno}" if ret < 0
 
         value
+      end
+
+      # Update or add a character tag.
+      def update_char(key, value)
+        validate_tag!(key)
+
+        string = value.to_s
+        raise ArgumentError, "Character AUX tags must be a single character" unless string.length == 1
+
+        replace_with_append(key, "A", string.b)
+        string
+      end
+
+      # Update or add a hexadecimal string tag.
+      def update_hex(key, value)
+        validate_tag!(key)
+
+        string = value.to_s
+        raise ArgumentError, "Hex AUX tags must contain an even number of characters" if string.length.odd?
+        raise ArgumentError, "Hex AUX tags must contain only hexadecimal characters" unless /\A[0-9A-Fa-f]*\z/.match?(string)
+
+        replace_with_append(key, "H", string.b + "\0")
+        string
+      end
+
+      # Update or add a double-precision floating-point tag.
+      def update_double(key, value)
+        validate_tag!(key)
+
+        replace_with_append(key, "d", [Float(value)].pack("E"))
+        value.to_f
       end
 
       # Update or add an array tag
@@ -113,6 +177,7 @@ module HTS
       # @param value [Array] array of integers or floats
       # @param type [String, nil] element type ('c', 'C', 's', 'S', 'i', 'I', 'f'). Auto-detected if nil.
       def update_array(key, value, type: nil)
+        validate_tag!(key)
         raise ArgumentError, "Array cannot be empty" if value.empty?
 
         # Auto-detect type if not specified
@@ -127,21 +192,10 @@ module HTS
           end
         end
 
-        # Convert array to appropriate C type
-        case type
-        when "c", "C", "s", "S", "i", "I"
-          # Integer types
-          ptr = FFI::MemoryPointer.new(:int32, value.size)
-          ptr.write_array_of_int32(value.map(&:to_i))
-          ret = LibHTS.bam_aux_update_array(@record.struct, key, type.ord, value.size, ptr)
-        when "f"
-          # Float type
-          ptr = FFI::MemoryPointer.new(:float, value.size)
-          ptr.write_array_of_float(value.map(&:to_f))
-          ret = LibHTS.bam_aux_update_array(@record.struct, key, type.ord, value.size, ptr)
-        else
-          raise ArgumentError, "Invalid array type: #{type}"
-        end
+        payload = pack_array_payload(value, type)
+        ptr = FFI::MemoryPointer.new(:uint8, payload.bytesize)
+        ptr.put_bytes(0, payload)
+        ret = LibHTS.bam_aux_update_array(@record.struct, key, type.ord, value.size, ptr)
 
         raise "Failed to update array tag '#{key}': errno #{FFI.errno}" if ret < 0
 
@@ -211,6 +265,86 @@ module HTS
 
       def first_pointer
         LibHTS.bam_aux_first(@record.struct)
+      end
+
+      def validate_tag!(key)
+        raise ArgumentError, "AUX tag must be a 2-character String" unless key.is_a?(String) && key.length == 2
+      end
+
+      def update_exact_integer(key, value, type, min, max)
+        validate_tag!(key)
+
+        integer = Integer(value)
+        raise RangeError, "Value #{integer} is out of range for AUX type #{type}" unless integer.between?(min, max)
+
+        replace_with_append(key, type, pack_scalar_payload(integer, type))
+        integer
+      end
+
+      def replace_with_append(key, type, payload)
+        delete(key) if key?(key)
+
+        ptr = FFI::MemoryPointer.new(:uint8, payload.bytesize)
+        ptr.put_bytes(0, payload)
+        ret = LibHTS.bam_aux_append(@record.struct, key, type.ord, payload.bytesize, ptr)
+        raise "Failed to update #{type} tag '#{key}': errno #{FFI.errno}" if ret < 0
+
+        true
+      end
+
+      def pack_scalar_payload(value, type)
+        case type
+        when "c"
+          [value].pack("c")
+        when "C"
+          [value].pack("C")
+        when "s"
+          [value].pack("s<")
+        when "S"
+          [value].pack("S<")
+        when "i"
+          [value].pack("l<")
+        when "I"
+          [value].pack("L<")
+        else
+          raise ArgumentError, "Unsupported scalar AUX type: #{type}"
+        end
+      end
+
+      def pack_array_payload(value, type)
+        case type
+        when "c"
+          validate_integer_array_range!(value, -128, 127, type)
+          value.pack("c*")
+        when "C"
+          validate_integer_array_range!(value, 0, 255, type)
+          value.pack("C*")
+        when "s"
+          validate_integer_array_range!(value, -32_768, 32_767, type)
+          value.pack("s<*")
+        when "S"
+          validate_integer_array_range!(value, 0, 65_535, type)
+          value.pack("S<*")
+        when "i"
+          validate_integer_array_range!(value, -2_147_483_648, 2_147_483_647, type)
+          value.pack("l<*")
+        when "I"
+          validate_integer_array_range!(value, 0, 4_294_967_295, type)
+          value.pack("L<*")
+        when "f"
+          value.map(&:to_f).pack("e*")
+        else
+          raise ArgumentError, "Invalid array type: #{type}"
+        end
+      end
+
+      def validate_integer_array_range!(value, min, max, type)
+        value.each do |element|
+          integer = Integer(element)
+          unless integer.between?(min, max)
+            raise RangeError, "Array element #{integer} is out of range for AUX array type #{type}"
+          end
+        end
       end
 
       def get_ruby_aux(aux_ptr, type = nil)
