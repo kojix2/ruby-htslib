@@ -156,8 +156,18 @@ module HTS
       end
 
       # Macro for setting genotypes correctly
+      def bcf_gt_vector_end
+        bcf_int32_vector_end
+      end
+
+      # Macro for setting genotypes correctly
       def bcf_gt_is_missing(val)
-        (val >> 1 ? 0 : 1)
+        ((val >> 1) == 0 ? 1 : 0)
+      end
+
+      # Macro for setting genotypes correctly
+      def bcf_gt_is_vector_end(val)
+        val == bcf_gt_vector_end ? 1 : 0
       end
 
       # Macro for setting genotypes correctly
@@ -275,7 +285,16 @@ module HTS
         )[:val][:info][type] & 0xf
       end
 
-      # def bcf_hdr_idinfo_exists
+      def bcf_hdr_idinfo_exists(hdr, type, int_id)
+        return false if int_id.negative? || int_id >= hdr[:n][LibHTS::BCF_DT_ID]
+
+        pair = LibHTS::BcfIdpair.new(
+          hdr[:id][LibHTS::BCF_DT_ID].to_ptr +
+          LibHTS::BcfIdpair.size * int_id # offset
+        )
+
+        !pair[:val].null? && bcf_hdr_id2coltype(hdr, type, int_id) != 0xf
+      end
 
       # def bcf_hdr_id2hrec
 
