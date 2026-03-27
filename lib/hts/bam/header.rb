@@ -81,15 +81,23 @@ module HTS
       # experimental
       def find_line(type, key, value)
         ks = LibHTS::KString.new
-        r = LibHTS.sam_hdr_find_line_id(@sam_hdr, type, key, value, ks)
-        r == 0 ? ks[:s] : nil
+        begin
+          r = LibHTS.sam_hdr_find_line_id(@sam_hdr, type, key, value, ks)
+          r == 0 ? ks.read_string_copy : nil
+        ensure
+          ks.free_buffer
+        end
       end
 
       # experimental
       def find_line_at(type, pos)
         ks = LibHTS::KString.new
-        r = LibHTS.sam_hdr_find_line_pos(@sam_hdr, type, pos, ks)
-        r == 0 ? ks[:s] : nil
+        begin
+          r = LibHTS.sam_hdr_find_line_pos(@sam_hdr, type, pos, ks)
+          r == 0 ? ks.read_string_copy : nil
+        ensure
+          ks.free_buffer
+        end
       end
 
       # experimental

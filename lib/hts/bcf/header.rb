@@ -85,15 +85,23 @@ module HTS
       def seqnames
         n = FFI::MemoryPointer.new(:int)
         names = LibHTS.bcf_hdr_seqnames(@bcf_hdr, n)
-        names.read_array_of_pointer(n.read_int)
-             .map(&:read_string)
+        begin
+          names.read_array_of_pointer(n.read_int)
+               .map(&:read_string)
+        ensure
+          LibHTS.hts_free(names) unless names.null?
+        end
       end
 
       def to_s
         kstr = LibHTS::KString.new
-        raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
+        begin
+          raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
 
-        kstr[:s]
+          kstr.read_string_copy
+        ensure
+          kstr.free_buffer
+        end
       end
 
       def name2id(name)

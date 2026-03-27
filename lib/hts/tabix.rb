@@ -89,8 +89,11 @@ module HTS
     def seqnames
       check_closed
       nseq = FFI::MemoryPointer.new(:int)
-      LibHTS.tbx_seqnames(@idx, nseq).then do |pts|
+      pts = LibHTS.tbx_seqnames(@idx, nseq)
+      begin
         pts.read_array_of_pointer(nseq.read_int).map(&:read_string)
+      ensure
+        LibHTS.hts_free(pts) unless pts.null?
       end
     end
 
@@ -144,8 +147,11 @@ module HTS
     def query_yield(qiter)
       r = LibHTS::KString.new
       begin
-        yield r[:s].split("\t") while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+        while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+          yield r.read_string_copy.split("\t")
+        end
       ensure
+        r.free_buffer
         LibHTS.hts_itr_destroy(qiter)
       end
     end

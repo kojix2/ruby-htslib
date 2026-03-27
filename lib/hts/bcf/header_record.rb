@@ -31,8 +31,12 @@ module HTS
 
       def to_s
         kstr = LibHTS::KString.new
-        LibHTS.bcf_hrec_format(@bcf_hrec, kstr)
-        kstr[:s]
+        begin
+          LibHTS.bcf_hrec_format(@bcf_hrec, kstr)
+          kstr.read_string_copy
+        ensure
+          kstr.free_buffer
+        end
       end
 
       private

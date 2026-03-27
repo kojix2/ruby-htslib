@@ -354,9 +354,13 @@ module HTS
       # @return [String] a string representation of the alignment.
       def to_s
         kstr = LibHTS::KString.new
-        raise "Failed to format bam record" if LibHTS.sam_format1(@header.struct, @bam1, kstr) == -1
+        begin
+          raise "Failed to format bam record" if LibHTS.sam_format1(@header.struct, @bam1, kstr) == -1
 
-        kstr[:s]
+          kstr.read_string_copy
+        ensure
+          kstr.free_buffer
+        end
       end
 
       private

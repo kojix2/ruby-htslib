@@ -12,6 +12,27 @@ module HTS
         :l,              :size_t,
         :m,              :size_t,
         :s,              :string
+
+      def buffer_ptr
+        to_ptr.get_pointer(self.class.offset_of(:s))
+      end
+
+      def read_string_copy
+        ptr = buffer_ptr
+        return "" if ptr.null?
+
+        ptr.read_string(self[:l])
+      end
+
+      def free_buffer
+        ptr = buffer_ptr
+        return if ptr.null?
+
+        LibHTS.hts_free(ptr)
+        to_ptr.put_pointer(self.class.offset_of(:s), FFI::Pointer::NULL)
+        self[:l] = 0
+        self[:m] = 0
+      end
     end
 
     class KSeq < FFI::Struct

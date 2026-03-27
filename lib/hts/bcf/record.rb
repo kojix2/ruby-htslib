@@ -130,9 +130,13 @@ module HTS
 
       def to_s
         ksr = LibHTS::KString.new
-        raise "Failed to format record" if LibHTS.vcf_format(@header.struct, @bcf1, ksr) == -1
+        begin
+          raise "Failed to format record" if LibHTS.vcf_format(@header.struct, @bcf1, ksr) == -1
 
-        ksr[:s]
+          ksr.read_string_copy
+        ensure
+          ksr.free_buffer
+        end
       end
 
       private
