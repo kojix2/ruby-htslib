@@ -132,11 +132,93 @@ module HTS
       #   header.add_pg("bwa", VN: "0.7.17", CL: "bwa mem ref.fa read.fq")
       #   header.add_pg("samtools", VN: "1.15", PP: "bwa")
       def add_pg(program_name, **options)
-        args = options.flat_map { |k, v| [:string, k.to_s, :string, v.to_s] }
-        LibHTS.sam_hdr_add_pg(@sam_hdr, program_name, *args, :pointer, FFI::Pointer::NULL)
+        line = build_pg_line(program_name.to_s, options)
+        result = LibHTS.sam_hdr_add_lines(@sam_hdr, line, line.bytesize)
+        raise "Failed to add @PG line" if result < 0
+
+        self
       end
 
       private
+
+      def build_pg_line(program_name, options)
+        ordered_tags = normalize_pg_tags(program_name, options)
+        "@PG\t#{ordered_tags.map { |key, value| "#{key}:#{value}" }.join("\t")}\n"
+      end
+
+      def normalize_pg_tags(program_name, options)
+        existing_ids = pg_ids
+        tag_map = options.each_with_object({}) do |(key, value), tags|
+          string_key = key.to_s
+          string_value = value.to_s
+          validate_pg_tag(string_key, string_value)
+          tags[string_key] = string_value
+        end
+
+        pg_id = resolve_pg_id(program_name, tag_map, existing_ids)
+        validate_pg_parent(tag_map["PP"], existing_ids)
+
+        ordered_tags = []
+        ordered_tags << ["ID", pg_id]
+        ordered_tags << ["PN", tag_map.fetch("PN", program_name)]
+        tag_map.each do |key, value|
+          next if key == "ID" || key == "PN"
+
+          ordered_tags << [key, value]
+        end
+        ordered_tags
+      end
+
+      def validate_pg_tag(key, value)
+        raise ArgumentError, "PG tag keys must not be empty" if key.empty?
+        return unless value.include?("\t") || value.include?("\n") || value.include?("\r")
+
+        raise ArgumentError, "PG tag values must not contain tabs or newlines"
+      end
+
+      def resolve_pg_id(program_name, tag_map, existing_ids)
+        explicit_id = tag_map["ID"]
+        if explicit_id
+          raise ArgumentError, "PG ID already exists: #{explicit_id}" if existing_ids.include?(explicit_id)
+
+          explicit_id
+        else
+          next_pg_id(program_name, existing_ids)
+        end
+      end
+
+      def validate_pg_parent(parent_id, existing_ids)
+        return unless parent_id
+        return if existing_ids.include?(parent_id)
+
+        raise ArgumentError, "Unknown PG parent: #{parent_id}"
+      end
+
+      def next_pg_id(program_name, existing_ids)
+        candidate = program_name
+        suffix = 0
+        while existing_ids.include?(candidate)
+          suffix += 1
+          candidate = "#{program_name}.#{suffix}"
+        end
+        candidate
+      end
+
+      def pg_ids
+        ids = []
+        to_s.each_line do |line|
+          next unless line.start_with?("@PG\t")
+
+          line.chomp.split("\t")[1..].each do |field|
+            key, value = field.split(":", 2)
+            next unless key == "ID" && value
+
+            ids << value
+            break
+          end
+        end
+        ids
+      end
 
       def name2tid(name)
         LibHTS.sam_hdr_name2tid(@sam_hdr, name)

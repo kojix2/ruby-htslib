@@ -15,7 +15,7 @@ class HeaderTest < Minitest::Test
   def test_add_pg
     # Test basic @PG line addition
     result = @header.add_pg("test_program", VN: "1.0.0", CL: "test_program input.bam")
-    assert_equal 0, result
+    assert_same @header, result
 
     # Check that the @PG line was added
     header_text = @header.to_s
@@ -30,7 +30,7 @@ class HeaderTest < Minitest::Test
 
     # Add second program with PP reference
     result = @header.add_pg("program2", VN: "2.0", PP: "program1")
-    assert_equal 0, result
+    assert_same @header, result
 
     header_text = @header.to_s
     assert_match(/@PG\t.*PN:program1/, header_text)
@@ -53,7 +53,7 @@ class HeaderTest < Minitest::Test
 
   def test_add_pg_with_id
     result = @header.add_pg("myprogram", ID: "custom_id", VN: "0.1")
-    assert_equal 0, result
+    assert_same @header, result
 
     header_text = @header.to_s
     assert_match(/ID:custom_id/, header_text)
@@ -62,9 +62,37 @@ class HeaderTest < Minitest::Test
 
   def test_add_pg_empty_options
     result = @header.add_pg("simple_program")
-    assert_equal 0, result
+    assert_same @header, result
 
     header_text = @header.to_s
     assert_match(/@PG\t.*PN:simple_program/, header_text)
+  end
+
+  def test_add_pg_rejects_duplicate_id
+    @header.add_pg("align", ID: "existing_pg")
+
+    error = assert_raises(ArgumentError) do
+      @header.add_pg("sort", ID: "existing_pg")
+    end
+    assert_includes error.message, "PG ID already exists"
+  end
+
+  def test_add_pg_rejects_unknown_parent
+    error = assert_raises(ArgumentError) do
+      @header.add_pg("sort", PP: "missing")
+    end
+    assert_includes error.message, "Unknown PG parent"
+  end
+
+  def test_add_pg_rejects_tabs_and_newlines
+    error = assert_raises(ArgumentError) do
+      @header.add_pg("align", CL: "samtools\tview")
+    end
+    assert_includes error.message, "must not contain tabs or newlines"
+
+    error = assert_raises(ArgumentError) do
+      @header.add_pg("align", CL: "samtools\nview")
+    end
+    assert_includes error.message, "must not contain tabs or newlines"
   end
 end
