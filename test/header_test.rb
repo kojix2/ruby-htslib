@@ -3,6 +3,17 @@
 require_relative "test_helper"
 
 class HeaderTest < Minitest::Test
+  MINIMAL_HEADER = <<~SAM.freeze
+    @HD	VN:1.6	SO:coordinate
+    @SQ	SN:chr1	LN:1000
+  SAM
+
+  RG_HEADER = <<~SAM.freeze
+    @HD	VN:1.6	SO:coordinate
+    @SQ	SN:chr1	LN:1000
+    @RG	ID:rg1	SM:sample1
+  SAM
+
   def setup
     @bam = HTS::Bam.open(Fixtures["poo.sort.bam"])
     @header = @bam.header
@@ -94,5 +105,45 @@ class HeaderTest < Minitest::Test
       @header.add_pg("align", CL: "samtools\nview")
     end
     assert_includes error.message, "must not contain tabs or newlines"
+  end
+
+  def test_update_hd
+    header = HTS::Bam::Header.parse(MINIMAL_HEADER)
+
+    header.update_hd(version: "1.7", group_order: "query")
+
+    assert_match(/@HD\tVN:1.7\tSO:coordinate\tGO:query/, header.to_s)
+  end
+
+  def test_add_update_remove_sq
+    header = HTS::Bam::Header.parse(MINIMAL_HEADER)
+
+    header.add_sq("chr2", length: 2000, assembly: "GRCh38")
+    assert_equal 2, header.count_lines("SQ")
+    assert_equal "chr2", header.line_name("SQ", 1)
+    assert_equal "2000", header.find_tag("SQ", "SN", "chr2", "LN")
+
+    header.update_sq("chr2", md5: "abc123")
+    assert_equal "abc123", header.find_tag("SQ", "SN", "chr2", "M5")
+
+    assert_equal true, header.remove_sq("chr2")
+    assert_nil header.find_line("SQ", "SN", "chr2")
+  end
+
+  def test_add_update_remove_rg
+    header = HTS::Bam::Header.parse(RG_HEADER)
+
+    header.add_rg("rg2", sample: "sample2", platform: "ILLUMINA")
+    assert_equal 2, header.count_lines("RG")
+    assert_equal "sample2", header.find_tag("RG", "ID", "rg2", "SM")
+
+    header.update_rg("rg2", description: "tumor")
+    assert_equal "tumor", header.find_tag("RG", "ID", "rg2", "DS")
+
+    assert_equal true, header.delete_tag("RG", "ID", "rg2", "DS")
+    assert_nil header.find_tag("RG", "ID", "rg2", "DS")
+
+    assert_equal true, header.remove_rg("rg2")
+    assert_nil header.find_line("RG", "ID", "rg2")
   end
 end

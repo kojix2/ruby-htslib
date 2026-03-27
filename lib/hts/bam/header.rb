@@ -6,6 +6,39 @@ module HTS
   class Bam < Hts
     # A class for working with alignment header.
     class Header
+      HD_TAG_MAP = {
+        version: "VN",
+        sort_order: "SO",
+        group_order: "GO",
+        subsorting: "SS"
+      }.freeze
+
+      SQ_TAG_MAP = {
+        name: "SN",
+        length: "LN",
+        assembly: "AS",
+        md5: "M5",
+        species: "SP",
+        uri: "UR",
+        alt_names: "AN"
+      }.freeze
+
+      RG_TAG_MAP = {
+        id: "ID",
+        sample: "SM",
+        library: "LB",
+        platform: "PL",
+        platform_unit: "PU",
+        center: "CN",
+        description: "DS",
+        date: "DT",
+        flow_order: "FO",
+        key_sequence: "KS",
+        program: "PG",
+        insert_size: "PI",
+        molecule_topology: "PM"
+      }.freeze
+
       def self.parse(text)
         new(LibHTS.sam_hdr_parse(text.size, text))
       end
@@ -66,6 +99,11 @@ module HTS
         add_lines(...)
       end
 
+      def append(line)
+        add_lines(ensure_newline(line.to_s))
+        self
+      end
+
       # experimental
       def <<(obj)
         case obj
@@ -83,6 +121,16 @@ module HTS
         ks = LibHTS::KString.new
         begin
           r = LibHTS.sam_hdr_find_line_id(@sam_hdr, type, key, value, ks)
+          r == 0 ? ks.read_string_copy : nil
+        ensure
+          ks.free_buffer
+        end
+      end
+
+      def find_tag(type, id_key, id_value, key)
+        ks = LibHTS::KString.new
+        begin
+          r = LibHTS.sam_hdr_find_tag_id(@sam_hdr, type, id_key, id_value, key, ks)
           r == 0 ? ks.read_string_copy : nil
         ensure
           ks.free_buffer
@@ -110,6 +158,26 @@ module HTS
         LibHTS.sam_hdr_remove_line_pos(@sam_hdr, type, pos)
       end
 
+      def delete_line(type, key = nil, value = nil)
+        LibHTS.sam_hdr_remove_line_id(@sam_hdr, type, key, value).zero?
+      end
+
+      def delete_tag(type, id_key, id_value, key)
+        LibHTS.sam_hdr_remove_tag_id(@sam_hdr, type, id_key, id_value, key) == 1
+      end
+
+      def count_lines(type)
+        LibHTS.sam_hdr_count_lines(@sam_hdr, type)
+      end
+
+      def line_index(type, key)
+        LibHTS.sam_hdr_line_index(@sam_hdr, type, key)
+      end
+
+      def line_name(type, pos)
+        LibHTS.sam_hdr_line_name(@sam_hdr, type, pos)
+      end
+
       def to_s
         LibHTS.sam_hdr_str(@sam_hdr)
       end
@@ -117,6 +185,46 @@ module HTS
       # experimental
       def get_tid(name)
         name2tid(name)
+      end
+
+      def update_hd(**tags)
+        pairs = merge_sam_pairs(find_line_pairs("HD", nil, nil), normalize_hd_tags(tags))
+        replace_sam_line("HD", nil, nil, pairs, %w[VN SO GO SS])
+        self
+      end
+
+      def add_sq(name, length:, **tags)
+        pairs = [["SN", name.to_s], ["LN", length.to_s]]
+        pairs.concat normalize_sq_tags(tags)
+        add_structured_sam_line("SQ", pairs, %w[SN LN AS M5 SP UR AN])
+        self
+      end
+
+      def update_sq(name, **tags)
+        pairs = merge_identified_sam_line("SQ", "SN", name.to_s, normalize_sq_tags(tags), protected_keys: ["SN"])
+        replace_sam_line("SQ", "SN", name.to_s, pairs, %w[SN LN AS M5 SP UR AN])
+        self
+      end
+
+      def remove_sq(name)
+        delete_line("SQ", "SN", name.to_s)
+      end
+
+      def add_rg(id, **tags)
+        pairs = [["ID", id.to_s]]
+        pairs.concat normalize_rg_tags(tags)
+        add_structured_sam_line("RG", pairs, %w[ID SM LB PL PU CN DS DT FO KS PG PI PM])
+        self
+      end
+
+      def update_rg(id, **tags)
+        pairs = merge_identified_sam_line("RG", "ID", id.to_s, normalize_rg_tags(tags), protected_keys: ["ID"])
+        replace_sam_line("RG", "ID", id.to_s, pairs, %w[ID SM LB PL PU CN DS DT FO KS PG PI PM])
+        self
+      end
+
+      def remove_rg(id)
+        delete_line("RG", "ID", id.to_s)
       end
 
       # Add a @PG (program) line to the header
@@ -140,6 +248,93 @@ module HTS
       end
 
       private
+
+      def normalize_hd_tags(tags)
+        normalize_sam_tags(tags, HD_TAG_MAP)
+      end
+
+      def normalize_sq_tags(tags)
+        normalize_sam_tags(tags, SQ_TAG_MAP)
+      end
+
+      def normalize_rg_tags(tags)
+        normalize_sam_tags(tags, RG_TAG_MAP)
+      end
+
+      def normalize_sam_tags(tags, tag_map)
+        tags.each_with_object([]) do |(key, value), pairs|
+          sam_key = tag_map.fetch(key.to_sym, key.to_s.upcase)
+          sam_value = value.is_a?(Array) ? value.join(",") : value.to_s
+          raise ArgumentError, "Header tag keys must not be empty" if sam_key.empty?
+          if sam_value.include?("\t") || sam_value.include?("\n") || sam_value.include?("\r")
+            raise ArgumentError, "Header tag values must not contain tabs or newlines"
+          end
+
+          pairs << [sam_key, sam_value]
+        end
+      end
+
+      def parse_sam_pairs(line)
+        line.to_s.chomp.split("\t")[1..].to_a.map do |field|
+          key, value = field.split(":", 2)
+          [key, value.to_s]
+        end
+      end
+
+      def find_line_pairs(type, id_key, id_value)
+        line = find_line(type, id_key, id_value)
+        line ? parse_sam_pairs(line) : []
+      end
+
+      def merge_identified_sam_line(type, id_key, id_value, updates, protected_keys: [])
+        line = find_line(type, id_key, id_value)
+        raise ArgumentError, "Header line not found: @#{type} #{id_key}:#{id_value}" unless line
+
+        merge_sam_pairs(parse_sam_pairs(line), updates, protected_keys:)
+      end
+
+      def merge_sam_pairs(existing_pairs, updates, protected_keys: [])
+        pairs = existing_pairs.map(&:dup)
+        updates.each do |key, value|
+          if protected_keys.include?(key)
+            raise ArgumentError, "Header tag #{key} cannot be updated" unless existing_pairs.none? { |pair| pair[0] == key && pair[1] == value }
+
+            next
+          end
+
+          index = pairs.index { |pair| pair[0] == key }
+          if index
+            pairs[index] = [key, value]
+          else
+            pairs << [key, value]
+          end
+        end
+        pairs
+      end
+
+      def add_structured_sam_line(type, pairs, preferred_order)
+        append(build_sam_line(type, pairs, preferred_order))
+      end
+
+      def replace_sam_line(type, id_key, id_value, pairs, preferred_order)
+        delete_line(type, id_key, id_value)
+        append(build_sam_line(type, pairs, preferred_order))
+      end
+
+      def build_sam_line(type, pairs, preferred_order)
+        ordered_pairs = preferred_order.filter_map do |key|
+          pairs.find { |pair| pair[0] == key }
+        end
+        pairs.each do |pair|
+          ordered_pairs << pair unless preferred_order.include?(pair[0])
+        end
+
+        "@#{type}\t#{ordered_pairs.map { |key, value| "#{key}:#{value}" }.join("\t")}\n"
+      end
+
+      def ensure_newline(text)
+        text.end_with?("\n") ? text : "#{text}\n"
+      end
 
       def build_pg_line(program_name, options)
         ordered_tags = normalize_pg_tags(program_name, options)

@@ -112,4 +112,59 @@ class BcfHeaderTest < Minitest::Test
     assert_equal "4", @hdr.id2name(3)
     assert_nil @hdr.id2name(4)
   end
+
+  def test_edit_batches_sync
+    hdr2 = @hdr.clone
+
+    hdr2.edit do |header|
+      header.add_sample("kojix4")
+      header.add_sample("kojix5")
+      header.add_filter("BatchFilter", description: "batch-added")
+    end
+
+    assert_equal %w[A B kojix4 kojix5], hdr2.samples
+    assert_match(/##FILTER=<ID=BatchFilter,Description="batch-added">/, hdr2.to_s)
+  end
+
+  def test_add_and_remove_contig
+    h = HTS::Bcf::Header.new
+    h.add_contig("chr1", length: 1000, assembly: "GRCh38")
+
+    assert_equal ["chr1"], h.target_names
+    assert_match(/##contig=<ID=chr1,length=1000,assembly=GRCh38>/, h.to_s)
+
+    assert_equal true, h.remove_contig("chr1")
+    assert_equal [], h.target_names
+  end
+
+  def test_add_update_remove_info_and_format
+    h = HTS::Bcf::Header.new
+    h.add_info("DP", number: 1, type: :int, description: "Total depth")
+    h.add_format("GT", number: 1, type: :string, description: "Genotype")
+
+    assert_match(/##INFO=<ID=DP,Number=1,Type=Integer,Description="Total depth">/, h.to_s)
+    assert_match(/##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">/, h.to_s)
+
+    h.update_info("DP", number: 1, type: :int, description: "Read depth")
+    h.update_format("GT", number: 1, type: :string, description: "GT field")
+    assert_match(/##INFO=<ID=DP,Number=1,Type=Integer,Description="Read depth">/, h.to_s)
+    assert_match(/##FORMAT=<ID=GT,Number=1,Type=String,Description="GT field">/, h.to_s)
+
+    assert_equal true, h.remove_info("DP")
+    assert_equal true, h.remove_format("GT")
+    refute_match(/##INFO=<ID=DP/, h.to_s)
+    refute_match(/##FORMAT=<ID=GT/, h.to_s)
+  end
+
+  def test_add_meta_and_filter
+    h = HTS::Bcf::Header.new
+    h.add_meta("source", "myCaller")
+    h.add_filter("LowQual", description: "Low quality")
+
+    assert_match(/##source=myCaller/, h.to_s)
+    assert_match(/##FILTER=<ID=LowQual,Description="Low quality">/, h.to_s)
+
+    assert_equal true, h.remove_filter("LowQual")
+    refute_match(/LowQual/, h.to_s)
+  end
 end

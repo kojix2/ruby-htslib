@@ -8,6 +8,19 @@ module HTS
     # NOTE: This class has a lot of methods that are not stable.
     # The method names and the number of arguments may change in the future.
     class Header
+      BCF_TYPE_MAP = {
+        int: "Integer",
+        integer: "Integer",
+        int32: "Integer",
+        float: "Float",
+        real: "Float",
+        string: "String",
+        str: "String",
+        character: "Character",
+        char: "Character",
+        flag: "Flag"
+      }.freeze
+
       def initialize(arg = nil)
         case arg
         when LibHTS::HtsFile
@@ -19,6 +32,9 @@ module HTS
         else
           raise TypeError, "Invalid argument"
         end
+
+        @sync_depth = 0
+        @sync_needed = false
 
         yield self if block_given?
       end
@@ -36,7 +52,12 @@ module HTS
       end
 
       def set_version(version)
-        LibHTS.bcf_hdr_set_version(@bcf_hdr, version)
+        rc = LibHTS.bcf_hdr_set_version(@bcf_hdr, version)
+        raise "Failed to set VCF header version" if rc.negative?
+
+        mark_sync_needed!
+        sync_if_needed!
+        self
       end
 
       def nsamples
@@ -67,16 +88,29 @@ module HTS
       end
 
       def add_sample(sample, sync: true)
-        LibHTS.bcf_hdr_add_sample(@bcf_hdr, sample)
-        self.sync if sync
+        rc = LibHTS.bcf_hdr_add_sample(@bcf_hdr, sample)
+        raise "Failed to add sample #{sample}" if rc.negative?
+
+        mark_sync_needed!
+        sync_if_needed! if sync
+        self
       end
 
       def merge(hdr)
-        LibHTS.bcf_hdr_merge(@bcf_hdr, hdr.struct)
+        merged = LibHTS.bcf_hdr_merge(@bcf_hdr, hdr.struct)
+        raise "Failed to merge BCF headers" if merged.to_ptr.null?
+
+        mark_sync_needed!
+        sync_if_needed!
+        self
       end
 
       def sync
-        LibHTS.bcf_hdr_sync(@bcf_hdr)
+        rc = LibHTS.bcf_hdr_sync(@bcf_hdr)
+        raise "Failed to sync BCF header" if rc.negative?
+
+        @sync_needed = false
+        self
       end
 
       def read_bcf(fname)
@@ -84,18 +118,97 @@ module HTS
       end
 
       def append(line)
-        LibHTS.bcf_hdr_append(@bcf_hdr, line)
+        rc = LibHTS.bcf_hdr_append(@bcf_hdr, line)
+        raise "Failed to append VCF header line" if rc.negative?
+
+        mark_sync_needed!
+        self
       end
 
-      def delete(bcf_hl_type, key) # FIXME
+      def delete(bcf_hl_type, key = nil) # FIXME
+        existed = hrec_exists?(bcf_hl_type, key)
         type = bcf_hl_type_to_int(bcf_hl_type)
         LibHTS.bcf_hdr_remove(@bcf_hdr, type, key)
+        mark_sync_needed! if existed
+        existed
       end
 
       def get_hrec(bcf_hl_type, key, value, str_class = nil)
         type = bcf_hl_type_to_int(bcf_hl_type)
-        hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
+        hrec = borrowed_hrec(type, key, value, str_class)
+        return nil if hrec.to_ptr.null?
+
         HeaderRecord.new(hrec)
+      end
+
+      def edit
+        @sync_depth += 1
+        yield self
+        self
+      ensure
+        @sync_depth -= 1
+        sync_if_needed!
+      end
+
+      def add_contig(id, length: nil, **attributes)
+        fields = [["ID", id.to_s]]
+        fields << ["length", length.to_s] unless length.nil?
+        fields.concat normalize_meta_attributes(attributes)
+        append_structured_meta("contig", fields)
+      end
+
+      def remove_contig(id)
+        delete("CONTIG", id.to_s).tap { sync_if_needed! }
+      end
+
+      def add_filter(id, description:, **attributes)
+        fields = [["ID", id.to_s], ["Description", description.to_s]]
+        fields.concat normalize_meta_attributes(attributes)
+        append_structured_meta("FILTER", fields)
+      end
+
+      def remove_filter(id)
+        delete("FILTER", id.to_s).tap { sync_if_needed! }
+      end
+
+      def add_info(id, number:, type:, description:, **attributes)
+        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)], ["Description", description.to_s]]
+        fields.concat normalize_meta_attributes(attributes)
+        append_structured_meta("INFO", fields)
+      end
+
+      def update_info(id, number:, type:, description:, **attributes)
+        delete("INFO", id.to_s)
+        add_info(id, number:, type:, description:, **attributes)
+      end
+
+      def remove_info(id)
+        delete("INFO", id.to_s).tap { sync_if_needed! }
+      end
+
+      def add_format(id, number:, type:, description:, **attributes)
+        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)], ["Description", description.to_s]]
+        fields.concat normalize_meta_attributes(attributes)
+        append_structured_meta("FORMAT", fields)
+      end
+
+      def update_format(id, number:, type:, description:, **attributes)
+        delete("FORMAT", id.to_s)
+        add_format(id, number:, type:, description:, **attributes)
+      end
+
+      def remove_format(id)
+        delete("FORMAT", id.to_s).tap { sync_if_needed! }
+      end
+
+      def add_meta(key, value = nil, **attributes)
+        if attributes.empty?
+          append("###{key}=#{value}")
+          sync_if_needed!
+          self
+        else
+          append_structured_meta(key.to_s, normalize_meta_attributes(attributes))
+        end
       end
 
       def seqnames
@@ -130,6 +243,79 @@ module HTS
 
       private
 
+      def normalize_bcf_type(type)
+        BCF_TYPE_MAP.fetch(type.to_sym, type.to_s)
+      end
+
+      def normalize_bcf_number(number)
+        case number
+        when :a, :A then "A"
+        when :r, :R then "R"
+        when :g, :G then "G"
+        when :variable, :var, :dot then "."
+        else number.to_s
+        end
+      end
+
+      def normalize_meta_attributes(attributes)
+        attributes.map do |key, value|
+          meta_key = key.to_s.split("_").map.with_index { |part, index| index.zero? ? part : part.capitalize }.join
+          meta_value = value.is_a?(Array) ? value.join(",") : value.to_s
+          [meta_key, meta_value]
+        end
+      end
+
+      def append_structured_meta(label, fields)
+        body = fields.map { |key, value| "#{key}=#{format_meta_value(key, value)}" }.join(",")
+        append("###{label}=<#{body}>")
+        sync_if_needed!
+        self
+      end
+
+      def format_meta_value(key, value)
+        return quote_meta_value(value) if key == "Description"
+        return value if value.match?(/\A[[:alnum:]_.:+-]+\z/)
+
+        quote_meta_value(value)
+      end
+
+      def quote_meta_value(value)
+        %("#{value.gsub(/([\\"])/, '\\\\1')}")
+      end
+
+      def mark_sync_needed!
+        @sync_needed = true
+      end
+
+      def sync_if_needed!
+        sync if @sync_needed && @sync_depth.zero?
+      end
+
+      def hrec_exists?(bcf_hl_type, key)
+        type = bcf_hl_type_to_int(bcf_hl_type)
+        lookup_key, lookup_value, str_class = hrec_lookup_args(type, key)
+        hrec = borrowed_hrec(type, lookup_key, lookup_value, str_class)
+        !hrec.to_ptr.null?
+      end
+
+      def borrowed_hrec(type, key, value, str_class)
+        hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
+        pointer = hrec.to_ptr
+        pointer.autorelease = false if pointer.respond_to?(:autorelease=)
+        hrec
+      end
+
+      def hrec_lookup_args(type, key)
+        case type
+        when LibHTS::BCF_HL_FLT, LibHTS::BCF_HL_INFO, LibHTS::BCF_HL_FMT, LibHTS::BCF_HL_CTG
+          ["ID", key, nil]
+        when LibHTS::BCF_HL_GEN
+          [key, nil, nil]
+        else
+          ["ID", key, nil]
+        end
+      end
+
       def bcf_hl_type_to_int(bcf_hl_type)
         return bcf_hl_type if bcf_hl_type.is_a?(Integer)
 
@@ -153,6 +339,8 @@ module HTS
 
       def initialize_copy(orig)
         @bcf_hdr = LibHTS.bcf_hdr_dup(orig.struct)
+        @sync_depth = 0
+        @sync_needed = false
       end
     end
   end
