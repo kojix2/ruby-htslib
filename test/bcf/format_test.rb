@@ -36,6 +36,69 @@ class BcfFormatTest < Minitest::Test
     end
   end
 
+  def with_temp_bcf
+    Tempfile.create(["format_test", ".bcf"]) do |file|
+      path = file.path
+      file.close
+
+      header = HTS::Bcf::Header.new
+      header.set_version("VCFv4.3")
+      header.append("##contig=<ID=1,length=100>")
+      header.append('##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">')
+      header.append('##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Phred likelihoods">')
+      header.append('##FORMAT=<ID=MISSI,Number=1,Type=Integer,Description="defined but absent integer">')
+      header.append('##FORMAT=<ID=MISSF,Number=1,Type=Float,Description="defined but absent float">')
+      header.append('##FORMAT=<ID=IV,Number=.,Type=Integer,Description="integer with sentinels">')
+      header.append('##FORMAT=<ID=FV,Number=.,Type=Float,Description="float with sentinels">')
+      header.add_sample("S1", sync: false)
+      header.add_sample("S2", sync: true)
+
+      HTS::Bcf.open(path, "wb") do |bcf|
+        bcf.write_header(header)
+
+        record = HTS::Bcf::Record.new(header)
+        record.rid = HTS::LibHTS.bcf_hdr_name2id(header.struct, "1")
+        record.pos = 9
+
+        rc = HTS::LibHTS.bcf_update_alleles_str(header.struct, record.struct, "A,C")
+        raise "bcf_update_alleles_str failed (rc=#{rc})" if rc < 0
+
+        genotypes = [
+          HTS::LibHTS.bcf_gt_unphased(0),
+          HTS::LibHTS.bcf_gt_unphased(1),
+          HTS::LibHTS.bcf_gt_unphased(1),
+          HTS::LibHTS.bcf_gt_unphased(1)
+        ]
+        genotype_ptr = FFI::MemoryPointer.new(:int32, genotypes.size)
+        genotype_ptr.write_array_of_int32(genotypes)
+        rc = HTS::LibHTS.bcf_update_genotypes(header.struct, record.struct, genotype_ptr, genotypes.size)
+        raise "bcf_update_genotypes failed (rc=#{rc})" if rc < 0
+
+        likelihoods = [10, 20, 30, 40, 50, 60]
+        likelihood_ptr = FFI::MemoryPointer.new(:int32, likelihoods.size)
+        likelihood_ptr.write_array_of_int32(likelihoods)
+        rc = HTS::LibHTS.bcf_update_format_int32(header.struct, record.struct, "PL", likelihood_ptr, likelihoods.size)
+        raise "bcf_update_format_int32 failed (rc=#{rc})" if rc < 0
+
+        int_with_sentinels = [10, HTS::LibHTS.bcf_int32_vector_end, HTS::LibHTS.bcf_int32_missing, HTS::LibHTS.bcf_int32_vector_end]
+        int_ptr = FFI::MemoryPointer.new(:int32, int_with_sentinels.size)
+        int_ptr.write_array_of_int32(int_with_sentinels)
+        rc = HTS::LibHTS.bcf_update_format_int32(header.struct, record.struct, "IV", int_ptr, int_with_sentinels.size)
+        raise "bcf_update_format_int32 failed for IV (rc=#{rc})" if rc < 0
+
+        float_words = [0x3fc0_0000, 0x7f80_0002, 0x7f80_0001, 0x7f80_0002]
+        float_ptr = FFI::MemoryPointer.new(:uint32, float_words.size)
+        float_ptr.write_array_of_uint32(float_words)
+        rc = HTS::LibHTS.bcf_update_format_float(header.struct, record.struct, "FV", float_ptr, float_words.size)
+        raise "bcf_update_format_float failed for FV (rc=#{rc})" if rc < 0
+
+        bcf.write(record)
+      end
+
+      yield path
+    end
+  end
+
   def with_temp_gt_vcf
     Tempfile.create(["format_gt", ".vcf"]) do |file|
       file.write <<~VCF
@@ -112,13 +175,15 @@ class BcfFormatTest < Minitest::Test
   def test_get_without_type
     assert_equal [409, 409], @fmt.get("GQ")
     assert_equal [35, 35], @fmt.get("DP")
-    assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt.get("GL")
+    assert_equal [[-20.0, -5.0, -20.0], [-20.0, -5.0, -20.0]], @fmt.get("GL")
+    assert_equal ["0/1", "0/1"], @fmt.get("GT")
   end
 
   def test_get_square_brackets
     assert_equal [409, 409], @fmt["GQ"]
     assert_equal [35, 35], @fmt["DP"]
-    assert_equal [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0], @fmt["GL"]
+    assert_equal [[-20.0, -5.0, -20.0], [-20.0, -5.0, -20.0]], @fmt["GL"]
+    assert_equal ["0/1", "0/1"], @fmt["GT"]
   end
 
   def test_get_unknown_key
@@ -189,11 +254,53 @@ class BcfFormatTest < Minitest::Test
 
   def test_to_h
     assert_equal(
-      # FIXME: Maybe GT should be string?
-      { "GT" => [2, 4, 2, 4], "GQ" => [409, 409], "DP" => [35, 35],
-        "GL" => [-20.0, -5.0, -20.0, -20.0, -5.0, -20.0] },
+      { "GT" => ["0/1", "0/1"], "GQ" => [409, 409], "DP" => [35, 35],
+        "GL" => [[-20.0, -5.0, -20.0], [-20.0, -5.0, -20.0]] },
       @fmt.to_h
     )
+  end
+
+  def test_get_high_level_shapes_values_by_sample
+    with_temp_bcf do |path|
+      HTS::Bcf.open(path) do |bcf|
+        format = bcf.first.format
+
+        assert_equal ["0/1", "1/1"], format.get("GT")
+        assert_equal [[10, 20, 30], [40, 50, 60]], format.get("PL")
+        assert_equal [[10], [nil]], format.get("IV")
+
+        floats = format.get("FV")
+        assert_equal 2, floats.size
+        assert_equal [1.5], floats[0]
+        assert_equal [nil], floats[1]
+        assert_nil format.get("MISSI")
+        assert_nil format.get("MISSF")
+      end
+    end
+  end
+
+  def test_get_raw_preserves_flat_numeric_buffers
+    with_temp_bcf do |path|
+      HTS::Bcf.open(path) do |bcf|
+        format = bcf.first.format
+
+        assert_equal [10, 20, 30, 40, 50, 60], format.get_raw("PL")
+
+        ints = format.get_raw("IV")
+        assert_equal 4, ints.size
+        assert_equal 10, ints[0]
+        assert_equal HTS::LibHTS.bcf_int32_vector_end, ints[1]
+        assert_equal HTS::LibHTS.bcf_int32_missing, ints[2]
+        assert_equal HTS::LibHTS.bcf_int32_vector_end, ints[3]
+
+        floats = format.get_raw("FV")
+        assert_equal 4, floats.size
+        assert_in_delta 1.5, floats[0], 0.001
+        assert_predicate floats[1], :nan?
+        assert_predicate floats[2], :nan?
+        assert_predicate floats[3], :nan?
+      end
+    end
   end
 
   def test_update_methods_round_trip

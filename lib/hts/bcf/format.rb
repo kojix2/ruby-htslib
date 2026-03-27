@@ -12,6 +12,23 @@ module HTS
       # which provides methods like `get_int`, `get_float`, etc.
       # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
+        return get_raw(key, type) unless type.nil?
+
+        return decode_genotypes if key == "GT"
+
+        case header_format_type(key)
+        when :int
+          decode_integer_values(key)
+        when :float
+          decode_float_values(key)
+        when :flag
+          raise_unsupported_format_flag(key)
+        when :string
+          get_string_values(key)
+        end
+      end
+
+      def get_raw(key, type = nil)
         # The GT FORMAT field is special in that it is marked as a string in the header,
         # but it is actually encoded as an integer.
         type = if type.nil?
@@ -39,22 +56,22 @@ module HTS
 
       # For compatibility with HTS.cr.
       def get_int(key)
-        get(key, :int)
+        get_raw(key, :int)
       end
 
       # For compatibility with HTS.cr.
       def get_float(key)
-        get(key, :float)
+        get_raw(key, :float)
       end
 
       # For compatibility with HTS.cr.
       def get_flag(key)
-        get(key, :flag)
+        get_raw(key, :flag)
       end
 
       # For compatibility with HTS.cr.
       def get_string(key)
-        get(key, :string)
+        get_raw(key, :string)
       end
 
       # For compatibility with HTS.cr.
@@ -201,6 +218,38 @@ module HTS
         end
       end
 
+      def decode_integer_values(key)
+        values = get_raw(key, :int)
+        return nil unless values
+
+        sample_values = split_sample_values(values)
+        if scalar_format?(key)
+          sample_values.map do |values_per_sample|
+            map_integer_missing_value(trim_integer_vector_end(values_per_sample).first)
+          end
+        else
+          sample_values.map do |values_per_sample|
+            map_integer_missing(trim_integer_vector_end(values_per_sample))
+          end
+        end
+      end
+
+      def decode_float_values(key)
+        values = get_float_words(key)
+        return nil unless values
+
+        sample_values = split_sample_values(values)
+        if scalar_format?(key)
+          sample_values.map do |values_per_sample|
+            decode_float_word(trim_float_vector_end(values_per_sample).first)
+          end
+        else
+          sample_values.map do |values_per_sample|
+            map_float_words(trim_float_vector_end(values_per_sample))
+          end
+        end
+      end
+
       def decode_genotypes
         genotypes = get_genotypes
         return nil unless genotypes
@@ -243,6 +292,38 @@ module HTS
       def trim_genotype_vector_end(values)
         end_index = values.index { |value| LibHTS.bcf_gt_is_vector_end(value) != 0 } || values.size
         values[0, end_index]
+      end
+
+      def trim_integer_vector_end(values)
+        end_index = values.index { |value| value == LibHTS.bcf_int32_vector_end } || values.size
+        values[0, end_index]
+      end
+
+      def trim_float_vector_end(values)
+        end_index = values.index(0x7f80_0002) || values.size
+        values[0, end_index]
+      end
+
+      def map_integer_missing(values)
+        values.map { |value| map_integer_missing_value(value) }
+      end
+
+      def map_integer_missing_value(value)
+        value == LibHTS.bcf_int32_missing ? nil : value
+      end
+
+      def map_float_words(values)
+        values.map { |value| decode_float_word(value) }
+      end
+
+      def decode_float_word(value)
+        return nil if value == 0x7f80_0001
+
+        [value].pack("V").unpack1("e")
+      end
+
+      def get_float_words(key)
+        get_numeric_values(key, LibHTS::BCF_HT_REAL, "float") { |dst, len| dst.get_array_of_uint32(0, len) }
       end
 
       def normalize_format_rc(rc, key, expected_type)
@@ -364,6 +445,17 @@ module HTS
         nil
       end
 
+      def scalar_format?(key)
+        header_format_number(key) == 1
+      end
+
+      def header_format_number(key)
+        id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
+        return nil unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_FMT, id)
+
+        LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_FMT, id)
+      end
+
       def header_format_type_code(key)
         id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
         return nil unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_FMT, id)
@@ -388,6 +480,7 @@ module HTS
       def int32_range?(value)
         value >= -2_147_483_648 && value <= 2_147_483_647
       end
+
     end
   end
 end
