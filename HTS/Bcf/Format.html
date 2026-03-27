@@ -404,16 +404,14 @@
 
 6
 7
-8
-9</pre>
+8</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='rparen'>)</span>
   <span class='ivar'>@record</span> <span class='op'>=</span> <span class='id identifier rubyid_record'>record</span>
-  <span class='ivar'>@p1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span> <span class='comment'># FIXME: naming
-</span><span class='kw'>end</span></pre>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -441,12 +439,12 @@
       <pre class="lines">
 
 
-76
-77
-78</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -471,10 +469,6 @@
       <pre class="lines">
 
 
-80
-81
-82
-83
 84
 85
 86
@@ -483,10 +477,14 @@
 89
 90
 91
-92</pre>
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span>
   <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
@@ -532,6 +530,7 @@
       <pre class="lines">
 
 
+14
 15
 16
 17
@@ -571,22 +570,33 @@
 51
 52
 53
-54</pre>
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p1'>p1</span> <span class='op'>=</span> <span class='ivar'>@p1</span>
+  <span class='id identifier rubyid_p1'>p1</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_write_pointer'>write_pointer</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
   <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
 
-  <span class='id identifier rubyid_format_values'>format_values</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_typ'>typ</span><span class='op'>|</span>
+  <span class='id identifier rubyid_format_values'>format_values</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_typ'>typ</span><span class='comma'>,</span> <span class='id identifier rubyid_reader'>reader</span><span class='op'>|</span>
     <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_get_format_values'><span class='object_link'><a href="../LibHTS.html#bcf_get_format_values-class_method" title="HTS::LibHTS.bcf_get_format_values (method)">bcf_get_format_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_p1'>p1</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_typ'>typ</span><span class='rparen'>)</span>
     <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span> <span class='comment'># return from method.
 </span>
-    <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span>
+    <span class='id identifier rubyid_dst'>dst</span> <span class='op'>=</span> <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
+    <span class='kw'>ensure</span>
+      <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_free'><span class='object_link'><a href="../LibHTS.html#hts_free-class_method" title="HTS::LibHTS.hts_free (method)">hts_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+      <span class='id identifier rubyid_p1'>p1</span><span class='period'>.</span><span class='id identifier rubyid_write_pointer'>write_pointer</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
 
   <span class='comment'># The GT FORMAT field is special in that it is marked as a string in the header,
@@ -599,11 +609,9 @@
 
   <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>when</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:int32</span>
-    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span>
-                 <span class='period'>.</span><span class='id identifier rubyid_read_array_of_int32'>read_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_INT-constant" title="HTS::LibHTS::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='comma'>,</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_int32'>read_array_of_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='symbol'>:float</span><span class='comma'>,</span> <span class='symbol'>:real</span>
-    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span>
-                 <span class='period'>.</span><span class='id identifier rubyid_read_array_of_float'>read_array_of_float</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_format_values'>format_values</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BCF_HT_REAL-constant" title="HTS::LibHTS::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='comma'>,</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_dst'>dst</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_float'>read_array_of_float</span><span class='lparen'>(</span><span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='symbol'>:flag</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Flag type not implemented yet. </span><span class='tstring_end'>&quot;</span></span> \
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please file an issue on GitHub.</span><span class='tstring_end'>&quot;</span></span>
@@ -647,12 +655,12 @@
       <pre class="lines">
 
 
-67
-68
-69</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_flag'>get_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:flag</span><span class='rparen'>)</span>
@@ -688,12 +696,12 @@
       <pre class="lines">
 
 
-62
-63
-64</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_float'>get_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:float</span><span class='rparen'>)</span>
@@ -729,12 +737,12 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_int'>get_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rparen'>)</span>
@@ -770,12 +778,12 @@
       <pre class="lines">
 
 
-72
-73
-74</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_string'>get_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='rparen'>)</span>
@@ -800,12 +808,12 @@
       <pre class="lines">
 
 
-94
-95
-96</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_fmt</span><span class='rbracket'>]</span>
@@ -830,12 +838,12 @@
       <pre class="lines">
 
 
-98
-99
-100</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='id identifier rubyid_length'>length</span>
@@ -860,17 +868,17 @@
       <pre class="lines">
 
 
-102
-103
-104
-105
 106
 107
 108
-109</pre>
+109
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -890,7 +898,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 08:57:26 2026 by
+  Generated on Fri Mar 27 09:39:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-4.0.2).
 </div>
