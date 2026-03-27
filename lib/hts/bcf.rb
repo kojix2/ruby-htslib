@@ -3,6 +3,7 @@
 require_relative "../htslib"
 
 require_relative "hts"
+require_relative "bcf/errors"
 require_relative "bcf/header"
 require_relative "bcf/info"
 require_relative "bcf/format"
@@ -38,16 +39,16 @@ module HTS
 
       case LibHTS.bcf_index_build3(file_name, index_name, min_shift, threads)
       when 0 # successful
-      when -1 then raise "indexing failed"
-      when -2 then raise "opening #{file_name} failed"
-      when -3 then raise "format not indexable"
-      when -4 then raise "failed to create and/or save the index"
-      else raise "unknown error"
+      when -1 then raise IndexError, "Indexing failed for #{file_name}"
+      when -2 then raise IndexError, "Opening #{file_name} failed while building the index"
+      when -3 then raise IndexError, "#{file_name} is not in an indexable format"
+      when -4 then raise IndexError, "Failed to create or save the index for #{file_name}"
+      else raise IndexError, "Unknown index build error for #{file_name}"
       end
     end
 
     def initialize(file_name, mode = "r", index: nil, threads: nil,
-                   build_index: false)
+                   build_index: false, subset: nil)
       if block_given?
         message = "HTS::Bcf.new() does not take block; Please use HTS::Bcf.open() instead"
         raise message
@@ -61,13 +62,16 @@ module HTS
       @nthreads   = threads
       @hts_file   = LibHTS.hts_open(@file_name, mode)
 
-      raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
+      raise OpenError, "Failed to open #{@file_name}" if @hts_file.null?
 
       set_threads(threads) if threads
 
+      raise SubsetError, "Sample subsetting is only available when reading BCF/VCF files" if subset && @mode[0] == "w"
+
       return if @mode[0] == "w"
 
-      @header = Bcf::Header.new(@hts_file)
+      @read_header = Bcf::Header.new(@hts_file)
+      @header = subset ? @read_header.subset(subset) : @read_header
       build_index(index) if build_index
       @idx = load_index(index)
       @start_position = tell
@@ -219,8 +223,8 @@ module HTS
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
 
-      raise "query is only available for BCF files" unless file_format == "bcf"
-      raise "Index file is required to call the query method." unless index_loaded?
+      raise QueryError, "Query is only available for BCF files" unless file_format == "bcf"
+      raise MissingIndexError, "Index file is required to call the query method for #{@file_name}" unless index_loaded?
 
       case region
       when Array
@@ -269,7 +273,7 @@ module HTS
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
       qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
-      raise "Failed to query region #{tid} #{beg} #{end_}" if qiter.null?
+      raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
 
       query_reuse_yield(qiter, &block)
       self
@@ -278,8 +282,8 @@ module HTS
     def querys_reuse(region, &block)
       return to_enum(__method__, region) unless block_given?
 
-      qiter = LibHTS.bcf_itr_querys(@idx, header, region)
-      raise "Failed to query region #{region}" if qiter.null?
+      qiter = LibHTS.bcf_itr_querys(@idx, read_header, region)
+      raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
 
       query_reuse_yield(qiter, &block)
       self
@@ -303,6 +307,7 @@ module HTS
           break if slen == -1
           raise if slen < -1
 
+          apply_subset!(record)
           yield record
         end
       ensure
@@ -314,7 +319,7 @@ module HTS
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
       qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
-      raise "Failed to query region #{tid} #{beg} #{end_}" if qiter.null?
+      raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
 
       query_copy_yield(qiter, &block)
       self
@@ -323,8 +328,8 @@ module HTS
     def querys_copy(region, &block)
       return to_enum(__method__, region) unless block_given?
 
-      qiter = LibHTS.bcf_itr_querys(@idx, header, region)
-      raise "Failed to query region #{region}" if qiter.null?
+      qiter = LibHTS.bcf_itr_querys(@idx, read_header, region)
+      raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
 
       query_copy_yield(qiter, &block)
       self
@@ -346,7 +351,9 @@ module HTS
         break if slen == -1
         raise if slen < -1
 
-        yield Record.new(header, bcf1)
+        record = Record.new(header, bcf1)
+        apply_subset!(record)
+        yield record
       end
     ensure
       LibHTS.bcf_itr_destroy(qiter)
@@ -359,7 +366,10 @@ module HTS
 
       bcf1 = LibHTS.bcf_init
       record = Record.new(header, bcf1)
-      yield record while LibHTS.bcf_read(@hts_file, header, bcf1) != -1
+      while LibHTS.bcf_read(@hts_file, read_header, bcf1) != -1
+        apply_subset!(record)
+        yield record
+      end
       self
     end
 
@@ -368,11 +378,25 @@ module HTS
 
       return to_enum(__method__) unless block_given?
 
-      while LibHTS.bcf_read(@hts_file, header, bcf1 = LibHTS.bcf_init) != -1
+      while LibHTS.bcf_read(@hts_file, read_header, bcf1 = LibHTS.bcf_init) != -1
         record = Record.new(header, bcf1)
+        apply_subset!(record)
         yield record
       end
       self
+    end
+
+    def read_header
+      @read_header || header
+    end
+
+    def apply_subset!(record)
+      return unless header.subset?
+
+      rc = LibHTS.bcf_subset(header.struct, record.struct, header.subset_sample_count, header.subset_imap_pointer || ::FFI::Pointer::NULL)
+      return if rc >= 0
+
+      raise SubsetError, "Failed to subset samples #{header.subset_samples.inspect} while reading #{@file_name}"
     end
   end
 end

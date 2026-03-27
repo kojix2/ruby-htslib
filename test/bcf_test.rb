@@ -7,6 +7,10 @@ class BcfTest < Minitest::Test
     File.expand_path("../htslib/test/index.vcf", __dir__)
   end
 
+  def test_multi_sample_bcf_path
+    File.expand_path("../htslib/test/tabix/vcf_file.bcf", __dir__)
+  end
+
   def setup
     @bcf = HTS::Bcf.new(test_bcf_path)
   end
@@ -128,9 +132,43 @@ class BcfTest < Minitest::Test
   def test_initialize_no_file_bcf
     stderr_old = $stderr.dup
     $stderr.reopen(File::NULL)
-    assert_raises(Errno::ENOENT) { HTS::Bcf.new("/tmp/no_such_file") }
+    assert_raises(HTS::Bcf::OpenError) { HTS::Bcf.new("/tmp/no_such_file") }
     $stderr.flush
     $stderr.reopen(stderr_old)
+  end
+
+  def test_initialize_with_subset
+    bcf = HTS::Bcf.new(test_multi_sample_bcf_path, subset: ["B"])
+
+    assert_equal ["B"], bcf.samples
+    assert_equal 1, bcf.nsamples
+    assert_equal ["0/1"], bcf.first.format("GT")
+  ensure
+    bcf&.close
+  end
+
+  def test_query_requires_index
+    bcf = HTS::Bcf.new(Fixtures["test.bcf"], index: "/tmp/no_such_test_bcf_index.csi")
+
+    error = assert_raises(HTS::Bcf::MissingIndexError) do
+      bcf.query("poo:4000-4100").first
+    end
+
+    assert_match(/Index file is required/, error.message)
+  ensure
+    bcf&.close
+  end
+
+  def test_query_invalid_region_raises_query_error
+    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
+
+    error = assert_raises(HTS::Bcf::QueryError) do
+      bcf.query("unknown:1-10").first
+    end
+
+    assert_match(/unknown:1-10/, error.message)
+  ensure
+    bcf&.close
   end
 
   def test_query

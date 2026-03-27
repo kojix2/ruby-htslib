@@ -68,6 +68,30 @@ class BcfHeaderTest < Minitest::Test
     assert_equal %w[A B kojix2 kojix3], hdr2.samples
   end
 
+  def test_subset_returns_new_header
+    subset = @hdr.subset(["B"])
+
+    assert_equal %w[A B], @hdr.samples
+    assert_equal ["B"], subset.samples
+    assert_equal 1, subset.nsamples
+  end
+
+  def test_subset_rejects_unknown_samples
+    error = assert_raises(HTS::Bcf::UnknownSampleError) do
+      @hdr.subset(["missing"])
+    end
+
+    assert_match(/missing/, error.message)
+  end
+
+  def test_subset_rejects_duplicates
+    error = assert_raises(HTS::Bcf::SubsetError) do
+      @hdr.subset(["A", "A"])
+    end
+
+    assert_match(/Duplicate sample names/, error.message)
+  end
+
   def test_sync
     hdr2 = @hdr.clone
     hdr2.add_sample("kojix1", sync: false)

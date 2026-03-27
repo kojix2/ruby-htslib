@@ -35,6 +35,9 @@ module HTS
 
         @sync_depth = 0
         @sync_needed = false
+        @subset_samples = nil
+        @subset_imap = nil
+        @subset_imap_pointer = nil
 
         yield self if block_given?
       end
@@ -85,6 +88,44 @@ module HTS
         @bcf_hdr[:samples]
           .read_array_of_pointer(nsamples)
           .map(&:read_string)
+      end
+
+      attr_reader :subset_samples
+
+      def subset?( )
+        !@subset_imap.nil?
+      end
+
+      def subset_sample_count
+        subset? ? @subset_samples.length : 0
+      end
+
+      def subset_imap_pointer
+        @subset_imap_pointer
+      end
+
+      def subset(samples)
+        subset_samples = normalize_subset_samples(samples)
+        validate_subset_samples!(subset_samples)
+
+        sample_pointers = nil
+        imap_pointer = nil
+        if subset_samples.empty?
+          subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, 0, ::FFI::Pointer::NULL, ::FFI::Pointer::NULL)
+        else
+          encoded_samples = subset_samples.map { |name| FFI::MemoryPointer.from_string(name) }
+          sample_pointers = FFI::MemoryPointer.new(:pointer, subset_samples.length)
+          sample_pointers.write_array_of_pointer(encoded_samples)
+          imap_pointer = FFI::MemoryPointer.new(:int, subset_samples.length)
+          subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, subset_samples.length, sample_pointers, imap_pointer)
+        end
+
+        raise SubsetError, "Failed to subset BCF header samples #{subset_samples.inspect}" if subset_hdr.to_ptr.null?
+
+        composed_imap = compose_subset_imap(read_subset_imap(imap_pointer, subset_samples.length))
+        self.class.new(subset_hdr).tap do |header|
+          header.send(:set_subset_state, subset_samples, composed_imap)
+        end
       end
 
       def add_sample(sample, sync: true)
@@ -341,6 +382,58 @@ module HTS
         @bcf_hdr = LibHTS.bcf_hdr_dup(orig.struct)
         @sync_depth = 0
         @sync_needed = false
+        set_subset_state(orig.subset_samples, orig.send(:subset_imap))
+      end
+
+      protected
+
+      attr_reader :subset_imap
+
+      def set_subset_state(samples, imap)
+        @subset_samples = samples&.dup
+        @subset_imap = imap&.dup
+        @subset_imap_pointer = build_subset_imap_pointer(@subset_imap)
+      end
+
+      private
+
+      def normalize_subset_samples(samples)
+        case samples
+        when String
+          [samples]
+        else
+          Array(samples).map(&:to_s)
+        end
+      rescue TypeError
+        raise SubsetError, "Sample subset must be a String or an Array of sample names"
+      end
+
+      def validate_subset_samples!(subset_samples)
+        duplicates = subset_samples.group_by(&:itself).select { |_name, group| group.length > 1 }.keys
+        raise SubsetError, "Duplicate sample names in subset: #{duplicates.join(', ')}" unless duplicates.empty?
+
+        missing = subset_samples.reject { |name| samples.include?(name) }
+        raise UnknownSampleError, "Unknown sample names: #{missing.join(', ')}" unless missing.empty?
+      end
+
+      def read_subset_imap(pointer, length)
+        return [] if length.zero?
+
+        pointer.read_array_of_int(length)
+      end
+
+      def compose_subset_imap(imap)
+        base_imap = @subset_imap || Array.new(samples.length, &:itself)
+        imap.map { |index| base_imap.fetch(index) }
+      end
+
+      def build_subset_imap_pointer(imap)
+        return nil unless imap
+        return nil if imap.empty?
+
+        FFI::MemoryPointer.new(:int, imap.length).tap do |pointer|
+          pointer.write_array_of_int(imap)
+        end
       end
     end
   end
