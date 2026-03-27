@@ -33,7 +33,12 @@ module HTS
           end
         end
 
-        type ||= ht_type_to_sym(get_info_type(key))
+        actual_type = ht_type_to_sym(get_info_type(key))
+        if type && actual_type && !info_type_compatible?(actual_type, type.to_sym)
+          raise InfoTypeError, "Tag #{key} is not #{type_label(type)} INFO field"
+        end
+
+        type ||= actual_type
 
         case type&.to_sym
         when :int, :int32
@@ -49,7 +54,7 @@ module HTS
             when 0 then false
             when -1 then nil
             else
-              raise "Unknown return value from bcf_get_info_flag: #{ret}"
+              raise InfoReadError, "Unknown return value from bcf_get_info_flag: #{ret}"
             end
           ensure
             dst = p1.read_pointer
@@ -147,7 +152,7 @@ module HTS
           values.size,
           LibHTS::BCF_HT_INT
         )
-        raise "Failed to update INFO int field '#{key}': #{ret}" if ret < 0
+        raise InfoUpdateError, "Failed to update INFO int field '#{key}': #{ret}" if ret < 0
 
         ret
       end
@@ -157,7 +162,7 @@ module HTS
       # @param key [String] INFO tag name
       # @param values [Array<Integer>] integer values (use single-element array for scalar)
       def update_int64(key, values)
-        raise NotImplementedError, "htslib backend does not implement int64 INFO update (BCF_HT_LONG)"
+        raise UnsupportedInfoOperationError, "htslib backend does not implement int64 INFO update (BCF_HT_LONG)"
       end
 
       # Update INFO field with float value(s).
@@ -176,7 +181,7 @@ module HTS
           values.size,
           LibHTS::BCF_HT_REAL
         )
-        raise "Failed to update INFO float field '#{key}': #{ret}" if ret < 0
+        raise InfoUpdateError, "Failed to update INFO float field '#{key}': #{ret}" if ret < 0
 
         ret
       end
@@ -194,7 +199,7 @@ module HTS
           1,
           LibHTS::BCF_HT_STR
         )
-        raise "Failed to update INFO string field '#{key}': #{ret}" if ret < 0
+        raise InfoUpdateError, "Failed to update INFO string field '#{key}': #{ret}" if ret < 0
 
         ret
       end
@@ -224,7 +229,7 @@ module HTS
                   LibHTS::BCF_HT_FLAG
                 )
               end
-        raise "Failed to update INFO flag field '#{key}': #{ret}" if ret < 0
+              raise InfoUpdateError, "Failed to update INFO flag field '#{key}': #{ret}" if ret < 0
 
         ret
       end
@@ -331,6 +336,34 @@ module HTS
 
       def int32_range?(value)
         value >= -2_147_483_648 && value <= 2_147_483_647
+      end
+
+      def info_type_compatible?(actual_type, requested_type)
+        case requested_type
+        when :int, :int32
+          actual_type == :int
+        when :int64, :long
+          %i[int int64].include?(actual_type)
+        when :float, :real
+          actual_type == :float
+        when :flag, :bool
+          actual_type == :flag
+        when :string, :str
+          actual_type == :string
+        else
+          actual_type == requested_type
+        end
+      end
+
+      def type_label(type)
+        case type.to_sym
+        when :int, :int32 then "integer"
+        when :int64, :long then "integer"
+        when :float, :real then "float"
+        when :flag, :bool then "flag"
+        when :string, :str then "string"
+        else type.to_s
+        end
       end
     end
   end

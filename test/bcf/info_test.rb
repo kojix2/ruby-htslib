@@ -81,4 +81,20 @@ class BcfInfoTest < Minitest::Test
       @info.to_h
     )
   end
+
+  def test_info_type_error
+    error = assert_raises(HTS::Bcf::InfoTypeError) do
+      @info.get("AN", :float)
+    end
+
+    assert_equal "Tag AN is not float INFO field", error.message
+  end
+
+  def test_unsupported_info_update_operation
+    error = assert_raises(HTS::Bcf::UnsupportedInfoOperationError) do
+      @info.update_int64("AN", [1])
+    end
+
+    assert_match(/BCF_HT_LONG/, error.message)
+  end
 end

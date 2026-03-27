@@ -84,7 +84,7 @@ module HTS
       end
 
       def update_int(key, values)
-        raise ArgumentError, "Use update_genotypes for GT" if key == "GT"
+        raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key == "GT"
 
         ensure_expected_format_type!(key, :int, "integer")
         values = normalize_int_values(values)
@@ -106,7 +106,7 @@ module HTS
       end
 
       def update_string(key, values)
-        raise ArgumentError, "Use update_genotypes for GT" if key == "GT"
+        raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key == "GT"
 
         ensure_expected_format_type!(key, :string, "string")
         values = normalize_string_values(values)
@@ -135,7 +135,7 @@ module HTS
 
         type = key == "GT" ? LibHTS::BCF_HT_INT : header_format_type_code(key)
         ret = LibHTS.bcf_update_format(@record.header.struct, @record.struct, key, FFI::Pointer::NULL, 0, type)
-        raise "Failed to delete FORMAT field '#{key}': #{ret}" if ret < 0
+        raise FormatUpdateError, "Failed to delete FORMAT field '#{key}': #{ret}" if ret < 0
 
         true
       end
@@ -279,7 +279,7 @@ module HTS
         return [] if sample_count <= 0
 
         unless (values.size % sample_count).zero?
-          raise "Failed to split FORMAT values by sample"
+          raise FormatReadError, "Failed to split FORMAT values by sample"
         end
 
         values_per_sample = values.size / sample_count
@@ -331,38 +331,38 @@ module HTS
         when -1, -3
           nil
         when -2
-          raise "Tag #{key} is not #{expected_type} FORMAT field"
+          raise FormatTypeError, "Tag #{key} is not #{expected_type} FORMAT field"
         when -4
-          raise "Failed to read FORMAT/#{key}"
+          raise FormatReadError, "Failed to read FORMAT/#{key}"
         else
           rc
         end
       end
 
       def raise_unsupported_format_flag(key)
-        raise "FORMAT flag fields are not supported: #{key}" if header_format_type(key) == :flag
+        raise UnsupportedFormatOperationError, "FORMAT flag fields are not supported: #{key}" if header_format_type(key) == :flag
       end
 
       def ensure_expected_format_type!(key, expected_type, label)
         actual_type = header_format_type(key)
-        raise ArgumentError, "FORMAT tag #{key} not defined in header" if actual_type.nil?
+        raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" if actual_type.nil?
 
         raise_unsupported_format_flag(key)
-        raise "Tag #{key} is not #{label} FORMAT field" unless actual_type == expected_type
+        raise FormatTypeError, "Tag #{key} is not #{label} FORMAT field" unless actual_type == expected_type
       end
 
       def ensure_gt_defined!
-        raise ArgumentError, "FORMAT tag GT not defined in header" if header_format_type("GT").nil?
+        raise FormatDefinitionError, "FORMAT tag GT not defined in header" if header_format_type("GT").nil?
       end
 
       def check_update_rc!(rc, key)
         case rc
         when -1
-          raise ArgumentError, "FORMAT tag #{key} not defined in header"
+          raise FormatDefinitionError, "FORMAT tag #{key} not defined in header"
         when 0
           rc
         else
-          raise "Failed to update FORMAT field '#{key}': #{rc}" if rc.negative?
+          raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{rc}" if rc.negative?
 
           rc
         end

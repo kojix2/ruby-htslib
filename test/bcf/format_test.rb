@@ -229,7 +229,7 @@ class BcfFormatTest < Minitest::Test
     assert_nil @fmt.get_float("NO_SUCH_TAG")
     assert_nil @fmt.get_string("NO_SUCH_TAG")
 
-    ex = assert_raises(RuntimeError) { @fmt.get_float("GQ") }
+    ex = assert_raises(HTS::Bcf::FormatTypeError) { @fmt.get_float("GQ") }
     assert_equal "Tag GQ is not float FORMAT field", ex.message
   end
 
@@ -238,7 +238,7 @@ class BcfFormatTest < Minitest::Test
       HTS::Bcf.open(path) do |bcf|
         format = bcf.first.format
 
-        ex = assert_raises(RuntimeError) { format.get_string("BAD") }
+        ex = assert_raises(HTS::Bcf::UnsupportedFormatOperationError) { format.get_string("BAD") }
         assert_equal "FORMAT flag fields are not supported: BAD", ex.message
       end
     end
@@ -371,7 +371,7 @@ class BcfFormatTest < Minitest::Test
       HTS::Bcf.open(source_path) do |bcf|
         format = bcf.first.format
 
-        ex = assert_raises(ArgumentError) { format.update_int("NOPE", [1, 2]) }
+        ex = assert_raises(HTS::Bcf::FormatDefinitionError) { format.update_int("NOPE", [1, 2]) }
         assert_equal "FORMAT tag NOPE not defined in header", ex.message
       end
     end
