@@ -36,6 +36,26 @@ class BcfHeaderTest < Minitest::Test
     assert_equal 2, @hdr.nsamples
   end
 
+  def test_target_count
+    assert_equal 4, @hdr.target_count
+  end
+
+  def test_target_name
+    assert_equal "1", @hdr.target_name(0)
+    assert_equal "4", @hdr.target_name(3)
+    assert_nil @hdr.target_name(4)
+  end
+
+  def test_target_names
+    assert_equal %w[1 2 3 4], @hdr.target_names
+  end
+
+  def test_get_tid
+    assert_equal 0, @hdr.get_tid("1")
+    assert_equal 3, @hdr.get_tid("4")
+    assert_equal(-1, @hdr.get_tid("5"))
+  end
+
   def test_samples
     assert_equal %w[A B], @hdr.samples
   end

@@ -43,6 +43,22 @@ module HTS
         LibHTS.bcf_hdr_nsamples(@bcf_hdr)
       end
 
+      def target_count
+        target_names.size
+      end
+
+      def get_tid(name)
+        name2id(name)
+      end
+
+      def target_name(rid)
+        id2name(rid)
+      end
+
+      def target_names
+        seqnames
+      end
+
       def samples
         # bcf_hdr_id2name is macro function
         @bcf_hdr[:samples]
