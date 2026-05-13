@@ -87,9 +87,18 @@ module HTS
     def load_index(index_name = nil)
       check_closed
 
-      if index_name
+      if file_format == "vcf"
+        @index_format = :tabix
+        if index_name
+          LibHTS.tbx_index_load2(@file_name, index_name)
+        else
+          LibHTS.tbx_index_load3(@file_name, nil, 2)
+        end
+      elsif index_name
+        @index_format = :bcf
         LibHTS.bcf_index_load2(@file_name, index_name)
       else
+        @index_format = :bcf
         LibHTS.bcf_index_load3(@file_name, nil, 2)
       end
     end
@@ -101,7 +110,7 @@ module HTS
     end
 
     def close
-      LibHTS.hts_idx_destroy(@idx) if @idx && !@idx.null?
+      LibHTS.hts_idx_destroy(@idx) if @index_format == :bcf && @idx && !@idx.null?
       @idx = nil
       super
     end
@@ -223,7 +232,6 @@ module HTS
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
 
-      raise QueryError, "Query is only available for BCF files" unless file_format == "bcf"
       raise MissingIndexError, "Index file is required to call the query method for #{@file_name}" unless index_loaded?
 
       case region
@@ -272,6 +280,8 @@ module HTS
     def queryi_reuse(tid, beg, end_, &block)
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
+      return queryi_reuse_vcf(tid, beg, end_, &block) if tabix_index?
+
       qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
       raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
 
@@ -281,6 +291,8 @@ module HTS
 
     def querys_reuse(region, &block)
       return to_enum(__method__, region) unless block_given?
+
+      return querys_reuse_vcf(region, &block) if tabix_index?
 
       qiter = LibHTS.bcf_itr_querys(@idx, read_header, region)
       raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
@@ -318,6 +330,8 @@ module HTS
     def queryi_copy(tid, beg, end_, &block)
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
+      return queryi_copy_vcf(tid, beg, end_, &block) if tabix_index?
+
       qiter = LibHTS.bcf_itr_queryi(@idx, tid, beg, end_)
       raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
 
@@ -327,6 +341,8 @@ module HTS
 
     def querys_copy(region, &block)
       return to_enum(__method__, region) unless block_given?
+
+      return querys_copy_vcf(region, &block) if tabix_index?
 
       qiter = LibHTS.bcf_itr_querys(@idx, read_header, region)
       raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
@@ -357,6 +373,78 @@ module HTS
       end
     ensure
       LibHTS.bcf_itr_destroy(qiter)
+    end
+
+    def tabix_index?
+      @index_format == :tabix
+    end
+
+    def queryi_reuse_vcf(tid, beg, end_, &block)
+      qiter = LibHTS.tbx_itr_queryi(@idx, tid, beg, end_)
+      raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
+
+      query_reuse_yield_vcf(qiter, &block)
+      self
+    end
+
+    def querys_reuse_vcf(region, &block)
+      qiter = LibHTS.tbx_itr_querys(@idx, region)
+      raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
+
+      query_reuse_yield_vcf(qiter, &block)
+      self
+    end
+
+    def query_reuse_yield_vcf(qiter)
+      line = LibHTS::KString.new
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(header, bcf1)
+      begin
+        while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line) > 0
+          raise QueryError, "Failed to parse VCF record in #{@file_name}" if LibHTS.vcf_parse(line, read_header,
+                                                                                              bcf1) < 0
+
+          apply_subset!(record)
+          yield record
+        end
+      ensure
+        line.free_buffer
+        LibHTS.hts_itr_destroy(qiter)
+      end
+    end
+
+    def queryi_copy_vcf(tid, beg, end_, &block)
+      qiter = LibHTS.tbx_itr_queryi(@idx, tid, beg, end_)
+      raise QueryError, "Failed to query region #{tid}:#{beg}-#{end_} in #{@file_name}" if qiter.null?
+
+      query_copy_yield_vcf(qiter, &block)
+      self
+    end
+
+    def querys_copy_vcf(region, &block)
+      qiter = LibHTS.tbx_itr_querys(@idx, region)
+      raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" if qiter.null?
+
+      query_copy_yield_vcf(qiter, &block)
+      self
+    end
+
+    def query_copy_yield_vcf(qiter)
+      line = LibHTS::KString.new
+      begin
+        while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line) > 0
+          bcf1 = LibHTS.bcf_init
+          raise QueryError, "Failed to parse VCF record in #{@file_name}" if LibHTS.vcf_parse(line, read_header,
+                                                                                              bcf1) < 0
+
+          record = Record.new(header, bcf1)
+          apply_subset!(record)
+          yield record
+        end
+      ensure
+        line.free_buffer
+        LibHTS.hts_itr_destroy(qiter)
+      end
     end
 
     def each_record_reuse

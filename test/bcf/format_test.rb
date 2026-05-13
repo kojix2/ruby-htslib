@@ -198,8 +198,8 @@ class BcfFormatTest < Minitest::Test
       HTS::Bcf.open(path) do |bcf|
         format = bcf.first.format
 
-        assert_equal ["ALPHA", "BETA"], format.get_string("ST")
-        assert_equal ["A", "Z"], format.get_string("CH")
+        assert_equal %w[ALPHA BETA], format.get_string("ST")
+        assert_equal %w[A Z], format.get_string("CH")
         assert_nil format.get_string("MISS")
       end
     end
@@ -312,7 +312,7 @@ class BcfFormatTest < Minitest::Test
 
         format.update_int("GQ", [11, 22])
         format.update_float("TF", [1.25, 2.75])
-        format.update_string("ST", ["LEFT", "RIGHT"])
+        format.update_string("ST", %w[LEFT RIGHT])
         format.update_genotypes([
                                   HTS::LibHTS.bcf_gt_unphased(0),
                                   HTS::LibHTS.bcf_gt_unphased(0),
@@ -330,7 +330,7 @@ class BcfFormatTest < Minitest::Test
           verify_format = verify_bcf.first.format
 
           assert_equal [11, 22], verify_format.get_int("GQ")
-          assert_equal ["LEFT", "RIGHT"], verify_format.get_string("ST")
+          assert_equal %w[LEFT RIGHT], verify_format.get_string("ST")
           assert_equal ["0/0", "1|1"], verify_format.get_string("GT")
 
           floats = verify_format.get_float("TF")

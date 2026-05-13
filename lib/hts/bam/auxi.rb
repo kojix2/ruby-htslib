@@ -157,7 +157,10 @@ module HTS
 
         string = value.to_s
         raise ArgumentError, "Hex AUX tags must contain an even number of characters" if string.length.odd?
-        raise ArgumentError, "Hex AUX tags must contain only hexadecimal characters" unless /\A[0-9A-Fa-f]*\z/.match?(string)
+        unless /\A[0-9A-Fa-f]*\z/.match?(string)
+          raise ArgumentError,
+                "Hex AUX tags must contain only hexadecimal characters"
+        end
 
         replace_with_append(key, "H", string.b + "\0")
         string

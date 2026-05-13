@@ -3,6 +3,18 @@
 require_relative "test_helper"
 
 class HTSTest < Minitest::Test
+  def with_libhts_singleton_method(name, replacement)
+    singleton = class << HTS::LibHTS; self; end
+    original = HTS::LibHTS.method(name)
+    verbose = $VERBOSE
+    $VERBOSE = nil
+    singleton.define_method(name, replacement)
+    yield
+  ensure
+    singleton.define_method(name, original) if original
+    $VERBOSE = verbose
+  end
+
   def test_that_it_has_a_version_number
     refute_nil HTS::VERSION
   end
@@ -24,7 +36,7 @@ class HTSTest < Minitest::Test
     captured_bgzf = nil
 
     htsfp[:is_cram] = 1
-    HTS::LibHTS.stub(:hts_itr_next, ->(bgzf, _itr, _record, _data) {
+    with_libhts_singleton_method(:hts_itr_next, lambda { |bgzf, _itr, _record, _data|
       captured_bgzf = bgzf
       0
     }) do
@@ -43,7 +55,7 @@ class HTSTest < Minitest::Test
 
     htsfp[:is_bgzf] = 1
     htsfp[:fp][:bgzf] = bgzf
-    HTS::LibHTS.stub(:hts_itr_next, ->(fp, _itr, _record, _data) {
+    with_libhts_singleton_method(:hts_itr_next, lambda { |fp, _itr, _record, _data|
       captured_bgzf = fp
       0
     }) do
@@ -61,7 +73,7 @@ class HTSTest < Minitest::Test
 
     htsfp[:is_cram] = 1
     itr[:multi] = 1
-    HTS::LibHTS.stub(:hts_itr_multi_next, ->(_htsfp, _itr, _record) {
+    with_libhts_singleton_method(:hts_itr_multi_next, lambda { |_htsfp, _itr, _record|
       called = true
       0
     }) do

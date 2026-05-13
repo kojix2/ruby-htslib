@@ -3,12 +3,12 @@
 require_relative "test_helper"
 
 class HeaderTest < Minitest::Test
-  MINIMAL_HEADER = <<~SAM.freeze
+  MINIMAL_HEADER = <<~SAM
     @HD	VN:1.6	SO:coordinate
     @SQ	SN:chr1	LN:1000
   SAM
 
-  RG_HEADER = <<~SAM.freeze
+  RG_HEADER = <<~SAM
     @HD	VN:1.6	SO:coordinate
     @SQ	SN:chr1	LN:1000
     @RG	ID:rg1	SM:sample1

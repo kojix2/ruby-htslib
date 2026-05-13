@@ -100,29 +100,32 @@ module HTS
       if start.nil? && stop.nil?
         len = seq_len(name)
         return "" if len.zero?
-        return fetch_seq(name, 0, len - 1)
+
+        fetch_seq(name, 0, len - 1)
       else
         validate_range!(name, start, stop)
         rlen = FFI::MemoryPointer.new(:int64)
         result = LibHTS.faidx_fetch_seq64(@fai, name, start, stop, rlen)
-        return fetch_result(result, rlen.read_int64, "sequence", name, start, stop)
+        fetch_result(result, rlen.read_int64, "sequence", name, start, stop)
       end
     end
 
     def fetch_qual(name, start = nil, stop = nil)
       check_closed
       raise HTS::Error, "Quality is only available for FASTQ indexes" unless format == :fastq
+
       name = name.to_s
 
       if start.nil? && stop.nil?
         len = seq_len(name)
         return "" if len.zero?
-        return fetch_qual(name, 0, len - 1)
+
+        fetch_qual(name, 0, len - 1)
       else
         validate_range!(name, start, stop)
         rlen = FFI::MemoryPointer.new(:int64)
         result = LibHTS.faidx_fetch_qual64(@fai, name, start, stop, rlen)
-        return fetch_result(result, rlen.read_int64, "quality", name, start, stop)
+        fetch_result(result, rlen.read_int64, "quality", name, start, stop)
       end
     end
 

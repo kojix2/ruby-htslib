@@ -382,9 +382,7 @@ module HTS
 
     # Get the next read from a SAM/BAM/CRAM iterator
     def self.sam_itr_next(htsfp, itr, r)
-      unless htsfp[:is_bgzf] == 1 || htsfp[:is_cram] == 1
-        raise("#{htsfp[:fn] || 'File'} not BGZF compressed")
-      end
+      raise("#{htsfp[:fn] || 'File'} not BGZF compressed") unless htsfp[:is_bgzf] == 1 || htsfp[:is_cram] == 1
       raise("Null iterator") if itr.null?
 
       if itr[:multi] == 1

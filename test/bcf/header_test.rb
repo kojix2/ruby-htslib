@@ -86,7 +86,7 @@ class BcfHeaderTest < Minitest::Test
 
   def test_subset_rejects_duplicates
     error = assert_raises(HTS::Bcf::SubsetError) do
-      @hdr.subset(["A", "A"])
+      @hdr.subset(%w[A A])
     end
 
     assert_match(/Duplicate sample names/, error.message)

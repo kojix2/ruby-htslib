@@ -92,7 +92,8 @@ module HTS
 
         ptr = FFI::MemoryPointer.new(:int32, values.size)
         ptr.write_array_of_int32(values)
-        check_update_rc!(LibHTS.bcf_update_format_int32(@record.header.struct, @record.struct, key, ptr, values.size), key)
+        check_update_rc!(LibHTS.bcf_update_format_int32(@record.header.struct, @record.struct, key, ptr, values.size),
+                         key)
       end
 
       def update_float(key, values)
@@ -102,7 +103,8 @@ module HTS
 
         ptr = FFI::MemoryPointer.new(:float, values.size)
         ptr.write_array_of_float(values)
-        check_update_rc!(LibHTS.bcf_update_format_float(@record.header.struct, @record.struct, key, ptr, values.size), key)
+        check_update_rc!(LibHTS.bcf_update_format_float(@record.header.struct, @record.struct, key, ptr, values.size),
+                         key)
       end
 
       def update_string(key, values)
@@ -115,7 +117,8 @@ module HTS
         strings = values.map { |value| FFI::MemoryPointer.from_string(value) }
         ptr = FFI::MemoryPointer.new(:pointer, strings.size)
         ptr.write_array_of_pointer(strings)
-        check_update_rc!(LibHTS.bcf_update_format_string(@record.header.struct, @record.struct, key, ptr, values.size), key)
+        check_update_rc!(LibHTS.bcf_update_format_string(@record.header.struct, @record.struct, key, ptr, values.size),
+                         key)
       end
 
       def update_genotypes(values)
@@ -278,9 +281,7 @@ module HTS
         sample_count = @record.header.nsamples
         return [] if sample_count <= 0
 
-        unless (values.size % sample_count).zero?
-          raise FormatReadError, "Failed to split FORMAT values by sample"
-        end
+        raise FormatReadError, "Failed to split FORMAT values by sample" unless (values.size % sample_count).zero?
 
         values_per_sample = values.size / sample_count
         Array.new(sample_count) do |sample_index|
@@ -340,7 +341,10 @@ module HTS
       end
 
       def raise_unsupported_format_flag(key)
-        raise UnsupportedFormatOperationError, "FORMAT flag fields are not supported: #{key}" if header_format_type(key) == :flag
+        return unless header_format_type(key) == :flag
+
+        raise UnsupportedFormatOperationError,
+              "FORMAT flag fields are not supported: #{key}"
       end
 
       def ensure_expected_format_type!(key, expected_type, label)
@@ -480,7 +484,6 @@ module HTS
       def int32_range?(value)
         value >= -2_147_483_648 && value <= 2_147_483_647
       end
-
     end
   end
 end

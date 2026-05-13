@@ -297,7 +297,9 @@ module HTS
         pairs = existing_pairs.map(&:dup)
         updates.each do |key, value|
           if protected_keys.include?(key)
-            raise ArgumentError, "Header tag #{key} cannot be updated" unless existing_pairs.none? { |pair| pair[0] == key && pair[1] == value }
+            raise ArgumentError, "Header tag #{key} cannot be updated" unless existing_pairs.none? do |pair|
+              pair[0] == key && pair[1] == value
+            end
 
             next
           end
@@ -357,7 +359,7 @@ module HTS
         ordered_tags << ["ID", pg_id]
         ordered_tags << ["PN", tag_map.fetch("PN", program_name)]
         tag_map.each do |key, value|
-          next if key == "ID" || key == "PN"
+          next if %w[ID PN].include?(key)
 
           ordered_tags << [key, value]
         end

@@ -111,8 +111,10 @@ module HTS
           update_flag(key, value)
         when Integer
           unless int32_range?(value)
-            raise RangeError, "Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update."
+            raise RangeError,
+                  "Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update."
           end
+
           update_int(key, [value])
         when Float
           update_float(key, [value])
@@ -123,8 +125,10 @@ module HTS
             raise ArgumentError, "Cannot set INFO field to empty array. Use nil to delete."
           elsif value.all? { |v| v.is_a?(Integer) }
             unless value.all? { |v| int32_range?(v) }
-              raise RangeError, "Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update."
+              raise RangeError,
+                    "Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update."
             end
+
             update_int(key, value)
           elsif value.all? { |v| v.is_a?(Numeric) }
             update_float(key, value)
@@ -161,7 +165,7 @@ module HTS
       # @note int64 INFO values are primarily relevant for VCF output.
       # @param key [String] INFO tag name
       # @param values [Array<Integer>] integer values (use single-element array for scalar)
-      def update_int64(key, values)
+      def update_int64(_key, _values)
         raise UnsupportedInfoOperationError, "htslib backend does not implement int64 INFO update (BCF_HT_LONG)"
       end
 
@@ -229,7 +233,7 @@ module HTS
                   LibHTS::BCF_HT_FLAG
                 )
               end
-              raise InfoUpdateError, "Failed to update INFO flag field '#{key}': #{ret}" if ret < 0
+        raise InfoUpdateError, "Failed to update INFO flag field '#{key}': #{ret}" if ret < 0
 
         ret
       end

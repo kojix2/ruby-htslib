@@ -224,6 +224,25 @@ class BcfTest < Minitest::Test
     assert_equal [4021, 4310, 4337], r
   end
 
+  def test_query_vcf_gz_with_tabix_index
+    bcf = HTS::Bcf.open(Fixtures["test.vcf.gz"])
+
+    assert_equal "vcf", bcf.file_format
+    assert bcf.index_loaded?
+    assert_equal 4021, bcf.query("poo", 4000, 4100).first.pos + 1
+    assert_equal 4021, bcf.query("poo:4000-4100").first.pos + 1
+    assert_equal 4021, bcf.query("poo", 4000, 4100, copy: true).first.pos + 1
+    assert_equal 4021, bcf.query("poo:4000-4100", copy: true).first.pos + 1
+
+    r = bcf.query("poo:4000-4500").map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+
+    r = bcf.query(["poo:4000-4100", "poo:4300-4400"], copy: true).map { |aln| aln.pos + 1 }
+    assert_equal [4021, 4310, 4337], r
+  ensure
+    bcf&.close
+  end
+
   def test_build_index
     bcf = HTS::Bcf.open(Fixtures["test.bcf"])
     bcf.build_index("test_bcf_index_file")

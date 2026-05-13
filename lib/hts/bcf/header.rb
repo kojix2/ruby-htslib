@@ -90,9 +90,9 @@ module HTS
           .map(&:read_string)
       end
 
-      attr_reader :subset_samples
+      attr_reader :subset_samples, :subset_imap_pointer
 
-      def subset?( )
+      def subset?
         !@subset_imap.nil?
       end
 
@@ -100,15 +100,11 @@ module HTS
         subset? ? @subset_samples.length : 0
       end
 
-      def subset_imap_pointer
-        @subset_imap_pointer
-      end
-
       def subset(samples)
         subset_samples = normalize_subset_samples(samples)
         validate_subset_samples!(subset_samples)
 
-        sample_pointers = nil
+        nil
         imap_pointer = nil
         if subset_samples.empty?
           subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, 0, ::FFI::Pointer::NULL, ::FFI::Pointer::NULL)
@@ -213,7 +209,8 @@ module HTS
       end
 
       def add_info(id, number:, type:, description:, **attributes)
-        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)], ["Description", description.to_s]]
+        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)],
+                  ["Description", description.to_s]]
         fields.concat normalize_meta_attributes(attributes)
         append_structured_meta("INFO", fields)
       end
@@ -228,7 +225,8 @@ module HTS
       end
 
       def add_format(id, number:, type:, description:, **attributes)
-        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)], ["Description", description.to_s]]
+        fields = [["ID", id.to_s], ["Number", normalize_bcf_number(number)], ["Type", normalize_bcf_type(type)],
+                  ["Description", description.to_s]]
         fields.concat normalize_meta_attributes(attributes)
         append_structured_meta("FORMAT", fields)
       end
