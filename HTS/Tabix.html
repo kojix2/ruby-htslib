@@ -894,9 +894,7 @@
 114
 115
 116
-117
-118
-119</pre>
+117</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 111</span>
@@ -904,10 +902,8 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
 
-  <span class='comment'># @idx is an internal index (LibHTS::Tbx, a ManagedStruct).
-</span>  <span class='comment'># Do not call tbx_destroy here; the FFI finalizer will
-</span>  <span class='comment'># release the underlying C struct when @idx becomes unreachable.
-</span>  <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@idx</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span> <span class='kw'>if</span> <span class='ivar'>@idx</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@idx</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='ivar'>@idx</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='kw'>super</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -952,12 +948,12 @@
       <pre class="lines">
 
 
-121
-122
-123</pre>
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@hts_file</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1186,7 +1182,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed May 13 23:07:03 2026 by
+  Generated on Wed May 13 23:32:30 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.43 (ruby-4.0.4).
 </div>
