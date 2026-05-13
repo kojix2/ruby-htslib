@@ -451,6 +451,17 @@ module HTS
         :idx,            HtsIdx.ptr,
         :dict,           :pointer
 
+      def close
+        return if @closed
+
+        ptr = to_ptr
+        unless ptr.null?
+          ptr.autorelease = false if ptr.respond_to?(:autorelease=)
+          self.class.release(ptr)
+        end
+        @closed = true
+      end
+
       def self.release(ptr)
         LibHTS.tbx_destroy(ptr) unless ptr.null?
       end

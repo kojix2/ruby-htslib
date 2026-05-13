@@ -111,9 +111,7 @@ module HTS
     def close
       return if closed?
 
-      # @idx is an internal index (LibHTS::Tbx, a ManagedStruct).
-      # Do not call tbx_destroy here; the FFI finalizer will
-      # release the underlying C struct when @idx becomes unreachable.
+      @idx.close if @idx && !@idx.null?
       @idx = nil
       super
     end

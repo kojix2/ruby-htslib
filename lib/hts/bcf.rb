@@ -110,7 +110,14 @@ module HTS
     end
 
     def close
-      LibHTS.hts_idx_destroy(@idx) if @index_format == :bcf && @idx && !@idx.null?
+      if @idx && !@idx.null?
+        case @index_format
+        when :bcf
+          LibHTS.hts_idx_destroy(@idx)
+        when :tabix
+          @idx.close
+        end
+      end
       @idx = nil
       super
     end
