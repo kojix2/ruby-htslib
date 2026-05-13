@@ -54,11 +54,11 @@ module HTS
       end
 
       def id=(id)
-        LibHTS.bcf_update_id(@header, @bcf1, id)
+        LibHTS.bcf_update_id(@header.struct, @bcf1, id)
       end
 
       def clear_id
-        LibHTS.bcf_update_id(@header, @bcf1, ".")
+        LibHTS.bcf_update_id(@header.struct, @bcf1, ".")
       end
 
       def ref
@@ -100,7 +100,7 @@ module HTS
         when 1
           id = d[:flt].read_int
           LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, id)
-        when 2..nil
+        when 2..
           d[:flt].get_array_of_int(0, n_flt).map do |i|
             LibHTS.bcf_hdr_int2id(@header.struct, LibHTS::BCF_DT_ID, i)
           end
