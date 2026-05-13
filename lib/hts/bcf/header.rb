@@ -265,7 +265,7 @@ module HTS
       def to_s
         kstr = LibHTS::KString.new
         begin
-          raise "Failed to get header string" unless LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr)
+          raise "Failed to get header string" if LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr).negative?
 
           kstr.read_string_copy
         ensure
