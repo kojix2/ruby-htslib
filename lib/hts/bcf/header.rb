@@ -137,6 +137,7 @@ module HTS
         merged = LibHTS.bcf_hdr_merge(@bcf_hdr, hdr.struct)
         raise "Failed to merge BCF headers" if merged.to_ptr.null?
 
+        @bcf_hdr = merged
         mark_sync_needed!
         sync_if_needed!
         self
