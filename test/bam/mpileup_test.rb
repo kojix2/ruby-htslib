@@ -44,6 +44,15 @@ class BamMpileupTest < Minitest::Test
     end
   end
 
+  def test_multipileup_region_accepts_cram
+    mp = HTS::Bam::Mpileup.new([Fixtures["moo.cram"]], region: "chr2:350-700")
+    begin
+      assert_equal 341, mp.first.first.pos
+    ensure
+      mp.close
+    end
+  end
+
   def test_multipileup_record_lazy_copy
     inputs = [Fixtures["moo.bam"], Fixtures["moo.bam"]]
     mp = HTS::Bam::Mpileup.new(inputs)

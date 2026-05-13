@@ -44,6 +44,7 @@ module HTS
         n = @bams.length
         @iters       = []
         @data_blocks = [] # per-input packed pointers kept alive
+        @data_entries = {}
 
         # Prepare optional region iterators for each input
         @bams.each_with_index do |bam, i|
@@ -66,7 +67,8 @@ module HTS
         end
 
         # Build per-input packed pointer blocks so C passes them back to the callback.
-        # Layout per input: [0] hts_fp (htsFile*), [1] hdr_struct (bam_hdr_t*), [2] itr (hts_itr_t* or NULL)
+        # Keep the Ruby FFI structs in @data_entries to avoid rebuilding wrappers
+        # in the per-record callback.
         ptr_size = FFI.type_size(:pointer)
         data_array = FFI::MemoryPointer.new(:pointer, n)
         @bams.each_with_index do |bam, i|
@@ -78,18 +80,16 @@ module HTS
           block.put_pointer(1 * ptr_size, hdr_struct)
           block.put_pointer(2 * ptr_size, itr && !itr.null? ? itr : FFI::Pointer::NULL)
           @data_blocks << block
+          @data_entries[block.address] = [hts_fp, hdr_struct, itr && !itr.null? ? itr : nil]
           data_array.put_pointer(i * ptr_size, block)
         end
         # Keep the array of per-input blocks alive while the C side holds on to them
         @data_array = data_array
 
         @cb = FFI::Function.new(:int, %i[pointer pointer]) do |data, b|
-          # Unpack pointers from the per-input block
-          hts_fp     = data.get_pointer(0 * ptr_size)
-          hdr_struct = data.get_pointer(1 * ptr_size)
-          itr        = data.get_pointer(2 * ptr_size)
+          hts_fp, hdr_struct, itr = @data_entries.fetch(data.address)
           # HTSlib contract: return same as sam_itr_next/sam_read1 (>= 0 on success, -1 on EOF, < -1 on error)
-          if itr && !itr.null?
+          if itr
             HTS::LibHTS.sam_itr_next(hts_fp, itr, b)
           else
             HTS::LibHTS.sam_read1(hts_fp, hdr_struct, b)
@@ -162,7 +162,7 @@ module HTS
         end
         @iters.clear
         # Keep references to callback and data blocks to prevent GC
-        @_keepalive = [@cb, @data_array, *@data_blocks]
+        @_keepalive = [@cb, @data_array, @data_entries, *@data_blocks]
         # Close owned bams opened by this object
         @owned_bams.each do |b|
           b.close

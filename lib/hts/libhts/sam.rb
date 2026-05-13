@@ -382,11 +382,17 @@ module HTS
 
     # Get the next read from a SAM/BAM/CRAM iterator
     def self.sam_itr_next(htsfp, itr, r)
-      # FIXME: check if htsfp is compressed BGZF
+      unless htsfp[:is_bgzf] == 1 || htsfp[:is_cram] == 1
+        raise("#{htsfp[:fn] || 'File'} not BGZF compressed")
+      end
       raise("Null iterator") if itr.null?
 
-      # FIXME: check multi
-      hts_itr_next(htsfp[:fp][:bgzf], itr, r, htsfp)
+      if itr[:multi] == 1
+        hts_itr_multi_next(htsfp, itr, r)
+      else
+        bgzf = htsfp[:is_bgzf] == 1 ? htsfp[:fp][:bgzf] : FFI::Pointer::NULL
+        hts_itr_next(bgzf, itr, r, htsfp)
+      end
     end
 
     attach_function \

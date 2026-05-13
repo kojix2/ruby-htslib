@@ -65,6 +65,12 @@ class BamPileupTest < Minitest::Test
     end
   end
 
+  def test_cram_region_pileup
+    HTS::Bam.open(Fixtures["moo.cram"]) do |bam|
+      assert_equal 341, bam.pileup("chr2:350-700").first.pos
+    end
+  end
+
   # Calling record multiple times must return the same instance (idempotent lazy copy).
   def test_record_idempotent
     HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
