@@ -332,7 +332,7 @@ module HTS
     end
 
     def queryi_reuse(tid, beg, end_, &block)
-      return to_enum(__method__, region, beg, end_) unless block_given?
+      return to_enum(__method__, tid, beg, end_) unless block_given?
 
       qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
       raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?

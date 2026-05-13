@@ -288,6 +288,10 @@ class BamTest < Minitest::Test
         end
         assert_equal [341, 658], arr
       end
+
+      define_method "test_query3_without_block_#{ft}" do
+        assert_equal [341, 658], bam(ft).query("chr2", 350, 700).map(&:pos)
+      end
     end
   end
 
