@@ -6,13 +6,13 @@
 <title>
   Class: HTS::Bam::Mpileup
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "HTS::Bam::Mpileup";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -99,16 +101,15 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/mpileup.rb</dd>
+    <dd>lib/hts/bam/mpileup.rb
+</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>High-level mpileup iterator over multiple BAM/CRAM inputs</p>
-
+    <p>High-level mpileup iterator over multiple BAM/CRAM inputs</p>
 
   </div>
 </div>
@@ -147,14 +148,13 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Usage:   HTS::Bam::Mpileup.open([bam1, bam2], region: “chr1:1-100”) do |mpl|     mpl.each { |cols| … }   end.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Usage:   HTS::Bam::Mpileup.open([bam1, bam2], region: &quot;chr1:1-100&quot;) do |mpl|     mpl.each { |cols| ... }   end.</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
     <h2>
       Instance Method Summary
@@ -202,9 +202,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Yields an array of Pileup::PileupColumn (one per input) for each position.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Yields an array of Pileup::PileupColumn (one per input) for each position.</p></div></span>
   
 </li>
 
@@ -228,14 +226,13 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Normalize inputs to HTS::Bam instances Accepts array of HTS::Bam or filenames (String).</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Normalize inputs to HTS::Bam instances Accepts array of HTS::Bam or filenames (String).</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
 
 
@@ -253,9 +250,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Normalize inputs to HTS::Bam instances Accepts array of HTS::Bam or filenames (String)</p>
-
+    <p>Normalize inputs to HTS::Bam instances
+Accepts array of HTS::Bam or filenames (String)</p>
 
   </div>
 </div>
@@ -386,7 +382,8 @@
   <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='ivar'>@bams</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
   <span class='ivar'>@iters</span>       <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='ivar'>@data_blocks</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'># per-input packed pointers kept alive
-</span>
+</span>  <span class='ivar'>@data_entries</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+
   <span class='comment'># Prepare optional region iterators for each input
 </span>  <span class='ivar'>@bams</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bam'>bam</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='id identifier rubyid_itr'>itr</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -408,7 +405,8 @@
   <span class='kw'>end</span>
 
   <span class='comment'># Build per-input packed pointer blocks so C passes them back to the callback.
-</span>  <span class='comment'># Layout per input: [0] hts_fp (htsFile*), [1] hdr_struct (bam_hdr_t*), [2] itr (hts_itr_t* or NULL)
+</span>  <span class='comment'># Keep the Ruby FFI structs in @data_entries to avoid rebuilding wrappers
+</span>  <span class='comment'># in the per-record callback.
 </span>  <span class='id identifier rubyid_ptr_size'>ptr_size</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_type_size'>type_size</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data_array'>data_array</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
   <span class='ivar'>@bams</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bam'>bam</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -420,18 +418,16 @@
     <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_put_pointer'>put_pointer</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_put_pointer'>put_pointer</span><span class='lparen'>(</span><span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='op'>?</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
     <span class='ivar'>@data_blocks</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_block'>block</span>
+    <span class='ivar'>@data_entries</span><span class='lbracket'>[</span><span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_address'>address</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span> <span class='op'>?</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_data_array'>data_array</span><span class='period'>.</span><span class='id identifier rubyid_put_pointer'>put_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='comment'># Keep the array of per-input blocks alive while the C side holds on to them
 </span>  <span class='ivar'>@data_array</span> <span class='op'>=</span> <span class='id identifier rubyid_data_array'>data_array</span>
 
   <span class='ivar'>@cb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
-    <span class='comment'># Unpack pointers from the per-input block
-</span>    <span class='id identifier rubyid_hts_fp'>hts_fp</span>     <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_get_pointer'>get_pointer</span><span class='lparen'>(</span><span class='int'>0</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_hdr_struct'>hdr_struct</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_get_pointer'>get_pointer</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_itr'>itr</span>        <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_get_pointer'>get_pointer</span><span class='lparen'>(</span><span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_ptr_size'>ptr_size</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>=</span> <span class='ivar'>@data_entries</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_address'>address</span><span class='rparen'>)</span>
     <span class='comment'># HTSlib contract: return same as sam_itr_next/sam_read1 (&gt;= 0 on success, -1 on EOF, &lt; -1 on error)
-</span>    <span class='kw'>if</span> <span class='id identifier rubyid_itr'>itr</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_itr'>itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_itr'>itr</span>
       <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'><span class='object_link'><a href="../LibHTS.html#sam_itr_next-class_method" title="HTS::LibHTS.sam_itr_next (method)">sam_itr_next</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr'>itr</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
       <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_read1'><span class='object_link'><a href="../LibHTS.html#sam_read1-class_method" title="HTS::LibHTS.sam_read1 (method)">sam_read1</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
@@ -470,14 +466,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Usage:</p>
-
+    <p>Usage:</p>
 <pre class="code ruby"><code class="ruby">HTS::Bam::Mpileup.open([bam1, bam2], region: &quot;chr1:1-100&quot;) do |mpl|
-  mpl.each { |cols| ... }
-end
-</code></pre>
-
+mpl.each { |cols| ... }
+end</code></pre>
 
   </div>
 </div>
@@ -574,7 +566,7 @@ end
   <span class='kw'>end</span>
   <span class='ivar'>@iters</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
   <span class='comment'># Keep references to callback and data blocks to prevent GC
-</span>  <span class='ivar'>@_keepalive</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@cb</span><span class='comma'>,</span> <span class='ivar'>@data_array</span><span class='comma'>,</span> <span class='op'>*</span><span class='ivar'>@data_blocks</span><span class='rbracket'>]</span>
+</span>  <span class='ivar'>@_keepalive</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@cb</span><span class='comma'>,</span> <span class='ivar'>@data_array</span><span class='comma'>,</span> <span class='ivar'>@data_entries</span><span class='comma'>,</span> <span class='op'>*</span><span class='ivar'>@data_blocks</span><span class='rbracket'>]</span>
   <span class='comment'># Close owned bams opened by this object
 </span>  <span class='ivar'>@owned_bams</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
     <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
@@ -598,9 +590,7 @@ end
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Yields an array of Pileup::PileupColumn (one per input) for each position</p>
-
+    <p>Yields an array of Pileup::PileupColumn (one per input) for each position</p>
 
   </div>
 </div>
@@ -715,9 +705,9 @@ end
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 12:49:11 2026 by
+  Generated on Wed May 13 22:50:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.2).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>

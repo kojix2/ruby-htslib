@@ -6,13 +6,13 @@
 <title>
   Class: HTS::Bam::BaseMod
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "HTS::Bam::BaseMod";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -99,7 +101,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/base_mod.rb</dd>
+    <dd>lib/hts/bam/base_mod.rb
+</dd>
   </dl>
   
 </div>
@@ -109,16 +112,13 @@
     
   <div class="note notetag">
     <strong>Note:</strong>
-    <div class='inline'>
-<p>BaseMod is a view object that references data in a Record. The state is maintained in hts_base_mod_state structure.</p>
-</div>
+    <div class='inline'><p>BaseMod is a view object that references data in a Record.
+The state is maintained in hts_base_mod_state structure.</p></div>
   </div>
 
-
 <p>Base modification information from MM/ML tags</p>
-
-<p>This class provides access to DNA/RNA base modifications such as methylation. It wraps the htslib base modification API and provides a Ruby-friendly interface.</p>
-
+<p>This class provides access to DNA/RNA base modifications such as methylation.
+It wraps the htslib base modification API and provides a Ruby-friendly interface.</p>
 
   </div>
 </div>
@@ -164,9 +164,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute record.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute record.</p></div></span>
   
 </li>
 
@@ -201,9 +199,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Array-style access to modifications at a position.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Array-style access to modifications at a position.</p></div></span>
   
 </li>
 
@@ -225,9 +221,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get modification information at a specific query position.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get modification information at a specific query position.</p></div></span>
   
 </li>
 
@@ -249,9 +243,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Explicitly free the state.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Explicitly free the state.</p></div></span>
   
 </li>
 
@@ -275,9 +267,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Iterate over all positions with modifications.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Iterate over all positions with modifications.</p></div></span>
   
 </li>
 
@@ -299,9 +289,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Ensure MM/ML have been parsed, performing lazy parse if enabled.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Ensure MM/ML have been parsed, performing lazy parse if enabled.</p></div></span>
   
 </li>
 
@@ -325,9 +313,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Initialize a new BaseMod object.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Initialize a new BaseMod object.</p></div></span>
   
 </li>
 
@@ -349,9 +335,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Inspect string.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Inspect string.</p></div></span>
   
 </li>
 
@@ -375,9 +359,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get list of modification types present in this record.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get list of modification types present in this record.</p></div></span>
   
 </li>
 
@@ -399,9 +381,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Parse MM and ML tags from the record.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Parse MM and ML tags from the record.</p></div></span>
   
 </li>
 
@@ -423,9 +403,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Whether this object has parsed MM/ML tags already.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Whether this object has parsed MM/ML tags already.</p></div></span>
   
 </li>
 
@@ -447,9 +425,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Query information about a specific modification type by code.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Query information about a specific modification type by code.</p></div></span>
   
 </li>
 
@@ -471,9 +447,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Query information about i-th modification type.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Query information about i-th modification type.</p></div></span>
   
 </li>
 
@@ -495,9 +469,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get all modifications as an array.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get all modifications as an array.</p></div></span>
   
 </li>
 
@@ -519,14 +491,13 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>String representation for debugging.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>String representation for debugging.</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
 
 
@@ -544,9 +515,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Initialize a new BaseMod object</p>
-
+    <p>Initialize a new BaseMod object</p>
 
   </div>
 </div>
@@ -564,9 +533,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The BAM record to extract modifications from</p>
-</div>
+        <div class='inline'><p>The BAM record to extract modifications from</p></div>
       
     </li>
   
@@ -582,9 +549,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If true, parse MM/ML lazily on first access</p>
-</div>
+        <div class='inline'><p>If true, parse MM/ML lazily on first access</p></div>
       
     </li>
   
@@ -653,9 +618,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute record.</p>
-
+    <p>Returns the value of attribute record.</p>
 
   </div>
 </div>
@@ -701,9 +664,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Array-style access to modifications at a position</p>
-
+    <p>Array-style access to modifications at a position</p>
 
   </div>
 </div>
@@ -721,9 +682,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Query position (0-based)</p>
-</div>
+        <div class='inline'><p>Query position (0-based)</p></div>
       
     </li>
   
@@ -740,9 +699,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Position object with modifications, or nil if none</p>
-</div>
+        <div class='inline'><p>Position object with modifications, or nil if none</p></div>
       
     </li>
   
@@ -780,9 +737,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get modification information at a specific query position</p>
-
+    <p>Get modification information at a specific query position</p>
 
   </div>
 </div>
@@ -800,9 +755,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Query position (0-based)</p>
-</div>
+        <div class='inline'><p>Query position (0-based)</p></div>
       
     </li>
   
@@ -818,9 +771,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Maximum number of modifications to retrieve</p>
-</div>
+        <div class='inline'><p>Maximum number of modifications to retrieve</p></div>
       
     </li>
   
@@ -837,9 +788,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Position object with modifications, or nil if none</p>
-</div>
+        <div class='inline'><p>Position object with modifications, or nil if none</p></div>
       
     </li>
   
@@ -895,9 +844,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p class="note returns_void">This method returns an undefined value.</p>
-<p>Explicitly free the state</p>
-
+    <p class="note returns_void">This method returns an undefined value.</p><p>Explicitly free the state</p>
 
   </div>
 </div>
@@ -950,9 +897,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Iterate over all positions with modifications</p>
-
+    <p>Iterate over all positions with modifications</p>
 
   </div>
 </div>
@@ -972,9 +917,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Maximum number of modifications per position</p>
-</div>
+        <div class='inline'><p>Maximum number of modifications per position</p></div>
       
     </li>
   
@@ -991,9 +934,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Position object for each modified position</p>
-</div>
+        <div class='inline'><p>Position object for each modified position</p></div>
       
     </li>
   
@@ -1009,9 +950,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If no block given</p>
-</div>
+        <div class='inline'><p>If no block given</p></div>
       
     </li>
   
@@ -1079,9 +1018,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p class="note returns_void">This method returns an undefined value.</p>
-<p>Ensure MM/ML have been parsed, performing lazy parse if enabled.</p>
-
+    <p class="note returns_void">This method returns an undefined value.</p><p>Ensure MM/ML have been parsed, performing lazy parse if enabled.</p>
 
   </div>
 </div>
@@ -1158,9 +1095,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Inspect string</p>
-
+    <p>Inspect string</p>
 
   </div>
 </div>
@@ -1177,9 +1112,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Inspect string</p>
-</div>
+        <div class='inline'><p>Inspect string</p></div>
       
     </li>
   
@@ -1221,9 +1154,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get list of modification types present in this record</p>
-
+    <p>Get list of modification types present in this record</p>
 
   </div>
 </div>
@@ -1240,9 +1171,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Array of modification codes (char code or -ChEBI)</p>
-</div>
+        <div class='inline'><p>Array of modification codes (char code or -ChEBI)</p></div>
       
     </li>
   
@@ -1296,9 +1225,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Parse MM and ML tags from the record</p>
-
+    <p>Parse MM and ML tags from the record</p>
 
   </div>
 </div>
@@ -1318,9 +1245,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Parsing flags (default: 0)</p>
-</div>
+        <div class='inline'><p>Parsing flags (default: 0)</p></div>
       
     </li>
   
@@ -1337,9 +1262,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Number of modification types found, or -1 on error</p>
-</div>
+        <div class='inline'><p>Number of modification types found, or -1 on error</p></div>
       
     </li>
   
@@ -1355,9 +1278,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If parsing fails</p>
-</div>
+        <div class='inline'><p>If parsing fails</p></div>
       
     </li>
   
@@ -1403,9 +1324,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Whether this object has parsed MM/ML tags already</p>
-
+    <p>Whether this object has parsed MM/ML tags already</p>
 
   </div>
 </div>
@@ -1457,9 +1376,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Query information about a specific modification type by code</p>
-
+    <p>Query information about a specific modification type by code</p>
 
   </div>
 </div>
@@ -1477,9 +1394,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Modification code (char code or -ChEBI, or single char string)</p>
-</div>
+        <div class='inline'><p>Modification code (char code or -ChEBI, or single char string)</p></div>
       
     </li>
   
@@ -1496,9 +1411,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Hash with canonical, strand, implicit info, or nil if not found</p>
-</div>
+        <div class='inline'><p>Hash with canonical, strand, implicit info, or nil if not found</p></div>
       
     </li>
   
@@ -1568,9 +1481,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Query information about i-th modification type</p>
-
+    <p>Query information about i-th modification type</p>
 
   </div>
 </div>
@@ -1588,9 +1499,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Modification type index (0-based)</p>
-</div>
+        <div class='inline'><p>Modification type index (0-based)</p></div>
       
     </li>
   
@@ -1607,9 +1516,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Hash with code, canonical, strand, implicit info</p>
-</div>
+        <div class='inline'><p>Hash with code, canonical, strand, implicit info</p></div>
       
     </li>
   
@@ -1679,9 +1586,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get all modifications as an array</p>
-
+    <p>Get all modifications as an array</p>
 
   </div>
 </div>
@@ -1698,9 +1603,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Array of all positions with modifications</p>
-</div>
+        <div class='inline'><p>Array of all positions with modifications</p></div>
       
     </li>
   
@@ -1738,9 +1641,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>String representation for debugging</p>
-
+    <p>String representation for debugging</p>
 
   </div>
 </div>
@@ -1757,9 +1658,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>String representation</p>
-</div>
+        <div class='inline'><p>String representation</p></div>
       
     </li>
   
@@ -1803,9 +1702,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 12:49:11 2026 by
+  Generated on Wed May 13 22:50:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.2).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>

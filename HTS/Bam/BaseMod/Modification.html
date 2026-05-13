@@ -6,13 +6,13 @@
 <title>
   Class: HTS::Bam::BaseMod::Modification
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "HTS::Bam::BaseMod::Modification";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -94,16 +96,15 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/base_mod.rb</dd>
+    <dd>lib/hts/bam/base_mod.rb
+</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Individual base modification information</p>
-
+    <p>Individual base modification information</p>
 
   </div>
 </div>
@@ -139,9 +140,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute canonical_base.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute canonical_base.</p></div></span>
   
 </li>
 
@@ -168,9 +167,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute modified_base.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute modified_base.</p></div></span>
   
 </li>
 
@@ -197,9 +194,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute qual.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute qual.</p></div></span>
   
 </li>
 
@@ -226,9 +221,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute strand.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute strand.</p></div></span>
   
 </li>
 
@@ -263,9 +256,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get canonical base as character.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get canonical base as character.</p></div></span>
   
 </li>
 
@@ -287,9 +278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get modification code as character or ChEBI number as string.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get modification code as character or ChEBI number as string.</p></div></span>
   
 </li>
 
@@ -313,9 +302,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Modification.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Modification.</p></div></span>
   
 </li>
 
@@ -337,9 +324,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Inspect string.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Inspect string.</p></div></span>
   
 </li>
 
@@ -361,9 +346,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get likelihood as a probability (0.0-1.0).</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Get likelihood as a probability (0.0-1.0).</p></div></span>
   
 </li>
 
@@ -385,9 +368,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Convert to hash representation.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Convert to hash representation.</p></div></span>
   
 </li>
 
@@ -409,14 +390,13 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>String representation.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>String representation.</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
 
 <div id="constructor_details" class="method_details_list">
@@ -433,9 +413,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Modification.</p>
-
+    <p>Returns a new instance of Modification.</p>
 
   </div>
 </div>
@@ -453,9 +431,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Modification code as char or -ChEBI</p>
-</div>
+        <div class='inline'><p>Modification code as char or -ChEBI</p></div>
       
     </li>
   
@@ -469,9 +445,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Canonical base (A, C, G, T, N)</p>
-</div>
+        <div class='inline'><p>Canonical base (A, C, G, T, N)</p></div>
       
     </li>
   
@@ -485,9 +459,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>0 or 1 for +/- strand</p>
-</div>
+        <div class='inline'><p>0 or 1 for +/- strand</p></div>
       
     </li>
   
@@ -501,9 +473,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Quality (256*probability) or -1 if unknown</p>
-</div>
+        <div class='inline'><p>Quality (256*probability) or -1 if unknown</p></div>
       
     </li>
   
@@ -555,9 +525,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute canonical_base.</p>
-
+    <p>Returns the value of attribute canonical_base.</p>
 
   </div>
 </div>
@@ -598,9 +566,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute modified_base.</p>
-
+    <p>Returns the value of attribute modified_base.</p>
 
   </div>
 </div>
@@ -641,9 +607,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute qual.</p>
-
+    <p>Returns the value of attribute qual.</p>
 
   </div>
 </div>
@@ -684,9 +648,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute strand.</p>
-
+    <p>Returns the value of attribute strand.</p>
 
   </div>
 </div>
@@ -732,9 +694,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get canonical base as character</p>
-
+    <p>Get canonical base as character</p>
 
   </div>
 </div>
@@ -751,9 +711,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Single character (A, C, G, T, N)</p>
-</div>
+        <div class='inline'><p>Single character (A, C, G, T, N)</p></div>
       
     </li>
   
@@ -791,9 +749,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get modification code as character or ChEBI number as string</p>
-
+    <p>Get modification code as character or ChEBI number as string</p>
 
   </div>
 </div>
@@ -810,9 +766,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Single character code or ChEBI number as string</p>
-</div>
+        <div class='inline'><p>Single character code or ChEBI number as string</p></div>
       
     </li>
   
@@ -850,9 +804,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Inspect string</p>
-
+    <p>Inspect string</p>
 
   </div>
 </div>
@@ -869,9 +821,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Inspect string</p>
-</div>
+        <div class='inline'><p>Inspect string</p></div>
       
     </li>
   
@@ -909,9 +859,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get likelihood as a probability (0.0-1.0)</p>
-
+    <p>Get likelihood as a probability (0.0-1.0)</p>
 
   </div>
 </div>
@@ -928,9 +876,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Probability or nil if qual is -1</p>
-</div>
+        <div class='inline'><p>Probability or nil if qual is -1</p></div>
       
     </li>
   
@@ -972,9 +918,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Convert to hash representation</p>
-
+    <p>Convert to hash representation</p>
 
   </div>
 </div>
@@ -991,9 +935,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Hash with modification information</p>
-</div>
+        <div class='inline'><p>Hash with modification information</p></div>
       
     </li>
   
@@ -1047,9 +989,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>String representation</p>
-
+    <p>String representation</p>
 
   </div>
 </div>
@@ -1066,9 +1006,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>String representation of the modification</p>
-</div>
+        <div class='inline'><p>String representation of the modification</p></div>
       
     </li>
   
@@ -1108,9 +1046,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 12:49:11 2026 by
+  Generated on Wed May 13 22:50:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.2).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>

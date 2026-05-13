@@ -6,13 +6,13 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "README";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -57,50 +59,41 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-ruby-htslib">ruby-htslib</h1>
-
-<p><a href="https://badge.fury.io/rb/htslib"><img src="https://badge.fury.io/rb/htslib.svg" alt="Gem Version"></a> <a href="https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml/badge.svg" alt="test"></a> <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="The MIT License"></a> <a href="https://zenodo.org/badge/latestdoi/247078205"><img src="https://zenodo.org/badge/247078205.svg" alt="DOI"></a> <a href="https://rubydoc.info/gems/htslib"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Docs Stable"></a></p>
-
-<p><a href="https://deepwiki.com/kojix2/ruby-htslib"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a> <a href="https://tokei.kojix2.net/github/kojix2/ruby-htslib"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-htslib%2Flines" alt="Lines of Code"></a></p>
-
+      <div id="content"><div id='filecontents'><h1 id="ruby_htslib">ruby-htslib</h1>
+<p><a href="https://badge.fury.io/rb/htslib"><img src="https://badge.fury.io/rb/htslib.svg" alt="Gem Version" /></a>
+<a href="https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ruby-htslib/actions/workflows/ci.yml/badge.svg" alt="test" /></a>
+<a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="The MIT License" /></a>
+<a href="https://zenodo.org/badge/latestdoi/247078205"><img src="https://zenodo.org/badge/247078205.svg" alt="DOI" /></a>
+<a href="https://rubydoc.info/gems/htslib"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Docs Stable" /></a></p>
+<p><a href="https://deepwiki.com/kojix2/ruby-htslib"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki" /></a>
+<a href="https://tokei.kojix2.net/github/kojix2/ruby-htslib"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-htslib%2Flines" alt="Lines of Code" /></a></p>
 <p>Ruby-htslib is the <a href="https://www.ruby-lang.org">Ruby</a> bindings to <a href="https://github.com/samtools/htslib">HTSlib</a>, a C library for high-throughput sequencing data formats. It allows you to read and write file formats commonly used in genomics, such as <a href="http://samtools.github.io/hts-specs/">SAM, BAM, VCF, and BCF</a>, in the Ruby language.</p>
-
 <p>:apple: Feel free to fork it!</p>
-
-<h2 id="label-Requirements">Requirements</h2>
-<ul><li>
-<p><a href="https://github.com/ruby/ruby">Ruby</a> 3.1 or above.</p>
-</li><li>
-<p><a href="https://github.com/samtools/htslib">HTSlib</a></p>
-</li><li>
-<p>Ubuntu : <code>apt install libhts-dev</code></p>
-</li><li>
-<p>macOS : <code>brew install htslib</code></p>
-</li><li>
-<p>Windows : <a href="https://packages.msys2.org/base/mingw-w64-htslib">mingw-w64-htslib</a> is automatically fetched when installing the gem (<a href="https://rubyinstaller.org">RubyInstaller</a> only).</p>
-</li><li>
-<p>Build from source code (see the Development section)</p>
-</li></ul>
-
-<h2 id="label-Installation">Installation</h2>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_htslib'>htslib</span>
+<h2 id="Requirements">Requirements</h2>
+<ul>
+<li><a href="https://github.com/ruby/ruby">Ruby</a> 3.1 or above.</li>
+<li>
+<a href="https://github.com/samtools/htslib">HTSlib</a>
+<ul>
+<li>Ubuntu : <code>apt install libhts-dev</code></li>
+<li>macOS : <code>brew install htslib</code></li>
+<li>Windows : <a href="https://packages.msys2.org/base/mingw-w64-htslib">mingw-w64-htslib</a> is automatically fetched when installing the gem (<a href="https://rubyinstaller.org">RubyInstaller</a> only).</li>
+<li>Build from source code (see the Development section)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Installation">Installation</h2>
+<pre class="code sh"><code class="sh">gem install htslib
 </code></pre>
-
-<p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a> will automatically detect the location of the shared library. If pkg-config does not work well, set <code>PKG_CONFIG_PATH</code>. Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_export'>export</span> <span class='const'>HTSLIBDIR</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/your/path/to/htslib</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># Directory where libhts.so is located
-</span></code></pre>
-
+<p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a>
+will automatically detect the location of the shared library. If pkg-config does not work well, set <code>PKG_CONFIG_PATH</code>.
+Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
+<pre class="code sh"><code class="sh">export HTSLIBDIR=&quot;/your/path/to/htslib&quot; # Directory where libhts.so is located
+</code></pre>
 <p>ruby-htslib also works on Windows. If you use RubyInstaller, htslib will be prepared automatically.</p>
-
-<h2 id="label-Usage">Usage</h2>
-
-<h3 id="label-HTS-3A-3ABam+-+SAM+-2F+BAM+-2F+CRAM+-+Sequence+Alignment+Map+file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h3>
-
+<h2 id="Usage">Usage</h2>
+<h3 id="HTS__Bam___SAM___BAM___CRAM___Sequence_Alignment_Map_file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h3>
 <p>Reading fields</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_bam'>bam</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bam.html#open-class_method" title="HTS::Bam.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/moo.bam</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -122,20 +115,15 @@
 
 <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
-
 <p>With a block</p>
-
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bam.html#open-class_method" title="HTS::Bam.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/moo.bam</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bam'>bam</span><span class='op'>|</span>
   <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
     <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span>
 </code></pre>
-
-<h3 id="label-HTS-3A-3ABcf+-+VCF+-2F+BCF+-+Variant+Call+Format+file">HTS::Bcf - VCF / BCF - Variant Call Format file</h3>
-
+<h3 id="HTS__Bcf___VCF___BCF___Variant_Call_Format_file">HTS::Bcf - VCF / BCF - Variant Call Format file</h3>
 <p>Reading fields</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_bcf'>bcf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/test.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -154,36 +142,28 @@
 
 <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
-
 <p>With a block</p>
-
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/test.bcf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bcf'>bcf</span><span class='op'>|</span>
   <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
     <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span>
 </code></pre>
-
-<h3 id="label-HTS-3A-3AFaidx+-+FASTA+-2F+FASTQ+-+Nucleic+acid+sequence">HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence</h3>
-
+<h3 id="HTS__Faidx___FASTA___FASTQ___Nucleic_acid_sequence">HTS::Faidx - FASTA / FASTQ - Nucleic acid sequence</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_fa'>fa</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Faidx.html" title="HTS::Faidx (class)">Faidx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Faidx.html#open-class_method" title="HTS::Faidx.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/moo.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-10</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># =&gt; CGCAACCCGA # 1-based
 </span><span class='id identifier rubyid_fa'>fa</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
-
-<h3 id="label-HTS-3A-3ATabix+-+GFF+-2F+BED+-+TAB-delimited+genome+position+file">HTS::Tabix - GFF / BED - TAB-delimited genome position file</h3>
-
+<h3 id="HTS__Tabix___GFF___BED___TAB_delimited_genome_position_file">HTS::Tabix - GFF / BED - TAB-delimited genome position file</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Tabix.html" title="HTS::Tabix (class)">Tabix</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Tabix.html#open-class_method" title="HTS::Tabix.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/test.vcf.gz</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>poo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2000</span><span class='comma'>,</span> <span class='int'>3000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
-
-<h3 id="label-Low-level+API">Low-level API</h3>
-
-<p>Middle architectural layer between high-level Ruby code and low-level C code. <code>HTS::LibHTS</code> provides native C functions using <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.</p>
-
+<h3 id="Low_level_API">Low-level API</h3>
+<p>Middle architectural layer between high-level Ruby code and low-level C code.
+<code>HTS::LibHTS</code> provides native C functions using <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'><span class='object_link'><a href="HTS/LibHTS.html#hts_open-class_method" title="HTS::LibHTS.hts_open (method)">hts_open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>a.bam</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -191,134 +171,87 @@
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:category</span><span class='rbracket'>]</span>
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
 </code></pre>
-
 <p>The low-level API makes it possible to perform detailed operations, such as calling CRAM-specific functions.</p>
-
-<h4 id="label-Macro+functions">Macro functions</h4>
-
+<h4 id="Macro_functions">Macro functions</h4>
 <p>HTSlib is designed to improve performance with many macro functions. However, it is not possible to call C macro functions directly from Ruby-FFI. To overcome this, important macro functions have been re-implemented in Ruby, allowing them to be called in the same way as native functions.</p>
-
-<h4 id="label-Garbage+Collection+and+Memory+Freeing">Garbage Collection and Memory Freeing</h4>
-
-<p>A small number of commonly used structs, such as <code>Bam1</code> and <code>Bcf1</code>, are implemented using FFI’s <code>ManagedStruct</code>. This allows for automatic memory release when Ruby’s garbage collection is triggered. On the other hand, other structs are implemented using <code>FFI::Struct</code>, and they will require manual memory release.</p>
-
-<h3 id="label-Need+more+speed-3F">Need more speed?</h3>
-
+<h4 id="Garbage_Collection_and_Memory_Freeing">Garbage Collection and Memory Freeing</h4>
+<p>A small number of commonly used structs, such as <code>Bam1</code> and <code>Bcf1</code>, are implemented using FFI's <code>ManagedStruct</code>. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using <code>FFI::Struct</code>, and they will require manual memory release.</p>
+<h3 id="Need_more_speed_">Need more speed?</h3>
 <p>Try Crystal. <a href="https://github.com/bio-cr/hts.cr">HTS.cr</a> is implemented in Crystal language and provides an API compatible with ruby-htslib.</p>
-
-<h2 id="label-Documentation">Documentation</h2>
-<ul><li>
-<p><a href="TUTORIAL_md.html">TUTORIAL.md</a></p>
-</li><li>
-<p><a href="https://kojix2.github.io/ruby-htslib/">API Documentation (develop branch)</a></p>
-</li><li>
-<p><a href="https://rubydoc.info/gems/htslib">API Documentation (released gem)</a></p>
-</li></ul>
-
-<h2 id="label-Development">Development</h2>
-
-<h4 id="label-Compile+from+source+code">Compile from source code</h4>
-
-<p><a href="https://en.wikipedia.org/wiki/GNU_Autotools">GNU Autotools</a> is required to compile htslib. To get started with development:</p>
-
-<pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-htslib
+<h2 id="Documentation">Documentation</h2>
+<ul>
+<li><a href="TUTORIAL.md">TUTORIAL.md</a></li>
+<li><a href="https://kojix2.github.io/ruby-htslib/">API Documentation (develop branch)</a></li>
+<li><a href="https://rubydoc.info/gems/htslib">API Documentation (released gem)</a></li>
+</ul>
+<h2 id="Development">Development</h2>
+<h4 id="Compile_from_source_code">Compile from source code</h4>
+<p><a href="https://en.wikipedia.org/wiki/GNU_Autotools">GNU Autotools</a> is required to compile htslib.
+To get started with development:</p>
+<pre class="code sh"><code class="sh">git clone --recursive https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 bundle install
 bundle exec rake htslib:build
 bundle exec rake test
 </code></pre>
-
-<h4 id="label-Macro+functions+are+reimplemented">Macro functions are reimplemented</h4>
-
+<h4 id="Macro_functions_are_reimplemented">Macro functions are reimplemented</h4>
 <p>HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.</p>
-
-<h4 id="label-Use+the+latest+Ruby">Use the latest Ruby</h4>
-
+<h4 id="Use_the_latest_Ruby">Use the latest Ruby</h4>
 <p>Use Ruby 3 or newer to take advantage of new features. This is possible because we have a small number of users.</p>
-
-<h4 id="label-Keep+compatibility+with+Crystal+language">Keep compatibility with Crystal language</h4>
-
+<h4 id="Keep_compatibility_with_Crystal_language">Keep compatibility with Crystal language</h4>
 <p>Compatibility with Crystal language is important for Ruby-htslib development.</p>
-<ul><li>
-<p><a href="https://github.com/bio-cr/hts.cr">HTS.cr</a> - HTSlib bindings for Crystal</p>
-</li></ul>
-
+<ul>
+<li><a href="https://github.com/bio-cr/hts.cr">HTS.cr</a> - HTSlib bindings for Crystal</li>
+</ul>
 <p>Return value</p>
-
-<p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn’t cause any problems.</p>
-
+<p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.</p>
 <p>Memory management</p>
-
-<p>Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a <code>self.release</code> method in <code>FFI::Struct</code>. This method is called when GC. So you don’t have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.</p>
-
+<p>Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a <code>self.release</code> method in <code>FFI::Struct</code>. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.</p>
 <p>Macro functions</p>
-
 <p>In ruby-htslib, C macro functions are added to <code>LibHTS</code>, but in Crystal, <code>LibHTS</code> is a Lib, so methods cannot be added. methods are added to <code>LibHTS2</code>.</p>
-
-<h4 id="label-Naming+convention">Naming convention</h4>
-
+<h4 id="Naming_convention">Naming convention</h4>
 <p>If you are not sure about the naming of a method, follow the Rust-htslib API. This is a very weak rule. if a more appropriate name is found later in Ruby, it will replace it.</p>
-
-<h4 id="label-Support+for+bitfields+of+structures">Support for bitfields of structures</h4>
-
+<h4 id="Support_for_bitfields_of_structures">Support for bitfields of structures</h4>
 <p>Since Ruby-FFI does not support structure bit fields, the following extensions are used.</p>
-<ul><li>
-<p><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> - Extension of Ruby-FFI to support bitfields.</p>
-</li></ul>
-
-<h4 id="label-Automatic+validation">Automatic validation</h4>
-
+<ul>
+<li><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> - Extension of Ruby-FFI to support bitfields.</li>
+</ul>
+<h4 id="Automatic_validation">Automatic validation</h4>
 <p>In the <code>script</code> directory, there are several tools to help implement ruby-htslib. Scripts using c2ffi can check the coverage of htslib functions in Ruby-htslib. They are useful when new versions of htslib are released.</p>
-<ul><li>
-<p><a href="https://github.com/rpav/c2ffi">c2ffi</a> is a tool to create JSON format metadata from C header files.</p>
-</li></ul>
-
-<h2 id="label-Contributing">Contributing</h2>
-
+<ul>
+<li><a href="https://github.com/rpav/c2ffi">c2ffi</a> is a tool to create JSON format metadata from C header files.</li>
+</ul>
+<h2 id="Contributing">Contributing</h2>
 <p>Ruby-htslib is a library under development, so even minor improvements like typo fixes are welcome! Please feel free to send us your pull requests.</p>
-<ul><li>
-<p><a href="https://github.com/kojix2/ruby-htslib/issues">Report bugs</a></p>
-</li><li>
-<p>Fix bugs and <a href="https://github.com/kojix2/ruby-htslib/pulls">submit pull requests</a></p>
-</li><li>
-<p>Write, clarify, or fix documentation</p>
-</li><li>
-<p>Suggest or add new features</p>
-</li><li>
-<p><a href="https://github.com/sponsors/kojix2">financial contributions</a></p>
-</li></ul>
-
-<pre class="code ruby"><code class="ruby"># Ownership and Commit Rights
+<ul>
+<li><a href="https://github.com/kojix2/ruby-htslib/issues">Report bugs</a></li>
+<li>Fix bugs and <a href="https://github.com/kojix2/ruby-htslib/pulls">submit pull requests</a></li>
+<li>Write, clarify, or fix documentation</li>
+<li>Suggest or add new features</li>
+<li><a href="https://github.com/sponsors/kojix2">financial contributions</a></li>
+</ul>
+<pre class="code markdown"><code class="markdown"># Ownership and Commit Rights
 
 Do you need commit rights to the ruby-htslib repository?
 Do you want to get admin rights and take over the project?
 If so, please feel free to contact us @kojix2.
 </code></pre>
-
-<h4 id="label-Why+do+you+implement+htslib+in+a+language+like+Ruby-2C+which+is+not+widely+used+in+bioinformatics-3F">Why do you implement htslib in a language like Ruby, which is not widely used in bioinformatics?</h4>
-
+<h4 id="Why_do_you_implement_htslib_in_a_language_like_Ruby__which_is_not_widely_used_in_bioinformatics_">Why do you implement htslib in a language like Ruby, which is not widely used in bioinformatics?</h4>
 <p>One of the greatest joys of using a minor language like Ruby in bioinformatics is that nothing stops you from reinventing the wheel. Reinventing the wheel can be fun. But with languages like Python and R, where many bioinformatics masters work, there is no chance for beginners to create htslib bindings. Bioinformatics file formats, libraries, and tools are very complex, and I need to learn how to understand them. So I started to implement the HTSLib binding myself to better understand how the pioneers of bioinformatics felt when establishing the file format and how they created their tools. I hope one day we can work on bioinformatics using Ruby and Crystal languages, not to replace other languages such as Python and R, but to add new power and value to this advancing field.</p>
-
-<h2 id="label-Links">Links</h2>
-<ul><li>
-<p><a href="https://github.com/samtools/hts-specs">samtools/hts-spec</a></p>
-</li><li>
-<p><a href="https://github.com/bioruby/bioruby">bioruby</a></p>
-</li></ul>
-
-<h2 id="label-Funding+support">Funding support</h2>
-
+<h2 id="Links">Links</h2>
+<ul>
+<li><a href="https://github.com/samtools/hts-specs">samtools/hts-spec</a></li>
+<li><a href="https://github.com/bioruby/bioruby">bioruby</a></li>
+</ul>
+<h2 id="Funding_support">Funding support</h2>
 <p>This work was supported partially by <a href="https://www.ruby.or.jp/en/news/20201022">Ruby Association Grant 2020</a>.</p>
-
-<h2 id="label-License">License</h2>
-
-<p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
-</div></div>
+<h2 id="License">License</h2>
+<p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p></div></div>
 
       <div id="footer">
-  Generated on Fri Mar 27 12:49:07 2026 by
+  Generated on Wed May 13 22:50:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.2).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>

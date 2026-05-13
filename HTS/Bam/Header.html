@@ -6,13 +6,13 @@
 <title>
   Class: HTS::Bam::Header
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "HTS::Bam::Header";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -94,16 +96,15 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/bam/header.rb</dd>
+    <dd>lib/hts/bam/header.rb
+</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A class for working with alignment header.</p>
-
+    <p>A class for working with alignment header.</p>
 
   </div>
 </div>
@@ -201,6 +202,7 @@
 
       
     </ul>
+    
   
     <h2>
       Instance Method Summary
@@ -226,9 +228,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -250,9 +250,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Add a @PG (program) line to the header This is a convenience wrapper around sam_hdr_add_pg that automatically: - Generates a unique ID if the specified one clashes - Manages PP (previous program) chains automatically.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Add a @PG (program) line to the header This is a convenience wrapper around sam_hdr_add_pg that automatically: - Generates a unique ID if the specified one clashes - Manages PP (previous program) chains automatically.</p></div></span>
   
 </li>
 
@@ -406,9 +404,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -430,9 +426,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -476,9 +470,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -502,9 +494,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Header.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Header.</p></div></span>
   
 </li>
 
@@ -570,9 +560,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -594,9 +582,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>experimental.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>experimental.</p></div></span>
   
 </li>
 
@@ -910,6 +896,7 @@
 
       
     </ul>
+    
   
 
 <div id="constructor_details" class="method_details_list">
@@ -926,9 +913,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Header.</p>
-
+    <p>Returns a new instance of Header.</p>
 
   </div>
 </div>
@@ -960,9 +945,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the object that the method was called on</p>
-</div>
+        <div class='inline'><p>the object that the method was called on</p></div>
       
     </li>
   
@@ -1065,9 +1048,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -1120,14 +1101,12 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Add a @PG (program) line to the header This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
-<ul><li>
-<p>Generates a unique ID if the specified one clashes</p>
-</li><li>
-<p>Manages PP (previous program) chains automatically</p>
-</li></ul>
-
+    <p>Add a @PG (program) line to the header
+This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
+<ul>
+<li>Generates a unique ID if the specified one clashes</li>
+<li>Manages PP (previous program) chains automatically</li>
+</ul>
 
   </div>
 </div>
@@ -1154,9 +1133,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Name of the program</p>
-</div>
+        <div class='inline'><p>Name of the program</p></div>
       
     </li>
   
@@ -1170,9 +1147,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Key-value pairs for @PG tags (ID, PN, VN, CL, PP, etc.)</p>
-</div>
+        <div class='inline'><p>Key-value pairs for @PG tags (ID, PN, VN, CL, PP, etc.)</p></div>
       
     </li>
   
@@ -1189,9 +1164,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>0 on success, -1 on failure</p>
-</div>
+        <div class='inline'><p>0 on success, -1 on failure</p></div>
       
     </li>
   
@@ -1431,9 +1404,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -1484,9 +1455,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -1579,9 +1548,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -1680,9 +1647,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -1721,9 +1686,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>experimental</p>
-
+    <p>experimental</p>
 
   </div>
 </div>
@@ -2206,9 +2169,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 27 12:49:10 2026 by
+  Generated on Wed May 13 22:50:15 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.2).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>
