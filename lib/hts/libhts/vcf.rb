@@ -270,12 +270,12 @@ module HTS
     attach_function \
       :bcf_hdr_get_hrec,
       [BcfHdr, :int, :string, :string, :string],
-      BcfHrec.by_ref
+      :pointer
 
     # Duplicate a header record
     attach_function \
       :bcf_hrec_dup,
-      [BcfHrec],
+      [:pointer],
       BcfHrec.by_ref
 
     # Add a new header record key
@@ -304,7 +304,7 @@ module HTS
     # Free up a header record and associated structures
     attach_function \
       :bcf_hrec_destroy,
-      [BcfHrec],
+      [:pointer],
       :void
 
     # Individual record querying and manipulation routines

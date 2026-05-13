@@ -110,6 +110,22 @@ class BcfHeaderTest < Minitest::Test
     h.delete("FILTER", "Nessie")
   end
 
+  def test_get_hrec_returns_owned_copy
+    hrec = @hdr.get_hrec("FILTER", "ID", "PASS")
+
+    assert_instance_of HTS::Bcf::HeaderRecord, hrec
+    assert_instance_of HTS::LibHTS::BcfHrec, hrec.struct
+    assert_equal '##FILTER=<ID=PASS,Description="All filters passed">', hrec.to_s.chomp
+  end
+
+  def test_header_record_copy_owns_duplicated_hrec
+    hrec = @hdr.get_hrec("FILTER", "ID", "PASS")
+    copy = hrec.dup
+
+    assert_instance_of HTS::LibHTS::BcfHrec, copy.struct
+    assert_equal hrec.to_s, copy.to_s
+  end
+
   def test_seqnames
     assert_equal %w[1 2 3 4], @hdr.seqnames
   end

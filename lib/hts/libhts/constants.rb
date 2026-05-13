@@ -498,7 +498,7 @@ module HTS
         :n,              :int
     end
 
-    # Complete textual representation of a header line
+    # Complete textual representation of a header line owned by Ruby.
     class BcfHrec < FFI::ManagedStruct
       layout \
         :type,           :int,
@@ -535,7 +535,7 @@ module HTS
     class BcfIdinfo < FFI::Struct
       layout \
         :info,           [:uint64, 3],
-        :hrec,           [BcfHrec.ptr, 3],
+        :hrec,           [:pointer, 3],
         :id,             :int
     end
 

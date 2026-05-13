@@ -176,7 +176,7 @@ module HTS
         hrec = borrowed_hrec(type, key, value, str_class)
         return nil if hrec.to_ptr.null?
 
-        HeaderRecord.new(hrec)
+        HeaderRecord.new(owned_hrec(hrec))
       end
 
       def edit
@@ -339,10 +339,13 @@ module HTS
       end
 
       def borrowed_hrec(type, key, value, str_class)
-        hrec = LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
-        pointer = hrec.to_ptr
-        pointer.autorelease = false if pointer.respond_to?(:autorelease=)
-        hrec
+        LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
+      end
+
+      def owned_hrec(hrec)
+        LibHTS.bcf_hrec_dup(hrec).tap do |owned|
+          raise "Failed to duplicate BCF header record" if owned.to_ptr.null?
+        end
       end
 
       def hrec_lookup_args(type, key)
