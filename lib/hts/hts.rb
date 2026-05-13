@@ -71,7 +71,10 @@ module HTS
 
     def fai=(fai)
       check_closed
-      LibHTS.hts_set_fai_filename(@hts_file, fai) > 0 || raise
+      r = LibHTS.hts_set_fai_filename(@hts_file, fai)
+      raise "Failed to load fasta index: #{fai}" if r.negative?
+
+      self
     end
 
     def set_threads(n = nil)
