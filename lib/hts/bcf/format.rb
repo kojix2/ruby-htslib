@@ -12,7 +12,7 @@ module HTS
       # which provides methods like `get_int`, `get_float`, etc.
       # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
-        return get_raw(key, type) unless type.nil?
+        return get_typed(key, type) unless type.nil?
 
         return decode_genotypes if key == "GT"
 
@@ -43,7 +43,7 @@ module HTS
           get_numeric_values(key, LibHTS::BCF_HT_INT, "integer") { |dst, len| dst.read_array_of_int32(len) }
         when :float, :real
           raise_unsupported_format_flag(key)
-          get_numeric_values(key, LibHTS::BCF_HT_REAL, "float") { |dst, len| dst.read_array_of_float(len) }
+          get_float_words(key)
         when :flag
           raise_unsupported_format_flag(key)
         when :string, :str
@@ -61,7 +61,7 @@ module HTS
 
       # For compatibility with HTS.cr.
       def get_float(key)
-        get_raw(key, :float)
+        get_typed(key, :float)
       end
 
       # For compatibility with HTS.cr.
@@ -301,7 +301,7 @@ module HTS
       end
 
       def trim_float_vector_end(values)
-        end_index = values.index(0x7f80_0002) || values.size
+        end_index = values.index(LibHTS.bcf_float_vector_end) || values.size
         values[0, end_index]
       end
 
@@ -318,13 +318,25 @@ module HTS
       end
 
       def decode_float_word(value)
-        return nil if value == 0x7f80_0001
+        return nil if value == LibHTS.bcf_float_missing
+        return nil if value == LibHTS.bcf_float_vector_end
 
         [value].pack("V").unpack1("e")
       end
 
       def get_float_words(key)
         get_numeric_values(key, LibHTS::BCF_HT_REAL, "float") { |dst, len| dst.get_array_of_uint32(0, len) }
+      end
+
+      def get_typed(key, type)
+        case type.to_sym
+        when :float, :real
+          raise_unsupported_format_flag(key)
+          words = get_float_words(key)
+          words&.map { |word| decode_float_word(word) }
+        else
+          get_raw(key, type)
+        end
       end
 
       def normalize_format_rc(rc, key, expected_type)

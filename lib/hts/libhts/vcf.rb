@@ -539,14 +539,12 @@ module HTS
       [HtsFile],
       :int
 
-    attach_function \
+    attach_variable \
       :bcf_float_vector_end,
-      [],
       :uint32
 
-    attach_function \
+    attach_variable \
       :bcf_float_missing,
-      [],
       :uint32
 
     attach_function \

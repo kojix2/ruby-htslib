@@ -295,10 +295,16 @@ class BcfFormatTest < Minitest::Test
 
         floats = format.get_raw("FV")
         assert_equal 4, floats.size
-        assert_in_delta 1.5, floats[0], 0.001
-        assert_predicate floats[1], :nan?
-        assert_predicate floats[2], :nan?
-        assert_predicate floats[3], :nan?
+        assert_equal 0x3fc0_0000, floats[0]
+        assert_equal HTS::LibHTS.bcf_float_vector_end, floats[1]
+        assert_equal HTS::LibHTS.bcf_float_missing, floats[2]
+        assert_equal HTS::LibHTS.bcf_float_vector_end, floats[3]
+
+        decoded_floats = format.get_float("FV")
+        assert_in_delta 1.5, decoded_floats[0], 0.001
+        assert_nil decoded_floats[1]
+        assert_nil decoded_floats[2]
+        assert_nil decoded_floats[3]
       end
     end
   end
