@@ -381,6 +381,19 @@ class BamTest < Minitest::Test
     bam.close
   end
 
+  def test_aux_update_rejects_non_ascii_or_non_two_byte_tags
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    assert_raises(ArgumentError) { aux.update_int("A", 1) }
+    assert_raises(ArgumentError) { aux.update_int("ABC", 1) }
+    assert_raises(ArgumentError) { aux.update_int("éA", 1) }
+    assert_raises(ArgumentError) { aux.update_int("é", 1) }
+
+    bam.close
+  end
+
   def test_aux_update_float
     bam = HTS::Bam.new(path_bam_string)
     record = bam.first

@@ -271,7 +271,9 @@ module HTS
       end
 
       def validate_tag!(key)
-        raise ArgumentError, "AUX tag must be a 2-character String" unless key.is_a?(String) && key.length == 2
+        unless key.is_a?(String) && key.bytesize == 2 && key.ascii_only?
+          raise ArgumentError, "AUX tag must be a 2-byte ASCII String"
+        end
       end
 
       def update_exact_integer(key, value, type, min, max)
