@@ -2,8 +2,6 @@
 
 require "json"
 require "optparse"
-
-$LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
 require "htslib"
 
 options = {
