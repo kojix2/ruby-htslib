@@ -214,11 +214,10 @@ module HTS
       end
 
       def cigar=(str)
-        if cigar.is_a? Cigar
-          raise "Not implemented yet."
-        elsif cigar.is_a? String
-          r = LibHTS.bam_parse_cigar(str, FFI::Pointer::NULL, @bam1)
-          raise "bam_parse_cigar failed: #{r}" if r != 0
+        case str
+        when Cigar, String
+          r = LibHTS.bam_parse_cigar(str.to_s, FFI::Pointer::NULL, @bam1)
+          raise "bam_parse_cigar failed: #{r}" if r.negative?
         else
           raise ArgumentError, "cigar must be a String or Bam::Cigar"
         end

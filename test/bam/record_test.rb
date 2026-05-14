@@ -172,6 +172,26 @@ class BamRecordTest < Minitest::Test
     assert_instance_of HTS::Bam::Cigar, @aln2.cigar
   end
 
+  def test_cigar_assignment_with_string
+    @aln2.cigar = "5M5S"
+
+    assert_equal "5M5S", @aln2.cigar.to_s
+    assert_equal 10, @aln2.qlen
+    assert_equal 5, @aln2.rlen
+  end
+
+  def test_cigar_assignment_with_cigar
+    @aln2.cigar = HTS::Bam::Cigar.parse("4M1I5M")
+
+    assert_equal "4M1I5M", @aln2.cigar.to_s
+    assert_equal 10, @aln2.qlen
+    assert_equal 9, @aln2.rlen
+  end
+
+  def test_cigar_assignment_rejects_invalid_type
+    assert_raises(ArgumentError) { @aln2.cigar = 10 }
+  end
+
   def test_qlen
     assert_equal 0, @aln1.qlen
     assert_equal 10, @aln2.qlen
