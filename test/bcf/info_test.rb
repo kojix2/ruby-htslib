@@ -96,6 +96,12 @@ class BcfInfoTest < Minitest::Test
         assert_equal false, info.key?("NOFL")
         assert_nil info.get("ABS")
         assert_nil info.get("NOFL")
+        assert_equal false, info.delete("ABS")
+
+        error = assert_raises(HTS::Bcf::InfoTypeError) do
+          info.get("ABS", :float)
+        end
+        assert_equal "Tag ABS is not float INFO field", error.message
       end
     end
   end

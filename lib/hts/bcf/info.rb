@@ -39,6 +39,7 @@ module HTS
         end
 
         type ||= actual_type
+        return nil if actual_type && !key?(key)
 
         case type&.to_sym
         when :int, :int32
@@ -242,9 +243,9 @@ module HTS
       # @param key [String] INFO tag name
       # @return [Boolean] true if field was deleted, false if it didn't exist
       def delete(key)
-        # Try to get current type to check existence
         type = get_info_type(key)
         return false if type.nil?
+        return false unless key?(key)
 
         # Delete by setting n=0
         ret = LibHTS.bcf_update_info(
@@ -328,10 +329,7 @@ module HTS
       end
 
       def get_info_type(key)
-        k = record_info_key(key)
-        return nil if k.nil?
-
-        LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, k)
+        header_info_type(key)
       end
 
       def header_info_type(key)
@@ -339,13 +337,6 @@ module HTS
         return nil if id.negative?
 
         LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, id)
-      end
-
-      def record_info_key(key)
-        info = LibHTS.bcf_get_info(@record.header.struct, @record.struct, key)
-        return nil if info.to_ptr.null?
-
-        info[:key]
       end
 
       def ht_type_to_sym(t)
