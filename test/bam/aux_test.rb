@@ -41,15 +41,20 @@ class BamAuxTest < Minitest::Test
 
   def test_get_int
     assert_equal 0, @aux.get_int("AS")
+    assert_equal 0, @aux.get("AS", "I")
   end
 
   def test_get_float
-    # FIXME: AS is an integer, not a float
-    assert_equal 0.0, @aux.get_float("AS")
+    assert_raises(TypeError) { @aux.get_float("AS") }
   end
 
   def test_get_string
     assert_equal "70M", @aux.get_string("MC")
+  end
+
+  def test_get_rejects_incompatible_type
+    assert_raises(TypeError) { @aux.get("MC", "i") }
+    assert_raises(TypeError) { @aux.get("AS", "Z") }
   end
 
   def test_get_square_brackets

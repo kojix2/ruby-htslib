@@ -372,7 +372,9 @@ module HTS
       end
 
       def get_ruby_aux(aux_ptr, type = nil)
-        type = type ? type.to_s : aux_ptr.read_string(1)
+        actual_type = aux_ptr.read_string(1)
+        type = type ? type.to_s : actual_type
+        validate_aux_type!(actual_type, type)
 
         # A (character), B (general array),
         # f (real number), H (hexadecimal array),
@@ -402,6 +404,27 @@ module HTS
           end
         else
           raise NotImplementedError, "type: #{type}"
+        end
+      end
+
+      def validate_aux_type!(actual_type, requested_type)
+        return if aux_type_compatible?(actual_type, requested_type)
+
+        raise TypeError, "AUX type mismatch: requested #{requested_type.inspect}, actual #{actual_type.inspect}"
+      end
+
+      def aux_type_compatible?(actual_type, requested_type)
+        case requested_type
+        when "i", "I", "c", "C", "s", "S"
+          %w[i I c C s S].include?(actual_type)
+        when "f", "d"
+          %w[f d].include?(actual_type)
+        when "Z", "H"
+          %w[Z H].include?(actual_type)
+        when "A", "B"
+          actual_type == requested_type
+        else
+          true
         end
       end
     end
