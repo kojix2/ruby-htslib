@@ -368,15 +368,15 @@ module HTS
     end
 
     def query_copy_yield(qiter)
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(header, bcf1)
       loop do
-        bcf1 = LibHTS.bcf_init
         slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
         break if slen == -1
         raise if slen < -1
 
-        record = Record.new(header, bcf1)
         apply_subset!(record)
-        yield record
+        yield record.dup
       end
     ensure
       LibHTS.bcf_itr_destroy(qiter)
@@ -473,10 +473,11 @@ module HTS
 
       return to_enum(__method__) unless block_given?
 
-      while LibHTS.bcf_read(@hts_file, read_header, bcf1 = LibHTS.bcf_init) != -1
-        record = Record.new(header, bcf1)
+      bcf1 = LibHTS.bcf_init
+      record = Record.new(header, bcf1)
+      while LibHTS.bcf_read(@hts_file, read_header, bcf1) != -1
         apply_subset!(record)
-        yield record
+        yield record.dup
       end
       self
     end

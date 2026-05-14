@@ -324,10 +324,9 @@ module HTS
       check_closed
       return to_enum(__method__) unless block_given?
 
-      while LibHTS.sam_read1(@hts_file, header, bam1 = LibHTS.bam_init1) != -1
-        record = Record.new(header, bam1)
-        yield record
-      end
+      bam1 = LibHTS.bam_init1
+      record = Record.new(header, bam1)
+      yield record.dup while LibHTS.sam_read1(@hts_file, header, bam1) != -1
       self
     end
 
@@ -383,13 +382,14 @@ module HTS
     end
 
     def query_copy(qiter)
+      bam1 = LibHTS.bam_init1
+      record = Record.new(header, bam1)
       loop do
-        bam1 = LibHTS.bam_init1
         slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
         break if slen == -1
         raise if slen < -1
 
-        yield Record.new(header, bam1)
+        yield record.dup
       end
     ensure
       LibHTS.hts_itr_destroy(qiter)
