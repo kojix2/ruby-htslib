@@ -26,11 +26,50 @@ class BamAuxTest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal ["70M", 0, 0], @aux.to_a
+    assert_equal [%w[MC Z 70M], ["AS", "C", 0], ["XS", "C", 0]], @aux.to_a
+  end
+
+  def test_each_value
+    assert_equal ["70M", 0, 0], @aux.each_value.to_a
   end
 
   def test_to_h
     assert_equal({ "MC" => "70M", "AS" => 0, "XS" => 0 }, @aux.to_h)
+  end
+
+  def test_each_pair
+    assert_equal [
+      %w[MC Z 70M],
+      ["AS", "C", 0],
+      ["XS", "C", 0]
+    ], @aux.each_pair.to_a
+  end
+
+  def test_each_pair_with_exact_types
+    bam = HTS::Bam.new(Fixtures["moo.bam"])
+    record = bam.first
+    aux = record.aux
+
+    aux.update_uint8("A1", 250)
+    aux.update_string("ZS", "sample1")
+    aux.update_char("YC", "N")
+    aux.update_hex("YH", "DEADBEEF")
+    aux.update_double("YD", 6.25)
+    aux.update_array("ZC", [1, 2, 255], type: "C")
+
+    typed = aux.each_pair.each_with_object({}) do |(tag, type, value), hash|
+      hash[tag] = [value, type]
+    end
+
+    assert_equal [250, "C"], typed["A1"]
+    assert_equal %w[sample1 Z], typed["ZS"]
+    assert_equal %w[N A], typed["YC"]
+    assert_equal %w[DEADBEEF H], typed["YH"]
+    assert_in_delta 6.25, typed["YD"][0], 0.0001
+    assert_equal "d", typed["YD"][1]
+    assert_equal [[1, 2, 255], "B:C"], typed["ZC"]
+  ensure
+    bam&.close
   end
 
   def test_get

@@ -235,7 +235,7 @@ module HTS
         get_ruby_aux(aux_ptr)
       end
 
-      def each
+      def each_value
         return enum_for(__method__) unless block_given?
 
         aux_ptr = first_pointer
@@ -247,6 +247,27 @@ module HTS
           break if aux_ptr.null?
         end
       end
+
+      # Iterate auxiliary tags with their SAM/BAM type.
+      #
+      # @yieldparam tag [String] 2-byte AUX tag name
+      # @yieldparam type [String] AUX type, e.g. "i", "Z", or "B:C"
+      # @yieldparam value [Object] Ruby representation of the AUX value
+      def each
+        return enum_for(__method__) unless block_given?
+
+        aux_ptr = first_pointer
+        return nil if aux_ptr.null?
+
+        loop do
+          tag = FFI::Pointer.new(aux_ptr.address - 2).read_string(2)
+          yield tag, aux_type(aux_ptr), get_ruby_aux(aux_ptr)
+          aux_ptr = LibHTS.bam_aux_next(@record.struct, aux_ptr)
+          break if aux_ptr.null?
+        end
+      end
+
+      alias each_pair each
 
       def to_h
         h = {}
@@ -266,6 +287,13 @@ module HTS
 
       def first_pointer
         LibHTS.bam_aux_first(@record.struct)
+      end
+
+      def aux_type(aux_ptr)
+        type = aux_ptr.read_string(1)
+        return type unless type == "B"
+
+        "#{type}:#{aux_ptr.read_string(2)[1]}"
       end
 
       def validate_tag!(key)
