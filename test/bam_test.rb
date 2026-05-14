@@ -429,9 +429,9 @@ class BamTest < Minitest::Test
 
     assert_equal "with space", aux.update_string("ZS", "with space")
     assert_equal "", aux.update_string("ZE", "")
+    assert_equal "café", aux.update_string("ZU", "café")
+    assert_equal "with\ttab", aux.update_string("ZT", "with\ttab")
     assert_raises(ArgumentError) { aux.update_string("ZS", "abc\0def") }
-    assert_raises(ArgumentError) { aux.update_string("ZS", "abc\ndef") }
-    assert_raises(ArgumentError) { aux.update_string("ZS", "café") }
 
     bam.close
   end

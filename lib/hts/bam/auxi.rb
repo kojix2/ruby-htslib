@@ -275,9 +275,9 @@ module HTS
       end
 
       def validate_string_value!(string)
-        return if string.ascii_only? && /\A[ -~]*\z/.match?(string)
+        return unless string.include?("\0")
 
-        raise ArgumentError, "String AUX tags must contain only printable ASCII characters"
+        raise ArgumentError, "String AUX tags must not contain NUL bytes"
       end
 
       def validate_char_value!(string)
