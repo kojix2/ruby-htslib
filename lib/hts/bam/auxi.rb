@@ -134,10 +134,12 @@ module HTS
       # @param value [String] string value
       def update_string(key, value)
         validate_tag!(key)
-        ret = LibHTS.bam_aux_update_str(@record.struct, key, -1, value.to_s)
+        string = value.to_s
+        validate_string_value!(string)
+        ret = LibHTS.bam_aux_update_str(@record.struct, key, -1, string)
         raise "Failed to update string tag '#{key}': errno #{FFI.errno}" if ret < 0
 
-        value
+        string
       end
 
       # Update or add a character tag.
@@ -145,7 +147,7 @@ module HTS
         validate_tag!(key)
 
         string = value.to_s
-        raise ArgumentError, "Character AUX tags must be a single character" unless string.length == 1
+        validate_char_value!(string)
 
         replace_with_append(key, "A", string.b)
         string
@@ -156,11 +158,7 @@ module HTS
         validate_tag!(key)
 
         string = value.to_s
-        raise ArgumentError, "Hex AUX tags must contain an even number of characters" if string.length.odd?
-        unless /\A[0-9A-Fa-f]*\z/.match?(string)
-          raise ArgumentError,
-                "Hex AUX tags must contain only hexadecimal characters"
-        end
+        validate_hex_value!(string)
 
         replace_with_append(key, "H", string.b + "\0")
         string
@@ -273,6 +271,27 @@ module HTS
       def validate_tag!(key)
         unless key.is_a?(String) && key.bytesize == 2 && key.ascii_only?
           raise ArgumentError, "AUX tag must be a 2-byte ASCII String"
+        end
+      end
+
+      def validate_string_value!(string)
+        unless string.ascii_only? && /\A[ -~]*\z/.match?(string)
+          raise ArgumentError, "String AUX tags must contain only printable ASCII characters"
+        end
+      end
+
+      def validate_char_value!(string)
+        unless string.bytesize == 1 && string.ascii_only? && /\A[!-~]\z/.match?(string)
+          raise ArgumentError, "Character AUX tags must be a single printable ASCII byte"
+        end
+      end
+
+      def validate_hex_value!(string)
+        raise ArgumentError, "Hex AUX tags must contain an even number of characters" if string.bytesize.odd?
+
+        unless string.ascii_only? && /\A[0-9A-Fa-f]*\z/.match?(string)
+          raise ArgumentError,
+                "Hex AUX tags must contain only ASCII hexadecimal characters"
         end
       end
 

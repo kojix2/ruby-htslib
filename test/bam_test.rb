@@ -422,6 +422,20 @@ class BamTest < Minitest::Test
     bam.close
   end
 
+  def test_aux_update_string_validation
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    assert_equal "with space", aux.update_string("ZS", "with space")
+    assert_equal "", aux.update_string("ZE", "")
+    assert_raises(ArgumentError) { aux.update_string("ZS", "abc\0def") }
+    assert_raises(ArgumentError) { aux.update_string("ZS", "abc\ndef") }
+    assert_raises(ArgumentError) { aux.update_string("ZS", "café") }
+
+    bam.close
+  end
+
   def test_aux_update_char
     bam = HTS::Bam.new(path_bam_string)
     record = bam.first
@@ -429,6 +443,19 @@ class BamTest < Minitest::Test
 
     aux.update_char("YC", "N")
     assert_equal "N", aux["YC"]
+
+    bam.close
+  end
+
+  def test_aux_update_char_validation
+    bam = HTS::Bam.new(path_bam_string)
+    record = bam.first
+    aux = record.aux
+
+    assert_raises(ArgumentError) { aux.update_char("YC", "") }
+    assert_raises(ArgumentError) { aux.update_char("YC", "AB") }
+    assert_raises(ArgumentError) { aux.update_char("YC", "\0") }
+    assert_raises(ArgumentError) { aux.update_char("YC", "é") }
 
     bam.close
   end
@@ -524,6 +551,8 @@ class BamTest < Minitest::Test
 
     assert_raises(ArgumentError) { aux.update_hex("YH", "ABC") }
     assert_raises(ArgumentError) { aux.update_hex("YH", "GG") }
+    assert_raises(ArgumentError) { aux.update_hex("YH", "DE\0A") }
+    assert_raises(ArgumentError) { aux.update_hex("YH", "éA") }
 
     bam.close
   end
