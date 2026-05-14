@@ -2,12 +2,14 @@
 
 require "json"
 require "optparse"
+require "set"
 require "htslib"
 
 options = {
   json: false,
   limit: 3,
-  distinct_limit: 10_000
+  distinct_limit: 10_000,
+  threads: nil
 }
 
 parser = OptionParser.new do |opts|
@@ -24,6 +26,10 @@ parser = OptionParser.new do |opts|
   opts.on("--distinct-limit N", Integer,
           "Maximum distinct values to track exactly (default: #{options[:distinct_limit]})") do |value|
     options[:distinct_limit] = value
+  end
+
+  opts.on("-t", "--threads N", Integer, "Number of threads for BAM/CRAM decoding") do |value|
+    options[:threads] = value
   end
 end
 
@@ -42,6 +48,11 @@ end
 
 if options[:distinct_limit].negative?
   warn "--distinct-limit must be >= 0"
+  exit 1
+end
+
+if options[:threads]&.negative?
+  warn "--threads must be >= 0"
   exit 1
 end
 
@@ -85,7 +96,7 @@ end
 
 total_reads = 0
 
-HTS::Bam.open(input) do |bam|
+HTS::Bam.open(input, threads: options[:threads]) do |bam|
   bam.each do |record|
     total_reads += 1
 
