@@ -2,7 +2,8 @@
 
 require "json"
 require "optparse"
-require "set"
+
+$LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
 require "htslib"
 
 options = {
@@ -100,7 +101,7 @@ HTS::Bam.open(input, threads: options[:threads]) do |bam|
   bam.each do |record|
     total_reads += 1
 
-    record.aux.each do |tag, type, value|
+    record.aux.each_with_type do |tag, type, value|
       stat = stats[[tag, type]]
       stat[:reads] += 1
 

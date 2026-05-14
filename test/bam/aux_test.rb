@@ -26,7 +26,7 @@ class BamAuxTest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal [%w[MC Z 70M], ["AS", "C", 0], ["XS", "C", 0]], @aux.to_a
+    assert_equal [%w[MC 70M], ["AS", 0], ["XS", 0]], @aux.to_a
   end
 
   def test_each_value
@@ -39,13 +39,21 @@ class BamAuxTest < Minitest::Test
 
   def test_each_pair
     assert_equal [
-      %w[MC Z 70M],
-      ["AS", "C", 0],
-      ["XS", "C", 0]
+      %w[MC 70M],
+      ["AS", 0],
+      ["XS", 0]
     ], @aux.each_pair.to_a
   end
 
-  def test_each_pair_with_exact_types
+  def test_each_with_type
+    assert_equal [
+      %w[MC Z 70M],
+      ["AS", "C", 0],
+      ["XS", "C", 0]
+    ], @aux.each_with_type.to_a
+  end
+
+  def test_each_with_type_with_exact_types
     bam = HTS::Bam.new(Fixtures["moo.bam"])
     record = bam.first
     aux = record.aux
@@ -57,7 +65,7 @@ class BamAuxTest < Minitest::Test
     aux.update_double("YD", 6.25)
     aux.update_array("ZC", [1, 2, 255], type: "C")
 
-    typed = aux.each_pair.each_with_object({}) do |(tag, type, value), hash|
+    typed = aux.each_with_type.each_with_object({}) do |(tag, type, value), hash|
       hash[tag] = [value, type]
     end
 

@@ -248,12 +248,32 @@ module HTS
         end
       end
 
+      # Iterate auxiliary tags as key-value pairs.
+      #
+      # @yieldparam tag [String] 2-byte AUX tag name
+      # @yieldparam value [Object] Ruby representation of the AUX value
+      def each
+        return enum_for(__method__) unless block_given?
+
+        aux_ptr = first_pointer
+        return nil if aux_ptr.null?
+
+        loop do
+          tag = FFI::Pointer.new(aux_ptr.address - 2).read_string(2)
+          yield tag, get_ruby_aux(aux_ptr)
+          aux_ptr = LibHTS.bam_aux_next(@record.struct, aux_ptr)
+          break if aux_ptr.null?
+        end
+      end
+
+      alias each_pair each
+
       # Iterate auxiliary tags with their SAM/BAM type.
       #
       # @yieldparam tag [String] 2-byte AUX tag name
       # @yieldparam type [String] AUX type, e.g. "i", "Z", or "B:C"
       # @yieldparam value [Object] Ruby representation of the AUX value
-      def each
+      def each_with_type
         return enum_for(__method__) unless block_given?
 
         aux_ptr = first_pointer
@@ -266,8 +286,6 @@ module HTS
           break if aux_ptr.null?
         end
       end
-
-      alias each_pair each
 
       def to_h
         h = {}
