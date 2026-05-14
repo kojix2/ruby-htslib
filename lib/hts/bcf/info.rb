@@ -264,9 +264,21 @@ module HTS
       # @param key [String] INFO tag name
       # @return [Boolean] true if the field exists
       def key?(key)
-        # Use get() to check if value is actually present
-        # (get_info_type only checks header, not actual value)
-        !get(key).nil?
+        type = header_info_type(key)
+        return false if type.nil?
+
+        ndst = FFI::MemoryPointer.new(:int)
+        ndst.write_int(0)
+        dst_ptr = FFI::MemoryPointer.new(:pointer)
+        dst_ptr.write_pointer(FFI::Pointer::NULL)
+
+        ret = LibHTS.bcf_get_info_values(@record.header.struct, @record.struct, key, dst_ptr, ndst, type)
+        type == LibHTS::BCF_HT_FLAG ? ret == 1 : ret >= 0
+      ensure
+        if dst_ptr
+          dst = dst_ptr.read_pointer
+          LibHTS.hts_free(dst) unless dst.null?
+        end
       end
 
       alias include? key?
@@ -316,16 +328,24 @@ module HTS
       end
 
       def get_info_type(key)
-        @record.struct[:n_info].times do |i|
-          info = LibHTS::BcfInfo.new(@record.struct[:d][:info] + i * LibHTS::BcfInfo.size)
-          k = info[:key]
-          id = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, k)
-          if id == key
-            type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, k)
-            return type
-          end
-        end
-        nil
+        k = record_info_key(key)
+        return nil if k.nil?
+
+        LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, k)
+      end
+
+      def header_info_type(key)
+        id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
+        return nil if id.negative?
+
+        LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, id)
+      end
+
+      def record_info_key(key)
+        info = LibHTS.bcf_get_info(@record.header.struct, @record.struct, key)
+        return nil if info.to_ptr.null?
+
+        info[:key]
       end
 
       def ht_type_to_sym(t)

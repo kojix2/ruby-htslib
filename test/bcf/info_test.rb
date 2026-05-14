@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "tempfile"
 require_relative "../test_helper"
 
 class BcfInfoTest < Minitest::Test
@@ -15,6 +16,24 @@ class BcfInfoTest < Minitest::Test
 
   def teardown
     @bcf.close
+  end
+
+  def with_temp_info_presence_vcf
+    Tempfile.create(["info_presence", ".vcf"]) do |file|
+      file.write <<~VCF
+        ##fileformat=VCFv4.3
+        ##contig=<ID=1,length=100>
+        ##INFO=<ID=MI,Number=1,Type=Integer,Description="Present missing integer">
+        ##INFO=<ID=ABS,Number=1,Type=Integer,Description="Defined but absent">
+        ##INFO=<ID=FL,Number=0,Type=Flag,Description="Present flag">
+        ##INFO=<ID=NOFL,Number=0,Type=Flag,Description="Defined absent flag">
+        #CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO
+        1\t10\t.\tA\tC\t.\tPASS\tMI=.;FL
+      VCF
+      file.flush
+
+      yield file.path
+    end
   end
 
   def test_get_with_type
@@ -64,6 +83,21 @@ class BcfInfoTest < Minitest::Test
     assert_nil @info.get_flag("UNKNOWN")
     assert_nil @info.get("UNKNOWN", :str)
     assert_nil @info.get_string("UNKNOWN")
+  end
+
+  def test_key_checks_record_presence_not_decoded_value
+    with_temp_info_presence_vcf do |path|
+      HTS::Bcf.open(path) do |bcf|
+        info = bcf.first.info
+
+        assert_equal true, info.key?("MI")
+        assert_equal true, info.include?("FL")
+        assert_equal false, info.key?("ABS")
+        assert_equal false, info.key?("NOFL")
+        assert_nil info.get("ABS")
+        assert_nil info.get("NOFL")
+      end
+    end
   end
 
   def test_fields
