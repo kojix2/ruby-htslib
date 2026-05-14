@@ -235,7 +235,31 @@ correspondence between C structures and Ruby's Aux class.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each-instance_method" title="#each (instance method)">#<strong>each</strong>  &#x21d2; Object </a>
+      <a href="#each-instance_method" title="#each (instance method)">#<strong>each</strong> {|tag, type, value| ... } &#x21d2; Object </a>
+    
+
+    
+      (also: #each_pair)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Iterate auxiliary tags with their SAM/BAM type.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_value-instance_method" title="#each_value (instance method)">#<strong>each_value</strong>  &#x21d2; Object </a>
     
 
     
@@ -1033,7 +1057,116 @@ For compatibility with HTS.cr.</p>
       <div class="method_details ">
   <h3 class="signature " id="each-instance_method">
   
-    #<strong>each</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>each</strong> {|tag, type, value| ... } &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='each_pair-instance_method'>each_pair</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Iterate auxiliary tags with their SAM/BAM type.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>tag</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>2-byte AUX tag name</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>AUX type, e.g. &quot;i&quot;, &quot;Z&quot;, or &quot;B:C&quot;</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Ruby representation of the AUX value</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 256</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_first_pointer'>first_pointer</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_tag'>tag</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_address'>address</span> <span class='op'>-</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_aux_type'>aux_type</span><span class='lparen'>(</span><span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_get_ruby_aux'>get_ruby_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_next'><span class='object_link'><a href="../LibHTS.html#bam_aux_next-class_method" title="HTS::LibHTS.bam_aux_next (method)">bam_aux_next</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='rparen'>)</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_value-instance_method">
+  
+    #<strong>each_value</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1061,7 +1194,7 @@ For compatibility with HTS.cr.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 238</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_value'>each_value</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_first_pointer'>first_pointer</span>
@@ -1379,22 +1512,22 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263</pre>
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 272</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -2189,7 +2322,7 @@ For compatibility with HTS.cr.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 14 04:59:48 2026 by
+  Generated on Thu May 14 05:27:45 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.43 (ruby-4.0.4).
 </div>
