@@ -269,30 +269,30 @@ module HTS
       end
 
       def validate_tag!(key)
-        unless key.is_a?(String) && key.bytesize == 2 && key.ascii_only?
-          raise ArgumentError, "AUX tag must be a 2-byte ASCII String"
-        end
+        return if key.is_a?(String) && key.bytesize == 2 && key.ascii_only?
+
+        raise ArgumentError, "AUX tag must be a 2-byte ASCII String"
       end
 
       def validate_string_value!(string)
-        unless string.ascii_only? && /\A[ -~]*\z/.match?(string)
-          raise ArgumentError, "String AUX tags must contain only printable ASCII characters"
-        end
+        return if string.ascii_only? && /\A[ -~]*\z/.match?(string)
+
+        raise ArgumentError, "String AUX tags must contain only printable ASCII characters"
       end
 
       def validate_char_value!(string)
-        unless string.bytesize == 1 && string.ascii_only? && /\A[!-~]\z/.match?(string)
-          raise ArgumentError, "Character AUX tags must be a single printable ASCII byte"
-        end
+        return if string.bytesize == 1 && string.ascii_only? && /\A[!-~]\z/.match?(string)
+
+        raise ArgumentError, "Character AUX tags must be a single printable ASCII byte"
       end
 
       def validate_hex_value!(string)
         raise ArgumentError, "Hex AUX tags must contain an even number of characters" if string.bytesize.odd?
 
-        unless string.ascii_only? && /\A[0-9A-Fa-f]*\z/.match?(string)
-          raise ArgumentError,
-                "Hex AUX tags must contain only ASCII hexadecimal characters"
-        end
+        return if string.ascii_only? && /\A[0-9A-Fa-f]*\z/.match?(string)
+
+        raise ArgumentError,
+              "Hex AUX tags must contain only ASCII hexadecimal characters"
       end
 
       def update_exact_integer(key, value, type, min, max)

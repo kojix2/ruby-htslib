@@ -335,6 +335,7 @@ module HTS
       def header_info_type(key)
         id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
         return nil if id.negative?
+        return nil unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_INFO, id)
 
         LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, id)
       end
