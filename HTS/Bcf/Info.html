@@ -638,12 +638,12 @@
       <pre class="lines">
 
 
-94
 95
-96</pre>
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -716,7 +716,6 @@
       <pre class="lines">
 
 
-106
 107
 108
 109
@@ -751,10 +750,11 @@
 138
 139
 140
-141</pre>
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
@@ -855,7 +855,6 @@
       <pre class="lines">
 
 
-244
 245
 246
 247
@@ -872,15 +871,16 @@
 258
 259
 260
-261</pre>
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 245</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='comment'># Try to get current type to check existence
-</span>  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_get_info_type'>get_info_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_get_info_type'>get_info_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 
   <span class='comment'># Delete by setting n=0
 </span>  <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_info'><span class='object_link'><a href="../LibHTS.html#bcf_update_info-class_method" title="HTS::LibHTS.bcf_update_info (method)">bcf_update_info</a></span></span><span class='lparen'>(</span>
@@ -924,7 +924,6 @@
       <pre class="lines">
 
 
-287
 288
 289
 290
@@ -936,10 +935,11 @@
 296
 297
 298
-299</pre>
+299
+300</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 287</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 288</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span>
   <span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1043,7 +1043,8 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
 64
 65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 16</span>
@@ -1074,6 +1075,7 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_type'>type</span> <span class='op'>||=</span> <span class='id identifier rubyid_actual_type'>actual_type</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_actual_type'>actual_type</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 
   <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>when</span> <span class='symbol'>:int</span><span class='comma'>,</span> <span class='symbol'>:int32</span>
@@ -1129,12 +1131,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-90
 91
-92</pre>
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_flag'>get_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:flag</span><span class='rparen'>)</span>
@@ -1168,12 +1170,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_float'>get_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:float</span><span class='rparen'>)</span>
@@ -1207,12 +1209,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_int'>get_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:int</span><span class='rparen'>)</span>
@@ -1246,12 +1248,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-80
 81
-82</pre>
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_int64'>get_int64</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:int64</span><span class='rparen'>)</span>
@@ -1285,12 +1287,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_string'>get_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='rparen'>)</span>
@@ -1362,7 +1364,6 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-266
 267
 268
 269
@@ -1378,10 +1379,11 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
 279
 280
 281
-282</pre>
+282
+283</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 266</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_header_info_type'>header_info_type</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1420,12 +1422,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-301
 302
-303</pre>
+303
+304</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 302</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:n_info</span><span class='rbracket'>]</span>
@@ -1450,12 +1452,12 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-305
 306
-307</pre>
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 306</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='id identifier rubyid_length'>length</span>
@@ -1480,17 +1482,17 @@ I think they are better than <code>fetch_int`` and </code>fetch_float`.</p>
       <pre class="lines">
 
 
-309
 310
 311
 312
 313
 314
 315
-316</pre>
+316
+317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 309</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 310</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1577,7 +1579,6 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-215
 216
 217
 218
@@ -1601,10 +1602,11 @@ For compatibility with HTS.cr.</p>
 236
 237
 238
-239</pre>
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 216</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_flag'>update_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_present'>present</span>
@@ -1706,7 +1708,6 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-176
 177
 178
 179
@@ -1721,10 +1722,11 @@ For compatibility with HTS.cr.</p>
 188
 189
 190
-191</pre>
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_f</span><span class='rparen'>)</span>
@@ -1817,7 +1819,6 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-147
 148
 149
 150
@@ -1832,10 +1833,11 @@ For compatibility with HTS.cr.</p>
 159
 160
 161
-162</pre>
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1933,12 +1935,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-168
 169
-170</pre>
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int64'>update_int64</span><span class='lparen'>(</span><span class='id identifier rubyid__key'>_key</span><span class='comma'>,</span> <span class='id identifier rubyid__values'>_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="UnsupportedInfoOperationError.html" title="HTS::Bcf::UnsupportedInfoOperationError (class)">UnsupportedInfoOperationError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib backend does not implement int64 INFO update (BCF_HT_LONG)</span><span class='tstring_end'>&quot;</span></span>
@@ -2018,7 +2020,6 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-197
 198
 199
 200
@@ -2030,10 +2031,11 @@ For compatibility with HTS.cr.</p>
 206
 207
 208
-209</pre>
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 198</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_string'>update_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_update_info'><span class='object_link'><a href="../LibHTS.html#bcf_update_info-class_method" title="HTS::LibHTS.bcf_update_info (method)">bcf_update_info</a></span></span><span class='lparen'>(</span>
@@ -2058,7 +2060,7 @@ For compatibility with HTS.cr.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 14 00:28:00 2026 by
+  Generated on Thu May 14 00:30:51 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.43 (ruby-4.0.4).
 </div>
