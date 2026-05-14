@@ -407,13 +407,14 @@ module HTS
       bcf1 = LibHTS.bcf_init
       record = Record.new(header, bcf1)
       begin
-        while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line) > 0
+        while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line)) >= 0
           raise QueryError, "Failed to parse VCF record in #{@file_name}" if LibHTS.vcf_parse(line, read_header,
                                                                                               bcf1) < 0
 
           apply_subset!(record)
           yield record
         end
+        raise if slen < -1
       ensure
         line.free_buffer
         LibHTS.hts_itr_destroy(qiter)
@@ -439,7 +440,7 @@ module HTS
     def query_copy_yield_vcf(qiter)
       line = LibHTS::KString.new
       begin
-        while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line) > 0
+        while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line)) >= 0
           bcf1 = LibHTS.bcf_init
           raise QueryError, "Failed to parse VCF record in #{@file_name}" if LibHTS.vcf_parse(line, read_header,
                                                                                               bcf1) < 0
@@ -448,6 +449,7 @@ module HTS
           apply_subset!(record)
           yield record
         end
+        raise if slen < -1
       ensure
         line.free_buffer
         LibHTS.hts_itr_destroy(qiter)

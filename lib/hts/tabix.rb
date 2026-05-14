@@ -145,7 +145,10 @@ module HTS
     def query_yield(qiter)
       r = LibHTS::KString.new
       begin
-        yield r.read_string_copy.split("\t") while LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r) > 0
+        while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r)) >= 0
+          yield r.read_string_copy.split("\t")
+        end
+        raise if slen < -1
       ensure
         r.free_buffer
         LibHTS.hts_itr_destroy(qiter)

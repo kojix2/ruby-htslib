@@ -375,7 +375,10 @@ module HTS
       bam1 = LibHTS.bam_init1
       record = Record.new(header, bam1)
       begin
-        yield record while LibHTS.sam_itr_next(@hts_file, qiter, bam1) > 0
+        while (slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)) >= 0
+          yield record
+        end
+        raise if slen < -1
       ensure
         LibHTS.hts_itr_destroy(qiter)
       end
