@@ -37,12 +37,14 @@ module HTS
         return if params.all? { |x| x.nil? }
 
         if params.all?
-          c = FFI::MemoryPointer.new(:pointer)
-          m = FFI::MemoryPointer.new(:size_t)
-          LibHTS.sam_parse_cigar(cigar, FFI::Pointer::NULL, c, m)
-          cigar_array = c.read_pointer.read_array_of_uint32(m.read(:size_t))
-          cigar_pointer = FFI::MemoryPointer.new(:uint32, cigar_array.length)
-          cigar_pointer.write_array_of_uint32(cigar_array)
+          cigar_array = Cigar.parse(cigar).array
+          cigar_pointer = if cigar_array.empty?
+                            FFI::Pointer::NULL
+                          else
+                            FFI::MemoryPointer.new(:uint32, cigar_array.length).tap do |pointer|
+                              pointer.write_array_of_uint32(cigar_array)
+                            end
+                          end
           if qual.is_a?(Array)
             qual = qual.pack("C*")
           elsif qual.is_a?(String)

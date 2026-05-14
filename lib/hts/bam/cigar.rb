@@ -15,11 +15,19 @@ module HTS
       def self.parse(str)
         c = FFI::MemoryPointer.new(:pointer)
         m = FFI::MemoryPointer.new(:size_t)
-        LibHTS.sam_parse_cigar(str, FFI::Pointer::NULL, c, m)
-        cigar_array = c.read_pointer.read_array_of_uint32(m.read(:size_t))
+        c.write_pointer(FFI::Pointer::NULL)
+        m.write(:size_t, 0)
+        ptr = nil
+        n_cigar = LibHTS.sam_parse_cigar(str, FFI::Pointer::NULL, c, m)
+        raise "sam_parse_cigar failed: #{n_cigar}" if n_cigar.negative?
+
+        ptr = c.read_pointer
+        cigar_array = ptr.null? ? [] : ptr.read_array_of_uint32(n_cigar)
         obj = new
         obj.array = cigar_array
         obj
+      ensure
+        LibHTS.hts_free(ptr) if ptr && !ptr.null?
       end
 
       def initialize(record = nil)

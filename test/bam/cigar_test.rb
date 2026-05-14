@@ -28,6 +28,13 @@ class BamCigarTest < Minitest::Test
     end
   end
 
+  def test_parse_empty_cigar
+    cigar = HTS::Bam::Cigar.parse("*")
+
+    assert_equal [], cigar.to_a
+    assert_equal "", cigar.to_s
+  end
+
   def test_qlen
     assert_equal 0, @cgr1.qlen
     assert_equal 10, @cgr2.qlen
