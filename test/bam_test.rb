@@ -334,8 +334,13 @@ class BamTest < Minitest::Test
   end
 
   def test_build_index
-    bam("bam_string").build_index("test_bam_index_file", verbose: false)
-    File.unlink("test_bam_index_file") if File.exist?("test_bam_index_file")
+    Dir.mktmpdir do |dir|
+      index_path = File.join(dir, "moo.bam.bai")
+
+      bam("bam_string").build_index(index_path, verbose: false)
+
+      assert_equal true, File.exist?(index_path)
+    end
   end
 
   def test_class_build_index_with_explicit_index_name

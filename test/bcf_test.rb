@@ -227,7 +227,7 @@ class BcfTest < Minitest::Test
   end
 
   def test_query_vcf_gz_with_tabix_index
-    bcf = HTS::Bcf.open(Fixtures["test.vcf.gz"])
+    bcf = silence_stderr { HTS::Bcf.open(Fixtures["test.vcf.gz"]) }
 
     assert_equal "vcf", bcf.file_format
     assert bcf.index_loaded?
@@ -246,9 +246,17 @@ class BcfTest < Minitest::Test
   end
 
   def test_build_index
-    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
-    bcf.build_index("test_bcf_index_file", verbose: false)
-    File.unlink("test_bcf_index_file") if File.exist?("test_bcf_index_file")
+    Dir.mktmpdir do |dir|
+      index_path = File.join(dir, "test.bcf.csi")
+
+      silence_stderr do
+        HTS::Bcf.open(Fixtures["test.bcf"]) do |bcf|
+          bcf.build_index(index_path, verbose: false)
+        end
+      end
+
+      assert_equal true, File.exist?(index_path)
+    end
   end
 
   # INFO field writing tests
