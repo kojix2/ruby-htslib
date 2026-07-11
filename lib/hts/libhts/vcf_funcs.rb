@@ -314,13 +314,14 @@ module HTS
         hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @ffi_functions[:hts_itr_query], @ffi_functions[:bcf_readrec])
       end
 
+      # Ruby implementation of htslib's static inline bcf_itr_next().
       def bcf_itr_next(htsfp, itr, r)
         return -2 unless htsfp[:is_bgzf] == 1
 
         if itr[:multi] == 1
           hts_itr_multi_next(htsfp, itr, r)
         else
-          hts_itr_next(htsfp[:fp][:bgzf], itr, r, nil)
+          hts_itr_next(htsfp[:fp][:bgzf], itr, r, FFI::Pointer::NULL)
         end
       end
 
