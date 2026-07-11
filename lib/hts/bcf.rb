@@ -322,7 +322,7 @@ module HTS
       record = Record.new(header, bcf1)
       begin
         loop do
-          slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
+          slen = LibHTS.bcf_itr_next(@hts_file, qiter, bcf1)
           break if slen == -1
           raise if slen < -1
 
@@ -371,7 +371,7 @@ module HTS
       bcf1 = LibHTS.bcf_init
       record = Record.new(header, bcf1)
       loop do
-        slen = LibHTS.hts_itr_next(@hts_file[:fp][:bgzf], qiter, bcf1, ::FFI::Pointer::NULL)
+        slen = LibHTS.bcf_itr_next(@hts_file, qiter, bcf1)
         break if slen == -1
         raise if slen < -1
 

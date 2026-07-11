@@ -82,4 +82,51 @@ class HTSTest < Minitest::Test
 
     assert called
   end
+
+  def test_bcf_itr_next_uses_bgzf_pointer_for_single_region_iterator
+    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
+    bgzf = HTS::LibHTS::BGZF.new(FFI::MemoryPointer.new(HTS::LibHTS::BGZF.size))
+    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
+    record = FFI::MemoryPointer.new(:char, 1)
+    captured_bgzf = nil
+
+    htsfp[:is_bgzf] = 1
+    htsfp[:fp][:bgzf] = bgzf
+    itr[:multi] = 0
+    with_libhts_singleton_method(:hts_itr_next, lambda { |fp, _itr, _record, _data|
+      captured_bgzf = fp
+      0
+    }) do
+      assert_equal 0, HTS::LibHTS.bcf_itr_next(htsfp, itr, record)
+    end
+
+    assert_equal bgzf.to_ptr.address, captured_bgzf.to_ptr.address
+  end
+
+  def test_bcf_itr_next_uses_multi_iterator_entrypoint
+    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
+    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
+    record = FFI::MemoryPointer.new(:char, 1)
+    called = false
+
+    htsfp[:is_bgzf] = 1
+    itr[:multi] = 1
+    with_libhts_singleton_method(:hts_itr_multi_next, lambda { |_htsfp, _itr, _record|
+      called = true
+      0
+    }) do
+      assert_equal 0, HTS::LibHTS.bcf_itr_next(htsfp, itr, record)
+    end
+
+    assert called
+  end
+
+  def test_bcf_itr_next_returns_error_for_non_bgzf_file
+    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
+    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
+    record = FFI::MemoryPointer.new(:char, 1)
+
+    htsfp[:is_bgzf] = 0
+    assert_equal(-2, HTS::LibHTS.bcf_itr_next(htsfp, itr, record))
+  end
 end

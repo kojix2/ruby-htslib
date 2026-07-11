@@ -309,7 +309,19 @@ module HTS
       end
 
       def bcf_itr_querys(idx, hdr, s)
+        return bcf_itr_querys1(idx, hdr, s) if respond_to?(:bcf_itr_querys1)
+
         hts_itr_querys(idx, s, @@bcf_hdr_name2id, hdr, @ffi_functions[:hts_itr_query], @ffi_functions[:bcf_readrec])
+      end
+
+      def bcf_itr_next(htsfp, itr, r)
+        return -2 unless htsfp[:is_bgzf] == 1
+
+        if itr[:multi] == 1
+          hts_itr_multi_next(htsfp, itr, r)
+        else
+          hts_itr_next(htsfp[:fp][:bgzf], itr, r, nil)
+        end
       end
 
       # Load a BCF index
