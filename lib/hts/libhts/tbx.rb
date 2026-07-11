@@ -14,6 +14,21 @@ module HTS
       [Tbx, :string],
       :int
 
+    attach_function \
+      :tbx_itr_querys1,
+      [Tbx, :string],
+      HtsItr.by_ref
+
+    attach_function \
+      :tbx_itr_regarray,
+      [Tbx, :pointer, :uint],
+      HtsItr.by_ref
+
+    attach_function \
+      :tbx_itr_next1,
+      [HtsFile, Tbx, HtsItr, :pointer],
+      :int
+
     # Internal helper function used by tbx_itr_next()
     attach_function \
       :hts_get_bgzfp,

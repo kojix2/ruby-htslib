@@ -145,6 +145,16 @@ module HTS
       [BGZF, :pointer, :pointer, :pointer, :hts_pos_t, :hts_pos_t],
       :int
 
+    attach_function \
+      :bcf_itr_querys1,
+      [HtsIdx, BcfHdr, :string],
+      HtsItr.by_ref
+
+    attach_function \
+      :bcf_itr_regarray,
+      [HtsIdx, BcfHdr, :pointer, :uint],
+      HtsItr.by_ref
+
     # Write a line to a VCF file
     attach_function \
       :vcf_write_line,

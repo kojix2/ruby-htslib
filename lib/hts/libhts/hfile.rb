@@ -64,6 +64,18 @@ module HTS
       [:string, :int, HFile],
       :string
 
+    # Read a line from a stream and append it to a kstring
+    attach_function \
+      :khgetline,
+      [KString, HFile],
+      :int
+
+    # Convenience function to call kgetline with a FILE *
+    attach_function \
+      :kfgetline,
+      [KString, :pointer],
+      :int
+
     # Peek at characters to be read without removing them from buffers
     attach_function \
       :hpeek,
