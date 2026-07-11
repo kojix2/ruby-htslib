@@ -16,11 +16,15 @@ module HTS
       end
 
       def tbx_itr_querys(tbx, s)
+        return tbx_itr_querys1(tbx, s) if respond_to?(:tbx_itr_querys1)
+
         hts_itr_querys(tbx[:idx], s, @@tbx_name2id, tbx, @ffi_functions[:hts_itr_query],
                        @ffi_functions[:tbx_readrec])
       end
 
       def tbx_itr_next(htsfp, tbx, itr, r)
+        return tbx_itr_next1(htsfp, tbx, itr, r) if respond_to?(:tbx_itr_next1)
+
         hts_itr_next(hts_get_bgzfp(htsfp), itr, r, tbx)
       end
 
