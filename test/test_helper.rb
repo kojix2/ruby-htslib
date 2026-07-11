@@ -12,3 +12,15 @@ class Fixtures
     File.expand_path("fixtures/#{file_path}", __dir__)
   end
 end
+
+class Minitest::Test
+  def silence_stderr
+    stderr = $stderr.dup
+    $stderr.reopen(File::NULL)
+    yield
+  ensure
+    $stderr.flush
+    $stderr.reopen(stderr) if stderr
+    stderr&.close
+  end
+end

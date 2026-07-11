@@ -17,9 +17,13 @@ class BcfHeaderTest < Minitest::Test
   end
 
   def test_initialize_with_block
-    assert_instance_of HTS::Bcf::Header, HTS::Bcf::Header.new do |h|
-      assert_instance_of HTS::Bcf::Header, h
+    yielded = nil
+    header = HTS::Bcf::Header.new do |h|
+      yielded = h
     end
+
+    assert_instance_of HTS::Bcf::Header, header
+    assert_same header, yielded
   end
 
   def test_get_version

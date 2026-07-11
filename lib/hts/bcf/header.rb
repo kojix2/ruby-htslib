@@ -104,7 +104,6 @@ module HTS
         subset_samples = normalize_subset_samples(samples)
         validate_subset_samples!(subset_samples)
 
-        nil
         imap_pointer = nil
         if subset_samples.empty?
           subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, 0, ::FFI::Pointer::NULL, ::FFI::Pointer::NULL)

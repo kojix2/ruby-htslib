@@ -12,7 +12,7 @@ class BcfTest < Minitest::Test
   end
 
   def setup
-    @bcf = HTS::Bcf.new(test_bcf_path)
+    @bcf = silence_stderr { HTS::Bcf.new(test_bcf_path) }
   end
 
   def teardown
@@ -130,11 +130,9 @@ class BcfTest < Minitest::Test
   end
 
   def test_initialize_no_file_bcf
-    stderr_old = $stderr.dup
-    $stderr.reopen(File::NULL)
-    assert_raises(HTS::Bcf::OpenError) { HTS::Bcf.new("/tmp/no_such_file") }
-    $stderr.flush
-    $stderr.reopen(stderr_old)
+    silence_stderr do
+      assert_raises(HTS::Bcf::OpenError) { HTS::Bcf.new("/tmp/no_such_file") }
+    end
   end
 
   def test_initialize_with_subset
@@ -148,7 +146,9 @@ class BcfTest < Minitest::Test
   end
 
   def test_query_requires_index
-    bcf = HTS::Bcf.new(Fixtures["test.bcf"], index: "/tmp/no_such_test_bcf_index.csi")
+    bcf = silence_stderr do
+      HTS::Bcf.new(Fixtures["test.bcf"], index: "/tmp/no_such_test_bcf_index.csi")
+    end
 
     error = assert_raises(HTS::Bcf::MissingIndexError) do
       bcf.query("poo:4000-4100").first
@@ -160,10 +160,12 @@ class BcfTest < Minitest::Test
   end
 
   def test_query_invalid_region_raises_query_error
-    bcf = HTS::Bcf.open(Fixtures["test.bcf"])
+    bcf = silence_stderr { HTS::Bcf.open(Fixtures["test.bcf"]) }
 
-    error = assert_raises(HTS::Bcf::QueryError) do
-      bcf.query("unknown:1-10").first
+    error = silence_stderr do
+      assert_raises(HTS::Bcf::QueryError) do
+        bcf.query("unknown:1-10").first
+      end
     end
 
     assert_match(/unknown:1-10/, error.message)
@@ -245,7 +247,7 @@ class BcfTest < Minitest::Test
 
   def test_build_index
     bcf = HTS::Bcf.open(Fixtures["test.bcf"])
-    bcf.build_index("test_bcf_index_file")
+    bcf.build_index("test_bcf_index_file", verbose: false)
     File.unlink("test_bcf_index_file") if File.exist?("test_bcf_index_file")
   end
 

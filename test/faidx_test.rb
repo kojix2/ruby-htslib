@@ -15,11 +15,9 @@ class FaidxTest < Minitest::Test
 
   def test_initialize_fai
     assert_instance_of HTS::Faidx, @fasta
-    stderr_old = $stderr.dup
-    $stderr.reopen(File::NULL)
-    assert_raises { HTS::Faidx.new("foo") }
-    $stderr.flush
-    $stderr.reopen(stderr_old)
+    silence_stderr do
+      assert_raises { HTS::Faidx.new("foo") }
+    end
   end
 
   def test_open

@@ -328,15 +328,13 @@ class BamTest < Minitest::Test
   end
 
   def test_initialize_no_file_bam
-    stderr_old = $stderr.dup
-    $stderr.reopen(File::NULL)
-    assert_raises(Errno::ENOENT) { HTS::Bam.new("/tmp/no_such_file") }
-    $stderr.flush
-    $stderr.reopen(stderr_old)
+    silence_stderr do
+      assert_raises(Errno::ENOENT) { HTS::Bam.new("/tmp/no_such_file") }
+    end
   end
 
   def test_build_index
-    bam("bam_string").build_index("test_bam_index_file")
+    bam("bam_string").build_index("test_bam_index_file", verbose: false)
     File.unlink("test_bam_index_file") if File.exist?("test_bam_index_file")
   end
 
