@@ -229,6 +229,28 @@ module HTS
 
       alias each each_position
 
+      # Iterate primitive modification values without Position/Modification
+      # object allocation.
+      def each_raw(max_mods: 10)
+        return enum_for(__method__, max_mods: max_mods) unless block_given?
+
+        parsed? ? parse : ensure_parsed!
+        pos_ptr = FFI::MemoryPointer.new(:int)
+        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
+
+        loop do
+          count = LibHTS.bam_next_basemod(@record.struct, @state, mods_ptr, max_mods, pos_ptr)
+          break if count <= 0
+
+          position = pos_ptr.read_int
+          [count, max_mods].min.times do |index|
+            mod = LibHTS::HtsBaseMod.new(mods_ptr + index * LibHTS::HtsBaseMod.size)
+            yield position, mod[:canonical_base], mod[:modified_base], mod[:strand], mod[:qual]
+          end
+        end
+        self
+      end
+
       # Get list of modification types present in this record
       # @return [Array<Integer>] Array of modification codes (char code or -ChEBI)
       def modification_types

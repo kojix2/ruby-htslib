@@ -21,6 +21,7 @@ module HTS
     class FormatDefinitionError < FormatError; end
     class FormatTypeError < FormatError; end
     class FormatReadError < FormatError; end
+    class InvalidBorrowedViewError < FormatError; end
     class FormatUpdateError < FormatError; end
     class UnsupportedFormatOperationError < FormatError; end
   end

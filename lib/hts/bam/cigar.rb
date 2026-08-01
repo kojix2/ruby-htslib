@@ -51,7 +51,7 @@ module HTS
         @array.each do |c|
           op =  LibHTS.bam_cigar_opchr(c)
           len = LibHTS.bam_cigar_oplen(c)
-          yield [op, len]
+          yield op, len
         end
       end
 

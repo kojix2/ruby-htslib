@@ -51,6 +51,23 @@ module HTS
         get(key, "Z")
       end
 
+      # Iterate a B-array directly from the BAM payload. No Ruby Array is
+      # created; the payload is borrowed from the record and is invalidated by
+      # record mutation or reuse.
+      def each_array(key)
+        return enum_for(__method__, key) unless block_given?
+
+        aux_ptr = LibHTS.bam_aux_get(@record.struct, key)
+        return nil if aux_ptr.null?
+        raise TypeError, "AUX tag #{key} is not a B array" unless aux_ptr.get_uint8(0) == "B".ord
+
+        subtype = aux_ptr.get_uint8(1).chr
+        length = aux_ptr.get_uint32(2)
+        payload = aux_ptr + 6
+        length.times { |index| yield read_array_element(payload, subtype, index) }
+        self
+      end
+
       def [](key)
         get(key)
       end
@@ -436,18 +453,7 @@ module HTS
         when "A" # char
           LibHTS.bam_aux2A(aux_ptr).chr
         when "B" # array
-          t2 = aux_ptr.read_string(2)[1] # just a little less efficient
-          l = LibHTS.bam_auxB_len(aux_ptr)
-          case t2
-          when "c", "C", "s", "S", "i", "I"
-            # FIXME : Not efficient.
-            Array.new(l) { |i| LibHTS.bam_auxB2i(aux_ptr, i) }
-          when "f", "d"
-            # FIXME : Not efficient.
-            Array.new(l) { |i| LibHTS.bam_auxB2f(aux_ptr, i) }
-          else
-            raise NotImplementedError, "type: #{type} #{t2}"
-          end
+          decode_array(aux_ptr)
         else
           raise NotImplementedError, "type: #{type}"
         end
@@ -457,6 +463,38 @@ module HTS
         return if aux_type_compatible?(actual_type, requested_type)
 
         raise TypeError, "AUX type mismatch: requested #{requested_type.inspect}, actual #{actual_type.inspect}"
+      end
+
+      def decode_array(aux_ptr)
+        subtype = aux_ptr.get_uint8(1).chr
+        length = aux_ptr.get_uint32(2)
+        payload = aux_ptr + 6
+
+        case subtype
+        when "c" then payload.get_array_of_int8(0, length)
+        when "C" then payload.get_array_of_uint8(0, length)
+        when "s" then payload.get_array_of_int16(0, length)
+        when "S" then payload.get_array_of_uint16(0, length)
+        when "i" then payload.get_array_of_int32(0, length)
+        when "I" then payload.get_array_of_uint32(0, length)
+        when "f" then payload.get_array_of_float32(0, length)
+        else
+          raise NotImplementedError, "AUX B-array subtype: #{subtype}"
+        end
+      end
+
+      def read_array_element(payload, subtype, index)
+        case subtype
+        when "c" then payload.get_int8(index)
+        when "C" then payload.get_uint8(index)
+        when "s" then payload.get_int16(index * 2)
+        when "S" then payload.get_uint16(index * 2)
+        when "i" then payload.get_int32(index * 4)
+        when "I" then payload.get_uint32(index * 4)
+        when "f" then payload.get_float32(index * 4)
+        else
+          raise NotImplementedError, "AUX B-array subtype: #{subtype}"
+        end
       end
 
       def aux_type_compatible?(actual_type, requested_type)

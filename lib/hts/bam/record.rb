@@ -256,6 +256,30 @@ module HTS
       end
       alias sequence seq
 
+      # Iterate decoded bases without materializing the complete sequence.
+      def each_base
+        return to_enum(__method__) unless block_given?
+
+        sequence_pointer = LibHTS.bam_get_seq(@bam1)
+        len.times { |index| yield SEQ_NT16_STR[LibHTS.bam_seqi(sequence_pointer, index)] }
+        self
+      end
+
+      # Iterate the packed nt16 values (0..15), avoiding one String per base.
+      def each_base_code
+        return to_enum(__method__) unless block_given?
+
+        sequence_pointer = LibHTS.bam_get_seq(@bam1)
+        len.times { |index| yield LibHTS.bam_seqi(sequence_pointer, index) }
+        self
+      end
+
+      # Borrowed pointer to BAM's packed sequence. It is invalidated when the
+      # record is reused, mutated, or destroyed.
+      def packed_sequence
+        LibHTS.bam_get_seq(@bam1)
+      end
+
       # Get the length of the query sequence.
       # @return [Integer] query length
       def len
@@ -272,6 +296,7 @@ module HTS
         r = LibHTS.bam_get_seq(@bam1)
         SEQ_NT16_STR[LibHTS.bam_seqi(r, n)]
       end
+      alias base_at base
 
       # Get the base qualities as raw PHRED bytes.
       # Ruby has no UInt8 type, so this returns an Array<Integer> with values in 0..255,
@@ -287,7 +312,22 @@ module HTS
       # ASCII of base quality + 33.
       # @return [String] base qualities
       def qual_string
-        qual.map { |q| (q + 33).chr }.join
+        q_ptr = LibHTS.bam_get_qual(@bam1)
+        return "" if len.zero?
+        return "*" if q_ptr.get_uint8(0) == 255
+
+        result = String.new(capacity: len, encoding: Encoding::BINARY)
+        len.times { |index| result << (q_ptr.get_uint8(index) + 33) }
+        result
+      end
+
+      # Iterate raw PHRED bytes without creating an intermediate Array.
+      def each_qual
+        return to_enum(__method__) unless block_given?
+
+        q_ptr = LibHTS.bam_get_qual(@bam1)
+        len.times { |index| yield q_ptr.get_uint8(index) }
+        self
       end
 
       # Get the base quality of the requested index "i" of the query sequence.
@@ -300,11 +340,17 @@ module HTS
         q_ptr = LibHTS.bam_get_qual(@bam1)
         q_ptr.get_uint8(n)
       end
+      alias qual_at base_qual
 
       # Get Bam::Flag object of the alignment.
       # @return [Bam::Flag] flag
       def flag
         Flag.new(@bam1[:core][:flag])
+      end
+
+      # Raw integer flag for allocation-free filtering.
+      def flag_value
+        @bam1[:core][:flag]
       end
 
       def flag=(flag)
@@ -322,7 +368,7 @@ module HTS
       # @param [String] key tag name
       # @return [String] value
       def aux(key = nil)
-        aux = Aux.new(self)
+        aux = (@aux_accessor ||= Aux.new(self))
         if key
           aux.get(key)
         else
@@ -337,6 +383,18 @@ module HTS
         BaseMod.new(self, auto_parse: auto_parse)
       end
 
+      def each_base_mod_raw(max_mods: 10, &block)
+        return enum_for(__method__, max_mods: max_mods) unless block
+
+        mods = BaseMod.new(self)
+        begin
+          mods.each_raw(max_mods: max_mods, &block)
+        ensure
+          mods.close
+        end
+        self
+      end
+
       # TODO: add a method to get the auxiliary fields as a hash.
 
       # TODO: add a method to set the auxiliary fields.
@@ -345,11 +403,24 @@ module HTS
 
       # TODO: add a method to set variable length data (qname, cigar, seq, qual).
 
-      # Calling flag is delegated to the Flag object.
-      Flag::TABLE.each_key do |m|
-        define_method(m) do
-          flag.send(m)
+      # Direct bit tests avoid allocating a Flag wrapper in record hot paths.
+      Flag::TABLE.each do |method_name, mask|
+        define_method(method_name) do
+          (@bam1[:core][:flag] & mask) != 0
         end
+      end
+
+
+      # Iterate CIGAR operations as primitive op-code and length values.
+      def each_cigar_raw
+        return to_enum(__method__) unless block_given?
+
+        pointer = LibHTS.bam_get_cigar(@bam1)
+        @bam1[:core][:n_cigar].times do |index|
+          encoded = pointer.get_uint32(index * 4)
+          yield LibHTS.bam_cigar_op(encoded), LibHTS.bam_cigar_oplen(encoded)
+        end
+        self
       end
 
       # @return [String] a string representation of the alignment.
@@ -374,6 +445,7 @@ module HTS
         raise "bam_dup1 failed" if dup_bam1.null?
 
         @bam1 = dup_bam1
+        @aux_accessor = nil
       end
     end
   end

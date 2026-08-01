@@ -73,4 +73,29 @@ class TabixTest < Minitest::Test
       ], r
     end
   end
+
+  def test_each_line
+    line = @bcf.each_line("poo:4020-4022").first
+
+    assert_instance_of String, line
+    assert_equal @bcf.query("poo:4020-4022").first, line.split("\t")
+  end
+
+  def test_each_fields
+    assert_equal @bcf.query("poo:4020-4022").first,
+                 @bcf.each_fields("poo:4020-4022").first
+  end
+
+  def test_each_selected_fields
+    assert_equal ["poo", "4021", "G", "0/1:83,0,77"],
+                 @bcf.each_selected_fields("poo:4020-4022", 0, 1, 3, 9).first
+    assert_equal ["G", "poo", "G"],
+                 @bcf.each_selected_fields("poo:4020-4022", 3, 0, 3).first
+  end
+
+  def test_start_and_end_must_be_provided_together
+    assert_raises(ArgumentError) { @bcf.query("poo", 4020).first }
+    assert_raises(ArgumentError) { @bcf.each_fields("poo", nil, 4022).first }
+    assert_raises(ArgumentError) { @bcf.each_line("poo", 4020).first }
+  end
 end

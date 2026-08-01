@@ -47,6 +47,28 @@ class BamPileupTest < Minitest::Test
     end
   end
 
+  def test_primitive_depth_iterator
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      HTS::Bam::Pileup.open(bam) do |pileup|
+        tid, pos, depth = pileup.each_depth.first
+        assert_kind_of Integer, tid
+        assert_kind_of Integer, pos
+        assert_operator depth, :>, 0
+      end
+    end
+  end
+
+  def test_raw_entry_iterator
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      HTS::Bam::Pileup.open(bam) do |pileup|
+        tid, pos, qpos, flag, base, quality = pileup.each_entry_raw.first
+        [tid, pos, qpos, flag].each { |value| assert_kind_of Integer, value }
+        assert(base.nil? || base.is_a?(Integer))
+        assert(quality.nil? || quality.is_a?(Integer))
+      end
+    end
+  end
+
   def test_pileup_record_persists_beyond_step
     HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
       kept = nil

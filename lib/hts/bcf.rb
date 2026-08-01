@@ -5,6 +5,7 @@ require_relative "../htslib"
 require_relative "hts"
 require_relative "bcf/errors"
 require_relative "bcf/header"
+require_relative "bcf/getter_buffer"
 require_relative "bcf/info"
 require_relative "bcf/format"
 require_relative "bcf/record"
@@ -14,7 +15,7 @@ module HTS
   class Bcf < Hts
     include Enumerable
 
-    attr_reader :file_name, :index_name, :mode, :header, :nthreads
+    attr_reader :file_name, :index_name, :mode, :header, :nthreads, :unpack
 
     def self.open(*args, **kw)
       file = new(*args, **kw) # do not yield
@@ -48,7 +49,7 @@ module HTS
     end
 
     def initialize(file_name, mode = "r", index: nil, threads: nil,
-                   build_index: false, subset: nil)
+                   build_index: false, subset: nil, samples: nil, unpack: :all)
       if block_given?
         message = "HTS::Bcf.new() does not take block; Please use HTS::Bcf.open() instead"
         raise message
@@ -56,6 +57,11 @@ module HTS
 
       # NOTE: Do not check for the existence of local files, since file_names may be remote URIs.
 
+      raise ArgumentError, "specify either samples: or subset:, not both" if samples && subset
+
+      subset = samples unless samples.nil?
+      @unpack = unpack.to_sym
+      @max_unpack = resolve_max_unpack(@unpack)
       @file_name  = file_name
       @index_name = index
       @mode       = mode
@@ -72,6 +78,7 @@ module HTS
 
       @read_header = Bcf::Header.new(@hts_file)
       @header = subset ? @read_header.subset(subset) : @read_header
+      configure_sample_selection!(@header.subset_samples) if subset
       build_index(index) if build_index
       @idx = load_index(index)
       @start_position = tell
@@ -319,6 +326,7 @@ module HTS
 
     def query_reuse_yield(qiter)
       bcf1 = LibHTS.bcf_init
+      prepare_record(bcf1)
       record = Record.new(header, bcf1)
       begin
         loop do
@@ -326,7 +334,7 @@ module HTS
           break if slen == -1
           raise if slen < -1
 
-          apply_subset!(record)
+          apply_subset!(record, indexed: true)
           yield record
         end
       ensure
@@ -369,13 +377,14 @@ module HTS
 
     def query_copy_yield(qiter)
       bcf1 = LibHTS.bcf_init
+      prepare_record(bcf1)
       record = Record.new(header, bcf1)
       loop do
         slen = LibHTS.bcf_itr_next(@hts_file, qiter, bcf1)
         break if slen == -1
         raise if slen < -1
 
-        apply_subset!(record)
+        apply_subset!(record, indexed: true)
         yield record.dup
       end
     ensure
@@ -405,6 +414,7 @@ module HTS
     def query_reuse_yield_vcf(qiter)
       line = LibHTS::KString.new
       bcf1 = LibHTS.bcf_init
+      prepare_record(bcf1)
       record = Record.new(header, bcf1)
       begin
         while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line)) >= 0
@@ -442,6 +452,7 @@ module HTS
       begin
         while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, line)) >= 0
           bcf1 = LibHTS.bcf_init
+          prepare_record(bcf1)
           raise QueryError, "Failed to parse VCF record in #{@file_name}" if LibHTS.vcf_parse(line, read_header,
                                                                                               bcf1) < 0
 
@@ -462,6 +473,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       bcf1 = LibHTS.bcf_init
+      prepare_record(bcf1)
       record = Record.new(header, bcf1)
       while LibHTS.bcf_read(@hts_file, read_header, bcf1) != -1
         apply_subset!(record)
@@ -476,6 +488,7 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       bcf1 = LibHTS.bcf_init
+      prepare_record(bcf1)
       record = Record.new(header, bcf1)
       while LibHTS.bcf_read(@hts_file, read_header, bcf1) != -1
         apply_subset!(record)
@@ -488,13 +501,48 @@ module HTS
       @read_header || header
     end
 
-    def apply_subset!(record)
+    def apply_subset!(record, indexed: false)
       return unless header.subset?
 
-      rc = LibHTS.bcf_subset(header.struct, record.struct, header.subset_sample_count, header.subset_imap_pointer || ::FFI::Pointer::NULL)
+      # bcf_read() and vcf_parse() see the configured header and subset while
+      # parsing. Indexed BCF iteration bypasses the header and needs the
+      # dedicated post-read FORMAT subsetting helper.
+      return if @native_sample_subset && !indexed
+
+      rc = if @native_sample_subset
+             LibHTS.bcf_subset_format(read_header.struct, record.struct)
+           else
+             LibHTS.bcf_subset(
+               header.struct, record.struct, header.subset_sample_count,
+               header.subset_imap_pointer || ::FFI::Pointer::NULL
+             )
+           end
       return if rc >= 0
 
       raise SubsetError, "Failed to subset samples #{header.subset_samples.inspect} while reading #{@file_name}"
+    end
+
+    def configure_sample_selection!(samples)
+      sample_list = samples.empty? ? nil : samples.join(",")
+      rc = LibHTS.bcf_hdr_set_samples(@read_header.struct, sample_list, 0)
+      raise SubsetError, "Failed to configure sample selection #{samples.inspect}" unless rc.zero?
+
+      @native_sample_subset = true
+    end
+
+    def resolve_max_unpack(level)
+      case level
+      when :all, :format then LibHTS::BCF_UN_ALL
+      when :site_only, :info then LibHTS::BCF_UN_INFO
+      when :filter then LibHTS::BCF_UN_FLT
+      when :string, :alleles then LibHTS::BCF_UN_STR
+      else
+        raise ArgumentError, "unknown unpack level: #{level.inspect}"
+      end
+    end
+
+    def prepare_record(record)
+      record[:max_unpack] = @max_unpack
     end
   end
 end

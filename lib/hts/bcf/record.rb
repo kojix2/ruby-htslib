@@ -111,7 +111,7 @@ module HTS
 
       def info(key = nil)
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_SHR)
-        info = Info.new(self)
+        info = (@info_accessor ||= Info.new(self))
         if key
           info.get(key)
         else
@@ -121,10 +121,11 @@ module HTS
 
       def format(key = nil)
         LibHTS.bcf_unpack(@bcf1, LibHTS::BCF_UN_FMT)
+        format = (@format_accessor ||= Format.new(self))
         if key
-          Format.new(self).get(key)
+          format.get(key)
         else
-          Format.new(self)
+          format
         end
       end
 
@@ -144,6 +145,8 @@ module HTS
       def initialize_copy(orig)
         @header = orig.header
         @bcf1 = LibHTS.bcf_dup(orig.struct)
+        @info_accessor = nil
+        @format_accessor = nil
       end
     end
   end

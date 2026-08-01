@@ -35,6 +35,7 @@ module HTS
 
         @sync_depth = 0
         @sync_needed = false
+        @schema_version = 0
         @subset_samples = nil
         @subset_imap = nil
         @subset_imap_pointer = nil
@@ -90,7 +91,7 @@ module HTS
           .map(&:read_string)
       end
 
-      attr_reader :subset_samples, :subset_imap_pointer
+      attr_reader :subset_samples, :subset_imap_pointer, :schema_version
 
       def subset?
         !@subset_imap.nil?
@@ -151,7 +152,9 @@ module HTS
       end
 
       def read_bcf(fname)
-        LibHTS.bcf_hdr_set(@bcf_hdr, fname)
+        result = LibHTS.bcf_hdr_set(@bcf_hdr, fname)
+        @schema_version += 1
+        result
       end
 
       def append(line)
@@ -324,6 +327,7 @@ module HTS
 
       def mark_sync_needed!
         @sync_needed = true
+        @schema_version += 1
       end
 
       def sync_if_needed!
@@ -383,6 +387,7 @@ module HTS
         @bcf_hdr = LibHTS.bcf_hdr_dup(orig.struct)
         @sync_depth = 0
         @sync_needed = false
+        @schema_version = orig.schema_version
         set_subset_state(orig.subset_samples, orig.send(:subset_imap))
       end
 

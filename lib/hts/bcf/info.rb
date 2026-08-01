@@ -6,6 +6,9 @@ module HTS
     class Info
       def initialize(record)
         @record = record
+        @buffers = {}
+        @schema_cache = {}
+        @schema_version = record.header.schema_version
       end
 
       # @note Specify the type. If you don't specify a type, it will still work, but it will be slower.
@@ -14,24 +17,8 @@ module HTS
       # which provides methods like `get_int`, `get_float`, etc.
       # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
-        n = FFI::MemoryPointer.new(:int)
-        p1 = FFI::MemoryPointer.new(:pointer)
-        p1.write_pointer(FFI::Pointer::NULL)
         h = @record.header.struct
         r = @record.struct
-
-        info_values = proc do |typ, reader|
-          ret = LibHTS.bcf_get_info_values(h, r, key, p1, n, typ)
-          return nil if ret < 0 # return from method.
-
-          dst = p1.read_pointer
-          begin
-            reader.call(dst, n.read_int)
-          ensure
-            LibHTS.hts_free(dst) unless dst.null?
-            p1.write_pointer(FFI::Pointer::NULL)
-          end
-        end
 
         actual_type = ht_type_to_sym(get_info_type(key))
         if type && actual_type && !info_type_compatible?(actual_type, type.to_sym)
@@ -39,31 +26,24 @@ module HTS
         end
 
         type ||= actual_type
-        return nil if actual_type && !key?(key)
 
         case type&.to_sym
         when :int, :int32
-          info_values.call(LibHTS::BCF_HT_INT, ->(dst, len) { dst.read_array_of_int32(len) })
+          read_values(h, r, key, LibHTS::BCF_HT_INT) { |dst, count| dst.read_array_of_int32(count) }
         when :int64, :long
-          info_values.call(LibHTS::BCF_HT_LONG, ->(dst, len) { dst.read_array_of_int64(len) })
+          read_values(h, r, key, LibHTS::BCF_HT_LONG) { |dst, count| dst.read_array_of_int64(count) }
         when :float, :real
-          info_values.call(LibHTS::BCF_HT_REAL, ->(dst, len) { dst.read_array_of_float(len) })
+          read_values(h, r, key, LibHTS::BCF_HT_REAL) { |dst, count| dst.read_array_of_float(count) }
         when :flag, :bool
-          begin
-            case ret = LibHTS.bcf_get_info_flag(h, r, key, p1, n)
-            when 1 then true
-            when 0 then false
-            when -1 then nil
-            else
-              raise InfoReadError, "Unknown return value from bcf_get_info_flag: #{ret}"
-            end
-          ensure
-            dst = p1.read_pointer
-            LibHTS.hts_free(dst) unless dst.null?
-            p1.write_pointer(FFI::Pointer::NULL)
+          buffer = buffer_for(LibHTS::BCF_HT_FLAG)
+          case ret = LibHTS.bcf_get_info_flag(h, r, key, buffer.dst_pointer, buffer.capacity_pointer)
+          when 1 then true
+          when 0, -1, -3 then nil
+          else
+            raise InfoReadError, "Unknown return value from bcf_get_info_flag: #{ret}"
           end
         when :string, :str
-          info_values.call(LibHTS::BCF_HT_STR, ->(dst, _len) { dst.read_string })
+          read_values(h, r, key, LibHTS::BCF_HT_STR) { |dst, _count| dst.read_string }
         end
       end
 
@@ -318,6 +298,22 @@ module HTS
 
       private
 
+      def read_values(header, record, key, type)
+        buffer = buffer_for(type)
+        count = LibHTS.bcf_get_info_values(
+          header, record, key, buffer.dst_pointer, buffer.capacity_pointer, type
+        )
+        return nil if count.negative?
+
+        # The return value is the number of values. ndst is allocation capacity
+        # and may be larger after a previous call using this reusable buffer.
+        yield(buffer.pointer, count)
+      end
+
+      def buffer_for(type)
+        @buffers[type] ||= GetterBuffer.new
+      end
+
       def info_ptr
         @record.struct[:d][:info].to_ptr
       end
@@ -333,11 +329,24 @@ module HTS
       end
 
       def header_info_type(key)
-        id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
-        return nil if id.negative?
-        return nil unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_INFO, id)
+        refresh_schema_cache!
+        return @schema_cache[key] if @schema_cache.key?(key)
 
-        LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, id)
+        id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
+        return @schema_cache[key] = nil if id.negative?
+        unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_INFO, id)
+          return @schema_cache[key] = nil
+        end
+
+        @schema_cache[key] = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_INFO, id)
+      end
+
+      def refresh_schema_cache!
+        version = @record.header.schema_version
+        return if version == @schema_version
+
+        @schema_cache.clear
+        @schema_version = version
       end
 
       def ht_type_to_sym(t)

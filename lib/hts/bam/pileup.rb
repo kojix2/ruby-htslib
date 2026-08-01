@@ -135,31 +135,10 @@ module HTS
       def each
         return to_enum(__method__) unless block_given?
 
-        tid_ptr = FFI::MemoryPointer.new(:int)
-        pos_ptr = FFI::MemoryPointer.new(:long_long) # hts_pos_t
-        n_ptr   = FFI::MemoryPointer.new(:int)
-
-        # Micro-optimizations:
-        # - Compute constant struct size once
-        # - Hoist header reference outside the loop
         plp1_size    = HTS::LibHTS::BamPileup1.size
         header_local = @header
 
-        loop do
-          base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, n_ptr)
-
-          # When base_ptr is NULL, check n to distinguish EOF (n == 0) from error (n < 0)
-          if base_ptr.null?
-            n = n_ptr.read_int
-            raise "HTSlib pileup error (bam_plp64_auto)" if n < 0
-
-            break
-          end
-
-          tid = tid_ptr.read_int
-          pos = pos_ptr.read_long_long
-          n   = n_ptr.read_int
-
+        each_raw_column do |base_ptr, tid, pos, n|
           # Construct alignment entries with minimal allocations
           if n.zero?
             alignments = []
@@ -180,6 +159,42 @@ module HTS
         self
       end
 
+      # Yield one primitive depth result per genomic position without creating
+      # PileupColumn or PileupRecord objects.
+      def each_depth
+        return to_enum(__method__) unless block_given?
+
+        each_raw_column { |_base_ptr, tid, pos, depth| yield tid, pos, depth }
+        self
+      end
+
+      # Yield primitive pileup entry values. base is the BAM nt16 integer code,
+      # or nil for deletions/reference skips. No Bam::Record is duplicated.
+      def each_entry_raw
+        return to_enum(__method__) unless block_given?
+
+        entry_size = HTS::LibHTS::BamPileup1.size
+        each_raw_column do |base_ptr, tid, pos, depth|
+          depth.times do |index|
+            entry = HTS::LibHTS::BamPileup1.new(base_ptr + index * entry_size)
+            bam_pointer = entry[:b]
+            bam = HTS::LibHTS::Bam1View.new(bam_pointer)
+            qpos = entry[:qpos]
+            flag = bam[:core][:flag]
+
+            if entry[:is_del] == 1 || entry[:is_refskip] == 1 || qpos.negative?
+              base = nil
+              quality = nil
+            else
+              base = HTS::LibHTS.bam_seqi(HTS::LibHTS.bam_get_seq(bam), qpos)
+              quality = HTS::LibHTS.bam_get_qual(bam).get_uint8(qpos)
+            end
+            yield tid, pos, qpos, flag, base, quality
+          end
+        end
+        self
+      end
+
       def reset
         HTS::LibHTS.bam_plp_reset(@plp) if @plp && !@plp.null?
       end
@@ -195,6 +210,26 @@ module HTS
         end
         # Keep @cb referenced by instance to avoid GC during iteration.
         @cb
+      end
+
+      private
+
+      def each_raw_column
+        tid_ptr = FFI::MemoryPointer.new(:int)
+        pos_ptr = FFI::MemoryPointer.new(:long_long)
+        count_ptr = FFI::MemoryPointer.new(:int)
+
+        loop do
+          base_ptr = HTS::LibHTS.bam_plp64_auto(@plp, tid_ptr, pos_ptr, count_ptr)
+          if base_ptr.null?
+            count = count_ptr.read_int
+            raise "HTSlib pileup error (bam_plp64_auto)" if count.negative?
+
+            break
+          end
+
+          yield base_ptr, tid_ptr.read_int, pos_ptr.read_long_long, count_ptr.read_int
+        end
       end
     end
   end
