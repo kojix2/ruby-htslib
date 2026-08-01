@@ -335,14 +335,14 @@
       <pre class="lines">
 
 
-34
-35
-36
-37
-38</pre>
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_entry'>entry</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
   <span class='ivar'>@entry</span>  <span class='op'>=</span> <span class='id identifier rubyid_entry'>entry</span>
@@ -398,12 +398,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_del?'>del?</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_del</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -450,12 +450,12 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_head?'>head?</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_head</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -480,12 +480,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_indel'>indel</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:indel</span><span class='rbracket'>]</span>
@@ -510,12 +510,12 @@
       <pre class="lines">
 
 
-56
-57
-58</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_position'>query_position</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:qpos</span><span class='rbracket'>]</span>
@@ -552,20 +552,20 @@ NOTE: Without duplication, bam1_t memory may be reused by HTSlib on the next ste
       <pre class="lines">
 
 
-44
-45
-46
-47
 48
 49
 50
 51
 52
 53
-54</pre>
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_record'>record</span>
   <span class='kw'>return</span> <span class='ivar'>@record</span> <span class='kw'>if</span> <span class='ivar'>@record</span>
@@ -620,12 +620,12 @@ NOTE: Without duplication, bam1_t memory may be reused by HTSlib on the next ste
       <pre class="lines">
 
 
-76
-77
-78</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_refskip?'>refskip?</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_refskip</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -672,12 +672,12 @@ NOTE: Without duplication, bam1_t memory may be reused by HTSlib on the next ste
       <pre class="lines">
 
 
-72
-73
-74</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tail?'>tail?</span>
   <span class='ivar'>@entry</span><span class='lbracket'>[</span><span class='symbol'>:is_tail</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -692,7 +692,7 @@ NOTE: Without duplication, bam1_t memory may be reused by HTSlib on the next ste
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:08:53 2026 by
+  Generated on Sat Aug  1 12:25:46 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

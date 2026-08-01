@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: HTS::Native
+  
+    &mdash; Documentation by YARD 0.9.45
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "HTS::Native";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (N)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../HTS.html" title="HTS (module)">HTS</a></span></span>
+     &raquo; 
+    <span class="title">Native</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: HTS::Native
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/hts/native.rb<span class="defines">,<br>
+  ext/htslib_native/htslib_native_ext.c</span>
+
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Optional native batch operations, with portable Ruby fallbacks.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="AVAILABLE-constant" class="">AVAILABLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='id identifier rubyid_native_available'>native_available</span><span class='lparen'>(</span><span class='id identifier rubyid_native'>native</span><span class='rparen'>)</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pileup_base_counts-class_method" title="pileup_base_counts (class method)">.<strong>pileup_base_counts</strong>(address_value, depth_value, min_baseq_value, min_mapq_value, result)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Result layout:   depth, A, C, G, T, N, forward, reverse, deletion, insertion.</p></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="pileup_base_counts-class_method">
+  
+    .<strong>pileup_base_counts</strong>(address_value, depth_value, min_baseq_value, min_mapq_value, result)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Result layout:</p>
+<pre class="code"><code class="">depth, A, C, G, T, N, forward, reverse, deletion, insertion</code></pre>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 32</span>
+
+static VALUE pileup_base_counts(VALUE self, VALUE address_value, VALUE depth_value,
+                                VALUE min_baseq_value, VALUE min_mapq_value,
+                                VALUE result)
+{
+    bam_pileup1_t *entries = (bam_pileup1_t *)(uintptr_t)NUM2ULL(address_value);
+    long depth = NUM2LONG(depth_value);
+    int min_baseq = NUM2INT(min_baseq_value);
+    int min_mapq = NUM2INT(min_mapq_value);
+    long counts[10] = {0};
+    long i;
+
+    Check_Type(result, T_ARRAY);
+    for (i = 0; i &lt; depth; i++) {
+        const bam_pileup1_t *entry = &amp;entries[i];
+        const bam1_t *bam = entry-&gt;b;
+        int qpos = entry-&gt;qpos;
+
+        if (entry-&gt;is_refskip || bam-&gt;core.qual &lt; min_mapq) continue;
+
+        if (entry-&gt;is_del || qpos &lt; 0) {
+            counts[8]++;
+        } else {
+            uint8_t quality = bam_get_qual(bam)[qpos];
+            uint8_t base;
+            if (quality &lt; min_baseq) continue;
+            base = bam_seqi(bam_get_seq(bam), qpos);
+            counts[base_count_index(base)]++;
+        }
+
+        counts[0]++;
+        counts[bam_is_rev(bam) ? 7 : 6]++;
+        if (entry-&gt;indel &gt; 0) counts[9]++;
+    }
+
+    rb_ary_resize(result, 10);
+    for (i = 0; i &lt; 10; i++) rb_ary_store(result, i, LONG2NUM(counts[i]));
+    return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sat Aug  1 12:25:45 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>
