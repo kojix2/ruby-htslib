@@ -1001,7 +1001,8 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 225
 226
 227
-228</pre>
+228
+229</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 211</span>
@@ -1009,20 +1010,21 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 <span class='kw'>def</span> <span class='id identifier rubyid_each_position'>each_position</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='comment'># Reset state at the start of iteration to allow repeated enumerations
-</span>  <span class='id identifier rubyid_parsed?'>parsed?</span> <span class='op'>?</span> <span class='id identifier rubyid_parse'>parse</span> <span class='op'>:</span> <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
-
-  <span class='id identifier rubyid_pos_ptr'>pos_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_next_basemod'><span class='object_link'><a href="../LibHTS.html#bam_next_basemod-class_method" title="HTS::LibHTS.bam_next_basemod (method)">bam_next_basemod</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span>
-                                  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='comma'>,</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='rparen'>)</span>
-    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
-
-    <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
-    <span class='kw'>yield</span> <span class='id identifier rubyid_build_position'>build_position</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_ret'>ret</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_current_position'>current_position</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_modifications'>modifications</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_each_raw'>each_raw</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical'>canonical</span><span class='comma'>,</span> <span class='id identifier rubyid_modified'>modified</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='id identifier rubyid_qual'>qual</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_current_position'>current_position</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_position'>position</span> <span class='op'>!=</span> <span class='id identifier rubyid_current_position'>current_position</span>
+      <span class='kw'>yield</span> <span class='const'><span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BaseMod/Position.html#initialize-instance_method" title="HTS::Bam::BaseMod::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_current_position'>current_position</span><span class='comma'>,</span> <span class='id identifier rubyid_modifications'>modifications</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_modifications'>modifications</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_current_position'>current_position</span> <span class='op'>=</span> <span class='id identifier rubyid_position'>position</span>
+    <span class='id identifier rubyid_modifications'>modifications</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="BaseMod/Modification.html" title="HTS::Bam::BaseMod::Modification (class)">Modification</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BaseMod/Modification.html#initialize-instance_method" title="HTS::Bam::BaseMod::Modification#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>modified_base:</span> <span class='id identifier rubyid_modified'>modified</span><span class='comma'>,</span> <span class='label'>canonical_base:</span> <span class='id identifier rubyid_canonical'>canonical</span><span class='comma'>,</span>
+      <span class='label'>strand:</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='label'>qual:</span> <span class='id identifier rubyid_qual'>qual</span>
+    <span class='rparen'>)</span>
   <span class='kw'>end</span>
+  <span class='kw'>yield</span> <span class='const'><span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BaseMod/Position.html#initialize-instance_method" title="HTS::Bam::BaseMod::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_current_position'>current_position</span><span class='comma'>,</span> <span class='id identifier rubyid_modifications'>modifications</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_current_position'>current_position</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1054,7 +1056,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-234
 235
 236
 237
@@ -1072,10 +1073,11 @@ object allocation.</p>
 249
 250
 251
-252</pre>
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_raw'>each_raw</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1218,12 +1220,12 @@ object allocation.</p>
       <pre class="lines">
 
 
-336
 337
-338</pre>
+338
+339</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 336</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 337</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_to_s'>to_s</span>
@@ -1277,7 +1279,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-256
 257
 258
 259
@@ -1287,10 +1288,11 @@ object allocation.</p>
 263
 264
 265
-266</pre>
+266
+267</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 256</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 257</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_modification_types'>modification_types</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1517,7 +1519,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-273
 274
 275
 276
@@ -1535,10 +1536,11 @@ object allocation.</p>
 288
 289
 290
-291</pre>
+291
+292</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 273</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type'>query_type</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1622,7 +1624,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-296
 297
 298
 299
@@ -1640,10 +1641,11 @@ object allocation.</p>
 311
 312
 313
-314</pre>
+314
+315</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 296</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 297</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type_at'>query_type_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1709,12 +1711,12 @@ object allocation.</p>
       <pre class="lines">
 
 
-318
 319
-320</pre>
+320
+321</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 318</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 319</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
   <span class='id identifier rubyid_each_position'>each_position</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
@@ -1764,7 +1766,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-324
 325
 326
 327
@@ -1772,10 +1773,11 @@ object allocation.</p>
 329
 330
 331
-332</pre>
+332
+333</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 324</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 325</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;HTS::Bam::BaseMod (not parsed)&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@parsed</span>
@@ -1796,7 +1798,7 @@ object allocation.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:25:47 2026 by
+  Generated on Sat Aug  1 12:51:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
