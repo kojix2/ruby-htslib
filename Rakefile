@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
+require "rake/clean"
+require "rake/extensiontask"
 require "rake/testtask"
-require "rbconfig"
+
+CLEAN.include(
+  "coverage",
+  "ext/htslib_native/coverage"
+)
+
+Rake::ExtensionTask.new("htslib_native_ext") do |ext|
+  ext.ext_dir = "ext/htslib_native"
+  ext.lib_dir = "lib"
+end
 
 # Test
 
 task default: "test:local"
 Rake::TestTask.new do |t|
   t.libs << "test"
-  t.libs << "ext/htslib_native"
   t.pattern = "test/**/*_test.rb"
-end
-
-desc "Build the native extension against the system HTSlib"
-task :compile do
-  Dir.chdir("ext/htslib_native") do
-    ruby "extconf.rb"
-    sh RbConfig::CONFIG.fetch("MAKE", "make")
-  end
 end
 
 Rake::Task[:test].enhance([:compile])
@@ -27,12 +29,12 @@ test_loader = 'Dir["test/**/*_test.rb"].sort.each { |path| require File.expand_p
 namespace :test do
   desc "Run tests that use local fixtures"
   task local: :compile do
-    ruby "-Ilib", "-Itest", "-Iext/htslib_native", "-e", test_loader, "--", "--exclude", "/uri/"
+    ruby "-Ilib", "-Itest", "-e", test_loader, "--", "--exclude", "/uri/"
   end
 
   desc "Run remote URI tests"
   task remote: :compile do
-    ruby "-Ilib", "-Itest", "-Iext/htslib_native", "-e", test_loader, "--", "--name", "/uri/"
+    ruby "-Ilib", "-Itest", "-e", test_loader, "--", "--name", "/uri/"
   end
 end
 
