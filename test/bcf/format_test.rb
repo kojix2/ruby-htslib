@@ -211,6 +211,15 @@ class BcfFormatTest < Minitest::Test
     end
   end
 
+  def test_genotype_view_ignores_phase_bit_on_first_allele
+    buffer = HTS::Bcf::Format::BufferState.new(1)
+    values = [HTS::Bcf::Format.gt_phased(0), HTS::Bcf::Format.gt_phased(1)]
+    view = HTS::Bcf::Format::GenotypeView.new.reset(values, buffer, 1)
+
+    assert_equal [[0, false, false], [1, true, false]], view.each_allele.to_a
+    assert_equal "0|1", view.to_s
+  end
+
   def test_low_level_contract
     assert_nil @fmt.get_int("NO_SUCH_TAG")
     assert_nil @fmt.get_float("NO_SUCH_TAG")

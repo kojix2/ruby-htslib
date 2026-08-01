@@ -51,10 +51,14 @@ module HTS
         def each_allele
           return to_enum(__method__) unless block_given?
           ensure_valid!
-          @values.each do |encoded|
+          @values.each_with_index do |encoded, index|
             break if encoded == GT_VECTOR_END
             missing = gt_missing?(encoded)
-            yield(missing ? nil : gt_allele(encoded), gt_phased?(encoded), missing)
+            # The phase bit describes the separator before this allele. It has
+            # no semantic meaning for the first allele, and HTSlib versions do
+            # not consistently clear it while parsing VCF text.
+            phased = index.positive? && gt_phased?(encoded)
+            yield(missing ? nil : gt_allele(encoded), phased, missing)
           end
           self
         end
