@@ -6,7 +6,7 @@
 <title>
   Class: HTS::Bam::Aux
   
-    &mdash; Documentation by YARD 0.9.44
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
@@ -252,6 +252,28 @@ correspondence between C structures and Ruby's Aux class.</p>
 
   
     <span class="summary_desc"><div class='inline'><p>Iterate auxiliary tags as key-value pairs.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_array-instance_method" title="#each_array (instance method)">#<strong>each_array</strong>(key)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Iterate a B-array directly from the BAM payload.</p></div></span>
   
 </li>
 
@@ -881,12 +903,12 @@ correspondence between C structures and Ruby's Aux class.</p>
       <pre class="lines">
 
 
-54
-55
-56</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -953,23 +975,23 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75</pre>
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
@@ -1049,18 +1071,18 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-210
-211
-212
-213
-214
-215
-216
-217
-218</pre>
+227
+228
+229
+230
+231
+232
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 227</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-class_method" title="HTS::LibHTS.bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1136,22 +1158,22 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267</pre>
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 272</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1165,6 +1187,80 @@ For compatibility with HTS.cr.</p>
     <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_next'><span class='object_link'><a href="../LibHTS.html#bam_aux_next-class_method" title="HTS::LibHTS.bam_aux_next (method)">bam_aux_next</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='rparen'>)</span>
     <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_array-instance_method">
+  
+    #<strong>each_array</strong>(key)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Iterate a B-array directly from the BAM payload. No Ruby Array is
+created; the payload is borrowed from the record and is invalidated by
+record mutation or reuse.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TypeError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each_array'>each_array</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-class_method" title="HTS::LibHTS.bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AUX tag </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'> is not a B array</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_get_uint8'>get_uint8</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>B</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_ord'>ord</span>
+
+  <span class='id identifier rubyid_subtype'>subtype</span> <span class='op'>=</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_get_uint8'>get_uint8</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chr'>chr</span>
+  <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span><span class='period'>.</span><span class='id identifier rubyid_get_uint32'>get_uint32</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>+</span> <span class='int'>6</span>
+  <span class='id identifier rubyid_length'>length</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_read_array_element'>read_array_element</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='comma'>,</span> <span class='id identifier rubyid_subtype'>subtype</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1186,21 +1282,21 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249</pre>
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_value'>each_value</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1289,22 +1385,22 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288</pre>
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 276</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 293</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_with_type'>each_with_type</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1339,15 +1435,15 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-231
-232
-233
-234
-235
-236</pre>
+248
+249
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 231</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 248</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first'>first</span>
   <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_first_pointer'>first_pointer</span>
@@ -1593,13 +1689,13 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-224
-225
-226
-227</pre>
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_aux_ptr'>aux_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_aux_get'><span class='object_link'><a href="../LibHTS.html#bam_aux_get-class_method" title="HTS::LibHTS.bam_aux_get (method)">bam_aux_get</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1625,22 +1721,22 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-290
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301
-302</pre>
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 290</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 307</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1746,23 +1842,6 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
 197
 198
 199
@@ -1770,10 +1849,27 @@ For compatibility with HTS.cr.</p>
 201
 202
 203
-204</pre>
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_array'>update_array</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1829,18 +1925,18 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150
-151
-152
-153
-154</pre>
+163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_char'>update_char</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1880,15 +1976,15 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-168
-169
-170
-171
-172
-173</pre>
+185
+186
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_double'>update_double</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1958,16 +2054,16 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-123
-124
-125
-126
-127
-128
-129</pre>
+140
+141
+142
+143
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -2005,18 +2101,18 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-157
-158
-159
-160
-161
-162
-163
-164
-165</pre>
+174
+175
+176
+177
+178
+179
+180
+181
+182</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_hex'>update_hex</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -2089,16 +2185,16 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-81
-82
-83
-84
-85
-86
-87</pre>
+98
+99
+100
+101
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -2136,12 +2232,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int16'>update_int16</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>-</span><span class='int'>32_768</span><span class='comma'>,</span> <span class='int'>32_767</span><span class='rparen'>)</span>
@@ -2175,12 +2271,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-110
-111
-112</pre>
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int32'>update_int32</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>i</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>-</span><span class='int'>2_147_483_648</span><span class='comma'>,</span> <span class='int'>2_147_483_647</span><span class='rparen'>)</span>
@@ -2214,12 +2310,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-90
-91
-92</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int8'>update_int8</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>-</span><span class='int'>128</span><span class='comma'>,</span> <span class='int'>127</span><span class='rparen'>)</span>
@@ -2286,18 +2382,18 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-135
-136
-137
-138
-139
-140
-141
-142
-143</pre>
+152
+153
+154
+155
+156
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_string'>update_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_tag!'>validate_tag!</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -2337,12 +2433,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-105
-106
-107</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_uint16'>update_uint16</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='int'>65_535</span><span class='rparen'>)</span>
@@ -2376,12 +2472,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-115
-116
-117</pre>
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_uint32'>update_uint32</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='int'>4_294_967_295</span><span class='rparen'>)</span>
@@ -2415,12 +2511,12 @@ For compatibility with HTS.cr.</p>
       <pre class="lines">
 
 
-95
-96
-97</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/auxi.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_uint8'>update_uint8</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_update_exact_integer'>update_exact_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>C</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='int'>255</span><span class='rparen'>)</span>
@@ -2435,9 +2531,9 @@ For compatibility with HTS.cr.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 11 14:30:27 2026 by
+  Generated on Sat Aug  1 12:08:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.44 (ruby-4.0.5).
+  0.9.45 (ruby-4.0.6).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Class: HTS::Bam::BaseMod
   
-    &mdash; Documentation by YARD 0.9.44
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
@@ -268,6 +268,28 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 
   
     <span class="summary_desc"><div class='inline'><p>Iterate over all positions with modifications.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_raw-instance_method" title="#each_raw (instance method)">#<strong>each_raw</strong>(max_mods: 10)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Iterate primitive modification values without Position/Modification object allocation.</p></div></span>
   
 </li>
 
@@ -1008,6 +1030,78 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="each_raw-instance_method">
+  
+    #<strong>each_raw</strong>(max_mods: 10)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Iterate primitive modification values without Position/Modification
+object allocation.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 234</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each_raw'>each_raw</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_parsed?'>parsed?</span> <span class='op'>?</span> <span class='id identifier rubyid_parse'>parse</span> <span class='op'>:</span> <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
+  <span class='id identifier rubyid_pos_ptr'>pos_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_next_basemod'><span class='object_link'><a href="../LibHTS.html#bam_next_basemod-class_method" title="HTS::LibHTS.bam_next_basemod (method)">bam_next_basemod</a></span></span><span class='lparen'>(</span><span class='ivar'>@record</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='ivar'>@state</span><span class='comma'>,</span> <span class='id identifier rubyid_mods_ptr'>mods_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='comma'>,</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='rparen'>)</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_count'>count</span> <span class='op'>&lt;=</span> <span class='int'>0</span>
+
+    <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='id identifier rubyid_pos_ptr'>pos_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_count'>count</span><span class='comma'>,</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+      <span class='id identifier rubyid_mod'>mod</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_mods_ptr'>mods_ptr</span> <span class='op'>+</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsBaseMod.html" title="HTS::LibHTS::HtsBaseMod (class)">HtsBaseMod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+      <span class='kw'>yield</span> <span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='lbracket'>[</span><span class='symbol'>:canonical_base</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='lbracket'>[</span><span class='symbol'>:modified_base</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='lbracket'>[</span><span class='symbol'>:strand</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='lbracket'>[</span><span class='symbol'>:qual</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="ensure_parsed!-instance_method">
   
     #<strong>ensure_parsed!</strong>(flags = 0)  &#x21d2; <tt>void</tt> 
@@ -1124,12 +1218,12 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-314
-315
-316</pre>
+336
+337
+338</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 314</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 336</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_to_s'>to_s</span>
@@ -1183,20 +1277,20 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244</pre>
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 256</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_modification_types'>modification_types</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1423,28 +1517,28 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269</pre>
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 273</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type'>query_type</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1528,28 +1622,28 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291
-292</pre>
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 274</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 296</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type_at'>query_type_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1615,12 +1709,12 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-296
-297
-298</pre>
+318
+319
+320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 296</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 318</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
   <span class='id identifier rubyid_each_position'>each_position</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
@@ -1670,18 +1764,18 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-302
-303
-304
-305
-306
-307
-308
-309
-310</pre>
+324
+325
+326
+327
+328
+329
+330
+331
+332</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 302</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 324</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;HTS::Bam::BaseMod (not parsed)&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@parsed</span>
@@ -1702,9 +1796,9 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 11 14:30:28 2026 by
+  Generated on Sat Aug  1 12:08:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.44 (ruby-4.0.5).
+  0.9.45 (ruby-4.0.6).
 </div>
 
     </div>

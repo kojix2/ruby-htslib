@@ -6,7 +6,7 @@
 <title>
   Class: HTS::Bam::Cigar
   
-    &mdash; Documentation by YARD 0.9.44
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
@@ -616,7 +616,7 @@ The CIGAR string is converted to a uint32_t array in htslib.</p>
   <span class='ivar'>@array</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
     <span class='id identifier rubyid_op'>op</span> <span class='op'>=</span>  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_opchr'><span class='object_link'><a href="../LibHTS.html#bam_cigar_opchr-class_method" title="HTS::LibHTS.bam_cigar_opchr (method)">bam_cigar_opchr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_cigar_oplen'><span class='object_link'><a href="../LibHTS.html#bam_cigar_oplen-class_method" title="HTS::LibHTS.bam_cigar_oplen (method)">bam_cigar_oplen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
-    <span class='kw'>yield</span> <span class='lbracket'>[</span><span class='id identifier rubyid_op'>op</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rbracket'>]</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_op'>op</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -779,9 +779,9 @@ The CIGAR string is converted to a uint32_t array in htslib.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 11 14:30:27 2026 by
+  Generated on Sat Aug  1 12:08:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.44 (ruby-4.0.5).
+  0.9.45 (ruby-4.0.6).
 </div>
 
     </div>
