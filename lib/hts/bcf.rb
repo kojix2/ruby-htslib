@@ -144,10 +144,15 @@ module HTS
     end
     alias << write
 
-    def nsamples = check_closed
-    header.nsamples
-    def samples = check_closed
-    header.samples
+    def nsamples
+      check_closed
+      header.nsamples
+    end
+
+    def samples
+      check_closed
+      header.samples
+    end
 
     define_getter :chrom
     define_getter :pos

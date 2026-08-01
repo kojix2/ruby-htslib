@@ -30,8 +30,11 @@ module HTS
         @native.set_id(@header.__send__(:native_handle), value)
       end
 
-      def clear_id = @native.set_id(@header.__send__(:native_handle), ".")
-      nil
+      def clear_id
+        @native.set_id(@header.__send__(:native_handle), ".")
+        nil
+      end
+
       def alleles = @native.alleles
       def ref = alleles.first
       def alt = alleles.drop(1)
