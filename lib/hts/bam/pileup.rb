@@ -82,6 +82,70 @@ module HTS
         end
       end
 
+      # Borrowed, reusable object view over one pileup entry.
+      class BorrowedEntryView
+        def reset(pointer, tid, pos)
+          @entry = HTS::LibHTS::BamPileup1.new(pointer)
+          @tid = tid
+          @pos = pos
+          self
+        end
+
+        attr_reader :tid, :pos
+
+        def query_position = @entry[:qpos]
+        def indel = @entry[:indel]
+        def del? = @entry[:is_del] == 1
+        def refskip? = @entry[:is_refskip] == 1
+
+        def flag
+          HTS::LibHTS::Bam1View.new(@entry[:b])[:core][:flag]
+        end
+
+        def base_code
+          return nil if del? || refskip? || query_position.negative?
+
+          bam = HTS::LibHTS::Bam1View.new(@entry[:b])
+          HTS::LibHTS.bam_seqi(HTS::LibHTS.bam_get_seq(bam), query_position)
+        end
+
+        def quality
+          return nil if del? || refskip? || query_position.negative?
+
+          bam = HTS::LibHTS::Bam1View.new(@entry[:b])
+          HTS::LibHTS.bam_get_qual(bam).get_uint8(query_position)
+        end
+      end
+
+      # Borrowed column view. Both this object and its entry view are reused.
+      class BorrowedColumnView
+        include Enumerable
+
+        def initialize
+          @entry_view = BorrowedEntryView.new
+        end
+
+        attr_reader :tid, :pos, :depth
+
+        def reset(pointer, tid, pos, depth)
+          @pointer = pointer
+          @tid = tid
+          @pos = pos
+          @depth = depth
+          self
+        end
+
+        def each
+          return to_enum(__method__) unless block_given?
+
+          entry_size = HTS::LibHTS::BamPileup1.size
+          @depth.times do |index|
+            yield @entry_view.reset(@pointer + index * entry_size, @tid, @pos)
+          end
+          self
+        end
+      end
+
       # Create a Pileup iterator
       # @param bam [HTS::Bam]
       # @param region [String, nil] Optional region string (requires index)
@@ -169,6 +233,17 @@ module HTS
         return to_enum(__method__) unless block_given?
 
         each_raw_column { |_base_ptr, tid, pos, depth| yield tid, pos, depth }
+        self
+      end
+
+      # Yield a borrowed column object that is reset for every position.
+      def each_view
+        return to_enum(__method__) unless block_given?
+
+        view = BorrowedColumnView.new
+        each_raw_column do |pointer, tid, pos, depth|
+          yield view.reset(pointer, tid, pos, depth)
+        end
         self
       end
 

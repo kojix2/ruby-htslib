@@ -58,6 +58,27 @@ class BamPileupTest < Minitest::Test
     end
   end
 
+  def test_borrowed_column_and_entry_views_are_reused
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      HTS::Bam::Pileup.open(bam) do |pileup|
+        column_ids = []
+        entry_ids = []
+        pileup.each_view do |column|
+          column_ids << column.object_id
+          column.each do |entry|
+            entry_ids << entry.object_id
+            assert_kind_of Integer, entry.flag
+            assert(entry.base_code.nil? || entry.base_code.is_a?(Integer))
+            assert(entry.quality.nil? || entry.quality.is_a?(Integer))
+          end
+          break if column_ids.length == 5
+        end
+        assert_equal 1, column_ids.uniq.length
+        assert_equal 1, entry_ids.uniq.length
+      end
+    end
+  end
+
   def test_raw_entry_iterator
     HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
       HTS::Bam::Pileup.open(bam) do |pileup|

@@ -8,4 +8,5 @@ unless pkg_config("htslib")
 end
 
 have_header("htslib/sam.h")
+have_header("htslib/vcf.h")
 create_makefile("htslib_native_ext")

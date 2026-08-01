@@ -445,15 +445,11 @@ module HTS
       end
 
       def decode_float_values(key)
-        values = []
-        found = false
-        if scalar_format?(key)
-          each_f32_vector(key) do |_sample_index, view|
-            found = true
-            values << view.each.first
-          end
-        else
-          each_f32_vector(key) { |_sample_index, view| found = true; values << view.to_a }
+        values = nil
+        found = with_numeric_values(key, LibHTS::BCF_HT_REAL, "float") do |pointer, count|
+          values = HTS::Native.format_float_values(
+            pointer.address, count, @record.header.nsamples, scalar_format?(key)
+          )
         end
         found ? values : nil
       end

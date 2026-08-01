@@ -48,6 +48,40 @@ module HTS
         end
       end
 
+      # Borrowed reusable view over all input columns at one position.
+      class ColumnsView
+        include Enumerable
+
+        def initialize
+          @column_view = Pileup::BorrowedColumnView.new
+        end
+
+        attr_reader :tid, :pos, :length
+        alias size length
+
+        def reset(tid, pos, depths, pileups, length)
+          @tid = tid
+          @pos = pos
+          @depths = depths
+          @pileups = pileups
+          @length = length
+          self
+        end
+
+        def each
+          return to_enum(__method__) unless block_given?
+
+          int_size = FFI.type_size(:int)
+          pointer_size = FFI.type_size(:pointer)
+          @length.times do |input_index|
+            depth = @depths.get_int32(input_index * int_size)
+            pointer = @pileups.get_pointer(input_index * pointer_size)
+            yield input_index, @column_view.reset(pointer, @tid, @pos, depth)
+          end
+          self
+        end
+      end
+
       # Usage:
       #   HTS::Bam::Mpileup.open([bam1, bam2], region: "chr1:1-100") do |mpl|
       #     mpl.each { |cols| ... }
@@ -195,6 +229,17 @@ module HTS
         view = DepthView.new
         each_column_raw do |tid, pos, counts_pointer, _pileups_pointer, input_count|
           yield tid, pos, view.reset(counts_pointer, input_count)
+        end
+        self
+      end
+
+      # Yield a borrowed reusable view of all input columns.
+      def each_view
+        return to_enum(__method__) unless block_given?
+
+        view = ColumnsView.new
+        each_column_raw do |tid, pos, depths, pileups, input_count|
+          yield view.reset(tid, pos, depths, pileups, input_count)
         end
         self
       end

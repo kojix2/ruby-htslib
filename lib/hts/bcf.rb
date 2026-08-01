@@ -3,6 +3,7 @@
 require_relative "../htslib"
 
 require_relative "hts"
+require_relative "native"
 require_relative "bcf/errors"
 require_relative "bcf/header"
 require_relative "bcf/getter_buffer"
@@ -14,6 +15,17 @@ module HTS
   # A class for working with VCF, BCF files.
   class Bcf < Hts
     include Enumerable
+
+    # Filter an owning batch of records in one native pass when available.
+    def self.filter_records(records, rid: nil, beg: nil, end_: nil,
+                            min_qual: nil, filter_id: nil)
+      Native.bcf_filter_records(
+        Array(records), rid.nil? ? nil : Integer(rid),
+        beg.nil? ? nil : Integer(beg), end_.nil? ? nil : Integer(end_),
+        min_qual.nil? ? nil : Float(min_qual),
+        filter_id.nil? ? nil : Integer(filter_id)
+      )
+    end
 
     attr_reader :file_name, :index_name, :mode, :header, :nthreads, :unpack
 

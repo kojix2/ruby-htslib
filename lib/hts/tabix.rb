@@ -3,6 +3,7 @@
 require_relative "../htslib"
 
 require_relative "hts"
+require_relative "native"
 
 module HTS
   class Tabix < Hts
@@ -194,26 +195,7 @@ module HTS
     end
 
     def selected_fields(line, columns)
-      requested = {}
-      columns.each_with_index { |column, result_index| (requested[column] ||= []) << result_index }
-      result = Array.new(columns.length)
-      max_column = columns.max
-      field_start = 0
-      column = 0
-      byte_index = 0
-
-      while byte_index <= line.bytesize && column <= max_column
-        if byte_index == line.bytesize || line.getbyte(byte_index) == 9
-          if (result_indices = requested[column])
-            value = line.byteslice(field_start, byte_index - field_start)
-            result_indices.each { |result_index| result[result_index] = value }
-          end
-          column += 1
-          field_start = byte_index + 1
-        end
-        byte_index += 1
-      end
-      result
+      HTS::Native.selected_fields(line, columns)
     end
 
     def check_closed

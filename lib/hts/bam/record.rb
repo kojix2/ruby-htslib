@@ -247,12 +247,7 @@ module HTS
       # Get the sequence. (a.k.a SEQ)
       # @return [String] sequence
       def seq
-        r = LibHTS.bam_get_seq(@bam1)
-        seq = String.new
-        len.times do |i|
-          seq << SEQ_NT16_STR[LibHTS.bam_seqi(r, i)]
-        end
-        seq
+        HTS::Native.bam_sequence(to_ptr.address)
       end
       alias sequence seq
 
@@ -312,13 +307,7 @@ module HTS
       # ASCII of base quality + 33.
       # @return [String] base qualities
       def qual_string
-        q_ptr = LibHTS.bam_get_qual(@bam1)
-        return "" if len.zero?
-        return "*" if q_ptr.get_uint8(0) == 255
-
-        result = String.new(capacity: len, encoding: Encoding::BINARY)
-        len.times { |index| result << (q_ptr.get_uint8(index) + 33) }
-        result
+        HTS::Native.bam_quality_string(to_ptr.address)
       end
 
       # Iterate raw PHRED bytes without creating an intermediate Array.

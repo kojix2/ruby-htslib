@@ -45,6 +45,12 @@ class BamAuxTest < Minitest::Test
     ], @aux.each_pair.to_a
   end
 
+  def test_each_tag_id
+    expected = @aux.each_pair.map { |tag, value| [HTS::Bam::Aux.tag_id(tag), value] }
+    assert_equal expected, @aux.each_tag_id.to_a
+    assert expected.all? { |tag_id, _value| tag_id.is_a?(Integer) }
+  end
+
   def test_each_with_type
     assert_equal [
       %w[MC Z 70M],

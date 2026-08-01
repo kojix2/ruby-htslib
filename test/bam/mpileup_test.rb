@@ -98,6 +98,28 @@ class BamMpileupTest < Minitest::Test
     end
   end
 
+  def test_each_view_reuses_columns_and_entries
+    mp = HTS::Bam::Mpileup.new([Fixtures["moo.bam"], Fixtures["moo.bam"]])
+    begin
+      outer_ids = []
+      column_ids = []
+      entry_ids = []
+      mp.each_view do |columns|
+        outer_ids << columns.object_id
+        columns.each do |_input_index, column|
+          column_ids << column.object_id
+          column.each { |entry| entry_ids << entry.object_id }
+        end
+        break if outer_ids.length == 5
+      end
+      assert_equal 1, outer_ids.uniq.length
+      assert_equal 1, column_ids.uniq.length
+      assert_equal 1, entry_ids.uniq.length
+    ensure
+      mp.close
+    end
+  end
+
   def test_each_entry_raw_yields_primitives
     mp = HTS::Bam::Mpileup.new([Fixtures["moo.bam"], Fixtures["moo.bam"]])
     begin

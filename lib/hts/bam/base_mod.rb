@@ -211,20 +211,21 @@ module HTS
       def each_position(max_mods: 10)
         return enum_for(__method__, max_mods: max_mods) unless block_given?
 
-        # Reset state at the start of iteration to allow repeated enumerations
-        parsed? ? parse : ensure_parsed!
-
-        pos_ptr = FFI::MemoryPointer.new(:int)
-        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
-
-        loop do
-          ret = LibHTS.bam_next_basemod(@record.struct, @state,
-                                        mods_ptr, max_mods, pos_ptr)
-          break if ret <= 0
-
-          position = pos_ptr.read_int
-          yield build_position(position, mods_ptr, [ret, max_mods].min)
+        current_position = nil
+        modifications = []
+        each_raw(max_mods: max_mods) do |position, canonical, modified, strand, qual|
+          if current_position && position != current_position
+            yield Position.new(current_position, modifications)
+            modifications = []
+          end
+          current_position = position
+          modifications << Modification.new(
+            modified_base: modified, canonical_base: canonical,
+            strand: strand, qual: qual
+          )
         end
+        yield Position.new(current_position, modifications) if current_position
+        self
       end
 
       alias each each_position

@@ -17,6 +17,16 @@ module HTS
   class Bam
     include Enumerable
 
+    # Filter an owning batch of records in one native pass when available.
+    def self.filter_records(records, required_flags: 0, excluded_flags: 0,
+                            min_mapq: 0, tid: nil, beg: nil, end_: nil)
+      Native.bam_filter_records(
+        Array(records), Integer(required_flags), Integer(excluded_flags),
+        Integer(min_mapq), tid.nil? ? nil : Integer(tid),
+        beg.nil? ? nil : Integer(beg), end_.nil? ? nil : Integer(end_)
+      )
+    end
+
     attr_reader :file_name, :index_name, :mode, :header, :nthreads
 
     def self.open(*args, **kw)

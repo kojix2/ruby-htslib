@@ -285,6 +285,30 @@ module HTS
 
       alias each_pair each
 
+      # Iterate with the two tag bytes packed into one Integer, avoiding a
+      # String allocation for the tag name in hot traversal paths.
+      def each_tag_id
+        return enum_for(__method__) unless block_given?
+
+        aux_ptr = first_pointer
+        return nil if aux_ptr.null?
+
+        loop do
+          tag_pointer = FFI::Pointer.new(aux_ptr.address - 2)
+          tag_id = tag_pointer.get_uint8(0) | (tag_pointer.get_uint8(1) << 8)
+          yield tag_id, get_ruby_aux(aux_ptr)
+          aux_ptr = LibHTS.bam_aux_next(@record.struct, aux_ptr)
+          break if aux_ptr.null?
+        end
+        self
+      end
+
+      def self.tag_id(tag)
+        raise ArgumentError, "AUX tag must be a 2-byte String" unless tag.is_a?(String) && tag.bytesize == 2
+
+        tag.getbyte(0) | (tag.getbyte(1) << 8)
+      end
+
       # Iterate auxiliary tags with their SAM/BAM type.
       #
       # @yieldparam tag [String] 2-byte AUX tag name
@@ -466,21 +490,7 @@ module HTS
       end
 
       def decode_array(aux_ptr)
-        subtype = aux_ptr.get_uint8(1).chr
-        length = aux_ptr.get_uint32(2)
-        payload = aux_ptr + 6
-
-        case subtype
-        when "c" then payload.get_array_of_int8(0, length)
-        when "C" then payload.get_array_of_uint8(0, length)
-        when "s" then payload.get_array_of_int16(0, length)
-        when "S" then payload.get_array_of_uint16(0, length)
-        when "i" then payload.get_array_of_int32(0, length)
-        when "I" then payload.get_array_of_uint32(0, length)
-        when "f" then payload.get_array_of_float32(0, length)
-        else
-          raise NotImplementedError, "AUX B-array subtype: #{subtype}"
-        end
+        HTS::Native.aux_b_array(aux_ptr.address)
       end
 
       def read_array_element(payload, subtype, index)

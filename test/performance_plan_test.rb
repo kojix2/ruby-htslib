@@ -190,4 +190,52 @@ class PerformancePlanTest < Minitest::Test
       assert_equal first_position, records[0].pos
     end
   end
+
+  def test_native_bam_batch_filter
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      records = bam.collect_records
+
+      expected = records.select do |record|
+        record.mapq >= 40 && (record.flag_value & HTS::LibHTS::BAM_FSECONDARY).zero?
+      end
+      actual = HTS::Bam.filter_records(
+        records, min_mapq: 40, excluded_flags: HTS::LibHTS::BAM_FSECONDARY
+      )
+      assert_equal expected, actual
+
+      first = records.first
+      expected = records.select do |record|
+        record.tid == first.tid && record.endpos > first.pos && record.pos < first.endpos
+      end
+      actual = HTS::Bam.filter_records(
+        records, tid: first.tid, beg: first.pos, end_: first.endpos
+      )
+      assert_equal expected, actual
+    end
+  end
+
+  def test_native_bcf_batch_filter
+    path = File.expand_path("../htslib/test/tabix/vcf_file.bcf", __dir__)
+    HTS::Bcf.open(path) do |bcf|
+      records = bcf.collect_records
+
+      expected = records.select { |record| !record.qual.nan? && record.qual >= 50 }
+      assert_equal expected, HTS::Bcf.filter_records(records, min_qual: 50)
+
+      q10_record = records.find { |record| record.filter == "q10" }
+      refute_nil q10_record
+      q10_id = q10_record.each_filter_id.first
+      expected = records.select { |record| record.filter_id?(q10_id) }
+      assert_equal expected, HTS::Bcf.filter_records(records, filter_id: q10_id)
+
+      first = records.first
+      expected = records.select do |record|
+        record.rid == first.rid && record.endpos > first.pos && record.pos < first.endpos
+      end
+      actual = HTS::Bcf.filter_records(
+        records, rid: first.rid, beg: first.pos, end_: first.endpos
+      )
+      assert_equal expected, actual
+    end
+  end
 end
