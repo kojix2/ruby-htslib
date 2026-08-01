@@ -23,8 +23,9 @@ class BcfTest < Minitest::Test
     assert_instance_of HTS::Bcf, @bcf
   end
 
-  def test_struct
-    assert_equal false, @bcf.struct.null?
+  def test_native_handle_is_not_public
+    refute_respond_to @bcf, :struct
+    refute_respond_to @bcf, :to_ptr
   end
 
   def test_file_name

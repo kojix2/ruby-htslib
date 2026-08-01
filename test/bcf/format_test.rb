@@ -57,40 +57,27 @@ class BcfFormatTest < Minitest::Test
         bcf.write_header(header)
 
         record = HTS::Bcf::Record.new(header)
-        record.rid = HTS::LibHTS.bcf_hdr_name2id(header.struct, "1")
+        record.rid = header.name2id("1")
         record.pos = 9
-
-        rc = HTS::LibHTS.bcf_update_alleles_str(header.struct, record.struct, "A,C")
-        raise "bcf_update_alleles_str failed (rc=#{rc})" if rc < 0
+        record.alleles = %w[A C]
 
         genotypes = [
-          HTS::LibHTS.bcf_gt_unphased(0),
-          HTS::LibHTS.bcf_gt_unphased(1),
-          HTS::LibHTS.bcf_gt_unphased(1),
-          HTS::LibHTS.bcf_gt_unphased(1)
+          HTS::Bcf::Format.gt_unphased(0),
+          HTS::Bcf::Format.gt_unphased(1),
+          HTS::Bcf::Format.gt_unphased(1),
+          HTS::Bcf::Format.gt_unphased(1)
         ]
-        genotype_ptr = FFI::MemoryPointer.new(:int32, genotypes.size)
-        genotype_ptr.write_array_of_int32(genotypes)
-        rc = HTS::LibHTS.bcf_update_genotypes(header.struct, record.struct, genotype_ptr, genotypes.size)
-        raise "bcf_update_genotypes failed (rc=#{rc})" if rc < 0
+        record.format.update_genotypes(genotypes)
 
         likelihoods = [10, 20, 30, 40, 50, 60]
-        likelihood_ptr = FFI::MemoryPointer.new(:int32, likelihoods.size)
-        likelihood_ptr.write_array_of_int32(likelihoods)
-        rc = HTS::LibHTS.bcf_update_format_int32(header.struct, record.struct, "PL", likelihood_ptr, likelihoods.size)
-        raise "bcf_update_format_int32 failed (rc=#{rc})" if rc < 0
+        record.format.update_int("PL", likelihoods)
 
-        int_with_sentinels = [10, HTS::LibHTS.bcf_int32_vector_end, HTS::LibHTS.bcf_int32_missing, HTS::LibHTS.bcf_int32_vector_end]
-        int_ptr = FFI::MemoryPointer.new(:int32, int_with_sentinels.size)
-        int_ptr.write_array_of_int32(int_with_sentinels)
-        rc = HTS::LibHTS.bcf_update_format_int32(header.struct, record.struct, "IV", int_ptr, int_with_sentinels.size)
-        raise "bcf_update_format_int32 failed for IV (rc=#{rc})" if rc < 0
+        int_with_sentinels = [10, HTS::Native::BCF_INT32_VECTOR_END,
+                              HTS::Native::BCF_INT32_MISSING, HTS::Native::BCF_INT32_VECTOR_END]
+        record.format.update_int("IV", int_with_sentinels)
 
         float_words = [0x3fc0_0000, 0x7f80_0002, 0x7f80_0001, 0x7f80_0002]
-        float_ptr = FFI::MemoryPointer.new(:uint32, float_words.size)
-        float_ptr.write_array_of_uint32(float_words)
-        rc = HTS::LibHTS.bcf_update_format_float(header.struct, record.struct, "FV", float_ptr, float_words.size)
-        raise "bcf_update_format_float failed for FV (rc=#{rc})" if rc < 0
+        record.format.update_float_words("FV", float_words)
 
         bcf.write(record)
       end
@@ -212,13 +199,13 @@ class BcfFormatTest < Minitest::Test
         raw = format.get_genotypes
 
         assert_equal 8, raw.size
-        assert_equal 0, HTS::LibHTS.bcf_gt_allele(raw[0])
-        assert_equal 1, HTS::LibHTS.bcf_gt_allele(raw[1])
-        assert_equal 1, HTS::LibHTS.bcf_gt_is_phased(raw[1])
-        assert_equal 1, HTS::LibHTS.bcf_gt_is_missing(raw[4])
-        assert_equal 1, HTS::LibHTS.bcf_gt_is_missing(raw[5])
-        assert_equal 1, HTS::LibHTS.bcf_gt_allele(raw[6])
-        assert_equal 1, HTS::LibHTS.bcf_gt_is_vector_end(raw[7])
+        assert_equal 0, HTS::Bcf::Format.gt_allele(raw[0])
+        assert_equal 1, HTS::Bcf::Format.gt_allele(raw[1])
+        assert HTS::Bcf::Format.gt_phased?(raw[1])
+        assert HTS::Bcf::Format.gt_missing?(raw[4])
+        assert HTS::Bcf::Format.gt_missing?(raw[5])
+        assert_equal 1, HTS::Bcf::Format.gt_allele(raw[6])
+        assert HTS::Bcf::Format.gt_vector_end?(raw[7])
         assert_equal ["0|1", "0/1", "./.", "1"], format.get_string("GT")
       end
     end
@@ -289,16 +276,16 @@ class BcfFormatTest < Minitest::Test
         ints = format.get_raw("IV")
         assert_equal 4, ints.size
         assert_equal 10, ints[0]
-        assert_equal HTS::LibHTS.bcf_int32_vector_end, ints[1]
-        assert_equal HTS::LibHTS.bcf_int32_missing, ints[2]
-        assert_equal HTS::LibHTS.bcf_int32_vector_end, ints[3]
+        assert_equal HTS::Native::BCF_INT32_VECTOR_END, ints[1]
+        assert_equal HTS::Native::BCF_INT32_MISSING, ints[2]
+        assert_equal HTS::Native::BCF_INT32_VECTOR_END, ints[3]
 
         floats = format.get_raw("FV")
         assert_equal 4, floats.size
         assert_equal 0x3fc0_0000, floats[0]
-        assert_equal HTS::LibHTS.bcf_float_vector_end, floats[1]
-        assert_equal HTS::LibHTS.bcf_float_missing, floats[2]
-        assert_equal HTS::LibHTS.bcf_float_vector_end, floats[3]
+        assert_equal HTS::Native::BCF_FLOAT_VECTOR_END, floats[1]
+        assert_equal HTS::Native::BCF_FLOAT_MISSING, floats[2]
+        assert_equal HTS::Native::BCF_FLOAT_VECTOR_END, floats[3]
 
         decoded_floats = format.get_float("FV")
         assert_in_delta 1.5, decoded_floats[0], 0.001
@@ -320,10 +307,10 @@ class BcfFormatTest < Minitest::Test
         format.update_float("TF", [1.25, 2.75])
         format.update_string("ST", %w[LEFT RIGHT])
         format.update_genotypes([
-                                  HTS::LibHTS.bcf_gt_unphased(0),
-                                  HTS::LibHTS.bcf_gt_unphased(0),
-                                  HTS::LibHTS.bcf_gt_phased(1),
-                                  HTS::LibHTS.bcf_gt_phased(1)
+                                  HTS::Bcf::Format.gt_unphased(0),
+                                  HTS::Bcf::Format.gt_unphased(0),
+                                  HTS::Bcf::Format.gt_phased(1),
+                                  HTS::Bcf::Format.gt_phased(1)
                                 ])
 
         HTS::Bcf.open(output_path, "w") do |output_bcf|

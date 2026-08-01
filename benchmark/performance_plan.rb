@@ -103,11 +103,7 @@ HTS::Bam.open(bam_path) do |bam|
   puts "\nBAM record workloads"
   measure("flag wrapper predicate") { iterations.times { record.flag.unmapped? } }
   measure("flag direct predicate") { iterations.times { record.unmapped? } }
-  measure("flag direct FFI field") do
-    iterations.times { (record.struct[:core][:flag] & HTS::LibHTS::BAM_FUNMAP) != 0 }
-  end
   measure("sequence String") { iterations.times { record.seq } }
-  measure("sequence native helper") { iterations.times { HTS::Native.bam_sequence(record.to_ptr.address) } }
   measure("sequence base iterator") { iterations.times { record.each_base { |_base| } } }
   measure("quality Array") { iterations.times { record.qual } }
   measure("quality iterator") { iterations.times { record.each_qual { |_quality| } } }
@@ -120,7 +116,7 @@ HTS::Bam.open(bam_path) do |bam|
   measure("BAM Ruby batch filter") { iterations.times { records.select { |r| r.mapq >= 20 && !r.secondary? } } }
   measure("BAM native batch filter") do
     iterations.times do
-      HTS::Bam.filter_records(records, min_mapq: 20, excluded_flags: HTS::LibHTS::BAM_FSECONDARY)
+      HTS::Bam.filter_records(records, min_mapq: 20, excluded_flags: HTS::Bam::Flag::SECONDARY)
     end
   end
 end

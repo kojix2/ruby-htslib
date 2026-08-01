@@ -35,14 +35,12 @@ module HTS
       @index_name = index
       @mode       = "r"
       @nthreads   = threads
-      @hts_file   = LibHTS.hts_open(@file_name, @mode)
-
-      raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
+      @native = Native::TabixHandle.open(@file_name)
 
       set_threads(threads) if threads
 
       # build_index(index) if build_index
-      @idx = load_index(index)
+      load_index(index)
     end
 
     def build_index(index_name = nil, min_shift: 0)
@@ -50,7 +48,7 @@ module HTS
 
       if index_name
         warn "Create index for #{@file_name} to #{index_name}"
-        case LibHTS.tbx_index_build2(@file_name, index_name, min_shift, LibHTS.tbx_conf_vcf)
+        case Native::TabixHandle.build(@file_name, index_name, min_shift)
         when 0 # successful
         when -1 then raise "general failure"
         when -2 then raise "compression not BGZF"
@@ -58,7 +56,7 @@ module HTS
         end
       else
         warn "Create index for #{@file_name}"
-        case LibHTS.tbx_index_build(@file_name, min_shift, LibHTS.tbx_conf_vcf)
+        case Native::TabixHandle.build(@file_name, nil, min_shift)
         when 0 # successful
         when -1 then raise "general failure"
         when -2 then raise "compression not BGZF"
@@ -70,32 +68,22 @@ module HTS
 
     def load_index(index_name = nil)
       check_closed
-      if index_name
-        LibHTS.tbx_index_load2(@file_name, index_name)
-      else
-        LibHTS.tbx_index_load3(@file_name, nil, 2)
-      end
+      @native.load_index(index_name)
     end
 
     def index_loaded?
       check_closed
-      !@idx.null?
+      @native.index_loaded?
     end
 
     def name2id(name)
       check_closed
-      LibHTS.tbx_name2id(@idx, name)
+      @native.name2id(name)
     end
 
     def seqnames
       check_closed
-      nseq = FFI::MemoryPointer.new(:int)
-      pts = LibHTS.tbx_seqnames(@idx, nseq)
-      begin
-        pts.read_array_of_pointer(nseq.read_int).map(&:read_string)
-      ensure
-        LibHTS.hts_free(pts) unless pts.null?
-      end
+      @native.seqnames
     end
 
     def query(region, start = nil, end_ = nil, &block)
@@ -142,13 +130,27 @@ module HTS
     def close
       return if closed?
 
-      @idx.close if @idx && !@idx.null?
-      @idx = nil
-      super
+      @native.close
     end
 
     def closed?
-      @hts_file.nil? || @hts_file.null?
+      @native.nil? || @native.closed?
+    end
+
+    def file_format = @native.file_format
+    def file_format_version = @native.file_format_version
+
+    def set_threads(n = nil)
+      if n.nil?
+        require "etc"
+        n = [Etc.nprocessors - 1, 1].max
+      end
+      raise TypeError unless n.is_a?(Integer)
+      raise ArgumentError, "Number of threads must be positive" if n < 1
+      raise "Failed to set number of threads: #{n}" if @native.set_threads(n).negative?
+
+      @nthreads = n
+      self
     end
 
     private
@@ -156,41 +158,25 @@ module HTS
     def queryi(id, start, end_, mode = :fields, columns = nil, &block)
       return to_enum(__method__, id, start, end_, mode, columns) unless block_given?
 
-      qiter = LibHTS.tbx_itr_queryi(@idx, id, start, end_)
-      raise "Failed to query region: #{id}:#{start}-#{end_}" if qiter.null?
-
-      query_yield(qiter, mode, columns, &block)
+      @native.query_interval(id, start, end_) { |line| yield_line(line, mode, columns, &block) }
       self
     end
 
     def querys(region, mode = :fields, columns = nil, &block)
       return to_enum(__method__, region, mode, columns) unless block_given?
 
-      qiter = LibHTS.tbx_itr_querys(@idx, region)
-      raise "Failed to query region: #{region}" if qiter.null?
-
-      query_yield(qiter, mode, columns, &block)
+      @native.query_region(region) { |line| yield_line(line, mode, columns, &block) }
       self
     end
 
-    def query_yield(qiter, mode, columns)
-      r = LibHTS::KString.new
-      begin
-        while (slen = LibHTS.tbx_itr_next(@hts_file, @idx, qiter, r)) >= 0
-          line = r.read_string_copy
-          case mode
-          when :line
-            yield line
-          when :selected
-            yield selected_fields(line, columns)
-          else
-            yield line.split("\t")
-          end
-        end
-        raise if slen < -1
-      ensure
-        r.free_buffer
-        LibHTS.hts_itr_destroy(qiter)
+    def yield_line(line, mode, columns)
+      case mode
+      when :line
+        yield line
+      when :selected
+        yield selected_fields(line, columns)
+      else
+        yield line.split("\t")
       end
     end
 

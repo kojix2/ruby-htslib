@@ -13,17 +13,12 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.1"
 
-  # * If the shared library exists in the vendor directory,
-  #   it will be included in the package.
-  # * Official releases uploaded to the RubyGem server
-  #   will not include the shared library.
-  spec.files         = Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/*.{so,dylib,dll}"]
+  spec.files         = Dir["*.{md,txt}", "{lib,ext}/**/*"].reject do |path|
+    path.include?("/coverage/") || path.match?(/\.(?:o|so|bundle|dll)$/) ||
+      File.basename(path) == "Makefile" || File.basename(path) == "mkmf.log"
+  end
   spec.require_path  = "lib"
   spec.extensions    = ["ext/htslib_native/extconf.rb"]
-
-  spec.add_dependency "ffi"
-  spec.add_dependency "ffi-bitfield"
-  spec.add_dependency "pkg-config"
 
   spec.metadata["msys2_mingw_dependencies"] = "htslib"
 end

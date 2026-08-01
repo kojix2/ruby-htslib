@@ -2,78 +2,32 @@
 
 module HTS
   class Bam < Hts
-    # CIGAR string
     class Cigar
       include Enumerable
 
-      # a uint32_t array (with 32 bits for every CIGAR op: length<<4|operation)
+      OP_CHARS = "MIDNSHP=XB".freeze
       attr_accessor :array
 
-      # Create a new Cigar object from a string.
-      # @param [String] cigar_str
-      # The CIGAR string is converted to a uint32_t array in htslib.
       def self.parse(str)
-        c = FFI::MemoryPointer.new(:pointer)
-        m = FFI::MemoryPointer.new(:size_t)
-        c.write_pointer(FFI::Pointer::NULL)
-        m.write(:size_t, 0)
-        ptr = nil
-        n_cigar = LibHTS.sam_parse_cigar(str, FFI::Pointer::NULL, c, m)
-        raise "sam_parse_cigar failed: #{n_cigar}" if n_cigar.negative?
-
-        ptr = c.read_pointer
-        cigar_array = ptr.null? ? [] : ptr.read_array_of_uint32(n_cigar)
-        obj = new
-        obj.array = cigar_array
-        obj
-      ensure
-        LibHTS.hts_free(ptr) if ptr && !ptr.null?
+        new.tap { |cigar| cigar.array = Native.cigar_parse(str.to_s) }
       end
 
       def initialize(record = nil)
-        if record
-          # The record is used at initialization and is not retained after that.
-          bam1 = record.struct
-          n_cigar = bam1[:core][:n_cigar]
-          @array = LibHTS.bam_get_cigar(bam1).read_array_of_uint32(n_cigar)
-        else
-          @array = []
-        end
+        @array = record ? record.__send__(:native_handle).cigar_values : []
       end
 
-      def to_s
-        map { |op, len| "#{len}#{op}" }.join
-      end
+      def to_s = map { |op, len| "#{len}#{op}" }.join
 
       def each
         return to_enum(__method__) unless block_given?
 
-        @array.each do |c|
-          op =  LibHTS.bam_cigar_opchr(c)
-          len = LibHTS.bam_cigar_oplen(c)
-          yield op, len
-        end
+        @array.each { |encoded| yield OP_CHARS[encoded & 15], encoded >> 4 }
       end
 
-      def qlen
-        a = FFI::MemoryPointer.new(:uint32, @array.size)
-        a.write_array_of_uint32(@array)
-        LibHTS.bam_cigar2qlen(@array.size, a)
-      end
-
-      def rlen
-        a = FFI::MemoryPointer.new(:uint32, @array.size)
-        a.write_array_of_uint32(@array)
-        LibHTS.bam_cigar2rlen(@array.size, a)
-      end
-
-      def ==(other)
-        other.is_a?(Cigar) && (@array == other.array)
-      end
-
-      def eql?(other)
-        other.is_a?(Cigar) && @array.eql?(other.array)
-      end
+      def qlen = Native.cigar_qlen(@array)
+      def rlen = Native.cigar_rlen(@array)
+      def ==(other) = other.is_a?(Cigar) && @array == other.array
+      def eql?(other) = other.is_a?(Cigar) && @array.eql?(other.array)
     end
   end
 end

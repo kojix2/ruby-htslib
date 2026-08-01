@@ -20,11 +20,15 @@ module HTS
     # Filter an owning batch of records in one native pass when available.
     def self.filter_records(records, required_flags: 0, excluded_flags: 0,
                             min_mapq: 0, tid: nil, beg: nil, end_: nil)
-      Native.bam_filter_records(
-        Array(records), Integer(required_flags), Integer(excluded_flags),
-        Integer(min_mapq), tid.nil? ? nil : Integer(tid),
-        beg.nil? ? nil : Integer(beg), end_.nil? ? nil : Integer(end_)
-      )
+      required_flags = Integer(required_flags)
+      excluded_flags = Integer(excluded_flags)
+      min_mapq = Integer(min_mapq)
+      Array(records).select do |record|
+        flags = record.flag_value
+        (flags & required_flags) == required_flags && (flags & excluded_flags).zero? &&
+          record.mapq >= min_mapq && (tid.nil? || record.tid == Integer(tid)) &&
+          (beg.nil? || record.endpos > Integer(beg)) && (end_.nil? || record.pos < Integer(end_))
+      end
     end
 
     attr_reader :file_name, :index_name, :mode, :header, :nthreads
@@ -50,7 +54,7 @@ module HTS
         end
       end
 
-      case LibHTS.sam_index_build3(file_name, index_name, min_shift, threads)
+      case Native::BamFileHandle.build_index(file_name, index_name, min_shift, threads)
       when 0 # successful
       when -1 then raise "indexing failed"
       when -2 then raise "opening #{file_name} failed"
@@ -73,9 +77,7 @@ module HTS
       @index_name = index
       @mode       = mode
       @nthreads   = threads
-      @hts_file   = LibHTS.hts_open(@file_name, mode)
-
-      raise Errno::ENOENT, "Failed to open #{@file_name}" if @hts_file.null?
+      @native = Native::BamFileHandle.open(@file_name, mode)
 
       # Auto-detect and set reference for CRAM files
       if fai.nil? && @file_name.end_with?(".cram")
@@ -89,7 +91,7 @@ module HTS
       end
 
       if fai
-        r = LibHTS.hts_set_fai_filename(@hts_file, fai)
+        r = @native.set_fai(fai)
         raise "Failed to load fasta index: #{fai}" if r < 0
       end
 
@@ -97,9 +99,9 @@ module HTS
 
       return if @mode[0] == "w"
 
-      @header = Bam::Header.new(@hts_file)
+      @header = Bam::Header.new(@native.read_header)
       build_index(index) if build_index
-      @idx = load_index(index)
+      load_index(index)
       @start_position = tell
     end
 
@@ -113,30 +115,59 @@ module HTS
     def load_index(index_name = nil)
       check_closed
 
-      if index_name
-        LibHTS.sam_index_load2(@hts_file, @file_name, index_name)
-      else
-        LibHTS.sam_index_load3(@hts_file, @file_name, nil, 2) # should be 3 ? (copy remote file to local?)
-      end
+      @native.load_index(index_name)
     end
 
     def index_loaded?
       check_closed
 
-      !@idx.null?
+      @native.index_loaded?
     end
 
     def close
-      LibHTS.hts_idx_destroy(@idx) if @idx && !@idx.null?
-      @idx = nil
-      super
+      @native&.close
     end
+
+    def closed? = @native.nil? || @native.closed?
+    def file_format = @native.file_format
+    def file_format_version = @native.file_format_version
+
+    def set_threads(n = nil)
+      if n.nil?
+        require "etc"
+        n = [Etc.nprocessors - 1, 1].max
+      end
+      raise TypeError unless n.is_a?(Integer)
+      raise ArgumentError, "Number of threads must be positive" if n < 1
+      raise "Failed to set number of threads: #{n}" if @native.set_threads(n).negative?
+
+      @nthreads = n
+      self
+    end
+
+    def seek(offset) = @native.seek(offset)
+    def tell = @native.tell
+
+    def rewind
+      raise "Cannot rewind: no start position" unless @start_position
+
+      result = seek(@start_position)
+      raise "Failed to rewind: #{result}" if result.negative?
+
+      tell
+    end
+
+    private
+
+    def native_handle = @native
+
+    public
 
     def write_header(header)
       check_closed
 
       @header = header.dup
-      LibHTS.sam_hdr_write(@hts_file, header)
+      @native.write_header(header.__send__(:native_handle))
     end
 
     def header=(header)
@@ -146,7 +177,7 @@ module HTS
     def write(record)
       check_closed
 
-      r = LibHTS.sam_write1(@hts_file, header, record)
+      r = @native.write(header.__send__(:native_handle), record.__send__(:native_handle))
       raise "Failed to write record" if r < 0
     end
 
@@ -330,9 +361,8 @@ module HTS
       # This is the common behavior of IO objects in Ruby.
       return to_enum(__method__) unless block_given?
 
-      bam1 = LibHTS.bam_init1
-      record = Record.new(header, bam1)
-      yield record while LibHTS.sam_read1(@hts_file, header, bam1) != -1
+      record = Record.new(header)
+      yield record while @native.read(header.__send__(:native_handle), record.__send__(:native_handle)) != -1
       self
     end
 
@@ -341,17 +371,16 @@ module HTS
       check_closed
       return to_enum(__method__) unless block_given?
 
-      bam1 = LibHTS.bam_init1
-      record = Record.new(header, bam1)
-      yield record.dup while LibHTS.sam_read1(@hts_file, header, bam1) != -1
+      record = Record.new(header)
+      yield record.dup while @native.read(header.__send__(:native_handle), record.__send__(:native_handle)) != -1
       self
     end
 
     def queryi_reuse(tid, beg, end_, &block)
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
-      qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
-      raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?
+      qiter = @native.query_interval(tid, beg, end_)
+      raise "Failed to query region: #{tid} #{beg} #{end_}" unless qiter
 
       query_reuse_yield(qiter, &block)
       self
@@ -360,8 +389,8 @@ module HTS
     def queryi_copy(tid, beg, end_, &block)
       return to_enum(__method__, tid, beg, end_) unless block_given?
 
-      qiter = LibHTS.sam_itr_queryi(@idx, tid, beg, end_)
-      raise "Failed to query region: #{tid} #{beg} #{end_}" if qiter.null?
+      qiter = @native.query_interval(tid, beg, end_)
+      raise "Failed to query region: #{tid} #{beg} #{end_}" unless qiter
 
       query_copy(qiter, &block)
       self
@@ -370,8 +399,8 @@ module HTS
     def querys_reuse(region, &block)
       return to_enum(__method__, region) unless block_given?
 
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-      raise "Failed to query region: #{region}" if qiter.null?
+      qiter = @native.query_region(header.__send__(:native_handle), region)
+      raise "Failed to query region: #{region}" unless qiter
 
       query_reuse_yield(qiter, &block)
       self
@@ -380,8 +409,8 @@ module HTS
     def querys_copy(region, &block)
       return to_enum(__method__, region) unless block_given?
 
-      qiter = LibHTS.sam_itr_querys(@idx, header, region)
-      raise "Failed to query region: #{region}" if qiter.null?
+      qiter = @native.query_region(header.__send__(:native_handle), region)
+      raise "Failed to query region: #{region}" unless qiter
 
       query_copy(qiter, &block)
       self
@@ -389,30 +418,28 @@ module HTS
 
     # Internal: reused-Record iterator over a query iterator.
     def query_reuse_yield(qiter)
-      bam1 = LibHTS.bam_init1
-      record = Record.new(header, bam1)
+      record = Record.new(header)
       begin
-        while (slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)) >= 0
+        while (slen = qiter.next(record.__send__(:native_handle))) >= 0
           yield record
         end
         raise if slen < -1
       ensure
-        LibHTS.hts_itr_destroy(qiter)
+        qiter.close
       end
     end
 
     def query_copy(qiter)
-      bam1 = LibHTS.bam_init1
-      record = Record.new(header, bam1)
+      record = Record.new(header)
       loop do
-        slen = LibHTS.sam_itr_next(@hts_file, qiter, bam1)
+        slen = qiter.next(record.__send__(:native_handle))
         break if slen == -1
         raise if slen < -1
 
         yield record.dup
       end
     ensure
-      LibHTS.hts_itr_destroy(qiter)
+      qiter.close
     end
 
     # Multi-region query using sequential single-region queries

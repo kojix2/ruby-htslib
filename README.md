@@ -16,11 +16,10 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
 ## Requirements
 
 - [Ruby](https://github.com/ruby/ruby) 3.1 or above.
-- [HTSlib](https://github.com/samtools/htslib)
+- [HTSlib](https://github.com/samtools/htslib), including headers and `pkg-config` metadata
   - Ubuntu : `apt install libhts-dev`
   - macOS : `brew install htslib`
   - Windows : [mingw-w64-htslib](https://packages.msys2.org/base/mingw-w64-htslib) is automatically fetched when installing the gem ([RubyInstaller](https://rubyinstaller.org) only).
-  - Build from source code (see the Development section)
 
 ## Installation
 
@@ -28,15 +27,15 @@ Ruby-htslib is the [Ruby](https://www.ruby-lang.org) bindings to [HTSlib](https:
 gem install htslib
 ```
 
-If you have installed htslib with apt on Ubuntu or homebrew on Mac, [pkg-config](https://github.com/ruby-gnome/pkg-config)
-will automatically detect the location of the shared library. If pkg-config does not work well, set `PKG_CONFIG_PATH`.
-Alternatively, you can specify the directory of the shared library by setting the environment variable `HTSLIBDIR`.
+The gem builds a native extension and links to the system HTSlib. `pkg-config`
+normally finds it automatically. For a non-standard installation, set
+`PKG_CONFIG_PATH`, pass `--with-htslib-dir`, or set `HTSLIBDIR` while installing.
 
 ```sh
-export HTSLIBDIR="/your/path/to/htslib" # Directory where libhts.so is located
+gem install htslib -- --with-htslib-dir=/your/htslib/prefix
 ```
 
-ruby-htslib also works on Windows. If you use RubyInstaller, htslib will be prepared automatically.
+RubyInstaller installs the declared MSYS2 HTSlib dependency on Windows.
 
 ## Usage
 
@@ -76,6 +75,36 @@ HTS::Bam.open("test/fixtures/moo.bam") do |bam|
   end
 end
 ```
+
+Creating a BAM file from Ruby values
+
+```ruby
+header = HTS::Bam::Header.new
+header.update_hd(version: "1.6", sort_order: "unsorted")
+header.add_sq("chr1", length: 1_000_000)
+
+record = HTS::Bam::Record.new(
+  header,
+  qname: "read1",
+  chrom: "chr1",       # resolved through the header
+  pos: 99,              # zero-based
+  mapq: 60,
+  cigar: "4M",
+  sequence: "ACGT",
+  qualities: [30, 31, 32, 33],
+  aux: { "NM" => 0 }
+)
+
+HTS::Bam.open("output.bam", "wb") do |bam|
+  bam.write_header(header)
+  bam << record
+end
+```
+
+Use `quality_string:` for a Phred+33 string instead of numeric `qualities:`.
+Omit qualities (or pass `nil`) to write missing qualities. `seq:` / `qual:`
+are accepted as concise aliases. Reference names can also be assigned with
+`record.chrom=` and `record.mate_chrom=`.
 
 ### HTS::Bcf - VCF / BCF - Variant Call Format file
 
@@ -129,29 +158,48 @@ end
 tb.close
 ```
 
-### Low-level API
+### Low-allocation traversal
 
-Middle architectural layer between high-level Ruby code and low-level C code.
-`HTS::LibHTS` provides native C functions using [Ruby-FFI](https://github.com/ffi/ffi). 
+Large scans can avoid per-sample arrays and genotype strings:
 
 ```ruby
-require 'htslib'
+HTS::Bcf.open("variants.bcf", samples: %w[S1 S2], unpack: :format) do |bcf|
+  bcf.each do |record|
+    record.format.each_genotype do |sample_index, genotype|
+      genotype.each_allele do |allele, phased, missing|
+        # Consume the primitive values here.
+      end
+    end
 
-a = HTS::LibHTS.hts_open("a.bam", "r")
-b = HTS::LibHTS.hts_get_format(a)
-p b[:category]
-p b[:format]
+    record.format.each_i32("DP") { |sample_index, depth| }
+    record.format.each_i32_vector("AD") { |sample_index, values| values.each { |depth| } }
+    record.format.each_f32_vector("GL") { |sample_index, values| values.each { |likelihood| } }
+  end
+end
 ```
 
-The low-level API makes it possible to perform detailed operations, such as calling CRAM-specific functions.
+The genotype and numeric vector objects yielded by these iterators are borrowed
+and reused. Consume them inside the block, or call `to_s` / `to_a` to retain an
+owning value. Reading a different FORMAT key does not invalidate a view; reading
+the same key again makes an old view raise `InvalidBorrowedViewError` instead of
+silently returning overwritten data. `genotype_strings`, `get`, and `[]` remain
+the allocating convenience APIs. Use `unpack: :site_only` when FORMAT columns
+are not needed.
 
-#### Macro functions
+Tabix likewise separates raw and materialized access:
 
-HTSlib is designed to improve performance with many macro functions. However, it is not possible to call C macro functions directly from Ruby-FFI. To overcome this, important macro functions have been re-implemented in Ruby, allowing them to be called in the same way as native functions.
+```ruby
+tb.each_line("chr1:1-1000") { |line| }
+tb.each_fields("chr1:1-1000") { |fields| }
+tb.each_selected_fields("chr1:1-1000", 0, 3, 4) { |values| }
+```
 
-#### Garbage Collection and Memory Freeing
+### Native backend migration
 
-A small number of commonly used structs, such as `Bam1` and `Bcf1`, are implemented using FFI's `ManagedStruct`. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using `FFI::Struct`, and they will require manual memory release.
+Version 0.5 uses a compiled extension for every supported high-level API. The
+former low-level binding, pointer, and runtime library-switching APIs were
+implementation details and have been removed. Native handles are not exposed;
+install failures report the missing HTSlib build requirement.
 
 ### Need more speed?
 
@@ -165,22 +213,19 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 ## Development
 
-#### Compile from source code
+#### Build the extension
 
-[GNU Autotools](https://en.wikipedia.org/wiki/GNU_Autotools) is required to compile htslib.
-To get started with development:
+Install the system HTSlib development package first, then:
 
 ```sh
-git clone --recursive https://github.com/kojix2/ruby-htslib
+git clone https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 bundle install
-bundle exec rake htslib:build
 bundle exec rake test
 ```
 
-#### Macro functions are reimplemented
-
-HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.
+Use `bundle exec rake test:local` for fixture-only tests and
+`bundle exec rake test:remote` for the network-dependent URI suite.
 
 #### Use the latest Ruby
 
@@ -196,29 +241,9 @@ Return value
 
 The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.
 
-Memory management
-
-Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a `self.release` method in `FFI::Struct`. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.
-
-Macro functions
-
-In ruby-htslib, C macro functions are added to `LibHTS`, but in Crystal, `LibHTS` is a Lib, so methods cannot be added. methods are added to `LibHTS2`.
-
 #### Naming convention
 
 If you are not sure about the naming of a method, follow the Rust-htslib API. This is a very weak rule. if a more appropriate name is found later in Ruby, it will replace it.
-
-#### Support for bitfields of structures
-
-Since Ruby-FFI does not support structure bit fields, the following extensions are used.
-
-- [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) - Extension of Ruby-FFI to support bitfields.
-
-#### Automatic validation
-
-In the `script` directory, there are several tools to help implement ruby-htslib. Scripts using c2ffi can check the coverage of htslib functions in Ruby-htslib. They are useful when new versions of htslib are released.
-
-- [c2ffi](https://github.com/rpav/c2ffi) is a tool to create JSON format metadata from C header files.
 
 ## Contributing
 

@@ -23,12 +23,10 @@ module HTS
 
       def initialize(arg = nil)
         case arg
-        when LibHTS::HtsFile
-          @bcf_hdr = LibHTS.bcf_hdr_read(arg)
-        when LibHTS::BcfHdr
-          @bcf_hdr = arg
+        when Native::BcfHeaderHandle
+          @native = arg
         when nil
-          @bcf_hdr = LibHTS.bcf_hdr_init("w")
+          @native = Native::BcfHeaderHandle.create
         else
           raise TypeError, "Invalid argument"
         end
@@ -43,20 +41,12 @@ module HTS
         yield self if block_given?
       end
 
-      def struct
-        @bcf_hdr
-      end
-
-      def to_ptr
-        @bcf_hdr.to_ptr
-      end
-
       def get_version
-        LibHTS.bcf_hdr_get_version(@bcf_hdr)
+        @native.version
       end
 
       def set_version(version)
-        rc = LibHTS.bcf_hdr_set_version(@bcf_hdr, version)
+        rc = @native.set_version(version)
         raise "Failed to set VCF header version" if rc.negative?
 
         mark_sync_needed!
@@ -65,7 +55,7 @@ module HTS
       end
 
       def nsamples
-        LibHTS.bcf_hdr_nsamples(@bcf_hdr)
+        @native.nsamples
       end
 
       def target_count
@@ -85,10 +75,7 @@ module HTS
       end
 
       def samples
-        # bcf_hdr_id2name is macro function
-        @bcf_hdr[:samples]
-          .read_array_of_pointer(nsamples)
-          .map(&:read_string)
+        @native.samples
       end
 
       attr_reader :subset_samples, :subset_imap_pointer, :schema_version
@@ -105,27 +92,18 @@ module HTS
         subset_samples = normalize_subset_samples(samples)
         validate_subset_samples!(subset_samples)
 
-        imap_pointer = nil
-        if subset_samples.empty?
-          subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, 0, ::FFI::Pointer::NULL, ::FFI::Pointer::NULL)
-        else
-          encoded_samples = subset_samples.map { |name| FFI::MemoryPointer.from_string(name) }
-          sample_pointers = FFI::MemoryPointer.new(:pointer, subset_samples.length)
-          sample_pointers.write_array_of_pointer(encoded_samples)
-          imap_pointer = FFI::MemoryPointer.new(:int, subset_samples.length)
-          subset_hdr = LibHTS.bcf_hdr_subset(@bcf_hdr, subset_samples.length, sample_pointers, imap_pointer)
-        end
+        result = @native.subset(subset_samples)
+        raise SubsetError, "Failed to subset BCF header samples #{subset_samples.inspect}" unless result
 
-        raise SubsetError, "Failed to subset BCF header samples #{subset_samples.inspect}" if subset_hdr.to_ptr.null?
-
-        composed_imap = compose_subset_imap(read_subset_imap(imap_pointer, subset_samples.length))
-        self.class.new(subset_hdr).tap do |header|
+        subset_header, imap = result
+        composed_imap = compose_subset_imap(imap)
+        self.class.new(subset_header).tap do |header|
           header.send(:set_subset_state, subset_samples, composed_imap)
         end
       end
 
       def add_sample(sample, sync: true)
-        rc = LibHTS.bcf_hdr_add_sample(@bcf_hdr, sample)
+        rc = @native.add_sample(sample)
         raise "Failed to add sample #{sample}" if rc.negative?
 
         mark_sync_needed!
@@ -134,17 +112,14 @@ module HTS
       end
 
       def merge(hdr)
-        merged = LibHTS.bcf_hdr_merge(@bcf_hdr, hdr.struct)
-        raise "Failed to merge BCF headers" if merged.to_ptr.null?
-
-        @bcf_hdr = merged
+        @native.merge(hdr.__send__(:native_handle))
         mark_sync_needed!
         sync_if_needed!
         self
       end
 
       def sync
-        rc = LibHTS.bcf_hdr_sync(@bcf_hdr)
+        rc = @native.sync
         raise "Failed to sync BCF header" if rc.negative?
 
         @sync_needed = false
@@ -152,13 +127,13 @@ module HTS
       end
 
       def read_bcf(fname)
-        result = LibHTS.bcf_hdr_set(@bcf_hdr, fname)
-        @schema_version += 1
+        result = @native.read_file(fname)
+        @schema_version += 1 unless result.negative?
         result
       end
 
       def append(line)
-        rc = LibHTS.bcf_hdr_append(@bcf_hdr, line)
+        rc = @native.append(line)
         raise "Failed to append VCF header line" if rc.negative?
 
         mark_sync_needed!
@@ -167,18 +142,14 @@ module HTS
 
       def delete(bcf_hl_type, key = nil) # FIXME
         existed = hrec_exists?(bcf_hl_type, key)
-        type = bcf_hl_type_to_int(bcf_hl_type)
-        LibHTS.bcf_hdr_remove(@bcf_hdr, type, key)
+        @native.remove(bcf_hl_type.to_s, key)
         mark_sync_needed! if existed
         existed
       end
 
       def get_hrec(bcf_hl_type, key, value, str_class = nil)
-        type = bcf_hl_type_to_int(bcf_hl_type)
-        hrec = borrowed_hrec(type, key, value, str_class)
-        return nil if hrec.to_ptr.null?
-
-        HeaderRecord.new(owned_hrec(hrec))
+        hrec = @native.get_hrec(bcf_hl_type.to_s, key, value, str_class)
+        hrec ? HeaderRecord.new(hrec) : nil
       end
 
       def edit
@@ -254,33 +225,19 @@ module HTS
       end
 
       def seqnames
-        n = FFI::MemoryPointer.new(:int)
-        names = LibHTS.bcf_hdr_seqnames(@bcf_hdr, n)
-        begin
-          names.read_array_of_pointer(n.read_int)
-               .map(&:read_string)
-        ensure
-          LibHTS.hts_free(names) unless names.null?
-        end
+        @native.seqnames
       end
 
       def to_s
-        kstr = LibHTS::KString.new
-        begin
-          raise "Failed to get header string" if LibHTS.bcf_hdr_format(@bcf_hdr, 0, kstr).negative?
-
-          kstr.read_string_copy
-        ensure
-          kstr.free_buffer
-        end
+        @native.to_s
       end
 
       def name2id(name)
-        LibHTS.bcf_hdr_name2id(@bcf_hdr, name)
+        @native.name2id(name)
       end
 
       def id2name(id)
-        LibHTS.bcf_hdr_id2name(@bcf_hdr, id)
+        @native.id2name(id)
       end
 
       private
@@ -335,56 +292,23 @@ module HTS
       end
 
       def hrec_exists?(bcf_hl_type, key)
-        type = bcf_hl_type_to_int(bcf_hl_type)
-        lookup_key, lookup_value, str_class = hrec_lookup_args(type, key)
-        hrec = borrowed_hrec(type, lookup_key, lookup_value, str_class)
-        !hrec.to_ptr.null?
-      end
-
-      def borrowed_hrec(type, key, value, str_class)
-        LibHTS.bcf_hdr_get_hrec(@bcf_hdr, type, key, value, str_class)
-      end
-
-      def owned_hrec(hrec)
-        LibHTS.bcf_hrec_dup(hrec).tap do |owned|
-          raise "Failed to duplicate BCF header record" if owned.to_ptr.null?
-        end
+        lookup_key, lookup_value, str_class = hrec_lookup_args(bcf_hl_type, key)
+        !@native.get_hrec(bcf_hl_type.to_s, lookup_key, lookup_value, str_class).nil?
       end
 
       def hrec_lookup_args(type, key)
-        case type
-        when LibHTS::BCF_HL_FLT, LibHTS::BCF_HL_INFO, LibHTS::BCF_HL_FMT, LibHTS::BCF_HL_CTG
+        case type.to_s.upcase
+        when "FILTER", "FIL", "INFO", "FORMAT", "FMT", "CONTIG", "CTG"
           ["ID", key, nil]
-        when LibHTS::BCF_HL_GEN
+        when "GENOTYPE", "GEN"
           [key, nil, nil]
         else
           ["ID", key, nil]
         end
       end
 
-      def bcf_hl_type_to_int(bcf_hl_type)
-        return bcf_hl_type if bcf_hl_type.is_a?(Integer)
-
-        case bcf_hl_type.to_s.upcase
-        when "FILTER", "FIL"
-          LibHTS::BCF_HL_FLT
-        when "INFO"
-          LibHTS::BCF_HL_INFO
-        when "FORMAT", "FMT"
-          LibHTS::BCF_HL_FMT
-        when "CONTIG", "CTG"
-          LibHTS::BCF_HL_CTG
-        when "STRUCTURED", "STR"
-          LibHTS::BCF_HL_STR
-        when "GENOTYPE", "GEN"
-          LibHTS::BCF_HL_GEN
-        else
-          raise TypeError, "Invalid argument"
-        end
-      end
-
       def initialize_copy(orig)
-        @bcf_hdr = LibHTS.bcf_hdr_dup(orig.struct)
+        @native = orig.__send__(:native_handle).duplicate
         @sync_depth = 0
         @sync_needed = false
         @schema_version = orig.schema_version
@@ -398,7 +322,7 @@ module HTS
       def set_subset_state(samples, imap)
         @subset_samples = samples&.dup
         @subset_imap = imap&.dup
-        @subset_imap_pointer = build_subset_imap_pointer(@subset_imap)
+        @subset_imap_pointer = nil
       end
 
       private
@@ -422,25 +346,12 @@ module HTS
         raise UnknownSampleError, "Unknown sample names: #{missing.join(', ')}" unless missing.empty?
       end
 
-      def read_subset_imap(pointer, length)
-        return [] if length.zero?
-
-        pointer.read_array_of_int(length)
-      end
-
       def compose_subset_imap(imap)
         base_imap = @subset_imap || Array.new(samples.length, &:itself)
         imap.map { |index| base_imap.fetch(index) }
       end
 
-      def build_subset_imap_pointer(imap)
-        return nil unless imap
-        return nil if imap.empty?
-
-        FFI::MemoryPointer.new(:int, imap.length).tap do |pointer|
-          pointer.write_array_of_int(imap)
-        end
-      end
+      def native_handle = @native
     end
   end
 end

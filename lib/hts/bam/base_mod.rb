@@ -133,11 +133,10 @@ module HTS
       # @param auto_parse [Boolean] If true, parse MM/ML lazily on first access
       def initialize(record, auto_parse: true)
         @record = record
-        @state = LibHTS.hts_base_mod_state_alloc
+        @state = Native::BaseModHandle.open(record.__send__(:native_handle))
         @closed = false
         @auto_parse = !!auto_parse
         @parsed = false
-        raise Error, "Failed to allocate hts_base_mod_state" if @state.null?
       end
 
       # Explicitly free the state
@@ -145,8 +144,7 @@ module HTS
       def close
         return if @closed
 
-        # With HtsBaseModState as an AutoPointer, releasing the Ruby object
-        # is sufficient. Avoid manual free to prevent double-free.
+        @state.close
         @state = nil
         @closed = true
       end
@@ -173,7 +171,7 @@ module HTS
       # @return [Integer] Number of modification types found, or -1 on error
       # @raise [Error] If parsing fails
       def parse(flags = 0)
-        ret = LibHTS.bam_parse_basemod2(@record.struct, @state, flags)
+        ret = @state.parse(flags)
         raise Error, "Failed to parse base modifications" if ret < 0
 
         @parsed = true
@@ -188,13 +186,10 @@ module HTS
         # Reset state to ensure deterministic results even after prior iteration
         parsed? ? parse : ensure_parsed!
 
-        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
+        values = @state.at(position, max_mods)
+        return nil unless values
 
-        ret = LibHTS.bam_mods_at_qpos(@record.struct, position, @state,
-                                      mods_ptr, max_mods)
-        return nil if ret <= 0
-
-        build_position(position, mods_ptr, [ret, max_mods].min)
+        build_position(position, values)
       end
 
       # Array-style access to modifications at a position
@@ -236,19 +231,7 @@ module HTS
         return enum_for(__method__, max_mods: max_mods) unless block_given?
 
         parsed? ? parse : ensure_parsed!
-        pos_ptr = FFI::MemoryPointer.new(:int)
-        mods_ptr = FFI::MemoryPointer.new(LibHTS::HtsBaseMod, max_mods)
-
-        loop do
-          count = LibHTS.bam_next_basemod(@record.struct, @state, mods_ptr, max_mods, pos_ptr)
-          break if count <= 0
-
-          position = pos_ptr.read_int
-          [count, max_mods].min.times do |index|
-            mod = LibHTS::HtsBaseMod.new(mods_ptr + index * LibHTS::HtsBaseMod.size)
-            yield position, mod[:canonical_base], mod[:modified_base], mod[:strand], mod[:qual]
-          end
-        end
+        @state.each_raw(max_mods) { |*values| yield(*values) }
         self
       end
 
@@ -257,13 +240,7 @@ module HTS
       def modification_types
         ensure_parsed!
 
-        ntype_ptr = FFI::MemoryPointer.new(:int)
-        codes_ptr = LibHTS.bam_mods_recorded(@state, ntype_ptr)
-
-        ntype = ntype_ptr.read_int
-        return [] if ntype <= 0 || codes_ptr.null?
-
-        codes_ptr.read_array_of_int(ntype)
+        @state.types
       end
 
       alias recorded_types modification_types
@@ -276,19 +253,7 @@ module HTS
 
         code = code.ord if code.is_a?(String)
 
-        strand_ptr = FFI::MemoryPointer.new(:int)
-        implicit_ptr = FFI::MemoryPointer.new(:int)
-        canonical_ptr = FFI::MemoryPointer.new(:char, 1)
-
-        ret = LibHTS.bam_mods_query_type(@state, code, strand_ptr,
-                                         implicit_ptr, canonical_ptr)
-        return nil if ret < 0
-
-        {
-          canonical: canonical_ptr.read_char.chr,
-          strand: strand_ptr.read_int,
-          implicit: implicit_ptr.read_int != 0
-        }
+        @state.query(code)
       end
 
       # Query information about i-th modification type
@@ -297,21 +262,7 @@ module HTS
       def query_type_at(index)
         ensure_parsed!
 
-        strand_ptr = FFI::MemoryPointer.new(:int)
-        implicit_ptr = FFI::MemoryPointer.new(:int)
-        canonical_ptr = FFI::MemoryPointer.new(:char, 1)
-
-        ret = LibHTS.bam_mods_queryi(@state, index, strand_ptr,
-                                     implicit_ptr, canonical_ptr)
-        return nil if ret < 0
-
-        types = modification_types
-        {
-          code: types[index],
-          canonical: canonical_ptr.read_char.chr,
-          strand: strand_ptr.read_int,
-          implicit: implicit_ptr.read_int != 0
-        }
+        @state.query_at(index)
       end
 
       # Get all modifications as an array
@@ -342,21 +293,11 @@ module HTS
 
       # Build Position object from hts_base_mod array
       # @param position [Integer] Query position
-      # @param mods_ptr [FFI::Pointer] Pointer to array of HtsBaseMod structures
-      # @param n_mods [Integer] Number of modifications
+      # @param values [Array<Array>] Native modification values
       # @return [Position] Position object
-      def build_position(position, mods_ptr, n_mods)
-        modifications = []
-
-        n_mods.times do |i|
-          mod_struct = LibHTS::HtsBaseMod.new(mods_ptr + i * LibHTS::HtsBaseMod.size)
-
-          modifications << Modification.new(
-            modified_base: mod_struct[:modified_base],
-            canonical_base: mod_struct[:canonical_base],
-            strand: mod_struct[:strand],
-            qual: mod_struct[:qual]
-          )
+      def build_position(position, values)
+        modifications = values.map do |canonical, modified, strand, qual|
+          Modification.new(modified_base: modified, canonical_base: canonical, strand:, qual:)
         end
 
         Position.new(position, modifications)

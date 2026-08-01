@@ -3,130 +3,21 @@
 require_relative "test_helper"
 
 class HTSTest < Minitest::Test
-  def with_libhts_singleton_method(name, replacement)
-    singleton = class << HTS::LibHTS; self; end
-    original = HTS::LibHTS.method(name)
-    verbose = $VERBOSE
-    $VERBOSE = nil
-    singleton.define_method(name, replacement)
-    yield
-  ensure
-    singleton.define_method(name, original) if original
-    $VERBOSE = verbose
-  end
-
   def test_that_it_has_a_version_number
     refute_nil HTS::VERSION
   end
 
-  def test_hts_version
-    refute_nil HTS::LibHTS.hts_version
+  def test_native_backend_reports_htslib_version
+    assert_match(/\A\d+\.\d+/, HTS::Native.htslib_version)
   end
 
   def test_hts_new
-    assert_raises(TypeError) do
-      HTS::Hts.new
-    end
+    assert_raises(TypeError) { HTS::Hts.new }
   end
 
-  def test_sam_itr_next_passes_null_bgzf_for_cram
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-    captured_bgzf = nil
-
-    htsfp[:is_cram] = 1
-    with_libhts_singleton_method(:hts_itr_next, lambda { |bgzf, _itr, _record, _data|
-      captured_bgzf = bgzf
-      0
-    }) do
-      assert_equal 0, HTS::LibHTS.sam_itr_next(htsfp, itr, record)
-    end
-
-    assert captured_bgzf.null?
-  end
-
-  def test_sam_itr_next_uses_bgzf_pointer_for_bgzf
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    bgzf = HTS::LibHTS::BGZF.new(FFI::MemoryPointer.new(HTS::LibHTS::BGZF.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-    captured_bgzf = nil
-
-    htsfp[:is_bgzf] = 1
-    htsfp[:fp][:bgzf] = bgzf
-    with_libhts_singleton_method(:hts_itr_next, lambda { |fp, _itr, _record, _data|
-      captured_bgzf = fp
-      0
-    }) do
-      assert_equal 0, HTS::LibHTS.sam_itr_next(htsfp, itr, record)
-    end
-
-    assert_equal bgzf.to_ptr.address, captured_bgzf.to_ptr.address
-  end
-
-  def test_sam_itr_next_uses_multi_iterator_entrypoint
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-    called = false
-
-    htsfp[:is_cram] = 1
-    itr[:multi] = 1
-    with_libhts_singleton_method(:hts_itr_multi_next, lambda { |_htsfp, _itr, _record|
-      called = true
-      0
-    }) do
-      assert_equal 0, HTS::LibHTS.sam_itr_next(htsfp, itr, record)
-    end
-
-    assert called
-  end
-
-  def test_bcf_itr_next_uses_bgzf_pointer_for_single_region_iterator
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    bgzf = HTS::LibHTS::BGZF.new(FFI::MemoryPointer.new(HTS::LibHTS::BGZF.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-    captured_bgzf = nil
-
-    htsfp[:is_bgzf] = 1
-    htsfp[:fp][:bgzf] = bgzf
-    itr[:multi] = 0
-    with_libhts_singleton_method(:hts_itr_next, lambda { |fp, _itr, _record, _data|
-      captured_bgzf = fp
-      0
-    }) do
-      assert_equal 0, HTS::LibHTS.bcf_itr_next(htsfp, itr, record)
-    end
-
-    assert_equal bgzf.to_ptr.address, captured_bgzf.to_ptr.address
-  end
-
-  def test_bcf_itr_next_uses_multi_iterator_entrypoint
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-    called = false
-
-    htsfp[:is_bgzf] = 1
-    itr[:multi] = 1
-    with_libhts_singleton_method(:hts_itr_multi_next, lambda { |_htsfp, _itr, _record|
-      called = true
-      0
-    }) do
-      assert_equal 0, HTS::LibHTS.bcf_itr_next(htsfp, itr, record)
-    end
-
-    assert called
-  end
-
-  def test_bcf_itr_next_returns_error_for_non_bgzf_file
-    htsfp = HTS::LibHTS::HtsFile.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsFile.size))
-    itr = HTS::LibHTS::HtsItr.new(FFI::MemoryPointer.new(HTS::LibHTS::HtsItr.size))
-    record = FFI::MemoryPointer.new(:char, 1)
-
-    htsfp[:is_bgzf] = 0
-    assert_equal(-2, HTS::LibHTS.bcf_itr_next(htsfp, itr, record))
+  def test_removed_low_level_api_is_not_exposed
+    refute HTS.const_defined?(:LibHTS, false)
+    refute_respond_to HTS, :lib_path
+    refute_respond_to HTS, :lib_path=
   end
 end

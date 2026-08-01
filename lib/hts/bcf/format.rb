@@ -3,695 +3,350 @@
 module HTS
   class Bcf < Hts
     class Format
-      # Borrowed, reusable view over one sample's numeric FORMAT values.
-      # The view is valid only until the accessor advances to the next sample or
-      # fetches the same FORMAT field again. Call #to_a to retain its values.
+      GT_MISSING = 0
+      GT_VECTOR_END = Native::BCF_INT32_VECTOR_END
+
+      class << self
+        def gt_unphased(allele) = (Integer(allele) + 1) << 1
+        def gt_phased(allele) = ((Integer(allele) + 1) << 1) | 1
+        def gt_allele(value) = (Integer(value) >> 1) - 1
+        def gt_missing?(value) = (Integer(value) >> 1).zero?
+        def gt_phased?(value) = (Integer(value) & 1) == 1
+        def gt_vector_end?(value) = Integer(value) == GT_VECTOR_END
+      end
+
+      BufferState = Struct.new(:generation)
+
       class NumericVectorView
         include Enumerable
-
-        def initialize(type)
-          @type = type
-        end
-
-        def reset(pointer, offset, length, buffer, generation)
-          @pointer = pointer
-          @offset = offset
-          @length = length
+        def initialize(type) = @type = type
+        def reset(values, buffer, generation)
+          @values = values
           @buffer = buffer
           @generation = generation
           self
         end
-
         def each
           return to_enum(__method__) unless block_given?
-
-          @length.times do |index|
-            ensure_valid!
-            byte_offset = (@offset + index) * 4
-            word = @pointer.get_uint32(byte_offset)
-            break if vector_end?(word)
-
-            yield decode(word, byte_offset)
-          end
+          ensure_valid!
+          @values.each { |value| yield value }
           self
         end
-
-        def to_a
-          each.to_a
-        end
-
+        def to_a = each.to_a
         private
-
         def ensure_valid!
-          return if @buffer.generation == @generation
-
-          raise InvalidBorrowedViewError,
-                "borrowed FORMAT view is no longer valid; consume it before another getter for the same field"
-        end
-
-        def vector_end?(word)
-          if @type == :int32
-            word == (LibHTS.bcf_int32_vector_end & 0xffff_ffff)
-          else
-            word == LibHTS.bcf_float_vector_end
-          end
-        end
-
-        def decode(word, byte_offset)
-          if @type == :int32
-            return nil if word == (LibHTS.bcf_int32_missing & 0xffff_ffff)
-
-            @pointer.get_int32(byte_offset)
-          else
-            return nil if word == LibHTS.bcf_float_missing
-
-            @pointer.get_float32(byte_offset)
-          end
+          raise InvalidBorrowedViewError, "borrowed FORMAT view is no longer valid" unless @buffer.generation == @generation
         end
       end
 
-      # Borrowed view over one sample's encoded GT values.
       class GenotypeView
         include Enumerable
 
-        def reset(pointer, offset, length, buffer, generation)
-          @pointer = pointer
-          @offset = offset
-          @length = length
+        def reset(values, buffer, generation)
+          @values = values
           @buffer = buffer
           @generation = generation
           self
         end
-
         def each_allele
           return to_enum(__method__) unless block_given?
-
-          @length.times do |index|
-            ensure_valid!
-            value = @pointer.get_int32((@offset + index) * 4)
-            break if LibHTS.bcf_gt_is_vector_end(value) != 0
-
-            missing = LibHTS.bcf_gt_is_missing(value) != 0
-            allele = missing ? nil : LibHTS.bcf_gt_allele(value)
-            phased = LibHTS.bcf_gt_is_phased(value) != 0
-            yield allele, phased, missing
+          ensure_valid!
+          @values.each do |encoded|
+            break if encoded == GT_VECTOR_END
+            missing = gt_missing?(encoded)
+            yield(missing ? nil : gt_allele(encoded), gt_phased?(encoded), missing)
           end
           self
         end
-
         alias each each_allele
-
         def to_s
-          result = String.new
+          result = +""
           each_allele.with_index do |(allele, phased, missing), index|
-            result << (phased ? "|" : "/") unless index.zero?
+            result << (phased && index.positive? ? "|" : "/") if index.positive?
             result << (missing ? "." : allele.to_s)
           end
           result
         end
-
         private
-
         def ensure_valid!
-          return if @buffer.generation == @generation
-
-          raise InvalidBorrowedViewError,
-                "borrowed FORMAT view is no longer valid; consume it before another getter for the same field"
+          raise InvalidBorrowedViewError, "borrowed FORMAT view is no longer valid" unless @buffer.generation == @generation
         end
+        def gt_missing?(value) = (value >> 1).zero?
+        def gt_allele(value) = (value >> 1) - 1
+        def gt_phased?(value) = (value & 1) == 1
       end
 
       def initialize(record)
         @record = record
         @buffers = {}
-        @schema_cache = {}
-        @schema_version = record.header.schema_version
-        @int_vector_view = NumericVectorView.new(:int32)
-        @float_vector_view = NumericVectorView.new(:float32)
-        @genotype_view = GenotypeView.new
       end
 
-      # @note: Why is this method named "get" instead of "fetch"?
-      # This is for compatibility with the Crystal language
-      # which provides methods like `get_int`, `get_float`, etc.
-      # I think they are better than `fetch_int`` and `fetch_float`.
       def get(key, type = nil)
-        return get_typed(key, type) unless type.nil?
+        key = key.to_s
+        schema = format_schema(key)
+        return nil unless schema
+        raise_unsupported_flag(key) if schema.first == :flag
 
-        return decode_genotypes if key == "GT"
-
-        case header_format_type(key)
-        when :int
-          decode_integer_values(key)
-        when :float
-          decode_float_values(key)
-        when :flag
-          raise_unsupported_format_flag(key)
-        when :string
-          get_string_values(key)
+        requested = type&.to_sym
+        if requested && !type_compatible?(schema.first, requested, key)
+          raise FormatTypeError, "Tag #{key} is not #{type_label(requested)} FORMAT field"
         end
+        return genotype_strings(key) if key == "GT" && (!requested || %i[string str].include?(requested))
+
+        return get_float(key) if %i[float real].include?(requested)
+        raw = get_raw(key, requested)
+        return raw if requested
+        return raw if schema.first == :string
+
+        shape_values(raw, key, schema)
       end
 
       def get_raw(key, type = nil)
-        # The GT FORMAT field is special in that it is marked as a string in the header,
-        # but it is actually encoded as an integer.
-        type = if type.nil?
-                 key == "GT" ? :int : header_format_type(key)
-               else
-                 type.to_sym
-               end
-
-        case type
-        when :int, :int32
-          raise_unsupported_format_flag(key)
-          get_numeric_values(key, LibHTS::BCF_HT_INT, "integer") { |dst, len| dst.read_array_of_int32(len) }
-        when :float, :real
-          raise_unsupported_format_flag(key)
-          get_float_words(key)
-        when :flag
-          raise_unsupported_format_flag(key)
-        when :string, :str
-          return decode_genotypes if key == "GT"
-
-          raise_unsupported_format_flag(key)
-          get_string_values(key)
+        key = key.to_s
+        schema = format_schema(key)
+        return nil unless schema
+        requested = type&.to_sym
+        if requested && !type_compatible?(schema.first, requested, key)
+          raise FormatTypeError, "Tag #{key} is not #{type_label(requested)} FORMAT field"
         end
+        code = key == "GT" ? Native::BCF_HT_INT : type_code(requested || schema.first)
+        raw_float = code == Native::BCF_HT_REAL
+        invalidate_views!(key)
+        native.format_get(header_native, key, code, raw_float)
       end
 
-      # For compatibility with HTS.cr.
-      def get_int(key)
-        get_raw(key, :int)
-      end
-
-      # For compatibility with HTS.cr.
+      def get_int(key) = get(key, :int)
       def get_float(key)
-        get_typed(key, :float)
+        words = get_raw(key, :float)
+        words&.map { |word| decode_float_word(word) }
       end
+      def get_flag(key) = get(key, :flag)
+      def get_string(key) = get(key, :string)
+      def get_genotypes = get_raw("GT", :int)
+      def [](key) = get(key)
 
-      # For compatibility with HTS.cr.
-      def get_flag(key)
-        get_raw(key, :flag)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_string(key)
-        get_raw(key, :string)
-      end
-
-      # For compatibility with HTS.cr.
-      def get_genotypes
-        get_numeric_values("GT", LibHTS::BCF_HT_INT, "genotype") { |dst, len| dst.read_array_of_int32(len) }
-      end
-
-      # Iterate encoded genotypes without creating per-sample arrays or strings.
-      # The yielded GenotypeView is reused; call #to_s or collect primitive values
-      # inside the block if they must outlive the current yield.
       def each_genotype(key = "GT")
-        return to_enum(__method__, key) unless block_given?
-        raise ArgumentError, "genotype FORMAT key must be GT" unless key == "GT"
+        return enum_for(__method__, key) unless block_given?
+        raise ArgumentError, "genotype FORMAT key must be GT" unless key.to_s == "GT"
 
-        found = with_numeric_values(key, LibHTS::BCF_HT_INT, "genotype") do |pointer, count, buffer, generation|
-          each_sample_offset(count) do |sample_index, offset, width|
-            yield sample_index, @genotype_view.reset(pointer, offset, width, buffer, generation)
-          end
+        values = get_raw(key, :int)
+        return nil unless values
+        count, width = sample_layout(values.length)
+        buffer, generation = advance_buffer(key, :genotype)
+        view = GenotypeView.new
+        count.times do |sample|
+          yield sample, view.reset(values.slice(sample * width, width), buffer, generation)
         end
-        found ? self : nil
+        self
       end
 
-      # Return a borrowed view for one sample. It remains valid only until the
-      # next GT getter call on this accessor. Getters for other keys are safe.
       def genotype_at(key, sample_index)
-        raise ArgumentError, "genotype FORMAT key must be GT" unless key == "GT"
-
-        view = nil
-        with_numeric_values(key, LibHTS::BCF_HT_INT, "genotype") do |pointer, count, buffer, generation|
-          sample_count, width = sample_layout(count)
-          index = normalize_sample_index(sample_index, sample_count)
-          view = GenotypeView.new.reset(pointer, index * width, width, buffer, generation)
-        end
-        view
+        values = get_raw(key, :int)
+        return nil unless values
+        count, width = sample_layout(values.length)
+        sample_index = Integer(sample_index)
+        sample_index += count if sample_index.negative?
+        raise IndexError, "sample index #{sample_index} outside of FORMAT" unless sample_index.between?(0, count - 1)
+        buffer, generation = advance_buffer(key, :genotype)
+        GenotypeView.new.reset(values.slice(sample_index * width, width), buffer, generation)
       end
 
-      # Owning, allocating genotype-string convenience API.
       def genotype_strings(key = "GT")
         strings = []
-        found = each_genotype(key) { |_sample_index, genotype| strings << genotype.to_s }
+        found = each_genotype(key) { |_, genotype| strings << genotype.to_s }
         found ? strings : nil
       end
 
-      # Iterate a Number=1 integer FORMAT field without nested arrays.
       def each_i32(key)
-        return to_enum(__method__, key) unless block_given?
-        ensure_scalar_format!(key, :int)
-
-        with_numeric_values(key, LibHTS::BCF_HT_INT, "integer") do |pointer, count|
-          each_sample_offset(count) do |sample_index, offset, _width|
-            value = pointer.get_int32(offset * 4)
-            value = nil if value == LibHTS.bcf_int32_missing || value == LibHTS.bcf_int32_vector_end
-            yield sample_index, value
-          end
-        end
+        return enum_for(__method__, key) unless block_given?
+        ensure_scalar!(key, :int)
+        values = get_raw(key, :int)
+        return self unless values
+        values.each_with_index { |value, index| yield index, missing_int(value) }
         self
       end
 
-      # The yielded view is reused. Use #to_a only when an owning array is needed.
-      def each_i32_vector(key)
-        return to_enum(__method__, key) unless block_given?
-        ensure_expected_format_type!(key, :int, "integer")
-
-        with_numeric_values(key, LibHTS::BCF_HT_INT, "integer") do |pointer, count, buffer, generation|
-          each_sample_offset(count) do |sample_index, offset, width|
-            yield sample_index, @int_vector_view.reset(pointer, offset, width, buffer, generation)
-          end
-        end
-        self
-      end
-
-      # The yielded view is reused. Float sentinel words are inspected before
-      # reading native float values, avoiding per-element pack/unpack.
-      def each_f32_vector(key)
-        return to_enum(__method__, key) unless block_given?
-        ensure_expected_format_type!(key, :float, "float")
-
-        with_numeric_values(key, LibHTS::BCF_HT_REAL, "float") do |pointer, count, buffer, generation|
-          each_sample_offset(count) do |sample_index, offset, width|
-            yield sample_index, @float_vector_view.reset(pointer, offset, width, buffer, generation)
-          end
-        end
-        self
-      end
-
-      def [](key)
-        get(key)
-      end
+      def each_i32_vector(key, &block) = each_vector(key, :int, &block)
+      def each_f32_vector(key, &block) = each_vector(key, :float, &block)
 
       def update_int(key, values)
-        raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key == "GT"
-
-        ensure_expected_format_type!(key, :int, "integer")
-        values = normalize_int_values(values)
-        validate_numeric_sample_count!(key, values.size)
-
-        ptr = FFI::MemoryPointer.new(:int32, values.size)
-        ptr.write_array_of_int32(values)
-        check_update_rc!(LibHTS.bcf_update_format_int32(@record.header.struct, @record.struct, key, ptr, values.size),
-                         key)
+        raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key.to_s == "GT"
+        values = normalize_values(values) { |value| Integer(value) }
+        validate_sample_divisibility!(key, values.length)
+        update_format(key, Native::BCF_HT_INT, values)
       end
 
       def update_float(key, values)
-        ensure_expected_format_type!(key, :float, "float")
-        values = normalize_float_values(values)
-        validate_numeric_sample_count!(key, values.size)
+        values = normalize_values(values, &:to_f)
+        validate_sample_divisibility!(key, values.length)
+        update_format(key, Native::BCF_HT_REAL, values)
+      end
 
-        ptr = FFI::MemoryPointer.new(:float, values.size)
-        ptr.write_array_of_float(values)
-        check_update_rc!(LibHTS.bcf_update_format_float(@record.header.struct, @record.struct, key, ptr, values.size),
-                         key)
+      def update_float_words(key, values)
+        values = normalize_values(values) { |value| Integer(value) }
+        validate_sample_divisibility!(key, values.length)
+        raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" unless format_schema(key)
+        result = native.format_update_float_words(header_native, key.to_s, values)
+        raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{result}" if result.negative?
+        result
       end
 
       def update_string(key, values)
-        raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key == "GT"
-
-        ensure_expected_format_type!(key, :string, "string")
-        values = normalize_string_values(values)
-        validate_string_sample_count!(key, values.size)
-
-        strings = values.map { |value| FFI::MemoryPointer.from_string(value) }
-        ptr = FFI::MemoryPointer.new(:pointer, strings.size)
-        ptr.write_array_of_pointer(strings)
-        check_update_rc!(LibHTS.bcf_update_format_string(@record.header.struct, @record.struct, key, ptr, values.size),
-                         key)
+        values = Array(values).map(&:to_s)
+        expected = sample_count
+        unless values.length == expected
+          raise ArgumentError, "FORMAT string values for #{key} must provide one entry per sample (#{expected})"
+        end
+        update_format(key, Native::BCF_HT_STR, values)
       end
 
       def update_genotypes(values)
-        ensure_gt_defined!
-
-        values = normalize_int_values(values)
-        validate_numeric_sample_count!("GT", values.size)
-
-        ptr = FFI::MemoryPointer.new(:int32, values.size)
-        ptr.write_array_of_int32(values)
-        check_update_rc!(LibHTS.bcf_update_genotypes(@record.header.struct, @record.struct, ptr, values.size), "GT")
+        values = normalize_values(values) { |value| Integer(value) }
+        validate_sample_divisibility!("GT", values.length)
+        result = native.genotype_update(header_native, values)
+        raise FormatUpdateError, "Failed to update FORMAT field 'GT': #{result}" if result.negative?
+        result
       end
 
       def delete(key)
-        return false if header_format_type(key).nil?
-        return false unless format_present?(key)
-
-        type = key == "GT" ? LibHTS::BCF_HT_INT : header_format_type_code(key)
-        ret = LibHTS.bcf_update_format(@record.header.struct, @record.struct, key, FFI::Pointer::NULL, 0, type)
-        raise FormatUpdateError, "Failed to delete FORMAT field '#{key}': #{ret}" if ret < 0
-
-        true
+        schema = format_schema(key)
+        return false unless schema && !get_raw(key).nil?
+        result = native.format_delete(header_native, key.to_s, type_code(schema.first))
+        result >= 0
       end
 
-      def fields
-        ids.map do |id|
-          name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
-          num  = LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_FMT, id)
-          type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_FMT, id)
-          {
-            name:,
-            n: num,
-            type: ht_type_to_sym(type),
-            id:
-          }
-        end
-      end
-
-      def length
-        @record.struct[:n_fmt]
-      end
-
-      def size
-        length
-      end
-
-      def to_h
-        ret = {}
-        ids.each do |id|
-          name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
-          ret[name] = get(name)
-        end
-        ret
-      end
-
-      # def genotypes; end
+      def fields = native.format_fields(header_native)
+      def ids = fields.map { |field| field[:id] }
+      def get_float_words(key) = get_raw(key, :float)
+      def length = fields.length
+      alias size length
+      def to_h = fields.to_h { |field| [field[:name], get(field[:name])] }
 
       private
 
-      def get_numeric_values(key, hts_type, expected_type)
-        result = nil
-        found = with_numeric_values(key, hts_type, expected_type) do |pointer, count|
-          result = yield(pointer, count)
-        end
-        found ? result : nil
+      def native = @record.__send__(:native_handle)
+      def header_native = @record.header.__send__(:native_handle)
+      def sample_count = @record.header.nsamples
+      def format_schema(key) = header_native.schema("FORMAT", key.to_s)
+
+      def type_code(type)
+        { int: Native::BCF_HT_INT, int32: Native::BCF_HT_INT,
+          float: Native::BCF_HT_REAL, real: Native::BCF_HT_REAL,
+          string: Native::BCF_HT_STR, str: Native::BCF_HT_STR }.fetch(type)
       end
 
-      def with_numeric_values(key, hts_type, expected_type)
-        buffer = buffer_for(hts_type, key)
-        buffer.advance!
-        count = LibHTS.bcf_get_format_values(
-          @record.header.struct, @record.struct, key,
-          buffer.dst_pointer, buffer.capacity_pointer, hts_type
-        )
-        count = normalize_format_rc(count, key, expected_type)
-        return false unless count
-
-        yield buffer.pointer, count, buffer, buffer.generation
-        true
-      end
-
-      def buffer_for(type, key)
-        buffers_for_type = (@buffers[type] ||= {})
-        buffers_for_type[key] ||= GetterBuffer.new
-      end
-
-      def get_string_values(key)
-        ndst = FFI::MemoryPointer.new(:int)
-        ndst.write_int(0)
-        dst_ptr = FFI::MemoryPointer.new(:pointer)
-        dst_ptr.write_pointer(FFI::Pointer::NULL)
-
-        ret = LibHTS.bcf_get_format_string(@record.header.struct, @record.struct, key, dst_ptr, ndst)
-        ret = normalize_format_rc(ret, key, "string")
-        return nil unless ret
-
-        dst = dst_ptr.read_pointer
-        sample_count = @record.header.nsamples
-        begin
-          dst.read_array_of_pointer(sample_count).map(&:read_string)
-        ensure
-          unless dst.null?
-            collapsed = sample_count.positive? ? dst.get_pointer(0) : FFI::Pointer::NULL
-            LibHTS.hts_free(collapsed) unless collapsed.null?
-            LibHTS.hts_free(dst)
-          end
-          dst_ptr.write_pointer(FFI::Pointer::NULL)
+      def type_compatible?(actual, requested, key)
+        return true if key == "GT" && %i[int int32 string str].include?(requested)
+        case requested
+        when :int, :int32 then actual == :int
+        when :float, :real then actual == :float
+        when :string, :str then actual == :string
+        when :flag then actual == :flag
+        else actual == requested
         end
       end
 
-      def decode_integer_values(key)
-        if scalar_format?(key)
-          values = []
-          found = false
-          each_i32(key) { |_sample_index, value| found = true; values << value }
-          found ? values : nil
-        else
-          values = []
-          found = false
-          each_i32_vector(key) { |_sample_index, view| found = true; values << view.to_a }
-          found ? values : nil
+      def type_label(type)
+        case type
+        when :int, :int32 then "integer"
+        when :float, :real then "float"
+        when :string, :str then "string"
+        else type.to_s
         end
       end
 
-      def decode_float_values(key)
-        values = nil
-        found = with_numeric_values(key, LibHTS::BCF_HT_REAL, "float") do |pointer, count|
-          values = HTS::Native.format_float_values(
-            pointer.address, count, @record.header.nsamples, scalar_format?(key)
-          )
-        end
-        found ? values : nil
-      end
-
-      def decode_genotypes
-        genotype_strings
-      end
-
-      def get_float_words(key)
-        get_numeric_values(key, LibHTS::BCF_HT_REAL, "float") { |dst, len| dst.get_array_of_uint32(0, len) }
-      end
-
-      def get_typed(key, type)
-        case type.to_sym
-        when :float, :real
-          raise_unsupported_format_flag(key)
-          values = []
-          found = with_numeric_values(key, LibHTS::BCF_HT_REAL, "float") do |pointer, count|
-            count.times do |index|
-              offset = index * 4
-              word = pointer.get_uint32(offset)
-              values << if word == LibHTS.bcf_float_missing || word == LibHTS.bcf_float_vector_end
-                          nil
-                        else
-                          pointer.get_float32(offset)
-                        end
-            end
-          end
-          found ? values : nil
-        else
-          get_raw(key, type)
-        end
-      end
-
-      def normalize_format_rc(rc, key, expected_type)
-        case rc
-        when -1, -3
-          nil
-        when -2
-          raise FormatTypeError, "Tag #{key} is not #{expected_type} FORMAT field"
-        when -4
-          raise FormatReadError, "Failed to read FORMAT/#{key}"
-        else
-          rc
-        end
-      end
-
-      def raise_unsupported_format_flag(key)
-        return unless header_format_type(key) == :flag
-
-        raise UnsupportedFormatOperationError,
-              "FORMAT flag fields are not supported: #{key}"
-      end
-
-      def ensure_expected_format_type!(key, expected_type, label)
-        actual_type = header_format_type(key)
-        raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" if actual_type.nil?
-
-        raise_unsupported_format_flag(key)
-        raise FormatTypeError, "Tag #{key} is not #{label} FORMAT field" unless actual_type == expected_type
-      end
-
-      def ensure_gt_defined!
-        raise FormatDefinitionError, "FORMAT tag GT not defined in header" if header_format_type("GT").nil?
-      end
-
-      def check_update_rc!(rc, key)
-        case rc
-        when -1
-          raise FormatDefinitionError, "FORMAT tag #{key} not defined in header"
-        when 0
-          rc
-        else
-          raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{rc}" if rc.negative?
-
-          rc
-        end
-      end
-
-      def validate_numeric_sample_count!(key, value_count)
-        sample_count = @record.header.nsamples
-        raise ArgumentError, "FORMAT fields require at least one sample" if sample_count <= 0
-        return if (value_count % sample_count).zero?
-
-        raise ArgumentError, "FORMAT values for #{key} must be divisible by sample count (#{sample_count})"
-      end
-
-      def validate_string_sample_count!(key, value_count)
-        sample_count = @record.header.nsamples
-        raise ArgumentError, "FORMAT fields require at least one sample" if sample_count <= 0
-        return if value_count == sample_count
-
-        raise ArgumentError, "FORMAT string values for #{key} must provide one entry per sample (#{sample_count})"
-      end
-
-      def normalize_int_values(values)
-        values = Array(values)
-        raise ArgumentError, "Cannot update FORMAT field with empty array. Use delete instead." if values.empty?
-        raise ArgumentError, "FORMAT integer values must all be Integer" unless values.all?(Integer)
-        raise RangeError, "FORMAT integer values must fit int32" unless values.all? { |value| int32_range?(value) }
-
-        values
-      end
-
-      def normalize_float_values(values)
-        values = Array(values)
-        raise ArgumentError, "Cannot update FORMAT field with empty array. Use delete instead." if values.empty?
-        raise ArgumentError, "FORMAT float values must all be Numeric" unless values.all?(Numeric)
-
-        values.map(&:to_f)
-      end
-
-      def normalize_string_values(values)
-        values = Array(values)
-        raise ArgumentError, "Cannot update FORMAT field with empty array. Use delete instead." if values.empty?
-        raise ArgumentError, "FORMAT string values must all be String" unless values.all?(String)
-
-        values
-      end
-
-      def format_present?(key)
-        if key == "GT"
-          !get_genotypes.nil?
-        else
-          case header_format_type(key)
-          when :int then !get_int(key).nil?
-          when :float then !get_float(key).nil?
-          when :string then !get_string(key).nil?
-          else false
-          end
-        end
-      end
-
-      def fmt_ptr
-        @record.struct[:d][:fmt].to_ptr
-      end
-
-      def ids
-        fmt_ptr.read_array_of_struct(LibHTS::BcfFmt, length).map do |fmt|
-          fmt[:id]
-        end
-      end
-
-      def get_fmt_type(qname)
-        @record.struct[:n_fmt].times do |i|
-          fmt = LibHTS::BcfFmt.new(@record.struct[:d][:fmt] + i * LibHTS::BcfFmt.size)
-          id = fmt[:id]
-          name = LibHTS.bcf_hdr_int2id(@record.header.struct, LibHTS::BCF_DT_ID, id)
-          if name == qname
-            type = LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_FMT, id)
-            return type
-          end
-        end
-        nil
-      end
-
-      def scalar_format?(key)
-        header_format_number(key) == 1
-      end
-
-      def ensure_scalar_format!(key, type)
-        label = type == :int ? "integer" : "float"
-        ensure_expected_format_type!(key, type, label)
-        return if scalar_format?(key)
-
-        raise ArgumentError, "FORMAT/#{key} is not a Number=1 field"
+      def raise_unsupported_flag(key)
+        raise UnsupportedFormatOperationError, "FORMAT flag fields are not supported: #{key}"
       end
 
       def sample_layout(value_count)
-        sample_count = @record.header.nsamples
-        raise FormatReadError, "FORMAT fields require at least one sample" if sample_count <= 0
-        unless (value_count % sample_count).zero?
-          raise FormatReadError, "Failed to split FORMAT values by sample"
-        end
-
-        [sample_count, value_count / sample_count]
+        count = sample_count
+        raise FormatReadError, "invalid FORMAT sample layout" if count <= 0 || (value_count % count) != 0
+        [count, value_count / count]
       end
 
-      def each_sample_offset(value_count)
-        sample_count, width = sample_layout(value_count)
-        sample_count.times { |sample_index| yield sample_index, sample_index * width, width }
-      end
-
-      def normalize_sample_index(sample_index, sample_count)
-        index = Integer(sample_index)
-        index += sample_count if index.negative?
-        raise IndexError, "sample index #{sample_index} outside 0...#{sample_count}" unless index.between?(0, sample_count - 1)
-
-        index
-      end
-
-      def header_format_number(key)
-        schema = header_format_schema(key)
-        schema && schema[:number]
-      end
-
-      def header_format_type_code(key)
-        schema = header_format_schema(key)
-        schema && schema[:type]
-      end
-
-      def header_format_schema(key)
-        refresh_schema_cache!
-        return @schema_cache[key] if @schema_cache.key?(key)
-
-        id = LibHTS.bcf_hdr_id2int(@record.header.struct, LibHTS::BCF_DT_ID, key)
-        return @schema_cache[key] = nil if id.negative?
-        unless LibHTS.bcf_hdr_idinfo_exists(@record.header.struct, LibHTS::BCF_HL_FMT, id)
-          return @schema_cache[key] = nil
-        end
-
-        @schema_cache[key] = {
-          id: id,
-          type: LibHTS.bcf_hdr_id2type(@record.header.struct, LibHTS::BCF_HL_FMT, id),
-          number: LibHTS.bcf_hdr_id2number(@record.header.struct, LibHTS::BCF_HL_FMT, id)
-        }
-      end
-
-      def refresh_schema_cache!
-        version = @record.header.schema_version
-        return if version == @schema_version
-
-        @schema_cache.clear
-        @schema_version = version
-      end
-
-      def header_format_type(key)
-        ht_type_to_sym(header_format_type_code(key))
-      end
-
-      def ht_type_to_sym(t)
-        case t
-        when LibHTS::BCF_HT_FLAG then :flag
-        when LibHTS::BCF_HT_INT then :int
-        when LibHTS::BCF_HT_REAL then :float
-        when LibHTS::BCF_HT_STR then :string
-        when LibHTS::BCF_HT_LONG then :int64
+      def shape_values(values, key, schema)
+        return nil unless values
+        count, width = sample_layout(values.length)
+        scalar = schema[1] == 1
+        Array.new(count) do |sample|
+          row = values.slice(sample * width, width)
+          row = trim_vector(row, schema.first)
+          scalar ? row.first : row
         end
       end
 
-      def int32_range?(value)
-        value >= -2_147_483_648 && value <= 2_147_483_647
+      def trim_vector(values, type)
+        if type == :int
+          values.take_while { |value| value != Native::BCF_INT32_VECTOR_END }.map { |value| missing_int(value) }
+        else
+          values.take_while { |word| word != Native::BCF_FLOAT_VECTOR_END }.map { |word| decode_float_word(word) }
+        end
+      end
+
+      def missing_int(value)
+        [Native::BCF_INT32_MISSING, Native::BCF_INT32_VECTOR_END].include?(value) ? nil : value
+      end
+      def decode_float_word(word)
+        return nil if word == Native::BCF_FLOAT_MISSING || word == Native::BCF_FLOAT_VECTOR_END
+        [word].pack("L<").unpack1("e")
+      end
+
+      def advance_buffer(key, type)
+        buffer = (@buffers[[key.to_s, type]] ||= BufferState.new(0))
+        buffer.generation += 1
+        [buffer, buffer.generation]
+      end
+
+      def invalidate_views!(key)
+        @buffers.each do |(buffer_key, _type), buffer|
+          buffer.generation += 1 if buffer_key == key.to_s
+        end
+      end
+
+      def each_vector(key, type)
+        return enum_for(type == :int ? :each_i32_vector : :each_f32_vector, key) unless block_given?
+        values = get_raw(key, type)
+        return self unless values
+        count, width = sample_layout(values.length)
+        buffer, generation = advance_buffer(key, type)
+        view = NumericVectorView.new(type)
+        count.times do |sample|
+          decoded = trim_vector(values.slice(sample * width, width), type)
+          yield sample, view.reset(decoded, buffer, generation)
+        end
+        self
+      end
+
+      def ensure_scalar!(key, expected)
+        schema = format_schema(key)
+        return unless schema
+        raise FormatTypeError, "Tag #{key} is not #{type_label(expected)} FORMAT field" unless schema.first == expected
+        raise FormatReadError, "FORMAT field #{key} is not scalar" unless schema[1] == 1
+      end
+
+      def normalize_values(values)
+        Array(values).map { |value| yield value }
+      end
+
+      def validate_sample_divisibility!(key, count)
+        samples = sample_count
+        return if samples.positive? && (count % samples).zero?
+        raise ArgumentError, "FORMAT values for #{key} must be divisible by sample count (#{samples})"
+      end
+
+      def update_format(key, type, values)
+        schema = format_schema(key)
+        raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" unless schema
+        expected = type_code(schema.first)
+        unless expected == type
+          requested = { Native::BCF_HT_INT => :int, Native::BCF_HT_REAL => :float,
+                        Native::BCF_HT_STR => :string }.fetch(type)
+          raise FormatTypeError, "Tag #{key} is not #{type_label(requested)} FORMAT field"
+        end
+        result = native.format_update(header_native, key.to_s, type, values)
+        raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{result}" if result.negative?
+        result
       end
     end
   end

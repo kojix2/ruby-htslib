@@ -2,14 +2,38 @@
 
 require "bundler/gem_tasks"
 require "rake/testtask"
-require "etc" # make -j #{Etc.nprocessors}
+require "rbconfig"
 
 # Test
 
-task default: :test
+task default: "test:local"
 Rake::TestTask.new do |t|
   t.libs << "test"
+  t.libs << "ext/htslib_native"
   t.pattern = "test/**/*_test.rb"
+end
+
+desc "Build the native extension against the system HTSlib"
+task :compile do
+  Dir.chdir("ext/htslib_native") do
+    ruby "extconf.rb"
+    sh RbConfig::CONFIG.fetch("MAKE", "make")
+  end
+end
+
+Rake::Task[:test].enhance([:compile])
+
+test_loader = 'Dir["test/**/*_test.rb"].sort.each { |path| require File.expand_path(path) }'
+namespace :test do
+  desc "Run tests that use local fixtures"
+  task local: :compile do
+    ruby "-Ilib", "-Itest", "-Iext/htslib_native", "-e", test_loader, "--", "--exclude", "/uri/"
+  end
+
+  desc "Run remote URI tests"
+  task remote: :compile do
+    ruby "-Ilib", "-Itest", "-Iext/htslib_native", "-e", test_loader, "--", "--name", "/uri/"
+  end
 end
 
 # Release gem
@@ -25,34 +49,3 @@ task :check_shared_library_exist do
 end
 
 Rake::Task["release:guard_clean"].enhance(["check_shared_library_exist"])
-
-# Build htslib
-
-namespace :htslib do
-  desc "Building HTSlib"
-  task :build do
-    Dir.chdir("htslib") do
-      unless File.exist? "htscodecs/README.md"
-        puts "Missing git submodules"
-        puts "Use `git submodule update --init --recursive`"
-        exit 1
-      end
-      sh "autoreconf -i"
-      sh "./configure"
-      sh "make -j #{Etc.nprocessors}"
-      FileUtils.mkdir_p("../vendor")
-      require "ffi"
-      FileUtils.move(
-        "libhts.#{FFI::Platform::LIBSUFFIX}",
-        "../vendor/libhts.#{FFI::Platform::LIBSUFFIX}"
-      )
-    end
-  end
-
-  desc "make clean"
-  task :clean do
-    Dir.chdir("htslib") do
-      sh "make clean"
-    end
-  end
-end

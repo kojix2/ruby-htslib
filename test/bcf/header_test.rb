@@ -118,7 +118,8 @@ class BcfHeaderTest < Minitest::Test
     hrec = @hdr.get_hrec("FILTER", "ID", "PASS")
 
     assert_instance_of HTS::Bcf::HeaderRecord, hrec
-    assert_instance_of HTS::LibHTS::BcfHrec, hrec.struct
+    refute_respond_to hrec, :struct
+    refute_respond_to hrec, :to_ptr
     assert_equal '##FILTER=<ID=PASS,Description="All filters passed">', hrec.to_s.chomp
   end
 
@@ -126,7 +127,8 @@ class BcfHeaderTest < Minitest::Test
     hrec = @hdr.get_hrec("FILTER", "ID", "PASS")
     copy = hrec.dup
 
-    assert_instance_of HTS::LibHTS::BcfHrec, copy.struct
+    refute_same hrec, copy
+    refute_respond_to copy, :struct
     assert_equal hrec.to_s, copy.to_s
   end
 

@@ -143,9 +143,10 @@ class BamMpileupTest < Minitest::Test
       assert_kind_of Integer, tid
       assert_kind_of Integer, pos
       assert_equal 2, input_count
-      assert_kind_of FFI::Pointer, counts
-      assert_kind_of FFI::Pointer, pileups
-      assert_equal counts.get_int32(0), counts.get_int32(FFI.type_size(:int))
+      assert_equal [counts.first, counts.first], counts
+      assert_kind_of Array, pileups
+      assert_equal 2, pileups.length
+      pileups.each { |rows| assert_kind_of Array, rows }
     ensure
       mp.close
     end

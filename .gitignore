@@ -19,6 +19,10 @@
 *.so
 *.dylib
 *.dll
+*.o
+mkmf.log
+/ext/htslib_native/Makefile
+/ext/htslib_native/coverage/
 
 .DS_Store
 moo.cram.crai

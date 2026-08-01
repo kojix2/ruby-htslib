@@ -19,22 +19,23 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Install automake (macos)
+          bundler-cache: false
+      - name: Install HTSlib (macos)
         if: ${{ matrix.os == 'macos' }}
         run: |
-          brew install automake libdeflate
-          bundle exec rake htslib:build
-      - name: Install libraries (ubuntu)
+          brew install htslib pkg-config
+      - name: Install HTSlib (ubuntu)
         if: ${{ matrix.os == 'ubuntu' }}
         run: |
           sudo apt update -y
-          sudo apt install -yq libbz2-dev liblzma-dev libdeflate-dev libcurl4-openssl-dev
-          bundle exec rake htslib:build
-      - name: Update package databases (windows)
+          sudo apt install -yq libhts-dev pkg-config
+      - name: Install HTSlib (windows)
         if: ${{ matrix.os == 'windows' }}
         run: |
-          ridk exec pacman -Syu --noconfirm
-      - name: Build and test with Rake
-        run: |
-          bundle exec rake
+          ridk exec bash -lc 'pacman -Sy --needed --noconfirm ${MINGW_PACKAGE_PREFIX}-htslib ${MINGW_PACKAGE_PREFIX}-pkgconf'
+      - name: Install Ruby dependencies
+        run: bundle install
+      - name: Build and test local fixtures
+        run: bundle exec rake test:local
+      - name: Test remote URIs
+        run: bundle exec rake test:remote

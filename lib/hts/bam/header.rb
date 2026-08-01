@@ -40,17 +40,15 @@ module HTS
       }.freeze
 
       def self.parse(text)
-        new(LibHTS.sam_hdr_parse(text.size, text))
+        new(Native::SamHeaderHandle.parse(text))
       end
 
       def initialize(arg = nil)
         case arg
-        when LibHTS::HtsFile
-          @sam_hdr = LibHTS.sam_hdr_read(arg)
-        when LibHTS::SamHdr
-          @sam_hdr = arg
+        when Native::SamHeaderHandle
+          @native = arg
         when nil
-          @sam_hdr = LibHTS.sam_hdr_init
+          @native = Native::SamHeaderHandle.create
         else
           raise TypeError, "Invalid argument"
         end
@@ -58,25 +56,16 @@ module HTS
         yield self if block_given?
       end
 
-      def struct
-        @sam_hdr
-      end
-
-      def to_ptr
-        @sam_hdr.to_ptr
-      end
-
       def targets
         Array.new(target_count) do |i|
-          name = LibHTS.sam_hdr_tid2name(@sam_hdr, i)
-          len = LibHTS.sam_hdr_tid2len(@sam_hdr, i)
+          name = @native.target_name(i)
+          len = @native.target_length(i)
           { name:, len: }
         end
       end
 
       def target_count
-        # FIXME: sam_hdr_nref
-        @sam_hdr[:n_targets]
+        @native.target_count
       end
 
       def target_name(tid)
@@ -85,13 +74,13 @@ module HTS
 
       def target_names
         Array.new(target_count) do |i|
-          LibHTS.sam_hdr_tid2name(@sam_hdr, i)
+          @native.target_name(i)
         end
       end
 
       def target_len
         Array.new(target_count) do |i|
-          LibHTS.sam_hdr_tid2len(@sam_hdr, i)
+          @native.target_length(i)
         end
       end
 
@@ -118,68 +107,50 @@ module HTS
 
       # experimental
       def find_line(type, key, value)
-        ks = LibHTS::KString.new
-        begin
-          r = LibHTS.sam_hdr_find_line_id(@sam_hdr, type, key, value, ks)
-          r == 0 ? ks.read_string_copy : nil
-        ensure
-          ks.free_buffer
-        end
+        @native.find_line(type, key, value)
       end
 
       def find_tag(type, id_key, id_value, key)
-        ks = LibHTS::KString.new
-        begin
-          r = LibHTS.sam_hdr_find_tag_id(@sam_hdr, type, id_key, id_value, key, ks)
-          r == 0 ? ks.read_string_copy : nil
-        ensure
-          ks.free_buffer
-        end
+        @native.find_tag(type, id_key, id_value, key)
       end
 
       # experimental
       def find_line_at(type, pos)
-        ks = LibHTS::KString.new
-        begin
-          r = LibHTS.sam_hdr_find_line_pos(@sam_hdr, type, pos, ks)
-          r == 0 ? ks.read_string_copy : nil
-        ensure
-          ks.free_buffer
-        end
+        @native.find_line_at(type, pos)
       end
 
       # experimental
       def remove_line(type, key, value)
-        LibHTS.sam_hdr_remove_line_id(@sam_hdr, type, key, value)
+        @native.remove_line(type, key, value)
       end
 
       # experimental
       def remove_line_at(type, pos)
-        LibHTS.sam_hdr_remove_line_pos(@sam_hdr, type, pos)
+        @native.remove_line_at(type, pos)
       end
 
       def delete_line(type, key = nil, value = nil)
-        LibHTS.sam_hdr_remove_line_id(@sam_hdr, type, key, value).zero?
+        @native.remove_line(type, key, value).zero?
       end
 
       def delete_tag(type, id_key, id_value, key)
-        LibHTS.sam_hdr_remove_tag_id(@sam_hdr, type, id_key, id_value, key) == 1
+        @native.remove_tag(type, id_key, id_value, key) == 1
       end
 
       def count_lines(type)
-        LibHTS.sam_hdr_count_lines(@sam_hdr, type)
+        @native.count_lines(type)
       end
 
       def line_index(type, key)
-        LibHTS.sam_hdr_line_index(@sam_hdr, type, key)
+        @native.line_index(type, key)
       end
 
       def line_name(type, pos)
-        LibHTS.sam_hdr_line_name(@sam_hdr, type, pos)
+        @native.line_name(type, pos)
       end
 
       def to_s
-        LibHTS.sam_hdr_str(@sam_hdr)
+        @native.to_s
       end
 
       # experimental
@@ -241,7 +212,7 @@ module HTS
       #   header.add_pg("samtools", VN: "1.15", PP: "bwa")
       def add_pg(program_name, **options)
         line = build_pg_line(program_name.to_s, options)
-        result = LibHTS.sam_hdr_add_lines(@sam_hdr, line, line.bytesize)
+        result = @native.add_lines(line)
         raise "Failed to add @PG line" if result < 0
 
         self
@@ -418,26 +389,28 @@ module HTS
       end
 
       def name2tid(name)
-        LibHTS.sam_hdr_name2tid(@sam_hdr, name)
+        @native.name2tid(name)
       end
 
       def tid2name(tid)
-        LibHTS.sam_hdr_tid2name(@sam_hdr, tid)
+        @native.target_name(tid)
       end
 
       def add_lines(str)
-        LibHTS.sam_hdr_add_lines(@sam_hdr, str, 0)
+        @native.add_lines(str)
       end
 
       def add_line(*args)
         type = args.shift
-        args = args.flat_map { |arg| [:string, arg] }
-        LibHTS.sam_hdr_add_line(@sam_hdr, type, *args, :pointer, FFI::Pointer::NULL)
+        pairs = args.each_slice(2).map { |key, value| "#{key}:#{value}" }
+        @native.add_lines("@#{type}\t#{pairs.join("\t")}\n")
       end
 
       def initialize_copy(orig)
-        @sam_hdr = LibHTS.sam_hdr_dup(orig.struct)
+        @native = orig.__send__(:native_handle).duplicate
       end
+
+      def native_handle = @native
     end
   end
 end

@@ -91,8 +91,9 @@ class BamTest < Minitest::Test
         assert_equal true, f.closed?
       end
 
-      define_method "test_struct_#{ft}" do
-        assert_equal false, bam(ft).struct.null?
+      define_method "test_native_handle_is_not_public_#{ft}" do
+        refute_respond_to bam(ft), :struct
+        refute_respond_to bam(ft), :to_ptr
       end
 
       define_method "test_file_name_#{ft}" do

@@ -17,33 +17,30 @@ Bcf o-- `Bcf::Record`
 `Bcf::Record` o-- Info
 `Bcf::Record` o-- Format
 class Bam{
-  +@hts_file : FFI::Struct
+  -@native
   +@header : Bam::Header
   +@file_name
   +@index_name
   +@mode
-  +struct()
   +build_index()
   +each() Enumerable
   +query()
 }
 class Bcf{
-  +@hts_file : FFI::Struct
+  -@native
   +@header : Bcf::Header
   +@file_name
   +@index_name
   +@mode
-  +struct()
   +build_index()
   +each() Enumerable
   +query()
 }
 class Tabix~Hts~{
-  +@hts_file : FFI::Struct
+  -@native
 }
 class `Bam::Header`{
-  +@sam_hdr : FFI::Struct
-  +struct()
+  -@native
   +target_count()
   +target_names()
   +name2tid()
@@ -51,9 +48,8 @@ class `Bam::Header`{
   +to_s()
 }
 class `Bam::Record` {
-  +@bam1 : FFI::Struct
+  -@native
   +@header : Bam::Header
-  +struct()
   +qname()
   +qname=()
   +tid()
@@ -97,14 +93,12 @@ class `Aux` {
   +get_string()
 }
 class `Bcf::Header`{
-  +@bcf_hdr : FFI::Struct
-  +struct()
+  -@native
   +to_s()
 }
 class `Bcf::Record`{
-  +@bcf1 : FFI::Struct
+  -@native
   +@header : Bcf::Header
-  +struct()
   +rid()
   +rid=()
   +chrom()
@@ -191,13 +185,8 @@ class Faidx{
 gem install htslib
 ```
 
-You can check which shared libraries are used by ruby-htslib as follows
-
-```ruby
-require "htslib"
-puts HTS.lib_path
-# => "/home/kojix2/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/htslib-0.2.6/vendor/libhts.so"
-```
+The gem compiles its native extension against the system HTSlib. Install the
+HTSlib development package before installing the gem.
 
 ## HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file
 

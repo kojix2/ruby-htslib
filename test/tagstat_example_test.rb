@@ -36,6 +36,7 @@ class TagstatExampleTest < Minitest::Test
     Open3.capture3(
       RbConfig.ruby,
       "-Ilib",
+      "-Iext/htslib_native",
       "examples/tagstat.rb",
       *args,
       chdir: File.expand_path("..", __dir__)

@@ -3,47 +3,21 @@
 module HTS
   class Bcf < Hts
     class HeaderRecord
-      def initialize(arg = nil)
-        case arg
-        when LibHTS::BcfHrec
-          @bcf_hrec = arg
-        else
-          raise TypeError, "Invalid argument"
-        end
+      def initialize(native)
+        raise TypeError, "Invalid argument" unless native.is_a?(Native::BcfHeaderRecordHandle)
+
+        @native = native
       end
 
-      def struct
-        @bcf_hrec
-      end
-
-      def add_key(key)
-        LibHTS.bcf_hrec_add_key(@bcf_hrec, key, key.length)
-      end
-
-      def set_value(i, val, quote: true)
-        is_quoted = quote ? 1 : 0
-        LibHTS.bcf_hrec_set_val(@bcf_hrec, i, val, val.length, is_quoted)
-      end
-
-      def find_key(key)
-        LibHTS.bcf_hrec_find_key(@bcf_hrec, key)
-      end
-
-      def to_s
-        kstr = LibHTS::KString.new
-        begin
-          LibHTS.bcf_hrec_format(@bcf_hrec, kstr)
-          kstr.read_string_copy
-        ensure
-          kstr.free_buffer
-        end
-      end
+      def add_key(key) = @native.add_key(key)
+      def set_value(index, value, quote: true) = @native.set_value(index, value, quote)
+      def find_key(key) = @native.find_key(key)
+      def to_s = @native.to_s
 
       private
 
-      def initialize_copy(orig)
-        @bcf_hrec = LibHTS.bcf_hrec_dup(orig.struct)
-      end
+      def native_handle = @native
+      def initialize_copy(original) = (@native = original.__send__(:native_handle).duplicate)
     end
   end
 end

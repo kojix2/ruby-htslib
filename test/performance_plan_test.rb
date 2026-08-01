@@ -161,7 +161,7 @@ class PerformancePlanTest < Minitest::Test
       assert_equal record.sequence.chars, record.each_base.to_a
       assert_equal record.len, record.each_base_code.count
       assert_equal record.cigar.to_a,
-                   record.each_cigar_raw.map { |op, length| [HTS::LibHTS::BAM_CIGAR_STR[op], length] }
+                   record.each_cigar_raw.map { |op, length| [HTS::Bam::Cigar::OP_CHARS[op], length] }
 
       record.aux.update_array("XA", [-2, 0, 7], type: "i")
       assert_equal [-2, 0, 7], record.aux.get("XA")
@@ -196,10 +196,10 @@ class PerformancePlanTest < Minitest::Test
       records = bam.collect_records
 
       expected = records.select do |record|
-        record.mapq >= 40 && (record.flag_value & HTS::LibHTS::BAM_FSECONDARY).zero?
+        record.mapq >= 40 && (record.flag_value & HTS::Bam::Flag::SECONDARY).zero?
       end
       actual = HTS::Bam.filter_records(
-        records, min_mapq: 40, excluded_flags: HTS::LibHTS::BAM_FSECONDARY
+        records, min_mapq: 40, excluded_flags: HTS::Bam::Flag::SECONDARY
       )
       assert_equal expected, actual
 

@@ -35,8 +35,9 @@ class FaidxTest < Minitest::Test
     assert_equal true, @fasta.closed?
   end
 
-  def test_struct
-    assert_equal false, @fasta.struct.null?
+  def test_native_handle_is_not_public
+    refute_respond_to @fasta, :struct
+    refute_respond_to @fasta, :to_ptr
   end
 
   def test_close
