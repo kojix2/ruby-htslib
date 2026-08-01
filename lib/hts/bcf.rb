@@ -62,7 +62,10 @@ module HTS
       @nthreads = threads
       @native = Native::BcfFileHandle.open(@file_name, mode)
       set_threads(threads) if threads
-      raise SubsetError, "Sample subsetting is only available when reading BCF/VCF files" if subset && mode.start_with?("w")
+      if subset && mode.start_with?("w")
+        raise SubsetError,
+              "Sample subsetting is only available when reading BCF/VCF files"
+      end
       return if mode.start_with?("w")
 
       @read_header = Header.new(@native.read_header)
@@ -99,8 +102,10 @@ module HTS
 
     def rewind
       raise "Cannot rewind: no start position" unless @start_position
+
       result = seek(@start_position)
       raise "Failed to rewind: #{result}" if result.negative?
+
       tell
     end
 
@@ -112,6 +117,7 @@ module HTS
       raise TypeError unless count.is_a?(Integer)
       raise ArgumentError, "Number of threads must be positive" if count < 1
       raise "Failed to set number of threads: #{count}" if @native.set_threads(count).negative?
+
       @nthreads = count
       self
     end
@@ -121,8 +127,10 @@ module HTS
       @header = header.dup
       result = @native.write_header(header.__send__(:native_handle))
       raise HeaderError, "Failed to write BCF header" if result.negative?
+
       result
     end
+
     def header=(header)
       write_header(header)
     end
@@ -131,12 +139,15 @@ module HTS
       check_closed
       result = @native.write(header.__send__(:native_handle), record.__send__(:native_handle))
       raise "Failed to write record" if result.negative?
+
       result
     end
     alias << write
 
-    def nsamples = (check_closed; header.nsamples)
-    def samples = (check_closed; header.samples)
+    def nsamples = check_closed
+    header.nsamples
+    def samples = check_closed
+    header.samples
 
     define_getter :chrom
     define_getter :pos
@@ -150,6 +161,7 @@ module HTS
     def info(key = nil)
       check_closed
       raise NotImplementedError unless key
+
       position = tell
       map { |record| record.info(key) }.tap { seek(position) if position }
     end
@@ -158,6 +170,7 @@ module HTS
     def format(key = nil)
       check_closed
       raise NotImplementedError unless key
+
       position = tell
       map { |record| record.format(key) }.tap { seek(position) if position }
     end
@@ -176,12 +189,14 @@ module HTS
 
     def each_info(key)
       return to_enum(__method__, key) unless block_given?
+
       each { |record| yield record.info(key) }
       self
     end
 
     def each_format(key)
       return to_enum(__method__, key) unless block_given?
+
       each { |record| yield record.format(key) }
       self
     end
@@ -196,11 +211,13 @@ module HTS
       when Array
         raise ArgumentError, "beg and end must not be specified when region is an Array" unless beg.nil? && end_.nil?
         return to_enum(__method__, region, copy:) unless block
+
         region.each { |item| query(item, copy:, &block) }
         self
       else
         if beg && end_
-          iterate_query(@native.query_interval(read_header_native, header.name2id(region), beg, end_), copy, region, &block)
+          iterate_query(@native.query_interval(read_header_native, header.name2id(region), beg, end_), copy, region,
+                        &block)
         elsif beg.nil? && end_.nil?
           iterate_query(@native.query_region(read_header_native, region), copy, region, &block)
         else
@@ -216,12 +233,14 @@ module HTS
 
     def each_record_reuse
       return to_enum(__method__) unless block_given?
+
       record = Record.new(header)
       prepare_record(record)
       loop do
         result = @native.read(read_header_native, record.__send__(:native_handle))
         break if result == -1
         raise QueryError, "Failed to read variant record from #{@file_name}" if result < -1
+
         apply_subset!(record)
         yield record
       end
@@ -230,6 +249,7 @@ module HTS
 
     def each_record_copy
       return to_enum(__method__) unless block_given?
+
       each_record_reuse { |record| yield record.dup }
       self
     end
@@ -237,6 +257,7 @@ module HTS
     def iterate_query(iterator, copy, region)
       return to_enum(__method__, iterator, copy, region) unless block_given?
       raise QueryError, "Failed to query region #{region.inspect} in #{@file_name}" unless iterator
+
       record = Record.new(header)
       prepare_record(record)
       begin
@@ -244,6 +265,7 @@ module HTS
           result = iterator.next(record.__send__(:native_handle))
           break if result == -1
           raise QueryError, "Failed to parse/query record in #{@file_name}" if result < -1
+
           apply_subset!(record)
           yield(copy ? record.dup : record)
         end
@@ -255,9 +277,13 @@ module HTS
 
     def apply_subset!(record)
       return unless header&.subset?
+
       map = header.__send__(:subset_imap)
       result = record.__send__(:native_handle).subset(header.__send__(:native_handle), map)
-      raise SubsetError, "Failed to subset samples #{header.subset_samples.inspect} while reading #{@file_name}" if result.negative?
+      return unless result.negative?
+
+      raise SubsetError,
+            "Failed to subset samples #{header.subset_samples.inspect} while reading #{@file_name}"
     end
 
     def resolve_max_unpack(level)

@@ -56,12 +56,12 @@ class BamRecordBuildTest < Minitest::Test
   def test_writes_and_reads_constructed_records
     mapped = HTS::Bam::Record.new(
       @header, qname: "mapped", chrom: "chr1", pos: 99, mapq: 42,
-      cigar: "5M", sequence: "AACGT", qualities: [10, 20, 30, 40, 50],
-      aux: { "NM" => 1 }
+               cigar: "5M", sequence: "AACGT", qualities: [10, 20, 30, 40, 50],
+               aux: { "NM" => 1 }
     )
     unmapped = HTS::Bam::Record.new(
       @header, qname: "unmapped", flag: HTS::Bam::Flag::UNMAPPED,
-      sequence: "NN", qualities: nil
+               sequence: "NN", qualities: nil
     )
 
     Tempfile.create(["constructed", ".bam"]) do |file|
@@ -76,7 +76,7 @@ class BamRecordBuildTest < Minitest::Test
       records = nil
       HTS::Bam.open(path) { |bam| records = bam.each(copy: true).to_a }
       assert_equal %w[mapped unmapped], records.map(&:qname)
-      assert_equal ["AACGT", "NN"], records.map(&:sequence)
+      assert_equal %w[AACGT NN], records.map(&:sequence)
       assert_equal [10, 20, 30, 40, 50], records.first.qual
       assert_equal 1, records.first.aux["NM"]
       assert records.last.unmapped?
@@ -104,7 +104,7 @@ class BamRecordBuildTest < Minitest::Test
     records = [10, 100].map.with_index do |position, index|
       HTS::Bam::Record.new(
         header, qname: "read#{index + 1}", chrom: "chr1", pos: position,
-        mapq: 60, cigar: "3M", sequence: "ACG", qualities: [30, 30, 30]
+                mapq: 60, cigar: "3M", sequence: "ACG", qualities: [30, 30, 30]
       )
     end
 

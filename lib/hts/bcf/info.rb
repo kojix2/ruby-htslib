@@ -39,14 +39,25 @@ module HTS
         when nil then delete(key)
         when true, false then update_flag(key, value)
         when Integer
-          raise RangeError, "Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update." unless int32?(value)
+          unless int32?(value)
+            raise RangeError,
+                  "Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update."
+          end
+
           update_int(key, [value])
         when Float then update_float(key, [value])
         when String then update_string(key, value)
         when Array
           raise ArgumentError, "Cannot set INFO field to empty array. Use nil to delete." if value.empty?
+
           if value.all? { |item| item.is_a?(Integer) }
-            raise RangeError, "Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update." unless value.all? { |item| int32?(item) }
+            unless value.all? do |item|
+              int32?(item)
+            end
+              raise RangeError,
+                    "Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update."
+            end
+
             update_int(key, value)
           elsif value.all? { |item| item.is_a?(Numeric) }
             update_float(key, value)
@@ -60,7 +71,11 @@ module HTS
       def update_int(key, values) = update(key, Native::BCF_HT_INT, Array(values).map { |value| Integer(value) }, "int")
       def update_float(key, values) = update(key, Native::BCF_HT_REAL, Array(values).map(&:to_f), "float")
       def update_string(key, value) = update(key, Native::BCF_HT_STR, value.to_s, "string")
-      def update_int64(_key, _values) = raise(UnsupportedInfoOperationError, "htslib backend does not implement int64 INFO update (BCF_HT_LONG)")
+
+      def update_int64(_key,
+                       _values) = raise(UnsupportedInfoOperationError,
+                                        "htslib backend does not implement int64 INFO update (BCF_HT_LONG)")
+
       def update_flag(key, present = true) = update(key, Native::BCF_HT_FLAG, !!present, "flag")
 
       def delete(key)

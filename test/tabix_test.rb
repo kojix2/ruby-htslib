@@ -90,7 +90,7 @@ class TabixTest < Minitest::Test
   def test_each_selected_fields
     assert_equal ["poo", "4021", "G", "0/1:83,0,77"],
                  @bcf.each_selected_fields("poo:4020-4022", 0, 1, 3, 9).first
-    assert_equal ["G", "poo", "G"],
+    assert_equal %w[G poo G],
                  @bcf.each_selected_fields("poo:4020-4022", 3, 0, 3).first
   end
 

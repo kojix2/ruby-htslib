@@ -5,7 +5,7 @@ module HTS
     class Cigar
       include Enumerable
 
-      OP_CHARS = "MIDNSHP=XB".freeze
+      OP_CHARS = "MIDNSHP=XB"
       attr_accessor :array
 
       def self.parse(str)

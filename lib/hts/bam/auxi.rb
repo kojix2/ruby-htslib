@@ -12,19 +12,20 @@ module HTS
         pair = native.aux_get(key, type&.to_s)
         pair&.last
       end
+
       def get_int(key) = get(key, "i")
       def get_float(key) = get(key, "f")
       def get_string(key) = get(key, "Z")
       def [](key) = get(key)
 
-      def each_array(key)
+      def each_array(key, &block)
         return enum_for(__method__, key) unless block_given?
 
         pair = native.aux_get(key, nil)
         return nil unless pair
         raise TypeError, "AUX tag #{key} is not a B array" unless pair.first.start_with?("B:")
 
-        pair.last.each { |value| yield value }
+        pair.last.each(&block)
         self
       end
 
@@ -139,10 +140,10 @@ module HTS
         tag.getbyte(0) | (tag.getbyte(1) << 8)
       end
 
-      def each_with_type
+      def each_with_type(&block)
         return enum_for(__method__) unless block_given?
 
-        entries.each { |tag, type, value| yield tag, type, value }
+        entries.each(&block)
       end
 
       def to_h = entries.to_h { |tag, _, value| [tag, value] }
@@ -206,7 +207,10 @@ module HTS
         if (range = ranges[type])
           value.each do |element|
             integer = Integer(element)
-            raise RangeError, "Array element #{integer} is out of range for AUX array type #{type}" unless range.cover?(integer)
+            unless range.cover?(integer)
+              raise RangeError,
+                    "Array element #{integer} is out of range for AUX array type #{type}"
+            end
           end
         elsif type == "f"
           value.each { |element| Float(element) }

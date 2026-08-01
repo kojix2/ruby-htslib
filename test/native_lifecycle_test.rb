@@ -19,7 +19,7 @@ class NativeLifecycleTest < Minitest::Test
     record = bcf.each(copy: true).first
     expected = record.to_s
     bcf.close
-    bcf = nil
+    nil
     GC.start
 
     assert_equal expected, record.to_s
@@ -41,7 +41,7 @@ class NativeLifecycleTest < Minitest::Test
   def test_mpileup_keeps_input_objects_alive
     bam = HTS::Bam.new(Fixtures["moo.bam"])
     mpileup = HTS::Bam::Mpileup.new([bam], overlaps: true)
-    bam = nil
+    nil
     GC.start
 
     refute_nil mpileup.first

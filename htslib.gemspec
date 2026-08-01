@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.1"
 
-  spec.files         = Dir["*.{md,txt}", "{lib,ext}/**/*"].reject do |path|
+  spec.files = Dir["*.{md,txt}", "{lib,ext}/**/*"].reject do |path|
     path.include?("/coverage/") || path.match?(/\.(?:o|so|bundle|dll)$/) ||
       File.basename(path) == "Makefile" || File.basename(path) == "mkmf.log"
   end

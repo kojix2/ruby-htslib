@@ -47,6 +47,7 @@ module HTS
           self
         end
         attr_reader :tid, :pos
+
         def query_position = @values[1]
         def indel = @values[2]
         def del? = @values[3]
@@ -61,6 +62,7 @@ module HTS
         attr_reader :tid, :pos, :depth
 
         def initialize = @entry_view = BorrowedEntryView.new
+
         def reset(rows, tid, pos)
           @rows = rows
           @tid = tid
@@ -68,6 +70,7 @@ module HTS
           @depth = rows.length
           self
         end
+
         def each
           return to_enum(__method__) unless block_given?
 
@@ -126,7 +129,10 @@ module HTS
 
         min_base_quality = Integer(min_base_quality)
         min_mapping_quality = Integer(min_mapping_quality)
-        raise ArgumentError, "quality thresholds must be non-negative" if min_base_quality.negative? || min_mapping_quality.negative?
+        if min_base_quality.negative? || min_mapping_quality.negative?
+          raise ArgumentError,
+                "quality thresholds must be non-negative"
+        end
 
         counts = Array.new(BASE_COUNT_FIELDS.length, 0)
         each_raw_column do |tid, pos, rows|

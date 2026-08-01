@@ -38,31 +38,42 @@ module HTS
       end
 
       def qname = @native.qname
+
       def qname=(name)
         @native.qname = name
       end
+
       def tid = core_get(:tid)
+
       def tid=(value)
         core_set(:tid, value)
       end
+
       def mtid = core_get(:mtid)
+
       def mtid=(value)
         core_set(:mtid, value)
       end
+
       def pos = core_get(:pos)
+
       def pos=(value)
         core_set(:pos, value)
       end
+
       def mate_pos = core_get(:mpos)
+
       def mate_pos=(value)
         core_set(:mpos, value)
       end
       alias mpos mate_pos
       alias mpos= mate_pos=
       def bin = core_get(:bin)
+
       def bin=(value)
         core_set(:bin, value)
       end
+
       def endpos = @native.endpos
 
       def chrom
@@ -90,38 +101,42 @@ module HTS
       def strand = reverse? ? "-" : "+"
       def mate_strand = mate_reverse? ? "-" : "+"
       def insert_size = core_get(:isize)
+
       def insert_size=(value)
         core_set(:isize, value)
       end
       alias isize insert_size
       alias isize= insert_size=
       def mapq = core_get(:mapq)
+
       def mapq=(value)
         core_set(:mapq, value)
       end
 
       def cigar = Cigar.new(self)
+
       def cigar=(value)
         raise ArgumentError, "cigar must be a String or Bam::Cigar" unless value.is_a?(String) || value.is_a?(Cigar)
 
         @native.cigar = value.to_s
       end
+
       def qlen = @native.qlen
       def rlen = @native.rlen
       def seq = @native.sequence
       alias sequence seq
 
-      def each_base
+      def each_base(&block)
         return to_enum(__method__) unless block_given?
 
-        seq.each_char { |base| yield base }
+        seq.each_char(&block)
         self
       end
 
-      def each_base_code
+      def each_base_code(&block)
         return to_enum(__method__) unless block_given?
 
-        @native.sequence_codes.each { |code| yield code }
+        @native.sequence_codes.each(&block)
         self
       end
 
@@ -137,10 +152,10 @@ module HTS
       def qual = @native.qualities
       def qual_string = @native.quality_string
 
-      def each_qual
+      def each_qual(&block)
         return to_enum(__method__) unless block_given?
 
-        @native.qualities.each { |quality| yield quality }
+        @native.qualities.each(&block)
         self
       end
 
@@ -152,6 +167,7 @@ module HTS
 
       def flag = Flag.new(flag_value)
       def flag_value = core_get(:flag)
+
       def flag=(value)
         case value
         when Integer then core_set(:flag, value)
@@ -227,9 +243,7 @@ module HTS
       end
 
       def resolve_tid(numeric, name, label)
-        if !numeric.nil? && !name.nil?
-          raise ArgumentError, "specify either #{label} or its numeric id, not both"
-        end
+        raise ArgumentError, "specify either #{label} or its numeric id, not both" if !numeric.nil? && !name.nil?
 
         id = if name.nil?
                numeric.nil? ? -1 : Integer(numeric)
@@ -269,9 +283,7 @@ module HTS
                 elsif !short.equal?(UNSET)
                   short.is_a?(String) ? quality_string_to_bytes(short) : quality_values_to_bytes(short)
                 end
-        if value && value.bytesize != sequence_length
-          raise ArgumentError, "qualities length must match sequence length"
-        end
+        raise ArgumentError, "qualities length must match sequence length" if value && value.bytesize != sequence_length
 
         value
       end
@@ -315,11 +327,9 @@ module HTS
       end
 
       def assign_aux(values)
-        unless values.respond_to?(:each_pair)
-          raise ArgumentError, "aux must be a Hash-like object"
-        end
+        raise ArgumentError, "aux must be a Hash-like object" unless values.respond_to?(:each_pair)
 
-        values.each_pair { |key, value| aux()[key.to_s] = value }
+        values.each_pair { |key, value| aux[key.to_s] = value }
       end
 
       def initialize_copy(original)

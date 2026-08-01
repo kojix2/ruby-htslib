@@ -10,11 +10,13 @@ module HTS
         attr_reader :length
         alias size length
         def initialize = reset([])
+
         def reset(values)
           @values = values
           @length = values.length
           self
         end
+
         def [](index)
           index = Integer(index)
           index += @length if index.negative?
@@ -22,10 +24,11 @@ module HTS
 
           @values[index]
         end
-        def each
+
+        def each(&block)
           return to_enum(__method__) unless block_given?
 
-          @values.each { |value| yield value }
+          @values.each(&block)
           self
         end
       end
@@ -35,6 +38,7 @@ module HTS
         attr_reader :tid, :pos, :length
         alias size length
         def initialize = @column_view = Pileup::BorrowedColumnView.new
+
         def reset(tid, pos, rows)
           @tid = tid
           @pos = pos
@@ -42,6 +46,7 @@ module HTS
           @length = rows.length
           self
         end
+
         def each
           return to_enum(__method__) unless block_given?
 
@@ -126,7 +131,10 @@ module HTS
 
         min_base_quality = Integer(min_base_quality)
         min_mapping_quality = Integer(min_mapping_quality)
-        raise ArgumentError, "quality thresholds must be non-negative" if min_base_quality.negative? || min_mapping_quality.negative?
+        if min_base_quality.negative? || min_mapping_quality.negative?
+          raise ArgumentError,
+                "quality thresholds must be non-negative"
+        end
 
         counts = Array.new(@bams.length) { Array.new(Pileup::BASE_COUNT_FIELDS.length, 0) }
         each_column_raw do |tid, pos, _, rows_by_input, _|
@@ -171,6 +179,7 @@ module HTS
         counts.fill(0)
         rows.each do |row|
           next if row[6] || row[10] < min_mapping_quality
+
           if row[3] || row[1].negative?
             counts[8] += 1
           else

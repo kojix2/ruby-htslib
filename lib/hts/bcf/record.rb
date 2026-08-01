@@ -11,20 +11,27 @@ module HTS
       end
 
       def rid = @native.core_get(:rid)
+
       def rid=(value)
         @native.core_set(:rid, value)
       end
+
       def chrom = @header.id2name(rid)
       def pos = @native.core_get(:pos)
+
       def pos=(value)
         @native.core_set(:pos, value)
       end
+
       def endpos = pos + @native.core_get(:rlen)
       def id = @native.id
+
       def id=(value)
         @native.set_id(@header.__send__(:native_handle), value)
       end
-      def clear_id = (@native.set_id(@header.__send__(:native_handle), "."); nil)
+
+      def clear_id = @native.set_id(@header.__send__(:native_handle), ".")
+      nil
       def alleles = @native.alleles
       def ref = alleles.first
       def alt = alleles.drop(1)
@@ -47,6 +54,7 @@ module HTS
       end
 
       def qual = @native.core_get(:qual)
+
       def qual=(value)
         @native.core_set(:qual, value)
       end
@@ -60,12 +68,13 @@ module HTS
         end
       end
 
-      def each_filter_id
+      def each_filter_id(&block)
         return to_enum(__method__) unless block_given?
 
-        @native.filter_ids.each { |id| yield id }
+        @native.filter_ids.each(&block)
         self
       end
+
       def filter_ids = @native.filter_ids
       def filter_id?(target_id) = filter_ids.include?(Integer(target_id))
 

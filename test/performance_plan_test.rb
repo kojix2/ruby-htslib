@@ -68,8 +68,8 @@ class PerformancePlanTest < Minitest::Test
         assert_equal %w[0|1 1/1], format.genotype_strings
 
         assert_equal [[0, 10], [1, 20]], format.each_i32("DP").to_a
-        assert_equal [[0, [4, 6]], [1, [0, 20]]],
-                     format.each_i32_vector("AD").map { |sample, view| [sample, view.to_a] }
+        assert_equal([[0, [4, 6]], [1, [0, 20]]],
+                     format.each_i32_vector("AD").map { |sample, view| [sample, view.to_a] })
 
         floats = format.each_f32_vector("GL").map { |sample, view| [sample, view.to_a] }
         assert_equal [0, 1], floats.map(&:first)
@@ -160,8 +160,8 @@ class PerformancePlanTest < Minitest::Test
       assert_equal expected_quality, record.qual_string
       assert_equal record.sequence.chars, record.each_base.to_a
       assert_equal record.len, record.each_base_code.count
-      assert_equal record.cigar.to_a,
-                   record.each_cigar_raw.map { |op, length| [HTS::Bam::Cigar::OP_CHARS[op], length] }
+      assert_equal(record.cigar.to_a,
+                   record.each_cigar_raw.map { |op, length| [HTS::Bam::Cigar::OP_CHARS[op], length] })
 
       record.aux.update_array("XA", [-2, 0, 7], type: "i")
       assert_equal [-2, 0, 7], record.aux.get("XA")

@@ -20,22 +20,31 @@ module HTS
       class NumericVectorView
         include Enumerable
         def initialize(type) = @type = type
+
         def reset(values, buffer, generation)
           @values = values
           @buffer = buffer
           @generation = generation
           self
         end
-        def each
+
+        def each(&block)
           return to_enum(__method__) unless block_given?
+
           ensure_valid!
-          @values.each { |value| yield value }
+          @values.each(&block)
           self
         end
+
         def to_a = each.to_a
+
         private
+
         def ensure_valid!
-          raise InvalidBorrowedViewError, "borrowed FORMAT view is no longer valid" unless @buffer.generation == @generation
+          return if @buffer.generation == @generation
+
+          raise InvalidBorrowedViewError,
+                "borrowed FORMAT view is no longer valid"
         end
       end
 
@@ -48,11 +57,14 @@ module HTS
           @generation = generation
           self
         end
+
         def each_allele
           return to_enum(__method__) unless block_given?
+
           ensure_valid!
           @values.each_with_index do |encoded, index|
             break if encoded == GT_VECTOR_END
+
             missing = gt_missing?(encoded)
             # The phase bit describes the separator before this allele. It has
             # no semantic meaning for the first allele, and HTSlib versions do
@@ -71,10 +83,16 @@ module HTS
           end
           result
         end
+
         private
+
         def ensure_valid!
-          raise InvalidBorrowedViewError, "borrowed FORMAT view is no longer valid" unless @buffer.generation == @generation
+          return if @buffer.generation == @generation
+
+          raise InvalidBorrowedViewError,
+                "borrowed FORMAT view is no longer valid"
         end
+
         def gt_missing?(value) = (value >> 1).zero?
         def gt_allele(value) = (value >> 1) - 1
         def gt_phased?(value) = (value & 1) == 1
@@ -89,6 +107,7 @@ module HTS
         key = key.to_s
         schema = format_schema(key)
         return nil unless schema
+
         raise_unsupported_flag(key) if schema.first == :flag
 
         requested = type&.to_sym
@@ -98,6 +117,7 @@ module HTS
         return genotype_strings(key) if key == "GT" && (!requested || %i[string str].include?(requested))
 
         return get_float(key) if %i[float real].include?(requested)
+
         raw = get_raw(key, requested)
         return raw if requested
         return raw if schema.first == :string
@@ -109,10 +129,12 @@ module HTS
         key = key.to_s
         schema = format_schema(key)
         return nil unless schema
+
         requested = type&.to_sym
         if requested && !type_compatible?(schema.first, requested, key)
           raise FormatTypeError, "Tag #{key} is not #{type_label(requested)} FORMAT field"
         end
+
         code = key == "GT" ? Native::BCF_HT_INT : type_code(requested || schema.first)
         raw_float = code == Native::BCF_HT_REAL
         invalidate_views!(key)
@@ -120,10 +142,12 @@ module HTS
       end
 
       def get_int(key) = get(key, :int)
+
       def get_float(key)
         words = get_raw(key, :float)
         words&.map { |word| decode_float_word(word) }
       end
+
       def get_flag(key) = get(key, :flag)
       def get_string(key) = get(key, :string)
       def get_genotypes = get_raw("GT", :int)
@@ -135,6 +159,7 @@ module HTS
 
         values = get_raw(key, :int)
         return nil unless values
+
         count, width = sample_layout(values.length)
         buffer, generation = advance_buffer(key, :genotype)
         view = GenotypeView.new
@@ -147,10 +172,12 @@ module HTS
       def genotype_at(key, sample_index)
         values = get_raw(key, :int)
         return nil unless values
+
         count, width = sample_layout(values.length)
         sample_index = Integer(sample_index)
         sample_index += count if sample_index.negative?
         raise IndexError, "sample index #{sample_index} outside of FORMAT" unless sample_index.between?(0, count - 1)
+
         buffer, generation = advance_buffer(key, :genotype)
         GenotypeView.new.reset(values.slice(sample_index * width, width), buffer, generation)
       end
@@ -163,9 +190,11 @@ module HTS
 
       def each_i32(key)
         return enum_for(__method__, key) unless block_given?
+
         ensure_scalar!(key, :int)
         values = get_raw(key, :int)
         return self unless values
+
         values.each_with_index { |value, index| yield index, missing_int(value) }
         self
       end
@@ -175,6 +204,7 @@ module HTS
 
       def update_int(key, values)
         raise UnsupportedFormatOperationError, "Use update_genotypes for GT" if key.to_s == "GT"
+
         values = normalize_values(values) { |value| Integer(value) }
         validate_sample_divisibility!(key, values.length)
         update_format(key, Native::BCF_HT_INT, values)
@@ -190,8 +220,10 @@ module HTS
         values = normalize_values(values) { |value| Integer(value) }
         validate_sample_divisibility!(key, values.length)
         raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" unless format_schema(key)
+
         result = native.format_update_float_words(header_native, key.to_s, values)
         raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{result}" if result.negative?
+
         result
       end
 
@@ -201,6 +233,7 @@ module HTS
         unless values.length == expected
           raise ArgumentError, "FORMAT string values for #{key} must provide one entry per sample (#{expected})"
         end
+
         update_format(key, Native::BCF_HT_STR, values)
       end
 
@@ -209,12 +242,14 @@ module HTS
         validate_sample_divisibility!("GT", values.length)
         result = native.genotype_update(header_native, values)
         raise FormatUpdateError, "Failed to update FORMAT field 'GT': #{result}" if result.negative?
+
         result
       end
 
       def delete(key)
         schema = format_schema(key)
         return false unless schema && !get_raw(key).nil?
+
         result = native.format_delete(header_native, key.to_s, type_code(schema.first))
         result >= 0
       end
@@ -241,13 +276,14 @@ module HTS
 
       def type_compatible?(actual, requested, key)
         return true if key == "GT" && %i[int int32 string str].include?(requested)
-        case requested
-        when :int, :int32 then actual == :int
-        when :float, :real then actual == :float
-        when :string, :str then actual == :string
-        when :flag then actual == :flag
-        else actual == requested
-        end
+
+        actual == case requested
+                  when :int, :int32 then :int
+                  when :float, :real then :float
+                  when :string, :str then :string
+                  when :flag then :flag
+                  else requested
+                  end
       end
 
       def type_label(type)
@@ -266,11 +302,13 @@ module HTS
       def sample_layout(value_count)
         count = sample_count
         raise FormatReadError, "invalid FORMAT sample layout" if count <= 0 || (value_count % count) != 0
+
         [count, value_count / count]
       end
 
-      def shape_values(values, key, schema)
+      def shape_values(values, _key, schema)
         return nil unless values
+
         count, width = sample_layout(values.length)
         scalar = schema[1] == 1
         Array.new(count) do |sample|
@@ -291,8 +329,10 @@ module HTS
       def missing_int(value)
         [Native::BCF_INT32_MISSING, Native::BCF_INT32_VECTOR_END].include?(value) ? nil : value
       end
+
       def decode_float_word(word)
-        return nil if word == Native::BCF_FLOAT_MISSING || word == Native::BCF_FLOAT_VECTOR_END
+        return nil if [Native::BCF_FLOAT_MISSING, Native::BCF_FLOAT_VECTOR_END].include?(word)
+
         [word].pack("L<").unpack1("e")
       end
 
@@ -310,8 +350,10 @@ module HTS
 
       def each_vector(key, type)
         return enum_for(type == :int ? :each_i32_vector : :each_f32_vector, key) unless block_given?
+
         values = get_raw(key, type)
         return self unless values
+
         count, width = sample_layout(values.length)
         buffer, generation = advance_buffer(key, type)
         view = NumericVectorView.new(type)
@@ -329,19 +371,21 @@ module HTS
         raise FormatReadError, "FORMAT field #{key} is not scalar" unless schema[1] == 1
       end
 
-      def normalize_values(values)
-        Array(values).map { |value| yield value }
+      def normalize_values(values, &block)
+        Array(values).map(&block)
       end
 
       def validate_sample_divisibility!(key, count)
         samples = sample_count
         return if samples.positive? && (count % samples).zero?
+
         raise ArgumentError, "FORMAT values for #{key} must be divisible by sample count (#{samples})"
       end
 
       def update_format(key, type, values)
         schema = format_schema(key)
         raise FormatDefinitionError, "FORMAT tag #{key} not defined in header" unless schema
+
         expected = type_code(schema.first)
         unless expected == type
           requested = { Native::BCF_HT_INT => :int, Native::BCF_HT_REAL => :float,
@@ -350,6 +394,7 @@ module HTS
         end
         result = native.format_update(header_native, key.to_s, type, values)
         raise FormatUpdateError, "Failed to update FORMAT field '#{key}': #{result}" if result.negative?
+
         result
       end
     end
