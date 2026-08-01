@@ -106,6 +106,11 @@ Omit qualities (or pass `nil`) to write missing qualities. `seq:` / `qual:`
 are accepted as concise aliases. Reference names can also be assigned with
 `record.chrom=` and `record.mate_chrom=`.
 
+BAM/CRAM, BCF/VCF, and Tabix indexes are loaded lazily when an indexed
+operation such as `query` or a region-limited pileup first needs them. Pass an
+explicit `index:` path to `open` to validate and load that index immediately.
+`index_loaded?` reports whether the index is currently loaded.
+
 ### HTS::Bcf - VCF / BCF - Variant Call Format file
 
 Reading fields

@@ -79,6 +79,10 @@ module HTS
           else raise ArgumentError, "Unsupported input type: #{input.class}"
           end
         end
+        if region
+          missing = @bams.find { |bam| !bam.__send__(:ensure_index_loaded) }
+          raise "Index file is required to use region mpileup: #{missing.file_name}" if missing
+        end
         files = @bams.map { |bam| bam.__send__(:native_handle) }
         headers = @bams.map { |bam| bam.header.__send__(:native_handle) }
         @native = Native::MpileupHandle.open(files, headers, region, beg, end_, maxcnt, overlaps)

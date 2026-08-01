@@ -334,6 +334,26 @@ class BamTest < Minitest::Test
     end
   end
 
+  def test_index_loading_is_lazy
+    bam = HTS::Bam.new(path_bam_string)
+
+    refute bam.index_loaded?
+    assert_instance_of HTS::Bam::Record, bam.first
+    refute bam.index_loaded?
+    assert_instance_of HTS::Bam::Record, bam.query("chr2:350-700").first
+    assert bam.index_loaded?
+  ensure
+    bam&.close
+  end
+
+  def test_explicit_index_is_loaded_eagerly
+    bam = HTS::Bam.new(path_bam_string, index: "#{path_bam_string}.bai")
+
+    assert bam.index_loaded?
+  ensure
+    bam&.close
+  end
+
   def test_build_index
     Dir.mktmpdir do |dir|
       index_path = File.join(dir, "moo.bam.bai")

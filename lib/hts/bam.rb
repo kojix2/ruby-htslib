@@ -77,6 +77,7 @@ module HTS
       @index_name = index
       @mode       = mode
       @nthreads   = threads
+      @index_load_attempted = false
       @native = Native::BamFileHandle.open(@file_name, mode)
 
       # Auto-detect and set reference for CRAM files
@@ -100,8 +101,12 @@ module HTS
       return if @mode[0] == "w"
 
       @header = Bam::Header.new(@native.read_header)
-      build_index(index) if build_index
-      load_index(index)
+      if build_index
+        build_index(index)
+        load_index(index)
+      elsif index
+        load_index(index)
+      end
       @start_position = tell
     end
 
@@ -109,12 +114,16 @@ module HTS
       check_closed
 
       self.class.build_index(@file_name, index_name, min_shift, @nthreads || 0, verbose)
+      @index_name = index_name
+      @index_load_attempted = false
       self # for method chaining
     end
 
     def load_index(index_name = nil)
       check_closed
 
+      @index_name = index_name
+      @index_load_attempted = true
       @native.load_index(index_name)
     end
 
@@ -284,7 +293,7 @@ module HTS
     #   bam.query(["chr1:100-200", "chr2:500-600"]) { |r| puts r.qname }
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
-      raise "Index file is required to call the query method." unless index_loaded?
+      raise "Index file is required to call the query method." unless ensure_index_loaded
 
       case region
       when Array
@@ -327,6 +336,13 @@ module HTS
     end
 
     private
+
+    def ensure_index_loaded
+      return true if index_loaded?
+      return false if @index_load_attempted
+
+      load_index(@index_name)
+    end
 
     def queryi(tid, beg, end_, copy: false, &block)
       if copy

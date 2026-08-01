@@ -231,8 +231,9 @@ class BcfTest < Minitest::Test
     bcf = silence_stderr { HTS::Bcf.open(Fixtures["test.vcf.gz"]) }
 
     assert_equal "vcf", bcf.file_format
-    assert bcf.index_loaded?
+    refute bcf.index_loaded?
     assert_equal 4021, bcf.query("poo", 4000, 4100).first.pos + 1
+    assert bcf.index_loaded?
     assert_equal 4021, bcf.query("poo:4000-4100").first.pos + 1
     assert_equal 4021, bcf.query("poo", 4000, 4100, copy: true).first.pos + 1
     assert_equal 4021, bcf.query("poo:4000-4100", copy: true).first.pos + 1

@@ -35,12 +35,13 @@ module HTS
       @index_name = index
       @mode       = "r"
       @nthreads   = threads
+      @index_load_attempted = false
       @native = Native::TabixHandle.open(@file_name)
 
       set_threads(threads) if threads
 
       # build_index(index) if build_index
-      load_index(index)
+      load_index(index) if index
     end
 
     def build_index(index_name = nil, min_shift: 0)
@@ -63,11 +64,15 @@ module HTS
         else raise "unknown error"
         end
       end
+      @index_name = index_name
+      @index_load_attempted = false
       self # for method chaining
     end
 
     def load_index(index_name = nil)
       check_closed
+      @index_name = index_name
+      @index_load_attempted = true
       @native.load_index(index_name)
     end
 
@@ -78,11 +83,15 @@ module HTS
 
     def name2id(name)
       check_closed
+      raise "Index file is required to call the name2id method." unless ensure_index_loaded
+
       @native.name2id(name)
     end
 
     def seqnames
       check_closed
+      raise "Index file is required to call the seqnames method." unless ensure_index_loaded
+
       @native.seqnames
     end
 
@@ -116,7 +125,7 @@ module HTS
 
     def query_with_mode(region, start, end_, mode, columns, &block)
       check_closed
-      raise "Index file is required to call the query method." unless index_loaded?
+      raise "Index file is required to call the query method." unless ensure_index_loaded
 
       if start && end_
         queryi(name2id(region), start, end_, mode, columns, &block)
@@ -154,6 +163,13 @@ module HTS
     end
 
     private
+
+    def ensure_index_loaded
+      return true if index_loaded?
+      return false if @index_load_attempted
+
+      load_index(@index_name)
+    end
 
     def queryi(id, start, end_, mode = :fields, columns = nil, &block)
       return to_enum(__method__, id, start, end_, mode, columns) unless block_given?

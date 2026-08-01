@@ -60,6 +60,7 @@ module HTS
       @index_name = index
       @mode = mode
       @nthreads = threads
+      @index_load_attempted = false
       @native = Native::BcfFileHandle.open(@file_name, mode)
       set_threads(threads) if threads
       if subset && mode.start_with?("w")
@@ -70,8 +71,12 @@ module HTS
 
       @read_header = Header.new(@native.read_header)
       @header = subset ? @read_header.subset(subset) : @read_header
-      build_index(index) if build_index
-      load_index(index)
+      if build_index
+        build_index(index)
+        load_index(index)
+      elsif index
+        load_index(index)
+      end
       @start_position = tell
     rescue Errno::ENOENT
       raise OpenError, "Failed to open #{@file_name}"
@@ -80,11 +85,15 @@ module HTS
     def build_index(index_name = nil, min_shift: 14, verbose: true)
       check_closed
       self.class.build_index(@file_name, index_name, min_shift, @nthreads || 0, verbose)
+      @index_name = index_name
+      @index_load_attempted = false
       self
     end
 
     def load_index(index_name = nil)
       check_closed
+      @index_name = index_name
+      @index_load_attempted = true
       @native.load_index(index_name)
     end
 
@@ -210,7 +219,9 @@ module HTS
 
     def query(region, beg = nil, end_ = nil, copy: false, &block)
       check_closed
-      raise MissingIndexError, "Index file is required to call the query method for #{@file_name}" unless index_loaded?
+      unless ensure_index_loaded
+        raise MissingIndexError, "Index file is required to call the query method for #{@file_name}"
+      end
 
       case region
       when Array
@@ -232,6 +243,13 @@ module HTS
     end
 
     private
+
+    def ensure_index_loaded
+      return true if index_loaded?
+      return false if @index_load_attempted
+
+      load_index(@index_name)
+    end
 
     def native_handle = @native
     def read_header_native = (@read_header || @header).__send__(:native_handle)

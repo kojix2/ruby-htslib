@@ -85,6 +85,9 @@ module HTS
 
         @bam = bam
         @header = bam.header
+        if region && !bam.__send__(:ensure_index_loaded)
+          raise "Index file is required to use region pileup."
+        end
         @native = Native::PileupHandle.open(
           bam.__send__(:native_handle), @header.__send__(:native_handle), region, beg, end_, maxcnt
         )

@@ -13,6 +13,7 @@ class TabixTest < Minitest::Test
 
   def test_initialize
     assert_instance_of HTS::Tabix, @bcf
+    refute @bcf.index_loaded?
   end
 
   def test_native_handle_is_not_public
@@ -38,6 +39,7 @@ class TabixTest < Minitest::Test
 
   def test_name2id
     assert_equal 0, @bcf.name2id("poo")
+    assert @bcf.index_loaded?
   end
 
   def test_seqnames
