@@ -1,10 +1,52 @@
 # frozen_string_literal: true
 
+require_relative "../native"
+
 module HTS
   class Bam < Hts
     # High-level mpileup iterator over multiple BAM/CRAM inputs
     class Mpileup
       include Enumerable
+
+      # A borrowed, reusable view over the per-input depths at one position.
+      # Do not retain it after the iterator advances; call #to_a for an owning
+      # snapshot when the values must outlive the callback.
+      class DepthView
+        include Enumerable
+
+        def initialize
+          @pointer = nil
+          @length = 0
+        end
+
+        attr_reader :length
+        alias size length
+
+        def [](index)
+          index = Integer(index)
+          index += @length if index.negative?
+          raise ::IndexError, "depth index #{index} outside of view" unless index.between?(0, @length - 1)
+
+          @pointer.get_int32(index * FFI.type_size(:int32))
+        end
+
+        def each
+          return to_enum(__method__) unless block_given?
+
+          i = 0
+          while i < @length
+            yield @pointer.get_int32(i * FFI.type_size(:int32))
+            i += 1
+          end
+          self
+        end
+
+        def reset(pointer, length)
+          @pointer = pointer
+          @length = length
+          self
+        end
+      end
 
       # Usage:
       #   HTS::Bam::Mpileup.open([bam1, bam2], region: "chr1:1-100") do |mpl|
@@ -111,17 +153,10 @@ module HTS
         return to_enum(__method__) unless block_given?
 
         n = @bams.length
-        tid_ptr = FFI::MemoryPointer.new(:int)
-        pos_ptr = FFI::MemoryPointer.new(:long_long)
-        n_ptr   = FFI::MemoryPointer.new(:int, n)
-        plp_ptr = FFI::MemoryPointer.new(:pointer, n)
         plp1_size = HTS::LibHTS::BamPileup1.size
         headers   = @bams.map(&:header)
 
-        while HTS::LibHTS.bam_mplp64_auto(@iter, tid_ptr, pos_ptr, n_ptr, plp_ptr) > 0
-          tid = tid_ptr.read_int
-          pos = pos_ptr.read_long_long
-
+        each_column_raw do |tid, pos, n_ptr, plp_ptr, _input_count|
           counts = n_ptr.read_array_of_int(n)
           plp_arr = plp_ptr.read_array_of_pointer(n)
 
@@ -149,6 +184,115 @@ module HTS
           yield cols
         end
 
+        self
+      end
+
+      # Yield one position and a borrowed reusable view of its per-input
+      # depths, without creating column or pileup-record objects.
+      def each_depth
+        return to_enum(__method__) unless block_given?
+
+        view = DepthView.new
+        each_column_raw do |tid, pos, counts_pointer, _pileups_pointer, input_count|
+          yield tid, pos, view.reset(counts_pointer, input_count)
+        end
+        self
+      end
+
+      # Yield primitive pileup entry values without constructing columns or
+      # duplicating Bam::Record instances. base is a BAM nt16 integer code, or
+      # nil for a deletion/reference skip.
+      def each_entry_raw
+        return to_enum(__method__) unless block_given?
+
+        entry_size = HTS::LibHTS::BamPileup1.size
+        pointer_size = FFI.type_size(:pointer)
+        int_size = FFI.type_size(:int)
+
+        each_column_raw do |tid, pos, counts_pointer, pileups_pointer, input_count|
+          input_index = 0
+          while input_index < input_count
+            depth = counts_pointer.get_int32(input_index * int_size)
+            base_pointer = pileups_pointer.get_pointer(input_index * pointer_size)
+            entry_index = 0
+            while entry_index < depth
+              entry = HTS::LibHTS::BamPileup1.new(base_pointer + entry_index * entry_size)
+              bam = HTS::LibHTS::Bam1View.new(entry[:b])
+              qpos = entry[:qpos]
+              flag = bam[:core][:flag]
+
+              if entry[:is_del] == 1 || entry[:is_refskip] == 1 || qpos.negative?
+                base = nil
+                quality = nil
+              else
+                base = HTS::LibHTS.bam_seqi(HTS::LibHTS.bam_get_seq(bam), qpos)
+                quality = HTS::LibHTS.bam_get_qual(bam).get_uint8(qpos)
+              end
+              yield input_index, tid, pos, qpos, flag, base, quality
+              entry_index += 1
+            end
+            input_index += 1
+          end
+        end
+        self
+      end
+
+      # Yield reused base-count arrays for all inputs at each position. Each
+      # inner array uses Pileup::BASE_COUNT_FIELDS order. Duplicate the arrays
+      # before retaining them beyond the callback.
+      def each_base_counts(min_base_quality: 0, min_mapping_quality: 0)
+        return to_enum(__method__, min_base_quality:, min_mapping_quality:) unless block_given?
+
+        min_base_quality = Integer(min_base_quality)
+        min_mapping_quality = Integer(min_mapping_quality)
+        raise ArgumentError, "quality thresholds must be non-negative" if min_base_quality.negative? || min_mapping_quality.negative?
+
+        input_count = @bams.length
+        counts = Array.new(input_count) { Array.new(Pileup::BASE_COUNT_FIELDS.length, 0) }
+        int_size = FFI.type_size(:int)
+        pointer_size = FFI.type_size(:pointer)
+
+        each_column_raw do |tid, pos, depths_pointer, pileups_pointer, _|
+          input_index = 0
+          while input_index < input_count
+            depth = depths_pointer.get_int32(input_index * int_size)
+            pileup_pointer = pileups_pointer.get_pointer(input_index * pointer_size)
+            if depth.zero? || pileup_pointer.null?
+              counts[input_index].fill(0)
+            else
+              HTS::Native.pileup_base_counts(
+                pileup_pointer.address, depth, min_base_quality,
+                min_mapping_quality, counts[input_index]
+              )
+            end
+            input_index += 1
+          end
+          yield tid, pos, counts
+        end
+        self
+      end
+
+      # Lowest-level column iterator. The count and pileup pointers are
+      # borrowed from HTSlib and remain valid only until iteration advances.
+      def each_column_raw
+        return to_enum(__method__) unless block_given?
+
+        input_count = @bams.length
+        tid_pointer = FFI::MemoryPointer.new(:int)
+        pos_pointer = FFI::MemoryPointer.new(:long_long)
+        counts_pointer = FFI::MemoryPointer.new(:int, input_count)
+        pileups_pointer = FFI::MemoryPointer.new(:pointer, input_count)
+
+        loop do
+          result = HTS::LibHTS.bam_mplp64_auto(
+            @iter, tid_pointer, pos_pointer, counts_pointer, pileups_pointer
+          )
+          break if result.zero?
+          raise "HTSlib mpileup error (bam_mplp64_auto)" if result.negative?
+
+          yield tid_pointer.read_int, pos_pointer.read_long_long,
+                counts_pointer, pileups_pointer, input_count
+        end
         self
       end
 

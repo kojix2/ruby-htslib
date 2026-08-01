@@ -17,8 +17,9 @@ Gem::Specification.new do |spec|
   #   it will be included in the package.
   # * Official releases uploaded to the RubyGem server
   #   will not include the shared library.
-  spec.files         = Dir["*.{md,txt}", "{lib}/**/*", "vendor/*.{so,dylib,dll}"]
+  spec.files         = Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/*.{so,dylib,dll}"]
   spec.require_path  = "lib"
+  spec.extensions    = ["ext/htslib_native/extconf.rb"]
 
   spec.add_dependency "ffi"
   spec.add_dependency "ffi-bitfield"

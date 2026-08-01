@@ -172,6 +172,13 @@ module HTS
       seek(position) if position
       ary
     end
+    alias aux_array aux
+
+    # Materialize independent records from the current stream position.
+    # Unlike each.to_a, every element owns its bam1_t storage.
+    def collect_records
+      each(copy: true).to_a
+    end
 
     # @!macro [attach] define_iterator
     #   @method each_$1

@@ -191,6 +191,8 @@ module HTS
       ary
     end
 
+    alias info_array info
+
     def format(key = nil)
       check_closed
       position = tell
@@ -203,6 +205,14 @@ module HTS
 
       seek(position)
       ary
+    end
+
+    alias format_array format
+
+    # Materialize independent records from the current stream position.
+    # Unlike each.to_a, every element owns its bcf1_t storage.
+    def collect_records
+      each(copy: true).to_a
     end
 
     # @!macro [attach] define_iterator

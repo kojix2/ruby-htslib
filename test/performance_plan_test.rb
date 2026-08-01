@@ -168,4 +168,26 @@ class PerformancePlanTest < Minitest::Test
       assert_equal [-2, 0, 7], record.aux.each_array("XA").to_a
     end
   end
+
+  def test_materializing_apis_have_explicit_names
+    with_streaming_vcf do |path|
+      HTS::Bcf.open(path) do |bcf|
+        assert_equal bcf.pos, bcf.pos_array
+        records = bcf.collect_records
+        assert_equal 2, records.length
+        refute_same records[0], records[1]
+        assert_equal [9], records[1].info("IV")
+      end
+    end
+
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      assert_equal bam.pos, bam.pos_array
+      records = bam.collect_records
+      assert_operator records.length, :>, 1
+      refute_same records[0], records[1]
+      first_position = records[0].pos
+      refute_nil records[1].pos
+      assert_equal first_position, records[0].pos
+    end
+  end
 end

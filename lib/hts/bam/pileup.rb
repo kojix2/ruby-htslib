@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "../native"
+
 module HTS
   class Bam < Hts
     # High-level pileup iterator for a single SAM/BAM/CRAM
     class Pileup
       include Enumerable
+
+      BASE_COUNT_FIELDS = %i[depth a c g t n forward reverse deletion insertion].freeze
 
       # Usage:
       #   HTS::Bam::Pileup.open(bam, region: "chr1:1-100") do |pl|
@@ -191,6 +195,26 @@ module HTS
             end
             yield tid, pos, qpos, flag, base, quality
           end
+        end
+        self
+      end
+
+      # Yield one reused count array per genomic position. The fields are, in
+      # order: depth, A, C, G, T, N, forward, reverse, deletion, insertion.
+      # Call counts.dup when retaining a result beyond the callback.
+      def each_base_counts(min_base_quality: 0, min_mapping_quality: 0)
+        return to_enum(__method__, min_base_quality:, min_mapping_quality:) unless block_given?
+
+        min_base_quality = Integer(min_base_quality)
+        min_mapping_quality = Integer(min_mapping_quality)
+        raise ArgumentError, "quality thresholds must be non-negative" if min_base_quality.negative? || min_mapping_quality.negative?
+
+        counts = Array.new(BASE_COUNT_FIELDS.length, 0)
+        each_raw_column do |base_pointer, tid, pos, depth|
+          HTS::Native.pileup_base_counts(
+            base_pointer.address, depth, min_base_quality, min_mapping_quality, counts
+          )
+          yield tid, pos, counts
         end
         self
       end

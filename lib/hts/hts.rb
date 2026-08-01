@@ -16,6 +16,10 @@ module HTS
           seek(position) if position
           ary
         end
+
+        # Keep the historical short name, while also exposing an explicit
+        # materializing name that makes the allocation behavior visible.
+        alias_method "#{name}_array", name
       end
 
       def define_iterator(name)

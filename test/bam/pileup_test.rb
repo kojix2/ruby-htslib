@@ -69,6 +69,36 @@ class BamPileupTest < Minitest::Test
     end
   end
 
+  def test_base_count_aggregation
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      HTS::Bam::Pileup.open(bam) do |pileup|
+        count_ids = []
+        rows = []
+        pileup.each_base_counts do |tid, pos, counts|
+          assert_kind_of Integer, tid
+          assert_kind_of Integer, pos
+          assert_equal HTS::Bam::Pileup::BASE_COUNT_FIELDS.length, counts.length
+          assert_equal counts[0], counts[1, 5].sum + counts[8]
+          assert_equal counts[0], counts[6] + counts[7]
+          count_ids << counts.object_id
+          rows << counts.dup
+          break if rows.length == 5
+        end
+        assert_equal 5, rows.length
+        assert_equal 1, count_ids.uniq.length
+      end
+    end
+  end
+
+  def test_base_count_quality_filter
+    HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
+      HTS::Bam::Pileup.open(bam) do |pileup|
+        _tid, _pos, counts = pileup.each_base_counts(min_base_quality: 256).first
+        assert_equal 0, counts[0]
+      end
+    end
+  end
+
   def test_pileup_record_persists_beyond_step
     HTS::Bam.open(Fixtures["moo.bam"]) do |bam|
       kept = nil

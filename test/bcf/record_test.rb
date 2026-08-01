@@ -109,6 +109,29 @@ class BcfRecordTest < Minitest::Test
     assert_equal %w[GTTT G], @v2.alleles
   end
 
+  def test_borrowed_alleles
+    assert_equal 2, @v1.allele_count
+    assert_equal "C", @v1.allele_pointer_at(0).read_string
+    assert_equal "T", @v1.allele_pointer_at(-1).read_string
+    assert_raises(::IndexError) { @v1.allele_pointer_at(2) }
+
+    values = @v2.each_allele_raw.map { |pointer, length| pointer.read_string(length) }
+    assert_equal %w[GTTT G], values
+  end
+
+  def test_filter_ids
+    [@v1, @v2].zip(%w[PASS q10]).each do |record, expected|
+      ids = record.each_filter_id.to_a
+      assert_equal 1, ids.length
+      assert_kind_of Integer, ids.first
+      assert record.filter_id?(ids.first)
+      refute record.filter_id?(ids.first + 1000)
+      assert_equal expected, HTS::LibHTS.bcf_hdr_int2id(
+        record.header.struct, HTS::LibHTS::BCF_DT_ID, ids.first
+      )
+    end
+  end
+
   def test_info
     assert_instance_of HTS::Bcf::Info, @v1.info
     assert_instance_of HTS::Bcf::Info, @v2.info
