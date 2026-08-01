@@ -396,7 +396,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each_base-instance_method" title="#each_base (instance method)">#<strong>each_base</strong>  &#x21d2; Object </a>
+      <a href="#each_base-instance_method" title="#each_base (instance method)">#<strong>each_base</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -418,7 +418,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each_base_code-instance_method" title="#each_base_code (instance method)">#<strong>each_base_code</strong>  &#x21d2; Object </a>
+      <a href="#each_base_code-instance_method" title="#each_base_code (instance method)">#<strong>each_base_code</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -484,7 +484,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each_qual-instance_method" title="#each_qual (instance method)">#<strong>each_qual</strong>  &#x21d2; Object </a>
+      <a href="#each_qual-instance_method" title="#each_qual (instance method)">#<strong>each_qual</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -1331,13 +1331,13 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-163
-164
-165
-166</pre>
+179
+180
+181
+182</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_aux'>aux</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_accessor'>accessor</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='ivar'>@aux_accessor</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="Aux.html" title="HTS::Bam::Aux (class)">Aux</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Aux.html#initialize-instance_method" title="HTS::Bam::Aux#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1367,14 +1367,14 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-130
-131
-132
-133
-134</pre>
+145
+146
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base'>base</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>+=</span> <span class='id identifier rubyid_len'>len</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
@@ -1401,10 +1401,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-168</pre>
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_mod'>base_mod</span><span class='lparen'>(</span><span class='label'>auto_parse:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="BaseMod.html" title="HTS::Bam::BaseMod (class)">BaseMod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BaseMod.html#initialize-instance_method" title="HTS::Bam::BaseMod#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='label'>auto_parse:</span><span class='rparen'>)</span></pre>
     </td>
@@ -1431,13 +1431,13 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-147
-148
-149
-150</pre>
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 162</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_qual'>base_qual</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>+=</span> <span class='id identifier rubyid_len'>len</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
@@ -1463,10 +1463,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-62</pre>
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin'>bin</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:bin</span><span class='rparen'>)</span></pre>
     </td>
@@ -1489,12 +1489,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-63
-64
-65</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bin='>bin=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:bin</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -1523,14 +1523,14 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-68
-69
-70
-71
-72</pre>
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom'>chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_tid'>tid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -1561,12 +1561,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-74
-75
-76</pre>
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chrom='>chrom=</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_tid'>tid</span> <span class='op'>=</span> <span class='id identifier rubyid_resolve_tid'>resolve_tid</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chrom</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1591,10 +1591,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-103</pre>
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cigar'>cigar</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Cigar.html#initialize-instance_method" title="HTS::Bam::Cigar#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span></pre>
     </td>
@@ -1639,14 +1639,14 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-104
-105
-106
-107
-108</pre>
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cigar='>cigar=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cigar must be a String or Bam::Cigar</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Cigar.html" title="HTS::Bam::Cigar (class)">Cigar</a></span></span><span class='rparen'>)</span>
@@ -1661,7 +1661,7 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <div class="method_details ">
   <h3 class="signature " id="each_base-instance_method">
   
-    #<strong>each_base</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>each_base</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1673,20 +1673,20 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-114
-115
-116
-117
-118
-119</pre>
+129
+130
+131
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 129</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each_base'>each_base</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_base'>each_base</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='id identifier rubyid_seq'>seq</span><span class='period'>.</span><span class='id identifier rubyid_each_char'>each_char</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_base'>base</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_base'>base</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_seq'>seq</span><span class='period'>.</span><span class='id identifier rubyid_each_char'>each_char</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1697,7 +1697,7 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <div class="method_details ">
   <h3 class="signature " id="each_base_code-instance_method">
   
-    #<strong>each_base_code</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>each_base_code</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1709,20 +1709,20 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-121
-122
-123
-124
-125
-126</pre>
+136
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 136</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each_base_code'>each_base_code</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_base_code'>each_base_code</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_sequence_codes'>sequence_codes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_code'>code</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_code'>code</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_sequence_codes'>sequence_codes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1745,20 +1745,20 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180</pre>
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_base_mod_raw'>each_base_mod_raw</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block'>block</span>
@@ -1791,15 +1791,15 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-186
-187
-188
-189
-190
-191</pre>
+202
+203
+204
+205
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_cigar_raw'>each_cigar_raw</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1815,7 +1815,7 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <div class="method_details ">
   <h3 class="signature " id="each_qual-instance_method">
   
-    #<strong>each_qual</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>each_qual</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1827,20 +1827,20 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-140
-141
-142
-143
-144
-145</pre>
+155
+156
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 155</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each_qual'>each_qual</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_each_qual'>each_qual</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_qualities'>qualities</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_quality'>quality</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_quality'>quality</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_qualities'>qualities</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1863,10 +1863,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-66</pre>
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_endpos'>endpos</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_endpos'>endpos</span></pre>
     </td>
@@ -1889,10 +1889,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-153</pre>
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Flag.html" title="HTS::Bam::Flag (class)">Flag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Flag.html#initialize-instance_method" title="HTS::Bam::Flag#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_flag_value'>flag_value</span><span class='rparen'>)</span></pre>
     </td>
@@ -1915,16 +1915,16 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-155
-156
-157
-158
-159
-160
-161</pre>
+171
+172
+173
+174
+175
+176
+177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag='>flag=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
@@ -1953,10 +1953,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-154</pre>
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flag_value'>flag_value</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:flag</span><span class='rparen'>)</span></pre>
     </td>
@@ -1983,10 +1983,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-92</pre>
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size'>insert_size</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:isize</span><span class='rparen'>)</span></pre>
     </td>
@@ -2013,12 +2013,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-93
-94
-95</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insert_size='>insert_size=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:isize</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2043,10 +2043,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-128</pre>
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:length</span><span class='rparen'>)</span></pre>
     </td>
@@ -2069,10 +2069,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-98</pre>
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq'>mapq</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:mapq</span><span class='rparen'>)</span></pre>
     </td>
@@ -2095,12 +2095,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-99
-100
-101</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mapq='>mapq=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2129,14 +2129,14 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-79
-80
-81
-82
-83</pre>
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_chrom'>mate_chrom</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
@@ -2167,12 +2167,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-85
-86
-87</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_chrom='>mate_chrom=</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>=</span> <span class='id identifier rubyid_resolve_tid'>resolve_tid</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mate_chrom</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -2201,10 +2201,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-56</pre>
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_pos'>mate_pos</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:mpos</span><span class='rparen'>)</span></pre>
     </td>
@@ -2231,12 +2231,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-57
-58
-59</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_pos='>mate_pos=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:mpos</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2261,10 +2261,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-91</pre>
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mate_strand'>mate_strand</span> <span class='op'>=</span> <span class='id identifier rubyid_mate_reverse?'>mate_reverse?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>+</span><span class='tstring_end'>&quot;</span></span></pre>
     </td>
@@ -2287,10 +2287,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-48</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid'>mtid</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:mtid</span><span class='rparen'>)</span></pre>
     </td>
@@ -2313,12 +2313,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mtid='>mtid=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:mtid</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2343,10 +2343,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-52</pre>
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:pos</span><span class='rparen'>)</span></pre>
     </td>
@@ -2369,12 +2369,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-53
-54
-55</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos='>pos=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:pos</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2399,10 +2399,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-109</pre>
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qlen'>qlen</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_qlen'>qlen</span></pre>
     </td>
@@ -2451,12 +2451,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qname='>qname=</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_qname'>qname</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
@@ -2481,10 +2481,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-137</pre>
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual'>qual</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_qualities'>qualities</span></pre>
     </td>
@@ -2507,10 +2507,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-138</pre>
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qual_string'>qual_string</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_quality_string'>quality_string</span></pre>
     </td>
@@ -2533,10 +2533,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-110</pre>
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rlen'>rlen</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_rlen'>rlen</span></pre>
     </td>
@@ -2563,10 +2563,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-111</pre>
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_sequence'>sequence</span></pre>
     </td>
@@ -2589,10 +2589,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-90</pre>
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strand'>strand</span> <span class='op'>=</span> <span class='id identifier rubyid_reverse?'>reverse?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>+</span><span class='tstring_end'>&quot;</span></span></pre>
     </td>
@@ -2615,10 +2615,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-44</pre>
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid'>tid</span> <span class='op'>=</span> <span class='id identifier rubyid_core_get'>core_get</span><span class='lparen'>(</span><span class='symbol'>:tid</span><span class='rparen'>)</span></pre>
     </td>
@@ -2641,12 +2641,12 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-45
-46
-47</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid='>tid=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_core_set'>core_set</span><span class='lparen'>(</span><span class='symbol'>:tid</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2671,10 +2671,10 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
       <pre class="lines">
 
 
-193</pre>
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/record.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid___send__'>__send__</span><span class='lparen'>(</span><span class='symbol'>:native_handle</span><span class='rparen'>)</span><span class='rparen'>)</span></pre>
     </td>
@@ -2687,7 +2687,7 @@ use <code>quality_string</code> for a FASTQ/SAM-style Phred+33 String.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:14:59 2026 by
+  Generated on Sat Aug  1 14:17:28 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

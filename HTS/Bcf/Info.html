@@ -696,7 +696,18 @@
 55
 56
 57
-58</pre>
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 37</span>
@@ -706,14 +717,25 @@
   <span class='kw'>when</span> <span class='kw'>nil</span> <span class='kw'>then</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='kw'>then</span> <span class='id identifier rubyid_update_flag'>update_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Integer</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RangeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_int32?'>int32?</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+    <span class='kw'>unless</span> <span class='id identifier rubyid_int32?'>int32?</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RangeError</span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Integer out of int32 range for []=. Current htslib backend does not support int64 INFO update.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
     <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_value'>value</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Float</span> <span class='kw'>then</span> <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_value'>value</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id identifier rubyid_update_string'>update_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Array</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot set INFO field to empty array. Use nil to delete.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
     <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RangeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_int32?'>int32?</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+      <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+        <span class='id identifier rubyid_int32?'>int32?</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RangeError</span><span class='comma'>,</span>
+              <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Integer array contains out-of-int32 values for []=. Current htslib backend does not support int64 INFO update.</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+
       <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
     <span class='kw'>elsif</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Numeric</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -743,16 +765,16 @@
       <pre class="lines">
 
 
-66
-67
-68
-69
-70
-71
-72</pre>
+81
+82
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_schema'>schema</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_schema'>schema</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -781,10 +803,10 @@
       <pre class="lines">
 
 
-80</pre>
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='id identifier rubyid_native'>native</span><span class='period'>.</span><span class='id identifier rubyid_info_fields'>info_fields</span><span class='lparen'>(</span><span class='id identifier rubyid_header_native'>header_native</span><span class='rparen'>)</span></pre>
     </td>
@@ -1013,13 +1035,13 @@
       <pre class="lines">
 
 
-74
-75
-76
-77</pre>
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_schema'>schema</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_schema'>schema</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1045,10 +1067,10 @@
       <pre class="lines">
 
 
-81</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keys'>keys</span> <span class='op'>=</span> <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span> <span class='id identifier rubyid_field'>field</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1075,10 +1097,10 @@
       <pre class="lines">
 
 
-82</pre>
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span></pre>
     </td>
@@ -1101,10 +1123,10 @@
       <pre class="lines">
 
 
-84</pre>
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span> <span class='op'>=</span> <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1127,10 +1149,10 @@
       <pre class="lines">
 
 
-64</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_flag'>update_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native.html#BCF_HT_FLAG-constant" title="HTS::Native::BCF_HT_FLAG (constant)">BCF_HT_FLAG</a></span></span><span class='comma'>,</span> <span class='op'>!</span><span class='op'>!</span><span class='id identifier rubyid_present'>present</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>flag</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
@@ -1153,10 +1175,10 @@
       <pre class="lines">
 
 
-61</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_float'>update_float</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native.html#BCF_HT_REAL-constant" title="HTS::Native::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='comma'>,</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_f</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>float</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
@@ -1179,10 +1201,10 @@
       <pre class="lines">
 
 
-60</pre>
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_int'>update_int</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native.html#BCF_HT_INT-constant" title="HTS::Native::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='comma'>,</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='const'>Integer</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>int</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
@@ -1227,12 +1249,16 @@
       <pre class="lines">
 
 
-63</pre>
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 75</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_int64'>update_int64</span><span class='lparen'>(</span><span class='id identifier rubyid__key'>_key</span><span class='comma'>,</span> <span class='id identifier rubyid__values'>_values</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="UnsupportedInfoOperationError.html" title="HTS::Bcf::UnsupportedInfoOperationError (class)">UnsupportedInfoOperationError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib backend does not implement int64 INFO update (BCF_HT_LONG)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_update_int64'>update_int64</span><span class='lparen'>(</span><span class='id identifier rubyid__key'>_key</span><span class='comma'>,</span>
+                       <span class='id identifier rubyid__values'>_values</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="UnsupportedInfoOperationError.html" title="HTS::Bcf::UnsupportedInfoOperationError (class)">UnsupportedInfoOperationError</a></span></span><span class='comma'>,</span>
+<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib backend does not implement int64 INFO update (BCF_HT_LONG)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -1253,10 +1279,10 @@
       <pre class="lines">
 
 
-62</pre>
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/info.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_string'>update_string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native.html#BCF_HT_STR-constant" title="HTS::Native::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>string</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
@@ -1269,7 +1295,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:14:59 2026 by
+  Generated on Sat Aug  1 14:17:27 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
