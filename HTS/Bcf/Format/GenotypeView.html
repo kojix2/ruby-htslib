@@ -229,7 +229,11 @@
 57
 58
 59
-60</pre>
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 51</span>
@@ -237,10 +241,14 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_each_allele'>each_allele</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
   <span class='id identifier rubyid_ensure_valid!'>ensure_valid!</span>
-  <span class='ivar'>@values</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_encoded'>encoded</span><span class='op'>|</span>
+  <span class='ivar'>@values</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_encoded'>encoded</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
     <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_encoded'>encoded</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../Format.html#GT_VECTOR_END-constant" title="HTS::Bcf::Format::GT_VECTOR_END (constant)">GT_VECTOR_END</a></span></span>
     <span class='id identifier rubyid_missing'>missing</span> <span class='op'>=</span> <span class='id identifier rubyid_gt_missing?'>gt_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded'>encoded</span><span class='rparen'>)</span>
-    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_missing'>missing</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_gt_allele'>gt_allele</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded'>encoded</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_gt_phased?'>gt_phased?</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded'>encoded</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_missing'>missing</span><span class='rparen'>)</span>
+    <span class='comment'># The phase bit describes the separator before this allele. It has
+</span>    <span class='comment'># no semantic meaning for the first allele, and HTSlib versions do
+</span>    <span class='comment'># not consistently clear it while parsing VCF text.
+</span>    <span class='id identifier rubyid_phased'>phased</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_gt_phased?'>gt_phased?</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded'>encoded</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_missing'>missing</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_gt_allele'>gt_allele</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded'>encoded</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_phased'>phased</span><span class='comma'>,</span> <span class='id identifier rubyid_missing'>missing</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
@@ -300,17 +308,17 @@
       <pre class="lines">
 
 
-62
-63
-64
-65
 66
 67
 68
-69</pre>
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/format.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -330,7 +338,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:12:05 2026 by
+  Generated on Sat Aug  1 14:15:00 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
