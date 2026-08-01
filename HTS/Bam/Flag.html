@@ -120,41 +120,74 @@
 
     <dl class="constants">
       
-        <dt id="TABLE-constant" class="">TABLE =
-          <div class="docstring">
-  <div class="discussion">
-    <p>BAM_FPAIRED        =    1
-BAM_FPROPER_PAIR   =    2
-BAM_FUNMAP         =    4
-BAM_FMUNMAP        =    8
-BAM_FREVERSE       =   16
-BAM_FMREVERSE      =   32
-BAM_FREAD1         =   64
-BAM_FREAD2         =  128
-BAM_FSECONDARY     =  256
-BAM_FQCFAIL        =  512
-BAM_FDUP           = 1024
-BAM_FSUPPLEMENTARY = 2048</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
+        <dt id="PAIRED-constant" class="">PAIRED =
+          
         </dt>
-        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>paired?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FPAIRED-constant" title="HTS::LibHTS::BAM_FPAIRED (constant)">BAM_FPAIRED</a></span></span><span class='comma'>,</span>
-<span class='label'>proper_pair?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FPROPER_PAIR-constant" title="HTS::LibHTS::BAM_FPROPER_PAIR (constant)">BAM_FPROPER_PAIR</a></span></span><span class='comma'>,</span>
-<span class='label'>unmapped?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FUNMAP-constant" title="HTS::LibHTS::BAM_FUNMAP (constant)">BAM_FUNMAP</a></span></span><span class='comma'>,</span>
-<span class='label'>mate_unmapped?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FMUNMAP-constant" title="HTS::LibHTS::BAM_FMUNMAP (constant)">BAM_FMUNMAP</a></span></span><span class='comma'>,</span>
-<span class='label'>reverse?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FREVERSE-constant" title="HTS::LibHTS::BAM_FREVERSE (constant)">BAM_FREVERSE</a></span></span><span class='comma'>,</span>
-<span class='label'>mate_reverse?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FMREVERSE-constant" title="HTS::LibHTS::BAM_FMREVERSE (constant)">BAM_FMREVERSE</a></span></span><span class='comma'>,</span>
-<span class='label'>read1?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FREAD1-constant" title="HTS::LibHTS::BAM_FREAD1 (constant)">BAM_FREAD1</a></span></span><span class='comma'>,</span>
-<span class='label'>read2?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FREAD2-constant" title="HTS::LibHTS::BAM_FREAD2 (constant)">BAM_FREAD2</a></span></span><span class='comma'>,</span>
-<span class='label'>secondary?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FSECONDARY-constant" title="HTS::LibHTS::BAM_FSECONDARY (constant)">BAM_FSECONDARY</a></span></span><span class='comma'>,</span>
-<span class='label'>qcfail?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FQCFAIL-constant" title="HTS::LibHTS::BAM_FQCFAIL (constant)">BAM_FQCFAIL</a></span></span><span class='comma'>,</span>
-<span class='label'>duplicate?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FDUP-constant" title="HTS::LibHTS::BAM_FDUP (constant)">BAM_FDUP</a></span></span><span class='comma'>,</span>
-<span class='label'>supplementary?:</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html#BAM_FSUPPLEMENTARY-constant" title="HTS::LibHTS::BAM_FSUPPLEMENTARY (constant)">BAM_FSUPPLEMENTARY</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PROPER_PAIR-constant" class="">PROPER_PAIR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="UNMAPPED-constant" class="">UNMAPPED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="MATE_UNMAPPED-constant" class="">MATE_UNMAPPED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="REVERSE-constant" class="">REVERSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="MATE_REVERSE-constant" class="">MATE_REVERSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="READ1-constant" class="">READ1 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="READ2-constant" class="">READ2 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>128</span></pre></dd>
+      
+        <dt id="SECONDARY-constant" class="">SECONDARY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>256</span></pre></dd>
+      
+        <dt id="QCFAIL-constant" class="">QCFAIL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>512</span></pre></dd>
+      
+        <dt id="DUPLICATE-constant" class="">DUPLICATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1024</span></pre></dd>
+      
+        <dt id="SUPPLEMENTARY-constant" class="">SUPPLEMENTARY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2048</span></pre></dd>
+      
+        <dt id="TABLE-constant" class="">TABLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>paired?:</span> <span class='const'><span class='object_link'><a href="#PAIRED-constant" title="HTS::Bam::Flag::PAIRED (constant)">PAIRED</a></span></span><span class='comma'>,</span> <span class='label'>proper_pair?:</span> <span class='const'><span class='object_link'><a href="#PROPER_PAIR-constant" title="HTS::Bam::Flag::PROPER_PAIR (constant)">PROPER_PAIR</a></span></span><span class='comma'>,</span> <span class='label'>unmapped?:</span> <span class='const'><span class='object_link'><a href="#UNMAPPED-constant" title="HTS::Bam::Flag::UNMAPPED (constant)">UNMAPPED</a></span></span><span class='comma'>,</span>
+<span class='label'>mate_unmapped?:</span> <span class='const'><span class='object_link'><a href="#MATE_UNMAPPED-constant" title="HTS::Bam::Flag::MATE_UNMAPPED (constant)">MATE_UNMAPPED</a></span></span><span class='comma'>,</span> <span class='label'>reverse?:</span> <span class='const'><span class='object_link'><a href="#REVERSE-constant" title="HTS::Bam::Flag::REVERSE (constant)">REVERSE</a></span></span><span class='comma'>,</span>
+<span class='label'>mate_reverse?:</span> <span class='const'><span class='object_link'><a href="#MATE_REVERSE-constant" title="HTS::Bam::Flag::MATE_REVERSE (constant)">MATE_REVERSE</a></span></span><span class='comma'>,</span> <span class='label'>read1?:</span> <span class='const'><span class='object_link'><a href="#READ1-constant" title="HTS::Bam::Flag::READ1 (constant)">READ1</a></span></span><span class='comma'>,</span> <span class='label'>read2?:</span> <span class='const'><span class='object_link'><a href="#READ2-constant" title="HTS::Bam::Flag::READ2 (constant)">READ2</a></span></span><span class='comma'>,</span>
+<span class='label'>secondary?:</span> <span class='const'><span class='object_link'><a href="#SECONDARY-constant" title="HTS::Bam::Flag::SECONDARY (constant)">SECONDARY</a></span></span><span class='comma'>,</span> <span class='label'>qcfail?:</span> <span class='const'><span class='object_link'><a href="#QCFAIL-constant" title="HTS::Bam::Flag::QCFAIL (constant)">QCFAIL</a></span></span><span class='comma'>,</span> <span class='label'>duplicate?:</span> <span class='const'><span class='object_link'><a href="#DUPLICATE-constant" title="HTS::Bam::Flag::DUPLICATE (constant)">DUPLICATE</a></span></span><span class='comma'>,</span>
+<span class='label'>supplementary?:</span> <span class='const'><span class='object_link'><a href="#SUPPLEMENTARY-constant" title="HTS::Bam::Flag::SUPPLEMENTARY (constant)">SUPPLEMENTARY</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
   
@@ -820,12 +853,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -850,12 +883,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-89
-90
-91</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -880,12 +913,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-93
-94
-95</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='op'>&gt;&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&gt;&gt;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -910,12 +943,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='op'>^</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>^</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -962,10 +995,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-64</pre>
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 57</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:duplicate?</span></pre>
     </td>
@@ -1010,12 +1043,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-67
-68
-69</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_flag?'>has_flag?</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='int'>0</span>
@@ -1062,10 +1095,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-59</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 52</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:mate_reverse?</span></pre>
     </td>
@@ -1110,10 +1143,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-57</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 50</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:mate_unmapped?</span></pre>
     </td>
@@ -1158,10 +1191,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-54</pre>
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 47</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:paired?</span></pre>
     </td>
@@ -1206,10 +1239,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-55</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 48</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:proper_pair?</span></pre>
     </td>
@@ -1254,10 +1287,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-63</pre>
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 56</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:qcfail?</span></pre>
     </td>
@@ -1302,10 +1335,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-60</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 53</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:read1?</span></pre>
     </td>
@@ -1350,10 +1383,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-61</pre>
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 54</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:read2?</span></pre>
     </td>
@@ -1398,10 +1431,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-58</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 51</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:reverse?</span></pre>
     </td>
@@ -1446,10 +1479,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-62</pre>
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 55</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:secondary?</span></pre>
     </td>
@@ -1494,10 +1527,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-65</pre>
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 58</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:supplementary?</span></pre>
     </td>
@@ -1520,12 +1553,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-97
-98
-99</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_i'>to_i</span>
   <span class='ivar'>@value</span>
@@ -1550,18 +1583,16 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-101
-102
-103
-104</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_flag2str'><span class='object_link'><a href="../LibHTS.html#bam_flag2str-class_method" title="HTS::LibHTS.bam_flag2str (method)">bam_flag2str</a></span></span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span>
-  <span class='comment'># &quot;0x#{format(&#39;%x&#39;, @value)}\t#{@value}\t#{LibHTS.bam_flag2str(@value)}&quot;
-</span><span class='kw'>end</span></pre>
+  <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_flag_string'><span class='object_link'><a href="../Native.html#bam_flag_string-class_method" title="HTS::Native.bam_flag_string (method)">bam_flag_string</a></span></span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1604,10 +1635,10 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-56</pre>
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 49</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:unmapped?</span></pre>
     </td>
@@ -1630,12 +1661,12 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-75
-76
-77</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>|</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -1660,14 +1691,14 @@ BAM_FSUPPLEMENTARY = 2048</p>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87</pre>
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='op'>~</span>
   <span class='comment'># FIXME: Only 12bits are used for flags
@@ -1684,7 +1715,7 @@ BAM_FSUPPLEMENTARY = 2048</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:50 2026 by
+  Generated on Sat Aug  1 14:12:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

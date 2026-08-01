@@ -796,28 +796,6 @@ The method names and the number of arguments may change in the future.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#struct-instance_method" title="#struct (instance method)">#<strong>struct</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#subset-instance_method" title="#subset (instance method)">#<strong>subset</strong>(samples)  &#x21d2; Object </a>
     
 
@@ -951,28 +929,6 @@ The method names and the number of arguments may change in the future.</p>
   <span class="summary_signature">
     
       <a href="#target_names-instance_method" title="#target_names (instance method)">#<strong>target_names</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#to_ptr-instance_method" title="#to_ptr (instance method)">#<strong>to_ptr</strong>  &#x21d2; Object </a>
     
 
     
@@ -1137,21 +1093,17 @@ The method names and the number of arguments may change in the future.</p>
 39
 40
 41
-42
-43
-44</pre>
+42</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_arg'>arg</span>
-  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span>
-    <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_read'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_read-class_method" title="HTS::LibHTS.bcf_hdr_read (method)">bcf_hdr_read</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BcfHdr.html" title="HTS::LibHTS::BcfHdr (class)">BcfHdr</a></span></span>
-    <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='id identifier rubyid_arg'>arg</span>
+  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'>BcfHeaderHandle</span>
+    <span class='ivar'>@native</span> <span class='op'>=</span> <span class='id identifier rubyid_arg'>arg</span>
   <span class='kw'>when</span> <span class='kw'>nil</span>
-    <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_init'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_init-class_method" title="HTS::LibHTS.bcf_hdr_init (method)">bcf_hdr_init</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@native</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'>BcfHeaderHandle</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid argument</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
@@ -1201,12 +1153,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_schema_version'>schema_version</span>
   <span class='ivar'>@schema_version</span>
@@ -1242,12 +1194,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subset_imap_pointer'>subset_imap_pointer</span>
   <span class='ivar'>@subset_imap_pointer</span>
@@ -1283,12 +1235,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span>
   <span class='ivar'>@subset_samples</span>
@@ -1320,15 +1272,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-193
-194
-195
-196
-197
-198</pre>
+164
+165
+166
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_contig'>add_contig</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
@@ -1356,14 +1308,14 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-204
-205
-206
-207
-208</pre>
+175
+176
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_filter'>add_filter</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>description:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Description</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
@@ -1390,15 +1342,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-230
-231
-232
-233
-234
-235</pre>
+201
+202
+203
+204
+205
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 201</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_format'>add_format</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>number:</span><span class='comma'>,</span> <span class='label'>type:</span><span class='comma'>,</span> <span class='label'>description:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Number</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_bcf_number'>normalize_bcf_number</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Type</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_bcf_type'>normalize_bcf_type</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -1426,15 +1378,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-214
-215
-216
-217
-218
-219</pre>
+185
+186
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_info'>add_info</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>number:</span><span class='comma'>,</span> <span class='label'>type:</span><span class='comma'>,</span> <span class='label'>description:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Number</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_bcf_number'>normalize_bcf_number</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Type</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_bcf_type'>normalize_bcf_type</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -1462,18 +1414,18 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-246
-247
-248
-249
-250
-251
-252
-253
-254</pre>
+217
+218
+219
+220
+221
+222
+223
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_meta'>add_meta</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1504,20 +1456,20 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-127
-128
-129
-130
-131
-132
-133
-134</pre>
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_sample'>add_sample</span><span class='lparen'>(</span><span class='id identifier rubyid_sample'>sample</span><span class='comma'>,</span> <span class='label'>sync:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_add_sample'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_add_sample-class_method" title="HTS::LibHTS.bcf_hdr_add_sample (method)">bcf_hdr_add_sample</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_sample'>sample</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_add_sample'>add_sample</span><span class='lparen'>(</span><span class='id identifier rubyid_sample'>sample</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to add sample </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sample'>sample</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
 
   <span class='id identifier rubyid_mark_sync_needed!'>mark_sync_needed!</span>
@@ -1544,19 +1496,19 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-160
-161
-162
-163
-164
-165
-166</pre>
+135
+136
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_append'>append</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_append'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_append-class_method" title="HTS::LibHTS.bcf_hdr_append (method)">bcf_hdr_append</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_append'>append</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to append VCF header line</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
 
   <span class='id identifier rubyid_mark_sync_needed!'>mark_sync_needed!</span>
@@ -1591,21 +1543,19 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-168
-169
-170
-171
-172
-173
-174</pre>
+143
+144
+145
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='comment'># FIXME
 </span>  <span class='id identifier rubyid_existed'>existed</span> <span class='op'>=</span> <span class='id identifier rubyid_hrec_exists?'>hrec_exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_bcf_hl_type_to_int'>bcf_hl_type_to_int</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_remove'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_remove-class_method" title="HTS::LibHTS.bcf_hdr_remove (method)">bcf_hdr_remove</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mark_sync_needed!'>mark_sync_needed!</span> <span class='kw'>if</span> <span class='id identifier rubyid_existed'>existed</span>
   <span class='id identifier rubyid_existed'>existed</span>
 <span class='kw'>end</span></pre>
@@ -1629,17 +1579,17 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-184
-185
-186
-187
-188
-189
-190
-191</pre>
+155
+156
+157
+158
+159
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='ivar'>@sync_depth</span> <span class='op'>+=</span> <span class='int'>1</span>
@@ -1669,23 +1619,17 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-176
-177
-178
-179
-180
-181
-182</pre>
+150
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_hrec'>get_hrec</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_str_class'>str_class</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_bcf_hl_type_to_int'>bcf_hl_type_to_int</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_hrec'>hrec</span> <span class='op'>=</span> <span class='id identifier rubyid_borrowed_hrec'>borrowed_hrec</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_str_class'>str_class</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_hrec'>hrec</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-
-  <span class='const'><span class='object_link'><a href="HeaderRecord.html" title="HTS::Bcf::HeaderRecord (class)">HeaderRecord</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HeaderRecord.html#initialize-instance_method" title="HTS::Bcf::HeaderRecord#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_owned_hrec'>owned_hrec</span><span class='lparen'>(</span><span class='id identifier rubyid_hrec'>hrec</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hrec'>hrec</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_get_hrec'>get_hrec</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_hl_type'>bcf_hl_type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_str_class'>str_class</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hrec'>hrec</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="HeaderRecord.html" title="HTS::Bcf::HeaderRecord (class)">HeaderRecord</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HeaderRecord.html#initialize-instance_method" title="HTS::Bcf::HeaderRecord#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hrec'>hrec</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1707,12 +1651,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-75
-76
-77</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_tid'>get_tid</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1737,15 +1681,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-54
-55
-56</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_version'>get_version</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_get_version'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_get_version-class_method" title="HTS::LibHTS.bcf_hdr_get_version (method)">bcf_hdr_get_version</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1767,15 +1711,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-282
-283
-284</pre>
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 282</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 239</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id2name'>id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_id2name'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_id2name-class_method" title="HTS::LibHTS.bcf_hdr_id2name (method)">bcf_hdr_id2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_id2name'>id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1797,24 +1741,18 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-136
-137
-138
-139
-140
-141
-142
-143
-144</pre>
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_merged'>merged</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_merge'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_merge-class_method" title="HTS::LibHTS.bcf_hdr_merge (method)">bcf_hdr_merge</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr'>hdr</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to merge BCF headers</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_merged'>merged</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-
-  <span class='ivar'>@bcf_hdr</span> <span class='op'>=</span> <span class='id identifier rubyid_merged'>merged</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_hdr'>hdr</span><span class='period'>.</span><span class='id identifier rubyid___send__'>__send__</span><span class='lparen'>(</span><span class='symbol'>:native_handle</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mark_sync_needed!'>mark_sync_needed!</span>
   <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span>
   <span class='kw'>self</span>
@@ -1839,15 +1777,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-278
-279
-280</pre>
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 278</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_name2id'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_name2id-class_method" title="HTS::LibHTS.bcf_hdr_name2id (method)">bcf_hdr_name2id</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1869,15 +1807,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-67
-68
-69</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nsamples'>nsamples</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_nsamples'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_nsamples-class_method" title="HTS::LibHTS.bcf_hdr_nsamples (method)">bcf_hdr_nsamples</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_nsamples'>nsamples</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1899,18 +1837,18 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-154
-155
-156
-157
-158</pre>
+129
+130
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read_bcf'>read_bcf</span><span class='lparen'>(</span><span class='id identifier rubyid_fname'>fname</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_set'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_set-class_method" title="HTS::LibHTS.bcf_hdr_set (method)">bcf_hdr_set</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_fname'>fname</span><span class='rparen'>)</span>
-  <span class='ivar'>@schema_version</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_read_file'>read_file</span><span class='lparen'>(</span><span class='id identifier rubyid_fname'>fname</span><span class='rparen'>)</span>
+  <span class='ivar'>@schema_version</span> <span class='op'>+=</span> <span class='int'>1</span> <span class='kw'>unless</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
   <span class='id identifier rubyid_result'>result</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1933,12 +1871,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-200
-201
-202</pre>
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 200</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_contig'>remove_contig</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CONTIG</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span> <span class='rbrace'>}</span>
@@ -1963,12 +1901,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-210
-211
-212</pre>
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_filter'>remove_filter</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FILTER</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span> <span class='rbrace'>}</span>
@@ -1993,12 +1931,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-242
-243
-244</pre>
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_format'>remove_format</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FORMAT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span> <span class='rbrace'>}</span>
@@ -2023,12 +1961,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-226
-227
-228</pre>
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_info'>remove_info</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span> <span class='rbrace'>}</span>
@@ -2053,21 +1991,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-87
-88
-89
-90
-91
-92</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_samples'>samples</span>
-  <span class='comment'># bcf_hdr_id2name is macro function
-</span>  <span class='ivar'>@bcf_hdr</span><span class='lbracket'>[</span><span class='symbol'>:samples</span><span class='rbracket'>]</span>
-    <span class='period'>.</span><span class='id identifier rubyid_read_array_of_pointer'>read_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_nsamples'>nsamples</span><span class='rparen'>)</span>
-    <span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:read_string</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_samples'>samples</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2089,29 +2021,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265</pre>
+227
+228
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 256</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 227</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seqnames'>seqnames</span>
-  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_seqnames'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_seqnames-class_method" title="HTS::LibHTS.bcf_hdr_seqnames (method)">bcf_hdr_seqnames</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_names'>names</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_pointer'>read_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span><span class='rparen'>)</span>
-         <span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:read_string</span><span class='rparen'>)</span>
-  <span class='kw'>ensure</span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_free'><span class='object_link'><a href="../LibHTS.html#hts_free-class_method" title="HTS::LibHTS.hts_free (method)">hts_free</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_names'>names</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_seqnames'>seqnames</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2133,55 +2051,25 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-58
-59
-60
-61
-62
-63
-64
-65</pre>
+48
+49
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_version'>set_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_set_version'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_set_version-class_method" title="HTS::LibHTS.bcf_hdr_set_version (method)">bcf_hdr_set_version</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_set_version'>set_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to set VCF header version</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
 
   <span class='id identifier rubyid_mark_sync_needed!'>mark_sync_needed!</span>
   <span class='id identifier rubyid_sync_if_needed!'>sync_if_needed!</span>
   <span class='kw'>self</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="struct-instance_method">
-  
-    #<strong>struct</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-46
-47
-48</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 46</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
-  <span class='ivar'>@bcf_hdr</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2225,51 +2113,33 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125</pre>
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subset'>subset</span><span class='lparen'>(</span><span class='id identifier rubyid_samples'>samples</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_subset_samples'>subset_samples</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_subset_samples'>normalize_subset_samples</span><span class='lparen'>(</span><span class='id identifier rubyid_samples'>samples</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_subset_samples!'>validate_subset_samples!</span><span class='lparen'>(</span><span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_imap_pointer'>imap_pointer</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-    <span class='id identifier rubyid_subset_hdr'>subset_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_subset'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_subset-class_method" title="HTS::LibHTS.bcf_hdr_subset (method)">bcf_hdr_subset</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_encoded_samples'>encoded_samples</span> <span class='op'>=</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_sample_pointers'>sample_pointers</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_sample_pointers'>sample_pointers</span><span class='period'>.</span><span class='id identifier rubyid_write_array_of_pointer'>write_array_of_pointer</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded_samples'>encoded_samples</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_imap_pointer'>imap_pointer</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subset_hdr'>subset_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_subset'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_subset-class_method" title="HTS::LibHTS.bcf_hdr_subset (method)">bcf_hdr_subset</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_sample_pointers'>sample_pointers</span><span class='comma'>,</span> <span class='id identifier rubyid_imap_pointer'>imap_pointer</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_subset'>subset</span><span class='lparen'>(</span><span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="SubsetError.html" title="HTS::Bcf::SubsetError (class)">SubsetError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to subset BCF header samples </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_result'>result</span>
 
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="SubsetError.html" title="HTS::Bcf::SubsetError (class)">SubsetError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to subset BCF header samples </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_subset_hdr'>subset_hdr</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-
-  <span class='id identifier rubyid_composed_imap'>composed_imap</span> <span class='op'>=</span> <span class='id identifier rubyid_compose_subset_imap'>compose_subset_imap</span><span class='lparen'>(</span><span class='id identifier rubyid_read_subset_imap'>read_subset_imap</span><span class='lparen'>(</span><span class='id identifier rubyid_imap_pointer'>imap_pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_subset_hdr'>subset_hdr</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='op'>|</span>
+  <span class='id identifier rubyid_subset_header'>subset_header</span><span class='comma'>,</span> <span class='id identifier rubyid_imap'>imap</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='id identifier rubyid_composed_imap'>composed_imap</span> <span class='op'>=</span> <span class='id identifier rubyid_compose_subset_imap'>compose_subset_imap</span><span class='lparen'>(</span><span class='id identifier rubyid_imap'>imap</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_subset_header'>subset_header</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='op'>|</span>
     <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:set_subset_state</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_samples'>subset_samples</span><span class='comma'>,</span> <span class='id identifier rubyid_composed_imap'>composed_imap</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2315,12 +2185,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-96
-97
-98</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subset?'>subset?</span>
   <span class='op'>!</span><span class='ivar'>@subset_imap</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -2345,12 +2215,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subset_sample_count'>subset_sample_count</span>
   <span class='id identifier rubyid_subset?'>subset?</span> <span class='op'>?</span> <span class='ivar'>@subset_samples</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>:</span> <span class='int'>0</span>
@@ -2375,19 +2245,19 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150
-151
-152</pre>
+121
+122
+123
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sync'>sync</span>
-  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_sync'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_sync-class_method" title="HTS::LibHTS.bcf_hdr_sync (method)">bcf_hdr_sync</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_sync'>sync</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to sync BCF header</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
 
   <span class='ivar'>@sync_needed</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -2413,12 +2283,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_count'>target_count</span>
   <span class='id identifier rubyid_target_names'>target_names</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
@@ -2443,12 +2313,12 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_name'>target_name</span><span class='lparen'>(</span><span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_id2name'>id2name</span><span class='lparen'>(</span><span class='id identifier rubyid_rid'>rid</span><span class='rparen'>)</span>
@@ -2473,45 +2343,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-83
-84
-85</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_names'>target_names</span>
   <span class='id identifier rubyid_seqnames'>seqnames</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="to_ptr-instance_method">
-  
-    #<strong>to_ptr</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-50
-51
-52</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 50</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
-  <span class='ivar'>@bcf_hdr</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2533,29 +2373,15 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-267
-268
-269
-270
-271
-272
-273
-274
-275
-276</pre>
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_kstr'>kstr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to get header string</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bcf_hdr_format'><span class='object_link'><a href="../LibHTS.html#bcf_hdr_format-class_method" title="HTS::LibHTS.bcf_hdr_format (method)">bcf_hdr_format</a></span></span><span class='lparen'>(</span><span class='ivar'>@bcf_hdr</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_kstr'>kstr</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
-
-    <span class='id identifier rubyid_kstr'>kstr</span><span class='period'>.</span><span class='id identifier rubyid_read_string_copy'>read_string_copy</span>
-  <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_kstr'>kstr</span><span class='period'>.</span><span class='id identifier rubyid_free_buffer'>free_buffer</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2577,13 +2403,13 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-237
-238
-239
-240</pre>
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 237</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 208</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_format'>update_format</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>number:</span><span class='comma'>,</span> <span class='label'>type:</span><span class='comma'>,</span> <span class='label'>description:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FORMAT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -2609,13 +2435,13 @@ The method names and the number of arguments may change in the future.</p>
       <pre class="lines">
 
 
-221
-222
-223
-224</pre>
+192
+193
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bcf/header.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_info'>update_info</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>number:</span><span class='comma'>,</span> <span class='label'>type:</span><span class='comma'>,</span> <span class='label'>description:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -2631,7 +2457,7 @@ The method names and the number of arguments may change in the future.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:52 2026 by
+  Generated on Sat Aug  1 14:12:05 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

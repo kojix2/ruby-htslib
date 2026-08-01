@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: HTS::Native::BcfFileHandle
+  
+    &mdash; Documentation by YARD 0.9.45
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "HTS::Native::BcfFileHandle";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span>
+     &raquo; 
+    <span class="title">BcfFileHandle</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: HTS::Native::BcfFileHandle
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">HTS::Native::BcfFileHandle</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>ext/htslib_native/native_bcf.c
+</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#build_index-class_method" title="build_index (class method)">.<strong>build_index</strong>(path, index, shift, threads)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(path, mode)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close-instance_method" title="#close (instance method)">#<strong>close</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#closed%3F-instance_method" title="#closed? (instance method)">#<strong>closed?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_format-instance_method" title="#file_format (instance method)">#<strong>file_format</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_format_version-instance_method" title="#file_format_version (instance method)">#<strong>file_format_version</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index_loaded%3F-instance_method" title="#index_loaded? (instance method)">#<strong>index_loaded?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load_index-instance_method" title="#load_index (instance method)">#<strong>load_index</strong>(index)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#query_interval-instance_method" title="#query_interval (instance method)">#<strong>query_interval</strong>(header, rid, beg, end)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#query_region-instance_method" title="#query_region (instance method)">#<strong>query_region</strong>(header, region)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#read-instance_method" title="#read (instance method)">#<strong>read</strong>(header, record)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#read_header-instance_method" title="#read_header (instance method)">#<strong>read_header</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seek-instance_method" title="#seek (instance method)">#<strong>seek</strong>(offset)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_threads-instance_method" title="#set_threads (instance method)">#<strong>set_threads</strong>(n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tell-instance_method" title="#tell (instance method)">#<strong>tell</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write-instance_method" title="#write (instance method)">#<strong>write</strong>(header, record)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write_header-instance_method" title="#write_header (instance method)">#<strong>write_header</strong>(header)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="build_index-class_method">
+  
+    .<strong>build_index</strong>(path, index, shift, threads)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+348</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 348</span>
+
+static VALUE native_bcf_file_build_index(VALUE klass,VALUE path,VALUE index,VALUE shift,VALUE threads){return INT2NUM(bcf_index_build3(StringValueCStr(path),NIL_P(index)?NULL:StringValueCStr(index),NUM2INT(shift),NUM2INT(threads)));}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open-class_method">
+  
+    .<strong>open</strong>(path, mode)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+334</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 334</span>
+
+static VALUE native_bcf_file_open(VALUE klass,VALUE path,VALUE mode) {ruby_bcf_file_t*v;VALUE o=TypedData_Make_Struct(klass,ruby_bcf_file_t,&amp;bcf_file_type,v);v-&gt;index=NULL;v-&gt;tabix=NULL;v-&gt;active_io=0;v-&gt;path=rb_str_dup(StringValue(path));RB_OBJ_WRITE(o,&amp;v-&gt;path,v-&gt;path);v-&gt;file=hts_open(StringValueCStr(v-&gt;path),StringValueCStr(mode));if(!v-&gt;file)rb_syserr_fail_str(ENOENT,path);return o;}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="close-instance_method">
+  
+    #<strong>close</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+335</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 335</span>
+
+static VALUE native_bcf_file_close(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,1);if(v-&gt;active_io)rb_raise(rb_eIOError,&quot;cannot close BCF during active I/O&quot;);if(v-&gt;index){hts_idx_destroy(v-&gt;index);v-&gt;index=NULL;}if(v-&gt;tabix){tbx_destroy(v-&gt;tabix);v-&gt;tabix=NULL;}if(v-&gt;file){hts_close(v-&gt;file);v-&gt;file=NULL;}return Qnil;}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="closed?-instance_method">
+  
+    #<strong>closed?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+336</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 336</span>
+
+static VALUE native_bcf_file_closed(VALUE self){return get_bcf_file(self,1)-&gt;file?Qfalse:Qtrue;}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_format-instance_method">
+  
+    #<strong>file_format</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+342</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 342</span>
+
+static VALUE native_bcf_file_format(VALUE self){const htsFormat*f=hts_get_format(get_bcf_file(self,0)-&gt;file);if(!f)return Qnil;switch(f-&gt;format){case vcf:return rb_str_new_cstr(&quot;vcf&quot;);case bcf:return rb_str_new_cstr(&quot;bcf&quot;);default:return rb_str_new_cstr(&quot;unknown_format&quot;);}}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_format_version-instance_method">
+  
+    #<strong>file_format_version</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+343</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 343</span>
+
+static VALUE native_bcf_file_version(VALUE self){const htsFormat*f=hts_get_format(get_bcf_file(self,0)-&gt;file);if(!f)return Qnil;if(f-&gt;version.minor==-1)return rb_sprintf(&quot;%d&quot;,f-&gt;version.major);return rb_sprintf(&quot;%d.%d&quot;,f-&gt;version.major,f-&gt;version.minor);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="index_loaded?-instance_method">
+  
+    #<strong>index_loaded?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+347</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 347</span>
+
+static VALUE native_bcf_file_index_loaded(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,0);return(v-&gt;index||v-&gt;tabix)?Qtrue:Qfalse;}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load_index-instance_method">
+  
+    #<strong>load_index</strong>(index)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+346</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 346</span>
+
+static VALUE native_bcf_file_load_index(VALUE self,VALUE index){ruby_bcf_file_t*v=get_bcf_file(self,0);const htsFormat*f=hts_get_format(v-&gt;file);if(v-&gt;index){hts_idx_destroy(v-&gt;index);v-&gt;index=NULL;}if(v-&gt;tabix){tbx_destroy(v-&gt;tabix);v-&gt;tabix=NULL;}if(f&amp;&amp;f-&gt;format==vcf)v-&gt;tabix=NIL_P(index)?tbx_index_load3(StringValueCStr(v-&gt;path),NULL,HTS_IDX_SAVE_REMOTE):tbx_index_load2(StringValueCStr(v-&gt;path),StringValueCStr(index));else v-&gt;index=NIL_P(index)?bcf_index_load3(StringValueCStr(v-&gt;path),NULL,HTS_IDX_SAVE_REMOTE):bcf_index_load2(StringValueCStr(v-&gt;path),StringValueCStr(index));return(v-&gt;index||v-&gt;tabix)?Qtrue:Qfalse;}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="query_interval-instance_method">
+  
+    #<strong>query_interval</strong>(header, rid, beg, end)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+350</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 350</span>
+
+static VALUE native_bcf_file_query_interval(VALUE self,VALUE header,VALUE rid,VALUE beg,VALUE end){ruby_bcf_file_t*v=get_bcf_file(self,0);hts_itr_t*i=v-&gt;tabix?tbx_itr_queryi(v-&gt;tabix,NUM2INT(rid),NUM2LL(beg),NUM2LL(end)):bcf_itr_queryi(v-&gt;index,NUM2INT(rid),NUM2LL(beg),NUM2LL(end));return wrap_bcf_iterator(self,header,i,v-&gt;tabix!=NULL);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="query_region-instance_method">
+  
+    #<strong>query_region</strong>(header, region)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+349</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 349</span>
+
+static VALUE native_bcf_file_query_region(VALUE self,VALUE header,VALUE region){ruby_bcf_file_t*v=get_bcf_file(self,0);hts_itr_t*i;if(v-&gt;tabix)i=tbx_itr_querys(v-&gt;tabix,StringValueCStr(region));else i=bcf_itr_querys(v-&gt;index,get_bcf_header(header)-&gt;pointer,StringValueCStr(region));return wrap_bcf_iterator(self,header,i,v-&gt;tabix!=NULL);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="read-instance_method">
+  
+    #<strong>read</strong>(header, record)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+338</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 338</span>
+
+static VALUE native_bcf_file_read(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_read_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="read_header-instance_method">
+  
+    #<strong>read_header</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+337</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 337</span>
+
+static VALUE native_bcf_file_read_header(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_header_read_args_t a={v-&gt;file,NULL};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_read_header_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return wrap_bcf_header(a.result);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="seek-instance_method">
+  
+    #<strong>seek</strong>(offset)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+344</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 344</span>
+
+static VALUE native_bcf_file_seek(VALUE self,VALUE offset){htsFile*f=get_bcf_file(self,0)-&gt;file;return LL2NUM(f-&gt;is_bgzf?bgzf_seek(f-&gt;fp.bgzf,NUM2LL(offset),SEEK_SET):hseek(f-&gt;fp.hfile,NUM2LL(offset),SEEK_SET));}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_threads-instance_method">
+  
+    #<strong>set_threads</strong>(n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+341</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 341</span>
+
+static VALUE native_bcf_file_set_threads(VALUE self,VALUE n){return INT2NUM(hts_set_threads(get_bcf_file(self,0)-&gt;file,NUM2INT(n)));}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tell-instance_method">
+  
+    #<strong>tell</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+345</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 345</span>
+
+static VALUE native_bcf_file_tell(VALUE self){htsFile*f=get_bcf_file(self,0)-&gt;file;return LL2NUM(f-&gt;is_bgzf?bgzf_tell(f-&gt;fp.bgzf):htell(f-&gt;fp.hfile));}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write-instance_method">
+  
+    #<strong>write</strong>(header, record)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+340</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 340</span>
+
+static VALUE native_bcf_file_write(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_write_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write_header-instance_method">
+  
+    #<strong>write_header</strong>(header)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+339</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 339</span>
+
+static VALUE native_bcf_file_write_header(VALUE self,VALUE header){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,NULL,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_write_header_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sat Aug  1 14:12:05 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -634,28 +634,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#struct-instance_method" title="#struct (instance method)">#<strong>struct</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#target_count-instance_method" title="#target_count (instance method)">#<strong>target_count</strong>  &#x21d2; Object </a>
     
 
@@ -745,28 +723,6 @@
   <span class="summary_signature">
     
       <a href="#targets-instance_method" title="#targets (instance method)">#<strong>targets</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#to_ptr-instance_method" title="#to_ptr (instance method)">#<strong>to_ptr</strong>  &#x21d2; Object </a>
     
 
     
@@ -968,21 +924,17 @@
 54
 55
 56
-57
-58
-59</pre>
+57</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_arg'>arg</span>
-  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/HtsFile.html" title="HTS::LibHTS::HtsFile (class)">HtsFile</a></span></span>
-    <span class='ivar'>@sam_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_read'><span class='object_link'><a href="../LibHTS.html#sam_hdr_read-class_method" title="HTS::LibHTS.sam_hdr_read (method)">sam_hdr_read</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/SamHdr.html" title="HTS::LibHTS::SamHdr (class)">SamHdr</a></span></span>
-    <span class='ivar'>@sam_hdr</span> <span class='op'>=</span> <span class='id identifier rubyid_arg'>arg</span>
+  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'>SamHeaderHandle</span>
+    <span class='ivar'>@native</span> <span class='op'>=</span> <span class='id identifier rubyid_arg'>arg</span>
   <span class='kw'>when</span> <span class='kw'>nil</span>
-    <span class='ivar'>@sam_hdr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_init'><span class='object_link'><a href="../LibHTS.html#sam_hdr_init-class_method" title="HTS::LibHTS.sam_hdr_init (method)">sam_hdr_init</a></span></span>
+    <span class='ivar'>@native</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'>SamHeaderHandle</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid argument</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
@@ -1024,7 +976,7 @@
       <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_parse'><span class='object_link'><a href="../LibHTS.html#sam_hdr_parse-class_method" title="HTS::LibHTS.sam_hdr_parse (method)">sam_hdr_parse</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'>SamHeaderHandle</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1061,19 +1013,19 @@
       <pre class="lines">
 
 
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117</pre>
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span><span class='lparen'>(</span><span class='id identifier rubyid_obj'>obj</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_obj'>obj</span>
@@ -1176,20 +1128,20 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-242
-243
-244
-245
-246
-247
-248</pre>
+213
+214
+215
+216
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_pg'>add_pg</span><span class='lparen'>(</span><span class='id identifier rubyid_program_name'>program_name</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_line'>line</span> <span class='op'>=</span> <span class='id identifier rubyid_build_pg_line'>build_pg_line</span><span class='lparen'>(</span><span class='id identifier rubyid_program_name'>program_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_add_lines'><span class='object_link'><a href="../LibHTS.html#sam_hdr_add_lines-class_method" title="HTS::LibHTS.sam_hdr_add_lines (method)">sam_hdr_add_lines</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_bytesize'>bytesize</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_add_lines'>add_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to add @PG line</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;</span> <span class='int'>0</span>
 
   <span class='kw'>self</span>
@@ -1214,15 +1166,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-213
-214
-215
-216
-217
-218</pre>
+184
+185
+186
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 213</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_rg'>add_rg</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
@@ -1250,15 +1202,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-196
-197
-198
-199
-200
-201</pre>
+167
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_sq'>add_sq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>length:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SN</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LN</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
@@ -1286,13 +1238,13 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-102
-103
-104
-105</pre>
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_append'>append</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_lines'>add_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_ensure_newline'>ensure_newline</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1318,15 +1270,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-169
-170
-171</pre>
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_count_lines'>count_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_count_lines'><span class='object_link'><a href="../LibHTS.html#sam_hdr_count_lines-class_method" title="HTS::LibHTS.sam_hdr_count_lines (method)">sam_hdr_count_lines</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_count_lines'>count_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1348,15 +1300,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-161
-162
-163</pre>
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_line'>delete_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_line_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_line_id-class_method" title="HTS::LibHTS.sam_hdr_remove_line_id (method)">sam_hdr_remove_line_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_remove_line'>remove_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1378,15 +1330,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-165
-166
-167</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_tag'>delete_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_tag_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_tag_id-class_method" title="HTS::LibHTS.sam_hdr_remove_tag_id (method)">sam_hdr_remove_tag_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='int'>1</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_remove_tag'>remove_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='int'>1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1417,27 +1369,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-120
-121
-122
-123
-124
-125
-126
-127
-128</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_line'>find_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_find_line_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_find_line_id-class_method" title="HTS::LibHTS.sam_hdr_find_line_id (method)">sam_hdr_find_line_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_read_string_copy'>read_string_copy</span> <span class='op'>:</span> <span class='kw'>nil</span>
-  <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_free_buffer'>free_buffer</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_find_line'>find_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1468,27 +1408,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146
-147
-148
-149</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_line_at'>find_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_find_line_pos'><span class='object_link'><a href="../LibHTS.html#sam_hdr_find_line_pos-class_method" title="HTS::LibHTS.sam_hdr_find_line_pos (method)">sam_hdr_find_line_pos</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_read_string_copy'>read_string_copy</span> <span class='op'>:</span> <span class='kw'>nil</span>
-  <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_free_buffer'>free_buffer</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_find_line_at'>find_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1510,27 +1438,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-130
-131
-132
-133
-134
-135
-136
-137
-138</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_tag'>find_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/KString.html" title="HTS::LibHTS::KString (class)">KString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_find_tag_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_find_tag_id-class_method" title="HTS::LibHTS.sam_hdr_find_tag_id (method)">sam_hdr_find_tag_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_ks'>ks</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_read_string_copy'>read_string_copy</span> <span class='op'>:</span> <span class='kw'>nil</span>
-  <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_ks'>ks</span><span class='period'>.</span><span class='id identifier rubyid_free_buffer'>free_buffer</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_find_tag'>find_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_id_key'>id_key</span><span class='comma'>,</span> <span class='id identifier rubyid_id_value'>id_value</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1561,12 +1477,12 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-186
-187
-188</pre>
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_tid'>get_tid</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name2tid'>name2tid</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1591,15 +1507,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-173
-174
-175</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_line_index'>line_index</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_line_index'><span class='object_link'><a href="../LibHTS.html#sam_hdr_line_index-class_method" title="HTS::LibHTS.sam_hdr_line_index (method)">sam_hdr_line_index</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_line_index'>line_index</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1621,15 +1537,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-177
-178
-179</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_line_name'>line_name</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_line_name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_line_name-class_method" title="HTS::LibHTS.sam_hdr_line_name (method)">sam_hdr_line_name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_line_name'>line_name</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1660,15 +1576,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-152
-153
-154</pre>
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_line'>remove_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_line_id'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_line_id-class_method" title="HTS::LibHTS.sam_hdr_remove_line_id (method)">sam_hdr_remove_line_id</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_remove_line'>remove_line</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1699,15 +1615,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-157
-158
-159</pre>
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_line_at'>remove_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_remove_line_pos'><span class='object_link'><a href="../LibHTS.html#sam_hdr_remove_line_pos-class_method" title="HTS::LibHTS.sam_hdr_remove_line_pos (method)">sam_hdr_remove_line_pos</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_remove_line_at'>remove_line_at</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1729,12 +1645,12 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-226
-227
-228</pre>
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_rg'>remove_rg</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete_line'>delete_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RG</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1759,45 +1675,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-209
-210
-211</pre>
+180
+181
+182</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_sq'>remove_sq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete_line'>delete_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SQ</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SN</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="struct-instance_method">
-  
-    #<strong>struct</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-61
-62
-63</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 61</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span>
-  <span class='ivar'>@sam_hdr</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1819,17 +1705,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-77
-78
-79
-80</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_count'>target_count</span>
-  <span class='comment'># FIXME: sam_hdr_nref
-</span>  <span class='ivar'>@sam_hdr</span><span class='lbracket'>[</span><span class='symbol'>:n_targets</span><span class='rbracket'>]</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_target_count'>target_count</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1851,18 +1735,18 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-92
-93
-94
-95
-96</pre>
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_len'>target_len</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2len-class_method" title="HTS::LibHTS.sam_hdr_tid2len (method)">sam_hdr_tid2len</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_target_length'>target_length</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1885,12 +1769,12 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-82
-83
-84</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_name'>target_name</span><span class='lparen'>(</span><span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_tid2name'>tid2name</span><span class='lparen'>(</span><span class='id identifier rubyid_tid'>tid</span><span class='rparen'>)</span>
@@ -1915,18 +1799,18 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-86
-87
-88
-89
-90</pre>
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_target_names'>target_names</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-class_method" title="HTS::LibHTS.sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_target_name'>target_name</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1949,53 +1833,23 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-69
-70
-71
-72
-73
-74
-75</pre>
+59
+60
+61
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_targets'>targets</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_target_count'>target_count</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2name'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2name-class_method" title="HTS::LibHTS.sam_hdr_tid2name (method)">sam_hdr_tid2name</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_tid2len'><span class='object_link'><a href="../LibHTS.html#sam_hdr_tid2len-class_method" title="HTS::LibHTS.sam_hdr_tid2len (method)">sam_hdr_tid2len</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_target_name'>target_name</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_len'>len</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_target_length'>target_length</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
     <span class='lbrace'>{</span> <span class='label'>name:</span><span class='comma'>,</span> <span class='label'>len:</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="to_ptr-instance_method">
-  
-    #<strong>to_ptr</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-65
-66
-67</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 65</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_to_ptr'>to_ptr</span>
-  <span class='ivar'>@sam_hdr</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2017,15 +1871,15 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-181
-182
-183</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_hdr_str'><span class='object_link'><a href="../LibHTS.html#sam_hdr_str-class_method" title="HTS::LibHTS.sam_hdr_str (method)">sam_hdr_str</a></span></span><span class='lparen'>(</span><span class='ivar'>@sam_hdr</span><span class='rparen'>)</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2047,14 +1901,14 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-190
-191
-192
-193
-194</pre>
+161
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_hd'>update_hd</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='id identifier rubyid_merge_sam_pairs'>merge_sam_pairs</span><span class='lparen'>(</span><span class='id identifier rubyid_find_line_pairs'>find_line_pairs</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_hd_tags'>normalize_hd_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2081,14 +1935,14 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-220
-221
-222
-223
-224</pre>
+191
+192
+193
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_rg'>update_rg</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='id identifier rubyid_merge_identified_sam_line'>merge_identified_sam_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RG</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_rg_tags'>normalize_rg_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>protected_keys:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2115,14 +1969,14 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-203
-204
-205
-206
-207</pre>
+174
+175
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_sq'>update_sq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='id identifier rubyid_merge_identified_sam_line'>merge_identified_sam_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SQ</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SN</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_sq_tags'>normalize_sq_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>protected_keys:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SN</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2149,12 +2003,12 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
       <pre class="lines">
 
 
-98
-99
-100</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/header.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_lines'>add_lines</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
@@ -2169,7 +2023,7 @@ This is a convenience wrapper around sam_hdr_add_pg that automatically:</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:51 2026 by
+  Generated on Sat Aug  1 14:12:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

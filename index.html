@@ -73,24 +73,23 @@
 <ul>
 <li><a href="https://github.com/ruby/ruby">Ruby</a> 3.1 or above.</li>
 <li>
-<a href="https://github.com/samtools/htslib">HTSlib</a>
+<a href="https://github.com/samtools/htslib">HTSlib</a>, including headers and <code>pkg-config</code> metadata
 <ul>
 <li>Ubuntu : <code>apt install libhts-dev</code></li>
 <li>macOS : <code>brew install htslib</code></li>
 <li>Windows : <a href="https://packages.msys2.org/base/mingw-w64-htslib">mingw-w64-htslib</a> is automatically fetched when installing the gem (<a href="https://rubyinstaller.org">RubyInstaller</a> only).</li>
-<li>Build from source code (see the Development section)</li>
 </ul>
 </li>
 </ul>
 <h2 id="Installation">Installation</h2>
 <pre class="code sh"><code class="sh">gem install htslib
 </code></pre>
-<p>If you have installed htslib with apt on Ubuntu or homebrew on Mac, <a href="https://github.com/ruby-gnome/pkg-config">pkg-config</a>
-will automatically detect the location of the shared library. If pkg-config does not work well, set <code>PKG_CONFIG_PATH</code>.
-Alternatively, you can specify the directory of the shared library by setting the environment variable <code>HTSLIBDIR</code>.</p>
-<pre class="code sh"><code class="sh">export HTSLIBDIR=&quot;/your/path/to/htslib&quot; # Directory where libhts.so is located
+<p>The gem builds a native extension and links to the system HTSlib. <code>pkg-config</code>
+normally finds it automatically. For a non-standard installation, set
+<code>PKG_CONFIG_PATH</code>, pass <code>--with-htslib-dir</code>, or set <code>HTSLIBDIR</code> while installing.</p>
+<pre class="code sh"><code class="sh">gem install htslib -- --with-htslib-dir=/your/htslib/prefix
 </code></pre>
-<p>ruby-htslib also works on Windows. If you use RubyInstaller, htslib will be prepared automatically.</p>
+<p>RubyInstaller installs the declared MSYS2 HTSlib dependency on Windows.</p>
 <h2 id="Usage">Usage</h2>
 <h3 id="HTS__Bam___SAM___BAM___CRAM___Sequence_Alignment_Map_file">HTS::Bam - SAM / BAM / CRAM - Sequence Alignment Map file</h3>
 <p>Reading fields</p>
@@ -122,6 +121,32 @@ Alternatively, you can specify the directory of the shared library by setting th
   <span class='kw'>end</span>
 <span class='kw'>end</span>
 </code></pre>
+<p>Creating a BAM file from Ruby values</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam/Header.html" title="HTS::Bam::Header (class)">Header</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HTS/Bam/Header.html#initialize-instance_method" title="HTS::Bam::Header#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_update_hd'>update_hd</span><span class='lparen'>(</span><span class='label'>version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.6</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>sort_order:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unsorted</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_add_sq'>add_sq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>length:</span> <span class='int'>1_000_000</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam/Record.html" title="HTS::Bam::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HTS/Bam/Record.html#initialize-instance_method" title="HTS::Bam::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_header'>header</span><span class='comma'>,</span>
+  <span class='label'>qname:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>read1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>chrom:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>       <span class='comment'># resolved through the header
+</span>  <span class='label'>pos:</span> <span class='int'>99</span><span class='comma'>,</span>              <span class='comment'># zero-based
+</span>  <span class='label'>mapq:</span> <span class='int'>60</span><span class='comma'>,</span>
+  <span class='label'>cigar:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>4M</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>sequence:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ACGT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>qualities:</span> <span class='lbracket'>[</span><span class='int'>30</span><span class='comma'>,</span> <span class='int'>31</span><span class='comma'>,</span> <span class='int'>32</span><span class='comma'>,</span> <span class='int'>33</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>aux:</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NM</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+
+<span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bam.html" title="HTS::Bam (class)">Bam</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bam.html#open-class_method" title="HTS::Bam.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>output.bam</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bam'>bam</span><span class='op'>|</span>
+  <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_write_header'>write_header</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_bam'>bam</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_record'>record</span>
+<span class='kw'>end</span>
+</code></pre>
+<p>Use <code>quality_string:</code> for a Phred+33 string instead of numeric <code>qualities:</code>.
+Omit qualities (or pass <code>nil</code>) to write missing qualities. <code>seq:</code> / <code>qual:</code>
+are accepted as concise aliases. Reference names can also be assigned with
+<code>record.chrom=</code> and <code>record.mate_chrom=</code>.</p>
 <h3 id="HTS__Bcf___VCF___BCF___Variant_Call_Format_file">HTS::Bcf - VCF / BCF - Variant Call Format file</h3>
 <p>Reading fields</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
@@ -161,21 +186,39 @@ Alternatively, you can specify the directory of the shared library by setting th
 <span class='kw'>end</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
 </code></pre>
-<h3 id="Low_level_API">Low-level API</h3>
-<p>Middle architectural layer between high-level Ruby code and low-level C code.
-<code>HTS::LibHTS</code> provides native C functions using <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.</p>
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&#39;</span></span>
+<h3 id="Low_allocation_traversal">Low-allocation traversal</h3>
+<p>Large scans can avoid per-sample arrays and genotype strings:</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Bcf.html" title="HTS::Bcf (class)">Bcf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Bcf.html#open-class_method" title="HTS::Bcf.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>variants.bcf</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>samples:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>S1</span><span class='words_sep'> </span><span class='tstring_content'>S2</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='label'>unpack:</span> <span class='symbol'>:format</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bcf'>bcf</span><span class='op'>|</span>
+  <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_record'>record</span><span class='op'>|</span>
+    <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_each_genotype'>each_genotype</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_sample_index'>sample_index</span><span class='comma'>,</span> <span class='id identifier rubyid_genotype'>genotype</span><span class='op'>|</span>
+      <span class='id identifier rubyid_genotype'>genotype</span><span class='period'>.</span><span class='id identifier rubyid_each_allele'>each_allele</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_allele'>allele</span><span class='comma'>,</span> <span class='id identifier rubyid_phased'>phased</span><span class='comma'>,</span> <span class='id identifier rubyid_missing'>missing</span><span class='op'>|</span>
+        <span class='comment'># Consume the primitive values here.
+</span>      <span class='kw'>end</span>
+    <span class='kw'>end</span>
 
-<span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_open'><span class='object_link'><a href="HTS/LibHTS.html#hts_open-class_method" title="HTS::LibHTS.hts_open (method)">hts_open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>a.bam</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_get_format'><span class='object_link'><a href="HTS/LibHTS.html#hts_get_format-class_method" title="HTS::LibHTS.hts_get_format (method)">hts_get_format</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:category</span><span class='rbracket'>]</span>
-<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_b'>b</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_each_i32'>each_i32</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DP</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sample_index'>sample_index</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_each_i32_vector'>each_i32_vector</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AD</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sample_index'>sample_index</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_each_f32_vector'>each_f32_vector</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GL</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sample_index'>sample_index</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_likelihood'>likelihood</span><span class='op'>|</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
 </code></pre>
-<p>The low-level API makes it possible to perform detailed operations, such as calling CRAM-specific functions.</p>
-<h4 id="Macro_functions">Macro functions</h4>
-<p>HTSlib is designed to improve performance with many macro functions. However, it is not possible to call C macro functions directly from Ruby-FFI. To overcome this, important macro functions have been re-implemented in Ruby, allowing them to be called in the same way as native functions.</p>
-<h4 id="Garbage_Collection_and_Memory_Freeing">Garbage Collection and Memory Freeing</h4>
-<p>A small number of commonly used structs, such as <code>Bam1</code> and <code>Bcf1</code>, are implemented using FFI's <code>ManagedStruct</code>. This allows for automatic memory release when Ruby's garbage collection is triggered. On the other hand, other structs are implemented using <code>FFI::Struct</code>, and they will require manual memory release.</p>
+<p>The genotype and numeric vector objects yielded by these iterators are borrowed
+and reused. Consume them inside the block, or call <code>to_s</code> / <code>to_a</code> to retain an
+owning value. Reading a different FORMAT key does not invalidate a view; reading
+the same key again makes an old view raise <code>InvalidBorrowedViewError</code> instead of
+silently returning overwritten data. <code>genotype_strings</code>, <code>get</code>, and <code>[]</code> remain
+the allocating convenience APIs. Use <code>unpack: :site_only</code> when FORMAT columns
+are not needed.</p>
+<p>Tabix likewise separates raw and materialized access:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_line'>each_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_fields'>each_fields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fields'>fields</span><span class='op'>|</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_selected_fields'>each_selected_fields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='int'>3</span><span class='comma'>,</span> <span class='int'>4</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='rbrace'>}</span>
+</code></pre>
+<h3 id="Native_backend_migration">Native backend migration</h3>
+<p>Version 0.5 uses a compiled extension for every supported high-level API. The
+former low-level binding, pointer, and runtime library-switching APIs were
+implementation details and have been removed. Native handles are not exposed;
+install failures report the missing HTSlib build requirement.</p>
 <h3 id="Need_more_speed_">Need more speed?</h3>
 <p>Try Crystal. <a href="https://github.com/bio-cr/hts.cr">HTS.cr</a> is implemented in Crystal language and provides an API compatible with ruby-htslib.</p>
 <h2 id="Documentation">Documentation</h2>
@@ -185,17 +228,15 @@ Alternatively, you can specify the directory of the shared library by setting th
 <li><a href="https://rubydoc.info/gems/htslib">API Documentation (released gem)</a></li>
 </ul>
 <h2 id="Development">Development</h2>
-<h4 id="Compile_from_source_code">Compile from source code</h4>
-<p><a href="https://en.wikipedia.org/wiki/GNU_Autotools">GNU Autotools</a> is required to compile htslib.
-To get started with development:</p>
-<pre class="code sh"><code class="sh">git clone --recursive https://github.com/kojix2/ruby-htslib
+<h4 id="Build_the_extension">Build the extension</h4>
+<p>Install the system HTSlib development package first, then:</p>
+<pre class="code sh"><code class="sh">git clone https://github.com/kojix2/ruby-htslib
 cd ruby-htslib
 bundle install
-bundle exec rake htslib:build
 bundle exec rake test
 </code></pre>
-<h4 id="Macro_functions_are_reimplemented">Macro functions are reimplemented</h4>
-<p>HTSlib has many macro functions. These macro functions cannot be called from FFI and must be reimplemented in Ruby.</p>
+<p>Use <code>bundle exec rake test:local</code> for fixture-only tests and
+<code>bundle exec rake test:remote</code> for the network-dependent URI suite.</p>
 <h4 id="Use_the_latest_Ruby">Use the latest Ruby</h4>
 <p>Use Ruby 3 or newer to take advantage of new features. This is possible because we have a small number of users.</p>
 <h4 id="Keep_compatibility_with_Crystal_language">Keep compatibility with Crystal language</h4>
@@ -205,22 +246,8 @@ bundle exec rake test
 </ul>
 <p>Return value</p>
 <p>The most challenging part is the return value. In the Crystal language, methods are expected to return only one type. On the other hand, in the Ruby language, methods that return multiple classes are very common. For example, in the Crystal language, the compiler gets confused if the return value is one of six types: Int32, Int64, Float32, Float64, Nil, or String. In fact Crystal allows you to do that. But the code gets a little messy. In Ruby, this is very common and doesn't cause any problems.</p>
-<p>Memory management</p>
-<p>Ruby and Crystal are languages that use garbage collection. However, the memory release policy for allocated C structures is slightly different: in Ruby-FFI, you can define a <code>self.release</code> method in <code>FFI::Struct</code>. This method is called when GC. So you don't have to worry about memory in high-level APIs like Bam::Record or Bcf::Record, etc. Crystal requires you to define a finalize method on each class. So you need to define it in Bam::Record or Bcf::Record.</p>
-<p>Macro functions</p>
-<p>In ruby-htslib, C macro functions are added to <code>LibHTS</code>, but in Crystal, <code>LibHTS</code> is a Lib, so methods cannot be added. methods are added to <code>LibHTS2</code>.</p>
 <h4 id="Naming_convention">Naming convention</h4>
 <p>If you are not sure about the naming of a method, follow the Rust-htslib API. This is a very weak rule. if a more appropriate name is found later in Ruby, it will replace it.</p>
-<h4 id="Support_for_bitfields_of_structures">Support for bitfields of structures</h4>
-<p>Since Ruby-FFI does not support structure bit fields, the following extensions are used.</p>
-<ul>
-<li><a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> - Extension of Ruby-FFI to support bitfields.</li>
-</ul>
-<h4 id="Automatic_validation">Automatic validation</h4>
-<p>In the <code>script</code> directory, there are several tools to help implement ruby-htslib. Scripts using c2ffi can check the coverage of htslib functions in Ruby-htslib. They are useful when new versions of htslib are released.</p>
-<ul>
-<li><a href="https://github.com/rpav/c2ffi">c2ffi</a> is a tool to create JSON format metadata from C header files.</li>
-</ul>
 <h2 id="Contributing">Contributing</h2>
 <p>Ruby-htslib is a library under development, so even minor improvements like typo fixes are welcome! Please feel free to send us your pull requests.</p>
 <ul>
@@ -249,7 +276,7 @@ If so, please feel free to contact us @kojix2.
 <p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p></div></div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:48 2026 by
+  Generated on Sat Aug  1 14:12:03 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

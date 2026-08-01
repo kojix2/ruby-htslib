@@ -81,7 +81,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/hts/bam.rb<span class="defines">,<br>
-  lib/htslib.rb,<br> lib/hts/bcf.rb,<br> lib/hts/hts.rb,<br> lib/hts/faidx.rb,<br> lib/hts/faidx.rb,<br> lib/hts/tabix.rb,<br> lib/hts/libhts.rb,<br> lib/hts/native.rb,<br> lib/hts/version.rb,<br> lib/hts/bam/auxi.rb,<br> lib/hts/bam/flag.rb,<br> lib/hts/bcf/info.rb,<br> lib/hts/bam/cigar.rb,<br> lib/hts/bam/header.rb,<br> lib/hts/bam/pileup.rb,<br> lib/hts/bam/record.rb,<br> lib/hts/bcf/errors.rb,<br> lib/hts/bcf/format.rb,<br> lib/hts/bcf/header.rb,<br> lib/hts/bcf/record.rb,<br> lib/hts/libhts/fai.rb,<br> lib/hts/libhts/hts.rb,<br> lib/hts/libhts/sam.rb,<br> lib/hts/libhts/tbx.rb,<br> lib/hts/libhts/vcf.rb,<br> lib/hts/bam/mpileup.rb,<br> lib/hts/libhts/bgzf.rb,<br> lib/hts/libhts/cram.rb,<br> lib/hts/bam/base_mod.rb,<br> lib/hts/libhts/hfile.rb,<br> lib/hts/libhts/kfunc.rb,<br> lib/hts/libhts/constants.rb,<br> lib/hts/libhts/sam_funcs.rb,<br> lib/hts/libhts/tbx_funcs.rb,<br> lib/hts/libhts/vcf_funcs.rb,<br> lib/hts/bam/header_record.rb,<br> lib/hts/bcf/getter_buffer.rb,<br> lib/hts/bcf/header_record.rb,<br> lib/hts/libhts/thread_pool.rb,<br> ext/htslib_native/htslib_native_ext.c</span>
+  lib/htslib.rb,<br> lib/hts/bcf.rb,<br> lib/hts/hts.rb,<br> lib/hts/faidx.rb,<br> lib/hts/tabix.rb,<br> lib/hts/version.rb,<br> lib/hts/bam/auxi.rb,<br> lib/hts/bam/flag.rb,<br> lib/hts/bcf/info.rb,<br> lib/hts/bam/cigar.rb,<br> lib/hts/bam/header.rb,<br> lib/hts/bam/pileup.rb,<br> lib/hts/bam/record.rb,<br> lib/hts/bcf/errors.rb,<br> lib/hts/bcf/format.rb,<br> lib/hts/bcf/header.rb,<br> lib/hts/bcf/record.rb,<br> lib/hts/bam/mpileup.rb,<br> lib/hts/bam/base_mod.rb,<br> lib/hts/bam/header_record.rb,<br> lib/hts/bcf/header_record.rb,<br> ext/htslib_native/htslib_native_ext.c</span>
 
 </dd>
   </dl>
@@ -90,7 +90,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>BGZF</p>
+    <p>Based on hts-nim
+<a href="https://github.com/brentp/hts-nim/blob/master/src/hts/bam/flag.nim">https://github.com/brentp/hts-nim/blob/master/src/hts/bam/flag.nim</a></p>
 
   </div>
 </div>
@@ -101,7 +102,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="HTS/LibC.html" title="HTS::LibC (module)">LibC</a></span>, <span class='object_link'><a href="HTS/LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span>, <span class='object_link'><a href="HTS/Native.html" title="HTS::Native (module)">Native</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="HTS/Native.html" title="HTS::Native (module)">Native</a></span>
     
   
     
@@ -121,7 +122,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.4.2</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.5.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -129,259 +130,15 @@
 
 
 
-  <h2>Class Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#lib_path-class_method" title="lib_path (class method)">.<strong>lib_path</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute lib_path.</p></div></span>
-  
-</li>
-
-    
-  </ul>
 
 
 
 
-  
-    <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#search_htslib-class_method" title="search_htslib (class method)">.<strong>search_htslib</strong>(name = nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#search_htslib_windows-class_method" title="search_htslib_windows (class method)">.<strong>search_htslib_windows</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-    
-  
-
-
-  <div id="class_attr_details" class="attr_details">
-    <h2>Class Attribute Details</h2>
-    
-      
-      <span id="lib_path=-class_method"></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="lib_path-class_method">
-  
-    .<strong>lib_path</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Returns the value of attribute lib_path.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-11
-12
-13</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/htslib.rb', line 11</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_lib_path'>lib_path</span>
-  <span class='ivar'>@lib_path</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="search_htslib-class_method">
-  
-    .<strong>search_htslib</strong>(name = nil)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/htslib.rb', line 13</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_search_htslib'>search_htslib</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libhts.</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Platform</span><span class='op'>::</span><span class='const'>LIBSUFFIX</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_lib_path'>lib_path</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-               <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-             <span class='kw'>else</span>
-               <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>../vendor/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid___dir__'>__dir__</span><span class='rparen'>)</span>
-             <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_lib_path'>lib_path</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_lib_path'>lib_path</span><span class='rparen'>)</span>
-
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pkg-config</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_lib_dir'>lib_dir</span> <span class='op'>=</span> <span class='const'>PKGConfig</span><span class='period'>.</span><span class='id identifier rubyid_variable'>variable</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libdir</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_lib_path'>lib_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_lib_dir'>lib_dir</span><span class='rparen'>)</span>
-  <span class='kw'>rescue</span> <span class='const'>PackageConfig</span><span class='op'>::</span><span class='const'>NotFoundError</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib.pc was not found in the pkg-config search path.</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_lib_path'>lib_path</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_lib_path'>lib_path</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>htslib shared library &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; not found.</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="search_htslib_windows-class_method">
-  
-    .<strong>search_htslib_windows</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-34
-35
-36
-37
-38
-39
-40
-41
-42</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/htslib.rb', line 34</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_search_htslib_windows'>search_htslib_windows</span>
-  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span>
-    <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_msys2_installation'>msys2_installation</span><span class='period'>.</span><span class='id identifier rubyid_msys_path'>msys_path</span><span class='comma'>,</span>
-    <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_msys2_installation'>msys2_installation</span><span class='period'>.</span><span class='id identifier rubyid_mingwarch'>mingwarch</span>
-  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>File</span><span class='op'>::</span><span class='const'>ALT_SEPARATOR</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/hts-3.dll</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HTSLIBDIR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='const'>RubyInstaller</span><span class='op'>::</span><span class='const'>Runtime</span><span class='period'>.</span><span class='id identifier rubyid_add_dll_directory'>add_dll_directory</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_path'>path</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:48 2026 by
+  Generated on Sat Aug  1 14:12:03 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

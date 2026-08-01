@@ -107,16 +107,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    <p>High-level pileup iterator for a single SAM/BAM/CRAM</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><h2>Defined Under Namespace</h2>
+<h2>Defined Under Namespace</h2>
 <p class="children">
   
     
@@ -160,7 +151,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(*args, **kw)  &#x21d2; Object </a>
+      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(*args, **keywords)  &#x21d2; Object </a>
     
 
     
@@ -174,7 +165,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Usage:   HTS::Bam::Pileup.open(bam, region: &quot;chr1:1-100&quot;) do |pl|     pl.each { |col| ... }   end.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -250,7 +241,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Yield one reused count array per genomic position.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -272,7 +263,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Yield one primitive depth result per genomic position without creating PileupColumn or PileupRecord objects.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -294,7 +285,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Yield primitive pileup entry values.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -316,7 +307,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Yield a borrowed column object that is reset for every position.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -340,7 +331,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Create a Pileup iterator.</p></div></span>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Pileup.</p></div></span>
   
 </li>
 
@@ -386,91 +377,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Create a Pileup iterator</p>
+    <p>Returns a new instance of Pileup.</p>
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
   
     <li>
       
-        <span class='name'>bam</span>
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Bam.html" title="HTS::Bam (class)">HTS::Bam</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>region</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Optional region string (requires index)</p></div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>beg</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Optional begin when using tid/beg/end form</p></div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>end_</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Optional end when using tid/beg/end form</p></div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>maxcnt</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Max per-position depth (capped)</p></div>
       
     </li>
   
 </ul>
-
 
 </div><table class="source_code">
   <tr>
@@ -478,103 +403,29 @@
       <pre class="lines">
 
 
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201</pre>
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='comma'>,</span> <span class='label'>region:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>beg:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>end_:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>maxcnt:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='ivar'>@bam</span>    <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>beg and end_ must be specified together</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_beg'>beg</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>!=</span> <span class='id identifier rubyid_end_'>end_</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>region is required when beg/end_ are specified</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_beg'>beg</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_region'>region</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='ivar'>@bam</span> <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span>
-  <span class='ivar'>@itr</span>    <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='ivar'>@cb</span>     <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='ivar'>@plp</span>    <span class='op'>=</span> <span class='kw'>nil</span>
-
-  <span class='comment'># Optional region iterator
-</span>  <span class='kw'>if</span> <span class='id identifier rubyid_region'>region</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_beg'>beg</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_end_'>end_</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Index file is required to use region pileup.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
-
-    <span class='ivar'>@itr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_querys'><span class='object_link'><a href="../LibHTS.html#sam_itr_querys-class_method" title="HTS::LibHTS.sam_itr_querys (method)">sam_itr_querys</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='symbol'>:@idx</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span><span class='comma'>,</span> <span class='id identifier rubyid_region'>region</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to query region: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_region'>region</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_region'>region</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_beg'>beg</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_end_'>end_</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Index file is required to use region pileup.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
-
-    <span class='id identifier rubyid_tid'>tid</span> <span class='op'>=</span> <span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_get_tid'>get_tid</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='rparen'>)</span>
-    <span class='ivar'>@itr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_queryi'><span class='object_link'><a href="../LibHTS.html#sam_itr_queryi-class_method" title="HTS::LibHTS.sam_itr_queryi (method)">sam_itr_queryi</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='symbol'>:@idx</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to query region: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_region'>region</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_beg'>beg</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_end_'>end_</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_beg'>beg</span> <span class='op'>||</span> <span class='id identifier rubyid_end_'>end_</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>beg and end_ must be specified together</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># Build the auto callback for bam_plp_init (micro-optimized)
-</span>  <span class='comment'># - Hoist ivar/constant lookups out of the callback to reduce per-call overhead.
-</span>  <span class='comment'># - Specialize callbacks to avoid branching in the hot path.
-</span>  <span class='id identifier rubyid_hts_fp'>hts_fp</span>     <span class='op'>=</span> <span class='ivar'>@bam</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='symbol'>:@hts_file</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_hdr_struct'>hdr_struct</span> <span class='op'>=</span> <span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_struct'>struct</span>
-  <span class='id identifier rubyid_itr_local'>itr_local</span>  <span class='op'>=</span> <span class='ivar'>@itr</span>
-
-  <span class='ivar'>@cb</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_itr_local'>itr_local</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_itr_local'>itr_local</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-          <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__data'>_data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
-            <span class='comment'># HTSlib contract: return same as sam_itr_next (&gt;= 0 on success, -1 on EOF, &lt; -1 on error)
-</span>            <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_itr_next'><span class='object_link'><a href="../LibHTS.html#sam_itr_next-class_method" title="HTS::LibHTS.sam_itr_next (method)">sam_itr_next</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_itr_local'>itr_local</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
-          <span class='kw'>end</span>
-        <span class='kw'>else</span>
-          <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'>Function</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pointer</span><span class='words_sep'> </span><span class='tstring_content'>pointer</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__data'>_data</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='op'>|</span>
-            <span class='comment'># HTSlib contract: return same as sam_read1 (&gt;= 0 on success, -1 on EOF, &lt; -1 on error)
-</span>            <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sam_read1'><span class='object_link'><a href="../LibHTS.html#sam_read1-class_method" title="HTS::LibHTS.sam_read1 (method)">sam_read1</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hts_fp'>hts_fp</span><span class='comma'>,</span> <span class='id identifier rubyid_hdr_struct'>hdr_struct</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
-          <span class='kw'>end</span>
-        <span class='kw'>end</span>
-
-  <span class='ivar'>@plp</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_init'><span class='object_link'><a href="../LibHTS.html#bam_plp_init-class_method" title="HTS::LibHTS.bam_plp_init (method)">bam_plp_init</a></span></span><span class='lparen'>(</span><span class='ivar'>@cb</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bam_plp_init failed</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-
-  <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_set_maxcnt'><span class='object_link'><a href="../LibHTS.html#bam_plp_set_maxcnt-class_method" title="HTS::LibHTS.bam_plp_set_maxcnt (method)">bam_plp_set_maxcnt</a></span></span><span class='lparen'>(</span><span class='ivar'>@plp</span><span class='comma'>,</span> <span class='id identifier rubyid_maxcnt'>maxcnt</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_maxcnt'>maxcnt</span>
+  <span class='ivar'>@native</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native/PileupHandle.html" title="HTS::Native::PileupHandle (class)">PileupHandle</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="../Native/PileupHandle.html#open-class_method" title="HTS::Native::PileupHandle.open (method)">open</a></span></span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_bam'>bam</span><span class='period'>.</span><span class='id identifier rubyid___send__'>__send__</span><span class='lparen'>(</span><span class='symbol'>:native_handle</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid___send__'>__send__</span><span class='lparen'>(</span><span class='symbol'>:native_handle</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_beg'>beg</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='id identifier rubyid_maxcnt'>maxcnt</span>
+  <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -591,55 +442,43 @@
       <div class="method_details first">
   <h3 class="signature first" id="open-class_method">
   
-    .<strong>open</strong>(*args, **kw)  &#x21d2; <tt>Object</tt> 
+    .<strong>open</strong>(*args, **keywords)  &#x21d2; <tt>Object</tt> 
   
 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Usage:</p>
-<pre class="code ruby"><code class="ruby">HTS::Bam::Pileup.open(bam, region: &quot;chr1:1-100&quot;) do |pl|
-pl.each { |col| ... }
-end</code></pre>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+11
+12
+13
+14
+15
+16
 17
 18
 19
 20
-21
-22
-23
-24
-25
-26
-27</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 11</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_pu'>pu</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_pu'>pu</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_keywords'>keywords</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pileup'>pileup</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_keywords'>keywords</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_pileup'>pileup</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='kw'>begin</span>
-    <span class='kw'>yield</span> <span class='id identifier rubyid_pu'>pu</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_pileup'>pileup</span>
   <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_pu'>pu</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+    <span class='id identifier rubyid_pileup'>pileup</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_pu'>pu</span>
+  <span class='id identifier rubyid_pileup'>pileup</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -667,34 +506,12 @@ end</code></pre>
       <pre class="lines">
 
 
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
-312</pre>
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 154</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
-  <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-    <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_destroy'><span class='object_link'><a href="../LibHTS.html#bam_plp_destroy-class_method" title="HTS::LibHTS.bam_plp_destroy (method)">bam_plp_destroy</a></span></span><span class='lparen'>(</span><span class='ivar'>@plp</span><span class='rparen'>)</span>
-    <span class='ivar'>@plp</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span>
-  <span class='kw'>end</span>
-  <span class='kw'>if</span> <span class='ivar'>@itr</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@itr</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-    <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hts_itr_destroy'><span class='object_link'><a href="../LibHTS.html#hts_itr_destroy-class_method" title="HTS::LibHTS.hts_itr_destroy (method)">hts_itr_destroy</a></span></span><span class='lparen'>(</span><span class='ivar'>@itr</span><span class='rparen'>)</span>
-    <span class='ivar'>@itr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FFI/Pointer.html" title="FFI::Pointer (class)">Pointer</a></span></span><span class='op'>::</span><span class='const'>NULL</span>
-  <span class='kw'>end</span>
-  <span class='comment'># Keep @cb referenced by instance to avoid GC during iteration.
-</span>  <span class='ivar'>@cb</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='op'>&amp;.</span><span class='id identifier rubyid_close'>close</span></pre>
     </td>
   </tr>
 </table>
@@ -715,60 +532,26 @@ end</code></pre>
       <pre class="lines">
 
 
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228</pre>
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='id identifier rubyid_plp1_size'>plp1_size</span>    <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
-  <span class='id identifier rubyid_header_local'>header_local</span> <span class='op'>=</span> <span class='ivar'>@header</span>
-
-  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_base_ptr'>base_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='op'>|</span>
-    <span class='comment'># Construct alignment entries with minimal allocations
-</span>    <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
-      <span class='id identifier rubyid_alignments'>alignments</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-    <span class='kw'>else</span>
-      <span class='id identifier rubyid_alignments'>alignments</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='int'>0</span>
-      <span class='kw'>while</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_n'>n</span>
-        <span class='id identifier rubyid_e_ptr'>e_ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_base_ptr'>base_ptr</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>*</span> <span class='id identifier rubyid_plp1_size'>plp1_size</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_e_ptr'>e_ptr</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_alignments'>alignments</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Pileup/PileupRecord.html" title="HTS::Bam::Pileup::PileupRecord (class)">PileupRecord</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pileup/PileupRecord.html#initialize-instance_method" title="HTS::Bam::Pileup::PileupRecord#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_entry'>entry</span><span class='comma'>,</span> <span class='id identifier rubyid_header_local'>header_local</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_i'>i</span> <span class='op'>+=</span> <span class='int'>1</span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-
-    <span class='kw'>yield</span> <span class='const'><span class='object_link'><a href="Pileup/PileupColumn.html" title="HTS::Bam::Pileup::PileupColumn (class)">PileupColumn</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTS::Bam::Pileup#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>tid:</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='label'>pos:</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='label'>alignments:</span> <span class='id identifier rubyid_alignments'>alignments</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span>
+    <span class='id identifier rubyid_alignments'>alignments</span> <span class='op'>=</span> <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Pileup/PileupRecord.html" title="HTS::Bam::Pileup::PileupRecord (class)">PileupRecord</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pileup/PileupRecord.html#initialize-instance_method" title="HTS::Bam::Pileup::PileupRecord#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='ivar'>@header</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>yield</span> <span class='const'><span class='object_link'><a href="Pileup/PileupColumn.html" title="HTS::Bam::Pileup::PileupColumn (class)">PileupColumn</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTS::Bam::Pileup#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>tid:</span><span class='comma'>,</span> <span class='label'>pos:</span><span class='comma'>,</span> <span class='label'>alignments:</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -787,9 +570,7 @@ end</code></pre>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Yield one reused count array per genomic position. The fields are, in
-order: depth, A, C, G, T, N, forward, reverse, deletion, insertion.
-Call counts.dup when retaining a result beyond the callback.</p>
+    
 
   </div>
 </div>
@@ -815,25 +596,37 @@ Call counts.dup when retaining a result beyond the callback.</p>
       <pre class="lines">
 
 
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291
-292
-293
-294
-295</pre>
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 280</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_base_counts'>each_base_counts</span><span class='lparen'>(</span><span class='label'>min_base_quality:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>min_mapping_quality:</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>min_base_quality:</span><span class='comma'>,</span> <span class='label'>min_mapping_quality:</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -843,10 +636,22 @@ Call counts.dup when retaining a result beyond the callback.</p>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>quality thresholds must be non-negative</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_min_base_quality'>min_base_quality</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span> <span class='op'>||</span> <span class='id identifier rubyid_min_mapping_quality'>min_mapping_quality</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
 
   <span class='id identifier rubyid_counts'>counts</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BASE_COUNT_FIELDS-constant" title="HTS::Bam::Pileup::BASE_COUNT_FIELDS (constant)">BASE_COUNT_FIELDS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_base_pointer'>base_pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_pileup_base_counts'><span class='object_link'><a href="../Native.html#pileup_base_counts-class_method" title="HTS::Native.pileup_base_counts (method)">pileup_base_counts</a></span></span><span class='lparen'>(</span>
-      <span class='id identifier rubyid_base_pointer'>base_pointer</span><span class='period'>.</span><span class='id identifier rubyid_address'>address</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='comma'>,</span> <span class='id identifier rubyid_min_base_quality'>min_base_quality</span><span class='comma'>,</span> <span class='id identifier rubyid_min_mapping_quality'>min_mapping_quality</span><span class='comma'>,</span> <span class='id identifier rubyid_counts'>counts</span>
-    <span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span>
+    <span class='id identifier rubyid_counts'>counts</span><span class='period'>.</span><span class='id identifier rubyid_fill'>fill</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span>
+      <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>6</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>10</span><span class='rbracket'>]</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_min_mapping_quality'>min_mapping_quality</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
+        <span class='id identifier rubyid_counts'>counts</span><span class='lbracket'>[</span><span class='int'>8</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='kw'>else</span>
+        <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>9</span><span class='rbracket'>]</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_min_base_quality'>min_base_quality</span>
+
+        <span class='id identifier rubyid_counts'>counts</span><span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='int'>1</span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>4</span> <span class='op'>=&gt;</span> <span class='int'>3</span><span class='comma'>,</span> <span class='int'>8</span> <span class='op'>=&gt;</span> <span class='int'>4</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>8</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_counts'>counts</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_counts'>counts</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>7</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>16</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>?</span> <span class='int'>6</span> <span class='op'>:</span> <span class='int'>7</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_counts'>counts</span><span class='lbracket'>[</span><span class='int'>9</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span>
+    <span class='kw'>end</span>
     <span class='kw'>yield</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_counts'>counts</span>
   <span class='kw'>end</span>
   <span class='kw'>self</span>
@@ -865,36 +670,26 @@ Call counts.dup when retaining a result beyond the callback.</p>
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Yield one primitive depth result per genomic position without creating
-PileupColumn or PileupRecord objects.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-232
-233
-234
-235
-236
-237</pre>
+100
+101
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_depth'>each_depth</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__base_ptr'>_base_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='rbrace'>}</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -911,71 +706,29 @@ PileupColumn or PileupRecord objects.</p>
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Yield primitive pileup entry values. base is the BAM nt16 integer code,
-or nil for deletions/reference skips. No Bam::Record is duplicated.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274
-275</pre>
+115
+116
+117
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 252</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_entry_raw'>each_entry_raw</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='id identifier rubyid_entry_size'>entry_size</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
-  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_base_ptr'>base_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span>
-    <span class='id identifier rubyid_depth'>depth</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-      <span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_base_ptr'>base_ptr</span> <span class='op'>+</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>*</span> <span class='id identifier rubyid_entry_size'>entry_size</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_bam_pointer'>bam_pointer</span> <span class='op'>=</span> <span class='id identifier rubyid_entry'>entry</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span>
-      <span class='id identifier rubyid_bam'>bam</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS/Bam1View.html" title="HTS::LibHTS::Bam1View (class)">Bam1View</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_bam_pointer'>bam_pointer</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_qpos'>qpos</span> <span class='op'>=</span> <span class='id identifier rubyid_entry'>entry</span><span class='lbracket'>[</span><span class='symbol'>:qpos</span><span class='rbracket'>]</span>
-      <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='id identifier rubyid_bam'>bam</span><span class='lbracket'>[</span><span class='symbol'>:core</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span>
-
-      <span class='kw'>if</span> <span class='id identifier rubyid_entry'>entry</span><span class='lbracket'>[</span><span class='symbol'>:is_del</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>||</span> <span class='id identifier rubyid_entry'>entry</span><span class='lbracket'>[</span><span class='symbol'>:is_refskip</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>||</span> <span class='id identifier rubyid_qpos'>qpos</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
-        <span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='kw'>nil</span>
-        <span class='id identifier rubyid_quality'>quality</span> <span class='op'>=</span> <span class='kw'>nil</span>
-      <span class='kw'>else</span>
-        <span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_seqi'><span class='object_link'><a href="../LibHTS.html#bam_seqi-class_method" title="HTS::LibHTS.bam_seqi (method)">bam_seqi</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_seq'><span class='object_link'><a href="../LibHTS.html#bam_get_seq-class_method" title="HTS::LibHTS.bam_get_seq (method)">bam_get_seq</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_qpos'>qpos</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_quality'>quality</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_get_qual'><span class='object_link'><a href="../LibHTS.html#bam_get_qual-class_method" title="HTS::LibHTS.bam_get_qual (method)">bam_get_qual</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bam'>bam</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_get_uint8'>get_uint8</span><span class='lparen'>(</span><span class='id identifier rubyid_qpos'>qpos</span><span class='rparen'>)</span>
-      <span class='kw'>end</span>
-      <span class='kw'>yield</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_qpos'>qpos</span><span class='comma'>,</span> <span class='id identifier rubyid_flag'>flag</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_quality'>quality</span>
-    <span class='kw'>end</span>
+  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span>
+    <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>7</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>8</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='int'>9</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
@@ -993,41 +746,28 @@ or nil for deletions/reference skips. No Bam::Record is duplicated.</p>
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Yield a borrowed column object that is reset for every position.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-240
-241
-242
-243
-244
-245
-246
-247
-248</pre>
+107
+108
+109
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_view'>each_view</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='id identifier rubyid_view'>view</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Pileup/BorrowedColumnView.html" title="HTS::Bam::Pileup::BorrowedColumnView (class)">BorrowedColumnView</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pileup/BorrowedColumnView.html#initialize-instance_method" title="HTS::Bam::Pileup::BorrowedColumnView#initialize (method)">new</a></span></span>
-  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pointer'>pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='op'>|</span>
-    <span class='kw'>yield</span> <span class='id identifier rubyid_view'>view</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_each_raw_column'>each_raw_column</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='id identifier rubyid_view'>view</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='id identifier rubyid_rows'>rows</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1050,16 +790,12 @@ or nil for deletions/reference skips. No Bam::Record is duplicated.</p>
       <pre class="lines">
 
 
-297
-298
-299</pre>
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 297</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 153</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
-  <span class='const'><span class='object_link'><a href="../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_plp_reset'><span class='object_link'><a href="../LibHTS.html#bam_plp_reset-class_method" title="HTS::LibHTS.bam_plp_reset (method)">bam_plp_reset</a></span></span><span class='lparen'>(</span><span class='ivar'>@plp</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@plp</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@plp</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span></pre>
     </td>
   </tr>
 </table>
@@ -1070,7 +806,7 @@ or nil for deletions/reference skips. No Bam::Record is duplicated.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:51 2026 by
+  Generated on Sat Aug  1 14:12:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

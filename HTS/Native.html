@@ -80,24 +80,23 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/hts/native.rb<span class="defines">,<br>
-  ext/htslib_native/htslib_native_ext.c</span>
-
+    <dd>ext/htslib_native/htslib_native_ext.c
 </dd>
   </dl>
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    <p>Optional native batch operations, with portable Ruby fallbacks.</p>
-
-  </div>
-</div>
-<div class="tags">
+<h2>Defined Under Namespace</h2>
+<p class="children">
   
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Native/BamFileHandle.html" title="HTS::Native::BamFileHandle (class)">BamFileHandle</a></span>, <span class='object_link'><a href="Native/BamIteratorHandle.html" title="HTS::Native::BamIteratorHandle (class)">BamIteratorHandle</a></span>, <span class='object_link'><a href="Native/BamRecordHandle.html" title="HTS::Native::BamRecordHandle (class)">BamRecordHandle</a></span>, <span class='object_link'><a href="Native/BaseModHandle.html" title="HTS::Native::BaseModHandle (class)">BaseModHandle</a></span>, <span class='object_link'><a href="Native/BcfFileHandle.html" title="HTS::Native::BcfFileHandle (class)">BcfFileHandle</a></span>, <span class='object_link'><a href="Native/BcfHeaderRecordHandle.html" title="HTS::Native::BcfHeaderRecordHandle (class)">BcfHeaderRecordHandle</a></span>, <span class='object_link'><a href="Native/BcfIteratorHandle.html" title="HTS::Native::BcfIteratorHandle (class)">BcfIteratorHandle</a></span>, <span class='object_link'><a href="Native/BcfRecordHandle.html" title="HTS::Native::BcfRecordHandle (class)">BcfRecordHandle</a></span>, <span class='object_link'><a href="Native/MpileupHandle.html" title="HTS::Native::MpileupHandle (class)">MpileupHandle</a></span>, <span class='object_link'><a href="Native/PileupHandle.html" title="HTS::Native::PileupHandle (class)">PileupHandle</a></span>
+    
+  
+</p>
 
-</div>
   
     <h2>
       Constant Summary
@@ -106,10 +105,50 @@
 
     <dl class="constants">
       
-        <dt id="AVAILABLE-constant" class="">AVAILABLE =
+        <dt id="BCF_HT_FLAG-constant" class="">BCF_HT_FLAG =
           
         </dt>
-        <dd><pre class="code"><span class='id identifier rubyid_native_available'>native_available</span><span class='lparen'>(</span><span class='id identifier rubyid_native'>native</span><span class='rparen'>)</span></pre></dd>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_FLAG-constant" title="HTS::Native::BCF_HT_FLAG (constant)">BCF_HT_FLAG</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_HT_INT-constant" class="">BCF_HT_INT =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_INT-constant" title="HTS::Native::BCF_HT_INT (constant)">BCF_HT_INT</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_HT_REAL-constant" class="">BCF_HT_REAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_REAL-constant" title="HTS::Native::BCF_HT_REAL (constant)">BCF_HT_REAL</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_HT_STR-constant" class="">BCF_HT_STR =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_STR-constant" title="HTS::Native::BCF_HT_STR (constant)">BCF_HT_STR</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_HT_LONG-constant" class="">BCF_HT_LONG =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#BCF_HT_LONG-constant" title="HTS::Native::BCF_HT_LONG (constant)">BCF_HT_LONG</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_INT32_MISSING-constant" class="">BCF_INT32_MISSING =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_int32_missing'>bcf_int32_missing</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_INT32_VECTOR_END-constant" class="">BCF_INT32_VECTOR_END =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2NUM</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_int32_vector_end'>bcf_int32_vector_end</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_FLOAT_MISSING-constant" class="">BCF_FLOAT_MISSING =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>UINT2NUM</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_float_missing'>bcf_float_missing</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="BCF_FLOAT_VECTOR_END-constant" class="">BCF_FLOAT_VECTOR_END =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>UINT2NUM</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_float_vector_end'>bcf_float_vector_end</span><span class='rparen'>)</span></pre></dd>
       
     </dl>
   
@@ -131,7 +170,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#aux_b_array-class_method" title="aux_b_array (class method)">.<strong>aux_b_array</strong>(address_value)  &#x21d2; Object </a>
+      <a href="#bam_flag_string-class_method" title="bam_flag_string (class method)">.<strong>bam_flag_string</strong>(flag)  &#x21d2; Object </a>
     
 
     
@@ -153,7 +192,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bam_filter_records-class_method" title="bam_filter_records (class method)">.<strong>bam_filter_records</strong>(records, required_value, excluded_value, min_mapq_value, tid_value, beg_value, end_value)  &#x21d2; Object </a>
+      <a href="#cigar_parse-class_method" title="cigar_parse (class method)">.<strong>cigar_parse</strong>(text)  &#x21d2; Object </a>
     
 
     
@@ -175,7 +214,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bam_quality_string-class_method" title="bam_quality_string (class method)">.<strong>bam_quality_string</strong>(address_value)  &#x21d2; Object </a>
+      <a href="#cigar_qlen-class_method" title="cigar_qlen (class method)">.<strong>cigar_qlen</strong>(array)  &#x21d2; Object </a>
     
 
     
@@ -197,7 +236,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bam_sequence-class_method" title="bam_sequence (class method)">.<strong>bam_sequence</strong>(address_value)  &#x21d2; Object </a>
+      <a href="#cigar_rlen-class_method" title="cigar_rlen (class method)">.<strong>cigar_rlen</strong>(array)  &#x21d2; Object </a>
     
 
     
@@ -219,51 +258,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bcf_filter_records-class_method" title="bcf_filter_records (class method)">.<strong>bcf_filter_records</strong>(records, rid_value, beg_value, end_value, min_qual_value, filter_id_value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#format_float_values-class_method" title="format_float_values (class method)">.<strong>format_float_values</strong>(address_value, count_value, sample_count_value, scalar_value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#pileup_base_counts-class_method" title="pileup_base_counts (class method)">.<strong>pileup_base_counts</strong>(address_value, depth_value, min_baseq_value, min_mapq_value, result)  &#x21d2; Object </a>
+      <a href="#htslib_version-class_method" title="htslib_version (class method)">.<strong>htslib_version</strong>  &#x21d2; Object </a>
     
 
     
@@ -315,9 +310,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="aux_b_array-class_method">
+  <h3 class="signature first" id="bam_flag_string-class_method">
   
-    .<strong>aux_b_array</strong>(address_value)  &#x21d2; <tt>Object</tt> 
+    .<strong>bam_flag_string</strong>(flag)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -329,68 +324,20 @@
       <pre class="lines">
 
 
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89</pre>
+637
+638
+639
+640
+641
+642</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 60</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 637</span>
 
-static VALUE aux_b_array(VALUE self, VALUE address_value)
-{
-    const uint8_t *aux = (const uint8_t *)(uintptr_t)NUM2ULL(address_value);
-    const uint8_t *payload;
-    uint32_t length, i;
-    char subtype;
-    VALUE result;
-
-    if (aux[0] != &#39;B&#39;) rb_raise(rb_eTypeError, &quot;AUX value is not a B array&quot;);
-    subtype = (char)aux[1];
-    memcpy(&amp;length, aux + 2, sizeof(length));
-    payload = aux + 6;
-    result = rb_ary_new_capa(length);
-
-    for (i = 0; i &lt; length; i++) {
-        VALUE value;
-        switch (subtype) {
-        case &#39;c&#39;: { int8_t v; memcpy(&amp;v, payload + i, 1); value = INT2NUM(v); break; }
-        case &#39;C&#39;: { uint8_t v; memcpy(&amp;v, payload + i, 1); value = UINT2NUM(v); break; }
-        case &#39;s&#39;: { int16_t v; memcpy(&amp;v, payload + i * 2, 2); value = INT2NUM(v); break; }
-        case &#39;S&#39;: { uint16_t v; memcpy(&amp;v, payload + i * 2, 2); value = UINT2NUM(v); break; }
-        case &#39;i&#39;: { int32_t v; memcpy(&amp;v, payload + i * 4, 4); value = INT2NUM(v); break; }
-        case &#39;I&#39;: { uint32_t v; memcpy(&amp;v, payload + i * 4, 4); value = UINT2NUM(v); break; }
-        case &#39;f&#39;: { float v; memcpy(&amp;v, payload + i * 4, 4); value = DBL2NUM(v); break; }
-        default: rb_raise(rb_eNotImpError, &quot;unsupported AUX B-array subtype: %c&quot;, subtype);
-        }
-        rb_ary_push(result, value);
-    }
+static VALUE native_bam_flag_string(VALUE native, VALUE flag) {
+    char *value = bam_flag2str(NUM2INT(flag));
+    VALUE result = value ? rb_str_new_cstr(value) : Qnil;
+    free(value);
     return result;
 }</pre>
     </td>
@@ -399,9 +346,9 @@ static VALUE aux_b_array(VALUE self, VALUE address_value)
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="bam_filter_records-class_method">
+  <h3 class="signature " id="cigar_parse-class_method">
   
-    .<strong>bam_filter_records</strong>(records, required_value, excluded_value, min_mapq_value, tid_value, beg_value, end_value)  &#x21d2; <tt>Object</tt> 
+    .<strong>cigar_parse</strong>(text)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -413,55 +360,31 @@ static VALUE aux_b_array(VALUE self, VALUE address_value)
       <pre class="lines">
 
 
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183</pre>
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 161</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 393</span>
 
-static VALUE bam_filter_records(VALUE self, VALUE records, VALUE required_value,
-                                VALUE excluded_value, VALUE min_mapq_value,
-                                VALUE tid_value, VALUE beg_value, VALUE end_value)
-{
-    long i, length;
-    uint32_t required = NUM2UINT(required_value), excluded = NUM2UINT(excluded_value);
-    int min_mapq = NUM2INT(min_mapq_value);
-    VALUE result;
-    Check_Type(records, T_ARRAY);
-    length = RARRAY_LEN(records);
-    result = rb_ary_new_capa(length);
-    for (i = 0; i &lt; length; i++) {
-        VALUE record = rb_ary_entry(records, i);
-        const bam1_t *bam = (const bam1_t *)ruby_record_pointer(record);
-        if ((bam-&gt;core.flag &amp; required) != required || (bam-&gt;core.flag &amp; excluded) != 0) continue;
-        if (bam-&gt;core.qual &lt; min_mapq) continue;
-        if (!NIL_P(tid_value) &amp;&amp; bam-&gt;core.tid != NUM2INT(tid_value)) continue;
-        if (!NIL_P(beg_value) &amp;&amp; bam_endpos(bam) &lt;= NUM2LL(beg_value)) continue;
-        if (!NIL_P(end_value) &amp;&amp; bam-&gt;core.pos &gt;= NUM2LL(end_value)) continue;
-        rb_ary_push(result, record);
-    }
-    return result;
+static VALUE native_cigar_parse(VALUE klass, VALUE text) {
+    uint32_t *cigar = NULL;
+    size_t capacity = 0;
+    long result = sam_parse_cigar(StringValueCStr(text), NULL, &amp;cigar, &amp;capacity), i;
+    VALUE array;
+    if (result &lt; 0) { free(cigar); rb_raise(rb_eRuntimeError, &quot;sam_parse_cigar failed: %ld&quot;, result); }
+    array = rb_ary_new_capa(result);
+    for (i = 0; i &lt; result; i++) rb_ary_push(array, UINT2NUM(cigar[i]));
+    free(cigar);
+    return array;
 }</pre>
     </td>
   </tr>
@@ -469,9 +392,9 @@ static VALUE bam_filter_records(VALUE self, VALUE records, VALUE required_value,
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="bam_quality_string-class_method">
+  <h3 class="signature " id="cigar_qlen-class_method">
   
-    .<strong>bam_quality_string</strong>(address_value)  &#x21d2; <tt>Object</tt> 
+    .<strong>cigar_qlen</strong>(array)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -483,39 +406,25 @@ static VALUE bam_filter_records(VALUE self, VALUE records, VALUE required_value,
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118</pre>
+404
+405
+406
+407
+408
+409
+410
+411</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 104</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 404</span>
 
-static VALUE bam_quality_string(VALUE self, VALUE address_value)
-{
-    const bam1_t *bam = (const bam1_t *)(uintptr_t)NUM2ULL(address_value);
-    const uint8_t *quality = bam_get_qual(bam);
-    long length = bam-&gt;core.l_qseq, i;
-    VALUE result;
-    char *output;
-
-    if (length == 0) return rb_str_new(&quot;&quot;, 0);
-    if (quality[0] == 255) return rb_str_new(&quot;*&quot;, 1);
-    result = rb_str_new(NULL, length);
-    output = RSTRING_PTR(result);
-    for (i = 0; i &lt; length; i++) output[i] = (char)(quality[i] + 33);
-    return result;
+static VALUE native_cigar_qlen(VALUE klass, VALUE array) {
+    long count = RARRAY_LEN(array), i;
+    uint32_t *values = ALLOC_N(uint32_t, count ? count : 1);
+    for (i = 0; i &lt; count; i++) values[i] = NUM2UINT(rb_ary_entry(array, i));
+    hts_pos_t result = bam_cigar2qlen(count, values);
+    xfree(values);
+    return LL2NUM(result);
 }</pre>
     </td>
   </tr>
@@ -523,9 +432,9 @@ static VALUE bam_quality_string(VALUE self, VALUE address_value)
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="bam_sequence-class_method">
+  <h3 class="signature " id="cigar_rlen-class_method">
   
-    .<strong>bam_sequence</strong>(address_value)  &#x21d2; <tt>Object</tt> 
+    .<strong>cigar_rlen</strong>(array)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -537,31 +446,25 @@ static VALUE bam_quality_string(VALUE self, VALUE address_value)
       <pre class="lines">
 
 
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102</pre>
+412
+413
+414
+415
+416
+417
+418
+419</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 92</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 412</span>
 
-static VALUE bam_sequence(VALUE self, VALUE address_value)
-{
-    static const char nt16[] = &quot;=ACMGRSVTWYHKDBN&quot;;
-    const bam1_t *bam = (const bam1_t *)(uintptr_t)NUM2ULL(address_value);
-    const uint8_t *packed = bam_get_seq(bam);
-    long length = bam-&gt;core.l_qseq, i;
-    VALUE result = rb_str_new(NULL, length);
-    char *output = RSTRING_PTR(result);
-    for (i = 0; i &lt; length; i++) output[i] = nt16[bam_seqi(packed, i)];
-    return result;
+static VALUE native_cigar_rlen(VALUE klass, VALUE array) {
+    long count = RARRAY_LEN(array), i;
+    uint32_t *values = ALLOC_N(uint32_t, count ? count : 1);
+    for (i = 0; i &lt; count; i++) values[i] = NUM2UINT(rb_ary_entry(array, i));
+    hts_pos_t result = bam_cigar2rlen(count, values);
+    xfree(values);
+    return LL2NUM(result);
 }</pre>
     </td>
   </tr>
@@ -569,87 +472,9 @@ static VALUE bam_sequence(VALUE self, VALUE address_value)
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="bcf_filter_records-class_method">
+  <h3 class="signature " id="htslib_version-class_method">
   
-    .<strong>bcf_filter_records</strong>(records, rid_value, beg_value, end_value, min_qual_value, filter_id_value)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 214</span>
-
-static VALUE bcf_filter_records(VALUE self, VALUE records, VALUE rid_value,
-                                VALUE beg_value, VALUE end_value,
-                                VALUE min_qual_value, VALUE filter_id_value)
-{
-    long i, length;
-    VALUE result;
-    Check_Type(records, T_ARRAY);
-    length = RARRAY_LEN(records);
-    result = rb_ary_new_capa(length);
-    for (i = 0; i &lt; length; i++) {
-        VALUE record = rb_ary_entry(records, i);
-        bcf1_t *bcf = (bcf1_t *)ruby_record_pointer(record);
-        int matched = 1;
-        if (!NIL_P(rid_value) &amp;&amp; bcf-&gt;rid != NUM2INT(rid_value)) continue;
-        if (!NIL_P(beg_value) &amp;&amp; bcf-&gt;pos + bcf-&gt;rlen &lt;= NUM2LL(beg_value)) continue;
-        if (!NIL_P(end_value) &amp;&amp; bcf-&gt;pos &gt;= NUM2LL(end_value)) continue;
-        if (!NIL_P(min_qual_value) &amp;&amp; (bcf_float_is_missing(bcf-&gt;qual) || bcf-&gt;qual &lt; NUM2DBL(min_qual_value))) continue;
-        if (!NIL_P(filter_id_value)) {
-            int j, target = NUM2INT(filter_id_value);
-            if (bcf_unpack(bcf, BCF_UN_FLT) &lt; 0) rb_raise(rb_eRuntimeError, &quot;failed to unpack BCF filters&quot;);
-            matched = 0;
-            for (j = 0; j &lt; bcf-&gt;d.n_flt; j++) if (bcf-&gt;d.flt[j] == target) { matched = 1; break; }
-        }
-        if (matched) rb_ary_push(result, record);
-    }
-    return result;
-}</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="format_float_values-class_method">
-  
-    .<strong>format_float_values</strong>(address_value, count_value, sample_count_value, scalar_value)  &#x21d2; <tt>Object</tt> 
+    .<strong>htslib_version</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -661,143 +486,17 @@ static VALUE bcf_filter_records(VALUE self, VALUE records, VALUE rid_value,
       <pre class="lines">
 
 
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212</pre>
+4
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 187</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 4</span>
 
-static VALUE format_float_values(VALUE self, VALUE address_value, VALUE count_value,
-                                 VALUE sample_count_value, VALUE scalar_value)
+static VALUE native_htslib_version(VALUE self)
 {
-    const float *values = (const float *)(uintptr_t)NUM2ULL(address_value);
-    long count = NUM2LONG(count_value), samples = NUM2LONG(sample_count_value);
-    long width, sample, index;
-    VALUE result;
-    if (samples &lt;= 0 || count % samples != 0) rb_raise(rb_eArgError, &quot;invalid FORMAT sample layout&quot;);
-    width = count / samples;
-    result = rb_ary_new_capa(samples);
-    for (sample = 0; sample &lt; samples; sample++) {
-        if (RTEST(scalar_value)) {
-            float value = values[sample * width];
-            rb_ary_push(result, (bcf_float_is_missing(value) || bcf_float_is_vector_end(value)) ? Qnil : DBL2NUM(value));
-        } else {
-            VALUE row = rb_ary_new_capa(width);
-            for (index = 0; index &lt; width; index++) {
-                float value = values[sample * width + index];
-                if (bcf_float_is_vector_end(value)) break;
-                rb_ary_push(row, bcf_float_is_missing(value) ? Qnil : DBL2NUM(value));
-            }
-            rb_ary_push(result, row);
-        }
-    }
-    return result;
-}</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="pileup_base_counts-class_method">
-  
-    .<strong>pileup_base_counts</strong>(address_value, depth_value, min_baseq_value, min_mapq_value, result)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 131</span>
-
-static VALUE pileup_base_counts(VALUE self, VALUE address_value, VALUE depth_value,
-                                VALUE min_baseq_value, VALUE min_mapq_value,
-                                VALUE result)
-{
-    bam_pileup1_t *entries = (bam_pileup1_t *)(uintptr_t)NUM2ULL(address_value);
-    long depth = NUM2LONG(depth_value), counts[10] = {0}, i;
-    int min_baseq = NUM2INT(min_baseq_value), min_mapq = NUM2INT(min_mapq_value);
-
-    Check_Type(result, T_ARRAY);
-    for (i = 0; i &lt; depth; i++) {
-        const bam_pileup1_t *entry = &amp;entries[i];
-        const bam1_t *bam = entry-&gt;b;
-        int qpos = entry-&gt;qpos;
-        if (entry-&gt;is_refskip || bam-&gt;core.qual &lt; min_mapq) continue;
-        if (entry-&gt;is_del || qpos &lt; 0) {
-            counts[8]++;
-        } else {
-            uint8_t quality = bam_get_qual(bam)[qpos];
-            if (quality &lt; min_baseq) continue;
-            counts[base_count_index(bam_seqi(bam_get_seq(bam), qpos))]++;
-        }
-        counts[0]++;
-        counts[bam_is_rev(bam) ? 7 : 6]++;
-        if (entry-&gt;indel &gt; 0) counts[9]++;
-    }
-    rb_ary_resize(result, 10);
-    for (i = 0; i &lt; 10; i++) rb_ary_store(result, i, LONG2NUM(counts[i]));
-    return result;
+    return rb_str_new_cstr(hts_version());
 }</pre>
     </td>
   </tr>
@@ -819,37 +518,37 @@ static VALUE pileup_base_counts(VALUE self, VALUE address_value, VALUE depth_val
       <pre class="lines">
 
 
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
 31
 32
 33
 34
 35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 31</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/htslib_native_ext.c', line 9</span>
 
 static VALUE selected_fields(VALUE self, VALUE line, VALUE columns)
 {
@@ -889,7 +588,7 @@ static VALUE selected_fields(VALUE self, VALUE line, VALUE columns)
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:50 2026 by
+  Generated on Sat Aug  1 14:12:03 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

@@ -107,16 +107,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    <p>Borrowed column view. Both this object and its entry view are reused.</p>
 
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -266,7 +257,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#reset-instance_method" title="#reset (instance method)">#<strong>reset</strong>(pointer, tid, pos, depth)  &#x21d2; Object </a>
+      <a href="#reset-instance_method" title="#reset (instance method)">#<strong>reset</strong>(rows, tid, pos)  &#x21d2; Object </a>
     
 
     
@@ -317,16 +308,12 @@
       <pre class="lines">
 
 
-124
-125
-126</pre>
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 63</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
-  <span class='ivar'>@entry_view</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="BorrowedEntryView.html" title="HTS::Bam::Pileup::BorrowedEntryView (class)">BorrowedEntryView</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Pileup.html#initialize-instance_method" title="HTS::Bam::Pileup#initialize (method)">new</a></span></span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='op'>=</span> <span class='ivar'>@entry_view</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="BorrowedEntryView.html" title="HTS::Bam::Pileup::BorrowedEntryView (class)">BorrowedEntryView</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Pileup.html#initialize-instance_method" title="HTS::Bam::Pileup#initialize (method)">new</a></span></span></pre>
     </td>
   </tr>
 </table>
@@ -363,12 +350,12 @@
       <pre class="lines">
 
 
-128
-129
-130</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_depth'>depth</span>
   <span class='ivar'>@depth</span>
@@ -404,12 +391,12 @@
       <pre class="lines">
 
 
-128
-129
-130</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pos'>pos</span>
   <span class='ivar'>@pos</span>
@@ -445,12 +432,12 @@
       <pre class="lines">
 
 
-128
-129
-130</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tid'>tid</span>
   <span class='ivar'>@tid</span>
@@ -482,26 +469,20 @@
       <pre class="lines">
 
 
-138
-139
-140
-141
-142
-143
-144
-145
-146</pre>
+71
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
-  <span class='id identifier rubyid_entry_size'>entry_size</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../LibHTS.html" title="HTS::LibHTS (module)">LibHTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../LibHTS/BamPileup1.html" title="HTS::LibHTS::BamPileup1 (class)">BamPileup1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
-  <span class='ivar'>@depth</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-    <span class='kw'>yield</span> <span class='ivar'>@entry_view</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='ivar'>@pointer</span> <span class='op'>+</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>*</span> <span class='id identifier rubyid_entry_size'>entry_size</span><span class='comma'>,</span> <span class='ivar'>@tid</span><span class='comma'>,</span> <span class='ivar'>@pos</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@rows</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span> <span class='kw'>yield</span> <span class='ivar'>@entry_view</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='ivar'>@tid</span><span class='comma'>,</span> <span class='ivar'>@pos</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -512,7 +493,7 @@
       <div class="method_details ">
   <h3 class="signature " id="reset-instance_method">
   
-    #<strong>reset</strong>(pointer, tid, pos, depth)  &#x21d2; <tt>Object</tt> 
+    #<strong>reset</strong>(rows, tid, pos)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -524,22 +505,22 @@
       <pre class="lines">
 
 
-130
-131
-132
-133
-134
-135
-136</pre>
+64
+65
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/pileup.rb', line 64</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='id identifier rubyid_pointer'>pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span> <span class='id identifier rubyid_depth'>depth</span><span class='rparen'>)</span>
-  <span class='ivar'>@pointer</span> <span class='op'>=</span> <span class='id identifier rubyid_pointer'>pointer</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span><span class='lparen'>(</span><span class='id identifier rubyid_rows'>rows</span><span class='comma'>,</span> <span class='id identifier rubyid_tid'>tid</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+  <span class='ivar'>@rows</span> <span class='op'>=</span> <span class='id identifier rubyid_rows'>rows</span>
   <span class='ivar'>@tid</span> <span class='op'>=</span> <span class='id identifier rubyid_tid'>tid</span>
   <span class='ivar'>@pos</span> <span class='op'>=</span> <span class='id identifier rubyid_pos'>pos</span>
-  <span class='ivar'>@depth</span> <span class='op'>=</span> <span class='id identifier rubyid_depth'>depth</span>
+  <span class='ivar'>@depth</span> <span class='op'>=</span> <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -552,7 +533,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 12:51:51 2026 by
+  Generated on Sat Aug  1 14:12:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
