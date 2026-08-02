@@ -1,5 +1,8 @@
 .yardoc/
+.ruby-lsp/
 Gemfile.lock
+__pycache__/
+*.py[cod]
 codegen/
 coverage/
 doc/
@@ -9,9 +12,16 @@ pkg/
 vendor/
 *.sam
 *.bam
+*.bai
 *.cram
+*.crai
 *.vcf
 *.bcf
+*.csi
 *.fa
 *.fai
+*.log
+*.pdf
+benchmark/bench_c
+benchmark/bench_cr
 .vscode

@@ -1,0 +1,49 @@
+name: Build paper
+
+on:
+  push:
+    paths:
+      - ".github/workflows/paper.yml"
+      - "ruby-htslib.md"
+      - "ruby-htslib.bib"
+  pull_request:
+    paths:
+      - ".github/workflows/paper.yml"
+      - "ruby-htslib.md"
+      - "ruby-htslib.bib"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paper-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Build PDF
+        uses: docker://pandoc/latex:3.10.0
+        with:
+          args: >-
+            ruby-htslib.md
+            --standalone
+            --citeproc
+            --pdf-engine=lualatex
+            --metadata=link-citations:true
+            --variable=linkcolor:blue
+            --output=ruby-htslib.pdf
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v7
+        with:
+          name: ruby-htslib-paper
+          path: ruby-htslib.pdf
+          if-no-files-found: error
