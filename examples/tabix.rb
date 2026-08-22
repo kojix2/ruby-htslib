@@ -8,7 +8,7 @@ url = "https://ftp.ncbi.nlm.nih.gov/pub/dbVar/data/Homo_sapiens/by_study/vcf/nst
 # Open online file
 tb = HTS::Tabix.open(url)
 
-# query chr1 from 1 to 1000000
-tb.query("1", 1, 1_000_000) do |r|
+# Query the first million bases using 0-based, half-open coordinates.
+tb.query("1", 0, 1_000_000) do |r|
   puts r.join("\t")
 end

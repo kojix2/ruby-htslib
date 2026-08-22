@@ -331,12 +331,12 @@ bcf = HTS::Bcf.open("b.bcf")
 
 bcf.each do |r|
   p chrom:  r.chrom,
-    pos:    r.pos,
+    pos:    r.pos + 1, # VCF POS is 1-based; Record#pos is 0-based.
     id:     r.id,
     qual:   r.qual.round(2),
     ref:    r.ref,
     alt:    r.alt,
-    filter: r.filter,
+    filters: r.filter,
     info:   r.info.to_h,
     format: r.format.to_h
 end

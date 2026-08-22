@@ -122,12 +122,12 @@ bcf = HTS::Bcf.open("test/fixtures/test.bcf")
 
 bcf.each do |r|
   p chrom:  r.chrom,
-    pos:    r.pos,
+    pos:    r.pos + 1, # VCF POS is 1-based; Record#pos is 0-based.
     id:     r.id,
     qual:   r.qual.round(2),
     ref:    r.ref,
     alt:    r.alt,
-    filter: r.filter,
+    filters: r.filter,
     info:   r.info.to_h,
     format: r.format.to_h
 end
@@ -157,6 +157,7 @@ fa.close
 
 ```ruby
 tb = HTS::Tabix.open("test/fixtures/test.vcf.gz")
+# Numeric coordinates are 0-based, half-open: [2000, 3000).
 tb.query("poo", 2000, 3000) do |line|
   puts line.join("\t")
 end
@@ -191,7 +192,8 @@ silently returning overwritten data. `genotype_strings`, `get`, and `[]` remain
 the allocating convenience APIs. Use `unpack: :site_only` when FORMAT columns
 are not needed.
 
-Tabix likewise separates raw and materialized access:
+Tabix likewise lets callers avoid splitting unused columns. All yielded Ruby
+strings and arrays below are owning values:
 
 ```ruby
 tb.each_line("chr1:1-1000") { |line| }

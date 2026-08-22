@@ -130,7 +130,7 @@ HTS::Tabix.open(tabix_path) do |tabix|
   measure("Tabix raw line") do
     scan_iterations.times { tabix.each_line("poo:4020-4022") { |_line| } }
   end
-  measure("Tabix selected fields") do
+  measure("Tabix owning selected fields") do
     scan_iterations.times { tabix.each_selected_fields("poo:4020-4022", 0, 1, 3) { |_fields| } }
   end
 end
