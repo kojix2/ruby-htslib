@@ -246,6 +246,14 @@ static VALUE native_bcf_record_info_fields(VALUE self,VALUE header) { return fie
 static VALUE native_bcf_record_format_fields(VALUE self,VALUE header) { return field_rows(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,1); }
 
 typedef struct { void *dst; int count; int type; } bcf_value_result_t;
+static void raise_bcf_field_read_error(const char *kind,const char *key,int code) {
+    VALUE hts=rb_const_get(rb_cObject,rb_intern("HTS"));
+    VALUE bcf=rb_const_get(hts,rb_intern("Bcf"));
+    VALUE error=rb_const_get(bcf,rb_intern(kind));
+    const char *reason;
+    switch(code){case -1:reason="tag is not defined in the header";break;case -2:reason="stored type does not match the requested type";break;case -4:reason="native allocation failed";break;default:reason="native read failed";break;}
+    rb_raise(error,"Failed to read %s (HTSlib error %d: %s)",key,code,reason);
+}
 static VALUE bcf_value_result_free(VALUE data) {
     bcf_value_result_t *result=(bcf_value_result_t *)(uintptr_t)data;
     free(result->dst); result->dst=NULL; return Qnil;
@@ -275,7 +283,7 @@ static VALUE bcf_info_result_to_ruby(VALUE data) {
 static VALUE info_get(VALUE self,VALUE header_value,VALUE key_value,VALUE type_value) {
     bcf_hdr_t *h=get_bcf_header(header_value)->pointer; bcf1_t *r=get_bcf_record(self)->pointer; int type=NUM2INT(type_value),cap=0,count; void *dst=NULL; bcf_value_result_t result;
     count=bcf_get_info_values(h,r,StringValueCStr(key_value),&dst,&cap,type);
-    if(count<0){free(dst);return Qnil;}
+    if(count<0){const char *key=StringValueCStr(key_value);free(dst);if(count==-3)return Qnil;raise_bcf_field_read_error("InfoReadError",key,count);}
     if(type==BCF_HT_FLAG){free(dst);return count==1?Qtrue:Qnil;}
     result.dst=dst;result.count=count;result.type=type;
     return rb_ensure(bcf_info_result_to_ruby,(VALUE)(uintptr_t)&result,
@@ -320,12 +328,12 @@ static VALUE native_bcf_format_get(VALUE self,VALUE header_value,VALUE key_value
         int sample_count=bcf_hdr_nsamples(h);
         bcf_string_result_t result;
         count=bcf_get_format_string(h,r,StringValueCStr(key_value),&strings,&cap);
-        if(count<0){free(strings);return Qnil;}
+        if(count<0){const char *key=StringValueCStr(key_value);free(strings);if(count==-3)return Qnil;raise_bcf_field_read_error("FormatReadError",key,count);}
         result.strings=strings;result.sample_count=sample_count;
         return rb_ensure(bcf_string_result_to_ruby,(VALUE)(uintptr_t)&result,
                          bcf_string_result_free,(VALUE)(uintptr_t)&result);
     }
-    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&dst,&cap,type);if(count<0){free(dst);return Qnil;}
+    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&dst,&cap,type);if(count<0){const char *key=StringValueCStr(key_value);free(dst);if(count==-3)return Qnil;raise_bcf_field_read_error("FormatReadError",key,count);}
     bcf_format_result_t result={dst,count,type,raw_value};
     return rb_ensure(bcf_format_result_to_ruby,(VALUE)(uintptr_t)&result,
                      bcf_value_result_free,(VALUE)(uintptr_t)&result);

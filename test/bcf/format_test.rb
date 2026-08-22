@@ -151,6 +151,22 @@ class BcfFormatTest < Minitest::Test
     assert_equal ["0/1", "0/1"], @fmt.get("GT", :string)
   end
 
+  def test_native_format_failures_are_not_reported_as_missing
+    record = @fmt.instance_variable_get(:@record)
+    native = record.__send__(:native_handle)
+    header = @bcf.header.__send__(:native_handle)
+
+    undefined = assert_raises(HTS::Bcf::FormatReadError) do
+      native.format_get(header, "UNDEFINED", HTS::Native::BCF_HT_INT, false)
+    end
+    assert_match(/-1/, undefined.message)
+
+    mismatch = assert_raises(HTS::Bcf::FormatReadError) do
+      native.format_get(header, "GQ", HTS::Native::BCF_HT_REAL, false)
+    end
+    assert_match(/-2/, mismatch.message)
+  end
+
   def test_get_like_crystal
     assert_equal [409, 409], @fmt.get_int("GQ")
     assert_equal [35, 35], @fmt.get_int("DP")

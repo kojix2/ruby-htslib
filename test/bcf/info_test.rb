@@ -130,6 +130,21 @@ class BcfInfoTest < Minitest::Test
     assert_equal "Tag AN is not float INFO field", error.message
   end
 
+  def test_native_info_failures_are_not_reported_as_missing
+    native = @info.instance_variable_get(:@record).__send__(:native_handle)
+    header = @bcf.header.__send__(:native_handle)
+
+    undefined = assert_raises(HTS::Bcf::InfoReadError) do
+      native.info_get(header, "UNDEFINED", HTS::Native::BCF_HT_INT)
+    end
+    assert_match(/-1/, undefined.message)
+
+    mismatch = assert_raises(HTS::Bcf::InfoReadError) do
+      native.info_get(header, "AN", HTS::Native::BCF_HT_REAL)
+    end
+    assert_match(/-2/, mismatch.message)
+  end
+
   def test_unsupported_info_update_operation
     error = assert_raises(HTS::Bcf::UnsupportedInfoOperationError) do
       @info.update_int64("AN", [1])
