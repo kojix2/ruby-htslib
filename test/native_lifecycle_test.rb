@@ -74,6 +74,38 @@ class NativeLifecycleTest < Minitest::Test
     mpileup&.close
   end
 
+  def test_native_temporary_buffers_are_safe_when_ruby_conversion_raises
+    invalid = Object.new
+    cigar = HTS::Bam::Cigar.new
+    cigar.array = [16, invalid]
+    10.times { assert_raises(TypeError) { cigar.qlen } }
+
+    HTS::Bcf.open(Fixtures["test.bcf"]) do |bcf|
+      record = bcf.first
+      native = record.__send__(:native_handle)
+      header = bcf.header.__send__(:native_handle)
+      10.times do
+        assert_raises(TypeError) do
+          native.info_update(header, "DP", HTS::Native::BCF_HT_INT, [1, invalid])
+        end
+      end
+    end
+  end
+
+  def test_base_mod_temporary_buffer_is_safe_when_block_raises
+    path = File.expand_path("../htslib/test/base_mods/MM-chebi.sam", __dir__)
+    skip "base modification fixture is unavailable" unless File.exist?(path)
+
+    HTS::Bam.open(path) do |bam|
+      record = bam.first
+      10.times do
+        assert_raises(RuntimeError) do
+          record.each_base_mod_raw { raise "stop iteration" }
+        end
+      end
+    end
+  end
+
   def test_tabix_cannot_be_closed_from_inside_native_query
     tabix = HTS::Tabix.new(Fixtures["test.vcf.gz"])
 

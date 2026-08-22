@@ -189,11 +189,12 @@ static VALUE native_bcf_header_schema(VALUE self,VALUE kind_value,VALUE key_valu
     rb_ary_push(result,INT2NUM(bcf_hdr_id2number(h,kind,id))); rb_ary_push(result,INT2NUM(id)); return result;
 }
 static VALUE native_bcf_header_subset(VALUE self,VALUE samples) {
-    bcf_hdr_t *h=get_bcf_header(self)->pointer,*subset; int count=RARRAY_LEN(samples),i; char **names=NULL; int *imap=NULL; VALUE map;
-    if(count>0) { names=ALLOC_N(char*,count); imap=ALLOC_N(int,count); for(i=0;i<count;i++) { VALUE sample=rb_ary_entry(samples,i); names[i]=StringValueCStr(sample); } }
-    subset=bcf_hdr_subset(h,count,names,imap); xfree(names); if(!subset){xfree(imap);return Qnil;}
-    map=rb_ary_new_capa(count); for(i=0;i<count;i++)rb_ary_push(map,INT2NUM(imap[i])); xfree(imap);
-    return rb_ary_new_from_args(2,wrap_bcf_header(subset),map);
+    bcf_hdr_t *h=get_bcf_header(self)->pointer,*subset; int count=RARRAY_LEN(samples),i; char **names=NULL; int *imap=NULL; VALUE map,names_storage=0,imap_storage=0;
+    if(count>0) { names=ALLOCV_N(char*,names_storage,count); imap=ALLOCV_N(int,imap_storage,count); for(i=0;i<count;i++) { VALUE sample=rb_ary_entry(samples,i); names[i]=StringValueCStr(sample); } }
+    subset=bcf_hdr_subset(h,count,names,imap); ALLOCV_END(names_storage); if(!subset){ALLOCV_END(imap_storage);return Qnil;}
+    VALUE subset_value=wrap_bcf_header(subset);
+    map=rb_ary_new_capa(count); for(i=0;i<count;i++)rb_ary_push(map,INT2NUM(imap[i])); ALLOCV_END(imap_storage);
+    return rb_ary_new_from_args(2,subset_value,map);
 }
 
 /* Header record */
@@ -229,7 +230,7 @@ static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record
 static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r=get_bcf_record(self)->pointer; bcf_hdr_t *h=get_bcf_header(header)->pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r->d.n_flt); for(i=0;i<r->d.n_flt;i++)rb_ary_push(a,rb_str_new_cstr(bcf_hdr_int2id(h,BCF_DT_ID,r->d.flt[i]))); return a; }
 static VALUE native_bcf_record_to_s(VALUE self,VALUE header) { kstring_t s=KS_INITIALIZE; VALUE v; if(vcf_format(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,&s)<0){free(s.s);rb_raise(rb_eRuntimeError,"failed to format BCF record");}v=rb_str_new(s.s,s.l);free(s.s);return v; }
 static VALUE native_bcf_record_set_unpack(VALUE self,VALUE level){get_bcf_record(self)->pointer->max_unpack=NUM2INT(level);return level;}
-static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){int count=RARRAY_LEN(map),i,*imap=ALLOC_N(int,count?count:1);for(i=0;i<count;i++)imap[i]=NUM2INT(rb_ary_entry(map,i));int result=bcf_subset(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,count,imap);xfree(imap);return INT2NUM(result);}
+static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){VALUE storage=0;int count=RARRAY_LEN(map),i,*imap=ALLOCV_N(int,storage,count?count:1);for(i=0;i<count;i++)imap[i]=NUM2INT(rb_ary_entry(map,i));int result=bcf_subset(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,count,imap);ALLOCV_END(storage);return INT2NUM(result);}
 
 static VALUE field_rows(bcf_hdr_t *h,bcf1_t *r,int format) {
     int i,count; VALUE rows; if(format){bcf_unpack(r,BCF_UN_FMT);count=r->n_fmt;}else{bcf_unpack(r,BCF_UN_INFO);count=r->n_info;}
@@ -244,82 +245,112 @@ static VALUE field_rows(bcf_hdr_t *h,bcf1_t *r,int format) {
 static VALUE native_bcf_record_info_fields(VALUE self,VALUE header) { return field_rows(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,0); }
 static VALUE native_bcf_record_format_fields(VALUE self,VALUE header) { return field_rows(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,1); }
 
-static VALUE info_get(VALUE self,VALUE header_value,VALUE key_value,VALUE type_value) {
-    bcf_hdr_t *h=get_bcf_header(header_value)->pointer; bcf1_t *r=get_bcf_record(self)->pointer; int type=NUM2INT(type_value),cap=0,count,i; void *dst=NULL; VALUE value;
-    count=bcf_get_info_values(h,r,StringValueCStr(key_value),&dst,&cap,type);
-    if(count<0){free(dst);return Qnil;}
-    if(type==BCF_HT_FLAG){free(dst);return count==1?Qtrue:Qnil;}
-    if(type==BCF_HT_STR)value=rb_str_new_cstr((char*)dst);
-    else { value=rb_ary_new_capa(count); for(i=0;i<count;i++) {
-        if(type==BCF_HT_INT){
-            int32_t item=((int32_t*)dst)[i];
+typedef struct { void *dst; int count; int type; } bcf_value_result_t;
+static VALUE bcf_value_result_free(VALUE data) {
+    bcf_value_result_t *result=(bcf_value_result_t *)(uintptr_t)data;
+    free(result->dst); result->dst=NULL; return Qnil;
+}
+static VALUE bcf_info_result_to_ruby(VALUE data) {
+    bcf_value_result_t *result=(bcf_value_result_t *)(uintptr_t)data; int i; VALUE value;
+    if(result->type==BCF_HT_STR)return rb_str_new_cstr((char*)result->dst);
+    value=rb_ary_new_capa(result->count); for(i=0;i<result->count;i++) {
+        if(result->type==BCF_HT_INT){
+            int32_t item=((int32_t*)result->dst)[i];
             if(item==bcf_int32_vector_end)break;
             rb_ary_push(value,item==bcf_int32_missing?Qnil:INT2NUM(item));
         }
-        else if(type==BCF_HT_LONG){
-            int64_t item=((int64_t*)dst)[i];
+        else if(result->type==BCF_HT_LONG){
+            int64_t item=((int64_t*)result->dst)[i];
             if(item==bcf_int64_vector_end)break;
             rb_ary_push(value,item==bcf_int64_missing?Qnil:LL2NUM(item));
         }
         else {
-            float item=((float*)dst)[i];
+            float item=((float*)result->dst)[i];
             if(bcf_float_is_vector_end(item))break;
             rb_ary_push(value,bcf_float_is_missing(item)?Qnil:DBL2NUM(item));
-        } } }
-    free(dst);return value;
+        }
+    }
+    return value;
+}
+static VALUE info_get(VALUE self,VALUE header_value,VALUE key_value,VALUE type_value) {
+    bcf_hdr_t *h=get_bcf_header(header_value)->pointer; bcf1_t *r=get_bcf_record(self)->pointer; int type=NUM2INT(type_value),cap=0,count; void *dst=NULL; bcf_value_result_t result;
+    count=bcf_get_info_values(h,r,StringValueCStr(key_value),&dst,&cap,type);
+    if(count<0){free(dst);return Qnil;}
+    if(type==BCF_HT_FLAG){free(dst);return count==1?Qtrue:Qnil;}
+    result.dst=dst;result.count=count;result.type=type;
+    return rb_ensure(bcf_info_result_to_ruby,(VALUE)(uintptr_t)&result,
+                     bcf_value_result_free,(VALUE)(uintptr_t)&result);
 }
 static VALUE native_bcf_info_get(VALUE self,VALUE header,VALUE key,VALUE type) { return info_get(self,header,key,type); }
 static VALUE native_bcf_info_present(VALUE self,VALUE header,VALUE key,VALUE type) { return NIL_P(info_get(self,header,key,type))?Qfalse:Qtrue; }
-static int fill_i32(VALUE array,int32_t **out) { int n=RARRAY_LEN(array),i; *out=ALLOC_N(int32_t,n?n:1);for(i=0;i<n;i++)(*out)[i]=NUM2INT(rb_ary_entry(array,i));return n; }
-static int fill_float(VALUE array,float **out) { int n=RARRAY_LEN(array),i; *out=ALLOC_N(float,n?n:1);for(i=0;i<n;i++)(*out)[i]=(float)NUM2DBL(rb_ary_entry(array,i));return n; }
 static VALUE native_bcf_info_update(VALUE self,VALUE header,VALUE key,VALUE type_value,VALUE values) {
-    bcf_hdr_t*h=get_bcf_header(header)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),n,result;void*data=NULL;
+    bcf_hdr_t*h=get_bcf_header(header)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),n,i,result;void*data=NULL;VALUE storage=0;
     if(type!=BCF_HT_FLAG && (NIL_P(values) || values==Qfalse)){
         return INT2NUM(bcf_update_info(h,r,StringValueCStr(key),NULL,0,type));
     }
-    if(type==BCF_HT_INT){int32_t*p;n=fill_i32(values,&p);data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);xfree(p);}
-    else if(type==BCF_HT_REAL){float*p;n=fill_float(values,&p);data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);xfree(p);}
+    if(type==BCF_HT_INT){int32_t*p;n=RARRAY_LEN(values);p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i<n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);ALLOCV_END(storage);}
+    else if(type==BCF_HT_REAL){float*p;n=RARRAY_LEN(values);p=ALLOCV_N(float,storage,n?n:1);for(i=0;i<n;i++)p[i]=(float)NUM2DBL(rb_ary_entry(values,i));data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);ALLOCV_END(storage);}
     else if(type==BCF_HT_STR){result=bcf_update_info(h,r,StringValueCStr(key),StringValueCStr(values),1,type);}
     else { n=RTEST(values)?1:0; result=bcf_update_info(h,r,StringValueCStr(key),NULL,n,type); }
     return INT2NUM(result);
 }
 
+typedef struct { char **strings; int sample_count; } bcf_string_result_t;
+static VALUE bcf_string_result_free(VALUE data) {
+    bcf_string_result_t *result=(bcf_string_result_t *)(uintptr_t)data;
+    if(result->strings){if(result->sample_count>0)free(result->strings[0]);free(result->strings);result->strings=NULL;}
+    return Qnil;
+}
+static VALUE bcf_string_result_to_ruby(VALUE data) {
+    bcf_string_result_t *result=(bcf_string_result_t *)(uintptr_t)data; int i;
+    VALUE value=rb_ary_new_capa(result->sample_count);
+    for(i=0;i<result->sample_count;i++)rb_ary_push(value,rb_str_new_cstr(result->strings[i]));
+    return value;
+}
+typedef struct { void *dst; int count; int type; VALUE raw; } bcf_format_result_t;
+static VALUE bcf_format_result_to_ruby(VALUE data) {
+    bcf_format_result_t *result=(bcf_format_result_t *)(uintptr_t)data; int i; VALUE value=rb_ary_new_capa(result->count);
+    for(i=0;i<result->count;i++){if(result->type==BCF_HT_INT)rb_ary_push(value,INT2NUM(((int32_t*)result->dst)[i]));else {float f=((float*)result->dst)[i];uint32_t word;memcpy(&word,&f,4);if(RTEST(result->raw))rb_ary_push(value,UINT2NUM(word));else if(bcf_float_is_missing(f)||bcf_float_is_vector_end(f))rb_ary_push(value,Qnil);else rb_ary_push(value,DBL2NUM(f));}}
+    return value;
+}
 static VALUE native_bcf_format_get(VALUE self,VALUE header_value,VALUE key_value,VALUE type_value,VALUE raw_value) {
-    bcf_hdr_t*h=get_bcf_header(header_value)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),cap=0,count,i;void*dst=NULL;VALUE value;
+    bcf_hdr_t*h=get_bcf_header(header_value)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),cap=0,count;void*dst=NULL;
     if(type==BCF_HT_STR){
         char **strings=NULL;
         int sample_count=bcf_hdr_nsamples(h);
+        bcf_string_result_t result;
         count=bcf_get_format_string(h,r,StringValueCStr(key_value),&strings,&cap);
         if(count<0){free(strings);return Qnil;}
-        value=rb_ary_new_capa(sample_count);
-        for(i=0;i<sample_count;i++)rb_ary_push(value,rb_str_new_cstr(strings[i]));
-        if(strings){if(sample_count>0)free(strings[0]);free(strings);}
-        return value;
+        result.strings=strings;result.sample_count=sample_count;
+        return rb_ensure(bcf_string_result_to_ruby,(VALUE)(uintptr_t)&result,
+                         bcf_string_result_free,(VALUE)(uintptr_t)&result);
     }
-    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&dst,&cap,type);if(count<0){free(dst);return Qnil;}value=rb_ary_new_capa(count);
-    for(i=0;i<count;i++){if(type==BCF_HT_INT)rb_ary_push(value,INT2NUM(((int32_t*)dst)[i]));else {float f=((float*)dst)[i];uint32_t word;memcpy(&word,&f,4);if(RTEST(raw_value))rb_ary_push(value,UINT2NUM(word));else if(bcf_float_is_missing(f)||bcf_float_is_vector_end(f))rb_ary_push(value,Qnil);else rb_ary_push(value,DBL2NUM(f));}}
-    free(dst);return value;
+    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&dst,&cap,type);if(count<0){free(dst);return Qnil;}
+    bcf_format_result_t result={dst,count,type,raw_value};
+    return rb_ensure(bcf_format_result_to_ruby,(VALUE)(uintptr_t)&result,
+                     bcf_value_result_free,(VALUE)(uintptr_t)&result);
 }
 static VALUE native_bcf_format_update(VALUE self,VALUE header,VALUE key,VALUE type_value,VALUE values) {
-    bcf_hdr_t*h=get_bcf_header(header)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),n,result;
-    if(type==BCF_HT_INT){int32_t*p;n=fill_i32(values,&p);result=bcf_update_format_int32(h,r,StringValueCStr(key),p,n);xfree(p);}
-    else if(type==BCF_HT_REAL){float*p;n=fill_float(values,&p);result=bcf_update_format_float(h,r,StringValueCStr(key),p,n);xfree(p);}
-    else {int i;char**strings;n=RARRAY_LEN(values);strings=ALLOC_N(char*,n?n:1);for(i=0;i<n;i++){VALUE string=rb_ary_entry(values,i);strings[i]=StringValueCStr(string);}result=bcf_update_format_string(h,r,StringValueCStr(key),(const char**)strings,n);xfree(strings);}return INT2NUM(result);
+    bcf_hdr_t*h=get_bcf_header(header)->pointer;bcf1_t*r=get_bcf_record(self)->pointer;int type=NUM2INT(type_value),n,i,result;VALUE storage=0;
+    if(type==BCF_HT_INT){int32_t*p;n=RARRAY_LEN(values);p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i<n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));result=bcf_update_format_int32(h,r,StringValueCStr(key),p,n);ALLOCV_END(storage);}
+    else if(type==BCF_HT_REAL){float*p;n=RARRAY_LEN(values);p=ALLOCV_N(float,storage,n?n:1);for(i=0;i<n;i++)p[i]=(float)NUM2DBL(rb_ary_entry(values,i));result=bcf_update_format_float(h,r,StringValueCStr(key),p,n);ALLOCV_END(storage);}
+    else {int i;char**strings;n=RARRAY_LEN(values);strings=ALLOCV_N(char*,storage,n?n:1);for(i=0;i<n;i++){VALUE string=rb_ary_entry(values,i);strings[i]=StringValueCStr(string);}result=bcf_update_format_string(h,r,StringValueCStr(key),(const char**)strings,n);ALLOCV_END(storage);}return INT2NUM(result);
 }
 static VALUE native_bcf_format_update_float_words(VALUE self,VALUE header,VALUE key,VALUE values) {
     bcf_hdr_t *h=get_bcf_header(header)->pointer;
     bcf1_t *r=get_bcf_record(self)->pointer;
     int n=RARRAY_LEN(values),i,result;
-    float *floats=ALLOC_N(float,n?n:1);
+    VALUE storage=0;
+    float *floats=ALLOCV_N(float,storage,n?n:1);
     for(i=0;i<n;i++){
         uint32_t word=NUM2UINT(rb_ary_entry(values,i));
         memcpy(&floats[i],&word,sizeof(word));
     }
     result=bcf_update_format_float(h,r,StringValueCStr(key),floats,n);
-    xfree(floats);
+    ALLOCV_END(storage);
     return INT2NUM(result);
 }
-static VALUE native_bcf_genotype_update(VALUE self,VALUE header,VALUE values) {int32_t*p;int n=fill_i32(values,&p);int result=bcf_update_genotypes(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,p,n);xfree(p);return INT2NUM(result);}
+static VALUE native_bcf_genotype_update(VALUE self,VALUE header,VALUE values) {VALUE storage=0;int32_t*p;int n=RARRAY_LEN(values),i;p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i<n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));int result=bcf_update_genotypes(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,p,n);ALLOCV_END(storage);return INT2NUM(result);}
 static VALUE native_bcf_format_delete(VALUE self,VALUE header,VALUE key,VALUE type) {return INT2NUM(bcf_update_format(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,StringValueCStr(key),NULL,0,NUM2INT(type)));}
 
 /* File */

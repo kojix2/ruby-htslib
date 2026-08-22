@@ -242,6 +242,7 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
     bam1_t *record = get_record(self)->pointer;
     long cigar_count, i;
     uint32_t *cigar = NULL;
+    VALUE cigar_storage = 0;
     const char *quality_data = NULL;
     int result;
 
@@ -253,13 +254,13 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
     Check_Type(cigar_value, T_ARRAY);
     cigar_count = RARRAY_LEN(cigar_value);
     if (cigar_count > 0) {
-        cigar = ALLOC_N(uint32_t, cigar_count);
+        cigar = ALLOCV_N(uint32_t, cigar_storage, cigar_count);
         for (i = 0; i < cigar_count; i++) cigar[i] = NUM2UINT(rb_ary_entry(cigar_value, i));
     }
     if (!NIL_P(qualities)) {
         StringValue(qualities);
         if (RSTRING_LEN(qualities) != RSTRING_LEN(sequence)) {
-            if (cigar) xfree(cigar);
+            ALLOCV_END(cigar_storage);
             rb_raise(rb_eArgError, "qualities length must match sequence length");
         }
         quality_data = RSTRING_PTR(qualities);
@@ -272,7 +273,7 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
                       (size_t)cigar_count, cigar,
                       NUM2INT(mtid), NUM2LL(mpos), NUM2LL(isize),
                       (size_t)RSTRING_LEN(sequence), RSTRING_PTR(sequence), quality_data, 0);
-    if (cigar) xfree(cigar);
+    ALLOCV_END(cigar_storage);
     if (result < 0) {
         if (errno) rb_sys_fail("bam_set1");
         rb_raise(rb_eRuntimeError, "bam_set1 failed: %d", result);
@@ -400,31 +401,47 @@ static VALUE native_record_to_s(VALUE self, VALUE header_value) {
     free(string.s);
     return value;
 }
+typedef struct { uint32_t *cigar; long count; } cigar_result_t;
+static VALUE native_cigar_result_to_array(VALUE data) {
+    cigar_result_t *result = (cigar_result_t *)(uintptr_t)data;
+    VALUE array = rb_ary_new_capa(result->count);
+    long i;
+    for (i = 0; i < result->count; i++) rb_ary_push(array, UINT2NUM(result->cigar[i]));
+    return array;
+}
+static VALUE native_cigar_result_free(VALUE data) {
+    cigar_result_t *result = (cigar_result_t *)(uintptr_t)data;
+    free(result->cigar);
+    result->cigar = NULL;
+    return Qnil;
+}
 static VALUE native_cigar_parse(VALUE klass, VALUE text) {
     uint32_t *cigar = NULL;
     size_t capacity = 0;
-    long result = sam_parse_cigar(StringValueCStr(text), NULL, &cigar, &capacity), i;
-    VALUE array;
+    long result = sam_parse_cigar(StringValueCStr(text), NULL, &cigar, &capacity);
+    cigar_result_t parsed;
     if (result < 0) { free(cigar); rb_raise(rb_eRuntimeError, "sam_parse_cigar failed: %ld", result); }
-    array = rb_ary_new_capa(result);
-    for (i = 0; i < result; i++) rb_ary_push(array, UINT2NUM(cigar[i]));
-    free(cigar);
-    return array;
+    parsed.cigar = cigar;
+    parsed.count = result;
+    return rb_ensure(native_cigar_result_to_array, (VALUE)(uintptr_t)&parsed,
+                     native_cigar_result_free, (VALUE)(uintptr_t)&parsed);
 }
 static VALUE native_cigar_qlen(VALUE klass, VALUE array) {
     long count = RARRAY_LEN(array), i;
-    uint32_t *values = ALLOC_N(uint32_t, count ? count : 1);
+    VALUE storage = 0;
+    uint32_t *values = ALLOCV_N(uint32_t, storage, count ? count : 1);
     for (i = 0; i < count; i++) values[i] = NUM2UINT(rb_ary_entry(array, i));
     hts_pos_t result = bam_cigar2qlen(count, values);
-    xfree(values);
+    ALLOCV_END(storage);
     return LL2NUM(result);
 }
 static VALUE native_cigar_rlen(VALUE klass, VALUE array) {
     long count = RARRAY_LEN(array), i;
-    uint32_t *values = ALLOC_N(uint32_t, count ? count : 1);
+    VALUE storage = 0;
+    uint32_t *values = ALLOCV_N(uint32_t, storage, count ? count : 1);
     for (i = 0; i < count; i++) values[i] = NUM2UINT(rb_ary_entry(array, i));
     hts_pos_t result = bam_cigar2rlen(count, values);
-    xfree(values);
+    ALLOCV_END(storage);
     return LL2NUM(result);
 }
 
@@ -494,9 +511,10 @@ static VALUE native_record_aux_update_array(VALUE self, VALUE key, VALUE type_va
     long count = RARRAY_LEN(array), i;
     size_t width;
     uint8_t *buffer;
+    VALUE buffer_storage = 0;
     int result;
     switch (type) { case 'c': case 'C': width = 1; break; case 's': case 'S': width = 2; break; default: width = 4; }
-    buffer = ALLOC_N(uint8_t, count * width + 1);
+    buffer = ALLOCV_N(uint8_t, buffer_storage, count * width + 1);
     for (i = 0; i < count; i++) {
         VALUE item = rb_ary_entry(array, i);
         if (type == 'c') { int8_t v = NUM2INT(item); memcpy(buffer + i, &v, 1); }
@@ -506,10 +524,10 @@ static VALUE native_record_aux_update_array(VALUE self, VALUE key, VALUE type_va
         else if (type == 'i') { int32_t v = NUM2INT(item); memcpy(buffer + i * 4, &v, 4); }
         else if (type == 'I') { uint32_t v = NUM2UINT(item); memcpy(buffer + i * 4, &v, 4); }
         else if (type == 'f') { float v = (float)NUM2DBL(item); memcpy(buffer + i * 4, &v, 4); }
-        else { xfree(buffer); rb_raise(rb_eArgError, "invalid AUX array type"); }
+        else { ALLOCV_END(buffer_storage); rb_raise(rb_eArgError, "invalid AUX array type"); }
     }
     result = bam_aux_update_array(get_record(self)->pointer, StringValueCStr(key), type, count, buffer);
-    xfree(buffer);
+    ALLOCV_END(buffer_storage);
     return INT2NUM(result);
 }
 static VALUE native_record_aux_delete(VALUE self, VALUE key) {
@@ -719,24 +737,26 @@ static VALUE native_base_mod_at(VALUE self, VALUE position, VALUE max_value) {
     ruby_base_mod_t *value = get_base_mod(self);
     int max = NUM2INT(max_value), count;
     hts_base_mod *mods;
+    VALUE mods_storage = 0;
     if (max <= 0) rb_raise(rb_eArgError, "max_mods must be positive");
-    mods = ALLOC_N(hts_base_mod, max);
+    mods = ALLOCV_N(hts_base_mod, mods_storage, max);
     count = bam_mods_at_qpos(get_record(value->record)->pointer, NUM2INT(position), value->state, mods, max);
     if (count < 0) {
-        xfree(mods);
+        ALLOCV_END(mods_storage);
         raise_base_mod_error("bam_mods_at_qpos");
     }
     VALUE result = count > 0 ? base_mod_array(mods, count < max ? count : max) : Qnil;
-    xfree(mods);
+    ALLOCV_END(mods_storage);
     return result;
 }
 static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
     ruby_base_mod_t *value = get_base_mod(self);
     int max = NUM2INT(max_value), count, position, index;
     hts_base_mod *mods;
+    VALUE mods_storage = 0;
     if (!rb_block_given_p()) rb_raise(rb_eArgError, "block is required");
     if (max <= 0) rb_raise(rb_eArgError, "max_mods must be positive");
-    mods = ALLOC_N(hts_base_mod, max);
+    mods = ALLOCV_N(hts_base_mod, mods_storage, max);
     while ((count = bam_next_basemod(get_record(value->record)->pointer, value->state, mods, max, &position)) > 0) {
         if (count > max) count = max;
         for (index = 0; index < count; index++) {
@@ -746,10 +766,10 @@ static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
         }
     }
     if (count < 0) {
-        xfree(mods);
+        ALLOCV_END(mods_storage);
         raise_base_mod_error("bam_next_basemod");
     }
-    xfree(mods);
+    ALLOCV_END(mods_storage);
     return self;
 }
 static VALUE native_base_mod_types(VALUE self) {
