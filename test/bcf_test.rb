@@ -3,6 +3,14 @@
 require_relative "test_helper"
 
 class BcfTest < Minitest::Test
+  def test_to_a_materializes_independent_records
+    records = HTS::Bcf.open(Fixtures["test.bcf"], &:to_a)
+
+    assert_operator records.length, :>, 1
+    assert_equal records.length, records.map(&:object_id).uniq.length
+    assert_operator records.map(&:pos).uniq.length, :>, 1
+  end
+
   def test_bcf_path
     File.expand_path("../htslib/test/index.vcf", __dir__)
   end

@@ -5,6 +5,14 @@ require "fileutils"
 require "tmpdir"
 
 class BamTest < Minitest::Test
+  def test_to_a_materializes_independent_records
+    records = HTS::Bam.open(Fixtures["moo.bam"], &:to_a)
+
+    assert_operator records.length, :>, 1
+    assert_equal records.length, records.map(&:object_id).uniq.length
+    assert_operator records.map(&:pos).uniq.length, :>, 1
+  end
+
   def teardown
     %w[bam sam cram].each do |format|
       %w[string uri].each do |type|
@@ -85,10 +93,11 @@ class BamTest < Minitest::Test
       end
 
       define_method "test_open_#{ft}_with_block" do
-        f = HTS::Bam.open(bam_path(ft)) do |b|
+        result = HTS::Bam.open(bam_path(ft)) do |b|
           assert_instance_of HTS::Bam, b
+          :block_result
         end
-        assert_equal true, f.closed?
+        assert_equal :block_result, result
       end
 
       define_method "test_native_handle_is_not_public_#{ft}" do

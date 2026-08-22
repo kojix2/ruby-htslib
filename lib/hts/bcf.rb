@@ -29,11 +29,11 @@ module HTS
       return file unless block_given?
 
       begin
-        yield file
+        result = yield file
       ensure
         file.close
       end
-      file
+      result
     end
 
     def self.build_index(file_name, index_name = nil, min_shift = 14, threads = 0, verbose = true)
@@ -196,6 +196,10 @@ module HTS
     alias format_array format
 
     def collect_records = each(copy: true).to_a
+
+    # Materialize independent, owning records rather than retaining the
+    # reused Record yielded by the allocation-conscious default iterator.
+    def to_a = collect_records
 
     define_iterator :chrom
     define_iterator :pos

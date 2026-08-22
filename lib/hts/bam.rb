@@ -42,11 +42,11 @@ module HTS
       return file unless block_given?
 
       begin
-        yield file
+        result = yield file
       ensure
         file.close
       end
-      file
+      result
     end
 
     def self.build_index(file_name, index_name = nil, min_shift = 0, threads = 0, verbose = true)
@@ -237,6 +237,13 @@ module HTS
     # Unlike each.to_a, every element owns its bam1_t storage.
     def collect_records
       each(copy: true).to_a
+    end
+
+    # Materialize independent, owning records. Enumerable#to_a is unsafe for
+    # the default reused-record iterator because every array element would
+    # otherwise refer to the same native bam1_t buffer.
+    def to_a
+      collect_records
     end
 
     # @!macro [attach] define_iterator

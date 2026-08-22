@@ -18,11 +18,11 @@ module HTS
       return file unless block_given?
 
       begin
-        yield file
+        result = yield file
       ensure
         file.close
       end
-      file
+      result
     end
 
     def initialize(file_name, index: nil, threads: nil, build_index: false)
