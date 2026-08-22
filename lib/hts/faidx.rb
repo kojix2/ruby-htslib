@@ -4,6 +4,8 @@ require_relative "native"
 
 module HTS
   class Faidx
+    class OpenError < HTS::Error; end
+
     attr_reader :file_name, :format
 
     def self.open(file_name, format: :auto, auto_build: true)

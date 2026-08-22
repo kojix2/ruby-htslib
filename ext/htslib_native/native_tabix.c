@@ -3,6 +3,7 @@
 #include <htslib/hts.h>
 #include <htslib/kstring.h>
 #include <htslib/tbx.h>
+#include <errno.h>
 #include <stdlib.h>
 
 typedef struct {
@@ -72,8 +73,16 @@ static VALUE native_tabix_open(VALUE klass, VALUE path_value)
     handle->active_queries = 0;
     handle->path = rb_str_dup(StringValue(path_value));
     RB_OBJ_WRITE(object, &handle->path, handle->path);
+    errno = 0;
     handle->file = hts_open(StringValueCStr(handle->path), "r");
-    if (handle->file == NULL) rb_syserr_fail_str(ENOENT, path_value);
+    if (handle->file == NULL) {
+        int error = errno;
+        if (error) rb_syserr_fail_str(error, path_value);
+        VALUE hts = rb_const_get(rb_cObject, rb_intern("HTS"));
+        VALUE tabix = rb_const_get(hts, rb_intern("Tabix"));
+        VALUE open_error = rb_const_get(tabix, rb_intern("OpenError"));
+        rb_raise(open_error, "Failed to open %"PRIsVALUE": HTSlib could not recognize or open the input", path_value);
+    }
     return object;
 }
 

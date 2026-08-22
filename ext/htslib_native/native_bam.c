@@ -542,6 +542,13 @@ static VALUE native_record_aux_key(VALUE self, VALUE key) {
 }
 
 /* File and iterator */
+static void raise_bam_open_error(VALUE path_value, int error) {
+    if (error) rb_syserr_fail_str(error, path_value);
+    VALUE hts=rb_const_get(rb_cObject,rb_intern("HTS"));
+    VALUE bam=rb_const_get(hts,rb_intern("Bam"));
+    VALUE klass=rb_const_get(bam,rb_intern("OpenError"));
+    rb_raise(klass,"Failed to open %"PRIsVALUE": HTSlib could not recognize or open the input",path_value);
+}
 static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
     ruby_bam_file_t *value;
     VALUE object = TypedData_Make_Struct(klass, ruby_bam_file_t, &bam_file_type, value);
@@ -549,8 +556,9 @@ static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
     value->active_io = 0;
     value->path = rb_str_dup(StringValue(path_value));
     RB_OBJ_WRITE(object, &value->path, value->path);
+    errno = 0;
     value->file = hts_open(StringValueCStr(value->path), StringValueCStr(mode_value));
-    if (!value->file) rb_syserr_fail_str(ENOENT, path_value);
+    if (!value->file) raise_bam_open_error(path_value, errno);
     return object;
 }
 static VALUE native_bam_close(VALUE self) {

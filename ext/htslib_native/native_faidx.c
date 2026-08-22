@@ -1,6 +1,7 @@
 #include "htslib_native.h"
 
 #include <htslib/faidx.h>
+#include <errno.h>
 #include <stdlib.h>
 
 typedef struct {
@@ -47,10 +48,18 @@ static VALUE native_faidx_open(VALUE klass, VALUE path_value, VALUE format_value
     enum fai_format_options format = NUM2INT(format_value) == 1 ? FAI_FASTQ : FAI_FASTA;
 
     object = TypedData_Make_Struct(klass, ruby_faidx_t, &ruby_faidx_type, handle);
+    errno = 0;
     handle->fai = RTEST(auto_build_value)
         ? fai_load_format(path, format)
         : fai_load3_format(path, NULL, NULL, 0, format);
-    if (handle->fai == NULL) rb_syserr_fail_str(ENOENT, path_value);
+    if (handle->fai == NULL) {
+        int error = errno;
+        if (error) rb_syserr_fail_str(error, path_value);
+        VALUE hts = rb_const_get(rb_cObject, rb_intern("HTS"));
+        VALUE faidx = rb_const_get(hts, rb_intern("Faidx"));
+        VALUE open_error = rb_const_get(faidx, rb_intern("OpenError"));
+        rb_raise(open_error, "Failed to open %"PRIsVALUE": HTSlib could not load the index", path_value);
+    }
     return object;
 }
 

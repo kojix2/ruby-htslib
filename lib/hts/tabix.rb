@@ -9,6 +9,8 @@ module HTS
   class Tabix < Hts
     include Enumerable
 
+    class OpenError < HTS::Error; end
+
     attr_reader :file_name, :index_name, :mode, :nthreads
 
     def self.open(*args, **kw)
