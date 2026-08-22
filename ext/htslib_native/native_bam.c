@@ -708,6 +708,13 @@ static VALUE base_mod_array(const hts_base_mod *mods, int count) {
     }
     return result;
 }
+static void raise_base_mod_error(const char *operation) {
+    VALUE hts = rb_const_get(rb_cObject, rb_intern("HTS"));
+    VALUE bam = rb_const_get(hts, rb_intern("Bam"));
+    VALUE base_mod = rb_const_get(bam, rb_intern("BaseMod"));
+    VALUE error = rb_const_get(base_mod, rb_intern("Error"));
+    rb_raise(error, "%s failed", operation);
+}
 static VALUE native_base_mod_at(VALUE self, VALUE position, VALUE max_value) {
     ruby_base_mod_t *value = get_base_mod(self);
     int max = NUM2INT(max_value), count;
@@ -715,6 +722,10 @@ static VALUE native_base_mod_at(VALUE self, VALUE position, VALUE max_value) {
     if (max <= 0) rb_raise(rb_eArgError, "max_mods must be positive");
     mods = ALLOC_N(hts_base_mod, max);
     count = bam_mods_at_qpos(get_record(value->record)->pointer, NUM2INT(position), value->state, mods, max);
+    if (count < 0) {
+        xfree(mods);
+        raise_base_mod_error("bam_mods_at_qpos");
+    }
     VALUE result = count > 0 ? base_mod_array(mods, count < max ? count : max) : Qnil;
     xfree(mods);
     return result;
@@ -733,6 +744,10 @@ static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
                             INT2NUM(mods[index].modified_base), INT2NUM(mods[index].strand),
                             INT2NUM(mods[index].qual));
         }
+    }
+    if (count < 0) {
+        xfree(mods);
+        raise_base_mod_error("bam_next_basemod");
     }
     xfree(mods);
     return self;

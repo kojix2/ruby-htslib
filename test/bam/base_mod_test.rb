@@ -185,6 +185,7 @@ class BaseModTest < Minitest::Test
 
   def test_basemod_class_exists
     assert defined?(HTS::Bam::BaseMod)
+    assert_operator HTS::Bam::BaseMod::Error, :<, HTS::Error
   end
 
   # Test with actual BAM file (if available with MM/ML tags)

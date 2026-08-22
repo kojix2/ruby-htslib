@@ -12,6 +12,7 @@ module HTS
     class BaseMod
       include Enumerable
 
+      class Error < HTS::Error; end
       class NotParsedError < StandardError; end
 
       attr_reader :record
