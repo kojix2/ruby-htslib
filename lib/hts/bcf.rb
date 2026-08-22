@@ -91,6 +91,12 @@ module HTS
     end
 
     def load_index(index_name = nil)
+      return self if try_load_index(index_name)
+
+      raise MissingIndexError, "Failed to load index #{index_name || "for #{@file_name}"}"
+    end
+
+    def try_load_index(index_name = nil)
       check_closed
       @index_name = index_name
       @index_load_attempted = true

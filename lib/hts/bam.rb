@@ -20,6 +20,7 @@ module HTS
     class ReadError < HTS::Error; end
     class WriteError < HTS::Error; end
     class OpenError < HTS::Error; end
+    class MissingIndexError < HTS::Error; end
 
     # Filter an owning batch of records in one native pass when available.
     def self.filter_records(records, required_flags: 0, excluded_flags: 0,
@@ -124,6 +125,12 @@ module HTS
     end
 
     def load_index(index_name = nil)
+      return self if try_load_index(index_name)
+
+      raise MissingIndexError, "Failed to load index #{index_name || "for #{@file_name}"}"
+    end
+
+    def try_load_index(index_name = nil)
       check_closed
 
       @index_name = index_name
