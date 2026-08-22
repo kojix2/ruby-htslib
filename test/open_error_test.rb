@@ -6,6 +6,8 @@ require "tmpdir"
 
 class OpenErrorTest < Minitest::Test
   def test_hts_open_preserves_permission_denied
+    skip "chmod cannot portably inject EACCES on Windows" if Gem.win_platform?
+
     Dir.mktmpdir do |dir|
       path = File.join(dir, "unreadable.hts")
       File.write(path, ">seq\nA\n")
@@ -22,6 +24,8 @@ class OpenErrorTest < Minitest::Test
   end
 
   def test_faidx_open_preserves_permission_denied
+    skip "chmod cannot portably inject EACCES on Windows" if Gem.win_platform?
+
     Dir.mktmpdir do |dir|
       path = File.join(dir, "unreadable.fa")
       FileUtils.cp(Fixtures["random.fa"], path)
