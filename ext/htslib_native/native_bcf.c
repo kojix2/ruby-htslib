@@ -128,7 +128,25 @@ static VALUE wrap_bcf_iterator(VALUE file,VALUE header,hts_itr_t *iterator,int t
 static VALUE native_bcf_header_create(VALUE klass) { return wrap_bcf_header(bcf_hdr_init("w")); }
 static VALUE native_bcf_header_duplicate(VALUE self) { return wrap_bcf_header(bcf_hdr_dup(get_bcf_header(self)->pointer)); }
 static VALUE native_bcf_header_version(VALUE self) { const char *v=bcf_hdr_get_version(get_bcf_header(self)->pointer); return v?rb_str_new_cstr(v):Qnil; }
-static VALUE native_bcf_header_set_version(VALUE self,VALUE value) { return INT2NUM(bcf_hdr_set_version(get_bcf_header(self)->pointer,StringValueCStr(value))); }
+static VALUE native_bcf_header_set_version(VALUE self,VALUE value) {
+    bcf_hdr_t *header=get_bcf_header(self)->pointer;
+    const char *version=StringValueCStr(value);
+#if !defined(HTS_VERSION) || HTS_VERSION < 102200
+    /* HTSlib before 1.22 failed to restore the generic-header hash value in
+       bcf_hdr_update_hrec(), so calling bcf_hdr_set_version() twice aborted.
+       Updating the public header record directly avoids that upstream bug. */
+    bcf_hrec_t *record=bcf_hdr_get_hrec(header,BCF_HL_GEN,"fileformat",NULL,NULL);
+    if(record) {
+        char *copy=strdup(version);
+        if(!copy) rb_memerror();
+        free(record->value);
+        record->value=copy;
+        header->dirty=1;
+        return INT2NUM(0);
+    }
+#endif
+    return INT2NUM(bcf_hdr_set_version(header,version));
+}
 static VALUE native_bcf_header_read_file(VALUE self,VALUE path) { return INT2NUM(bcf_hdr_set(get_bcf_header(self)->pointer,StringValueCStr(path))); }
 static VALUE native_bcf_header_nsamples(VALUE self) { return INT2NUM(bcf_hdr_nsamples(get_bcf_header(self)->pointer)); }
 static VALUE native_bcf_header_samples(VALUE self) {

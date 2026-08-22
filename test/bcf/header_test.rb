@@ -37,6 +37,8 @@ class BcfHeaderTest < Minitest::Test
     assert_equal "VCFv9.9", hdr2.get_version
     hdr2.version = "VCFv9.8"
     assert_equal "VCFv9.8", hdr2.version
+    assert hdr2.to_s.start_with?("##fileformat=VCFv9.8\n")
+    assert_equal 1, hdr2.to_s.scan(/^##fileformat=/).length
   end
 
   def test_nsamples
