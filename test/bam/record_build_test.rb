@@ -99,6 +99,16 @@ class BamRecordBuildTest < Minitest::Test
     end
   end
 
+  def test_qname_length_boundaries
+    [0, 1, 3, 4, 253, 254].each do |length|
+      qname = "q" * length
+      record = HTS::Bam::Record.new(@header, qname:)
+      assert_equal(length.zero? ? "*" : qname, record.qname)
+    end
+
+    assert_raises(ArgumentError) { HTS::Bam::Record.new(@header, qname: "a\0b") }
+  end
+
   def test_constructed_coordinate_sorted_bam_can_be_indexed_and_queried
     header = HTS::Bam::Header.parse(HEADER_TEXT.sub("SO:unsorted", "SO:coordinate"))
     records = [10, 100].map.with_index do |position, index|

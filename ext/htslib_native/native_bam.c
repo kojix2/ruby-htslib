@@ -247,6 +247,9 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
 
     StringValue(qname);
     StringValue(sequence);
+    if (memchr(RSTRING_PTR(qname), '\0', RSTRING_LEN(qname))) {
+        rb_raise(rb_eArgError, "qname must not contain NUL bytes");
+    }
     Check_Type(cigar_value, T_ARRAY);
     cigar_count = RARRAY_LEN(cigar_value);
     if (cigar_count > 0) {
@@ -264,7 +267,7 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
 
     errno = 0;
     result = bam_set1(record,
-                      (size_t)RSTRING_LEN(qname) + 1, RSTRING_PTR(qname),
+                      (size_t)RSTRING_LEN(qname), RSTRING_PTR(qname),
                       NUM2UINT(flag), NUM2INT(tid), NUM2LL(pos), NUM2UINT(mapq),
                       (size_t)cigar_count, cigar,
                       NUM2INT(mtid), NUM2LL(mpos), NUM2LL(isize),
