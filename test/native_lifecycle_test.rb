@@ -38,6 +38,31 @@ class NativeLifecycleTest < Minitest::Test
     end
   end
 
+  def test_bam_close_reports_buffered_write_failure
+    skip "/dev/full is unavailable" unless File.exist?("/dev/full")
+
+    bam = HTS::Bam.new("/dev/full", "wb")
+    bam.write_header(HTS::Bam::Header.parse("@HD\tVN:1.6\n"))
+
+    assert_raises(HTS::Bam::WriteError) { bam.close }
+    assert bam.closed?
+    assert_nil bam.close
+  end
+
+  def test_bcf_close_reports_buffered_write_failure
+    skip "/dev/full is unavailable" unless File.exist?("/dev/full")
+
+    bcf = HTS::Bcf.new("/dev/full", "wb")
+    header = HTS::Bcf::Header.new
+    header.append("##fileformat=VCFv4.3")
+    header.sync
+    bcf.write_header(header)
+
+    assert_raises(HTS::Bcf::WriteError) { bcf.close }
+    assert bcf.closed?
+    assert_nil bcf.close
+  end
+
   def test_mpileup_keeps_input_objects_alive
     bam = HTS::Bam.new(Fixtures["moo.bam"])
     mpileup = HTS::Bam::Mpileup.new([bam], overlaps: true)

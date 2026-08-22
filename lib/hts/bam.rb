@@ -18,6 +18,7 @@ module HTS
     include Enumerable
 
     class ReadError < HTS::Error; end
+    class WriteError < HTS::Error; end
 
     # Filter an owning batch of records in one native pass when available.
     def self.filter_records(records, required_flags: 0, excluded_flags: 0,
@@ -136,7 +137,10 @@ module HTS
     end
 
     def close
-      @native&.close
+      result = @native&.close
+      raise WriteError, "Failed to close #{@file_name}: buffered output may be incomplete" if writing? && result&.negative?
+
+      nil
     end
 
     def closed? = @native.nil? || @native.closed?
@@ -169,6 +173,8 @@ module HTS
     end
 
     private
+
+    def writing? = @mode&.start_with?("w", "a")
 
     def native_handle = @native
 

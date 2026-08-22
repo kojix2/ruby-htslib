@@ -102,7 +102,12 @@ module HTS
       @native.index_loaded?
     end
 
-    def close = @native&.close
+    def close
+      result = @native&.close
+      raise WriteError, "Failed to close #{@file_name}: buffered output may be incomplete" if writing? && result&.negative?
+
+      nil
+    end
     def closed? = @native.nil? || @native.closed?
     def file_format = @native.file_format
     def file_format_version = @native.file_format_version
@@ -243,6 +248,8 @@ module HTS
     end
 
     private
+
+    def writing? = @mode&.start_with?("w", "a")
 
     def ensure_index_loaded
       return true if index_loaded?

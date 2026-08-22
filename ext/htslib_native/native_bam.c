@@ -527,10 +527,11 @@ static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
 }
 static VALUE native_bam_close(VALUE self) {
     ruby_bam_file_t *value = get_file(self, 1);
+    int result = 0;
     if (value->active_io) rb_raise(rb_eIOError, "cannot close BAM during active I/O");
     if (value->index) { hts_idx_destroy(value->index); value->index = NULL; }
-    if (value->file) { hts_close(value->file); value->file = NULL; }
-    return Qnil;
+    if (value->file) { result = hts_close(value->file); value->file = NULL; }
+    return INT2NUM(result);
 }
 static VALUE native_bam_closed(VALUE self) { return get_file(self, 1)->file ? Qfalse : Qtrue; }
 typedef struct { htsFile *file; sam_hdr_t *header; bam1_t *record; hts_itr_t *iterator; int result; } bam_io_args_t;

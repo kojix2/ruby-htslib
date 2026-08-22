@@ -5,6 +5,7 @@ module HTS
     class Error < HTS::Error; end
 
     class OpenError < Error; end
+    class WriteError < Error; end
     class IndexError < Error; end
     class MissingIndexError < IndexError; end
     class QueryError < Error; end
