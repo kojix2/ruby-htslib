@@ -252,10 +252,10 @@
       <pre class="lines">
 
 
-202</pre>
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 202</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 220</span>
 
 static VALUE native_bcf_hrec_add_key(VALUE self,VALUE key) { return INT2NUM(bcf_hrec_add_key(get_bcf_hrec(self)-&gt;pointer,StringValueCStr(key),RSTRING_LEN(key))); }</pre>
     </td>
@@ -287,10 +287,10 @@ static VALUE native_bcf_hrec_add_key(VALUE self,VALUE key) { return INT2NUM(bcf_
       <pre class="lines">
 
 
-201</pre>
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 201</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 219</span>
 
 static VALUE native_bcf_hrec_duplicate(VALUE self) { return wrap_bcf_hrec(bcf_hrec_dup(get_bcf_hrec(self)-&gt;pointer)); }</pre>
     </td>
@@ -313,10 +313,10 @@ static VALUE native_bcf_hrec_duplicate(VALUE self) { return wrap_bcf_hrec(bcf_hr
       <pre class="lines">
 
 
-204</pre>
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 204</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 222</span>
 
 static VALUE native_bcf_hrec_find_key(VALUE self,VALUE key) { return INT2NUM(bcf_hrec_find_key(get_bcf_hrec(self)-&gt;pointer,StringValueCStr(key))); }</pre>
     </td>
@@ -339,10 +339,10 @@ static VALUE native_bcf_hrec_find_key(VALUE self,VALUE key) { return INT2NUM(bcf
       <pre class="lines">
 
 
-203</pre>
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 203</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 221</span>
 
 static VALUE native_bcf_hrec_set_value(VALUE self,VALUE index,VALUE value,VALUE quote) { StringValue(value); return INT2NUM(bcf_hrec_set_val(get_bcf_hrec(self)-&gt;pointer,NUM2INT(index),RSTRING_PTR(value),RSTRING_LEN(value),RTEST(quote))); }</pre>
     </td>
@@ -365,10 +365,10 @@ static VALUE native_bcf_hrec_set_value(VALUE self,VALUE index,VALUE value,VALUE 
       <pre class="lines">
 
 
-205</pre>
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 205</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 223</span>
 
 static VALUE native_bcf_hrec_to_s(VALUE self) { kstring_t s=KS_INITIALIZE; VALUE r; bcf_hrec_format(get_bcf_hrec(self)-&gt;pointer,&amp;s); r=rb_str_new(s.s,s.l); free(s.s); return r; }</pre>
     </td>
@@ -381,7 +381,7 @@ static VALUE native_bcf_hrec_to_s(VALUE self) { kstring_t s=KS_INITIALIZE; VALUE
 </div>
 
       <div id="footer">
-  Generated on Sat Aug 22 12:15:58 2026 by
+  Generated on Sat Aug 22 12:26:13 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
