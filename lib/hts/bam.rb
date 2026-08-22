@@ -17,6 +17,8 @@ module HTS
   class Bam
     include Enumerable
 
+    class ReadError < HTS::Error; end
+
     # Filter an owning batch of records in one native pass when available.
     def self.filter_records(records, required_flags: 0, excluded_flags: 0,
                             min_mapq: 0, tid: nil, beg: nil, end_: nil)
@@ -378,7 +380,13 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       record = Record.new(header)
-      yield record while @native.read(header.__send__(:native_handle), record.__send__(:native_handle)) != -1
+      loop do
+        result = @native.read(header.__send__(:native_handle), record.__send__(:native_handle))
+        break if result == -1
+        raise ReadError, "Failed to read BAM/SAM record (HTSlib error #{result})" if result < -1
+
+        yield record
+      end
       self
     end
 
@@ -388,7 +396,13 @@ module HTS
       return to_enum(__method__) unless block_given?
 
       record = Record.new(header)
-      yield record.dup while @native.read(header.__send__(:native_handle), record.__send__(:native_handle)) != -1
+      loop do
+        result = @native.read(header.__send__(:native_handle), record.__send__(:native_handle))
+        break if result == -1
+        raise ReadError, "Failed to read BAM/SAM record (HTSlib error #{result})" if result < -1
+
+        yield record.dup
+      end
       self
     end
 
