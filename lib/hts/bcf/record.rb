@@ -66,7 +66,7 @@ module HTS
 
       def filters
         names = @native.filter_names(@header.__send__(:native_handle))
-        names.empty? ? ["PASS"] : names
+        names
       end
 
 
@@ -75,7 +75,8 @@ module HTS
       alias filter filters
 
       def passed? = filters == ["PASS"]
-      def filtered? = !passed?
+      def filter_missing? = filters.empty?
+      def filtered? = !passed? && !filter_missing?
 
       def each_filter_id(&block)
         return to_enum(__method__) unless block_given?

@@ -99,9 +99,11 @@ class BcfRecordTest < Minitest::Test
     assert_equal ["PASS"], @v1.filter
     assert_equal ["q10"], @v2.filter
     assert @v1.passed?
+    refute @v1.filter_missing?
     refute @v1.filtered?
     refute @v2.passed?
     assert @v2.filtered?
+    refute @v2.filter_missing?
   end
 
   def test_qual
