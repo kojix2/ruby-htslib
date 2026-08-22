@@ -298,7 +298,7 @@ class BcfFormatTest < Minitest::Test
 
         assert_equal [10, 20, 30, 40, 50, 60], format.get_raw("PL")
 
-        ints = format.get_raw("IV")
+        ints = format.get_int_raw("IV")
         assert_equal 4, ints.size
         assert_equal 10, ints[0]
         assert_equal HTS::Native::BCF_INT32_VECTOR_END, ints[1]

@@ -15,7 +15,7 @@ module HTS
 
       def get(key, type = nil)
         schema = header.schema("INFO", key.to_s)
-        return nil unless schema
+        raise InfoDefinitionError, "INFO tag #{key} not defined in header" unless schema
 
         actual_type = schema.first
         requested = type&.to_sym
@@ -24,7 +24,8 @@ module HTS
         end
 
         code = TYPE_CODES.fetch(requested || actual_type)
-        native.info_get(header_native, key.to_s, code)
+        value = native.info_get(header_native, key.to_s, code)
+        code == Native::BCF_HT_FLAG && value.nil? ? false : value
       end
 
       def get_int(key) = get(key, :int)

@@ -46,8 +46,8 @@ class PerformancePlanTest < Minitest::Test
         first, second = bcf.each(copy: true).to_a
         assert_equal true, first.info.get("FL")
         assert_equal false, second.info.key?("FL")
-        assert_nil second.info.get("FL")
-        assert_nil second.info.get("UNKNOWN")
+        assert_equal false, second.info.get("FL")
+        assert_raises(HTS::Bcf::InfoDefinitionError) { second.info.get("UNKNOWN") }
       end
     end
   end

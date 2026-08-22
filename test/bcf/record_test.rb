@@ -167,10 +167,10 @@ class BcfRecordTest < Minitest::Test
   def test_info_with_key
     assert_equal [4], @v1.info("AN")
     assert_equal [2], @v1.info("AC")
-    assert_nil @v1.info("INDEL")
+    assert_equal false, @v1.info("INDEL")
     assert_nil @v1.info("DP4")
     assert_nil @v1.info("STR")
-    assert_nil @v1.info("UNKNOWN")
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @v1.info("UNKNOWN") }
   end
 
   def test_format

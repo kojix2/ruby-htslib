@@ -72,17 +72,11 @@ class BcfInfoTest < Minitest::Test
   end
 
   def test_get_unknown_key
-    assert_nil @info.get("UNKNOWN")
-    assert_nil @info.get("UNKNOWN", :int)
-    assert_nil @info.get_int("UNKNOWN")
-    assert_nil @info.get("UNKNOWN", :int64)
-    assert_nil @info.get_int64("UNKNOWN")
-    assert_nil @info.get("UNKNOWN", :float)
-    assert_nil @info.get_float("UNKNOWN")
-    assert_nil @info.get("UNKNOWN", :flag)
-    assert_nil @info.get_flag("UNKNOWN")
-    assert_nil @info.get("UNKNOWN", :str)
-    assert_nil @info.get_string("UNKNOWN")
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @info.get("UNKNOWN") }
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @info.get_int("UNKNOWN") }
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @info.get_float("UNKNOWN") }
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @info.get_flag("UNKNOWN") }
+    assert_raises(HTS::Bcf::InfoDefinitionError) { @info.get_string("UNKNOWN") }
   end
 
   def test_key_checks_record_presence_not_decoded_value
@@ -95,7 +89,7 @@ class BcfInfoTest < Minitest::Test
         assert_equal false, info.key?("ABS")
         assert_equal false, info.key?("NOFL")
         assert_nil info.get("ABS")
-        assert_nil info.get("NOFL")
+        assert_equal false, info.get("NOFL")
         assert_equal false, info.delete("ABS")
 
         error = assert_raises(HTS::Bcf::InfoTypeError) do

@@ -141,7 +141,14 @@ module HTS
         native.format_get(header_native, key, code, raw_float)
       end
 
-      def get_int(key) = get(key, :int)
+      def get_int_raw(key) = get_raw(key, :int)
+
+      def get_int(key)
+        values = get_int_raw(key)
+        values&.each_with_object([]) do |value, decoded|
+          decoded << missing_int(value) unless value == Native::BCF_INT32_VECTOR_END
+        end
+      end
 
       def get_float(key)
         words = get_raw(key, :float)

@@ -15,6 +15,7 @@ module HTS
     class UnknownSampleError < SubsetError; end
     class FieldError < Error; end
     class InfoError < FieldError; end
+    class InfoDefinitionError < InfoError; end
     class InfoTypeError < InfoError; end
     class InfoReadError < InfoError; end
     class InfoUpdateError < InfoError; end
