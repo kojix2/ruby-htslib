@@ -67,7 +67,11 @@ module HTS
         raise SubsetError,
               "Sample subsetting is only available when reading BCF/VCF files"
       end
-      return if mode.start_with?("w")
+      if writing?
+        @auto_index_on_close = build_index
+        @index_name_on_close = index
+        return
+      end
 
       @read_header = Header.new(@native.read_header)
       @header = subset ? @read_header.subset(subset) : @read_header
@@ -109,8 +113,14 @@ module HTS
     end
 
     def close
+      was_closed = closed?
       result = @native&.close
       raise WriteError, "Failed to close #{@file_name}: buffered output may be incomplete" if writing? && result&.negative?
+
+      if writing? && @auto_index_on_close && !was_closed
+        @auto_index_on_close = false
+        self.class.build_index(@file_name, @index_name_on_close, 14, @nthreads || 0, false)
+      end
 
       nil
     end
@@ -148,7 +158,7 @@ module HTS
       result = @native.write_header(header.__send__(:native_handle))
       raise HeaderError, "Failed to write BCF header" if result.negative?
 
-      result
+      nil
     end
 
     def header=(header)
@@ -160,9 +170,13 @@ module HTS
       result = @native.write(header.__send__(:native_handle), record.__send__(:native_handle))
       raise "Failed to write record" if result.negative?
 
-      result
+      nil
     end
-    alias << write
+
+    def <<(record)
+      write(record)
+      self
+    end
 
     def nsamples
       check_closed

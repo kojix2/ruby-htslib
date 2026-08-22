@@ -103,7 +103,11 @@ module HTS
 
       set_threads(threads) if threads
 
-      return if @mode[0] == "w"
+      if writing?
+        @auto_index_on_close = build_index
+        @index_name_on_close = index
+        return
+      end
 
       @header = Bam::Header.new(@native.read_header)
       if build_index
@@ -145,8 +149,14 @@ module HTS
     end
 
     def close
+      was_closed = closed?
       result = @native&.close
       raise WriteError, "Failed to close #{@file_name}: buffered output may be incomplete" if writing? && result&.negative?
+
+      if writing? && @auto_index_on_close && !was_closed
+        @auto_index_on_close = false
+        self.class.build_index(@file_name, @index_name_on_close, 0, @nthreads || 0, false)
+      end
 
       nil
     end
@@ -193,6 +203,7 @@ module HTS
 
       @header = header.dup
       @native.write_header(header.__send__(:native_handle))
+      nil
     end
 
     def header=(header)
@@ -204,10 +215,13 @@ module HTS
 
       r = @native.write(header.__send__(:native_handle), record.__send__(:native_handle))
       raise "Failed to write record" if r < 0
+
+      nil
     end
 
     def <<(record)
       write(record)
+      self
     end
 
     # @!macro [attach] define_getter

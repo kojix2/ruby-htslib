@@ -43,8 +43,12 @@ module HTS
 
       set_threads(threads) if threads
 
-      # build_index(index) if build_index
-      load_index(index) if index
+      if build_index
+        build_index(index)
+        load_index(index)
+      elsif index
+        load_index(index)
+      end
     end
 
     def build_index(index_name = nil, min_shift: 0)
