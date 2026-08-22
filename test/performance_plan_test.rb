@@ -222,7 +222,7 @@ class PerformancePlanTest < Minitest::Test
       expected = records.select { |record| !record.qual.nan? && record.qual >= 50 }
       assert_equal expected, HTS::Bcf.filter_records(records, min_qual: 50)
 
-      q10_record = records.find { |record| record.filter == "q10" }
+      q10_record = records.find { |record| record.filter == ["q10"] }
       refute_nil q10_record
       q10_id = q10_record.each_filter_id.first
       expected = records.select { |record| record.filter_id?(q10_id) }

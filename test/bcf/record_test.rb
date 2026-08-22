@@ -96,8 +96,12 @@ class BcfRecordTest < Minitest::Test
   end
 
   def test_filter
-    assert_equal "PASS", @v1.filter
-    assert_equal "q10", @v2.filter
+    assert_equal ["PASS"], @v1.filter
+    assert_equal ["q10"], @v2.filter
+    assert @v1.passed?
+    refute @v1.filtered?
+    refute @v2.passed?
+    assert @v2.filtered?
   end
 
   def test_qual
@@ -141,7 +145,7 @@ class BcfRecordTest < Minitest::Test
       assert_kind_of Integer, ids.first
       assert record.filter_id?(ids.first)
       refute record.filter_id?(ids.first + 1000)
-      assert_equal expected, record.filter
+      assert_equal [expected], record.filter
     end
   end
 

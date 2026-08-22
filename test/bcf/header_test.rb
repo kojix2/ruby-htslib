@@ -28,12 +28,15 @@ class BcfHeaderTest < Minitest::Test
 
   def test_get_version
     assert_equal "VCFv4.1", @hdr.get_version
+    assert_equal "VCFv4.1", @hdr.version
   end
 
   def test_set_version
     hdr2 = @hdr.clone
     hdr2.set_version("VCFv9.9")
     assert_equal "VCFv9.9", hdr2.get_version
+    hdr2.version = "VCFv9.8"
+    assert_equal "VCFv9.8", hdr2.version
   end
 
   def test_nsamples

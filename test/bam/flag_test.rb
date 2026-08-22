@@ -64,8 +64,14 @@ class BamFlagTest < Minitest::Test
   end
 
   def test_bitwise_not
-    assert_equal(-4096, (~@flag).value)
-    assert_equal(-1, (~@flag_zero).value)
+    assert_equal 0, (~@flag).value
+    assert_equal 4095, (~@flag_zero).value
+  end
+
+  def test_cross_language_constant_aliases
+    assert_equal HTS::Bam::Flag::UNMAPPED, HTS::Bam::Flag::UNMAP
+    assert_equal HTS::Bam::Flag::MATE_UNMAPPED, HTS::Bam::Flag::MUNMAP
+    assert_equal HTS::Bam::Flag::DUPLICATE, HTS::Bam::Flag::DUP
   end
 
   def test_bitwise_shift_left

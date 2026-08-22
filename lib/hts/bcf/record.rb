@@ -64,14 +64,18 @@ module HTS
         @native.core_set(:qual, value)
       end
 
-      def filter
+      def filters
         names = @native.filter_names(@header.__send__(:native_handle))
-        case names.length
-        when 0 then "PASS"
-        when 1 then names.first
-        else names
-        end
+        names.empty? ? ["PASS"] : names
       end
+
+
+      # VCF FILTER is a list even when it contains a single value. Keeping a
+      # stable return type avoids substring matching for single-filter records.
+      alias filter filters
+
+      def passed? = filters == ["PASS"]
+      def filtered? = !passed?
 
       def each_filter_id(&block)
         return to_enum(__method__) unless block_given?

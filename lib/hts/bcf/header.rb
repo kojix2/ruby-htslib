@@ -44,6 +44,7 @@ module HTS
       def get_version
         @native.version
       end
+      alias version get_version
 
       def set_version(version)
         rc = @native.set_version(version)
@@ -53,6 +54,7 @@ module HTS
         sync_if_needed!
         self
       end
+      alias version= set_version
 
       def nsamples
         @native.nsamples

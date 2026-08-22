@@ -28,6 +28,10 @@ module HTS
       DUPLICATE = 1024
       SUPPLEMENTARY = 2048
 
+      UNMAP = UNMAPPED
+      MUNMAP = MATE_UNMAPPED
+      DUP = DUPLICATE
+
       TABLE = { paired?: PAIRED, proper_pair?: PROPER_PAIR, unmapped?: UNMAPPED,
                 mate_unmapped?: MATE_UNMAPPED, reverse?: REVERSE,
                 mate_reverse?: MATE_REVERSE, read1?: READ1, read2?: READ2,
@@ -74,9 +78,7 @@ module HTS
       end
 
       def ~
-        # FIXME: Only 12bits are used for flags
-        # The result is different from the Crystal version.
-        self.class.new(~@value)
+        self.class.new((~@value) & 0x0fff)
       end
 
       def <<(f)
