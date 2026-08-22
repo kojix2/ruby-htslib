@@ -578,22 +578,29 @@ static void *bam_read_without_gvl(void *data) { bam_io_args_t *args=data; args->
 static void *bam_write_without_gvl(void *data) { bam_io_args_t *args=data; args->result=sam_write1(args->file,args->header,args->record); return NULL; }
 static void *bam_iterator_without_gvl(void *data) { bam_io_args_t *args=data; args->result=sam_itr_next(args->file,args->iterator,args->record); return NULL; }
 static void bam_io_begin(ruby_bam_file_t *file) { if(file->active_io)rb_raise(rb_eIOError,"concurrent BAM I/O is not supported"); file->active_io=1; }
+typedef struct { ruby_bam_file_t *file; void *(*operation)(void *); void *arguments; } bam_io_call_t;
+static VALUE bam_io_call_without_gvl(VALUE data) { bam_io_call_t *call=(bam_io_call_t *)(uintptr_t)data;rb_thread_call_without_gvl(call->operation,call->arguments,RUBY_UBF_IO,NULL);return Qnil; }
+static VALUE bam_io_end(VALUE data) { bam_io_call_t *call=(bam_io_call_t *)(uintptr_t)data;call->file->active_io=0;return Qnil; }
+/* Async Ruby exceptions are delivered after the native operation regains the GVL.
+ * rb_ensure therefore keeps active_io and the stack-backed arguments valid until
+ * the HTSlib call has returned or its RUBY_UBF_IO cancellation has completed. */
+static void bam_io_run(ruby_bam_file_t *file,void *(*operation)(void *),void *arguments) { bam_io_call_t call={file,operation,arguments};bam_io_begin(file);rb_ensure(bam_io_call_without_gvl,(VALUE)(uintptr_t)&call,bam_io_end,(VALUE)(uintptr_t)&call); }
 static VALUE native_bam_read_header(VALUE self) {
     ruby_bam_file_t *file=get_file(self,0); bam_header_read_args_t args={file->file,NULL};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_read_header_without_gvl,&args,RUBY_UBF_IO,NULL); file->active_io=0;
+    bam_io_run(file,bam_read_header_without_gvl,&args);
     return wrap_header(args.result);
 }
 static VALUE native_bam_write_header(VALUE self, VALUE header) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file->file,get_header(header)->pointer,NULL,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_write_header_without_gvl,&args,RUBY_UBF_IO,NULL); file->active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_write_header_without_gvl,&args); return INT2NUM(args.result);
 }
 static VALUE native_bam_read(VALUE self, VALUE header, VALUE record) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file->file,get_header(header)->pointer,get_record(record)->pointer,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_read_without_gvl,&args,RUBY_UBF_IO,NULL); file->active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_read_without_gvl,&args); return INT2NUM(args.result);
 }
 static VALUE native_bam_write(VALUE self, VALUE header, VALUE record) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file->file,get_header(header)->pointer,get_record(record)->pointer,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_write_without_gvl,&args,RUBY_UBF_IO,NULL); file->active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_write_without_gvl,&args); return INT2NUM(args.result);
 }
 static VALUE native_bam_set_fai(VALUE self, VALUE path) {
     return INT2NUM(hts_set_fai_filename(get_file(self, 0)->file, StringValueCStr(path)));
@@ -659,9 +666,7 @@ static VALUE native_bam_iterator_next(VALUE self, VALUE record) {
     ruby_bam_iterator_t *iterator = get_iterator(self);
     ruby_bam_file_t *file = get_file(iterator->file, 0);
     bam_io_args_t args={file->file,NULL,get_record(record)->pointer,iterator->iterator,0};
-    bam_io_begin(file);
-    rb_thread_call_without_gvl(bam_iterator_without_gvl,&args,RUBY_UBF_IO,NULL);
-    file->active_io=0;
+    bam_io_run(file,bam_iterator_without_gvl,&args);
     return INT2NUM(args.result);
 }
 static VALUE native_bam_iterator_close(VALUE self) {
