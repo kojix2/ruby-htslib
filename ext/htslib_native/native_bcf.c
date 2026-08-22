@@ -205,6 +205,20 @@ static VALUE native_bcf_hrec_find_key(VALUE self,VALUE key) { return INT2NUM(bcf
 static VALUE native_bcf_hrec_to_s(VALUE self) { kstring_t s=KS_INITIALIZE; VALUE r; bcf_hrec_format(get_bcf_hrec(self)->pointer,&s); r=rb_str_new(s.s,s.l); free(s.s); return r; }
 
 /* Record core */
+static void raise_bcf_record_error(const char *message) {
+    VALUE hts=rb_const_get(rb_cObject,rb_intern("HTS"));
+    VALUE bcf=rb_const_get(hts,rb_intern("Bcf"));
+    VALUE error=rb_const_get(bcf,rb_intern("RecordError"));
+    rb_raise(error,"%s",message);
+}
+static void check_bcf_unpack(bcf1_t *record,int fields) {
+    if(bcf_unpack(record,fields)<0)raise_bcf_record_error("Failed to unpack BCF record");
+}
+static const char *checked_bcf_id(bcf_hdr_t *header,int id) {
+    const char *name=(id>=0 && id<header->n[BCF_DT_ID] && header->id[BCF_DT_ID])?bcf_hdr_int2id(header,BCF_DT_ID,id):NULL;
+    if(!name)raise_bcf_record_error("BCF record contains an ID that is absent from the supplied header");
+    return name;
+}
 static VALUE native_bcf_record_create(VALUE klass) { return wrap_bcf_record(bcf_init()); }
 static VALUE native_bcf_record_duplicate(VALUE self) { return wrap_bcf_record(bcf_dup(get_bcf_record(self)->pointer)); }
 static VALUE native_bcf_record_core_get(VALUE self,VALUE field) {
@@ -222,21 +236,21 @@ static VALUE native_bcf_record_core_set(VALUE self,VALUE field,VALUE value) {
     else rb_raise(rb_eArgError,"unknown BCF field");
     return value;
 }
-static VALUE native_bcf_record_id(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; bcf_unpack(r,BCF_UN_INFO); return rb_str_new_cstr(r->d.id); }
+static VALUE native_bcf_record_id(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; check_bcf_unpack(r,BCF_UN_STR); if(!r->d.id)raise_bcf_record_error("BCF record ID is missing after unpack"); return rb_str_new_cstr(r->d.id); }
 static VALUE native_bcf_record_set_id(VALUE self,VALUE header,VALUE id) { return INT2NUM(bcf_update_id(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,StringValueCStr(id))); }
-static VALUE native_bcf_record_alleles(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_STR); a=rb_ary_new_capa(r->n_allele); for(i=0;i<r->n_allele;i++)rb_ary_push(a,rb_str_new_cstr(r->d.allele[i])); return a; }
+static VALUE native_bcf_record_alleles(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_STR); a=rb_ary_new_capa(r->n_allele); for(i=0;i<r->n_allele;i++){if(!r->d.allele[i])raise_bcf_record_error("BCF allele is missing after unpack");rb_ary_push(a,rb_str_new_cstr(r->d.allele[i]));} return a; }
 static VALUE native_bcf_record_set_alleles(VALUE self,VALUE header,VALUE value) { return INT2NUM(bcf_update_alleles_str(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,StringValueCStr(value))); }
-static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r->d.n_flt); for(i=0;i<r->d.n_flt;i++)rb_ary_push(a,INT2NUM(r->d.flt[i])); return a; }
-static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r=get_bcf_record(self)->pointer; bcf_hdr_t *h=get_bcf_header(header)->pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r->d.n_flt); for(i=0;i<r->d.n_flt;i++)rb_ary_push(a,rb_str_new_cstr(bcf_hdr_int2id(h,BCF_DT_ID,r->d.flt[i]))); return a; }
+static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record(self)->pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r->d.n_flt); for(i=0;i<r->d.n_flt;i++)rb_ary_push(a,INT2NUM(r->d.flt[i])); return a; }
+static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r=get_bcf_record(self)->pointer; bcf_hdr_t *h=get_bcf_header(header)->pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r->d.n_flt); for(i=0;i<r->d.n_flt;i++)rb_ary_push(a,rb_str_new_cstr(checked_bcf_id(h,r->d.flt[i]))); return a; }
 static VALUE native_bcf_record_to_s(VALUE self,VALUE header) { kstring_t s=KS_INITIALIZE; VALUE v; if(vcf_format(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,&s)<0){free(s.s);rb_raise(rb_eRuntimeError,"failed to format BCF record");}v=rb_str_new(s.s,s.l);free(s.s);return v; }
 static VALUE native_bcf_record_set_unpack(VALUE self,VALUE level){get_bcf_record(self)->pointer->max_unpack=NUM2INT(level);return level;}
 static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){VALUE storage=0;int count=RARRAY_LEN(map),i,*imap=ALLOCV_N(int,storage,count?count:1);for(i=0;i<count;i++)imap[i]=NUM2INT(rb_ary_entry(map,i));int result=bcf_subset(get_bcf_header(header)->pointer,get_bcf_record(self)->pointer,count,imap);ALLOCV_END(storage);return INT2NUM(result);}
 
 static VALUE field_rows(bcf_hdr_t *h,bcf1_t *r,int format) {
-    int i,count; VALUE rows; if(format){bcf_unpack(r,BCF_UN_FMT);count=r->n_fmt;}else{bcf_unpack(r,BCF_UN_INFO);count=r->n_info;}
+    int i,count; VALUE rows; if(format){check_bcf_unpack(r,BCF_UN_FMT);count=r->n_fmt;}else{check_bcf_unpack(r,BCF_UN_INFO);count=r->n_info;}
     rows=rb_ary_new_capa(count);
     for(i=0;i<count;i++) { int id=format?r->d.fmt[i].id:r->d.info[i].key, kind=format?BCF_HL_FMT:BCF_HL_INFO; VALUE row=rb_hash_new();
-        rb_hash_aset(row,ID2SYM(rb_intern("name")),rb_str_new_cstr(bcf_hdr_int2id(h,BCF_DT_ID,id)));
+        rb_hash_aset(row,ID2SYM(rb_intern("name")),rb_str_new_cstr(checked_bcf_id(h,id)));
         rb_hash_aset(row,ID2SYM(rb_intern("n")),INT2NUM(bcf_hdr_id2number(h,kind,id)));
         rb_hash_aset(row,ID2SYM(rb_intern("type")),type_symbol(bcf_hdr_id2type(h,kind,id)));
         rb_hash_aset(row,ID2SYM(rb_intern(format?"id":"key")),INT2NUM(id)); rb_ary_push(rows,row); }

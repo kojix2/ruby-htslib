@@ -127,6 +127,16 @@ class BcfRecordTest < Minitest::Test
     end
   end
 
+  def test_header_id_mismatch_raises_record_error
+    unrelated_header = HTS::Bcf::Header.new
+    native = @v2.__send__(:native_handle)
+
+    error = assert_raises(HTS::Bcf::RecordError) do
+      native.filter_names(unrelated_header.__send__(:native_handle))
+    end
+    assert_match(/supplied header/, error.message)
+  end
+
   def test_info
     assert_instance_of HTS::Bcf::Info, @v1.info
     assert_instance_of HTS::Bcf::Info, @v2.info

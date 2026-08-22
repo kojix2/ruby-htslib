@@ -9,6 +9,7 @@ module HTS
     class IndexError < Error; end
     class MissingIndexError < IndexError; end
     class QueryError < Error; end
+    class RecordError < Error; end
     class HeaderError < Error; end
     class SubsetError < HeaderError; end
     class UnknownSampleError < SubsetError; end
