@@ -127,8 +127,8 @@ class BcfTest < Minitest::Test
   end
 
   def test_info
-    act = @bcf.info("AN")
-    exp = @bcf.map { |r| r.info("AN") }
+    act = @bcf.info("DP")
+    exp = @bcf.map { |r| r.info("DP") }
     assert_equal exp, act
   end
 
@@ -154,18 +154,14 @@ class BcfTest < Minitest::Test
     bcf&.close
   end
 
-  def test_query_requires_index
-    bcf = silence_stderr do
-      HTS::Bcf.new(Fixtures["test.bcf"], index: "/tmp/no_such_test_bcf_index.csi")
+  def test_initialize_rejects_missing_index
+    error = silence_stderr do
+      assert_raises(HTS::Bcf::MissingIndexError) do
+        HTS::Bcf.new(Fixtures["test.bcf"], index: "/tmp/no_such_test_bcf_index.csi")
+      end
     end
 
-    error = assert_raises(HTS::Bcf::MissingIndexError) do
-      bcf.query("poo:4000-4100").first
-    end
-
-    assert_match(/Index file is required/, error.message)
-  ensure
-    bcf&.close
+    assert_match(/Failed to load index/, error.message)
   end
 
   def test_query_invalid_region_raises_query_error

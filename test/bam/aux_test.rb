@@ -4,8 +4,8 @@ require_relative "../test_helper"
 
 class BamAuxTest < Minitest::Test
   def setup
-    @aux = nil
-    @bam = HTS::Bam.open(Fixtures["poo.sort.bam"]) { |b| @aux = b.first.aux }
+    @bam = HTS::Bam.open(Fixtures["poo.sort.bam"])
+    @aux = @bam.first.aux
   end
 
   def teardown
