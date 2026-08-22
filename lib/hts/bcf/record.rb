@@ -27,11 +27,12 @@ module HTS
       def id = @native.id
 
       def id=(value)
-        @native.set_id(@header.__send__(:native_handle), value)
+        check_update_rc!(@native.set_id(@header.__send__(:native_handle), value), "ID", value)
+        value
       end
 
       def clear_id
-        @native.set_id(@header.__send__(:native_handle), ".")
+        check_update_rc!(@native.set_id(@header.__send__(:native_handle), "."), "ID", ".")
         nil
       end
 
@@ -44,7 +45,8 @@ module HTS
         values = Array(values).map(&:to_s)
         raise ArgumentError, "at least one allele is required" if values.empty?
 
-        @native.set_alleles(@header.__send__(:native_handle), values.join(","))
+        encoded = values.join(",")
+        check_update_rc!(@native.set_alleles(@header.__send__(:native_handle), encoded), "alleles", encoded)
         values
       end
 
@@ -94,6 +96,12 @@ module HTS
       def to_s = @native.format_record(@header.__send__(:native_handle))
 
       private
+
+      def check_update_rc!(result, field, value)
+        return result unless result.negative?
+
+        raise RecordError, "Failed to update #{field} to #{value.inspect} (HTSlib error #{result})"
+      end
 
       def native_handle = @native
 

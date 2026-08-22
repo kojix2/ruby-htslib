@@ -77,6 +77,24 @@ class BcfRecordTest < Minitest::Test
     assert_equal ".", @v1.id
   end
 
+  def test_public_setters_raise_when_native_update_fails
+    native = Object.new
+    native.define_singleton_method(:set_id) { |*, **| -1 }
+    native.define_singleton_method(:set_alleles) { |*, **| -2 }
+    record = HTS::Bcf::Record.new(@bcf.header, native)
+
+    id_error = assert_raises(HTS::Bcf::RecordError) { record.id = "broken" }
+    assert_match(/ID/, id_error.message)
+    assert_match(/broken/, id_error.message)
+
+    clear_error = assert_raises(HTS::Bcf::RecordError) { record.clear_id }
+    assert_match(/ID/, clear_error.message)
+
+    allele_error = assert_raises(HTS::Bcf::RecordError) { record.alleles = %w[A C] }
+    assert_match(/alleles/, allele_error.message)
+    assert_match(/A,C/, allele_error.message)
+  end
+
   def test_filter
     assert_equal "PASS", @v1.filter
     assert_equal "q10", @v2.filter
