@@ -285,6 +285,9 @@ static VALUE native_record_set_qname(VALUE self, VALUE name) {
     if (result < 0) rb_raise(rb_eRuntimeError, "bam_set_qname failed: %d", result);
     return name;
 }
+static void native_record_update_bin(bam1_t *record) {
+    record->core.bin = hts_reg2bin(record->core.pos, bam_endpos(record), 14, 5);
+}
 static VALUE native_record_core_get(VALUE self, VALUE field) {
     bam1_core_t *core = &get_record(self)->pointer->core;
     ID id = SYM2ID(field);
@@ -300,7 +303,8 @@ static VALUE native_record_core_get(VALUE self, VALUE field) {
     rb_raise(rb_eArgError, "unknown BAM core field");
 }
 static VALUE native_record_core_set(VALUE self, VALUE field, VALUE new_value) {
-    bam1_core_t *core = &get_record(self)->pointer->core;
+    bam1_t *record = get_record(self)->pointer;
+    bam1_core_t *core = &record->core;
     ID id = SYM2ID(field);
     if (id == rb_intern("tid")) core->tid = NUM2INT(new_value);
     else if (id == rb_intern("mtid")) core->mtid = NUM2INT(new_value);
@@ -311,6 +315,7 @@ static VALUE native_record_core_set(VALUE self, VALUE field, VALUE new_value) {
     else if (id == rb_intern("mapq")) core->qual = NUM2UINT(new_value);
     else if (id == rb_intern("flag")) core->flag = NUM2UINT(new_value);
     else rb_raise(rb_eArgError, "unknown or read-only BAM core field");
+    if (id == rb_intern("pos") || id == rb_intern("flag")) native_record_update_bin(record);
     return new_value;
 }
 static VALUE native_record_endpos(VALUE self) { return LL2NUM(bam_endpos(get_record(self)->pointer)); }
@@ -323,8 +328,10 @@ static VALUE native_record_cigar_values(VALUE self) {
     return result;
 }
 static VALUE native_record_set_cigar(VALUE self, VALUE text) {
-    int result = bam_parse_cigar(StringValueCStr(text), NULL, get_record(self)->pointer);
+    bam1_t *record = get_record(self)->pointer;
+    int result = bam_parse_cigar(StringValueCStr(text), NULL, record);
     if (result < 0) rb_raise(rb_eRuntimeError, "bam_parse_cigar failed: %d", result);
+    native_record_update_bin(record);
     return text;
 }
 static VALUE native_record_qlen(VALUE self) {

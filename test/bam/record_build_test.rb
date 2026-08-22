@@ -131,4 +131,21 @@ class BamRecordBuildTest < Minitest::Test
       assert_equal ["read1"], names
     end
   end
+
+  def test_coordinate_cigar_and_mapping_updates_recalculate_bin
+    record = HTS::Bam::Record.new(
+      @header, qname: "bin", chrom: "chr1", pos: 0, cigar: "1M", sequence: "A"
+    )
+    assert_equal 4681, record.bin
+
+    record.pos = 20_000
+    assert_equal 4682, record.bin
+
+    record.pos = 0
+    record.cigar = "20000M"
+    assert_equal 585, record.bin
+
+    record.flag = record.flag_value | HTS::Bam::Flag::UNMAPPED
+    assert_equal 4681, record.bin
+  end
 end
