@@ -159,12 +159,12 @@ explicit <code>index:</code> path to <code>open</code> to validate and load that
 
 <span class='id identifier rubyid_bcf'>bcf</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
   <span class='id identifier rubyid_p'>p</span> <span class='label'>chrom:</span>  <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_chrom'>chrom</span><span class='comma'>,</span>
-    <span class='label'>pos:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span><span class='comma'>,</span>
-    <span class='label'>id:</span>     <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+    <span class='label'>pos:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span> <span class='comment'># VCF POS is 1-based; Record#pos is 0-based.
+</span>    <span class='label'>id:</span>     <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
     <span class='label'>qual:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_qual'>qual</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>ref:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span>
     <span class='label'>alt:</span>    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span><span class='comma'>,</span>
-    <span class='label'>filter:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='comma'>,</span>
+    <span class='label'>filters:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='comma'>,</span>
     <span class='label'>info:</span>   <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span><span class='comma'>,</span>
     <span class='label'>format:</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
 <span class='kw'>end</span>
@@ -185,7 +185,8 @@ explicit <code>index:</code> path to <code>open</code> to validate and load that
 </code></pre>
 <h3 id="HTS__Tabix___GFF___BED___TAB_delimited_genome_position_file">HTS::Tabix - GFF / BED - TAB-delimited genome position file</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTS.html" title="HTS (module)">HTS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="HTS/Tabix.html" title="HTS::Tabix (class)">Tabix</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="HTS/Tabix.html#open-class_method" title="HTS::Tabix.open (method)">open</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test/fixtures/test.vcf.gz</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>poo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2000</span><span class='comma'>,</span> <span class='int'>3000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+<span class='comment'># Numeric coordinates are 0-based, half-open: [2000, 3000).
+</span><span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>poo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2000</span><span class='comma'>,</span> <span class='int'>3000</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
@@ -213,7 +214,8 @@ the same key again makes an old view raise <code>InvalidBorrowedViewError</code>
 silently returning overwritten data. <code>genotype_strings</code>, <code>get</code>, and <code>[]</code> remain
 the allocating convenience APIs. Use <code>unpack: :site_only</code> when FORMAT columns
 are not needed.</p>
-<p>Tabix likewise separates raw and materialized access:</p>
+<p>Tabix likewise lets callers avoid splitting unused columns. All yielded Ruby
+strings and arrays below are owning values:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_line'>each_line</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='rbrace'>}</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_fields'>each_fields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fields'>fields</span><span class='op'>|</span> <span class='rbrace'>}</span>
 <span class='id identifier rubyid_tb'>tb</span><span class='period'>.</span><span class='id identifier rubyid_each_selected_fields'>each_selected_fields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chr1:1-1000</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='int'>3</span><span class='comma'>,</span> <span class='int'>4</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='rbrace'>}</span>
@@ -280,7 +282,7 @@ If so, please feel free to contact us @kojix2.
 <p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p></div></div>
 
       <div id="footer">
-  Generated on Sat Aug 22 10:34:13 2026 by
+  Generated on Sat Aug 22 12:02:11 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

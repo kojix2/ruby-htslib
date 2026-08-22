@@ -115,7 +115,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Tabix/OpenError.html" title="HTS::Tabix::OpenError (class)">OpenError</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Tabix/MissingIndexError.html" title="HTS::Tabix::MissingIndexError (class)">MissingIndexError</a></span>, <span class='object_link'><a href="Tabix/OpenError.html" title="HTS::Tabix::OpenError (class)">OpenError</a></span>
     
   
 </p>
@@ -633,6 +633,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#try_load_index-instance_method" title="#try_load_index (instance method)">#<strong>try_load_index</strong>(index_name = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
     
   
@@ -672,7 +694,6 @@
       <pre class="lines">
 
 
-28
 29
 30
 31
@@ -691,10 +712,15 @@
 44
 45
 46
-47</pre>
+47
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>threads:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>build_index:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -713,8 +739,12 @@
 
   <span class='id identifier rubyid_set_threads'>set_threads</span><span class='lparen'>(</span><span class='id identifier rubyid_threads'>threads</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_threads'>threads</span>
 
-  <span class='comment'># build_index(index) if build_index
-</span>  <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_build_index'>build_index</span>
+    <span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_index'>index</span>
+    <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -752,12 +782,12 @@
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_name'>file_name</span>
   <span class='ivar'>@file_name</span>
@@ -793,12 +823,12 @@
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_name'>index_name</span>
   <span class='ivar'>@index_name</span>
@@ -834,12 +864,12 @@
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='ivar'>@mode</span>
@@ -875,12 +905,12 @@
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nthreads'>nthreads</span>
   <span class='ivar'>@nthreads</span>
@@ -912,7 +942,6 @@
       <pre class="lines">
 
 
-16
 17
 18
 19
@@ -922,21 +951,22 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kw'>kw</span><span class='rparen'>)</span> <span class='comment'># do not yield
 </span>  <span class='kw'>return</span> <span class='id identifier rubyid_file'>file</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
 
   <span class='kw'>begin</span>
-    <span class='kw'>yield</span> <span class='id identifier rubyid_file'>file</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>yield</span> <span class='id identifier rubyid_file'>file</span>
   <span class='kw'>ensure</span>
     <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_file'>file</span>
+  <span class='id identifier rubyid_result'>result</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -964,11 +994,6 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
-53
 54
 55
 56
@@ -987,10 +1012,15 @@
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build_index'>build_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>min_shift:</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1036,14 +1066,14 @@
       <pre class="lines">
 
 
-141
-142
-143
-144
-145</pre>
+152
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed?'>closed?</span>
@@ -1092,12 +1122,12 @@
       <pre class="lines">
 
 
-147
-148
-149</pre>
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 158</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_closed?'>closed?</span>
   <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_closed?'>closed?</span>
@@ -1131,12 +1161,12 @@
       <pre class="lines">
 
 
-105
-106
-107</pre>
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_fields'>each_fields</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_query_with_mode'>query_with_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='symbol'>:fields</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1170,12 +1200,12 @@
       <pre class="lines">
 
 
-110
-111
-112</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_line'>each_line</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_query_with_mode'>query_with_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='symbol'>:line</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1223,20 +1253,20 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126</pre>
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_selected_fields'>each_selected_fields</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_columns'>columns</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>at least one column index is required</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_columns'>columns</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1269,10 +1299,10 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-151</pre>
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 162</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_format'>file_format</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_file_format'>file_format</span></pre>
     </td>
@@ -1295,10 +1325,10 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-152</pre>
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_format_version'>file_format_version</span> <span class='op'>=</span> <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_file_format_version'>file_format_version</span></pre>
     </td>
@@ -1343,13 +1373,13 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-81
-82
-83
-84</pre>
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index_loaded?'>index_loaded?</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1369,27 +1399,47 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Tabix/MissingIndexError.html" title="HTS::Tabix::MissingIndexError (class)">MissingIndexError</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-74
-75
-76
-77
-78
-79</pre>
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_check_closed'>check_closed</span>
-  <span class='ivar'>@index_name</span> <span class='op'>=</span> <span class='id identifier rubyid_index_name'>index_name</span>
-  <span class='ivar'>@index_load_attempted</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_try_load_index'>try_load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Tabix/MissingIndexError.html" title="HTS::Tabix::MissingIndexError (class)">MissingIndexError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to load index </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@file_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1411,15 +1461,15 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
-91</pre>
+97
+98
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name2id'>name2id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1447,12 +1497,12 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_query_with_mode'>query_with_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='symbol'>:fields</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1477,21 +1527,21 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139</pre>
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 139</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_with_mode'>query_with_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_region'>region</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_end_'>end_</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='comma'>,</span> <span class='id identifier rubyid_columns'>columns</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1525,15 +1575,15 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-93
-94
-95
-96
-97
-98</pre>
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seqnames'>seqnames</span>
   <span class='id identifier rubyid_check_closed'>check_closed</span>
@@ -1583,21 +1633,21 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
       <pre class="lines">
 
 
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165</pre>
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_threads'>set_threads</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1616,12 +1666,48 @@ field strings. This Ruby implementation scans tab delimiters once.</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="try_load_index-instance_method">
+  
+    #<strong>try_load_index</strong>(index_name = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/hts/tabix.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_try_load_index'>try_load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_closed'>check_closed</span>
+  <span class='ivar'>@index_name</span> <span class='op'>=</span> <span class='id identifier rubyid_index_name'>index_name</span>
+  <span class='ivar'>@index_load_attempted</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='ivar'>@native</span><span class='period'>.</span><span class='id identifier rubyid_load_index'>load_index</span><span class='lparen'>(</span><span class='id identifier rubyid_index_name'>index_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Aug 22 10:34:14 2026 by
+  Generated on Sat Aug 22 12:02:11 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

@@ -180,6 +180,21 @@
         </dt>
         <dd><pre class="code"><span class='int'>2048</span></pre></dd>
       
+        <dt id="UNMAP-constant" class="">UNMAP =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#UNMAPPED-constant" title="HTS::Bam::Flag::UNMAPPED (constant)">UNMAPPED</a></span></span></pre></dd>
+      
+        <dt id="MUNMAP-constant" class="">MUNMAP =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#MATE_UNMAPPED-constant" title="HTS::Bam::Flag::MATE_UNMAPPED (constant)">MATE_UNMAPPED</a></span></span></pre></dd>
+      
+        <dt id="DUP-constant" class="">DUP =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#DUPLICATE-constant" title="HTS::Bam::Flag::DUPLICATE (constant)">DUPLICATE</a></span></span></pre></dd>
+      
         <dt id="TABLE-constant" class="">TABLE =
           
         </dt>
@@ -853,12 +868,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -883,12 +898,12 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -913,12 +928,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='op'>&gt;&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&gt;&gt;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -943,12 +958,12 @@
       <pre class="lines">
 
 
-72
-73
-74</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='op'>^</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>^</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -995,10 +1010,10 @@
       <pre class="lines">
 
 
-57</pre>
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 61</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:duplicate?</span></pre>
     </td>
@@ -1043,12 +1058,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_flag?'>has_flag?</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='int'>0</span>
@@ -1095,10 +1110,10 @@
       <pre class="lines">
 
 
-52</pre>
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 56</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:mate_reverse?</span></pre>
     </td>
@@ -1143,10 +1158,10 @@
       <pre class="lines">
 
 
-50</pre>
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 54</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:mate_unmapped?</span></pre>
     </td>
@@ -1191,10 +1206,10 @@
       <pre class="lines">
 
 
-47</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 51</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:paired?</span></pre>
     </td>
@@ -1239,10 +1254,10 @@
       <pre class="lines">
 
 
-48</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 52</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:proper_pair?</span></pre>
     </td>
@@ -1287,10 +1302,10 @@
       <pre class="lines">
 
 
-56</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 60</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:qcfail?</span></pre>
     </td>
@@ -1335,10 +1350,10 @@
       <pre class="lines">
 
 
-53</pre>
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 57</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:read1?</span></pre>
     </td>
@@ -1383,10 +1398,10 @@
       <pre class="lines">
 
 
-54</pre>
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 58</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:read2?</span></pre>
     </td>
@@ -1431,10 +1446,10 @@
       <pre class="lines">
 
 
-51</pre>
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 55</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:reverse?</span></pre>
     </td>
@@ -1479,10 +1494,10 @@
       <pre class="lines">
 
 
-55</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 59</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:secondary?</span></pre>
     </td>
@@ -1527,10 +1542,10 @@
       <pre class="lines">
 
 
-58</pre>
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 62</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:supplementary?</span></pre>
     </td>
@@ -1553,12 +1568,12 @@
       <pre class="lines">
 
 
-90
-91
-92</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_i'>to_i</span>
   <span class='ivar'>@value</span>
@@ -1583,12 +1598,12 @@
       <pre class="lines">
 
 
-94
-95
-96</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='const'><span class='object_link'><a href="../Native.html" title="HTS::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bam_flag_string'><span class='object_link'><a href="../Native.html#bam_flag_string-class_method" title="HTS::Native.bam_flag_string (method)">bam_flag_string</a></span></span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span>
@@ -1635,10 +1650,10 @@
       <pre class="lines">
 
 
-49</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 53</span>
 
 <span class='id identifier rubyid_generate'>generate</span> <span class='symbol'>:unmapped?</span></pre>
     </td>
@@ -1661,12 +1676,12 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>|</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -1691,19 +1706,15 @@
       <pre class="lines">
 
 
-76
-77
-78
-79
-80</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/flag.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='op'>~</span>
-  <span class='comment'># FIXME: Only 12bits are used for flags
-</span>  <span class='comment'># The result is different from the Crystal version.
-</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>~</span><span class='ivar'>@value</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>~</span><span class='ivar'>@value</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='int'>0x0fff</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1715,7 +1726,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Aug 22 10:34:14 2026 by
+  Generated on Sat Aug 22 12:02:11 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
