@@ -328,20 +328,20 @@
       <pre class="lines">
 
 
-666
-667
-668
-669
-670
-671
-672
-673
-674
-675
-676</pre>
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 666</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 708</span>
 
 static VALUE native_base_mod_open(VALUE klass, VALUE record) {
     ruby_base_mod_t *value;
@@ -380,30 +380,40 @@ static VALUE native_base_mod_open(VALUE klass, VALUE record) {
       <pre class="lines">
 
 
-700
-701
-702
-703
-704
-705
-706
-707
-708
-709
-710</pre>
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 700</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 749</span>
 
 static VALUE native_base_mod_at(VALUE self, VALUE position, VALUE max_value) {
     ruby_base_mod_t *value = get_base_mod(self);
     int max = NUM2INT(max_value), count;
     hts_base_mod *mods;
+    VALUE mods_storage = 0;
     if (max &lt;= 0) rb_raise(rb_eArgError, &quot;max_mods must be positive&quot;);
-    mods = ALLOC_N(hts_base_mod, max);
+    mods = ALLOCV_N(hts_base_mod, mods_storage, max);
     count = bam_mods_at_qpos(get_record(value-&gt;record)-&gt;pointer, NUM2INT(position), value-&gt;state, mods, max);
+    if (count &lt; 0) {
+        ALLOCV_END(mods_storage);
+        raise_base_mod_error(&quot;bam_mods_at_qpos&quot;);
+    }
     VALUE result = count &gt; 0 ? base_mod_array(mods, count &lt; max ? count : max) : Qnil;
-    xfree(mods);
+    ALLOCV_END(mods_storage);
     return result;
 }</pre>
     </td>
@@ -426,15 +436,15 @@ static VALUE native_base_mod_at(VALUE self, VALUE position, VALUE max_value) {
       <pre class="lines">
 
 
-677
-678
-679
-680
-681
-682</pre>
+719
+720
+721
+722
+723
+724</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 677</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 719</span>
 
 static VALUE native_base_mod_close(VALUE self) {
     ruby_base_mod_t *value;
@@ -462,35 +472,41 @@ static VALUE native_base_mod_close(VALUE self) {
       <pre class="lines">
 
 
-711
-712
-713
-714
-715
-716
-717
-718
-719
-720
-721
-722
-723
-724
-725
-726
-727
-728</pre>
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 711</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 765</span>
 
 static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
     ruby_base_mod_t *value = get_base_mod(self);
     int max = NUM2INT(max_value), count, position, index;
     hts_base_mod *mods;
+    VALUE mods_storage = 0;
     if (!rb_block_given_p()) rb_raise(rb_eArgError, &quot;block is required&quot;);
     if (max &lt;= 0) rb_raise(rb_eArgError, &quot;max_mods must be positive&quot;);
-    mods = ALLOC_N(hts_base_mod, max);
+    mods = ALLOCV_N(hts_base_mod, mods_storage, max);
     while ((count = bam_next_basemod(get_record(value-&gt;record)-&gt;pointer, value-&gt;state, mods, max, &amp;position)) &gt; 0) {
         if (count &gt; max) count = max;
         for (index = 0; index &lt; count; index++) {
@@ -499,7 +515,11 @@ static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
                             INT2NUM(mods[index].qual));
         }
     }
-    xfree(mods);
+    if (count &lt; 0) {
+        ALLOCV_END(mods_storage);
+        raise_base_mod_error(&quot;bam_next_basemod&quot;);
+    }
+    ALLOCV_END(mods_storage);
     return self;
 }</pre>
     </td>
@@ -522,13 +542,13 @@ static VALUE native_base_mod_each_raw(VALUE self, VALUE max_value) {
       <pre class="lines">
 
 
-683
-684
-685
-686</pre>
+725
+726
+727
+728</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 683</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 725</span>
 
 static VALUE native_base_mod_parse(VALUE self, VALUE flags) {
     ruby_base_mod_t *value = get_base_mod(self);
@@ -554,16 +574,16 @@ static VALUE native_base_mod_parse(VALUE self, VALUE flags) {
       <pre class="lines">
 
 
-746
-747
-748
-749
-750
-751
-752</pre>
+805
+806
+807
+808
+809
+810
+811</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 746</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 805</span>
 
 static VALUE native_base_mod_query(VALUE self, VALUE code_value) {
     ruby_base_mod_t *value = get_base_mod(self);
@@ -592,18 +612,18 @@ static VALUE native_base_mod_query(VALUE self, VALUE code_value) {
       <pre class="lines">
 
 
-753
-754
-755
-756
-757
-758
-759
-760
-761</pre>
+812
+813
+814
+815
+816
+817
+818
+819
+820</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 753</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 812</span>
 
 static VALUE native_base_mod_query_at(VALUE self, VALUE index_value) {
     ruby_base_mod_t *value = get_base_mod(self);
@@ -634,16 +654,16 @@ static VALUE native_base_mod_query_at(VALUE self, VALUE index_value) {
       <pre class="lines">
 
 
-729
-730
-731
-732
-733
-734
-735</pre>
+788
+789
+790
+791
+792
+793
+794</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 729</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 788</span>
 
 static VALUE native_base_mod_types(VALUE self) {
     ruby_base_mod_t *value = get_base_mod(self);
@@ -662,7 +682,7 @@ static VALUE native_base_mod_types(VALUE self) {
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:56 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

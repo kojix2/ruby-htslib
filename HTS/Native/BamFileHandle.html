@@ -156,7 +156,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>File and iterator.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -548,13 +548,13 @@
       <pre class="lines">
 
 
-607
-608
-609
-610</pre>
+651
+652
+653
+654</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 607</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 651</span>
 
 static VALUE native_bam_build_index(VALUE klass, VALUE path, VALUE index, VALUE shift, VALUE threads) {
     return INT2NUM(sam_index_build3(StringValueCStr(path), NIL_P(index) ? NULL : StringValueCStr(index),
@@ -574,35 +574,27 @@ static VALUE native_bam_build_index(VALUE klass, VALUE path, VALUE index, VALUE 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>File and iterator</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-517
-518
-519
-520
-521
-522
-523
-524
-525
-526
-527</pre>
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 517</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 552</span>
 
 static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
     ruby_bam_file_t *value;
@@ -611,8 +603,9 @@ static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
     value-&gt;active_io = 0;
     value-&gt;path = rb_str_dup(StringValue(path_value));
     RB_OBJ_WRITE(object, &amp;value-&gt;path, value-&gt;path);
+    errno = 0;
     value-&gt;file = hts_open(StringValueCStr(value-&gt;path), StringValueCStr(mode_value));
-    if (!value-&gt;file) rb_syserr_fail_str(ENOENT, path_value);
+    if (!value-&gt;file) raise_bam_open_error(path_value, errno);
     return object;
 }</pre>
     </td>
@@ -641,23 +634,25 @@ static VALUE native_bam_open(VALUE klass, VALUE path_value, VALUE mode_value) {
       <pre class="lines">
 
 
-528
-529
-530
-531
-532
-533
-534</pre>
+564
+565
+566
+567
+568
+569
+570
+571</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 528</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 564</span>
 
 static VALUE native_bam_close(VALUE self) {
     ruby_bam_file_t *value = get_file(self, 1);
+    int result = 0;
     if (value-&gt;active_io) rb_raise(rb_eIOError, &quot;cannot close BAM during active I/O&quot;);
     if (value-&gt;index) { hts_idx_destroy(value-&gt;index); value-&gt;index = NULL; }
-    if (value-&gt;file) { hts_close(value-&gt;file); value-&gt;file = NULL; }
-    return Qnil;
+    if (value-&gt;file) { result = hts_close(value-&gt;file); value-&gt;file = NULL; }
+    return INT2NUM(result);
 }</pre>
     </td>
   </tr>
@@ -701,10 +696,10 @@ static VALUE native_bam_close(VALUE self) {
       <pre class="lines">
 
 
-535</pre>
+572</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 535</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 572</span>
 
 static VALUE native_bam_closed(VALUE self) { return get_file(self, 1)-&gt;file ? Qfalse : Qtrue; }</pre>
     </td>
@@ -727,21 +722,21 @@ static VALUE native_bam_closed(VALUE self) { return get_file(self, 1)-&gt;file ?
       <pre class="lines">
 
 
-567
-568
-569
-570
-571
-572
-573
-574
-575
-576
-577
-578</pre>
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 567</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 611</span>
 
 static VALUE native_bam_format(VALUE self) {
     const htsFormat *format = hts_get_format(get_file(self, 0)-&gt;file);
@@ -775,15 +770,15 @@ static VALUE native_bam_format(VALUE self) {
       <pre class="lines">
 
 
-579
-580
-581
-582
-583
-584</pre>
+623
+624
+625
+626
+627
+628</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 579</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 623</span>
 
 static VALUE native_bam_format_version(VALUE self) {
     const htsFormat *format = hts_get_format(get_file(self, 0)-&gt;file);
@@ -833,10 +828,10 @@ static VALUE native_bam_format_version(VALUE self) {
       <pre class="lines">
 
 
-606</pre>
+650</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 606</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 650</span>
 
 static VALUE native_bam_index_loaded(VALUE self) { return get_file(self, 0)-&gt;index ? Qtrue : Qfalse; }</pre>
     </td>
@@ -859,17 +854,17 @@ static VALUE native_bam_index_loaded(VALUE self) { return get_file(self, 0)-&gt;
       <pre class="lines">
 
 
-598
-599
-600
-601
-602
-603
-604
-605</pre>
+642
+643
+644
+645
+646
+647
+648
+649</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 598</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 642</span>
 
 static VALUE native_bam_load_index(VALUE self, VALUE index_value) {
     ruby_bam_file_t *value = get_file(self, 0);
@@ -899,14 +894,14 @@ static VALUE native_bam_load_index(VALUE self, VALUE index_value) {
       <pre class="lines">
 
 
-611
-612
-613
-614
-615</pre>
+655
+656
+657
+658
+659</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 611</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 655</span>
 
 static VALUE native_bam_query_interval(VALUE self, VALUE tid, VALUE beg, VALUE end) {
     ruby_bam_file_t *file = get_file(self, 0);
@@ -933,14 +928,14 @@ static VALUE native_bam_query_interval(VALUE self, VALUE tid, VALUE beg, VALUE e
       <pre class="lines">
 
 
-616
-617
-618
-619
-620</pre>
+660
+661
+662
+663
+664</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 616</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 660</span>
 
 static VALUE native_bam_query_region(VALUE self, VALUE header, VALUE region) {
     ruby_bam_file_t *file = get_file(self, 0);
@@ -967,17 +962,17 @@ static VALUE native_bam_query_region(VALUE self, VALUE header, VALUE region) {
       <pre class="lines">
 
 
-553
-554
-555
-556</pre>
+597
+598
+599
+600</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 553</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 597</span>
 
 static VALUE native_bam_read(VALUE self, VALUE header, VALUE record) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file-&gt;file,get_header(header)-&gt;pointer,get_record(record)-&gt;pointer,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_read_without_gvl,&amp;args,RUBY_UBF_IO,NULL); file-&gt;active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_read_without_gvl,&amp;args); return INT2NUM(args.result);
 }</pre>
     </td>
   </tr>
@@ -999,18 +994,18 @@ static VALUE native_bam_read(VALUE self, VALUE header, VALUE record) {
       <pre class="lines">
 
 
-544
-545
-546
-547
-548</pre>
+588
+589
+590
+591
+592</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 544</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 588</span>
 
 static VALUE native_bam_read_header(VALUE self) {
     ruby_bam_file_t *file=get_file(self,0); bam_header_read_args_t args={file-&gt;file,NULL};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_read_header_without_gvl,&amp;args,RUBY_UBF_IO,NULL); file-&gt;active_io=0;
+    bam_io_run(file,bam_read_header_without_gvl,&amp;args);
     return wrap_header(args.result);
 }</pre>
     </td>
@@ -1033,16 +1028,16 @@ static VALUE native_bam_read_header(VALUE self) {
       <pre class="lines">
 
 
-585
-586
-587
-588
-589
-590
-591</pre>
+629
+630
+631
+632
+633
+634
+635</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 585</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 629</span>
 
 static VALUE native_bam_seek(VALUE self, VALUE offset) {
     htsFile *file = get_file(self, 0)-&gt;file;
@@ -1071,12 +1066,12 @@ static VALUE native_bam_seek(VALUE self, VALUE offset) {
       <pre class="lines">
 
 
-561
-562
-563</pre>
+605
+606
+607</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 561</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 605</span>
 
 static VALUE native_bam_set_fai(VALUE self, VALUE path) {
     return INT2NUM(hts_set_fai_filename(get_file(self, 0)-&gt;file, StringValueCStr(path)));
@@ -1101,12 +1096,12 @@ static VALUE native_bam_set_fai(VALUE self, VALUE path) {
       <pre class="lines">
 
 
-564
-565
-566</pre>
+608
+609
+610</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 564</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 608</span>
 
 static VALUE native_bam_set_threads(VALUE self, VALUE count) {
     return INT2NUM(hts_set_threads(get_file(self, 0)-&gt;file, NUM2INT(count)));
@@ -1131,15 +1126,15 @@ static VALUE native_bam_set_threads(VALUE self, VALUE count) {
       <pre class="lines">
 
 
-592
-593
-594
-595
-596
-597</pre>
+636
+637
+638
+639
+640
+641</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 592</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 636</span>
 
 static VALUE native_bam_tell(VALUE self) {
     htsFile *file = get_file(self, 0)-&gt;file;
@@ -1167,17 +1162,17 @@ static VALUE native_bam_tell(VALUE self) {
       <pre class="lines">
 
 
-557
-558
-559
-560</pre>
+601
+602
+603
+604</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 557</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 601</span>
 
 static VALUE native_bam_write(VALUE self, VALUE header, VALUE record) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file-&gt;file,get_header(header)-&gt;pointer,get_record(record)-&gt;pointer,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_write_without_gvl,&amp;args,RUBY_UBF_IO,NULL); file-&gt;active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_write_without_gvl,&amp;args); return INT2NUM(args.result);
 }</pre>
     </td>
   </tr>
@@ -1199,17 +1194,17 @@ static VALUE native_bam_write(VALUE self, VALUE header, VALUE record) {
       <pre class="lines">
 
 
-549
-550
-551
-552</pre>
+593
+594
+595
+596</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 549</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 593</span>
 
 static VALUE native_bam_write_header(VALUE self, VALUE header) {
     ruby_bam_file_t *file=get_file(self,0); bam_io_args_t args={file-&gt;file,get_header(header)-&gt;pointer,NULL,NULL,0};
-    bam_io_begin(file); rb_thread_call_without_gvl(bam_write_header_without_gvl,&amp;args,RUBY_UBF_IO,NULL); file-&gt;active_io=0; return INT2NUM(args.result);
+    bam_io_run(file,bam_write_header_without_gvl,&amp;args); return INT2NUM(args.result);
 }</pre>
     </td>
   </tr>
@@ -1221,7 +1216,7 @@ static VALUE native_bam_write_header(VALUE self, VALUE header) {
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:56 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

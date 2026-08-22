@@ -186,15 +186,15 @@
       <pre class="lines">
 
 
-630
-631
-632
-633
-634
-635</pre>
+672
+673
+674
+675
+676
+677</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 630</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 672</span>
 
 static VALUE native_bam_iterator_close(VALUE self) {
     ruby_bam_iterator_t *value;
@@ -222,26 +222,22 @@ static VALUE native_bam_iterator_close(VALUE self) {
       <pre class="lines">
 
 
-621
-622
-623
-624
-625
-626
-627
-628
-629</pre>
+665
+666
+667
+668
+669
+670
+671</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 621</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 665</span>
 
 static VALUE native_bam_iterator_next(VALUE self, VALUE record) {
     ruby_bam_iterator_t *iterator = get_iterator(self);
     ruby_bam_file_t *file = get_file(iterator-&gt;file, 0);
     bam_io_args_t args={file-&gt;file,NULL,get_record(record)-&gt;pointer,iterator-&gt;iterator,0};
-    bam_io_begin(file);
-    rb_thread_call_without_gvl(bam_iterator_without_gvl,&amp;args,RUBY_UBF_IO,NULL);
-    file-&gt;active_io=0;
+    bam_io_run(file,bam_iterator_without_gvl,&amp;args);
     return INT2NUM(args.result);
 }</pre>
     </td>
@@ -254,7 +250,7 @@ static VALUE native_bam_iterator_next(VALUE self, VALUE record) {
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:56 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

@@ -240,37 +240,37 @@
       <pre class="lines">
 
 
-797
-798
-799
-800
-801
-802
-803
-804
-805
-806
-807
-808
-809
-810
-811
-812
-813
-814
-815
-816
-817
-818
-819
-820
-821
-822
-823
-824</pre>
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 797</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 856</span>
 
 static VALUE native_pileup_open(VALUE klass, VALUE file_value, VALUE header_value,
                                 VALUE region_value, VALUE beg_value, VALUE end_value, VALUE max_value) {
@@ -326,15 +326,15 @@ static VALUE native_pileup_open(VALUE klass, VALUE file_value, VALUE header_valu
       <pre class="lines">
 
 
-874
-875
-876
-877
-878
-879</pre>
+933
+934
+935
+936
+937
+938</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 874</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 933</span>
 
 static VALUE native_pileup_close(VALUE self) {
     ruby_pileup_t *value = get_pileup(self, 1);
@@ -362,25 +362,25 @@ static VALUE native_pileup_close(VALUE self) {
       <pre class="lines">
 
 
-854
-855
-856
-857
-858
-859
-860
-861
-862
-863
-864
-865
-866
-867
-868
-869</pre>
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 854</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 913</span>
 
 static VALUE native_pileup_next(VALUE self) {
     ruby_pileup_t *value = get_pileup(self, 0);
@@ -418,13 +418,13 @@ static VALUE native_pileup_next(VALUE self) {
       <pre class="lines">
 
 
-870
-871
-872
-873</pre>
+929
+930
+931
+932</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 870</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 929</span>
 
 static VALUE native_pileup_reset(VALUE self) {
     bam_plp_reset(get_pileup(self, 0)-&gt;pileup);
@@ -440,7 +440,7 @@ static VALUE native_pileup_reset(VALUE self) {
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:56 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

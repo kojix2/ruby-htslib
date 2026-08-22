@@ -134,7 +134,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Record core.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -652,25 +652,16 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Record core</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-207</pre>
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 207</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 222</span>
 
 <span class='id identifier rubyid_static'>static</span> <span class='const'>VALUE</span> <span class='id identifier rubyid_native_bcf_record_create'>native_bcf_record_create</span><span class='lparen'>(</span><span class='const'>VALUE</span> <span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='kw'>return</span> <span class='id identifier rubyid_wrap_bcf_record'>wrap_bcf_record</span><span class='lparen'>(</span><span class='id identifier rubyid_bcf_init'>bcf_init</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -699,12 +690,12 @@
       <pre class="lines">
 
 
-226</pre>
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 226</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 241</span>
 
-static VALUE native_bcf_record_alleles(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_STR); a=rb_ary_new_capa(r-&gt;n_allele); for(i=0;i&lt;r-&gt;n_allele;i++)rb_ary_push(a,rb_str_new_cstr(r-&gt;d.allele[i])); return a; }</pre>
+static VALUE native_bcf_record_alleles(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_STR); a=rb_ary_new_capa(r-&gt;n_allele); for(i=0;i&lt;r-&gt;n_allele;i++){if(!r-&gt;d.allele[i])raise_bcf_record_error(&quot;BCF allele is missing after unpack&quot;);rb_ary_push(a,rb_str_new_cstr(r-&gt;d.allele[i]));} return a; }</pre>
     </td>
   </tr>
 </table>
@@ -725,17 +716,17 @@ static VALUE native_bcf_record_alleles(VALUE self) { bcf1_t *r=get_bcf_record(se
       <pre class="lines">
 
 
-209
-210
-211
-212
-213
-214
-215
-216</pre>
+224
+225
+226
+227
+228
+229
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 209</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 224</span>
 
 static VALUE native_bcf_record_core_get(VALUE self,VALUE field) {
     bcf1_t *r=get_bcf_record(self)-&gt;pointer; ID id=SYM2ID(field);
@@ -765,16 +756,16 @@ static VALUE native_bcf_record_core_get(VALUE self,VALUE field) {
       <pre class="lines">
 
 
-217
-218
-219
-220
-221
-222
-223</pre>
+232
+233
+234
+235
+236
+237
+238</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 217</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 232</span>
 
 static VALUE native_bcf_record_core_set(VALUE self,VALUE field,VALUE value) {
     bcf1_t *r=get_bcf_record(self)-&gt;pointer; ID id=SYM2ID(field);
@@ -803,10 +794,10 @@ static VALUE native_bcf_record_core_set(VALUE self,VALUE field,VALUE value) {
       <pre class="lines">
 
 
-208</pre>
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 208</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 223</span>
 
 static VALUE native_bcf_record_duplicate(VALUE self) { return wrap_bcf_record(bcf_dup(get_bcf_record(self)-&gt;pointer)); }</pre>
     </td>
@@ -829,12 +820,12 @@ static VALUE native_bcf_record_duplicate(VALUE self) { return wrap_bcf_record(bc
       <pre class="lines">
 
 
-228</pre>
+243</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 228</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 243</span>
 
-static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r-&gt;d.n_flt); for(i=0;i&lt;r-&gt;d.n_flt;i++)rb_ary_push(a,INT2NUM(r-&gt;d.flt[i])); return a; }</pre>
+static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r-&gt;d.n_flt); for(i=0;i&lt;r-&gt;d.n_flt;i++)rb_ary_push(a,INT2NUM(r-&gt;d.flt[i])); return a; }</pre>
     </td>
   </tr>
 </table>
@@ -855,12 +846,12 @@ static VALUE native_bcf_record_filter_ids(VALUE self) { bcf1_t *r=get_bcf_record
       <pre class="lines">
 
 
-229</pre>
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 229</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 244</span>
 
-static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; bcf_hdr_t *h=get_bcf_header(header)-&gt;pointer; int i; VALUE a; bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r-&gt;d.n_flt); for(i=0;i&lt;r-&gt;d.n_flt;i++)rb_ary_push(a,rb_str_new_cstr(bcf_hdr_int2id(h,BCF_DT_ID,r-&gt;d.flt[i]))); return a; }</pre>
+static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; bcf_hdr_t *h=get_bcf_header(header)-&gt;pointer; int i; VALUE a; check_bcf_unpack(r,BCF_UN_FLT); a=rb_ary_new_capa(r-&gt;d.n_flt); for(i=0;i&lt;r-&gt;d.n_flt;i++)rb_ary_push(a,rb_str_new_cstr(checked_bcf_id(h,r-&gt;d.flt[i]))); return a; }</pre>
     </td>
   </tr>
 </table>
@@ -881,10 +872,10 @@ static VALUE native_bcf_record_filter_names(VALUE self,VALUE header) { bcf1_t *r
       <pre class="lines">
 
 
-323</pre>
+376</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 323</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 376</span>
 
 static VALUE native_bcf_format_delete(VALUE self,VALUE header,VALUE key,VALUE type) {return INT2NUM(bcf_update_format(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,StringValueCStr(key),NULL,0,NUM2INT(type)));}</pre>
     </td>
@@ -907,10 +898,10 @@ static VALUE native_bcf_format_delete(VALUE self,VALUE header,VALUE key,VALUE ty
       <pre class="lines">
 
 
-245</pre>
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 245</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 260</span>
 
 static VALUE native_bcf_record_format_fields(VALUE self,VALUE header) { return field_rows(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,1); }</pre>
     </td>
@@ -933,41 +924,43 @@ static VALUE native_bcf_record_format_fields(VALUE self,VALUE header) { return f
       <pre class="lines">
 
 
-287
-288
-289
-290
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301
-302</pre>
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 287</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 338</span>
 
 static VALUE native_bcf_format_get(VALUE self,VALUE header_value,VALUE key_value,VALUE type_value,VALUE raw_value) {
-    bcf_hdr_t*h=get_bcf_header(header_value)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),cap=0,count,i;void*dst=NULL;VALUE value;
+    bcf_hdr_t*h=get_bcf_header(header_value)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),cap=0,count;void*dst=NULL;
     if(type==BCF_HT_STR){
         char **strings=NULL;
         int sample_count=bcf_hdr_nsamples(h);
+        bcf_string_result_t result;
         count=bcf_get_format_string(h,r,StringValueCStr(key_value),&amp;strings,&amp;cap);
-        if(count&lt;0){free(strings);return Qnil;}
-        value=rb_ary_new_capa(sample_count);
-        for(i=0;i&lt;sample_count;i++)rb_ary_push(value,rb_str_new_cstr(strings[i]));
-        if(strings){if(sample_count&gt;0)free(strings[0]);free(strings);}
-        return value;
+        if(count&lt;0){const char *key=StringValueCStr(key_value);free(strings);if(count==-3)return Qnil;raise_bcf_field_read_error(&quot;FormatReadError&quot;,key,count);}
+        result.strings=strings;result.sample_count=sample_count;
+        return rb_ensure(bcf_string_result_to_ruby,(VALUE)(uintptr_t)&amp;result,
+                         bcf_string_result_free,(VALUE)(uintptr_t)&amp;result);
     }
-    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&amp;dst,&amp;cap,type);if(count&lt;0){free(dst);return Qnil;}value=rb_ary_new_capa(count);
-    for(i=0;i&lt;count;i++){if(type==BCF_HT_INT)rb_ary_push(value,INT2NUM(((int32_t*)dst)[i]));else {float f=((float*)dst)[i];uint32_t word;memcpy(&amp;word,&amp;f,4);if(RTEST(raw_value))rb_ary_push(value,UINT2NUM(word));else if(bcf_float_is_missing(f)||bcf_float_is_vector_end(f))rb_ary_push(value,Qnil);else rb_ary_push(value,DBL2NUM(f));}}
-    free(dst);return value;
+    count=bcf_get_format_values(h,r,StringValueCStr(key_value),&amp;dst,&amp;cap,type);if(count&lt;0){const char *key=StringValueCStr(key_value);free(dst);if(count==-3)return Qnil;raise_bcf_field_read_error(&quot;FormatReadError&quot;,key,count);}
+    bcf_format_result_t result={dst,count,type,raw_value};
+    return rb_ensure(bcf_format_result_to_ruby,(VALUE)(uintptr_t)&amp;result,
+                     bcf_value_result_free,(VALUE)(uintptr_t)&amp;result);
 }</pre>
     </td>
   </tr>
@@ -989,10 +982,10 @@ static VALUE native_bcf_format_get(VALUE self,VALUE header_value,VALUE key_value
       <pre class="lines">
 
 
-230</pre>
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 230</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 245</span>
 
 static VALUE native_bcf_record_to_s(VALUE self,VALUE header) { kstring_t s=KS_INITIALIZE; VALUE v; if(vcf_format(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,&amp;s)&lt;0){free(s.s);rb_raise(rb_eRuntimeError,&quot;failed to format BCF record&quot;);}v=rb_str_new(s.s,s.l);free(s.s);return v; }</pre>
     </td>
@@ -1015,21 +1008,21 @@ static VALUE native_bcf_record_to_s(VALUE self,VALUE header) { kstring_t s=KS_IN
       <pre class="lines">
 
 
-303
-304
-305
-306
-307
-308</pre>
+355
+356
+357
+358
+359
+360</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 303</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 355</span>
 
 static VALUE native_bcf_format_update(VALUE self,VALUE header,VALUE key,VALUE type_value,VALUE values) {
-    bcf_hdr_t*h=get_bcf_header(header)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),n,result;
-    if(type==BCF_HT_INT){int32_t*p;n=fill_i32(values,&amp;p);result=bcf_update_format_int32(h,r,StringValueCStr(key),p,n);xfree(p);}
-    else if(type==BCF_HT_REAL){float*p;n=fill_float(values,&amp;p);result=bcf_update_format_float(h,r,StringValueCStr(key),p,n);xfree(p);}
-    else {int i;char**strings;n=RARRAY_LEN(values);strings=ALLOC_N(char*,n?n:1);for(i=0;i&lt;n;i++){VALUE string=rb_ary_entry(values,i);strings[i]=StringValueCStr(string);}result=bcf_update_format_string(h,r,StringValueCStr(key),(const char**)strings,n);xfree(strings);}return INT2NUM(result);
+    bcf_hdr_t*h=get_bcf_header(header)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),n,i,result;VALUE storage=0;
+    if(type==BCF_HT_INT){int32_t*p;n=RARRAY_LEN(values);p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i&lt;n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));result=bcf_update_format_int32(h,r,StringValueCStr(key),p,n);ALLOCV_END(storage);}
+    else if(type==BCF_HT_REAL){float*p;n=RARRAY_LEN(values);p=ALLOCV_N(float,storage,n?n:1);for(i=0;i&lt;n;i++)p[i]=(float)NUM2DBL(rb_ary_entry(values,i));result=bcf_update_format_float(h,r,StringValueCStr(key),p,n);ALLOCV_END(storage);}
+    else {int i;char**strings;n=RARRAY_LEN(values);strings=ALLOCV_N(char*,storage,n?n:1);for(i=0;i&lt;n;i++){VALUE string=rb_ary_entry(values,i);strings[i]=StringValueCStr(string);}result=bcf_update_format_string(h,r,StringValueCStr(key),(const char**)strings,n);ALLOCV_END(storage);}return INT2NUM(result);
 }</pre>
     </td>
   </tr>
@@ -1051,34 +1044,36 @@ static VALUE native_bcf_format_update(VALUE self,VALUE header,VALUE key,VALUE ty
       <pre class="lines">
 
 
-309
-310
-311
-312
-313
-314
-315
-316
-317
-318
-319
-320
-321</pre>
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 309</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 361</span>
 
 static VALUE native_bcf_format_update_float_words(VALUE self,VALUE header,VALUE key,VALUE values) {
     bcf_hdr_t *h=get_bcf_header(header)-&gt;pointer;
     bcf1_t *r=get_bcf_record(self)-&gt;pointer;
     int n=RARRAY_LEN(values),i,result;
-    float *floats=ALLOC_N(float,n?n:1);
+    VALUE storage=0;
+    float *floats=ALLOCV_N(float,storage,n?n:1);
     for(i=0;i&lt;n;i++){
         uint32_t word=NUM2UINT(rb_ary_entry(values,i));
         memcpy(&amp;floats[i],&amp;word,sizeof(word));
     }
     result=bcf_update_format_float(h,r,StringValueCStr(key),floats,n);
-    xfree(floats);
+    ALLOCV_END(storage);
     return INT2NUM(result);
 }</pre>
     </td>
@@ -1101,12 +1096,12 @@ static VALUE native_bcf_format_update_float_words(VALUE self,VALUE header,VALUE 
       <pre class="lines">
 
 
-322</pre>
+375</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 322</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 375</span>
 
-static VALUE native_bcf_genotype_update(VALUE self,VALUE header,VALUE values) {int32_t*p;int n=fill_i32(values,&amp;p);int result=bcf_update_genotypes(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,p,n);xfree(p);return INT2NUM(result);}</pre>
+static VALUE native_bcf_genotype_update(VALUE self,VALUE header,VALUE values) {VALUE storage=0;int32_t*p;int n=RARRAY_LEN(values),i;p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i&lt;n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));int result=bcf_update_genotypes(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,p,n);ALLOCV_END(storage);return INT2NUM(result);}</pre>
     </td>
   </tr>
 </table>
@@ -1127,12 +1122,12 @@ static VALUE native_bcf_genotype_update(VALUE self,VALUE header,VALUE values) {i
       <pre class="lines">
 
 
-224</pre>
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 224</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 239</span>
 
-static VALUE native_bcf_record_id(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; bcf_unpack(r,BCF_UN_INFO); return rb_str_new_cstr(r-&gt;d.id); }</pre>
+static VALUE native_bcf_record_id(VALUE self) { bcf1_t *r=get_bcf_record(self)-&gt;pointer; check_bcf_unpack(r,BCF_UN_STR); if(!r-&gt;d.id)raise_bcf_record_error(&quot;BCF record ID is missing after unpack&quot;); return rb_str_new_cstr(r-&gt;d.id); }</pre>
     </td>
   </tr>
 </table>
@@ -1153,10 +1148,10 @@ static VALUE native_bcf_record_id(VALUE self) { bcf1_t *r=get_bcf_record(self)-&
       <pre class="lines">
 
 
-244</pre>
+259</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 244</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 259</span>
 
 static VALUE native_bcf_record_info_fields(VALUE self,VALUE header) { return field_rows(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,0); }</pre>
     </td>
@@ -1179,10 +1174,10 @@ static VALUE native_bcf_record_info_fields(VALUE self,VALUE header) { return fie
       <pre class="lines">
 
 
-271</pre>
+306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 271</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 306</span>
 
 static VALUE native_bcf_info_get(VALUE self,VALUE header,VALUE key,VALUE type) { return info_get(self,header,key,type); }</pre>
     </td>
@@ -1227,10 +1222,10 @@ static VALUE native_bcf_info_get(VALUE self,VALUE header,VALUE key,VALUE type) {
       <pre class="lines">
 
 
-272</pre>
+307</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 272</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 307</span>
 
 static VALUE native_bcf_info_present(VALUE self,VALUE header,VALUE key,VALUE type) { return NIL_P(info_get(self,header,key,type))?Qfalse:Qtrue; }</pre>
     </td>
@@ -1253,28 +1248,28 @@ static VALUE native_bcf_info_present(VALUE self,VALUE header,VALUE key,VALUE typ
       <pre class="lines">
 
 
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285</pre>
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 275</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 308</span>
 
 static VALUE native_bcf_info_update(VALUE self,VALUE header,VALUE key,VALUE type_value,VALUE values) {
-    bcf_hdr_t*h=get_bcf_header(header)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),n,result;void*data=NULL;
+    bcf_hdr_t*h=get_bcf_header(header)-&gt;pointer;bcf1_t*r=get_bcf_record(self)-&gt;pointer;int type=NUM2INT(type_value),n,i,result;void*data=NULL;VALUE storage=0;
     if(type!=BCF_HT_FLAG &amp;&amp; (NIL_P(values) || values==Qfalse)){
         return INT2NUM(bcf_update_info(h,r,StringValueCStr(key),NULL,0,type));
     }
-    if(type==BCF_HT_INT){int32_t*p;n=fill_i32(values,&amp;p);data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);xfree(p);}
-    else if(type==BCF_HT_REAL){float*p;n=fill_float(values,&amp;p);data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);xfree(p);}
+    if(type==BCF_HT_INT){int32_t*p;n=RARRAY_LEN(values);p=ALLOCV_N(int32_t,storage,n?n:1);for(i=0;i&lt;n;i++)p[i]=NUM2INT(rb_ary_entry(values,i));data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);ALLOCV_END(storage);}
+    else if(type==BCF_HT_REAL){float*p;n=RARRAY_LEN(values);p=ALLOCV_N(float,storage,n?n:1);for(i=0;i&lt;n;i++)p[i]=(float)NUM2DBL(rb_ary_entry(values,i));data=p;result=bcf_update_info(h,r,StringValueCStr(key),data,n,type);ALLOCV_END(storage);}
     else if(type==BCF_HT_STR){result=bcf_update_info(h,r,StringValueCStr(key),StringValueCStr(values),1,type);}
     else { n=RTEST(values)?1:0; result=bcf_update_info(h,r,StringValueCStr(key),NULL,n,type); }
     return INT2NUM(result);
@@ -1299,10 +1294,10 @@ static VALUE native_bcf_info_update(VALUE self,VALUE header,VALUE key,VALUE type
       <pre class="lines">
 
 
-231</pre>
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 231</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 246</span>
 
 static VALUE native_bcf_record_set_unpack(VALUE self,VALUE level){get_bcf_record(self)-&gt;pointer-&gt;max_unpack=NUM2INT(level);return level;}</pre>
     </td>
@@ -1325,10 +1320,10 @@ static VALUE native_bcf_record_set_unpack(VALUE self,VALUE level){get_bcf_record
       <pre class="lines">
 
 
-227</pre>
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 227</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 242</span>
 
 static VALUE native_bcf_record_set_alleles(VALUE self,VALUE header,VALUE value) { return INT2NUM(bcf_update_alleles_str(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,StringValueCStr(value))); }</pre>
     </td>
@@ -1351,10 +1346,10 @@ static VALUE native_bcf_record_set_alleles(VALUE self,VALUE header,VALUE value) 
       <pre class="lines">
 
 
-225</pre>
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 225</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 240</span>
 
 static VALUE native_bcf_record_set_id(VALUE self,VALUE header,VALUE id) { return INT2NUM(bcf_update_id(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,StringValueCStr(id))); }</pre>
     </td>
@@ -1377,12 +1372,12 @@ static VALUE native_bcf_record_set_id(VALUE self,VALUE header,VALUE id) { return
       <pre class="lines">
 
 
-232</pre>
+247</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 232</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 247</span>
 
-static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){int count=RARRAY_LEN(map),i,*imap=ALLOC_N(int,count?count:1);for(i=0;i&lt;count;i++)imap[i]=NUM2INT(rb_ary_entry(map,i));int result=bcf_subset(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,count,imap);xfree(imap);return INT2NUM(result);}</pre>
+static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){VALUE storage=0;int count=RARRAY_LEN(map),i,*imap=ALLOCV_N(int,storage,count?count:1);for(i=0;i&lt;count;i++)imap[i]=NUM2INT(rb_ary_entry(map,i));int result=bcf_subset(get_bcf_header(header)-&gt;pointer,get_bcf_record(self)-&gt;pointer,count,imap);ALLOCV_END(storage);return INT2NUM(result);}</pre>
     </td>
   </tr>
 </table>
@@ -1393,7 +1388,7 @@ static VALUE native_bcf_record_subset(VALUE self,VALUE header,VALUE map){int cou
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:55 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

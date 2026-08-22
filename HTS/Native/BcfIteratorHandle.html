@@ -186,10 +186,10 @@
       <pre class="lines">
 
 
-352</pre>
+412</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 352</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 412</span>
 
 static VALUE native_bcf_iterator_close(VALUE self){ruby_bcf_iterator_t*v;TypedData_Get_Struct(self,ruby_bcf_iterator_t,&amp;bcf_iterator_type,v);if(v-&gt;iterator){hts_itr_destroy(v-&gt;iterator);v-&gt;iterator=NULL;}return Qnil;}</pre>
     </td>
@@ -212,12 +212,12 @@ static VALUE native_bcf_iterator_close(VALUE self){ruby_bcf_iterator_t*v;TypedDa
       <pre class="lines">
 
 
-351</pre>
+411</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 351</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 411</span>
 
-static VALUE native_bcf_iterator_next(VALUE self,VALUE record){ruby_bcf_iterator_t*i=get_bcf_iterator(self);ruby_bcf_file_t*f=get_bcf_file(i-&gt;file,0);bcf_io_args_t a={f-&gt;file,get_bcf_header(i-&gt;header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,i-&gt;iterator,i-&gt;tabix?f-&gt;tabix:NULL,&amp;i-&gt;line,0};bcf_io_begin(f);rb_thread_call_without_gvl(bcf_iterator_without_gvl,&amp;a,RUBY_UBF_IO,NULL);f-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+static VALUE native_bcf_iterator_next(VALUE self,VALUE record){ruby_bcf_iterator_t*i=get_bcf_iterator(self);ruby_bcf_file_t*f=get_bcf_file(i-&gt;file,0);bcf_io_args_t a={f-&gt;file,get_bcf_header(i-&gt;header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,i-&gt;iterator,i-&gt;tabix?f-&gt;tabix:NULL,&amp;i-&gt;line,0};bcf_io_run(f,bcf_iterator_without_gvl,&amp;a);return INT2NUM(a.result);}</pre>
     </td>
   </tr>
 </table>
@@ -228,7 +228,7 @@ static VALUE native_bcf_iterator_next(VALUE self,VALUE record){ruby_bcf_iterator
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:55 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

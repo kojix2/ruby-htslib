@@ -131,7 +131,7 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="BaseMod/Modification.html" title="HTS::Bam::BaseMod::Modification (class)">Modification</a></span>, <span class='object_link'><a href="BaseMod/NotParsedError.html" title="HTS::Bam::BaseMod::NotParsedError (class)">NotParsedError</a></span>, <span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="BaseMod/Error.html" title="HTS::Bam::BaseMod::Error (class)">Error</a></span>, <span class='object_link'><a href="BaseMod/Modification.html" title="HTS::Bam::BaseMod::Modification (class)">Modification</a></span>, <span class='object_link'><a href="BaseMod/NotParsedError.html" title="HTS::Bam::BaseMod::NotParsedError (class)">NotParsedError</a></span>, <span class='object_link'><a href="BaseMod/Position.html" title="HTS::Bam::BaseMod::Position (class)">Position</a></span>
     
   
 </p>
@@ -584,16 +584,16 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-134
 135
 136
 137
 138
 139
-140</pre>
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='comma'>,</span> <span class='label'>auto_parse:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@record</span> <span class='op'>=</span> <span class='id identifier rubyid_record'>record</span>
@@ -638,12 +638,12 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_record'>record</span>
   <span class='ivar'>@record</span>
@@ -718,12 +718,12 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-198
 199
-200</pre>
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_at_pos'>at_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
@@ -807,7 +807,6 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-185
 186
 187
 188
@@ -815,10 +814,11 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 190
 191
 192
-193</pre>
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_at_pos'>at_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='comment'># Reset state to ensure deterministic results even after prior iteration
@@ -858,16 +858,16 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-144
 145
 146
 147
 148
 149
-150</pre>
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close'>close</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@closed</span>
@@ -961,7 +961,6 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
       <pre class="lines">
 
 
-206
 207
 208
 209
@@ -979,10 +978,11 @@ It wraps the htslib base modification API and provides a Ruby-friendly interface
 221
 222
 223
-224</pre>
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_position'>each_position</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1033,16 +1033,16 @@ object allocation.</p>
       <pre class="lines">
 
 
-230
 231
 232
 233
 234
 235
-236</pre>
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_raw'>each_raw</span><span class='lparen'>(</span><span class='label'>max_mods:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='comma'>,</span> <span class='label'>max_mods:</span> <span class='id identifier rubyid_max_mods'>max_mods</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1110,16 +1110,16 @@ object allocation.</p>
       <pre class="lines">
 
 
-161
 162
 163
 164
 165
 166
-167</pre>
+167
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 162</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span><span class='lparen'>(</span><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@parsed</span>
@@ -1173,12 +1173,12 @@ object allocation.</p>
       <pre class="lines">
 
 
-288
 289
-290</pre>
+290
+291</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 288</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 289</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_to_s'>to_s</span>
@@ -1232,14 +1232,14 @@ object allocation.</p>
       <pre class="lines">
 
 
-240
 241
 242
 243
-244</pre>
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_modification_types'>modification_types</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1310,7 +1310,7 @@ object allocation.</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Error.html" title="HTS::Error (class)">Error</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="BaseMod/Error.html" title="HTS::Bam::BaseMod::Error (class)">Error</a></span></tt>)</span>
       
       
       
@@ -1327,20 +1327,20 @@ object allocation.</p>
       <pre class="lines">
 
 
-173
 174
 175
 176
 177
 178
-179</pre>
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='ivar'>@state</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_flags'>flags</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Error.html" title="HTS::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to parse base modifications</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="BaseMod/Error.html" title="HTS::Bam::BaseMod::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to parse base modifications</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_ret'>ret</span> <span class='op'>&lt;</span> <span class='int'>0</span>
 
   <span class='ivar'>@parsed</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_ret'>ret</span>
@@ -1387,12 +1387,12 @@ object allocation.</p>
       <pre class="lines">
 
 
-154
 155
-156</pre>
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parsed?'>parsed?</span>
   <span class='ivar'>@parsed</span>
@@ -1460,16 +1460,16 @@ object allocation.</p>
       <pre class="lines">
 
 
-251
 252
 253
 254
 255
 256
-257</pre>
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 252</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type'>query_type</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1541,14 +1541,14 @@ object allocation.</p>
       <pre class="lines">
 
 
-262
 263
 264
 265
-266</pre>
+266
+267</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 262</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 263</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_type_at'>query_type_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_parsed!'>ensure_parsed!</span>
@@ -1600,12 +1600,12 @@ object allocation.</p>
       <pre class="lines">
 
 
-270
 271
-272</pre>
+272
+273</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 270</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 271</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
   <span class='id identifier rubyid_each_position'>each_position</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
@@ -1655,7 +1655,6 @@ object allocation.</p>
       <pre class="lines">
 
 
-276
 277
 278
 279
@@ -1663,10 +1662,11 @@ object allocation.</p>
 281
 282
 283
-284</pre>
+284
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 276</span>
+      <pre class="code"><span class="info file"># File 'lib/hts/bam/base_mod.rb', line 277</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;HTS::Bam::BaseMod (not parsed)&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@parsed</span>
@@ -1687,7 +1687,7 @@ object allocation.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:55 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

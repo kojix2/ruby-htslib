@@ -526,10 +526,10 @@
       <pre class="lines">
 
 
-348</pre>
+408</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 348</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 408</span>
 
 static VALUE native_bcf_file_build_index(VALUE klass,VALUE path,VALUE index,VALUE shift,VALUE threads){return INT2NUM(bcf_index_build3(StringValueCStr(path),NIL_P(index)?NULL:StringValueCStr(index),NUM2INT(shift),NUM2INT(threads)));}</pre>
     </td>
@@ -552,12 +552,12 @@ static VALUE native_bcf_file_build_index(VALUE klass,VALUE path,VALUE index,VALU
       <pre class="lines">
 
 
-334</pre>
+394</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 334</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 394</span>
 
-static VALUE native_bcf_file_open(VALUE klass,VALUE path,VALUE mode) {ruby_bcf_file_t*v;VALUE o=TypedData_Make_Struct(klass,ruby_bcf_file_t,&amp;bcf_file_type,v);v-&gt;index=NULL;v-&gt;tabix=NULL;v-&gt;active_io=0;v-&gt;path=rb_str_dup(StringValue(path));RB_OBJ_WRITE(o,&amp;v-&gt;path,v-&gt;path);v-&gt;file=hts_open(StringValueCStr(v-&gt;path),StringValueCStr(mode));if(!v-&gt;file)rb_syserr_fail_str(ENOENT,path);return o;}</pre>
+static VALUE native_bcf_file_open(VALUE klass,VALUE path,VALUE mode) {ruby_bcf_file_t*v;VALUE o=TypedData_Make_Struct(klass,ruby_bcf_file_t,&amp;bcf_file_type,v);v-&gt;index=NULL;v-&gt;tabix=NULL;v-&gt;active_io=0;v-&gt;path=rb_str_dup(StringValue(path));RB_OBJ_WRITE(o,&amp;v-&gt;path,v-&gt;path);errno=0;v-&gt;file=hts_open(StringValueCStr(v-&gt;path),StringValueCStr(mode));if(!v-&gt;file)raise_bcf_open_error(path,errno);return o;}</pre>
     </td>
   </tr>
 </table>
@@ -584,12 +584,12 @@ static VALUE native_bcf_file_open(VALUE klass,VALUE path,VALUE mode) {ruby_bcf_f
       <pre class="lines">
 
 
-335</pre>
+395</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 335</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 395</span>
 
-static VALUE native_bcf_file_close(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,1);if(v-&gt;active_io)rb_raise(rb_eIOError,&quot;cannot close BCF during active I/O&quot;);if(v-&gt;index){hts_idx_destroy(v-&gt;index);v-&gt;index=NULL;}if(v-&gt;tabix){tbx_destroy(v-&gt;tabix);v-&gt;tabix=NULL;}if(v-&gt;file){hts_close(v-&gt;file);v-&gt;file=NULL;}return Qnil;}</pre>
+static VALUE native_bcf_file_close(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,1);int result=0;if(v-&gt;active_io)rb_raise(rb_eIOError,&quot;cannot close BCF during active I/O&quot;);if(v-&gt;index){hts_idx_destroy(v-&gt;index);v-&gt;index=NULL;}if(v-&gt;tabix){tbx_destroy(v-&gt;tabix);v-&gt;tabix=NULL;}if(v-&gt;file){result=hts_close(v-&gt;file);v-&gt;file=NULL;}return INT2NUM(result);}</pre>
     </td>
   </tr>
 </table>
@@ -632,10 +632,10 @@ static VALUE native_bcf_file_close(VALUE self){ruby_bcf_file_t*v=get_bcf_file(se
       <pre class="lines">
 
 
-336</pre>
+396</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 336</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 396</span>
 
 static VALUE native_bcf_file_closed(VALUE self){return get_bcf_file(self,1)-&gt;file?Qfalse:Qtrue;}</pre>
     </td>
@@ -658,10 +658,10 @@ static VALUE native_bcf_file_closed(VALUE self){return get_bcf_file(self,1)-&gt;
       <pre class="lines">
 
 
-342</pre>
+402</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 342</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 402</span>
 
 static VALUE native_bcf_file_format(VALUE self){const htsFormat*f=hts_get_format(get_bcf_file(self,0)-&gt;file);if(!f)return Qnil;switch(f-&gt;format){case vcf:return rb_str_new_cstr(&quot;vcf&quot;);case bcf:return rb_str_new_cstr(&quot;bcf&quot;);default:return rb_str_new_cstr(&quot;unknown_format&quot;);}}</pre>
     </td>
@@ -684,10 +684,10 @@ static VALUE native_bcf_file_format(VALUE self){const htsFormat*f=hts_get_format
       <pre class="lines">
 
 
-343</pre>
+403</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 343</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 403</span>
 
 static VALUE native_bcf_file_version(VALUE self){const htsFormat*f=hts_get_format(get_bcf_file(self,0)-&gt;file);if(!f)return Qnil;if(f-&gt;version.minor==-1)return rb_sprintf(&quot;%d&quot;,f-&gt;version.major);return rb_sprintf(&quot;%d.%d&quot;,f-&gt;version.major,f-&gt;version.minor);}</pre>
     </td>
@@ -732,10 +732,10 @@ static VALUE native_bcf_file_version(VALUE self){const htsFormat*f=hts_get_forma
       <pre class="lines">
 
 
-347</pre>
+407</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 347</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 407</span>
 
 static VALUE native_bcf_file_index_loaded(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,0);return(v-&gt;index||v-&gt;tabix)?Qtrue:Qfalse;}</pre>
     </td>
@@ -758,10 +758,10 @@ static VALUE native_bcf_file_index_loaded(VALUE self){ruby_bcf_file_t*v=get_bcf_
       <pre class="lines">
 
 
-346</pre>
+406</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 346</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 406</span>
 
 static VALUE native_bcf_file_load_index(VALUE self,VALUE index){ruby_bcf_file_t*v=get_bcf_file(self,0);const htsFormat*f=hts_get_format(v-&gt;file);if(v-&gt;index){hts_idx_destroy(v-&gt;index);v-&gt;index=NULL;}if(v-&gt;tabix){tbx_destroy(v-&gt;tabix);v-&gt;tabix=NULL;}if(f&amp;&amp;f-&gt;format==vcf)v-&gt;tabix=NIL_P(index)?tbx_index_load3(StringValueCStr(v-&gt;path),NULL,HTS_IDX_SAVE_REMOTE):tbx_index_load2(StringValueCStr(v-&gt;path),StringValueCStr(index));else v-&gt;index=NIL_P(index)?bcf_index_load3(StringValueCStr(v-&gt;path),NULL,HTS_IDX_SAVE_REMOTE):bcf_index_load2(StringValueCStr(v-&gt;path),StringValueCStr(index));return(v-&gt;index||v-&gt;tabix)?Qtrue:Qfalse;}</pre>
     </td>
@@ -784,10 +784,10 @@ static VALUE native_bcf_file_load_index(VALUE self,VALUE index){ruby_bcf_file_t*
       <pre class="lines">
 
 
-350</pre>
+410</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 350</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 410</span>
 
 static VALUE native_bcf_file_query_interval(VALUE self,VALUE header,VALUE rid,VALUE beg,VALUE end){ruby_bcf_file_t*v=get_bcf_file(self,0);hts_itr_t*i=v-&gt;tabix?tbx_itr_queryi(v-&gt;tabix,NUM2INT(rid),NUM2LL(beg),NUM2LL(end)):bcf_itr_queryi(v-&gt;index,NUM2INT(rid),NUM2LL(beg),NUM2LL(end));return wrap_bcf_iterator(self,header,i,v-&gt;tabix!=NULL);}</pre>
     </td>
@@ -810,10 +810,10 @@ static VALUE native_bcf_file_query_interval(VALUE self,VALUE header,VALUE rid,VA
       <pre class="lines">
 
 
-349</pre>
+409</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 349</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 409</span>
 
 static VALUE native_bcf_file_query_region(VALUE self,VALUE header,VALUE region){ruby_bcf_file_t*v=get_bcf_file(self,0);hts_itr_t*i;if(v-&gt;tabix)i=tbx_itr_querys(v-&gt;tabix,StringValueCStr(region));else i=bcf_itr_querys(v-&gt;index,get_bcf_header(header)-&gt;pointer,StringValueCStr(region));return wrap_bcf_iterator(self,header,i,v-&gt;tabix!=NULL);}</pre>
     </td>
@@ -836,12 +836,12 @@ static VALUE native_bcf_file_query_region(VALUE self,VALUE header,VALUE region){
       <pre class="lines">
 
 
-338</pre>
+398</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 338</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 398</span>
 
-static VALUE native_bcf_file_read(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_read_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+static VALUE native_bcf_file_read(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_run(v,bcf_read_without_gvl,&amp;a);return INT2NUM(a.result);}</pre>
     </td>
   </tr>
 </table>
@@ -862,12 +862,12 @@ static VALUE native_bcf_file_read(VALUE self,VALUE header,VALUE record){ruby_bcf
       <pre class="lines">
 
 
-337</pre>
+397</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 337</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 397</span>
 
-static VALUE native_bcf_file_read_header(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_header_read_args_t a={v-&gt;file,NULL};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_read_header_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return wrap_bcf_header(a.result);}</pre>
+static VALUE native_bcf_file_read_header(VALUE self){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_header_read_args_t a={v-&gt;file,NULL};bcf_io_run(v,bcf_read_header_without_gvl,&amp;a);return wrap_bcf_header(a.result);}</pre>
     </td>
   </tr>
 </table>
@@ -888,10 +888,10 @@ static VALUE native_bcf_file_read_header(VALUE self){ruby_bcf_file_t*v=get_bcf_f
       <pre class="lines">
 
 
-344</pre>
+404</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 344</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 404</span>
 
 static VALUE native_bcf_file_seek(VALUE self,VALUE offset){htsFile*f=get_bcf_file(self,0)-&gt;file;return LL2NUM(f-&gt;is_bgzf?bgzf_seek(f-&gt;fp.bgzf,NUM2LL(offset),SEEK_SET):hseek(f-&gt;fp.hfile,NUM2LL(offset),SEEK_SET));}</pre>
     </td>
@@ -914,10 +914,10 @@ static VALUE native_bcf_file_seek(VALUE self,VALUE offset){htsFile*f=get_bcf_fil
       <pre class="lines">
 
 
-341</pre>
+401</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 341</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 401</span>
 
 static VALUE native_bcf_file_set_threads(VALUE self,VALUE n){return INT2NUM(hts_set_threads(get_bcf_file(self,0)-&gt;file,NUM2INT(n)));}</pre>
     </td>
@@ -940,10 +940,10 @@ static VALUE native_bcf_file_set_threads(VALUE self,VALUE n){return INT2NUM(hts_
       <pre class="lines">
 
 
-345</pre>
+405</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 345</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 405</span>
 
 static VALUE native_bcf_file_tell(VALUE self){htsFile*f=get_bcf_file(self,0)-&gt;file;return LL2NUM(f-&gt;is_bgzf?bgzf_tell(f-&gt;fp.bgzf):htell(f-&gt;fp.hfile));}</pre>
     </td>
@@ -966,12 +966,12 @@ static VALUE native_bcf_file_tell(VALUE self){htsFile*f=get_bcf_file(self,0)-&gt
       <pre class="lines">
 
 
-340</pre>
+400</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 340</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 400</span>
 
-static VALUE native_bcf_file_write(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_write_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+static VALUE native_bcf_file_write(VALUE self,VALUE header,VALUE record){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,get_bcf_record(record)-&gt;pointer,NULL,NULL,NULL,0};bcf_io_run(v,bcf_write_without_gvl,&amp;a);return INT2NUM(a.result);}</pre>
     </td>
   </tr>
 </table>
@@ -992,12 +992,12 @@ static VALUE native_bcf_file_write(VALUE self,VALUE header,VALUE record){ruby_bc
       <pre class="lines">
 
 
-339</pre>
+399</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 339</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bcf.c', line 399</span>
 
-static VALUE native_bcf_file_write_header(VALUE self,VALUE header){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,NULL,NULL,NULL,NULL,0};bcf_io_begin(v);rb_thread_call_without_gvl(bcf_write_header_without_gvl,&amp;a,RUBY_UBF_IO,NULL);v-&gt;active_io=0;return INT2NUM(a.result);}</pre>
+static VALUE native_bcf_file_write_header(VALUE self,VALUE header){ruby_bcf_file_t*v=get_bcf_file(self,0);bcf_io_args_t a={v-&gt;file,get_bcf_header(header)-&gt;pointer,NULL,NULL,NULL,NULL,0};bcf_io_run(v,bcf_write_header_without_gvl,&amp;a);return INT2NUM(a.result);}</pre>
     </td>
   </tr>
 </table>
@@ -1008,7 +1008,7 @@ static VALUE native_bcf_file_write_header(VALUE self,VALUE header){ruby_bcf_file
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:55 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

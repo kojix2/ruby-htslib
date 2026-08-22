@@ -809,14 +809,14 @@
       <pre class="lines">
 
 
-477
-478
-479
-480
-481</pre>
+504
+505
+506
+507
+508</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 477</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 504</span>
 
 static VALUE native_record_aux_append(VALUE self, VALUE key, VALUE type, VALUE payload) {
     StringValue(payload);
@@ -843,16 +843,16 @@ static VALUE native_record_aux_append(VALUE self, VALUE key, VALUE type, VALUE p
       <pre class="lines">
 
 
-505
-506
-507
-508
-509
-510
-511</pre>
+533
+534
+535
+536
+537
+538
+539</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 505</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 533</span>
 
 static VALUE native_record_aux_delete(VALUE self, VALUE key) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -881,21 +881,21 @@ static VALUE native_record_aux_delete(VALUE self, VALUE key) {
       <pre class="lines">
 
 
-456
-457
-458
-459
-460
-461
-462
-463
-464
-465
-466
-467</pre>
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 456</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 483</span>
 
 static VALUE native_record_aux_entries(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -929,13 +929,13 @@ static VALUE native_record_aux_entries(VALUE self) {
       <pre class="lines">
 
 
-452
-453
-454
-455</pre>
+479
+480
+481
+482</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 452</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 479</span>
 
 static VALUE native_record_aux_get(VALUE self, VALUE key, VALUE requested) {
     uint8_t *aux = bam_aux_get(get_record(self)-&gt;pointer, StringValueCStr(key));
@@ -983,12 +983,12 @@ static VALUE native_record_aux_get(VALUE self, VALUE key, VALUE requested) {
       <pre class="lines">
 
 
-512
-513
-514</pre>
+540
+541
+542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 512</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 540</span>
 
 static VALUE native_record_aux_key(VALUE self, VALUE key) {
     return bam_aux_get(get_record(self)-&gt;pointer, StringValueCStr(key)) ? Qtrue : Qfalse;
@@ -1013,41 +1013,43 @@ static VALUE native_record_aux_key(VALUE self, VALUE key) {
       <pre class="lines">
 
 
-482
-483
-484
-485
-486
-487
-488
-489
-490
-491
-492
-493
-494
-495
-496
-497
-498
-499
-500
-501
-502
-503
-504</pre>
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 482</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 509</span>
 
 static VALUE native_record_aux_update_array(VALUE self, VALUE key, VALUE type_value, VALUE array) {
     char type = StringValueCStr(type_value)[0];
     long count = RARRAY_LEN(array), i;
     size_t width;
     uint8_t *buffer;
+    VALUE buffer_storage = 0;
     int result;
     switch (type) { case &#39;c&#39;: case &#39;C&#39;: width = 1; break; case &#39;s&#39;: case &#39;S&#39;: width = 2; break; default: width = 4; }
-    buffer = ALLOC_N(uint8_t, count * width + 1);
+    buffer = ALLOCV_N(uint8_t, buffer_storage, count * width + 1);
     for (i = 0; i &lt; count; i++) {
         VALUE item = rb_ary_entry(array, i);
         if (type == &#39;c&#39;) { int8_t v = NUM2INT(item); memcpy(buffer + i, &amp;v, 1); }
@@ -1057,10 +1059,10 @@ static VALUE native_record_aux_update_array(VALUE self, VALUE key, VALUE type_va
         else if (type == &#39;i&#39;) { int32_t v = NUM2INT(item); memcpy(buffer + i * 4, &amp;v, 4); }
         else if (type == &#39;I&#39;) { uint32_t v = NUM2UINT(item); memcpy(buffer + i * 4, &amp;v, 4); }
         else if (type == &#39;f&#39;) { float v = (float)NUM2DBL(item); memcpy(buffer + i * 4, &amp;v, 4); }
-        else { xfree(buffer); rb_raise(rb_eArgError, &quot;invalid AUX array type&quot;); }
+        else { ALLOCV_END(buffer_storage); rb_raise(rb_eArgError, &quot;invalid AUX array type&quot;); }
     }
     result = bam_aux_update_array(get_record(self)-&gt;pointer, StringValueCStr(key), type, count, buffer);
-    xfree(buffer);
+    ALLOCV_END(buffer_storage);
     return INT2NUM(result);
 }</pre>
     </td>
@@ -1083,12 +1085,12 @@ static VALUE native_record_aux_update_array(VALUE self, VALUE key, VALUE type_va
       <pre class="lines">
 
 
-471
-472
-473</pre>
+498
+499
+500</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 471</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 498</span>
 
 static VALUE native_record_aux_update_float(VALUE self, VALUE key, VALUE value) {
     return INT2NUM(bam_aux_update_float(get_record(self)-&gt;pointer, StringValueCStr(key), NUM2DBL(value)));
@@ -1113,12 +1115,12 @@ static VALUE native_record_aux_update_float(VALUE self, VALUE key, VALUE value) 
       <pre class="lines">
 
 
-468
-469
-470</pre>
+495
+496
+497</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 468</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 495</span>
 
 static VALUE native_record_aux_update_int(VALUE self, VALUE key, VALUE value) {
     return INT2NUM(bam_aux_update_int(get_record(self)-&gt;pointer, StringValueCStr(key), NUM2LL(value)));
@@ -1143,12 +1145,12 @@ static VALUE native_record_aux_update_int(VALUE self, VALUE key, VALUE value) {
       <pre class="lines">
 
 
-474
-475
-476</pre>
+501
+502
+503</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 474</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 501</span>
 
 static VALUE native_record_aux_update_string(VALUE self, VALUE key, VALUE value) {
     return INT2NUM(bam_aux_update_str(get_record(self)-&gt;pointer, StringValueCStr(key), -1, StringValueCStr(value)));
@@ -1173,15 +1175,15 @@ static VALUE native_record_aux_update_string(VALUE self, VALUE key, VALUE value)
       <pre class="lines">
 
 
-372
-373
-374
-375
-376
-377</pre>
+383
+384
+385
+386
+387
+388</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 372</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 383</span>
 
 static VALUE native_record_base_code(VALUE self, VALUE index) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1209,18 +1211,22 @@ static VALUE native_record_base_code(VALUE self, VALUE index) {
       <pre class="lines">
 
 
-322
-323
-324
-325
-326</pre>
+331
+332
+333
+334
+335
+336
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 322</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 331</span>
 
 static VALUE native_record_set_cigar(VALUE self, VALUE text) {
-    int result = bam_parse_cigar(StringValueCStr(text), NULL, get_record(self)-&gt;pointer);
+    bam1_t *record = get_record(self)-&gt;pointer;
+    int result = bam_parse_cigar(StringValueCStr(text), NULL, record);
     if (result &lt; 0) rb_raise(rb_eRuntimeError, &quot;bam_parse_cigar failed: %d&quot;, result);
+    native_record_update_bin(record);
     return text;
 }</pre>
     </td>
@@ -1243,17 +1249,17 @@ static VALUE native_record_set_cigar(VALUE self, VALUE text) {
       <pre class="lines">
 
 
-314
-315
-316
-317
-318
-319
-320
-321</pre>
+323
+324
+325
+326
+327
+328
+329
+330</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 314</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 323</span>
 
 static VALUE native_record_cigar_values(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1283,23 +1289,23 @@ static VALUE native_record_cigar_values(VALUE self) {
       <pre class="lines">
 
 
-285
-286
-287
-288
-289
-290
-291
 292
 293
 294
 295
 296
 297
-298</pre>
+298
+299
+300
+301
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 285</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 292</span>
 
 static VALUE native_record_core_get(VALUE self, VALUE field) {
     bam1_core_t *core = &amp;get_record(self)-&gt;pointer-&gt;core;
@@ -1335,26 +1341,29 @@ static VALUE native_record_core_get(VALUE self, VALUE field) {
       <pre class="lines">
 
 
-299
-300
-301
-302
-303
-304
-305
 306
 307
 308
 309
 310
 311
-312</pre>
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 299</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 306</span>
 
 static VALUE native_record_core_set(VALUE self, VALUE field, VALUE new_value) {
-    bam1_core_t *core = &amp;get_record(self)-&gt;pointer-&gt;core;
+    bam1_t *record = get_record(self)-&gt;pointer;
+    bam1_core_t *core = &amp;record-&gt;core;
     ID id = SYM2ID(field);
     if (id == rb_intern(&quot;tid&quot;)) core-&gt;tid = NUM2INT(new_value);
     else if (id == rb_intern(&quot;mtid&quot;)) core-&gt;mtid = NUM2INT(new_value);
@@ -1365,6 +1374,7 @@ static VALUE native_record_core_set(VALUE self, VALUE field, VALUE new_value) {
     else if (id == rb_intern(&quot;mapq&quot;)) core-&gt;qual = NUM2UINT(new_value);
     else if (id == rb_intern(&quot;flag&quot;)) core-&gt;flag = NUM2UINT(new_value);
     else rb_raise(rb_eArgError, &quot;unknown or read-only BAM core field&quot;);
+    if (id == rb_intern(&quot;pos&quot;) || id == rb_intern(&quot;flag&quot;)) native_record_update_bin(record);
     return new_value;
 }</pre>
     </td>
@@ -1413,10 +1423,10 @@ static VALUE native_record_duplicate(VALUE self) { return wrap_record(bam_dup1(g
       <pre class="lines">
 
 
-313</pre>
+322</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 313</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 322</span>
 
 static VALUE native_record_endpos(VALUE self) { return LL2NUM(bam_endpos(get_record(self)-&gt;pointer)); }</pre>
     </td>
@@ -1439,18 +1449,18 @@ static VALUE native_record_endpos(VALUE self) { return LL2NUM(bam_endpos(get_rec
       <pre class="lines">
 
 
-384
-385
-386
-387
-388
-389
-390
-391
-392</pre>
+395
+396
+397
+398
+399
+400
+401
+402
+403</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 384</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 395</span>
 
 static VALUE native_record_to_s(VALUE self, VALUE header_value) {
     kstring_t string = KS_INITIALIZE;
@@ -1481,13 +1491,13 @@ static VALUE native_record_to_s(VALUE self, VALUE header_value) {
       <pre class="lines">
 
 
-327
-328
-329
-330</pre>
+338
+339
+340
+341</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 327</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 338</span>
 
 static VALUE native_record_qlen(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1513,10 +1523,10 @@ static VALUE native_record_qlen(VALUE self) {
       <pre class="lines">
 
 
-279</pre>
+283</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 279</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 283</span>
 
 static VALUE native_record_qname(VALUE self) { return rb_str_new_cstr(bam_get_qname(get_record(self)-&gt;pointer)); }</pre>
     </td>
@@ -1539,14 +1549,14 @@ static VALUE native_record_qname(VALUE self) { return rb_str_new_cstr(bam_get_qn
       <pre class="lines">
 
 
-280
-281
-282
-283
-284</pre>
+284
+285
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 280</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 284</span>
 
 static VALUE native_record_set_qname(VALUE self, VALUE name) {
     int result = bam_set_qname(get_record(self)-&gt;pointer, StringValueCStr(name));
@@ -1573,17 +1583,17 @@ static VALUE native_record_set_qname(VALUE self, VALUE name) {
       <pre class="lines">
 
 
-353
-354
-355
-356
-357
-358
-359
-360</pre>
+364
+365
+366
+367
+368
+369
+370
+371</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 353</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 364</span>
 
 static VALUE native_record_qualities(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1613,15 +1623,15 @@ static VALUE native_record_qualities(VALUE self) {
       <pre class="lines">
 
 
-378
-379
-380
-381
-382
-383</pre>
+389
+390
+391
+392
+393
+394</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 378</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 389</span>
 
 static VALUE native_record_quality_at(VALUE self, VALUE index) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1649,20 +1659,20 @@ static VALUE native_record_quality_at(VALUE self, VALUE index) {
       <pre class="lines">
 
 
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371</pre>
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 361</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 372</span>
 
 static VALUE native_record_quality_string(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1734,7 +1744,11 @@ static VALUE native_record_quality_string(VALUE self) {
 275
 276
 277
-278</pre>
+278
+279
+280
+281
+282</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 239</span>
@@ -1745,21 +1759,25 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
     bam1_t *record = get_record(self)-&gt;pointer;
     long cigar_count, i;
     uint32_t *cigar = NULL;
+    VALUE cigar_storage = 0;
     const char *quality_data = NULL;
     int result;
 
     StringValue(qname);
     StringValue(sequence);
+    if (memchr(RSTRING_PTR(qname), &#39;\0&#39;, RSTRING_LEN(qname))) {
+        rb_raise(rb_eArgError, &quot;qname must not contain NUL bytes&quot;);
+    }
     Check_Type(cigar_value, T_ARRAY);
     cigar_count = RARRAY_LEN(cigar_value);
     if (cigar_count &gt; 0) {
-        cigar = ALLOC_N(uint32_t, cigar_count);
+        cigar = ALLOCV_N(uint32_t, cigar_storage, cigar_count);
         for (i = 0; i &lt; cigar_count; i++) cigar[i] = NUM2UINT(rb_ary_entry(cigar_value, i));
     }
     if (!NIL_P(qualities)) {
         StringValue(qualities);
         if (RSTRING_LEN(qualities) != RSTRING_LEN(sequence)) {
-            if (cigar) xfree(cigar);
+            ALLOCV_END(cigar_storage);
             rb_raise(rb_eArgError, &quot;qualities length must match sequence length&quot;);
         }
         quality_data = RSTRING_PTR(qualities);
@@ -1767,12 +1785,12 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
 
     errno = 0;
     result = bam_set1(record,
-                      (size_t)RSTRING_LEN(qname) + 1, RSTRING_PTR(qname),
+                      (size_t)RSTRING_LEN(qname), RSTRING_PTR(qname),
                       NUM2UINT(flag), NUM2INT(tid), NUM2LL(pos), NUM2UINT(mapq),
                       (size_t)cigar_count, cigar,
                       NUM2INT(mtid), NUM2LL(mpos), NUM2LL(isize),
                       (size_t)RSTRING_LEN(sequence), RSTRING_PTR(sequence), quality_data, 0);
-    if (cigar) xfree(cigar);
+    ALLOCV_END(cigar_storage);
     if (result &lt; 0) {
         if (errno) rb_sys_fail(&quot;bam_set1&quot;);
         rb_raise(rb_eRuntimeError, &quot;bam_set1 failed: %d&quot;, result);
@@ -1799,13 +1817,13 @@ static VALUE native_record_replace(VALUE self, VALUE qname, VALUE flag, VALUE ti
       <pre class="lines">
 
 
-331
-332
-333
-334</pre>
+342
+343
+344
+345</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 331</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 342</span>
 
 static VALUE native_record_rlen(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1831,19 +1849,19 @@ static VALUE native_record_rlen(VALUE self) {
       <pre class="lines">
 
 
-335
-336
-337
-338
-339
-340
-341
-342
-343
-344</pre>
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 335</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 346</span>
 
 static VALUE native_record_sequence(VALUE self) {
     static const char table[] = &quot;=ACMGRSVTWYHKDBN&quot;;
@@ -1875,17 +1893,17 @@ static VALUE native_record_sequence(VALUE self) {
       <pre class="lines">
 
 
-345
-346
-347
-348
-349
-350
-351
-352</pre>
+356
+357
+358
+359
+360
+361
+362
+363</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 345</span>
+      <pre class="code"><span class="info file"># File 'ext/htslib_native/native_bam.c', line 356</span>
 
 static VALUE native_record_sequence_codes(VALUE self) {
     bam1_t *record = get_record(self)-&gt;pointer;
@@ -1905,7 +1923,7 @@ static VALUE native_record_sequence_codes(VALUE self) {
 </div>
 
       <div id="footer">
-  Generated on Sat Aug  1 14:49:55 2026 by
+  Generated on Sat Aug 22 10:23:04 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
