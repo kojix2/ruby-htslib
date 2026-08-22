@@ -11,8 +11,12 @@ class OpenErrorTest < Minitest::Test
       File.write(path, ">seq\nA\n")
       File.chmod(0, path)
 
-      [HTS::Bam, HTS::Bcf, HTS::Tabix].each do |klass|
-        assert_raises(Errno::EACCES) { klass.new(path) }
+      begin
+        [HTS::Bam, HTS::Bcf, HTS::Tabix].each do |klass|
+          assert_raises(Errno::EACCES) { klass.new(path) }
+        end
+      ensure
+        File.chmod(0o600, path)
       end
     end
   end
@@ -24,7 +28,11 @@ class OpenErrorTest < Minitest::Test
       FileUtils.cp(Fixtures["random.fa.fai"], "#{path}.fai")
       File.chmod(0, path)
 
-      assert_raises(Errno::EACCES) { HTS::Faidx.new(path, auto_build: false) }
+      begin
+        assert_raises(Errno::EACCES) { HTS::Faidx.new(path, auto_build: false) }
+      ensure
+        File.chmod(0o600, path)
+      end
     end
   end
 end
