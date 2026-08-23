@@ -25,10 +25,36 @@ jobs:
           ruby-version: ruby
       - name: Generate document
         run: gem install -N yard && yard doc
-      - name: Install Japanese fonts
-        run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends fonts-noto-cjk
-      - name: Build papers
-        run: make -C paper
+      - name: Generate English preprint LaTeX
+        uses: xuanxu/publishing-artifacts-action@main
+        with:
+          journal: joss
+          paper-path: paper/ruby-htslib.md
+          args: "-o preprint"
+      - name: Build English preprint PDF
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: paper.preprint.tex
+          working_directory: paper
+          os: debian
+      - name: Rename English PDF
+        run: mv paper/paper.preprint.pdf paper/ruby-htslib.pdf
+      - name: Generate Japanese preprint LaTeX
+        uses: xuanxu/publishing-artifacts-action@main
+        with:
+          journal: joss
+          paper-path: paper/ruby-htslib.ja.md
+          args: "-o preprint"
+      - name: Build Japanese preprint PDF
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: paper.preprint.tex
+          working_directory: paper
+          os: debian
+          latexmk_use_lualatex: true
+          extra_system_packages: fonts-noto-cjk
+      - name: Rename Japanese PDF
+        run: mv paper/paper.preprint.pdf paper/ruby-htslib-ja.pdf
       - name: Add paper to the Pages site
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: |

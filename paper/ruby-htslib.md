@@ -12,6 +12,11 @@ authors:
     corresponding: true
 date: 23 August 2026
 bibliography: ruby-htslib.bib
+documentclass: article
+fontsize: 10pt
+papersize: a4
+header-includes:
+  - \usepackage[a4paper,margin=24mm]{geometry}
 ---
 
 # Summary
@@ -122,6 +127,8 @@ and pileup workloads used a 100 kb interval (`chr1:500,000-600,000`) overlapping
 mapping-quality filter. Each workload was run five times, and the table reports
 median throughput. After the first run, the inputs fit in the page cache. The
 scripts are included in the `benchmark` directory.
+
+![Median throughput relative to the C/HTSlib implementation. Region-query values are the per-query means from 20 repeats.](figures/benchmark-throughput.png){width=100%}
 
 | Workload | C/HTSlib | `hts.cr` | `ruby-htslib` |
 | --- | ---: | ---: | ---: |

@@ -16,7 +16,7 @@ if [[ ! $N =~ ^[1-9][0-9]*$ ]]; then
   exit 1
 fi
 
-for command_name in bcftools bundle cc crystal pkg-config python3 samtools "$RUBY"; do
+for command_name in bcftools bundle cc crystal gnuplot pkg-config python3 samtools "$RUBY"; do
   if ! command -v "$command_name" >/dev/null; then
     echo "Required command not found: $command_name" >&2
     exit 1

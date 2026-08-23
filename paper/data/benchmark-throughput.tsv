@@ -1,0 +1,9 @@
+workload	hts.cr	ruby-htslib
+BAM scan	102.42	57.49
+BAM fields	98.17	44.96
+BCF scan	107.06	66.50
+GT integers	94.37	3.81
+GT strings	87.95	6.70
+DP/AD	60.94	3.17
+Region query	100.75	65.86
+Pileup	71.35	2.06

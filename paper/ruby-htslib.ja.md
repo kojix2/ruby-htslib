@@ -1,5 +1,6 @@
 ---
 title: "`ruby-htslib` と `hts.cr`：Ruby および Crystal 向け HTSlib インターフェース"
+lang: ja
 tags:
   - bioinformatics
   - genomics
@@ -12,6 +13,13 @@ authors:
     corresponding: true
 date: 2026年8月23日
 bibliography: ruby-htslib.bib
+documentclass: article
+fontsize: 10pt
+papersize: a4
+header-includes:
+  - \usepackage[a4paper,margin=24mm]{geometry}
+  - \usepackage{luatexja-fontspec}
+  - \setmainjfont{Noto Serif CJK JP}
 ---
 
 # 概要
@@ -107,6 +115,8 @@ BAM（平均深度約 15×）と、GT、DP、AD、GL の FORMAT フィールド�
 mapping quality によるフィルタリングは行わなかった。各ワークロードを 5 回実行し、表には
 スループットの中央値を示す。初回後は入力がページキャッシュに収まった。スクリプトは
 `benchmark` ディレクトリに収録している。
+
+![C/HTSlib 実装を基準としたスループットの中央値。領域検索には20回反復時の1回あたりの平均値を用いた。](figures/benchmark-throughput.png){width=100%}
 
 \newpage
 
