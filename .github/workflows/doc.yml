@@ -55,11 +55,10 @@ jobs:
           extra_system_packages: fonts-noto-cjk
       - name: Rename Japanese PDF
         run: mv paper/paper.preprint.pdf paper/ruby-htslib-ja.pdf
-      - name: Add paper to the Pages site
+      - name: Add papers to the Pages site
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: |
           mkdir -p doc/paper
-          cp paper/index.html doc/paper/index.html
           cp paper/ruby-htslib.pdf doc/paper/ruby-htslib.pdf
           cp paper/ruby-htslib-ja.pdf doc/paper/ruby-htslib-ja.pdf
       - name: Upload paper artifact
