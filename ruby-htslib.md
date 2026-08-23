@@ -1,5 +1,5 @@
 ---
-title: '`hts.cr` and `ruby-htslib`: HTSlib interfaces for Crystal and Ruby'
+title: "`hts.cr` and `ruby-htslib`: HTSlib interfaces for Crystal and Ruby"
 tags:
   - bioinformatics
   - genomics
@@ -126,16 +126,16 @@ per implementation; the table reports the median throughput. Generator and
 benchmark scripts (`gen_sam.rb`, `gen_vcf.rb`, `bench_c.c`, `bench_cr.cr`,
 `bench_ruby.rb`) are available alongside this manuscript for reproduction.
 
-| Workload | C/HTSlib | `hts.cr` | `ruby-htslib` | Notes |
-|---|---:|---:|---:|---|
-| Sequential BAM record scan | 2,274,000/s | 2,263,000/s | 1,282,000/s | records/s; no field conversion |
-| BAM scan with flag and coordinate access | 2,279,000/s | 2,212,000/s | 1,008,000/s | common filtering path |
-| Sequential BCF record scan | 1,304,000/s | 1,327,000/s | 779,000/s | site fields only |
-| FORMAT/GT integer traversal | 1,169,000/s | 1,067,000/s | 41,000/s | borrowed/raw path; no strings |
-| FORMAT/GT string conversion | 355,000/s | 268,000/s | 21,000/s | allocating convenience path |
-| FORMAT/DP and FORMAT/AD traversal | 1,010,000/s | 928,000/s | 32,000/s | scalar and vector access |
-| Indexed region query (first / repeated x20 avg) | 2,006,000 / 2,068,000/s | 2,003,000 / 2,061,000/s | 1,228,000 / 1,308,000/s | 14,902-record window |
-| Pileup base counting | 5,634,000 columns/s | 1,264,000 columns/s | 102,000 columns/s | min base quality 13; all three agree exactly on the 1,017,916 bases counted |
+| Workload                                        |                C/HTSlib |                `hts.cr` |           `ruby-htslib` | Notes                                                                       |
+| ----------------------------------------------- | ----------------------: | ----------------------: | ----------------------: | --------------------------------------------------------------------------- |
+| Sequential BAM record scan                      |             2,274,000/s |             2,263,000/s |             1,282,000/s | records/s; no field conversion                                              |
+| BAM scan with flag and coordinate access        |             2,279,000/s |             2,212,000/s |             1,008,000/s | common filtering path                                                       |
+| Sequential BCF record scan                      |             1,304,000/s |             1,327,000/s |               779,000/s | site fields only                                                            |
+| FORMAT/GT integer traversal                     |             1,169,000/s |             1,067,000/s |                41,000/s | borrowed/raw path; no strings                                               |
+| FORMAT/GT string conversion                     |               355,000/s |               268,000/s |                21,000/s | allocating convenience path                                                 |
+| FORMAT/DP and FORMAT/AD traversal               |             1,010,000/s |               928,000/s |                32,000/s | scalar and vector access                                                    |
+| Indexed region query (first / repeated x20 avg) | 2,006,000 / 2,068,000/s | 2,003,000 / 2,061,000/s | 1,228,000 / 1,308,000/s | 14,902-record window                                                        |
+| Pileup base counting                            |     5,634,000 columns/s |     1,264,000 columns/s |       102,000 columns/s | min base quality 13; all three agree exactly on the 1,017,916 bases counted |
 
 The general pattern is consistent with the languages' respective FFI
 designs. For workloads dominated by raw HTSlib calls with little
