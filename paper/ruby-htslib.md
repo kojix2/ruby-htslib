@@ -105,8 +105,8 @@ processing of HTSlib data in streaming tools.
 To characterize the runtime overhead of the two libraries, we implemented the
 same workloads in C, `hts.cr`, and `ruby-htslib` and compared their throughput.
 All three implementations used HTSlib 1.22.1-51-gcd2a6f61 and ran
-single-threaded on the same machine (16 logical CPUs, 61 GiB RAM, Ubuntu
-26.04 LTS). The C baseline was compiled with gcc 15.2.0 (`-O2`), `hts.cr`
+single-threaded on Ubuntu 26.04 LTS. The C baseline was compiled with gcc
+15.2.0 (`-O2`), `hts.cr`
 0.4.0 with Crystal 1.21.0
 (LLVM 20.1.8, `--release`), and `ruby-htslib` 0.6.0 with Ruby 4.0.6. The
 comparison therefore reflects the costs of crossing the language boundary and
@@ -120,10 +120,8 @@ The BAM file was coordinate-sorted, and both files were indexed. Region-query
 and pileup workloads used a 100 kb interval (`chr1:500,000-600,000`) overlapping
 14,902 reads. Pileup base counting applied a minimum base quality of 13 and no
 mapping-quality filter. Each workload was run five times, and the table reports
-median throughput. After the first run, the inputs fit in the page cache, so
-all three implementations were compared under the same caching conditions.
-The data generators and benchmark programs are included in the `benchmark`
-directory.
+median throughput. After the first run, the inputs fit in the page cache. The
+scripts are included in the `benchmark` directory.
 
 | Workload | C/HTSlib | `hts.cr` | `ruby-htslib` |
 | --- | ---: | ---: | ---: |
