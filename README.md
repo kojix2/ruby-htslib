@@ -216,6 +216,7 @@ Try Crystal. [HTS.cr](https://github.com/bio-cr/hts.cr) is implemented in Crysta
 
 - [TUTORIAL.md](TUTORIAL.md)
 - [API Documentation (develop branch)](https://kojix2.github.io/ruby-htslib/)
+- [Paper](https://kojix2.github.io/ruby-htslib/paper/)
 - [API Documentation (released gem)](https://rubydoc.info/gems/htslib)
 
 ## Development

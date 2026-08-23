@@ -1,23 +1,17 @@
-# Performance plan benchmark
+# Paper benchmark
 
-Run the complete low-allocation benchmark from the repository root:
-
-```sh
-bundle exec ruby benchmark/performance_plan.rb
-```
-
-Use `ITERATIONS` for record-local operations and `SCAN_ITERATIONS` for file
-scans. To retain machine-readable results, set `BENCHMARK_CSV`:
+The paper benchmark requires Ruby with Bundler, Crystal, HTSlib and its
+development files, SAMtools, BCFtools, a C compiler, Python 3, and a checkout of
+the latest `hts.cr`. With `hts.cr` next to this repository, run:
 
 ```sh
-ITERATIONS=100000 SCAN_ITERATIONS=100 \
-  BENCHMARK_CSV=benchmark/results.csv \
-  bundle exec ruby benchmark/performance_plan.rb
+git clone https://github.com/bio-cr/hts.cr ../hts.cr
+bundle install
+benchmark/run_all.sh
 ```
 
-The output records elapsed time, allocated Ruby objects, the Ruby allocator's
-malloc-byte delta, GC time, and resident-memory delta. Run once with the native
-extension on the load path and once without it to compare the C implementation
-against the native extension. Results depend on Ruby, HTSlib, compiler,
-CPU, and input data, so generated CSV files are not committed as canonical
-numbers.
+The script generates and indexes the synthetic BAM and BCF inputs when needed,
+builds the current `ruby-htslib` and `hts.cr` checkouts, runs the C, Crystal,
+and Ruby implementations five times, and reports median throughput. Set
+`HTS_CR_DIR` if the `hts.cr` checkout is elsewhere, or `N` to change the number
+of runs.

@@ -20,9 +20,16 @@
 *.dylib
 *.dll
 *.o
+*.pdf
 mkmf.log
 /ext/htslib_native/Makefile
 /ext/htslib_native/coverage/
+
+/benchmark/bench_c
+/benchmark/bench_cr
+/benchmark/bench.bcf
+/benchmark/bench.bcf.csi
+/benchmark/*_runs.log
 
 .DS_Store
 moo.cram.crai

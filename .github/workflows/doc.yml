@@ -1,13 +1,22 @@
-name: doc
+name: Documentation and paper
 
 on:
   push:
     branches:
       - develop
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: documentation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v7
@@ -16,7 +25,27 @@ jobs:
           ruby-version: ruby
       - name: Generate document
         run: gem install -N yard && yard doc
+      - name: Install Japanese fonts
+        run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends fonts-noto-cjk
+      - name: Build papers
+        run: make -C paper
+      - name: Add paper to the Pages site
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          mkdir -p doc/paper
+          cp paper/index.html doc/paper/index.html
+          cp paper/ruby-htslib.pdf doc/paper/ruby-htslib.pdf
+          cp paper/ruby-htslib-ja.pdf doc/paper/ruby-htslib-ja.pdf
+      - name: Upload paper artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ruby-htslib-paper
+          path: |
+            paper/ruby-htslib.pdf
+            paper/ruby-htslib-ja.pdf
+          if-no-files-found: error
       - name: Publish Documentation on GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
