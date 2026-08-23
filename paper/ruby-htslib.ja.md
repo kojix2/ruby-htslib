@@ -10,7 +10,6 @@ tags:
   - Ruby
 authors:
   - name: kojix2
-    corresponding: true
 date: 2026年8月23日
 bibliography: ruby-htslib.bib
 documentclass: article
