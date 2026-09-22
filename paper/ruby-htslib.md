@@ -20,96 +20,99 @@ header-includes:
 
 # Summary
 
-`HTSlib` is a C library for reading and writing genomic data and underlies
+`HTSlib` is a C library for reading and writing genomic data that underlies
 `samtools` and `bcftools` [@Bonfield2021HTSlib;
 @Danecek2021SAMtools]. `hts.cr` and `ruby-htslib` make this functionality
-available from Crystal and Ruby. Both libraries support SAM/BAM/CRAM,
-VCF/BCF, indexed reference sequences (Faidx), Tabix files,
-and pileups.
+available in Crystal and Ruby, respectively. Both libraries support
+SAM/BAM/CRAM, VCF/BCF, indexed reference sequences (Faidx), Tabix-indexed
+files, and pileup generation.
 
-`ruby-htslib` uses a native Ruby C extension linked directly to the system
-HTSlib, whereas `hts.cr` calls HTSlib through Crystal's FFI. These libraries
-allow researchers and developers using Ruby or Crystal to process genomic data
-within their programs without invoking external command-line tools.
+`ruby-htslib` uses a native C extension for Ruby that links directly to the
+system-installed HTSlib, whereas `hts.cr` calls HTSlib through Crystal's FFI.
+These libraries allow researchers and developers using Ruby or Crystal to
+process genomic data within their programs without invoking external
+command-line tools.
 
 # Statement of need
 
 Dedicated command-line tools are available for many routine genomic data
-processing tasks. Research-specific analyses may, however, need to select or
-aggregate records from combinations of fields, inspect records interactively,
-retain results in custom data structures, or integrate processing with another
-library. Such operations may not be expressible through existing command-line
-options and can require custom scripts or programs. HTSlib provides parsing,
-compression, and indexed access through a C API. Making these facilities usable
-from a higher-level language requires more than calling C functions: its files,
-headers, records, and their lifetimes must be mapped onto the language's data
-model.
+processing tasks. Research-specific analyses may, however, require selecting or
+aggregating records based on combinations of fields, inspecting records
+interactively, retaining results in custom data structures, or integrating the
+processing with another library. Such operations may not be expressible through
+existing command-line options and can require custom scripts or programs.
+HTSlib provides parsing, compression, and indexed access through a C API. Using
+these facilities safely from a higher-level language requires more than calling
+C functions: HTSlib files, headers, records, and their lifetimes must be mapped
+onto the language's data model.
 
 Python, Nim, Rust, and C++ have mature HTSlib interfaces, including
 `pysam`, `cyvcf2`, `hts-nim`, `rust-htslib`, and `vcfpp`
 [@pysam; @Pedersen2017cyvcf2; @Pedersen2018htsnim; @rust_htslib;
 @Li2024vcfpp]. These interfaces belong to their respective language ecosystems
-and cannot be embedded directly in Ruby or Crystal programs. In Ruby,
+and cannot be used directly in Ruby or Crystal programs. In Ruby,
 `bio-samtools`, a BioRuby plugin, has provided a high-level interface for
 SAMtools-based alignment processing, pileups, variant analysis, and
-visualisation [@Goto2010BioRuby; @RamirezGonzalez2012BioSamtools;
-@Etherington2015BioSamtools2]. In contrast, `ruby-htslib` binds the standalone
+visualization [@Goto2010BioRuby; @RamirezGonzalez2012BioSamtools;
+@Etherington2015BioSamtools2]. By contrast, `ruby-htslib` binds the standalone
 HTSlib library and exposes alignment and variant files, headers, and records as
 building blocks for Ruby analysis programs. `hts.cr` makes the same HTSlib
-facilities available through Crystal's static type system and native
-compilation, allowing streaming bioinformatics tools to be written without
-implementing their processing core in a second language. The two libraries make
-HTSlib operations composable in forms suited to their respective languages.
+facilities available through Crystal's FFI, static type system, and native
+compilation. This combination allows streaming bioinformatics tools to be
+written without implementing their processing core in a second language. The
+two libraries make HTSlib operations composable using idioms suited to their
+respective languages.
 
 # Software design
 
-Both libraries represent HTSlib files, headers, and records through a common
-record-oriented object model. This model manages native-resource lifetimes and
-distinguishes values borrowed only during iteration from values retained
-afterward. `Bam`
-represents SAM/BAM/CRAM files and `Bcf` represents VCF/BCF files; each retains
-its corresponding `Header`. A file object's `each` method yields one `Record`
-at a time and reuses the same object and native buffer during iteration. This
-avoids materializing the entire file and limits allocation, but a record must be
-copied if it is to be retained beyond iteration. Record fields are exposed
-through Ruby or Crystal methods for reading and updating, with alignment
-auxiliary tags and variant INFO and FORMAT fields represented as typed values.
-Region queries and writing use the same file, header, and record objects.
+Both libraries represent HTSlib files, headers, and records using a shared,
+record-oriented object model. This model manages the lifetimes of native
+resources and distinguishes values borrowed during iteration from values that
+can be retained afterward. `Bam` represents SAM/BAM/CRAM files, and `Bcf`
+represents VCF/BCF files; each retains its corresponding `Header`. A file
+object's `each` method yields one `Record` at a time, reusing the same object and
+native buffer throughout the iteration. This approach avoids materializing the
+entire file and limits allocation, but a record must be copied if it is to be
+retained after the iterator advances. Record fields can be read and updated
+through Ruby or Crystal methods; alignment auxiliary tags and variant INFO and
+FORMAT fields are represented as typed values. Region queries and writing use
+the same file, header, and record objects.
 
-Operations with different units of access are not forced into this common
-model. An indexed FASTA file is represented by a `Faidx` object that retrieves
+Operations with different access units are not forced into this common model.
+An indexed FASTA file is represented by a `Faidx` object that retrieves
 reference subsequences, whereas a Tabix-indexed text file is represented by a
-`Tabix` object that returns rows overlapping a region. Rather than representing
-another file format, pileup is a position-oriented view derived from `Bam` and
-iterates over reference positions together with their overlapping alignments.
-Each file object can be opened with a block, which closes the file and releases
-its native resources when the block finishes.
+`Tabix` object that returns rows overlapping a region. A pileup is not another
+file format but a position-oriented view derived from `Bam`; it iterates over
+reference positions and the alignments that overlap them. Each file object can
+be opened with a block, ensuring that the file is closed and its native
+resources are released when the block finishes.
 
-Although the libraries share this object model, the ways they expose borrowed
-values and retain results reflect the use of each language. The `ruby-htslib` C
-extension stores HTSlib pointers in typed Ruby objects and registers the
-corresponding cleanup functions with the garbage collector.
-Iteration reuses a native record buffer, whereas records and fields retained
-beyond iteration are copied into independent Ruby objects. BCF FORMAT fields
-can also be accessed through borrowed views of reusable buffers without
-copying. Users can therefore choose between retaining values as Ruby arrays and
-strings and processing borrowed values during iteration to limit allocation.
+Although the libraries share this object model, their mechanisms for exposing
+borrowed values and retaining results reflect the conventions of each language.
+The `ruby-htslib` C extension stores HTSlib pointers in typed Ruby objects and
+registers the corresponding cleanup functions with the garbage collector.
+Iteration reuses a native record buffer, whereas records and fields that must be
+retained are copied into independent Ruby objects. BCF FORMAT fields can also be
+accessed without copying through borrowed views of reusable buffers. Users can
+therefore choose between retaining values as Ruby arrays and strings or
+processing borrowed values during iteration to limit allocation.
 
-`hts.cr` wraps HTSlib pointers in statically typed Crystal objects and
-expresses the distinction between borrowed and owning data through types and
-block scope. Native buffers can be exposed as block-scoped `Slice` values or
-borrowed views, and primitive iterators process fields without creating
-intermediate arrays or strings. Copying only the values needed beyond iteration
-reduces heap allocation and garbage collection pressure. Together with
-Crystal's native compilation, this structure supports efficient record-by-record
-processing of HTSlib data in streaming tools.
+`hts.cr` wraps HTSlib pointers in statically typed Crystal objects and expresses
+the distinction between borrowed and owned data through types and block scope.
+Native buffers can be exposed as block-scoped `Slice` values or borrowed views,
+and primitive iterators can process fields without creating intermediate arrays
+or strings. Copying only the values needed after iteration reduces heap
+allocation and garbage-collection pressure. Together with Crystal's native
+compilation, this design supports efficient record-by-record processing of
+HTSlib data in streaming tools.
 
 # Performance evaluation
 
-To characterize the runtime overhead of the two libraries, we implemented the
-same workloads in C, `hts.cr`, and `ruby-htslib` and compared their throughput.
+To characterize the runtime overhead of the two libraries, we implemented
+equivalent workloads in C, `hts.cr`, and `ruby-htslib` and compared their
+throughput.
 All three implementations used HTSlib 1.22.1-51-gcd2a6f61 and ran
-single-threaded on Ubuntu 26.04 LTS. The C baseline was compiled with gcc
+single-threaded on Ubuntu 26.04 LTS. The C baseline was compiled with GCC
 15.2.0 (`-O2`), `hts.cr`
 0.4.0 with Crystal 1.21.0
 (LLVM 20.1.8, `--release`), and `ruby-htslib` 0.6.0 with Ruby 4.0.6. The
@@ -117,15 +120,16 @@ comparison therefore reflects the costs of crossing the language boundary and
 of the data representations exposed by each API, rather than differences in
 HTSlib itself.
 
-The synthetic inputs comprised a BAM file containing 300,000 100 bp single-end
-reads over a 2 Mbp reference (approximately 15x mean depth) and a BCF file
-containing 50,000 sites and 20 samples with GT, DP, AD, and GL FORMAT fields.
+The synthetic inputs comprised a BAM file with 300,000 100-bp single-end reads
+aligned to a 2-Mbp reference (approximately 15-fold mean depth) and a BCF file
+with 50,000 sites for 20 samples, including GT, DP, AD, and GL FORMAT fields.
 The BAM file was coordinate-sorted, and both files were indexed. Region-query
-and pileup workloads used a 100 kb interval (`chr1:500,000-600,000`) overlapping
-14,902 reads. Pileup base counting applied a minimum base quality of 13 and no
-mapping-quality filter. Each workload was run five times, and the table reports
-median throughput. After the first run, the inputs fit in the page cache. The
-scripts are included in the `benchmark` directory.
+and pileup workloads used a 100-kb interval (`chr1:500,000-600,000`) overlapping
+14,902 reads. Pileup base counting applied a base-quality threshold of 13 and
+no mapping-quality filter. Each workload was run five times, and the
+table reports the median throughput. After the first run, the input data fit in
+the operating system's page cache. The scripts are included in the `benchmark`
+directory.
 
 ![Median throughput relative to the C/HTSlib implementation. Region-query values are the per-query means from 20 repeats.](figures/benchmark-throughput.png){width=100%}
 
@@ -159,13 +163,14 @@ implementations processed the same record counts and counted the same total of
 
 This evaluation is intended to characterize representative execution paths in
 the APIs presented here, rather than to establish a general ranking of the
-languages. The measurements come from one machine and one synthetic dataset and
-do not predict end-to-end performance on production data or larger files.
+languages. The measurements were obtained on one machine with one synthetic
+dataset and may not predict end-to-end performance on production data or larger
+files.
 
 # Research impact statement
 
-Within BioCrystal, `hts.cr` is used by `bam-filter`, a command-line tool for
-filtering BAM/CRAM files with expressions, and by `bamboo`, a BAM viewer built
+Within BioCrystal, `hts.cr` is used by `bam-filter`, a command-line tool that
+filters BAM/CRAM files using expressions, and by `bamboo`, a BAM viewer built
 with libui-ng [@bam_filter; @bamboo].
 
 # AI usage disclosure
